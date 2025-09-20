@@ -643,9 +643,3 @@ This comprehensive blueprint provides everything needed to build a championship-
 Remember: Every component is designed to handle the specific challenges of environmental AI research papers, with multiple fallbacks and innovations to ensure top performance.
 
 ---
-
-# Session Info
-
-```{r}
-sessionInfo()
-```
