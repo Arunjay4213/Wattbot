@@ -210,7 +210,7 @@ class AnswerGenerator:
         # With custom question
         # test_answer_generator(custom_question="What is PUE?", custom_context="PUE stands for...")
 
-        
+
         # Initialize generator
         generator = AnswerGenerator(model=model)
 
