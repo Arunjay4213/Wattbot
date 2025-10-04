@@ -29,6 +29,7 @@ data/cache/*
 # IDE
 .vscode/
 .idea/
+.idea
 *.swp
 .DS_Store
 
