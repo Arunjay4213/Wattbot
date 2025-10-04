@@ -1,0 +1,31 @@
+# WattBot2025 Configuration
+
+models:
+  llm:
+    primary: "gpt-4"
+    fallback: "gpt-3.5-turbo"
+    temperature: 0.1
+
+  embedding:
+    model: "sentence-transformers/all-MiniLM-L6-v2"
+    dimension: 384
+
+retrieval:
+  chunk_size: 512
+  chunk_overlap: 50
+  top_k: 10
+
+  bm25:
+    k1: 1.2
+    b: 0.75
+
+  vector_search:
+    metric: "cosine"
+
+paths:
+  data_dir: "./data/raw"
+  cache_dir: "./data/cache"
+  processed_dir: "./data/processed"
+
+evaluation:
+  metrics: ["accuracy", "f1", "exact_match"]
