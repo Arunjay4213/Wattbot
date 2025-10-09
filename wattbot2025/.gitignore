@@ -42,3 +42,4 @@ data/cache/*
 # Logs
 *.log
 logs/
+pdf-env/
