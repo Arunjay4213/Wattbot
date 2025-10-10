@@ -1,10 +1,3 @@
-
-"""
-Embedding generation and retrieval module for WattBot2025
-Handles document encoding and similarity search
-"""
-
-
 import pickle
 import numpy as np
 from typing import List, Dict, Tuple, Optional
