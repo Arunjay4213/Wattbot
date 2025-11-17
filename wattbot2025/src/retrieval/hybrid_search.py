@@ -26,7 +26,7 @@ class HybridRetriever:
 
     def __init__(
         self,
-        embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
+        embedding_model: str = "BAAI/bge-large-en-v1.5",
         use_stemming: bool = True
     ):
         """
