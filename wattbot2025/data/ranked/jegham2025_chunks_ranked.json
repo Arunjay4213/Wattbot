@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.029396523056855,
+    "content": "pal sources) or water consumption (the portion of withdrawn water\npermanently lost, primarily through evaporation).\nCIF measures carbon emissions per kilowatt-hour of energy consumed, largely driven by the regional\nelectricity mix. Emissions are categorized as direct on-site combustion (Scope 1), off-site electricity\ngeneration (Scope 2), and embodied emissions from manufacturing and transport (Sc",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 3.9085510394954666,
+    "content": "36]. For\nexample, Scope 1 emissions accounted for only 1.6% of Microsoft’s Scope 2 emissions in 2023 [ 37],\na figure that includes executive air travel, ground transportation, refrigerant leakage, and on-site fuel\nuse, further diminishing the share attributable to data center operations. Accordingly, our analysis\nfocuses exclusively on Scope 2 emissions, which capture the carbon intensity of elect",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 3.837926710772746,
+    "content": "ponsible for evaporating an amount of freshwater equivalent\nto the\"\nannual drinking needs of almost 1.2 million people.\n\"6.4\nEstimated 2025 Annual Carbon Footprint of GPT-4o Inference\"\n\"We further examine GPT-4o’s environmental footprint\nthrough estimated carbon emissions from\"\n\"electricity usage, as seen in Figure 4. Our projections indicate annual emissions of approximately\"\n\"138,125 tons of CO2",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 3.7656560675605197,
+    "content": "d resource consumption during the\ninference phase of the model. Accordingly, embodied emissions and water use from hardware\nmanufacturing and supply chains (Scope 3) are excluded due to their limited relevance to real-time\ndeployment and the risk of inflating per-query estimates when applied without deployment-specific\nattribution or when model lifecycles remain ongoing. For water usage, we focus ",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 3.681173067034936,
+    "content": ", this\nconsumption refers to evaporated freshwater permanently removed from local ecosystems rather than\nrecycled. GPT-4o alone is responsible for evaporating an amount of freshwater equivalent to the\nannual drinking needs of almost 1.2 million people.\n6.4 Estimated 2025 Annual Carbon Footprint of GPT-4o Inference\nWe further examine GPT-4o’s environmental footprint through estimated carbon emissio",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.487104065846027,
+    "content": "or long prompts and 0.42 Wh for short ones. Interestingly, GPT-4o mini, although\nsubstantially smaller in parameter count, consumes slightly more energy per query than GPT-4o\ndue to its deployment on less efficient A100 hardware instead of H100s or H200s, illustrating that\ndeployment infrastructure can overshadow model size in determining real-world energy use.\n5.2 Water and Carbon Emissions\nFigur",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 3.1326968849728343,
+    "content": "oc V . Le, Chen Liang, Xinlei Chen, and Andrew Ng.\nCarbon emissions and large neural network training. arXiv preprint arXiv:2104.10350 , 2021.\n[13] Shaolei Li. Making ai less “thirsty”: Uncovering and addressing the secret water footprint of ai\nmodels. arXiv preprint arXiv:2304.03271 , 2023.\n[14] Radosvet Desislavov, Fernando Martínez-Plumed, and José Hernández-Orallo. Trends in ai\ninference energ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 3.124326982568034,
+    "content": "calability. In parallel, Strubell et al. [ 25] estimated carbon emissions from training\nBERT and GPT-2 by accounting for GPU, CPU, and DRAM power draw alongside PUE adjustments.\nHowever, their analysis excludes inference and infrastructural overhead. Similar limitations appear\nin Meta’s LLaMA reports [ 7,26,27], which provide carbon footprints based on GPUs’ TDPs but\ndisregard water use, system-wi",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 3.0664732057104995,
+    "content": "0,1\n(a) Water consumption per model across three prompt,(b) Carbon emissions per model across three prompt\n\"sizes (ml, log-scale).\",\"sizes (gCO2e, log-scale)\"\nFigure 3: Water consumption and carbon emissions per model.,\n\"Wh (±0.13 Wh), exceeding the footprint of a Google search (0.30 Wh) by approximately 40%.\",\n\"Scaling to a typical daily usage pattern, the cumulative energy reaches 3.73 Wh (±0.35",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 2.9723430045701646,
+    "content": "like OpenAI have a significant advantage in this regard, as their\nhigh traffic volume allows them to rely on higher batch sizes without sacrificing latency to the same\nextent as smaller or less active deployments.\nB Scope 3 Considerations\nWhile this study focuses on operational emissions and resource consumption during inference (Scopes\n1 and 2), it is important to briefly discuss the Scope 3 impa",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 2.8934965035183224,
+    "content": "ds of transatlantic flights and consume water equivalent to the annual\ndrinking needs of millions of people. We revisit this scaling analysis in greater detail in Section 6.\n6 GPT-4o Case Study\n6.1 Energy Cost of a Single GPT-4o User Session\nBased on Reuters [ 68], the average ChatGPT user sends approximately eight queries per day as of\nApril 2025. Based on this, we quantify the per-user energy im",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 2.836838206379871,
+    "content": "and limitations and directions for future work.\n2 Related Work\nThe environmental impact of AI systems has garnered increasing attention in recent years, with a\ngrowing body of work attempting to quantify the energy, carbon, and water costs associated with\ntraining and deploying LLMs.\nLi et al. [ 13] analyzed GPT-3’s freshwater consumption, estimating over 5 million liters used during\ntraining and ",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 2.836838206379871,
+    "content": "0,1\n\"of carbon dioxide and consumes more than 150 milliliters of water per query. For reference, this is\",\n,equivalent to driving 50 meters in a gasoline-powered car and using two-thirds of a standard water\ncup. These figures suggest that environmental impacts are shaped not only by model architecture,\n\"but also by deployment strategies and regional infrastructure conditions. In particular, the el",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 2.680301232753991,
+    "content": "0\nFigure 6: Cross efficiency DEA scores. Bar labels show the AI Index (top) and cross-efficiency score\n(bottom).\n\"manufacturing, emissions from global logistics, and hardware retirement. For instance, Microsoft’s\"\n\"Scope 3 CO2e emissions in 2023 accounted for 66% of the total emissions [17]. Yet, these values\"\n\"are highly variable across vendors, manufacturing locations, and fabrication nodes, and",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.658504170404558,
+    "content": "ge in semiconductor\n17\n\nFigure 6: Cross efficiency DEA scores. Bar labels show the AI Index (top) and cross-efficiency score\n(bottom).\nmanufacturing, emissions from global logistics, and hardware retirement. For instance, Microsoft’s\nScope 3 CO 2e emissions in 2023 accounted for 66% of the total emissions [ 17]. Yet, these values\nare highly variable across vendors, manufacturing locations, and fab",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.557046612781684,
+    "content": "tigate. As such, sustainable AI deployment must focus on systemic frameworks that\"\n\"assess how well models balance capability with environmental cost. In response, we propose DEA as\"\na principled method for benchmarking model-level eco-efficiency.\n\"7.3\nPolicy Implications\"\n\"As AI\nsystems\nscale globally, ensuring environmental\nsustainability requires both model-level\"\noptimizations and systemic reg",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 2.5340501457903923,
+    "content": "ally\nsought to mitigate. As such, sustainable AI deployment must focus on systemic frameworks that\nassess how well models balance capability with environmental cost. In response, we propose DEA as\na principled method for benchmarking model-level eco-efficiency.\n7.3 Policy Implications\nAs AI systems scale globally, ensuring environmental sustainability requires both model-level\noptimizations and sy",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 2.4354856372169884,
+    "content": "carbon\nemissions per query. We also evaluate eco-efficiency using DEA, mapping sustainability trade-offs\nagainst a composite performance benchmark.\n4.1 Model Selection and Hardware Estimation\nWe analyze 30 large language models across OpenAI, Anthropic, Meta, and DeepSeek. Table 1\nsummarizes each model’s deployment context, including provider, cloud host, hardware type and\nspecifications, and regi",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.414614760463553,
+    "content": "ware configurations. We additionally utilize cross-efficiency\nData Envelopment Analysis (DEA) to rank models by performance relative to\nenvironmental cost. Our results show that o3 and DeepSeek-R1 emerge as the\nmost energy-intensive models, consuming over 33 Wh per long prompt, more than\n70 times the consumption of GPT-4.1 nano, and that Claude-3.7 Sonnet ranks\nhighest in eco-efficiency. While a s",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 2.3940985500575955,
+    "content": "er consumption and carbon emissions per model.\nWh (±0.13Wh), exceeding the footprint of a Google search (0.30 Wh) by approximately 40%.\nScaling to a typical daily usage pattern, the cumulative energy reaches 3.73 Wh ( ±0.358Wh). For\nmedium-length queries, this increases to 9.71 Wh ( ±1.106Wh). These results highlight that even\nlimited daily engagement with GPT-4o can impose an energy cost comparab",
+    "type": "text"
+  }
+]

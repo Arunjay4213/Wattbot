@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.5892108423734985,
+    "content": "important measurement of\na model’s environmental impact (Schwartz et al. 2020) is the\ncarbon footprints originated from the pre-training process.\nWe estimate carbon emission with the methods provided in\n(Patterson et al. 2021). We summarize the carbon footprint\nstatistics of FLM-101B and well-known LLMs in Table 3.\nOur model yields only 1/10 pre-training carbon footprint of a\ntypical LLM.\n4.1 Open",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 5.255180043980699,
+    "content": "model.\n,,\"Going deeper into the nature of these tasks, we further have\"\nCarbon Footprint Analysis. An important measurement of,,\n,,the following observations:\na model’s environmental impact (Schwartz et al. 2020) is the,,\n,,(i) MMLU typically requires domain knowledge to solve.\ncarbon footprints originated from the pre-training process.,,\n,,\"In our training, no English textbook or exam data is int",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 4.757312609850994,
+    "content": "n Table 3.,,\n,,outperforms GLM-130B with only 16B parameters.\nOur model yields only 1/10 pre-training carbon footprint of a,,\n,,\"(ii) As aforementioned, TruthfulQA, ARC, and HellaSwag\"\ntypical LLM.,,",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 4.359023474045006,
+    "content": "0,1,2,3,4,5,6\n\"Table 3: Carbon emissions of our proposed model, FLM-101B, and other well-known LLMs. For details, please see the\",,,,,,\n,\"corresponding references. The definitions of TDP, net tCO2e, and their formulas are the same as (Patterson et al. 2021).\",,,,,\n,GPT-3,Gopher,PaLM,GLM-130B,Llama-2,\nModel,,,,,,FLM-101B\n,(Brown et al. 2020),(Rae et al. 2021),(Anil et al. 2023),(Zeng et al. 2023),(",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.482558113901408,
+    "content": "; Klamm, C.; Leong, C.; van Strien, D.; Adelani, D. I.; and\"\n\"with human feedback.\nIn NeurIPS.\",et al. 2022. BLOOM: A 176B-Parameter Open-Access Mul-\n,\"tilingual Language Model. CoRR, abs/2211.05100.\"\n\"Patterson, D.; Gonzalez, J.; Le, Q.; Liang, C.; Munguia, L.-\",\n\"M.; Rothchild, D.; So, D.; Texier, M.; and Dean, J. 2021.\",\"Schwartz, R.; Dodge, J.; Smith, N. A.; and Etzioni, O. 2020.\"\nCarbon emiss",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 3.3890286064355553,
+    "content": "ARC, and HellaSwag\nemphasize more on common sense and Wiki-level knowl-\nedge; their performances improve with the increased amount\nof data and the reduction of training loss. With less than 0.16T\nEnglish data (about 1/10 of Llama-2), FLM-101B already\nachieves the best accuracy of 41.47among all the baselines\non TruthfulQA. On ARC and HellaSwag, FLM-101B is com-\nparable to GLM-130B with a similar a",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 3.3890286064355553,
+    "content": "odels of different sizes (Yao et al. 2024): a smaller model,Figure 2: Training loss for FLM-101B models.\n\"is faster in computation, enabling more rapid consumption\",\nof training data for broader commonsense knowledge; con-,\n\"versely, a larger model is better in the reduction of loss per\",\n,Pipeline Parallel sizes to achieve higher efficiency. The single-\n\"step, indicating a deeper understanding of",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 3.3378046474163123,
+    "content": "Growth (MSG) (Yao et al. 2024), with adaptation.\nSpecifically, to adapt these operators to the multi-node 3D\nparallel framework, we implement them by extending the\nmodel structures offline and reloading the checkpoint when\nthe next stage starts.\nSchedules and Cost-Effectiveness. Model growth schedul-\ning is a trade-off between the pros and cons inherent to\nmodels of different sizes (Yao et al. 202",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 3.3378046474163123,
+    "content": "table. In the 16B stage, 4,608k samples are\nused for learning rate warmup, while in later growth stages,\nwe use fewer samples of 230.4k. Note that we do not apply\nbatch size warmup because we address the stability issue in\na different manner, detailed in Section 3.\n3 Training Stability of FLM-101B\nModels beyond 100B parameters (Scao et al. 2022; Zeng\net al. 2023) usually suffer from a bunch of not",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 3.3252396943271054,
+    "content": "t16 negates the need for loss scale adjustments, making\nour training procedure more promising and reproducible.\nThe full training loss curve is presented in Figure 2. We\nobserve that the loss curve becomes steeper after each growth.\nIt matches the intuition that a larger model is better in loss\nreduction per step. The whole training procedure is robust\nand predictable: even though the 51B stage is",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 3.3159697636287877,
+    "content": "0,1\n\"5School of Computer Science and Engineering, Nanyang Technological University, Singapore\",\nAbstract,Non-Growth vs. three Growth Strategies\n,The shaded area in the graph represents the training cost\nLarge language models (LLMs) are considered important ap-,\n\"proaches towards foundational machine intelligence, achiev-\",\"100\n100\"\ning remarkable success in Natural Language Processing and,80\n,80\n\"",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 3.3127689863899024,
+    "content": ", F.; Miller, L.; Simens, M.;\nAskell, A.; Welinder, P.; Christiano, P. F.; Leike, J.; and Lowe,\nR. 2022. Training language models to follow instructions\nwith human feedback. In NeurIPS .\nPatterson, D.; Gonzalez, J.; Le, Q.; Liang, C.; Munguia, L.-\nM.; Rothchild, D.; So, D.; Texier, M.; and Dean, J. 2021.\nCarbon emissions and large neural network training. arXiv\npreprint arXiv:2104.10350 .\nPenedo, ",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 3.143982389029462,
+    "content": "g remarkable success in Natural Language Processing and\nmultimodal tasks, among others. However, the carbon foot-\nprints and financial costs originating from heavy pre-training\ncomputation is a non-negligible issue. Progressive training\nmethods, inspired by the neurogenesis process that grows\nneural structures, have shown potential to accelerate LLM\npre-training. However, the algorithms, implement",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 2.9776617841768895,
+    "content": "ble, eFLM-16B refers to the professional-knowledge-\nenhanced FLM-16B. Note that C-Eval leaderboard only keeps one decimal place for the evaluation results.\nModel Average Average (Hard) STEM Social Science Humanities Others\nGPT-4 68.7 54.9 67.1 77.6 64.5 67.8\nChatGPT 54.4 41.4 52.9 61.8 50.9 53.6\nGLM-130B 44.0 30.7 36.7 55.8 47.7 43.0\neFLM-16B 46.1 28.9 38.3 53.7 46.8 52.6\nand Chinese is reported t",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "FLM-101B: An Open LLM and How to Train It with $100K Budget\nXiang Li1†, Yiqun Yao1†, Xin Jiang1†, Xuezhi Fang1†, Xuying Meng2,\nSiqi Fan3, Peng Han3, Jing Li4, Li Du1, Bowen Qin1, Zheng Zhang1,\nAixin Sun5, Yequan Wang1∗\n1Beijing Academy of Artificial Intelligence, Beijing, China\n2Institute of Computing Technology, Chinese Academy of Sciences, Beijing, China\n3University of Electronic Science and Tec",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "rations.\nWe believe that further studies on progressive training will ben-\nefit the community by cutting down the costs and promoting\ngreen AI. The checkpoint of FLM-101B is publicly available.\n1 Introduction\nLarge language models (LLMs) (Radford et al. 2018; Tou-\nvron et al. 2023a; Devlin et al. 2019; Raffel et al. 2020) have\nconsistently demonstrated their efficacy across a spectrum of\napplicati",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "ecent trends indicate a shift towards utilizing larger\namounts of data ( e.g., 1.4T tokens for Llama-1 (Touvron et al.\n2023a), 2T tokens for Llama-2 (Touvron et al. 2023b), and\n15T tokens for Llama-3 (Meta 2024)). Meanwhile, the sizes\nof open-sourced models continue to increase (Penedo et al.\n2023; Bi et al. 2024; Mistral 2024). Consequently, a major\nfocus within LLM research is the development of",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "earning (Gong et al.\n2019; Gu et al. 2021; Yao et al. 2024) and neurogenesis\nNon-Growth vs. three Growth Strategies\n(a) Without growthtokens (Trillion)parameters (Billion)\n0204060\n0.75 0.50 0.25 0.00 1.0080100The shaded area in the graph represents the training cost\n(b) Linear growth str ategy  cost saving = 50\n(c) Superlinear growth  st rateg y  cost saving > 50%\n(d) Sublinear  growth str ategy  ",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "tly\n50%; (c): a superlinear strategy with >50% cost saving; (d):\nsublinear strategy saving the cost by less than 50%.\n(Eriksson et al. 1998). “Growth” means dynamic expansion of\nthe parameter number count, from small to large, through the\ntraining progresses. Figure 1 illustrates three typical growth\nstrategies: linear, sublinear, and superlinear. As the FLOPs\nof LLMs are approximately proportiona",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "tasks un-\nder a fixed FLOPs budget, they mainly consider the scenar-\nios where model sizes are fixed through training. We be-\nlieve that verifying the feasibility of a growth strategy (Gu\net al. 2021; Shen et al. 2022; Chen et al. 2022; Yao et al.\n2024) for extremely large models would be an important\ncompletion to scaling laws. To maximize computational effi-\nciency, we strategically focus on imp",
+    "type": "text"
+  }
+]

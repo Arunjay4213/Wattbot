@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.254939359829552,
+    "content": "nsistently reducing overall cost.\n•Long-context Dataset (PubMed). In Figs. 11b and 11e, Mélange achieves 15-33% cost reduction\n(120ms SLO) and 2-22% reduction (40ms SLO). A100 generally achieves higher T/$for the\nrequest sizes in PubMed, evidenced by the 120ms setting where A100-only is consistently cheaper\nthan H100-only. However, when SLO tightens to 40ms, H100 is the clear winner due to H100’s\n",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.533083790047353,
+    "content": "share of\"\n\"A100s at a looser SLO, and more H100s as the SLO is tightened.\"\n\"• Mixed-context Dataset.\nIn Figs. 11c and 11f, Mélange achieves 13-51% cost reduction (120ms\"\n\"SLO) and 4-51% reduction (40ms SLO). Compared to the PubMed workload, A100-only has much\"\ngreater cost efficiency in the Mixed workload than H100 due to a greater portion of short-context\n\"requests, for which A100 achieves greate",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 3.8778074726092457,
+    "content": "ange)\n(a) Arena, SLO = 120ms.\n1 2 4 8 16 32\nRequest Rate (req/s)0.00.51.01.5Cost (w.r.t Mélange) (b) PubMed, SLO = 120ms.\n1 2 4 8 16 32\nRequest Rate (req/s)012Cost (w.r.t Mélange) (c) Mixed, SLO = 120ms.\n1 2 4 8 16 32\nRequest Rate (req/s)0123Cost (w.r.t Mélange)\n(d) Arena, SLO = 40ms.\n1 2 4 8 16 32\nRequest Rate (req/s)0.00.51.0Cost (w.r.t Mélange) (e) PubMed, SLO = 40ms.\n1 2 4 8 16 32\nRequest Rate",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 2.845955243890508,
+    "content": "tion and concentrates on\"\nreducing LLM deployment costs by choosing cost-effective GPU instance types.\n\"2.2\nMachine Learning with Cloud Resources\"\nRecent studies have explored various strategies for reducing the cost of machine learning (ML) infer-\n\"ence or training. Several focus on utilizing spot instances [42, 12, 53, 11], which is complementary to\"\n\"our work. Other work targets deployment on h",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 2.834164061571331,
+    "content": "heterogeneous resources [ 5,6,30,26,27], but focuses\nprimarily on model training rather than serving. Also, lveraging serverless instances for inference\ncost reduction has been examined in [ 2]. Nonetheless, these prior work predominantly concentrate\non machine learning prior to the advent of LLMs, which we show to have unique characteristics that\nsignificantly impact cost efficiency. More recent ",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 2.787960453725974,
+    "content": "0\n\"• Short-context Dataset (Arena).\nIn Figs. 11a and 11d, Mélange achieves 15-77% cost reduction\"\n\"(120ms SLO) and 9-68% reduction (40ms SLO). For both SLOs, L4/A10G are more cost efficient\"\n\"than A100/H100 at\nlow request rates because they achieve greater utilization. For example, at\"\n\"1-2 req/s, H100 is significantly underutilized and incurs exorbitant costs. However, as the rate\"\n\"increases, L4",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 2.7322820916313355,
+    "content": "how much higher relative costs due to their increased latency, requiring\"\nmore instances to meet the tight deadline. Mélange adapts by allocating more L4/A10G at 120ms\n\"SLO and more A100 at 40ms SLO, consistently reducing overall cost.\"\n\"• Long-context Dataset (PubMed). In Figs. 11b and 11e, Mélange achieves 15-33% cost reduction\"\n(120ms SLO) and 2-22% reduction (40ms SLO). A100 generally achieves",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "Mélange: Cost Efficient Large Language Model\nServing by Exploiting GPU Heterogeneity\nTyler Griggs∗\nUC BerkeleyXiaoxuan Liu∗\nUC BerkeleyJiaxiang Yu\nNational University of SingaporeDoyoung Kim\nUC Berkeley\nWei-Lin Chiang\nUC BerkeleyAlvin Cheung\nUC BerkeleyIon Stoica\nUC Berkeley\nAbstract\nLarge language models (LLMs) are increasingly integrated into many online ser-\nvices, yet they remain cost-prohibit",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "scape of GPU types and, within these options, higher cost does not always\nlead to increased performance. Instead, through a comprehensive investigation, we\nfind that three key LLM service characteristics (request size, request rate, SLO)\nstrongly influence GPU cost efficiency, and differing GPU types are most cost\nefficient for differing LLM service settings. As a result, the most cost-efficient\na",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "U allocation for a given\nLLM service. We formulate the GPU allocation task as a cost-aware bin packing\nproblem where GPUs are bins and items are slices of the service workload. Our\nformulation’s constraints account for a service’s unique characteristics, allowing\nMélange to be flexible to support diverse service settings and heterogeneity-aware\nto adapt the GPU allocation to a specific service. Co",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "h engines [ 37,24], chatbots [ 34], and virtual assistants [ 28,47,48]. These services are\noften hosted by deploying models on cloud resources. However, deploying LLMs is expensive. The\nsubstantial size and computational demands of LLMs require the use of costly hardware accelerators,\ntypically GPUs2For example, serving Llama2-70b at BF16 precision requires 2 NVIDIA A100-80GB\nGPUs, which costs ove",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "rowing landscape of hardware accelerators — ranging from\nNVIDIA GPUs [ 33] and AMD GPUs [ 45] to Google TPUs [ 17], CPUs [ 23], and others [ 4] — offers\n∗Equal contribution\n2For brevity, we use “accelerator” and “GPU” interchangeably in this work.\nPreprint. Under review.arXiv:2404.14527v4  [cs.DC]  22 Jul 2024\n\na wide array of choices with varying performance specifications and on-demand cloud cos",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "loud GPUs.\nWe find that GPU cost efficiency is determined by three key LLM service characteristics:\n1.Request Size: An LLM request’s size is made up of its input and output token lengths. For small\nrequest sizes, lower-end GPUs generally produce greater T/$than high-end GPUs.\n2.Request Rate: To maximize utilization, provisioned GPU capacity should align with request\nvolume. At low request rates, s",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": ".\nBecause low-end GPUs generally incur higher latency than high-end GPUs, high-end GPUs are\nrequired for stringent SLOs while low-end GPUs can reduce costs in loose-SLO settings.\nConsider a GPU allocation strategy that integrates each of the three observations above: high-cost\nA100 GPUs handle large requests and meet stringent SLOs, but lower-cost A10G GPUs serve\nsmaller requests ( 1) and looser S",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "are highly dependent on LLM service characteristics. The key\nchallenge, then, is creating a GPU allocation framework that can navigate the diversity of LLM\nservices (request sizes, request rates, latency SLOs) and GPU types to find the optimal GPU allocation.\nFigure 1: Mélange framework.\nWe present Mélange3(Fig. 1), a GPU allocation framework that derives the minimal-cost GPU\nallocation for a give",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "rkload that minimizes cost. This task is a natural application of the\ncost-aware bin packing problem, where bins are GPUs and items are slices of the workload. We\nformulate the problem as an integer linear program (ILP) and efficiently solve with an off-the-shelf\nsolver ( 3). Upon solution, Mélange produces the GPU allocation that can serve the LLM service at\nminimal cost while adhering to the ser",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "se dimensions,\nenabling efficient navigation of heterogeneous GPU types given a service specification. Second,\nMélange is flexible . The inputs ( 1a,1b) can be flexibly modified to include new generations of\nGPUs or alternative definitions of SLO, ensuring Mélange is effective for diverse services. Further, to\nthe best of our knowledge, Mélange is the first GPU allocation framework that utilizes m",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "allocation framework that automatically derives the minimal-cost GPU\nallocation for a given LLM service while satisfying an SLO requirement (§ 5).\n•We evaluate Mélange across four GPU types—NVIDIA L4, A10G, A100, and H100. Mélange\nreduces costs by 9-77% for short-context tasks (interactive chats), 2-33% for long-context tasks\n(document-based), and 4-51% in mixed-context workloads (§ 6).\n2 Related ",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "such as scheduling optimiza-\ntion [ 51,1,46], speculative decoding [ 20,18], kernel optimization [ 8,40] and early exiting [ 41,59].\nAdditional optimizations include quantization [ 10,21,49,50] and sparsification [ 9,52]. Instead of\naltering inference logic, our work assumes a fixed inference engine configuration and concentrates on\nreducing LLM deployment costs by choosing cost-effective GPU inst",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "hlights. Another line of work [ 58,36]\nexplores splitting LLM inference into its two phases (prefill and decode) and performing the two\nphases on separate nodes, perhaps with different GPU types. Our work shows that, even within a\nphase, the best GPU type can change based on LLM service specifications.\n3 Background\n3.1 LLM Request Size Variance\n(a) LLaMA-7B\n85X (b) LLaMA-70B\nFigure 2: Request late",
+    "type": "text"
+  }
+]
