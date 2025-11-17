@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.868014511232053,
+    "content": "0,1\n8,Alexandra Sasha Luccioni and Alex Hernandez-Garcia\n4.3,How do the CO2 emissions produced by training ML models evolve over time?\n,\"Some recent analyses have predicted that the carbon emissions of our field will increase in the future, estimating that\"\n,\"achieving further progress on benchmarks such as ImageNet will require emitting thousands of tons of CO2 [50], whereas\"\n,others have predict",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 5.575263624533029,
+    "content": "rks such as ImageNet will require emitting thousands of tons of CO 2[50], whereas\nothers have predicted a plateau in future emissions due to increased hardware efficiency and carbon offsetting [ 37].\nTherefore, one of the goals of our study was to observe the evolution of carbon emissions over time and study whether\nthere are clear trends. Given that the papers from our study span from 2012 to the",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 2.2016285585142596,
+    "content": "f the data centers used for model training (i.e. the overhead used for heating, cooling,\nInternet etc.), as well as the real-time energy consumption of the hardware used for training. We also do not account\nfor carbon offsets and power purchase agreements, which intend to bring computing centers closer to carbon neutrality\nand which are often taken into account by providers of cloud compute in the",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 2.1957373340685504,
+    "content": "r carbon models for similar amounts of energy\nconsumed. This further supports the analysis carried out in Section 4.1, suggesting that the primary energy source used\nfor training ML models has a strong impact on the overall resulting emissions from model training, and that choosing a\nlow-carbon energy grid can play a significant role towards reducing the carbon emissions of ML model training.\nBesi",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 2.193012720372219,
+    "content": "g time. The choice of hardware has a relatively small influence on the large variation of carbon emissions\n\"that we observe in our sample , given that the TDP ranges from 180 W to 300 W, while the carbon emissions span\"\nfrom 105 kgCO2eq to even less than 10 kgCO2eq (see Section A.2 of the appendix for further details). While using\n\"renewable energy can reduce up to 1,000 the carbon emissions for t",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 2.1902945533196103,
+    "content": "electricity grid used, illustrating two parallel groups of models, both exhibiting a largely linear trend,\"\nwith the more carbon intensive models positioned higher than the lower carbon models for similar amounts of energy\n\"consumed. This further supports the analysis carried out in Section 4.1, suggesting that the primary energy source used\"\n\"for training ML models has a strong impact on the over",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 2.165512776327596,
+    "content": "ng), and there are many aspects of the emissions of model training that remain\nunexplored. In sum, there is a need for a more broad and multi-faceted analysis in order to better understand the scale\nand variation of carbon emissions in our community.\nTools and approaches for measuring carbon emissions. Developing standardized approaches for estimating the carbon\nemissions of model training has als",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.1518388216160518,
+    "content": "oelectricity, largely deviate from the main trend,\nwith orders of magnitude less carbon emissions compared to models trained using coal and gas. In other words, models\ntrained with low carbon-intensive energy sources, result in much less carbon emissions, ceteris paribus .\nFig. 2. Estimated energy consumed (kWh) and CO 2(kg) by each model in the data set, plotted in a log-log scale. Colors indicat",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 2.151606299991194,
+    "content": "much of the related work in this field has focused on estimating the carbon\nemissions of model training, there are many pieces of other overall carbon footprint of our field which are still missing:\nfor instance, the carbon emissions of tasks such as data processing, data transfer, and data storage [ 28], as well as the\ncarbon footprint of manufacturing and maintaining the hardware used for traini",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 2.1266486099350823,
+    "content": "unt by providers of cloud compute in their carbon accounting [18]. Despite this, the\"\napples-to-apples carbon analysis that we carried out in the current study provides useful insights about the current\n\"state of carbon emissions in our field, as well as how this has evolved over time in the last 9 years.\"\n\"Furthermore, while this study and much of the related work in this field has focused on est",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 2.1165702363683367,
+    "content": "pirical studies on carbon emissions. A large proportion of research has focused on estimating the carbon emissions\nof specific model architectures and/or comparing the carbon emissions of two or more models and approaches. The\n\"first paper to do so was written by Strubell et al., which estimated that the emissions of training and fine-tuning a large\"\n\"Transformer model with Neural Architecture Sea",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.0859551844732387,
+    "content": "W, while the carbon emissions span\nfrom 105kgCO 2eq to even less than 10 kgCO 2eq (see Section A.2 of the appendix for further details). While using\nrenewable energy can reduce up to 1,000 the carbon emissions for the same amount of energy used, the remaining\nfactor responsible for the large variation in both energy and carbon emissions in our sample is therefore the training\ntime.\nManuscript pend",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 2.081652762359309,
+    "content": "e carbon footprint of ML model training to date, and provides us with opportunities to analyze it from a variety of\nangles, which we present in Section 4. In the remaining of this section, we describe our method for estimating carbon\nemissions.\nManuscript pending review\n\n4 Alexandra Sasha Luccioni and Alex Hernandez-Garcia\n3.2 Estimating carbon emissions\nThe unit of measurement typically used for ",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 2.058430437078683,
+    "content": "0,1\nCounting Carbon: A Survey of Factors Influencing the Emissions of Machine Learning,11\n\"5.1\nDiscussion of Results\",\nWhile the total carbon footprint of the field of ML is unclear due its distributed nature and the lack of systematic,\n\"reporting of emissions in different settings,\nin the face of the climate crisis,\",it is important for the ML community\n\"to acquire a better understanding of its e",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.0475701012227288,
+    "content": "0\n\"Counting Carbon: A Survey of Factors Influencing the Emissions of Machine Learning\n7\"\n\"also shows that models trained with cleaner energy sources, such hydroelectricity, largely deviate from the main trend,\"\n\"with orders of magnitude less carbon emissions compared to models trained using coal and gas. In other words, models\"\n\"trained with low carbon-intensive energy sources, result in much less",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 2.0317123151604215,
+    "content": "of our methodology\nin Section 3. In Section 4 we present our analysis, and we conclude with our proposals for future work, including a\ncentralized hub for reporting the carbon footprint of machine learning..\n2 RELATED WORK\nMeasuring the environmental impact of ML models is a relatively new undertaking, but one that has been gathering\nmomentum in recent years. In the current section, we present sev",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 1.9969377244555577,
+    "content": "ted to be\nover 3.5 million hours (14.8 days with 10,000 GPUs) [ 38]. Obviously, such long training times result in large amounts of\ncarbon emissions, even with lower carbon intensity energy sources. By way of illustration, the model with the longest\ntraining time in our sample would have reduced by about 30 times the carbon emissions had it used the grid with the\nlowest carbon intensity in our sam",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 1.9893751599562943,
+    "content": "0\n\"4\nAlexandra Sasha Luccioni and Alex Hernandez-Garcia\"\n\"3.2\nEstimating carbon emissions\"\nThe unit of measurement typically used for quantifying and comparing carbon emissions is CO2 equivalents. This unit\n\"allows us to compare different sources of greenhouse (GHG) emissions using a common denominator, that of grams of\"\nCO2 emitted per kilowatt hour of electricity generated (gCO2eq/kWh) 1.\nThe am",
+    "type": "table"
+  },
+  {
+    "rank": 19,
+    "score": 1.98187108063474,
+    "content": "US and China), are on the high end of the carbon spectrum,\nwith emissions of 350 gCO 2eq/kWh and above. On the other end, the countries with the lowest carbon intensity in our\nsample are Canada (which ranges between 1.30 and 52.89 gCO 2eq/kWh, depending on the province) and Spain (which\nhas a single national energy grid with a median carbon intensity of 220.26 gCO 2eq/kWh), but they only represent",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 1.9426491714258305,
+    "content": "more carbon-intensive energy (e.g. coal).\nFor instance, honing in on the central bottom portion of Figure 2, it can be seen that the models trained using\nhydroelectricity (the blue dots) are about two orders of magnitude lower in terms of carbon emissions than models that\nconsumed similar amounts of energy from more carbon-intensive sources such as coal (in brown) and gas (in orange),\ngiven that t",
+    "type": "text"
+  }
+]

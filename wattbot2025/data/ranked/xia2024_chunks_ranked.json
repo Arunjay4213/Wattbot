@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.022848561652206,
+    "content": "ba fine-tuning exhibited a slight reduction\nin latency as sequence length increased, with approximately\n19% and 25% decreases for sparse and dense fine-tuning,\nrespectively. This is due to the varying maximum batch sizes\nsupported by each sequence length, resulting in a similar\nnumber of tokens in each batch. Because latency remains\nconsistent with increasing sequence length and we can use\nlarger ",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.007100800600602,
+    "content": "gle GPU load balancing [30] and multi-GPU load\nbalancing [31] have been proposed to address this issue.Takeaway 6 .The effect of fine-tuning on expert\nload imbalance in the MoE layer is LLM model and\ndataset dependent.\n6) Sensitivity Study on Sequence Length: To further ana-\nlyze the effect of sequence length on the fine-tuning process,\nwe chose the batch size that would maximize the memory\nfor ea",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 0.0,
+    "content": "Understanding the Performance and Estimating the\nCost of LLM Fine-Tuning\nYuchen Xia1Jiho Kim2Yuhan Chen1Haojie Ye1Souvik Kundu3\nCong (Callie) Hao2Nishil Talati1\n1University of Michigan2Georgia Institute of Technology3Intel Labs\nAbstract —Due to the cost-prohibitive nature of training Large\nLanguage Models (LLMs), fine-tuning has emerged as an attrac-\ntive alternative for specializing LLMs for spec",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 0.0,
+    "content": "se and dense versions of\nMoE models, as well as their runtime characteristics, including\nmaximum batch size, execution time breakdown, end-to-end\nthroughput, GPU hardware utilization, and load distribution.\nOur study identifies the optimization of the MoE layer as crucial\nfor further improving the performance of LLM fine-tuning.\nUsing our profiling results, we also develop and validate an\nanalytic",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 0.0,
+    "content": "e Language Models (LLMs) are widely utilized in\nNatural Language Processing (NLP) [1]. Modern LLMs\ntypically possess billions to trillions of parameters, neces-\nsitating extensive time and resources for training. For in-\nstance, the estimated cost of training OpenAI’s GPT-4 model\nexceeds $100 million, rendering it financially prohibitive\nfor most small-to-medium size enterprises and the academic\nc",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 0.0,
+    "content": "domain-specific dataset to align the desired behav-\niors of LLMs through supervised fine-tuning on instruction-\nfollowing tasks [6]. Unlike pre-training, fine-tuning can be\nconducted in a resource-constrained environment, typically\nusing one or a few GPUs. Consequently, fine-tuning presents\na compelling case for applications such as specialized ques-\ntion answering within enterprises, legal docume",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "st of fine-tuning on the cloud. Given\nour focus on cost-efficient LLM fine-tuning, we concen-\ntrate on fine-tuning sparse Mixture-of-Expert (MoE) models.\nSpecifically, we employ an attention-based MoE model, Mix-\ntral [4], and a state-space MoE model, BlackMamba [8]. Us-\ning these models and two domain-specific datasets for math-\nematics and common-sense question-answering, we conduct\nan in-depth ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "single GPU memory budget, exe-\ncution time breakdown and bottlenecks, overall throughput,\nmicroarchitectural performance counters, and runtime load\ndistribution. The insights gained from our study are used to\ndevelop and validate an analytical model to estimate the cost.\nOur characterization uncovers the following unique in-\nsights. (1) Fine-tuning can be achieved in less than 10 epochs,\nand spars",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "-end throughput by supporting\na larger batch size. Given similar learning abilities of sparse\nand dense models, it is desired to use a sparse MoE model\nfor cost-effective fine-tuning. (4) The workload becomes\ncompute bound by increasing batch size; improving compute\nresources will increase performance. (5) Fine-tuning sparse\nmodel leads to more load imbalance.\nBased on these insights, we create an",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "n\n0.55. Using the estimated throughput, our model calculates\nthe fine-tuning cost for different cloud providers.\nThe contributions of this paper are as follows.\n•Make a case for LLM fine-tuning for specializing pre-\ntrained models in a cost-effective manner.arXiv:2408.04693v1  [cs.CL]  8 Aug 2024\n\nFig. 1. LLM model overview. We evaluate accuracy, throughput, runtime,\nand GPU characterization for d",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "nd validation of an analytical model to estimate\nthe cost of LLM fine-tuning in the cloud.\nII. B ACKGROUND\nA. LLM and Finetuning\nThe decoder-only Transformer is designed to handle tasks\nwhere the output generation depends solely on the preceding\ntokens, making it particularly suited for auto-regressive tasks\nsuch as language modeling and text generation [9]. In the\nclassic decoder-only Transformer",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "ded into several smaller\nFFNs, referred to as experts, which are sparsely activated\nby a gating mechanism. The self-attention block can also\nbe replaced with a Mamba layer to improve performance in\nsequence modeling (a model known as state-space model).\nLLMs like GPT [10], [11], LLaMA [3], Claude [12], Mis-\ntral [13] have demonstrated their ability to excel in many\nnatural language processing (NLP",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "ecific data, enabling it to understand\nand generate content that aligns closely with the unique\nneeds of the users. For instance, in the healthcare sector,\na fine-tuned LLM can assist in diagnosing conditions by\ninterpreting patient data and medical literature with high\nprecision. Another attractive feature of fine-tuning LLMs is\nthat it can be achieved at a cost-efficient manner. While pre-\ntrain",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "mon Sense\nMath 14K (MATH) 14K 174 Math\nHellaswag (HE) 10K 272 Common Sense\nGSM8K (GS) 1.3K 148 Math\namount of time [6]. This work uses case study of mathematics\nand common-sense question-answer datasets to demonstrate\nthe fine-tuning process of LLMs.\nB. LoRA\nLow-Rank Adaption (LoRA) is a technique that freezes\nthe pre-trained model weights and injects trainable rank de-\ncomposition into layers of ",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "in §III.\nC. Mixture of Experts (MoE)\nThe quality of an LLM is highly related to its scale. Given\na fixed computation budget, it is often desirable to train\na model with more parameters to achieve higher accuracy.\nMixture-of-Experts (MoE) is a technique that, instead of\nusing one large model for all tasks, combines multiple\nexpert sub-networks into a single, large model. As shown\nin Fig. 1, with Mo",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "fine-tune two pre-trained MoE models,\nMixtral-8x7B (Mixtral for short) [4] and BlackMamba-\n630M/2.8B (BlackMamba for short) [8]. The details of these\nmodels are shown in Table I. Both models incorporate eight\nexperts in their MoE layers. For dense fine-tuning, all experts\nare activated, whereas for sparse fine-tuning, only the top two\nexperts are selected for each token.\nThese models differ signif",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "full BlackMamba model (i.e.,\noriginal weight matrices), whereas employed QLoRA [15]\nfor parameter-efficient fine-tuning (PEFT) on Mixtral due to\nGPU memory capacity budget. For QLoRA, we target the\nMoE layers, including the routers, and set the rank of the\nLoRA modules to 16. We enable FlashAttention2 [17] during\nMixtral fine-tuning for enhanced efficiency. Moreover, we use\ngradient checkpointing ",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "ress com-\nmonsense reasoning and arithmetic reasoning respectively\n(provided by LLM-adapters [20]). The details of datasets\nare used in Table II. For evaluation, we tested the models\non GSM8K [21] for arithmetic reasoning and HE [22] for\ncommonsense reasoning. Each dataset consists of thousands\nof queries. We define a query as the concatenation of a\nprompt and its ground-truth answer, which is fee",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "Using\nPyTorch, we provide essential algorithm-level information\nsuch as test accuracy, training throughput, and layer-level\nlatency breakdown. The hardware evaluation offers a detailed\nanalysis of GPU performance. Utilizing NVIDIA Nsight\nCompute [23], we gather kernel-level information, including\nSM utilization, memory utilization, and kernel latency. These\nmetrics collectively offer a comprehensi",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "aset-independent as\nthese workload characteristics do not depend on runtime\ndata. Because profiling is time-consuming (approximately\n10,000 ×costlier compared to a native run without the profiler\nenabled), we manually set the batch size and sequence length\nto facilitate a more direct and efficient profiling process.\nWe present the sequence length distribution for the CS and\nMATH datasets in Fig. 2",
+    "type": "text"
+  }
+]

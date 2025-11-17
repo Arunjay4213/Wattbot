@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 7.414896458551958,
+    "content": "0\n\"AI development\n(Kaack et al.; Luccioni\net al., 2025). By systematically evaluating\"\n\"inference efficiency and runtime across architectures and hardware settings, we con-\"\n\"tribute to the ongoing discourse on AI’s environmental\nimpact and provide actionable\"\nguidelines for optimizing NLP applications for both performance and sustainability.\n2 Previous research\nResearch on the environmental impac",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 6.862966002537272,
+    "content": "be traced. Our findings have implications\nfor researchers, industry practitioners, and policymakers advocating for sustainable\n2\n\nAI development (Kaack et al.; Luccioni et al., 2025). By systematically evaluating\ninference efficiency and runtime across architectures and hardware settings, we con-\ntribute to the ongoing discourse on AI’s environmental impact and provide actionable\nguidelines for op",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 3.540191480736718,
+    "content": "a system was used. The\"\nminimum number of H100 GPUs required varies by model (see Table B1).\n\"The highest accuracy was achieved by a traditional\nlinear model using pre-trained\"\n\"sentence embeddings. Notably, even the most energy-efficient model\n- a linear model\"\n\"with TF-IDF features - outperformed several\nlarge language models (LLMs). Among\"\n\"LLMs with relatively high accuracy,\nthe best\nsmall mod",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 3.4653658158579566,
+    "content": "model (Qwen 2.5 72B), with only\na minor accuracy reduction of 0.07 points. Deepseek models, despite their extensive\nreasoning processes during inference, exhibit lower accuracy than non-reasoning LLMs\nwhile consuming significantly more energy and taking longer to complete inference.\n4.1 Analysis of hardware settings\nThis section analyzes the impact of different hardware configurations (see Tab. 2)",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 3.4597295333805493,
+    "content": "Zhang, N., Shi, T., Yu, Z., Zhu, M.,\"\n\"Zhang, Y., Song, X., Yang, C., Cheng, Y., Zhao, L.: Beyond Efficiency: A Systematic\"\nSurvey of Resource-Efficient Large Language Models (2024). https://arxiv.org/abs/\n2401.00625\n\"Anthony, L.F.W., Kanding, B., Selvan, R.: Carbontracker: Tracking and Predicting\"\nthe Carbon Footprint of Training Deep Learning Models (2020). https://arxiv.org/\nabs/2007.03051\n\"Hen",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 3.4507786496993926,
+    "content": "and <0.2 dex for both\nenergy consumption and duration (logarithmically scaled to base 10).\nFigure 1 illustrates the trade-off between energy consumption and accuracy across\nall models. For these experiments, a single node of the Capella system was used. The\nminimum number of H100 GPUs required varies by model (see Table B1).\nThe highest accuracy was achieved by a traditional linear model using pre",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 3.429773433713179,
+    "content": "ale models such as GPT-3 (Brown et al.,\n2020), which have significantly advanced task performance. However, this progress\nhas come at a cost: the escalating energy demands of AI systems pose significant\nenvironmental and computational challenges. Data centers that support AI com-\nputations are major electricity consumers, often dependent on fossil fuels, thereby\ncontributing to greenhouse gas emis",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 3.414500308516204,
+    "content": "0\n\"development has been enabled by the Transformer architecture (Vaswani et al., 2017)\"\n\"and exemplified by the emergence of\nlarge-scale models such as GPT-3 (Brown et al.,\"\n\"2020), which have\nsignificantly advanced task performance. However,\nthis progress\"\n\"has\ncome at a cost:\nthe\nescalating energy demands of AI\nsystems pose\nsignificant\"\n\"environmental\nand computational\nchallenges. Data\ncenters\nt",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 3.4041343415139367,
+    "content": "et al. (2019) quantify the carbon footprint\nof NLP models, revealing that the training of a single large-scale transformer model\ncan emit as much carbon as five cars over their entire lifetimes (their measurements\ninclude thousands of hyperparameter tuning jobs, which makes it difficult to disen-\ntangle model-inherent efficiency from experimental setup). This seminal work spurred\nfurther investiga",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 3.3932290255404105,
+    "content": "06.3658542\nBai, G., Chai, Z., Ling, C., Wang, S., Lu, J., Zhang, N., Shi, T., Yu, Z., Zhu, M.,\nZhang, Y., Song, X., Yang, C., Cheng, Y., Zhao, L.: Beyond Efficiency: A Systematic\nSurvey of Resource-Efficient Large Language Models (2024). https://arxiv.org/abs/\n2401.00625\nAnthony, L.F.W., Kanding, B., Selvan, R.: Carbontracker: Tracking and Predicting\nthe Carbon Footprint of Training Deep Learning ",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 2.854046563141817,
+    "content": "0,1,2,3\n\"Luccioni, A.S., Viguier, S., Ligozat, A.-L.: Estimating the carbon footprint of bloom,\",,,\n,a 176b parameter language model. J. Mach. Learn. Res. 24(1) (2023),,\n,\"Gehman, S., Gururangan, S., Sap, M., Choi, Y., Smith, N.A.: Realtoxicityprompts:\",,\n,Evaluating neural toxic degeneration in language models. Proceedings of the 2020,,\nConference,on Empirical Methods,in Natural Language Processi",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.434261774882816,
+    "content": "tiative\n\"resulted into the AI Energy Score\n(https://huggingface.co/AIEnergyScore), a tool\"\n\"designed to assess\nthe environmental\nimpact of AI models on a range of\ntasks, and\"\nreinforces the growing importance of considering energy efficiency in model evaluation.\n5.3 Further Requirements of Planet-Centered LLMs\n\"While energy consumption and the associated carbon footprint\nremain crucial con-\"\n\"side",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 2.412088041784018,
+    "content": "Their initiative\nresulted into the AI Energy Score (https://huggingface.co/AIEnergyScore), a tool\ndesigned to assess the environmental impact of AI models on a range of tasks, and\nreinforces the growing importance of considering energy efficiency in model evaluation.\n5.3 Further Requirements of Planet-Centered LLMs\nWhile energy consumption and the associated carbon footprint remain crucial con-\nsi",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 2.4011519741118854,
+    "content": "0\n\"Energy Costs of Large Language Model\nInference\n(2023). https://arxiv.org/abs/\"\n2310.03003\n\"Liu, X., Sun, T., He, J., Wu, J., Wu, L., Zhang, X., Jiang, H., Cao, Z., Huang, X., Qiu,\"\nX.: Towards Efficient NLP: A Standard Evaluation and A Strong Baseline (2022).\nhttps://arxiv.org/abs/2110.07038\n\"Chien, A.A., Lin, L., Nguyen, H., Rao, V., Sharma, T., Wijayawardana, R.: Reducing\"\n\"the carbon impact ",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.3689307779742474,
+    "content": "mate carbon footprint when\ntraining deep learning models? a guide and review. Environmental Research\nCommunications 5(11), 115014 (2023) https://doi.org/10.1088/2515-7620/acf81b\nHlavac, M.: stargazer: Well-Formatted Regression and Summary Statistics Tables. R\npackage version 5.2.3 (2022). https://CRAN.R-project.org/package=stargazer\nBrown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.D., Dhariw",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.3479261408895082,
+    "content": "mer model\"\ncan emit as much carbon as five cars over their entire lifetimes (their measurements\n\"include thousands of hyperparameter\ntuning jobs, which makes\nit difficult\nto disen-\"\ntangle model-inherent efficiency from experimental setup). This seminal work spurred\n\"further investigations into the environmental costs of training neural networks, includ-\"\n\"ing large language models\n(Patterson et a",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 2.3375628874399044,
+    "content": "Kepner, J., Tiwari, D., Gadepally, V.: From Words to Watts: Benchmarking the\n22\n\nEnergy Costs of Large Language Model Inference (2023). https://arxiv.org/abs/\n2310.03003\nLiu, X., Sun, T., He, J., Wu, J., Wu, L., Zhang, X., Jiang, H., Cao, Z., Huang, X., Qiu,\nX.: Towards Efficient NLP: A Standard Evaluation and A Strong Baseline (2022).\nhttps://arxiv.org/abs/2110.07038\nChien, A.A., Lin, L., Nguyen,",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 2.3375628874399044,
+    "content": "age\nmodels. arXiv preprint arXiv:2302.13971 (2023)\nBender, E.M., Gebru, T., McMillan-Major, A., Shmitchell, S.: On the dangers of\nstochastic parrots: Can language models be too big? Proceedings of the 2021 ACM\nConference on Fairness, Accountability, and Transparency (2021)\n24\n\nLuccioni, A.S., Viguier, S., Ligozat, A.-L.: Estimating the carbon footprint of bloom,\na 176b parameter language model. J.",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "Comparing energy consumption and accuracy in\ntext classification inference\nJohannes Zschache and Tilman Hartwig\nApplication Lab for AI and Big Data, German Environment Agency,\nAlte Messe 6, Leipzig, 04103, Saxony, Germany.\n*Corresponding author(s). E-mail(s): tilman.hartwig@uba.de;\nContributing authors: johannes.zschache@uba.de;\nAbstract\nThe increasing deployment of large language models (LLMs) in",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "fs between model accuracy and\nenergy consumption in text classification inference across various model archi-\ntectures and hardware configurations. Our empirical analysis shows that the\nbest-performing model in terms of accuracy can also be energy-efficient, while\nlarger LLMs tend to consume significantly more energy with lower classifica-\ntion accuracy. We observe substantial variability in infer",
+    "type": "text"
+  }
+]

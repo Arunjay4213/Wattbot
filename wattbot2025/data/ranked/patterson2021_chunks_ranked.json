@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 6.413756155987723,
+    "content": "200   *    208   *   1.10   /   1000)   *   0.431   /   1000   =   3.2   tCO 2 e   (7096   lbs) . 36   \nThis   actual   emissions   value   is   88X   smaller   than   the   incorrect   estimate   of   the   carbon   emissions   of   this   \nsearch   found   in   Strubell    et   al.     If   we   reran   the   NAS   search   today   on   TPU   v2s   in   Google’s   Iowa   datacenter   \nwith   24/",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 6.093471368084428,
+    "content": "shown   both   before   (“gross”)   and   after   (“net”),,,,,\n\"accounting   for   24/7   reduction   via   real   time,   local   carbon   free   energy   purchases   (Appendix   B).   To   help\",,,,,\n\"put   the   CO 2 e   numbers   in   perspective,   a   single   passenger   round   trip   SF-NY   is   ~1.2t   CO 2 e   (Table   2).\",,,,,",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 4.519900202596487,
+    "content": "0,1,2,3,4,5\nGross   CO 2 e   for   Model   Training   (metric   ton)   (Section,,,,,\n,0.1357,0.1055,0.0883,0.0189,0.0143\n2.4   and   Appendix   D),,,,,\nNet   CO 2 e   for   Model   Training   (metric   ton)   (Section,,,,,\n,0.1357,0.0177,0.0148,0.0032,0.0024\n2.4   and   Appendix   D),,,,,\n%   24/7   net   carbon   free   energy   (CY   2019),N/A,,,78%,\nTable   1.   See   Appendix   A   for   more ",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 4.3503268452777535,
+    "content": "mer   \nfor   P100   and   TPU   v2   are   based   on   power   measurements. 5    Evolved   Transformer   (Medium)   reached   the   \nsame   accuracy   as   Transformer   (Big)   in   [So19].   CO 2 e     is   shown   both   before   (“gross”)   and   after   (“net”)   \naccounting   for   24/7   reduction   via   real   time,   local   carbon   free   energy   purchases   (Appendix   B).   To   h",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 4.120851408745134,
+    "content": "at   the   actual   search   used   one   TPU   v2   chip   to   fit   the   same\"\nbatch   size   as   one   P100)\nTraining   speed   of   Transformer    Base    on   P100   from   [Vas17]:\n\"hours_per_train_steps   =   12   hours   /   100,000   =   0.00012   (Section   5.2   in   [Vas17])\"\n\"CO 2 e   =   1   *   979,000,000   *   0.00012   *   0.2855296   =    33,544   lbs   (15.2   t)\"\nAppendix  ",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 3.532613152675838,
+    "content": "reduce   it,   we   \nendorse   prior   calls   for   new   publication   norms   for   computationally   intensive   ML   models:   \n1  Google   \n2  University   of   California,   Berkeley   \n3  “CO 2 e”   means   CO 2     equivalent   emissions ,   accounting   for   carbon   dioxide   and   all   the   other   greenhouse   gases   as   well:   \nmethane,   nitrous   oxide,   ...   (calculated   ",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 3.5245641716105722,
+    "content": "ion   4.1   second   paragraph   in   [So19]).   \nnum_chips     =   1   (Section   4.3   in   [So19],   note   that   the   actual   search   used   one   TPU   v2   chip   to   fit   the   same   \nbatch   size   as   one   P100)   \nTraining   speed   of   Transformer    Base    on   P100   from   [Vas17]:   \nhours_per_train_steps   =   12   hours   /   100,000   =   0.00012   (Section   5.2   in ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 3.2094517449940367,
+    "content": "currently   deploying   numerous   TPU   v4s,   many   of   which   will   be   located   in   windy   Oklahoma,   \nwhose   net   CO 2 e/KWh   is   even   lower   than   Iowa.   \n●Fallacy:   There   is   no   business   reason   to   reduce   carbon   emissions .   Reducing   climate   change   certainly   \nhas   long-term   economic   benefits   for   everyone.   Google   has   been   carbon   ne",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 3.13155089583522,
+    "content": "\"We   calculate   the   energy   use   and   carbon   footprint   of   several   recent   large   models— T5 ,    Meena ,    GShard ,\"\n\"Switch   Transformer ,   and    GPT-3 —and   refine   earlier   estimates   for   the   neural   architecture   search   that   found\"\nEvolved   Transformer .\nWe   highlight   the   following   opportunities   to   improve   energy   efficiency   and    CO 2    eq",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 3.1104942374672477,
+    "content": "rmation   and   radiative   forcing   of   contrail   cirrus.    Nature   communication s.   2018   May   8;9(1):1-7.,\n,https://www.nature.com/articles/s41467-018-04068-0 .\n\"[Kuc18]     Kuczmarski,   J.   and   Johnson,   M.,   2018.   Gender-aware   natural   language\",\n,translation. www.tdcommons.org/dpubs_series/1577/ .\n\"[Lac19]     Lacoste,   A.,   Luccioni,   A.,   Schmidt,   V.   and   Dandr",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 3.083790110009565,
+    "content": "Conventional   carbon   offsets   try   to   create   economic   incentives   to   create   projects   that   avoid   or   remove   \nCO 2 e.   When   pursuing   the   mitigation   of   carbon   emissions   from   electricity   production   and   consumption,   a   \ncompany   can   match   their   MWh   of   consumption   with   MWh   of   clean   energy   through   certificates   called    REC s  ",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 3.060139508309333,
+    "content": "r   depth   should   take   a   look   at   [Ryo14,   Goog16,   Goo21].\"\nConventional   carbon   offsets   try   to   create   economic   incentives   to   create   projects   that   avoid   or   remove\n\"CO 2 e.   When   pursuing   the   mitigation   of   carbon   emissions   from   electricity   production   and   consumption,   a\"\ncompany   can   match   their   MWh   of   consumption   with   M",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 3.0399859134328278,
+    "content": "ni,   A.,   Schmidt,   V.   and   Dandres,   T.,   2019.   Quantifying   the   carbon   emissions   of   machine   \nlearning.    arXiv   preprint   arXiv:1910.09700 .   \n[Lan20]   Lannelongue,   L.,   Grealey,   J.   and   Inouye,   M.,   2020.   Green   algorithms:   Quantifying   the   carbon   footprint   of   \ncomputation.    arXiv:   2007.07610 .   \n[Leo19]   Leopold,   G.   March   19,   201",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 2.883425317947308,
+    "content": "0\nthat   would   be   a   great   step   forward.   Perhaps   ML   practitioners   could   study   the   total   lifecycle   to   develop   rules   of\nthumb   to   estimate   the   overall   carbon   footprint   based   on   its   final   training   cost. 16\nThe   next   subsection   also   emphasizes   the   value   of   measurement.\n\"Figure   5.   Measured   vs   peak   performance,   measured  ",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.858922513427567,
+    "content": "ould   reduce   overall   total   carbon   emissions   if   that   model   \nalso   cut   serving   energy   by   20%.   Because   energy   usage   during   training   is   more   isolated   and   thus   easier   to   \ninvestigate   than   inference,   we   focus   on   it   in   this   paper,   but   keep   in   mind   that   the   carbon   footprint   of   inference   is   \nsignificant.   \nAn   M",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.7343902734800483,
+    "content": "on   Computer   Architecture.   \n[Kap20]  Kaplan,   J.,   McCandlish,   S.,   Henighan,   T.,   Brown,   T.B.,   Chess,   B.,   Child,   R.,   Gray,   S.,   Radford,   A.,   Wu,   J.   and   \nAmodei,   D.,   2020.   Scaling   laws   for   neural   language   models.   arXiv   preprint   arXiv:2001.08361.   \n[Kär18]   Kärcher   B.   Formation   and   radiative   forcing   of   contrail   cirrus.   ",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 2.636851091000899,
+    "content": "cy   \nThere   are   many   algorithmic   techniques   that   can   improve   the   energy   efficiency   of   machine   learning   models.   \nSome   techniques   can   achieve   the   same   accuracy   with   less   overall   computation.   Others   can   use   a   large,   \nalready-trained   model   as   a   starting   point   and   yield   a   lighter-weight,   more   computationally   efficient",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 2.5460309262562344,
+    "content": "occurred   in   the   absence   of   a   market   \nfor   offset   credits.   Additionality   is   essential   for   the   quality   of   carbon   offset   credits—if   their   associated   \nCO 2 e   reductions   are   not   additional,   then   purchasing   offset   credits   in   lieu   of   reducing   your   own   \nemissions   will   make   climate   change   worse.   \n●The   Grid :   The   tran",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.5460309262562344,
+    "content": "to   increase,,,,,,,,\naccuracy   while   lowering   energy   consumption   and   CO 2 e   that   could   bend   the   curve   of   ML   carbon   footprint,,,,,,,,\ngrowth   for   computationally   intensive   NLP   models.,,,,,,,,\n,The   following   sections   summarize   the   findings   that   led   to   these   recommendations.   They   also   document   our,,,,,,,\n\"CO 2 e   estimates,   highlig",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 2.52122020355897,
+    "content": "eb   services   claimed   that    90%    of   the   ML   demand   in   the   cloud   is   for   inference   [Bar19].   Given   its,,,,,,,,\n\"substantial   role   in   the   ML   model   lifecycle,   Alibaba,   Amazon,   Google,   and   NVIDIA   designed   ML   accelerators\",,,,,,,,\n\"solely   for   inference.   If   the   total   ML   energy   is   split   10%   on   training   and   90%   on   serv",
+    "type": "table"
+  }
+]

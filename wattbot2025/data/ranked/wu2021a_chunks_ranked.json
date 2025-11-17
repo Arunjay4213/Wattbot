@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 6.144959070781123,
+    "content": "el quantization for RMs\n[34].\",\n,centers with 100% renewable energy purchased by Facebook.\n\"Quantization offers two primary efﬁciency beneﬁts:\nthe low-\",\n,\"Remaining emissions\nare offset with various\nsustainability\"\nprecision data representation reduces the amount of compu-,\n,\"programs,\nfurther\nreducing the operational carbon footprint of\"\n\"tation requirement and, at\nthe same time,\nlowers the over",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 4.992962269311858,
+    "content": "sis (LCA) is a common methodology to\nassess the carbon emissions over the product life cycle. There\nare four major phases: manufacturing ,transport ,product use ,\nandrecycling2. From the perspective of AI’s carbon footprint\nanalysis, manufacturing andproduct use are the focus. Thus,\nin this work, we consider the overall carbon footprint of\nAI by including manufacturing — carbon emissions from\nbuil",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 4.087634410442533,
+    "content": "ower\nreduction across Facebook’s AI\",\"tion opportunities available with judicious cross-stack, hard-\"\n\"ﬂeet over 6-month period from each of\nthe optimization areas.\",\"ware/software\noptimization.\nIn\naddition\nto\noptimizing\nthe\"\n\"The optimizations\nin aggregate provide, on average, a 20%\",\"carbon footprint\nfor\nthe language translation task, we describe\"\nreduction in operational power consumption every",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 4.0836215452131475,
+    "content": "arbon footprint\n\"Processing phase\nand apply weights\nto individual\nfeatures\",\n,\"analysis, manufacturing and product use are the focus. Thus,\"\nbased on feature importance to the model optimization objective.,\n,\"in\nthis work, we\nconsider\nthe\noverall\ncarbon\nfootprint\nof\"\n\"During Experimentation,\nthe researchers design,\nimplement\",\n,\"AI by including manufacturing — carbon emissions\nfrom\"\n\"and evaluate ",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.986616277761611,
+    "content": "cance of embodied carbon emissions using\nFacebook’s Greenhouse Gas (GHG) emission statistics3.In this\ncase, more than 50% of Facebook’s emissions owe to its value\nchain — Scope 3 of Facebook’s GHG emission . As a result,\na signiﬁcant embodied carbon cost is paid upfront for every\nsystem component brought into Facebook’s ﬂeet of datacenters,\nwhere AI is the biggest growth driver.\n2Recycling is an i",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.915340630274342,
+    "content": "across\nfrom [21] and may not be reﬂective of production use cases.,\n,ML use cases.\n,\"The overall operational carbon footprint\nis categorized into\"\n,\"ofﬂine training, online training, and inference. Ofﬂine training\"\nIII. AI COMPUTING’S CARBON FOOTPRINT,\n,encompasses both experimentation and training models with\n,\"historical\ndata. Online\ntraining\nis\nparticularly\nrelevant\nto\"\nA. Carbon Footprint Anal",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 3.8815988792819254,
+    "content": "he use of AI\n(i.e., operational carbon footprint).\"\nis computationally-intensive. A large collection of diverse ML,\n,While quantifying the exact breakdown between operational\n\"ideas are explored simultaneously at-scale. Thus, during this\",\n,\"and\nembodied\ncarbon\nfootprint\nis\na\ncomplex\nprocess, we\"\n\"phase, we observe unique system resource requirements from\",\n,estimate the signiﬁcance of embodied ca",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 3.856173902598764,
+    "content": "usly\nupdated based on recent data. The inference footprint represents\nthe emission from serving production trafﬁc. The online training\nand inference emissions are considered over the period of\nofﬂine training. For recommendation use cases, we ﬁnd the\ncarbon footprint is split evenly between training and inference.\nOn the other hand, the carbon footprint of LM is dominated\nby the inference phase, u",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 3.7910779035385667,
+    "content": "server utilization exhibits\na diurnal pattern, Auto-Scaling frees the over-provisioned\ncapacity during off-peak hours, by up to 25% of the web\ntier’s machines [ 38]. By doing so, it provides opportunistic\nserver capacity for others to use, including ofﬂine ML training.\nFurthermore, static power consumption plays a non-trivial role\nin the context of the overall data center electricity footprint.\nTh",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 3.77751727947952,
+    "content": "arbon cost\nas the dominating source of AI’s carbon footprint.\nB. Carbon Footprint Optimization from Hardware-Software\nCo-Design\nOptimization is an iterative process — we reduce the power\nfootprint across the machine learning hardware-software stack\nby 20% every 6 months. But at the same time, AI infrastructure\ncontinued to scale out. The net effect, with Jevon’s Paradox, is\na 28.5% operational pow",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 3.6554762835070775,
+    "content": "urce-efﬁcient models), platform\n(e.g., PyTorch’s support for quantization), infrastructure (e.g.,\ndata center optimization and low-precision hardware), and\nhardware (e.g., domain-speciﬁc acceleration). Each bar illus-\ntrates the operational power reduction across Facebook’s AI\nﬂeet over 6-month period from each of the optimization areas.\nThe optimizations in aggregate provide, on average, a 20%\nre",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 3.566749583896587,
+    "content": "\"footprint\nreduction across Facebook’s AI ﬂeet over\ntwo years.\",improvement on GPUs. Another 5× energy efﬁciency gain\n\"The\nimprovement\ncome\nfrom four\nareas\nof\noptimizations:\",can be achieved by using custom operators to schedule\n\"model\n(e.g., designing resource-efﬁcient models), platform\",\"encoding steps within a single kernel of\nthe Transformer\"\n\"(e.g., PyTorch’s support\nfor quantization),\ninfras",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 3.4515560799197975,
+    "content": "U acceleration. In addition to caching, deploying LM\"\n\"by\n20% every 6 months. But at the same time, AI infrastructure\",\n,across GPU-based specialized AI hardware unlocks an\n\"continued to scale out. The net effect, with Jevon’s Paradox,\nis\",\n,additional 10.1× energy efﬁciency improvement.\na 28.5% operational power footprint reduction over two years,\n,\"• Algorithmic optimization. Finally, algorithmi",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 3.4114909186335907,
+    "content": "recommendation\nand ranking use cases, the embedding operation dominates the\ninference execution time [27], [33].\nTo tackle the signiﬁcant memory capacity and bandwidth\nrequirement, we deploy model quantization for RMs [ 34].\nQuantization offers two primary efﬁciency beneﬁts: the low-\nprecision data representation reduces the amount of compu-\ntation requirement and, at the same time, lowers the ove",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 3.2018066382644874,
+    "content": "sustainable AI. From the\nsystem’s perspective, the life cycle of model development and\n7Papers with code: https://paperswithcode.com/sota/image-classiﬁcation-on\n-imagenet\n8https://github.com/mlcommons/algorithmic-efﬁciency/\n9https://2021.naacl.org/ethics/faq/#-if-my-paper-reports-on-experiments-t\nhat-involve-lots-of-compute-timepowersystem hardware, including manufacturing andoperational use ,\nmus",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 3.021071338017019,
+    "content": "rimentation and training toinference .\nWe characterize the carbon footprint of AI computing by\nexamining the model development cycle across industry-scale\nmachine learning use cases at Facebook (Section II). This is\nillustrated by the more than 800 \u0002operational carbon footprint\nreduction achieved through judicious hardware-software co-\ndesign for a Transformer-based universal language model.\nTakin",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 3.009898482715895,
+    "content": "yond its operational\nexamining the model development cycle across industry-scale\"\n\"energy consumption. The embodied carbon footprint of systems\nmachine learning use cases at Facebook (Section II). This is\"\n\"is becoming a dominating factor for AI’s overall environmental\nillustrated by the more than 800× operational carbon footprint\"\n\"impact\n(Section III)\n[19].\nreduction achieved through judicious h",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 2.9916590427037884,
+    "content": "ting design opportunities (Section IV-C).\nThe growth of AI in all dimensions outpaces the efﬁciency im-\nprovement at-scale. Figure 9 illustrates that, as GPU utilization\nis improved (x-axis) for LM training on GPUs, both embodied\nand operational carbon emissions will reduce. Increasing GPU\nutilization up to 80%, the overall carbon footprint decreases\nby 3\u0002. Powering AI services with renewable ener",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.9770425346166447,
+    "content": "on. In addition to optimizing the\ncarbon footprint for the language translation task, we describe\nadditional optimization techniques tailored for ranking and\n5\n\nPerformance-per-Watt[Domain-Specific Acceleration]Utilization[At-Scale Data Center Optimization;Low-Precision Hardware]0.80.911.11.21.3\nYr1-H1Yr1-H2Yr2-H1Yr2-H2Operational Power FootprintBaselineOptimized (Section 3.2)28.5% improvement Fig",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 2.965676074190048,
+    "content": "ation\nmodels, require signiﬁcantly higher memory capacity and\nbandwidth [ 55], [33]. This motivates researchers to develop\nmemory-efﬁcient model architectures. For example, the Tensor-\nTrain compression technique (TT-Rec) achieves more than\n100\u0002memory capacity reduction with negligible training time\nand accuracy trade-off [ 56]. Similarly, the design space trade-\noff between memory capacity requir",
+    "type": "text"
+  }
+]

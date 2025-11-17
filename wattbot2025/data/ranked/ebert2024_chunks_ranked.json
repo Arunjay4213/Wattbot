@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 8.099135407757808,
+    "content": "hao, and Zishang Zhu. 2023. China’s green data center\"\n\"nance.\nhttps://www.finance.gov.au/sites/default/files/2023-11/Net_Zero_\",\"development:Policies and carbon reduction technology path.\nEnvironmental\"\nGovernment_Operations_Strategy.pdf,\"Research 231 (2023), 116248. doi:10.1016/j.envres.2023.116248\"\n[22] Department of General Services. 2014. Management Memo MM 14-09: Energy,\"[49]\nPengfei Li, Jia",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 7.485983308615928,
+    "content": "sevier, 293–316.\n[48] Guozhu Li, Zixuan Sun, Qingqin Wang, Shuai Wang, Kailiang Huang, Naini Zhao,\nYanqiang Di, Xudong Zhao, and Zishang Zhu. 2023. China’s green data center\ndevelopment:Policies and carbon reduction technology path. Environmental\nResearch 231 (2023), 116248. doi:10.1016/j.envres.2023.116248\n[49] Pengfei Li, Jianyi Yang, Mohammad A Islam, and Shaolei Ren. 2023. Making ai\nless\" thir",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 5.662698505035185,
+    "content": "271 (2023).\n\"[23]\nJesse Dodge, Taylor Prewitt, Remi Tachet des Combes, Erika Odmark, Roy\",\"[50]\nPengfei Li, Jianyi Yang, Adam Wierman, and Shaolei Ren. 2023. Towards En-\"\n\"Schwartz, Emma Strubell, Alexandra Sasha Luccioni, Noah A Smith, Nicole\",\"vironmentally Equitable AI via Geographical Load Balancing.\narXiv preprint\"\n\"DeCario, and Will Buchanan. 2022. Measuring the carbon intensity of ai in clo",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 5.568619006395051,
+    "content": "arxiv.org/abs/2307.05494\n[51] Alexandra Sasha Luccioni and Alex Hernandez-Garcia. 2023. Counting carbon:\nA survey of factors influencing the emissions of machine learning. arXiv preprint\narXiv:2302.08476 (2023).\n[52] Alexandra Sasha Luccioni, Emma Strubell, and Kate Crawford. 2025. From\nEfficiency Gains to Rebound Effects: The Problem of Jevons’ Paradox in AI’s\nPolarized Environmental Debate. arXi",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 4.396672863762926,
+    "content": "ansparency and risk management for high-risk AI and\n\"towards more substantive goals and obligations. Indeed, the AI Act\",\n,general-purpose AI systems make some progress in requiring doc-\ndoes contain some language to this effect. For providers of GPAI,\n,\"umentation of computational resources and energy consumption,\"\n\"models with systemic risk and providers of HRAI systems, the Act\",\n,\"but signific",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 4.216009420376099,
+    "content": "enerally, it is\narguably crucial to move beyond mere transparency provisions\ntowards more substantive goals and obligations. Indeed, the AI Act\ndoes contain some language to this effect. For providers of GPAI\nmodels with systemic risk and providers of HRAI systems, the Act\nmandates risk assessment and mitigation (Art. 55(1)(b) and Art. 9).\nWe argue that these measures should also consider environm",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 4.017424873893043,
+    "content": "Conference’17, July 2017, Washington, DC, USA Kai Ebert, Nicolas Alder, Ralf Herbrich, and Philipp Hacker\nB Policy Proposals Overview\nTable 1: Summary of Policy Proposals for AI and Environ-\nmental Impact\nArea Policy Proposal and Description\nEnergy and Environmental\nReportingEnergy consumption from inferences : Include energy consumption from\nboth single and cumulative inferences in reporting.\nInd",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 3.1961582121565457,
+    "content": "netary limits [8–10, 18].\"\n\"SIA), and provide guidance on its operationalization. The EU data\",Regulatory frameworks are beginning to address these chal-\ncenter regulation proves to be a good first step but requires further,\"lenges, too. While the new U.S. administration scraps environmen-\"\ndevelopment by including binding renewable energy and efficiency,\"tal rules and generally deregulates, the E",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 3.1698266231432606,
+    "content": "bligations; Legal and Regulatory Clarifications; Transparency and,\"as one of its core goals and contains dedicated sustainability rules,\"\nAccountability Mechanisms; and Future Far-Reaching Measures,which also apply to US and other non-EU providers offering models\nbeyond Transparency.,\"in the EU. Similarly, the Digital Services Act (DSA) compels Very\"\n,Large Online Platforms and Very Large Online S",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 3.093372265975072,
+    "content": "der the AI Continent,the problem of sustainable AI remains underexplored. Existing\n\"Action Plan, including the establishment of AI Gigafactories [25],\",\"contributions date from before the AI Act’s final version [63], which\"\nis a late but necessary impetus for technological and strategic au-,\"differs significantly from previous proposals (see below, 5.2.) or do\"\ntonomy but must not endanger the Uni",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 3.068700514376692,
+    "content": "-based\nsocio-technical systems, extracting and, at times, exploiting, both\nnatural and human resources [ 18,24,39,42,58], often particularly\nfrom marginalized communities [ 61,65] and regions [ 50,80]. Both\nthe quest for performance and the funding logic behind AI force\nproviders to scale them to a point where this trajectory may push\nagainst planetary limits [8–10, 18].\nRegulatory frameworks are ",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 3.068700514376692,
+    "content": "on\nas one of its core goals and contains dedicated sustainability rules,\nwhich also apply to US and other non-EU providers offering models\nin the EU. Similarly, the Digital Services Act (DSA) compels Very\nLarge Online Platforms and Very Large Online Search Engines to\nthoroughly assess and mitigate systemic risks, which is of particu-\nlar relevance for hybrid platforms increasingly integrating AI. ",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 3.044419196860386,
+    "content": "nvironmental\nimpact of\"\n\"risks, in keeping with the normative goals of the AI Act listed in\",\n,\"AI applications. Moreover, transparency measures are restricted to\"\n\"Article 1 and Recitals 1, 2 and 8.\",\n,\"authorities, limiting broader accountability and public scrutiny.\"\n\"Crucially, both provisions relate to risks of the AI model or sys-\",\n,\"Additionally, while the Act imposes risk assessment and m",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 3.032422066041649,
+    "content": "shortcomings\nthreaten to undermine the most promising legislative avenues for\ntackling AI’s climate effects. The EU’s recent push for massive\ninvestments in computing infrastructure under the AI Continent\nAction Plan, including the establishment of AI Gigafactories [ 25],\nis a late but necessary impetus for technological and strategic au-\ntonomy but must not endanger the Union’s climate goals unde",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 3.032422066041649,
+    "content": "s, the AI Act requires no such reporting specifi-\",\"and to whom, is yet to be determined.\"\ncally for AI—as it does for energy use—nor does it cover operations,\noutside the EU.,\n,\"5.5\nDiscussion and Interim Conclusion on the\"\n,AI Act\n\"5.4\nEnvironmental Risk Assessment and\",\"Overall, while the AI Act introduces valuable steps toward address-\"\n,\"ing climate-related concerns in AI development and depl",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 3.0016470314665358,
+    "content": "oni, Sylvain Viguier, and Anne-Laure Ligozat. 2023. Esti-\"\n\"[26]\nEuropean Commission Joint Research Centre. 2023.\nEU Code of Conduct\nfor\",\"mating the carbon footprint of bloom, a 176b parameter language model. Journal\"\n\"Data Centres: Towards More Innovative, Sustainable, and Secure Data Centre\",\"of Machine Learning Research 24, 253 (2023), 1–15.\"\n\"https://joint-research-centre.ec.europa.eu/jrc-new",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 2.926653759270999,
+    "content": "ournal of the Faculty of Information 7, 2 (2022), 5–11.\"\n\"https://techreg.org/article/view/2025-1-Commins-Irion\nRegulation 2025 (2025).\",[42] Tugrul Keskin and Ryan David Kiggins (Eds.). 2021. Towards an International\n\"[17]\nJosh Cowls, Andreas Tsamados, Mariarosaria Taddeo, and Luciano Floridi.\",Political Economy of Artificial Intelligence. Palgrave Macmillan.\n\"2023.\nThe AI gambit:\nleveraging arti",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 2.914240179647611,
+    "content": "0,1\nTable 1: Summary of Policy Proposals for AI and Environ-,\nmental Impact,\nArea,Policy Proposal and Description\nEnergy and Environmental,Energy consumption from inferences: Include energy consumption from\n,both single and cumulative inferences in reporting.\nReporting,\n,Indirect emissions and water consumption: Mandate reporting of indirect\n,emissions and water use in AI applications.\n,Cumulative",
+    "type": "table"
+  },
+  {
+    "rank": 19,
+    "score": 2.88972628068607,
+    "content": "0,1\nand downstream providers) through delegated acts from the,\nCommission (Articles 53(5) and (6)) and future recommenda-,\"7.3\nTransparency and Accountability\"\ntions from the AI Office.,Mechanisms\n• Indirect Emissions and Water Consumption Reporting:,To promote public trust and accountability in AI’s environmental\nThe Act currently omits indirect emissions from AI applica-,\"impact, the following m",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 2.841915243272355,
+    "content": ", both\",\n,both increase transparency and facilitate more sustainable\nsingle and overall inferences should be included as a report-,\n,decisions by market participants.\ning category in Annex XI and Annex XII (vis-à-vis authorities,\nand downstream providers) through delegated acts from the,\nCommission (Articles 53(5) and (6)) and future recommenda-,\"7.3\nTransparency and Accountability\"\ntions from the",
+    "type": "table"
+  }
+]

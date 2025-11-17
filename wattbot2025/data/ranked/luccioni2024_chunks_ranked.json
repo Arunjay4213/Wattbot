@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 2.7315433860582483,
+    "content": "fferent results (see [ 1] for\na detailed comparison). It is therefore difficult to systematically compare the carbon footprints of different models.\nExisting tools and studies have also largely focused on the dynamic power consumption (i.e. the electricity necessary for\npowering hardware) and its resulting emissions. However, there have been several proposals to also take into account\nthe embodied",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 2.4939909745835944,
+    "content": "necessary for,\n,\"powering hardware) and its resulting emissions. However, there have been several proposals to also take into account\",\n,the embodied emissions of ML models (i.e. the emissions that can be attributed to the manufacturing of computing,\n,equipment) into carbon emissions estimates. This has been impeded by a lack of transparency from the designers,\n,\"of common computing hardware such ",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 2.2752216682960973,
+    "content": "ion towards the final quantity of carbon emissions. Given the\nincreasing deployment of ML models in the cloud, several studies have therefore looked at cloud-specific ways to reduce\nthe emissions of ML models such as delayed scheduling, workload elasticity and choosing the least carbon-intensive\nelectricity available Chien et al. [6], Dodge et al. [12], Hanafy et al. [19].\nDespite these empirical ",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 2.2579566657210575,
+    "content": "ssions) of different stages of the ML training and deployment cycle, understanding\",\n,\"trade-offs between training and inference emissions patterns, and characterizing the lifetime emissions of ML models,\",\n,\"and we hope that others will be possible in the future, which would require more transparency from model creators\",\n,regarding both the up front (i.e. training) and downstream (i.e. inference",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 2.1932751281545495,
+    "content": "l of comparing energy intensity and carbon\nemissions of models with differing numbers of parameters when applied to different tasks. To address this question,\nwe selected a subset of 3 tasks – text classification, extractive question answering, and summarization – given their\ndiversity and broad applicability in a variety of settings, and compare the 8 zero-shot models of different sizes, based on",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 2.138873746258883,
+    "content": "0-SXM4-80GB GPUs hosted on Amazon Web Services, and\",\n,used the Code Carbon package [47] to measure both the energy consumed and the carbon emitted during inference 3.,\n,\"Given that all of our experiments were run in the same compute region (AWS’s us-west-2), which is based in Oregon\",\n,\"and has an average carbon intensity of 297.6 grams of 𝐶𝑂2𝑒𝑞 per kWh4, this means that both the energy consumed\"",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 2.115979415260474,
+    "content": "times to measure the significance of results.\nWe ran all of our experiments on a node of 8 NVIDIA A100-SXM4-80GB GPUs hosted on Amazon Web Services, and\nused the Code Carbon package [ 47] to measure both the energy consumed and the carbon emitted during inference3.\nGiven that all of our experiments were run in the same compute region (AWS’s us-west-2 ), which is based in Oregon\nand has an average ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.104086030820521,
+    "content": "and Li Fei-Fei. 2017. Visual Genome: Connecting Language and Vision Using Crowdsourced Dense Image Annotations.\"\n\"https://doi.org/10.1007/s11263-016-0981-7\nInternational Journal of Computer Vision 123 (2017), 32–73.\"\n[25] Alex Krizhevsky. 2009. Learning multiple layers of features from tiny images. Technical Report.\n\"[26] Alexandre Lacoste, Alexandra Luccioni, Victor Schmidt, and Thomas Dandres. 2",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 2.065006678774233,
+    "content": "s remains a relatively under-explored topic, albeit one that\nhas been gathering traction since Strubell et al’s seminal article quantifying the energy and carbon emissions of a\nvariety of then-large NLP models [2019]. Since then, most studies have focused on estimating the energy consumed and\ncarbon emitted during the training phase of neural networks – this includes studies by Patterson et al. [2",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 2.0224748838677735,
+    "content": "0,1\n,\"Beyond the differences between task-specific and multi-purpose models generally, we also observed variation\"\nwithin the multi-purpose models that we examined. We present our results in Table 3;,\"in it, we can observe that\"\non a per-architecture basis (i.e. within the family of decoder-only models and the family of sequence-to-sequence,\n,\"models), size and emissions are correlated, with small",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 2.0155317623568694,
+    "content": "e\nand carbon emissions of their products, we can make a comparison based on the experiments carried out in the\npresent study. For instance, the average emissions of a BERT-based model fine-tuned for extractive question answering\n(bert-large-uncased-whole-word-masking-finetuned-squad ), a task akin to extractive web search, is 0.70g 𝐶𝑂2𝑒𝑞\nper 1,000 queries, which is less than 3 times that of the mu",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 2.008637314149687,
+    "content": "0,1,2\nPower Hungry Processing,,\"ACM FAccT ’24, June 3–6, 2024, Rio de Janeiro, Brazil\"\n,\"inference, we hope this study can be useful for practitioners to better understand accuracy-efficiency trade-offs across\",\n,\"tasks and models, as well as enabling better estimates, and projections and policy decisions at the sector level.\",\n\"2\nPREVIOUS WORK\",,\n,\"Estimating the energy and emissions of ML models",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 2.0017910165043395,
+    "content": "as GPT-4 and PaLM being deployed in user-facing\"\n\"products such as web search [4, 18], email, and navigation [17], where smaller, task-specific versions of models such\"\n\"as BERT were previously used [3, 16]. While it\nis hard to quantify the environmental\nimpacts of\nthis transition\"\n\"given the lack of\ntransparency of\ntechnology companies regarding both the number of parameters, architecture\"\n\"and c",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 1.9882408199822548,
+    "content": "erage output length, carbon emissions, and model structures for the different summarization datasets. It\nshows a clear correlation between output length and measured emissions, with a higher slope for the decoder-only\narchitectures (the BLOOMz family of models) than for the sequence-to-sequence architectures (the Flan-T5 family).\nAs we have observed in the current section, there is no ‘one-size-fi",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 1.9358666017992041,
+    "content": "0,1,2\nPower Hungry Processing,,\"ACM FAccT ’24, June 3–6, 2024, Rio de Janeiro, Brazil\"\n\"Fig. 2. The 5 modalities examined in our study, with the number of parameters of each model on the x axis and the average amount\",,\nof carbon emitted for 1000 inferences on the y axis. NB: Both axes are in logarithmic scale.,,\n,\"Next, we examine the respective influences of model size and task structure on mode",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 1.9328735854204562,
+    "content": "least carbon-intensive\",\n,\"electricity available Chien et al. [6], Dodge et al. [12], Hanafy et al. [19].\",\n,\"Despite these empirical studies, there is currently a lack of standardized methodology for quantifying and comparing\",\n,\"the energy consumption and carbon emissions of ML models. There are several tools that exist, such as Code Carbon [47],\",\n,\"MLCO2 [26] and LLMCarbon [13], all of which a",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 1.9259800373344897,
+    "content": "during inference, with differing progressions for each modality – however, the task structure ac-\",,\ncounts for more of the variation than the model size does. We can observe once again that text-to-image is by far the most,,\n\"carbon- and energy-intensive task, with smaller image generation models such as segmind/tiny-sd that have around\",,\n\"500M parameters producing magnitudes more carbon than te",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 1.9191367048723835,
+    "content": "-text tasks, we see two separate sets of models: the masked language modeling task follow-\ning a lower trend, producing emissions akin to text-to-category models, compared to text generation and summarization\ntasks, which produce similar amounts of carbon to the image captioning models with a similar number of parameters.\nFor context, the most carbon-intensive image generation model ( stable-diffu",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 1.85971681603551,
+    "content": "carbon as well as\",\n\"water and mining of rare earth minerals, have yet to be estimated. According to AWS, the largest global cloud provider,\",\n\"inference is estimated to make up 80 to 90% of total ML cloud computing demand [2, 28], whereas a 2021 publication by\",\n\"Meta attributed approximately one-third of their internal end-to-end ML carbon footprint to model inference, with the\",\n\"remainder prod",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 1.8533462108760541,
+    "content": "rding to AWS, the largest global cloud provider,\ninference is estimated to make up 80 to 90% of total ML cloud computing demand [ 2,28], whereas a 2021 publication by\nMeta attributed approximately one-third of their internal end-to-end ML carbon footprint to model inference, with the\nremainder produced by data management, storage, and training [ 57]; similarly, a 2022 study from Google attributed\n",
+    "type": "text"
+  }
+]

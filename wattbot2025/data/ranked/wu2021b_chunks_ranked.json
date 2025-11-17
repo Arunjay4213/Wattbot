@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 9.408054669931193,
+    "content": "actual generation to better utilize the energy [Elkin and\nWitherspoon]. Another example is the current Covid outbreak. As horrendous as the outbreak has been and continues\nto be, technology has enabled a portion of the economy to continue to operate even as employees work remotely. In\naddition, the global carbon emissions for 2020 dropped by 6.4% with vehicle transportation in the US accounting fo",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 8.432527667134746,
+    "content": "n emissions for 2020 dropped by 6.4% with vehicle transportation in the US accounting for a\",\n\"portion of the global reduction [Tollefson, 2021]. Looking forward, information technology can improve efﬁciencies\",\n\"in practically every sector, from manufacturing to food production to transportation to controlling the climate in our\",\n\"homes and ofﬁces. Although there is a carbon cost associated with",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 7.583906387050217,
+    "content": "r products. Examples of such commitments are Facebook achieving NetZero in operational emissions\nin 2020 and across its value chain by 2030 [Facebook], Apple’s pledge for 100% carbon neutral supply chain by\n2030 [Apple], Microsoft’s goal of being carbon negative by 2030 [Smith], and Google’s aim of 24x7 carbon free data\ncenters [Google, b]. In 2020, Amazon, Google, Facebook, and Microsoft were the",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 6.170585897195081,
+    "content": "ust a few of the topics under the larger sustainability umbrella. There is increased focus on\nthese topics from both industrial and political institutions. All major technology companies have pledged to reduce or\neliminate their carbon footprint in the next decade by reducing the environmental impact associated with manufacturing\nand using their products. Examples of such commitments are Facebook ",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 6.132741879618505,
+    "content": "the\"\n\"International Symposium on Computer Architecture, 2021.\"\n\"Facebook. Facebook is committed to reaching net zero emissions across our value chain in 2030, aligning our efforts\"\nwith the latest science on what is needed to transition to a zero-carbon future.\nhttps://sustainability.fb.com/report-page/climate/.\nApple. Apple commits to be 100 percent carbon neutral for its supply chain and product",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 5.839987650250076,
+    "content": "0, Amazon, Google, Facebook, and Microsoft were the top four technology companies\"\n\"that purchased signiﬁcant renewable energy capacities, accounting for 30% of the cumulative total from corporations\"\n\"globally [Schechner, 2021].\nIn addition, countries and trading zones are legislating carbon emission requirements.\"\n\"China has committed to be carbon free by 2060 [Myers, 2020] and the EU has commit",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 5.3087370262693145,
+    "content": "ple.com/newsroom/2020/07/\napple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/ .\nBrad Smith. Microsoft will be carbon negative by 2030.\nhttps://blogs.microsoft.com/blog/2020/01/16/microsoft-will-be-carbon-negative-by-2030/ .\nGoogle. The Internet is 24x7—carbon-free energy should be too.\nhttps://sustainability.google/progress/projects/24x7/ , b.\nSam Schechner. A",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 5.242733573983652,
+    "content": "by 2060 [Myers, 2020] and the EU has committed to cut carbon emissions by\n55% by 2030 [BBC, 2021].\nSustainability targets and the associated regulations will continue to increase, and hardware must be manufactured with\nless planetary impact, use less energy while in operation, and produce less e-waste at the end of life [Orcuttarchive, 2015,\nChang et al., 2017]. Existing practices such as the move",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 4.8635777411308805,
+    "content": "t Gupta. Most of computing’s carbon emissions are coming from manufacturing and\n\"infrastructure. https://tech.fb.com/sustainable-computing/, 2021.\"\n\"Udit Gupta, Young Geun Kim, S. Lee, J. Tse, Hsien-Hsin S. Lee, Gu-Yeon Wei, D. Brooks, and Carole-Jean Wu.\"\nChasing carbon: The elusive environmental footprint of computing. Proceedings of the IEEE International\n\"Symposium on High-Performance Computer",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 4.731330608341983,
+    "content": "sakis, Deli Zhang, Pulkit Misra, Rod Assis, Kyle Woolcock, Nithish\nMahalingam, Brijesh Warrier, David Gauthier, Lalu Kunnath, Steve Solomon, Osvaldo Morales, Marcus Fontoura,\nand Ricardo Bianchini. Flex: High-availability datacenters with zero reserved power. In Proceedings of the\nInternational Symposium on Computer Architecture , 2021.\nFacebook. Facebook is committed to reaching net zero emission",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 4.731330608341983,
+    "content": "and Transparency, page 610–623, 2021.\"\nJon Kleinberg and Manish Raghavan. Algorithmic monoculture and social welfare. Proceedings of the National\n\"Academy of Sciences, 118(22), 2021.\"\n\"Ravi Jain and John Wullert. Challenges: Environmental design for pervasive computing systems.\nIn Proceedings of the\"\n\"8th Annual International Conference on Mobile Computing and Networking, page 263–270, 2002.\"\n\"Emm",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 4.731330608341983,
+    "content": "ergy storage, 2020.\"\nCarl Elkin and Sims Witherspoon. Machine learning can boost the value of wind energy.\nhttps://deepmind.com/blog/article/machine-learning-can-boost-value-wind-energy.\nJeff Tollefson. COVID curbed carbon emissions in 2020 — but not by much.\n\"https://www.nature.com/articles/d41586-021-00090-3, 2021.\"\n\"Jichuan Chang, Justin Meza, P. Ranganathan, C. Bash, and Amip Shah. Green serve",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 4.68883208616153,
+    "content": "obile Computing and Networking , page 263–270, 2002.\nEmma Strubell, Ananya Ganesh, and Andrew McCallum. Energy and policy considerations for deep learning in nlp,\n2019.\nSrilatha Manne. Examining the Carbon Footprint of Devices. https://devblogs.microsoft.com/\nsustainable-software/examining-the-carbon-footprint-of-devices/ , 2020.\nCarole-Jean Wu and Udit Gupta. Most of computing’s carbon emissions ",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 4.68883208616153,
+    "content": "icity/use-of-electricity.php .\nC. Lawrence Zitnick, Lowik Chanussot, Abhishek Das, Siddharth Goyal, Javier Heras-Domingo, Caleb Ho, Weihua Hu,\nThibaut Lavril, Aini Palizhati, Morgane Riviere, Muhammed Shuaibi, Anuroop Sriram, Kevin Tran, Brandon Wood,\nJunwoong Yoon, Devi Parikh, and Zachary Ulissi. An introduction to electrocatalyst design using machine learning\nfor renewable energy storage, 2020.",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 4.526207941277976,
+    "content": "silient computing\ninfrastructures can often come with signiﬁcant environmental implications. Hence, any computing infrastructure\nsolutions must be cognizant of the multifaceted nature of the problems being addressed.\nSustainability. Resource limitations, climate change, water depletion, electronic waste, ecosystem damage, and\nenvironmental racism are just a few of the topics under the larger susta",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 4.232606466698837,
+    "content": "0,1\nSocio-Technological Challenges and Opportunities: Paths Forward,A PREPRINT\n\"Adminstration]. This is where smart home IoT devices, such as Nest, can have an impact. AI is used to discover new\",\n\"electrocatalysts for more efﬁcient and scalable ways to store and use renewable energy [Zitnick et al., 2020] while also\",\nbeing used to predict renewable energy availability ahead of actual generation ",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 4.1824160032896485,
+    "content": "intermittent nature of renewable energy generation but the cost must be\n\"signiﬁcantly improved for practical deployment [Plumer, 2021]. And, for technology to be truly inclusive, the way AI\"\n\"technologies are developed and used must be human-centered, driven by the cultural and demographic differences in\"\n\"the population and with pro-social goals [Stray, 2021]. Furthermore, given its increasingly ",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 4.114864687142194,
+    "content": "ion but the cost must be\nsigniﬁcantly improved for practical deployment [Plumer, 2021]. And, for technology to be truly inclusive, the way AI\ntechnologies are developed and used must be human-centered, driven by the cultural and demographic differences in\nthe population and with pro-social goals [Stray, 2021]. Furthermore, given its increasingly large impact on the society,\nAI must be developed wi",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.711844775419322,
+    "content": "ernet is 24x7—carbon-free energy should be too.\n\"https://sustainability.google/progress/projects/24x7/, b.\"\nSam Schechner. Amazon and Other Tech Giants Race to Buy Up Renewable Energy. https://www.wsj.com/\n\"articles/amazon-and-other-tech-giants-race-to-buy-up-renewable-energy-11624438894, 2021.\"\nSteven Lee Myers. China’s Pledge to Be Carbon Neutral by 2060: What It Means.\n\"https://www.nytimes.com/",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 2.505873988842314,
+    "content": "a-climate-change.html , September 2020.\nBBC. Climate change: EU to cut CO2 emissions by 55% by 2030.\nhttps://www.bbc.com/news/world-europe-56828383 , April 2021.\nMike Orcuttarchive. A biodegradable computer chip that performs surprisingly well.\nhttps://www.technologyreview.com/2015/07/14/167161/\na-biodegradable-computer-chip-that-performs-surprisingly-well/ , 2015.\nTing-Jung Chang, Zhuozhi Yao, Pa",
+    "type": "text"
+  }
+]

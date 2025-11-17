@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.277516679047511,
+    "content": "adford, K. Narasimhan, T. Salimans, and I. Sutskever,\"\napplicable strategy for all workloads and achieves the,“Improving language understanding by generative pre-\n\"greatest\ncost\nreduction when\nselectively\nutilized\nac-\",\n,\"training,” OpenAI Preprint, 2018.\"\n\"cording to workload characteristics.\nIn particular,\nfor\",\"[3] H. Touvron, T. Lavril, G.\nIzacard, X. Martinet, M.-A.\"\n\"offline batch processing",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 4.207768615807397,
+    "content": "s that represent both online chatbot and batch\nprocessing workloads, we were able to derive key insights\nfor the efficient operation of LLM inference systems.\n(i)The impact of a workload’s I/O patterns on optimal\ninfrastructure selection: The requirements of online\nconversational chatbot inference and batch processing\ninference differ greatly in input and output token lengths,\nwhich act as key fac",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 0.0,
+    "content": "Cost-Efficient LLM Serving in the Cloud: VM\nSelection with KV Cache Offloading\nKihyun Kim1, Jinwoo Kim1, Hyunsun Chung1, Myung-Hoon Cha2, Hong-Yeon Kim2, Youngjae Kim1,†\n1Dept. of Computer Science and Engineering, Sogang University, Seoul, Republic of Korea\n2ETRI, Daejeon, Republic of Korea\nAbstract —LLM inference is essential for applications like\ntext summarization, translation, and data analysi",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 0.0,
+    "content": "charac-\nteristics, estimating GPU memory needs, and recommending\ncost-effective VM instances. Additionally, the Compute Time\nCalibration Function (CTCF) improves instance selection\naccuracy by adjusting for discrepancies between theoretical\nand actual GPU performance. Experiments on AWS GPU\ninstances show that selecting lower-cost instances without\nKV cache offloading improves cost efficiency by u",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 0.0,
+    "content": "rn Natural Language Processing (NLP), demon-\nstrating outstanding performance in various applications such\nas text summarization, machine translation, and conversa-\ntional AI [ 1]. LLMs built on Transformer-based architectures,\nsuch as GPT [ 2] and LLaMA [ 3], leverage multi-layer self-\nattention mechanisms and large-scale pretraining to achieve\nnear-human-level language understanding and generati",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 0.0,
+    "content": "s essential to consider task-specific Service Level Objectives\n(SLOs). For instance, in online inference tasks, such as real-\ntime conversational services or question answering, latency\nmust be minimized to ensure a seamless user experience.\nReducing inference latency is a key challenge in these\nscenarios.\nOn the other hand, in batch processing tasks [ 4,5] such\nas text summarization for large dat",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "author.can easily lead to GPU memory shortages. Due to the auto-\nregressive nature of LLM inference, the Key-Value (KV) cache,\nwhich stores past token information, continuously grows. As\na result, GPU memory usage increases sharply with sequence\nlength and batch size.\nA common technique to mitigate this issue is KV Cache\nOffloading, which offloads KV cache data exceeding GPU\nmemory limits to CPU m",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "Cloud Environ-\nments: Major cloud service providers such as AWS, GCP, and\nAzure offer a variety of GPU instance options with different\nperformance levels and cost structures, providing flexibility\nin resource utilization [ 10]. However, selecting a cost-efficient\nGPU instance in a cloud environment is a complex task\nthat is difficult for users to perform manually. The challenge\narises because GPU ",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "tion based on task characteristics\n•Efficient KV Cache Offloading strategy\nBalancing throughput targets and cost efficiency by combin-\ning these two factors remains a critical challenge that needs\nto be addressed.\nLimitations of Existing Research: Previous studies on\ncost efficiency in cloud environments [ 11,12,13,14,15] have\nfocused primarily on image processing or general machine\nlearning workl",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "ffloading could be leveraged effectively.\nFurthermore, these studies do not comprehensively analyze\ncost efficiency in relation to Service Level Objectives (SLOs).\nTo address these challenges, this paper proposes InferSave ,\na software framework that automatically selects the optimal\nVM instance by considering both cost and performance based\non SLOs.arXiv:2504.11816v1  [cs.LG]  16 Apr 2025\n\nThe In",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "modeling step to predict the performance\nand cost of each instance. Finally, it evaluates these predictions\nto recommend the most cost-efficient instance that meets the\nuser’s SLO constraints.Through this process, the InferSave\nframework becomes the first solver system that automatically\nrecommends the most economical VM instance for LLM\nserving in cloud environments. By integrating KV cache\nofflo",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "inference in cloud\nenvironments. By leveraging InferSave , users can easily find\nthe most cost-effective VM instance that meets their specified\nSLO while minimizing operational expenses.\nExperimental results show that applying InferSave\nachieves significant cost savings compared to traditional\nmaximum-performance-based policies, with reductions of up\nto 73.7% for online workloads and 20.19% for of",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "as OpenAI’s\nGPT [ 2] and Meta’s LLaMA [ 3], are built on the Trans-\nformer [ 1] architecture. These models consist of a multi-layer\nstructure incorporating Self-Attention mechanisms and Feed-\nForward Networks, enabling their broad applicability across\nvarious natural language processing (NLP) tasks.\nThe LLM inference process is divided into two stages: Prefill\nand Decode. In the Prefill stage, the",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "tored in the\nGPU memory as a Key-Value Cache (KV Cache) to alleviate\ncomputational overhead in subsequent operations.\nThe KV Cache is essential for preventing redundant\ncomputations in Self-Attention, thereby enhancing inference\nspeed and resource efficiency. For instance, if the Prefill stage\ncomputes and stores the Key and Value tensors for the input\n\"I am a,\" the Decode stage can reuse them to ",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "onoperations and improve processing speed. However, the size\nof the KV Cache increases significantly with the input length\nand model size.\nFor example, as shown in Figure 1, in the OPT_2.7B model\nrunning on an AWS g4dn.xlarge instance with 1024 input\ntokens, the KV Cache consumes approximately 0.332GB at a\nbatch size of 2. When the batch size increases to 32, the\nKV Cache expands to 5.312GB, which",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "stion, resulting in an Out-of-\nMemory (OoM) issue. To address this, KV Cache Offloading\ntechniques have been proposed [ 6,7,8,9]. These techniques\noperate by offloading KV Cache data that exceeds GPU\nmemory capacity to CPU memory or disk and retrieving\nit back to the GPU when needed for computation. This\napproach effectively alleviates the GPU memory pressure,\nenabling the processing of long seque",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "tion of KV Cache Offloading. If the transfer\nfrequency of KV Cache data is high, the increased latency\ncan lead to bandwidth bottlenecks, ultimately degrading\ninference performance. Therefore, for effective deployment of\nKV Cache Offloading, it is essential to optimize the process\nby considering LLM inference characteristics (e.g., sequence\nlength, batch size) and user-defined Service Level Object",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "anging from $0.379 (g4ad.xlarge) to $40.96 (p4de.24xlarge),\ndepending on the type of GPU, the memory capacity, and the\nbandwidth of the network [22].\nMoreover, when applying KV Cache Offloading to LLM\ninference, the trade-off between inference performance and\nactual cost introduces a complex dilemma. To maximize cost-\nefficiency, users must carefully optimize their choice of VM\nand offloading stra",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "ly to\n\nTABLE I\nVarious Types of instances provided by AWS.\nThis information was available on Feburary 4, 2025 in\nN.Virginia region.\nNameGPU On- GPU FLOPS vCPU GPU Mem Mem Network\nType Demand ($) (#) (TFLOPS) (GiB) (GiB) (Gbps) (Gbps)\ng4dn.xlarge T4 0.526 1 8.141 4 16 16 - 25\ng4ad.xlarge V520 Pro 0.379 1 7.373 4 8 16 - 10\ng5.xlarge A10G 1.006 1 31.52 4 24 16 - 10\ng5g.xlarge T4G 0.42 1 8.141 4 16 8 ",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "4 32 128 25\ng6.12xlarge L4 4.602 4 30.29 48 96 192 40\ng6.48xlarge L4 13.35 8 30.29 192 196 768 100\np4de.24xlarge A100 40.96 96 19.49 96 7680 640 400\ndetermine an optimal configuration, which adds significant\noverhead [6, 9].\nIn this paper, we outline the key dilemmas of KV Cache\nOffloading for LLM inference in the cloud as follows.\n•Dual Nature of KV Cache Offloading: KV Cache\nOffloading mitigates",
+    "type": "text"
+  }
+]
