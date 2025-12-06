@@ -80,16 +80,22 @@ def clean_text(text):
 def process_pdf(pdf_id, url):
     pdf_path = download_pdf(pdf_id, url)
     if pdf_path is None:
-        return  # Skip processing if download failed
+        return  # Skip if download failed
 
     text = extract_text(pdf_path)
     tables = extract_tables(pdf_path)
     combined = clean_text(text + "\n" + tables)
 
+    # 🖨️ Print preview in console
+    print(f"\n========== {pdf_id}.pdf TEXT PREVIEW ==========")
+    print(combined[:1500])  # print first 1500 chars for readability
+    print("\n=============================================\n")
+
     out_path = PROCESSED_DIR / f"{pdf_id}.txt"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(combined)
     print(f"📝 Processed {pdf_id} → saved to {out_path}")
+ 
 
 def main():
     with open("data/raw/metadata.csv", "r", encoding="latin-1") as f:
