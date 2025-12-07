@@ -1,0 +1,782 @@
+[
+  {
+    "type": "text",
+    "content": "Efficient Heterogeneous Large Language Model Decoding\nwith Model-Attention Disaggregation\nShaoyuanChen1 WencongXiao2 YutongLin1 MingxingZhang1 YingdiShan1 JinleiJiang1\nKangChen1 YongweiWu1\n1TsinghuaUniversity\n2ByteDance\nAbstract resourcesfordifferenttaskstoimproveresourceutilization.\nThisapproachalignsperfectlywithLLMprocessing,which\nTransformer-based large language models (LLMs) exhibit\ncanbedividedintotwodistinctphases.Thefirstphase,known\nimpressive performance in generative tasks but also intro-\nastheprefillphase,processesallinputtokensfromtheprompt ducesignificantchallengesinreal-worldservingduetoin-\ninparallelandiscomputation-bound.Thesecondphase,i.e.,\nefficientuseoftheexpensive,computation-optimizedaccel-\nthedecodephase,generatestheoutputtokensoneafteran-\nerators.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "theexpensive,computation-optimizedaccel-\nthedecodephase,generatestheoutputtokensoneafteran-\nerators. Althoughdisaggregatedservingarchitectureshave\nother,andistypicallymemory-bound.\nbeenproposedtosplitdifferentphasesofLLMinference,the\nefficiency ofdecoding phase is stilllow. This is causedby Splittingthetwophasesofinferencereducesinterference\nthe varying resource demands of different operators in the betweendifferentrequestsandallowsformoreflexibleparal-\ntransformer-basedLLMs.Specifically,theattentionoperator lelconfigurationsforthetwophases.Tobetterleveragethe\nismemory-intensive,exhibitingamemoryaccesspatternthat differingcharacteristicsofeachphase,severalmethodspro-\nclasheswiththestrengthsofmodernaccelerators,especially poseusingheterogeneoushardwaretoreducethecostofdis-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "withthestrengthsofmodernaccelerators,especially poseusingheterogeneoushardwaretoreducethecostofdis-\nforlongcontextrequests. aggregatedserving[12,59].Specifically,flagshipall-rounder\nToenhancetheefficiencyofLLMdecoding,weintroduce GPUslikeNVIDIAH100integratehigh-performancecom-\nmodel-attention disaggregation. This approach leverages a putationalunitsandhigh-bandwidthmemory(HBM)within\ncollectionofcheap,memory-optimizeddevicesfortheatten- asinglepackage,deliveringgoodperformanceforLLMinfer-\ntion operator while still utilizing high-end accelerators for ence.However,asshowninTable1,specializedaccelerators\notherpartsofthemodel.Thisheterogeneoussetupensures optimized for either computation or bandwidth can be sig-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "softhemodel.Thisheterogeneoussetupensures optimized for either computation or bandwidth can be sig-\nthateachcomponentistailoredtoitsspecificworkload,max- nificantly cheaper than the H100 in terms of TFLOPS per\nimizing overall performance and cost efficiency. Our com- dollar/watt(e.g.,TPUv6e)orbandwidthperdollar/watt(e.g.,\nprehensive analysis and experiments confirm the viability NVIDIAH20),butnotboth.Thiscostdisparityarisesbecause\nofsplittingtheattentioncomputationovermultipledevices. all-rounderGPUscombinepowerfulcomputationunits,HBM\nAlso,the communication bandwidth required between het- controllers,andhigh-bandwidthinternalbuseswithinasingle\nerogeneousdevicesprovestobemanageablewithprevalent chip.Suchintegrationleadstolargerdiesizesandincreased\nnetworkingtechnologies.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "anageablewithprevalent chip.Suchintegrationleadstolargerdiesizesandincreased\nnetworkingtechnologies.Tofurthervalidateourtheory,we transistor counts,posing additional challenges for chip de-\ndevelopanddeployLamina,anLLMinferencesystemthat signing,packaging,andthermalmanagement[21,25,55],all\nincorporatesmodel-attentiondisaggregationinadistributed ofwhichdriveupthedesignandmanufacturingcost.\nheterogeneouscluster.ExperimentalresultsindicatethatLam- Accordingtoouranalysesandexperiments,whilethesep-\ninacanprovide16.1∼90.1%higherestimatedthroughput arationofresourcesworkswellfortheprefillnodes,weiden-\nthanexistingsolutionswithsimilarcosts. tified significant inefficiencies in the decoding phase. For\ninstance,asanalyzedinsection2,thecomputationresource",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "cant inefficiencies in the decoding phase. For\ninstance,asanalyzedinsection2,thecomputationresource\nutilizationisoftenbelow20%whenservingtheLLaMA3-\n1 Introduction\n70BmodelwithH100.Thisisprimarilyduetothelimited\nGPUmemorysize,whichcannotaccommodatethelargeag-\n1.1 Motivation\ngregatedKVcacheforlargebatches,aswellasthelowarith-\nDisaggregatedservingarchitecturesforlargelanguagemod- meticintensityoftheattentionoperators.\nels (LLMs) [40,41,59] have recently emerged as efficient A detailed examination reveals that the decoding phase\nframeworksforhandlinggenerativeinferencerequests.The mainly comprises two types of operators, each facing dis-\ncoreconceptofdisaggregationinvolvesallocatingseparate tinct resource bottlenecks. Linear transformations, includ-\n1\n5202\nrpA\n01\n]GL.sc[\n2v41810.5042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "t resource bottlenecks. Linear transformations, includ-\n1\n5202\nrpA\n01\n]GL.sc[\n2v41810.5042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Table1:H100,H20,andTPUv6especifications.\nPrefill/Decode\nModel/Attention Disaggregation\nDisaggreagtion\nH100 H20 TPUv6e[7] ① KV Cache\nBF16TFLOPs 989 148 918\nMemorycapacity 80GB 96GB 32GB Model Model KV Cache\nWeights Weights\nMemorybandwidth 3.35TB/s 4.0TB/s 1.64TB/s ②\nQKV\nPowerrating 700W 400W unlisted\nInter-chipbandwidth 450GB/s 450GB/s 448GB/s Compute- Compute- Attn Out Memory-\nOptimized GPU Optimized GPU Optimized GPU\nNetworkbandwidth 400Gbps 400Gbps 200Gbps\nPriceperchip[2] $11.06/hr $4.63/hr* $2.70/hr Prefill Workers Model Workers Attention Workers\n*:AsH20isnotreadilyavailableoncloudserviceproviders,thelistedprice Local Scheduler\nisestimatedusingtherelativecompletesystemcostagainstH100. Global\nRequest Continuous PagedCache\nScheduler\nManager Batching Manager",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "pletesystemcostagainstH100. Global\nRequest Continuous PagedCache\nScheduler\nManager Batching Manager\ning QKVO projections and feedforward networks, are im-\nplemented with generalized matrix-matrix multiplications\nFigure1:ThedisaggregatedarchitectureofLLMserving.\n(GEMMs).Sinceallrequestsmultiplywiththesameparame-\ntermatricesintheseoperators,processingmultiplerequestsin\nbatchcanavoidrepeatedparameterloadsfrommemory,mak-\ningtheseoperatorsprimarilycomputation-bound.Incontrast, tweenheterogeneousacceleratorswhensendingandreceiving\nthe self-attention operator is memory-bound. This pivotal theinputsandoutputsofself-attentionoperators.Unlikethe\noperatorrequires eachrequestto readits own,distinctKV originalprefill-decodedisaggregation,wheretheKVcache",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "rrequires eachrequestto readits own,distinctKV originalprefill-decodedisaggregation,wheretheKVcache\ncache,resultinginabatchedgeneralizedmatrix-vectormul- is transferred only once between the prefill nodes and the\ntiplication (BGEMV) pattern. Increasing batch sizes does decodenodes,ourmodel-attentiondisaggregationarchitec-\nnotimprovethecomputationresourceutilizationbutplaces turerequiresinter-GPUcommunicationforeverylayerofthe\nadditionalpressureonthealreadylimitedmemorycapacity. model.Evenworse,communicationbetweenheterogeneous\nGPUs must rely on data center networks (DCNs),such as\nEthernet and InfiniBand,which provide only ~10% of the\n1.2 OurContributions\nbandwidth of inter-chip interconnects (ICIs) like NVLink\nbetweenhomogeneousGPUs. Ifnothandledproperly,this",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "th of inter-chip interconnects (ICIs) like NVLink\nbetweenhomogeneousGPUs. Ifnothandledproperly,this\nInlightoftheabovefindings,weproposeaninnovativecon-\nfrequentcommunicationwouldintroducehighnetworkround-\nceptcalledmodel-attention disaggregation,as illustrated\ntriptimes(RTTs)tothetokengenerationlatency,worsening\nin Figure 1. This approach involves furtherdisaggregating\ntheuserexperience.\nthedecodingphasebycreatingtwopoolsofheterogeneous\naccelerators:oneoptimizedforcomputationalpowerandthe To assess the practicality of our novel disaggregated ar-\notherformemoryresources.Weusethememory-optimized chitecture,wefirstconductadetailedquantitativestudyin-\nacceleratorstostoretheKVcachesandprocessself-attention dicating thatthese concerns are manageable in the context",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ostoretheKVcachesandprocessself-attention dicating thatthese concerns are manageable in the context\noperators,whilethecomputation-optimizeddeviceshandle of LLM inference. In subsection 3.1,we provide profiling\nall other operators. By choosing the most suitable devices andanalysistodeterminetheminimumbandwidththreshold\nforeachkindofoperators,thisarchitecturefurtherincreases betweendifferentacceleratorpools.Ourfindingsrevealthat\nhardwareutilizationandleadstobetteroverallperformance. 200/400GbpsDCNs,widelydeployedincurrentAI-oriented\nMoreover, different LLMs and workloads present varying datacenters,sufficeforattentionoffloading. However,this\ncomputationandmemoryresourcerequirements.Homoge- canonlybeachievediftheinter-GPUcommunicationiscare-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "omputationandmemoryresourcerequirements.Homoge- canonlybeachievediftheinter-GPUcommunicationiscare-\nneousacceleratorsolutions,however,canonlyprovideafixed fullyimplementedandoptimized,whichisnotpossiblefor\nratio of computation and memory resources,whichcan off-the-shelfcommunicationlibrariessuchasNCCLorGloo.\nresultinresourcewastage.Forinstance,ascontextlengths Torealizetheideaofmodel/attentiondisaggregation,we\nincrease,thememorycapacityneededtostoretheKVcache implement two specific techniques to reduce the network-\nexpandsaccordingly;withafixedresourceratio,asubstan- ingoverhead.First,wedesignedanddeployedafullyhost-\ntialportionofcomputationalresourcesremainsunderutilized bypassednetworkstack.LeveragingPCIeP2Pcapabilities,\nwhenprocessingrequestswithlongcontexts.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "utilized bypassednetworkstack.LeveragingPCIeP2Pcapabilities,\nwhenprocessingrequestswithlongcontexts.Bypoolinghet- thisrevampednetworkstackenablesGPUstodirectlytalk\nerogeneousaccelerators,wecanadjustthenumberofeach with network interface cards (NICs), eliminating the need\nkindofacceleratorstobettermatchtheLLMandworkload forhostCPUsynchronizationandinvolvementfornetwork\nandhenceimproveresourceutilization. transmissions. The networkdata is also directly read from\nTheprimarychallengeassociatedwithattentionoffload- andwritten to GPU memory withoutpassing throughhost\ningarisesfromthesubstantialcommunicationdemandsbe- memory. Additionally, we developed an automated model\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "converter.Thisconvertersplitsthemodelcomputationgraph 2.1 Preliminaries\ninto slices, interleaved with attention operators. It also re-\nModernlargelanguagemodels(LLMs)primarilyrelyonthe\norders the operators and coordinates the computation and\ntransformerarchitecture[49].Inatransformer-basedLLM,\ncommunicationpipelines,enablingeffectiveoverlappingof\neachinputtokenisfirstmappedtoawordembeddingofdi-\ncommunicationandcomputationtasks.\nmensiond.Theseembeddingsthenpassthroughaseriesof\nMoreover,with model-attention disaggregation,running\ntransformerblocks.Thefinaloutputembeddingsaremulti-\ntheinferenceprocesswithonlyasinglebatchresultsinunder-\npliedbyasamplingmatrixtogeneratethepredictedlikeli-\nutilizationofresources,asthememorydeviceremainsidle\nhoodsforthenexttoken.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "neratethepredictedlikeli-\nutilizationofresources,asthememorydeviceremainsidle\nhoodsforthenexttoken.\nwhen the computation device is active,and vice versa. To\nWithineachtransformerblock,theinputembeddingsare\naddressthisinefficiencyandresourcewastage,weintroduce\nprojectedintothreedistinctvectors:query(q),key(k),and\nstaggeredpipelining,anadvancedtechniquethatincreasesthe i i\nvalue(v),allofwhichhavethesamedimensiond ashidden\nhardwareutilization.Withstaggeredpipelining,werunmulti- i\nstates.Thesevectorsareprocessedthroughanattentionoper-\nplebatchesconcurrentlyandoptimizetheworkflowtoensure\natortocomputeattentionscores.Theattentionscoresarethen\nthatboththecomputationandmemorydevicesareworking\nweightedbyamatrixW toproducetheoutputembeddings\nsimultaneously,minimizingresourcewasteandmaximizing out",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "htedbyamatrixW toproducetheoutputembeddings\nsimultaneously,minimizingresourcewasteandmaximizing out\ny oftheattentionlayer.\nsystemperformance. i\nTo validate our analysis,we develop and evaluate Lam-\nq =W x, k =W x, v =W x,\nina,adistributedheterogeneousLLMinferencesystemwith i q i i k i i v i\nmodel-attentiondisaggregation.Wealsoconductextensive n (cid:18) q⊤k (cid:19)\na = ∑softmax √i j v , ⋆\nevaluationstomirrorthereal-worldLLMserviceswithahet- i j\nd\nj=1\nerogeneousclustermadeupofH100andH20GPUs,tested\ny =W a.\nwith various models and request traces collected from the i out i\nproductionenvironmentsofLLMserviceproviders.Experi-\nTheoutputy isthenpassedthroughafeedforwardnetwork\ni\nmentalresultsthatoursystemcanachieveupto16.1∼90.1%\nthatscalesitintoanintermediatevectorspace,followedby",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "alresultsthatoursystemcanachieveupto16.1∼90.1%\nthatscalesitintoanintermediatevectorspace,followedby\nhigherthroughputwithsimilarhardwarecostthanexistingso-\nanothermatrixmultiplicationtoscaleitback:\nlutions.AlthoughLaminaexperiencesaslightlylargerlatency\nthanhomogeneoussolutionsforthelarger(2.39×onaverage)\nx′=W ·f (W ·y).\nbatchsizesandadditionalnetworkingandschedulingcosts, i proj act fc i\nthelatencyisstillwithintheSLOofonlineinteractiveLLM\nAlthoughthetransformerblockinvolvesvarioustransfor-\nservices.\nmations,thereareactuallyonlytwokindofcomputationally\nexpensive operations,which are the attention operator(de-\n2 Background: The Underutilization of GPUs notedby⋆intheequations)andtheothermatrixprojection\ninLLMDecoding steps.Thus,inthefollowingofthissection,wewillconduct",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ions)andtheothermatrixprojection\ninLLMDecoding steps.Thus,inthefollowingofthissection,wewillconduct\naquantitativeanalysisbasedontherooflinemodel[50]and\nTo comprehensively understand the challenges and limita- experimentalmeasurements to evaluate these two kinds of\ntionspresentincurrentLLMdecodingimplementationwith operators. Thisanalysiswillhighlightthedifferingcharac-\nhomogeneoushardware,thissectionwillprovideadetailed teristicsofattentionandnon-attentionoperatorsduringthe\nperformanceanalysisofLLMdecodingwithLLaMA3-70B decodingphase,whichexplainswhycurrentLLMdecoding\nmodelasarepresentativeLLM.Thespecificnotationsused implementationswithhomogeneoushardwareoftenleadto\ninthisanalysisareexplainedinTable2. underutilizationofGPUs,thusmotivatingtheneedforhet-\nerogeneousarchitectures.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "sareexplainedinTable2. underutilizationofGPUs,thusmotivatingtheneedforhet-\nerogeneousarchitectures.\nTable 2: Notations used in the performance analysis. The\nvaluesforLLaMA3-70Barealsopresented.\n2.2 HardwareUnderutilization\nParameter Description TypicalValue 2.2.1 TheUnderutilizationinNon-AttentionOperators\nN NumberofparametersinLLM. 70billion\nTo improve GPU utilization in LLM decoding,continuous\nd Hiddendimension. 8192\nbatchingiswidelyadopted[16,20,46].Byprocessingmulti-\nL LayersoftheLLM. 80\npleinputsconcurrently,themodelparametersinGPUmem-\nG GQAgroupsize. 8\norycanbereused,makingtheworkloadmorecomputation-\ne Bytesperelement. 2\nintensive.ForabatchofBrequests,thenon-attentionoperator\nB Batchsize. 1∼1024\nrequiresapproximately2NBfloating-pointoperations.Addi-\nl Sequencelength. 128∼32768",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "atchsize. 1∼1024\nrequiresapproximately2NBfloating-pointoperations.Addi-\nl Sequencelength. 128∼32768\ntionally,theseoperatorsinvolveloadingmodelparameterseN\nandreading/writingatotalof2eBdinputandoutputdatafrom\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "0.2\n0.1\n0.0\n1 10 100 1000\nBatch size\n)s(\nemiT\n2 x NVIDIA H100 4 x NVIDIA H100 8 x NVIDIA H100\ntime 2000 0.2 2000 0.2 2000\nMFU\n1000 0.1 1000 0.1 1000\n0 0.0 0 0.0 0\n1 10 100 1000 1 10 100 1000\nBatch size Batch size\n)spolFT(\nUFM\nFigure2:MeasuredtimeconsumptionandMFUofnon-attentionoperatorsinLLaMA3-70Bduringonedecodeiteration.Results\nwithdifferenttensorparallelismsarepresented.Thedottedlinesindicatetheprojectedvaluesusingtherooflinemodel.\nGPU memory. The resulting arithmetic intensity, 2NB ,\ne(N+2Bd)\n0.03 increasesrapidlywithlargerbatchsizes.\nFigure 2 shows the latency and memory throughput uti- 0.02\nlization(MFU)ofnon-attentionoperatorsinLLaMA3-70B, 0.01\nmeasuredonanNVIDIAH100GPU,alongsideprojections\n0.00\nbasedontherooflinemodel.Forsmallbatchsizes(lessthan\n20 40 60",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "VIDIAH100GPU,alongsideprojections\n0.00\nbasedontherooflinemodel.Forsmallbatchsizes(lessthan\n20 40 60\n100),theworkloadisbandwidth-bound,withlatencypredom- Batch size\ninantly caused by accessing model parameters from GPU\nmemory.Inthisregime,theMFUremainsbelow20%,indi-\ncatingsignificantunderutilizationofcomputationalresources.\nAsthebatchsizeincreases,theworkloadtransitionstobeing\ncomputation-bound,withanincreaseinlatency.Tooptimize\nGPUresourceutilization,largerbatchsizesarepreferred.But,\nachievingthisisoftenconstrainedbythelimitedVRAMca-\npacity,whichcannotaccommodate the requiredKV cache\nsize,alimitationdiscussedindetaillater.\n2.2.2 TheUnderutilizationinAttentionOperators\nDifferent from the weight matrix projection operators,the\nattentionoperator,whenprocessingabatchofrequestssstill",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "m the weight matrix projection operators,the\nattentionoperator,whenprocessingabatchofrequestssstill\nperformsabatchedmatrix-vectormultiplication,whereeach\nquery accesses and processes its own KV cache. As a re-\nsult,thearithmeticintensityoftheattentionoperatorremains\nconstant,irrespectiveofthebatchsize.Thisbehaviormakes\nattentionoperationsmemory-bound,andincreasingthebatch\nsizedoesnotimproveresourceutilization.Morerecentmod-\nelshaveadoptgrouped-queryattention(GQA),whichsplits\nq intoagroupofGindependentqueriesandreducethesize\ni\nof k and v by a factorof G. Each query goes through the\ni i\nattentioncomputationwiththesamek andv andtheoutputs\ni i\naresimplyconcatenated.WithGQA,thearithmeticintensity\nofattentionoperatorsisincreasedGtimes,butisstillquite\nlowcomparedwithotheroperators.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "meticintensity\nofattentionoperatorsisincreasedGtimes,butisstillquite\nlowcomparedwithotheroperators.\nAsshowninFigure3,thebandwidthutilizationofattention\noperatorsremainsabove70%evenforsmallbatchsizes,such\nas20.Thisholdstrueevenonmemory-specializedacceler-\natorslikeH20,whichdeliversonly15%oftheTFLOPsof\ntheH100. However,thebatchsizeachievableforattention\noperationsisconstrainedbyGPUmemorycapacity,particu-\nlarlyduetothehighmemorydemandofKVcachesforlonger\n)s(\nemiT\nl=4096 @ NVIDIA H100 l=8192 @ NVIDIA H100\ntime\nMBU\n10 20 30\nBatch size\n0.03\n0.02\n0.01\n0.00\n20 40 60\nBatch size\n)s(\nemiT\n3000\n2000\n1000\n0\nl=4096 @ NVIDIA H20 l=8192 @ NVIDIA H20\n10 20 30\nBatch size\n)s/BG(\nUBM\n(100%)\n4000\n3000\n2000\n1000\n0\n)s/BG(\nUBM\n(100%)\nFigure3:Measuredtimeconsumptionandmodelbandwidth",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "UBM\n(100%)\n4000\n3000\n2000\n1000\n0\n)s/BG(\nUBM\n(100%)\nFigure3:Measuredtimeconsumptionandmodelbandwidth\nutilization (MBU) of attention operators in LLaMA3-70B\nduringonedecodeiteration.Resultswithdifferentsequence\nlengthsandhardwareconfigurationsarepresented.\ncontextlengths.Forexample,withacontextlengthof8192,\nthe full memory of an H100 can only hold KV caches for\nabout30requests,withtheactualnumberbeinglowerdueto\nmemoryusedbymodelweights.Consequently,thelimited\nbatchsizeforattentionoperationsbecomesakeybottleneck,\npreventingefficientutilizationofcomputationalresourcesfor\nnon-attentionoperationsduringthedecodingphase.\n3 Model-AttentionDisaggregation\n3.1 Overview\nCurrentLLMservingsystemsoftenemploythesamehard-\nwareforbothattentionandnon-attentionoperatorsduringthe\ndecodephase.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ngsystemsoftenemploythesamehard-\nwareforbothattentionandnon-attentionoperatorsduringthe\ndecodephase.However,ouranalysisrevealsthatthishomo-\ngeneousapproachleadstosuboptimalresourceutilizationfor\nbothtypesofoperators,duetothefollowingreasons:\n• Attentionoperatorsdemonstratelowarithmeticinten-\nsity,aseachvalueretrievedfromtheKVcachepartici-\npatesinonlyalimitednumberofcomputations.Given\n4",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\nt |  | ime |  | \n | t | ime |  | \nM | M | FU |  | \n |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "thedisparitybetweenmemorybandwidthandcomputing 15\npowerinmodernhigh-performanceaccelerators,which\nfavorhigharithmeticintensityforefficientresourceuti- 10\nlization,theseoperatorstendtounderutilizethecompu- 5\ntationresourcesofadvancedGPUs.\n0\n• Fornon-attentionoperators,whileincreasingthebatch 0 50 100\nsizecouldpotentiallyenhancehardwareutilization,this Batch size\nalsoresultsinacorrespondingincreaseintheKVcache,\nwhichmayexceedtheavailablememorycapacity.Con-\nsequently,topreventmemoryoverflow,thebatchsizeis\noftenkeptsmall,whichalsoleadstoinefficienthardware\nutilizationbecauseoflowarithmeticintensity.\nToaddresstheabovelimitationsofhomogeneousdecoding\nsolutions,weproposethemodel-attentiondisaggregation\narchitecture,whichusesmemory-specializedacceleratorsto",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ns,weproposethemodel-attentiondisaggregation\narchitecture,whichusesmemory-specializedacceleratorsto\nstoreKVcachesandcomputetheattentionoperators;thenon-\nattentionoperatorsarestillexecutedonoriginalaccelerators.\nAmodel-attentiondisaggregationsystemcanusemultiplede-\nvicesofeachkindtoprovidedifferentdegreesofparallelism\n(DOPs).IfweuseaGPUsfornon-attentionoperatorsandb\nmemory-optimizedGPUsforattentionoperators,wedenote\ntheDOPas(a,b).\nByleveragingthecheapermemory-optimizeddevices,we\ncan make larger batch sizes due to the extended memory\ncapacitiestostoretheKVcaches,henceincreasingthearith-\nmetic intensity and promoting the hardware utilization of\nnon-attention operators. Moreover,astheattention compu-\ntation are moved to memory-optimized devices, we avoid",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "on operators. Moreover,astheattention compu-\ntation are moved to memory-optimized devices, we avoid\nwastingpreciouscomputationresourcesofhigh-endGPUs.\nOnepotentialobstacleinimplementingattentionoffloading\nliesinthenecessityofdatatransmissionbetweenheteroge-\nneousacceleratorsforeachlayerofthemodel,whichcould\nencounterthecommunicationwallproblemandincreasethe\nend-to-enddecodinglatency.Weconductaquantitativeanaly-\nsistodeterminetherequiredinterconnectbandwidthforsuch\ntransfers. Say we run one iteration with batch size B,and\nwecanaffordα×morelatencyforthenetworkingoverhead,\ntheminimuminterconnectbandwidthrequiredcanthusbe\ncalculatedas\nsizeofdatatotransmit\nminimumbandwidth=\nα·computationtime\n(2+2/G)edBL\n=\nα[MTIME(B)+ATIME(B,l)]\nwhereMTIME(B)andATIME(B,l)isrunningtimeofnon-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "·computationtime\n(2+2/G)edBL\n=\nα[MTIME(B)+ATIME(B,l)]\nwhereMTIME(B)andATIME(B,l)isrunningtimeofnon-\nattentionandattentionoperatorsatbatchsizeBandsequence\nlengthl,respectively,andtheycanbemeasuredexperimen-\ntally.Theestimatedminimumbandwidthsrequiredfordiffer-\nentbatchsizes,whenα=0.2,arecalculatedandpresented\ninFigure4.\nAsevidentfromthedatapresented,therequiredintercon-\nnectbandwidthdoesnotexceed30GB/s,evenwhendealing\n)s/BG(\nhtdiwdnaB\n20\n10 l=4096\nl=8192\n0\n0 100 200\nBatch size\n(a)DOP=(2,2)\n)s/BG(\nhtdiwdnaB\nl=4096\nl=8192\n(b)DOP=(2,4)\nFigure 4: The required network bandwidth for decoding\nLLaMA3-70BusingattentionoffloadingwithH100andH20,\nwithatmost20%latencyslow-downfornetworkoverhead.\nwith batch sizes as high as 300. This bandwidth demand\ncanbeeasilymetbynetworkingtechnologieslike400Gbps",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "batch sizes as high as 300. This bandwidth demand\ncanbeeasilymetbynetworkingtechnologieslike400Gbps\nEthernet. Indeed,contemporary data centers already fulfill\nthisrequirement,whereeachGPUistypicallyequippedwith\nanexclusive400GbpsNICtoprovidesufficientnetworking\nbandwidthforLLMtraining.\nFormemorydevices,theidenticalinterconnection band-\nwidthisalsonecessarytocommunicatewithcomputational\ndevices.Sinceweemployacollectionofmoreeconomical\nyet less powerful memory devices to collaboratively com-\nputeattention,thecommunicationbandwidthneededforeach\nindividualdeviceissignificantlysmaller.Consequently,we\ncanchoosetoeitherequipeachdevicewithalesspowerful\nNICorinstallasingleshared400GbpsNICtoservemultiple\nmemorydevices.\n3.2 PracticalChallenges\nWhilemodel-attentiondisaggregationpromisespotentialben-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "iple\nmemorydevices.\n3.2 PracticalChallenges\nWhilemodel-attentiondisaggregationpromisespotentialben-\nefitsinimprovingLLMdecodingefficiency,italsointroduces\nasetofformidablepracticalchallenges.Wediscusssomeof\nthesechallengesbelow.\nFrequent network communications. By separating the\nattention operator from computation-optimized devices to\nmemory-optimizeddevices,weintroducecross-machinedata\ncommunicationswithineachmodellayer.Eventhoughthe\ninterconnectbandwidthinexistingdatacentersissufficient\nfor attention offloading,we found that networking latency\nmightstillbe a problem forefficientLLM decoding. With\nattention offloading,wehavelayer-wisedatatransferbe-\ntween GPUs on different nodes,whichmay be up to thou-\nsandsround-tripspersecond.Thesefrequentnetworktrans-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "PUs on different nodes,whichmay be up to thou-\nsandsround-tripspersecond.Thesefrequentnetworktrans-\nfersmightsignificantlyincreasethedecodingtimeduetothe\naccumulatednetworklatencies.Hence,weneedarefurnished,\nlatency-optimized,GPU-awarenetworkingstackforoptimal\nperformanceofmodel-attentiondisaggregation.\nSoftware engineering challenges. Withmodel-attention\ndisaggregation, we are moving the execution of attention\noperator,anintermediateoperationofthetransformerblock,\ntootherdevices.Thisrequirescomplicatedanddestructive\n5",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n15 )s/BG(\n10 htdiwdnaB\n5 l=4096\nl=8192\n0\n0 50 100\nBatch size |  |  |  | \n |  |  |  | \n |  |  |  | \n |  | l\nl | l\nl | =4096\n=8192",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n)s/BG(\n20\nhtdiwdnaB\n10\nl=4096\nl=8192\n0\n0 100 200\nBatch size |  |  |  | \n |  |  |  | \n |  | l\nl | l\nl | =4096\n=8192",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "modificationstotheexistingLLMcodebase.Specifically,we 2. ThelocalCPUsubmitsasendworkrequest(WR)tothe\nhavetodissectthemodelsintoseparateslicesthatdonotalign RNIC.\nwiththemodularstructureofthetransformer-basedLLMs.\n3. ThelocalRNICprocessesthesendWR,fetchingthedata\nThisprocessisnotonlylabor-intensiveanderror-pronebut\nfromGPUmemoryandtransmittingitoverthephysical\nalsosignificantlyincreasesmaintenancecomplexity.Hence,\nnetworklink.\nautomatedtoolstohelpslicethemodelsandperformrelevant\n4. TheremoteRNICreceivesthedataandwritesittothe\noptimizationsarehighlydesirable.\nGPUmemory.\nDifficultexecutionoverlapping. Inaheterogeneousdisag-\n5. TheremoteCPUwaitsfortheRDMAreceiveoperation\ngregatedsystem,variousdevicessuchascompute-optimized\ntocomplete.\nGPUs,memory-optimizedGPUs,andNICscanbeutilized",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "em,variousdevicessuchascompute-optimized\ntocomplete.\nGPUs,memory-optimizedGPUs,andNICscanbeutilized\nsimultaneously.Hence,wemightachievesignificantexecu- 6. TheremoteCPUlaunchesthesubsequentGPUkernels.\ntiontimereductioniftheexecutionofoperationsoccupying\nBased on our experimental results, steps 1 through 5 may\ndifferentdevicescouldbeoverlapped.However,inthetrans-\nincuralatencyof60–70µs.Furthermore,becausewehaveto\nformers architectures ofcurrentLLMs,attention operators\nlaunchthekernelafterthereceiveddataisready,theGPUker-\nand model operators are tightly interleaved in a sequential\nnellaunchoverhead,whichmightbeupto20µs,isalsoadded\nmanner,with the output of one operator being transmitted\ntoend-to-endlatency.Alltheseadditionallatenciesposeasig-\nover the network for the input of the other.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "oend-to-endlatency.Alltheseadditionallatenciesposeasig-\nover the network for the input of the other. Consequently,\nnificantoverheadformodel-attentiondisaggregation,which\noperationsthatdependondistincthardwareresourcescannot\nmustrelyonfrequentnetworkcommunications.\nbeeffectivelyoverlappedintime,leadingtoconsiderablere-\nToreducesuchnetworkingoverhead,wedevelopafully\nsourceunderutilization. Therefore,carefulorchestrationof\nhost-bypassed network (FHBN) stack, which completely\noperations on various devices and efficient design of task\neliminateshostCPUinvolvementinbothcontrolanddata\npipelinesarerequiredtopromoteexecutionoverlappingand\npaths of GPU-aware networking. We describe how FHBN\nincreaseresourceutilization.\nperformssendandrecvoperationsbelow.\nFHBN recv.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ng. We describe how FHBN\nincreaseresourceutilization.\nperformssendandrecvoperationsbelow.\nFHBN recv. To implement the FHBN recv function,we\n4 SystemDesign employthedevice-sidepollingtechniquetoawaitthecomple-\ntionoftherecvoperation.Specifically,weallocateaseqno\nWebuildLamina,adistributedheterogeneousLLMdecoding variable on the receiver’s GPU memory. The senderincre-\nsystemthatimplementsmodel-attentiondisaggregationand mentstheremoteseqnowithRDMAwriteaftereachsend\nsolvestherelatedchallenges.Laminaemploystwokindsof operation.Thedatasendandseqnoincrementoperationsare\naccelerationdevices:memorydevicesareusedforstoringKV batchedinasingleWRpostandhencewouldnotincrease\ncacheandcomputingtheattentionoperator,andcomputation theend-to-endlatency. WhenthereceiverGPUisreadyto",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "heandcomputingtheattentionoperator,andcomputation theend-to-endlatency. WhenthereceiverGPUisreadyto\ndevicesareusedforstoringmodelparametersandcomputing receiveandprocesstheincomingdata,itactivelypollsthe\notherpartsofthemodel.Thesetwokindsofdevicesareinter- valueofseqnowithaspecializedGPUkernel.Thisapproach\nconnectedwithhigh-speedDCN,e.g.,InfinibandorEthernet. not only eliminates the need for CPU involvement during\ntherecvprocess,butalsoallowsasynchronouslaunchofthe\npolling kernel and subsequent computation kernels to the\n4.1 FullyHost-BypassedNetworkStack\nGPUstream.Therefore,theGPUkernellaunchoverheadis\nalsoremovedfromthecriticalpath.\nThe communication between GPUs across differentnodes,\noftenutilizingRDMAtechnologies,isacomplexprocessthat FHBNsend. TheimplementationofFHBNsend,illustrated",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "enutilizingRDMAtechnologies,isacomplexprocessthat FHBNsend. TheimplementationofFHBNsend,illustrated\nrequiresthecoordinationofmultiplesystemagents,including in Figure 5,is more involvedas itnecessitates the GPU to\ntheCPU,GPU,andNIC.ToreduceGPU-awarenetworking directlysubmitRDMAcommandstoRNIC.WhentheCPU\noverhead,GPUDirectRDMA(GDR)[3]isdevelopedtoal- submitsanewRDMAWRtoRNIC,itfirstenqueuestheWR\nlowtheRDMA-capableNIC(RNIC)todirectlyaccessGPU totheworkqueue(WQ)inthehostmemory.Then,ittellsthe\nmemory.Thiseliminatestheneedforhostmemoryasanin- RNICthatthereisoutstandingworkbyringingthedoorbell\ntermediate buffer,thereby enhancing both network latency (DB),aspecialregisterintheuseraccessregion(UAR)of\nandbandwidth.However,thecontrolpathstillrequiresCPU theRNIC.TheUARispartoftheRNIC’smmioregionandis",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "andbandwidth.However,thecontrolpathstillrequiresCPU theRNIC.TheUARispartoftheRNIC’smmioregionandis\ninvolvementandincludes severalsteps,allofwhichlie on mappedtotheaddressspaceofunprivilegedapplicationsto\nthe criticalpathandcontribute to networklatency. Specifi- allowkernel-bypassRDMAoperations.Allabovestepsare\ncally,whentransferringdatausingGPUDirectRDMA,the implementedintheRDMAuserspacelibrary(libibverbs).\nfollowingstepsareperformed: ToenabledirectRDMAcommandsubmissiononGPUs,\nwehavetoallowGPUstodirectlyaccesstheUARviaPCIe\n1. ThelocalCPUwaitsforallpriorGPUkernelstocom- P2P.Specifically,weusethecudaHostRegisterIoMemory\nplete,ensuringthedatatobetransmittedisready. API to map the UAR into the GPU’s address space. Then,\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "GPU’s address space. Then,\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Host CPU\nCPU Core Host DRAM input LN2 LN2\nRegular GPU-\nibv_post_send RDMA Send Queue aware send 4 10240 10240\n(libibverbs) Embd\nWQ LPqkv LPqkv\ncudaDeviceSync CQ FHBN send 10240 10240 30720 10240 24576\n(CUDA Driver) LN1 LN1\nAttention Attention\n10240 10240 10240 10240 10240\nUser Access Region MLP LPqkv\n10240\nMLP LPqkv\nDB BlueFlame 10240 10240 10240 10240\n10240 10240\n+ + 10240 + + 10240 ...\nSlice 1 Slice 2 Slice 3\nmin cut min cut\nGPU PCIe Switch RNIC Figure6:ThepartitionedcomputationgraphofanLLM.\nFigure5:DiagramofWRsubmissionwithFHBNsendand\nconventionalGPU-awaresendimplementations. theremaininggraph,fromtheinputtotheoutputoftheatten-\ntionoperator.Theedgesinthisminimumcut,representing\nthecontextthatmustbesavedbetweensliceinvocations,are",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "operator.Theedgesinthisminimumcut,representing\nthecontextthatmustbesavedbetweensliceinvocations,are\nwereimplementtheRDMAcommandsubmissionlogicin removedfromthecomputationgraphs.Thisprocessisitera-\nCUDAdevicecode.Tofurtherdecreaselatency,weleverage tivelyappliedtoeachattentionoperator,ultimatelyyielding\ntheBlueFlamemechanism,ahardwarefeatureprovidedby n+1modelslices,wherendenotestheoriginalnumberof\nMellanox RNICs [4]. This approach allows the WR to be theattentionoperators.\ndirectly submitted to the RNIC with mmio write to UAR,\neliminatingtheneedfortheRNICtofetchtheWRfromhost\n4.2.2 ResourceUtilizationOverlapping\nmemoryviaanexpensivePCIeDMAread.NotethattheWR\nshouldstillbeenqueuedintotheWQ,asthehardwaremay Whiletheattentionoperatorsandotheroperatorsinatrans-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "houldstillbeenqueuedintotheWQ,asthehardwaremay Whiletheattentionoperatorsandotheroperatorsinatrans-\noccasionally miss the BlueFlame WR and fall back to the formerblockareexecutedsequentially,acloserexamination\nregularworkflow,particularlyunderheavyloads. oftheattentioncomputationrevealsthepotentialforachiev-\ningpartialoverlappingofresourceutilization. Givenanat-\ntentionqueryqandthesetoftokenindicesI,theattention\n4.2 AutomatedModelConverter\ncomputationcanbecarriedoutinadivide-and-conquerman-\n4.2.1 ModelSplitting ner.AssumethatIcanbewrittenasthedisjointunionoftwo\nsubsetsI andI ,andlet\n1 2\nIn the attention offloading architecture,different operators\noftheLLMmightbeexecutedondifferenthardware;hence, A (I)=∑softmax (cid:18) q √ ⊤k i (cid:19) v,",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "tors\noftheLLMmightbeexecutedondifferenthardware;hence, A (I)=∑softmax (cid:18) q √ ⊤k i (cid:19) v,\nweneedtopartitionthemodelintoslices,whichisachieved q d i\ni∈I\nbycuttingattheattentionoperators.Itofteninvolvessignifi- (cid:18) q⊤k (cid:19)\ncantmodificationstotheexistingcodebase,primarilybecause S (I)=∑exp √ i ,\nq\nd\nthedesiredcuttingpointsdonotalignwiththeLLM’sinher- i∈I\nent modular structure. This misalignment complicates the\nwhere A (I) is the attention output and S (I) is the de-\npartitioningprocessandincreasestheriskoferrorsandincon- q q\nnominator of softmax, then A (I) can be easily obtained\nsistencieswithintheheterogeneoussystem. q\nby combining the partialattention results on I andI ,i.e.,\nTofacilitatemodelpartitioning,wedevelopanautomated 1 2\n[A (I ),S (I )]and[A (I ),S (I )]:",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "dI ,i.e.,\nTofacilitatemodelpartitioning,wedevelopanautomated 1 2\n[A (I ),S (I )]and[A (I ),S (I )]:\nmodelsplittercapableoftransformingtheLLMintoindivid- q 1 q 1 q 2 q 2\nuallyinvokableslices,illustratedinFigure6.GiventheLLM A (I )S (I )+A (I )S (I )\nq 1 q 1 q 2 q 2\nsourcecode,thesplitterusessymbolicexecutiontogenerate A q (I)= .\nS (I )+S (I )\nq 1 q 2\naweightedcomputationgraph.Theweightofeachedgede-\nnotesthesizeofthedatapassedbetweentheoperators,which DuringLLMdecoding,wemaydividethecurrenttokenset\nisderivedfromthemodel’sshapespecification. intotwopartitionsduringattentioncomputation:allprevious\nDuetothepresenceofresidualconnectionsandotherin- tokens(prev)andthenewlygeneratedtoken(new).Notethat",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "uetothepresenceofresidualconnectionsandotherin- tokens(prev)andthenewlygeneratedtoken(new).Notethat\ntricatemodelconstructs,directlyremovingtheattentionop- [A (prev),S (prev)]canbecomputedassoonasq isready;\nq q n\neratordoesnotalwaysresultinadisconnectedcomputation therefore,wemayeagerlyexecuteQ-Projandtransferq\nn\n,and\ngraph.Therefore,wecomputetheminimumweightedcutof thenexecuteK-Proj,V-Projandtransferk\nn\n,v\nn\ntotheattention\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "workers.AsillustratedinFigure7,thisdoesnotonlyimprove tasksatatimeof tm laterthanthepreviousone.Allbatches\nn−1\ntheGPUutilizationonbothkindsofworkers,butalsoreduces shareacommonsetofmemorydevicestomaximizeaggre-\ntheend-to-endlatencybyhidingthecommunicationbehind gatedmemorybandwidthandimprovememoryutilization.\nthecomputation. Foreverybatch,theKVcacheisevenlypartitionedacross\nthese devices. All memory devices jointly compute the at-\nModel Q-Proj K-Proj V-Proj Out-Proj tentionoperatorforasinglebatch.Thenumberofmemory\nWorkers devicesisselectedtomaket = tm .Aftertheattentionopera-\nQKV Attn Out a n−1\nAttention tor,eachbatchtransitionstothenextmodelreplicaaccording\nAttn\nWorkers\ntoarotationalschedule;thatis,thekthmodelsliceofthe jth\n(a)Withoutresourceutilizationoverlapping.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ers\ntoarotationalschedule;thatis,thekthmodelsliceofthe jth\n(a)Withoutresourceutilizationoverlapping. batchisexecutedonreplica(j+k)mod(n−1)+1.\nThis rotational task scheduling,combined with the stag-\ngeredexecutionintervals,guaranteesseamlesstasktransitions\nModel\nQ-Proj K-Proj V-Proj Out-Proj\nWorkers foreachbatchandensuresaconflict-andbubble-freework-\nQ KV Attn Out\nflow on each device. Furthermore,by increasing the num-\nAttention New Attn\nPrev Attn\nWorkers & Combine berofconcurrentbatches,theoverallinferencelatencycan\nbereducedduetothedecreasedattentioncomputationtime.\n(b)Withresourceutilizationoverlapping.\nHowever,therotationalschedulingrequiresmigratingbatch\nFigure7:Illustrationofresourceutilizationoverlappingby executioncontextsbetweencomputationdevices.Notethat",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ":Illustrationofresourceutilizationoverlappingby executioncontextsbetweencomputationdevices.Notethat\nsplittingtheattentioncomputation. when n=2,the context migration is unnecessary because\nbothbatchesareexecutedwithinasinglemodelreplica.\nTheaboveattentionsplittingoptimizationisintegratedin\nourautomatedmodelconverter.Afterdissectingtheoriginal 5 Implementation\nmodel,theconverterwillgenerateaserialprogramofeach\nmodelslicebycomputingatopologicalorderofitscompu- Laminaisimplementedwith~6000linesofPythonandC/C++\ntationgraph.Duringthistopologicalsort,wealwaysputthe code,inadditiontoafewlinesofCUDAcodeimplementing\nQ-Projoperatorandallitsdependenciesasearlyaspossible. customkernels.Thefullyhost-bypassednetworkstackisbuilt",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ratorandallitsdependenciesasearlyaspossible. customkernels.Thefullyhost-bypassednetworkstackisbuilt\nThen,weinsertthe“sendQ”instructionimmediatelyafter ontopofamodifiedversionofrdma-core[6].Laminauses\ntheQ-Projoperatorand“sendKV”attheendofthisslice. Ray[5]tofacilitatetaskschedulingandworkerplacementin\ndistributedheterogeneousenvironments.\n4.3 ExecutionPipelining Fault tolerance. With attention-offloading,we have two\ndifferent types of accelerators. Lamina addresses faults in\nDuetotheserialnatureoftransformer-basedmodels,ifthere\nthese two types of accelerators with different approaches.\nisonlyonebatchunderprocessing,thememorydeviceisidle\nNotethatallrequeststates,i.e.,theKVcaches,areonlystored\nwhenthecomputationdeviceisworking,andviceversa.To\nin the attention devices.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "heKVcaches,areonlystored\nwhenthecomputationdeviceisworking,andviceversa.To\nin the attention devices. Consequently, should any model\naddressthisresourceunderutilizationproblemandincrease\nworkerexperienceafailure,wecanseamlesslyreplacethat\nsystemthroughput,wemayrunmultiplebatchesconcurrently\nworkerwithafunctioningone,withoutlosinganyprogresses.\nin a pipelined fashion. With properly designed pipelining,\nIncaseofanattentionworkerfailure,wereconstructtheKV\nbetterhardwareutilizationcanbeachievedwithoutsacrificing\ncachebyusingtheprompttextsandalreadygeneratedtokens,\nlatency. We propose the rotational staggered pipelining to\nwhicharestoredintheLLMservicefront-end.\nsolvethisproblem.\nHandlingtheprefill-decodetransition. Duringtheprefill\nphase,the generated KV cache shall be transmitted to the",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "prefill-decodetransition. Duringtheprefill\nphase,the generated KV cache shall be transmitted to the\nModel 1 A1 D1 C3 B5\nattentionworkersfordecoding.Foreachrequest,theglobal\nModel 2 B1 A3 D3 C5 schedulerpicksasetofmodelworkersandattentionworkers\ntohandlethedecodephase.Likepreviousworks[40,59],the\nModel 3 C1 B3 A5 D5\nKVcacheisasynchronouslytransferredinalayer-by-layer\nAttention A2 B2 C2D2 A4 B4 C4D4 A6 B6 C6D6 fashiontohidethecommunicationlatencybehindcomputa-\ntion.Moreover,thedatatransferiscontrolledbytheattention\nFigure8:Illustrationofrotationalstaggeredpipelining. workers:theattentionworkersonlyreadstheKVcachefrom\nprefill workers during the free periods between receiving\nQKVtensorsfrommodelworkers.Thisapproachminimizes\nAssumethatweexecutenbatchesconcurrently.Lett ,t\nm a",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "KVtensorsfrommodelworkers.Thisapproachminimizes\nAssumethatweexecutenbatchesconcurrently.Lett ,t\nm a\ninterferencewithongoingdecodingtasks.\nrepresentthetimerequiredforexecutingonemodelsliceand\noneattentionoperator,respectively.AsillustratedinFigure8, Attention parallelism. Given the limited capability of a\nwedeployn−1modelreplicas,witheachreplicastartingits singledevice,wemayusemultiplememorydevicestojointly\n8",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nQ-Proj | K-Proj | V-Proj",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nQ-Proj | K-Proj |  | V-Proj |  | \n |  |  |  |  | \n |  | Prev Attn |  |  | New Attn\n& Combine",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nA1 | D1 | C3 | B5",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nB1 | A3 | D3 | C5",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nC1 | B3 | A5 | D5",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nA2 | B2 | C2 | D2 | A4 | B4 | C4 | D4 | A6 | B6 | C6 | D6",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Table3:Largelanguagemodelsusedforevaluation.\nRequest 1 Request 1\nhead\nModel Parameters L d G\ntoken\nRequest 2 Request 2\nLLaMA-33B 64.7GB 60 6656 1\nLLaMA-65B 130.1GB 80 8192 1\ndevice 1\nRequest 3 Request 3 LLaMA3-70B 137.5GB 80 8192 8\ndevice 2\nRequest 4 Request 4\ntraces,includingtheaverageprompttokens(l )andaverage\np\ngeneratedtokens(l ),arelistedinTable4.\n(a)Request-levelpartition. (b)Head-levelpartition. g\nFigure9:Workpartitionmethodsoftheattentionoperator. Table4:Requesttracesusedforevaluation.\nTrace #Requests l l\np g\nstoretheKVcachesandcomputetheattentionoperators.As\nAzure-Conv 19366 1154.7 211.1\ndepicted in Figure 9, the attention operators can be paral-\nAzure-Code 8819 2047.8 27.9\nlelizedamongmemorydevicesinvariousways.Onemethod\nKimi-Conv 12031 12035.1 342.6",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ode 8819 2047.8 27.9\nlelizedamongmemorydevicesinvariousways.Onemethod\nKimi-Conv 12031 12035.1 342.6\nistodistributedifferentrequestsacrossdifferentdevices;an\nKimi-TA 23608 8560.0 182.1\nalternativestrategyistopartitionanddistributetheattention\nheads,whichcanalsobecomputedindependently,todiffer-\nent devices. The head-level partitioning approach ensures Baselinesystem. WecomparewithvLLM[28],astate-of-\nabalancedworkloaddistribution,whereastherequest-level the-artLLMservingsystemoptimizedforhighthroughput.\npartitioningmayresultin loadimbalanceduetothediffer- vLLMalsointegratesoptimizationsfromotherLLMinfer-\nencesinsequencelengthsandthereforetheKVcachesizes encesystems,suchascontinuousbatchingfromOrca[57].\namongrequests.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "elengthsandthereforetheKVcachesizes encesystems,suchascontinuousbatchingfromOrca[57].\namongrequests.However,head-levelpartitioninghaslimited WeusevLLMwithhomogeneousH100GPUsandusetensor\nflexibility,as it requires the number of memory devices to parallelformulti-GPU inference. As Lamina only focuses\nbe divisible by the number of attention heads. We opt for onthedecodephase,wemodifyvLLMtoremovetheprefill\nhead-levelpartitioninginLamina,whichoffersoptimalload phaseduringevaluationforafaircomparison.\nbalancing.\n6.1 ServingPerformance\n6 Evaluation\nWe evaluate the serving performance of Lamina against\nvLLM using real-world request traces. We first use homo-\nTestbed. WedeployLaminaonarealheterogeneouscluster\ngeneousandheterogeneoushardwaresettingsofsimilarcosts,\nwithtwokindsofGPUnodes.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "lheterogeneouscluster\ngeneousandheterogeneoushardwaresettingsofsimilarcosts,\nwithtwokindsofGPUnodes.Eachnodeconsistsofeither\nlistedinTable5,forvLLMandLamina,respectively.Com-\neightH100orH20GPUs,andeachGPUispairedwithaded-\nparedwithvLLM,LaminareplaceshalfoftheH100devices\nicatedConnectX-7NICviaPCIeswitch.TheGPUnodesare\ntoH20,whichischeaperbutprovidesmorememorycapacity\ninterconnectedwith400GbpsRoCEnetwork.WeuseH100\nandbandwidth.Wemeasurethetokengenerationthroughput,\nascompute-optimizedGPUsandH20asmemory-optimized\ntimebetweentokens(TBT),andaveragebatchsize.\nGPUsforLamina.\nModels. LaminasupportsawidevarietyofLLMarchitec-\nTable5:Equal-costhardwareconfigurationsforevaluation.\ntures,includingOPT[58],LLaMA[48],andLLaMA3[9].All\nthesearchitectureshavesimilaroutlinesandworkloadcharac-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "includingOPT[58],LLaMA[48],andLLaMA3[9].All\nthesearchitectureshavesimilaroutlinesandworkloadcharac-\nModel Lamina vLLM\nteristicsandonlyhaveminordifferencesirrelevanttosystem\ndesigns.Hence,aslistedinTable3,wechooseLLaMA-33B, DOP=(1,2) 2×H100\nLLaMA-33B\nLLaMA-65B,andLLaMA3-70Bforevaluations.Allmodel ($20.32/hr) ($22.12/hr)\nparametersandKVcachesarestoredinFP16format. DOP=(2,4) 4×H100\nLLaMA-65B,LLaMA3-70B\n($40.64/hr) ($44.24/hr)\nWorkloads To mirrorthe real-worldLLM use cases,we\nusefourrequesttracescollectedfromtheproductionsystems\noftwoLLMserviceproviders,Azure[1,40]andKimi[41]. AsillustratedinFigure10,Laminaconsistentlyachieves\nDue to data protection regulations, these traces only con- 16.1∼90.1%higherthroughputthanvLLMamongallmod-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "data protection regulations, these traces only con- 16.1∼90.1%higherthroughputthanvLLMamongallmod-\ntainthesequencelengthofuserrequestsbutnottheactual els and traces, given comparable hardware costs. This en-\ncontents.Hence,weuserequestsofdummytokenswiththe hancementisprimarilyattributedtothelargerbatchsizeat-\nsamesequencelengthforevaluation.Thesummariesofthese tainedbyLamina,whichis2.39×ofvLLMonaverage.These\n9",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  | \n |  |  |  | \n |  |  |  | \n |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  | \n |  |  |  | \n |  |  |  | \n |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  | \n |  | \n |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  | \n |  | \n |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  | \n |  |  | \n |  |  | \n |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  | \n |  |  | \n |  |  | \n |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "4000\n2000\n0\ntuphguorhT\n)s/nekot(\nAzure-Conv Azure-Code Kimi-Conv Kimi-TA\n4000\n1000\nLamina\nvLLM 1000\n2000 500\n500\n0 0 0\n150\n100\n50\n0\n)sm(\nTBT\n100 100\n100\n50 50\n50\n0 0 0\n750\n500\n250\n0\nLLaMA-33\nL\nB LaMA-65\nLL\nB aMA3-70B\nezis\nhctab\nnaeM\n100\n400\n100\n50\n200 50\n0 0 0\nLLaMA-33\nL\nB LaMA-65\nLL\nB aMA3-70B LLaMA-33\nL\nB LaMA-65\nLL\nB aMA3-70B LLaMA-33\nL\nB LaMA-65\nLL\nB aMA3-70B\nFigure10:LLMdecodingperformancemetricsofLaminaandvLLM,usinghardwareofapproximatelyequalcosts.\n4000\n2000\n0\n0 50 100\nPrice ($/hr)\ntuphguorhT )s/nekot(\nLLaMA-65B, Azure-Conv LLaMA3-70B, Azure-Conv LLaMA-65B, Kimi-Conv LLaMA3-70B, Kimi-Conv\n(4,8) (8,8) (8,8) 400 (4,8) (8,8) (4,8) (8,8)\n(2,8) 10000 (4,8) (2,8) 8 2000 (2,8) 8",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "70B, Kimi-Conv\n(4,8) (8,8) (8,8) 400 (4,8) (8,8) (4,8) (8,8)\n(2,8) 10000 (4,8) (2,8) 8 2000 (2,8) 8\n8 (2,8) (2 (2 ,1 ( ,2 2 ) ) ,4) 4 5000 (2 (2 , ( 1 , 2 2 ) , ) 4) 4 8 200 (2 (2 ,1 ( ,2 2 ) ) ,4) 4 1000 (2 (2 ,1 ( ,2 2 ) ) ,4) 4 L v a LL m M ina\n0 0 0\n0 50 100 0 50 100 0 50 100\nPrice ($/hr) Price ($/hr) Price ($/hr)\nFigure11:Decodingthroughputandhardwarecostwithvarioushardwareconfigurations.TheDOPsforLaminaandtensor\nparallelismsforvLLMareannotatedintheplot.Theconfigurationwithbestcostefficiencyisbolded.\nresultsdemonstratethatLaminaeffectivelyleveragestheex- vLLMundervarioushardwareconfigurations.Specifically,\ntramemorycapacityprovidedbymemory-optimizeddevices weadjusttheDOPsforLaminaandthenumberofdevices\ntoboostdecodingthroughput.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "edbymemory-optimizeddevices weadjusttheDOPsforLaminaandthenumberofdevices\ntoboostdecodingthroughput.Notethatthethroughputand involvingtensorparallelismforvLLM.AstheresultsinFig-\nbatchsizeofLLaMA3-70BismuchlargerthanLLaMA-33B ure11shows,thethroughputforLaminarapidlyincreases\nandLLaMA-65B;thisisbecauseLLaMA3-70BadoptsGQA withmoreattentionworkersadded,whichenableslargerbatch\nwithagroupsizeof8,whichresultsinamuchsmallerKV sizes.Theadditionofexpensivemodelworkercanonlymildly\ncachesizeperrequest. improvethethroughputbyreducingthemodel-partexecution\nLaminaexperiencesanincreasedtokengenerationlatency latency.AnexceptionistheLLaMA3-70Bmodel,wherethe\nthanvLLM.Thiscanbeattributedbytwofactors.First,Lam- attainablebatchsizereaches800forDOP=(2,4),whichal-",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nvLLM.Thiscanbeattributedbytwofactors.First,Lam- attainablebatchsizereaches800forDOP=(2,4),whichal-\nina adopts a larger batch size,which results in longer exe- readysaturatesthecomputationresourcesonmodelworkers;\ncution time on both model and attention workers. Second, hence,adding more memory devices will not dramatically\nthe disaggregation of model and attention in Lamina may improvethethroughput.Thisindicatesthattheoptimalratio\nincuradditionalschedulingandnetworkingoverhead.Never- betweenmodelandattentionworkersvariesfordifferentmod-\ntheless,theend-to-endlatencyofLaminacanstillmeetthe elsandworkloads.Inpractice,wemayconductaperformance\nSLOrequirementsofinteractiveonlineLLMservicesinmost profilingandselectthebesthardwareconfiguration.\ncases.\nWealsoexplorethedecodingthroughputofLaminaand",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rofilingandselectthebesthardwareconfiguration.\ncases.\nWealsoexplorethedecodingthroughputofLaminaand\n10",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\nLamina\nvLLM |  | \n |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  | \n |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n(2,8 | (4,8)\n)\n8 | (8,8)\n(2,4)\n(2,2)\n(2,1) | 4 | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  | (8,8)\n(2,8\n(2,4) | (4,8)\n) | \n(2,2)\n(2,1) | 4 8 | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  | (8,8)\n(2,\n(2,4) | (4,8)\n8) 8 | \n(2,2)\n(2,1) | 4 | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | (4,8) |  | (8,8)\n(2,8\n(2,4) | ) 8 |  | \n(2,2)\n(2,1) | 4 L\nv | L\nv | amina\nLLM",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "40\n20\n0\n2 4 6 8 10 12 14\nBatch size\n)sm(\nycnetaL\nLLaMA-33B, DOP=(1,2), l=4096\n60\n40\n20\n0\n4 8 12 16 20 24 28 32\nBatch size\n)sm(\nycnetaL\nLLaMA-65B, DOP=(2,4), l=4096\n75\n50\n25\n0\n16 32 48 64 80 96 112128\nBatch size\n)sm(\nycnetaL\nLLaMA3-70B, DOP=(2,2), l=4096\n40\n20\n0\n1 2 3 4 5 6 7\nBatch size\n)sm(\nycnetaL\nLLaMA-33B, DOP=(1,2), l=8192\n60\n40\n20\n0\n2 4 6 8 10 12 14 16\nBatch size\n)sm(\nycnetaL\nLLaMA-65B, DOP=(2,4), l=8192\n60\n40\n20\n0\n8 16 24 32 40 48 56 64\nBatch size\n)sm(\nycnetaL\nTBT Model Attention Network\nLLaMA3-70B, DOP=(2,2), l=8192\nFigure12:Tokengenerationlatencybreakdown.\n6.2 LatencyBreakdown thereceiveddata.\nLatencyisacrucialindicatoroftheservicequalityofferedby\nGloo NCCL (wo/ GDR) NCCL FHBN\nLLMapplications.Inthissubsection,wemeasurethetime\nbetweentokens(TBT)acrossvarioussystemconfigurations,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "applications.Inthissubsection,wemeasurethetime\nbetweentokens(TBT)acrossvarioussystemconfigurations,\naswellastheexecutiontimeformodelandattentionworkers 103\nand the networking overhead. We use requests with fixed\nsequencelengths(4096or8192)astheworkloadanddisable 102\nrotationalpipeliningtobetterrevealthetimebreakdown.\nAswecanseefromFigure12,forsmallerbatchsizes,the 102 104 106 108\nmodelexecutiontimedominatesthetokengenerationlatency. Payload size (byte)\nThe attention andnetworking latency rapidly increases for\nlargerbatchsizes,whilethemodelexecutiontimeremains\nalmostconstant.Thisindicatesthatthecomputationresource\nutilizationgetsimprovedasbatchsizeincreases.Notethatthe\nobservedTBTmightbelessthanthesumofmodelworker\ntime,attentionworkertime,andnetworktime.Thisisdueto",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "e\nobservedTBTmightbelessthanthesumofmodelworker\ntime,attentionworkertime,andnetworktime.Thisisdueto\ntheautomatedresourceutilizationoverlappingoptimization,\nwhichwillbefurtherprofiledinsubsection6.4.\n6.3 NetworkStackOptimizations\nWeevaluatetheeffectivenessofourfullyhost-bypassednet-\nwork(FHBN)stackwithamicrobenchmark.Specifically,we\nconductaping-pongtestbetweentwoGPUslocatedondis-\ntinctnodes,usingNCCL,NCCLwithoutGPUDirectRDMA,\nGloo,andFHBNasthenetworkingengine.TheinitiatorGPU\nsendsavaryingamountofdatatotheremoteGPU.Uponre-\nceivingthecompletedata,theremoteGPUimmediatelysends\nitbacktotheinitiator.Wemeasuretheround-triptimefrom\ntheinitiatorGPU’sperspective,whichencompassesthetime\nintervalfromthecompletionofthekernelthatgeneratesthe\ndatafortransmissiontothestartofthekernelthatconsumes\n)sµ(",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "mthecompletionofthekernelthatgeneratesthe\ndatafortransmissiontothestartofthekernelthatconsumes\n)sµ(\nemit\npirt-dnuoR\n40\n20\n0\n102 104 106 108\nPayload size (byte)\n(a)Round-triptime.\n)s/BG(\nhtdiwdnaB\n(b)Bandwidthutilization.\nFigure 13: Network ping-pong test between two GPUs on\ndifferentnodes,interconnectedwith400GbpsRoCE.\nAsillustratedinFigure13,forsmallerdatasizes,theround-\ntriptimeisprimarilydeterminedbynetworklatency.Inthis\ncase,FHBNachievesanend-to-endlatencyof33.0µs,rep-\nresenting a 50.5% reduction compared to NCCL’s 66.6µs\nlatency.Thisimprovementisattributedtotheremovalofhost\nCPUinvolvementindatatransmission,eliminatingexpensive\nhost-devicesynchronizationandPCIetransactions.Thisim-\nprovement justifies the efficacy of our fully host-bypassed\nnetworkstackdesign.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ransactions.Thisim-\nprovement justifies the efficacy of our fully host-bypassed\nnetworkstackdesign.\nFor larger payload sizes, the primary factor influencing\nnetworkingtimeistheutilizationofnetworkbandwidth.In\nthisscenario,FHBNreachesapeaknetworkbandwidthof\n45.7GB/s,whichcorrespondsto91.4%ofthelinerate.Con-\nversely,NCCLonlyattainsabandwidthof35.5GB/s.Asa\nresult,FHBNcanalsoserveasasuperioralternativetoexist-\ningcommunicationlibrariesforpoint-to-pointtransmission\noflargeGPUmemoryblockswithinDCNs.\n11",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  |  |  |  |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\nGloo NCCL (wo/ GDR) NCCL FHBN\n) | \nsµ(\nemit\n103\npirt-dnuoR\n102\n102 104 106 108\nPayload size (byte) | )s/BG(\n40\nhtdiwdnaB\n20\n0\n102 104 106 108\nPayload size (byte)",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n |  |  | \n |  |  | ",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "6.4 ResourceUtilizationOverlapping\nToassesstheefficacyofresourceutilizationoverlapping(sub-\nsubsection4.2.2)implementedinourautomatedmodelcon-\nverter,weconductedaseriesofexperimentsontheLLaMA-\n65BandLLaMA3-70Bmodels,withtheoptimizationeither\nenabledordisabled.Weuserequestbatchesofvaryingsizes\nandthecontextlengthofeachrequestisfixedat4096.\n60\n55\n50\n10 20\nBatch size\n)sm(\nTBT\n65\nEnabled\nDisabled\n60\n55\n25 50 75 100\nBatch size\n(a)LLaMA-65B,DOP=(2,2).\n)sm(\nTBT\nuseCPUandDRAMforattentioncomputationandKVcache\nstorage.However,duetotherelativelysmallerbandwidthof\nhost DRAM,it is preferable to also adopt sparse attention\nmechanisms[14,52]toreducethesizeofdatareadduring\nattentioncomputation.\n8 RelatedWork\nSystemoptimizationsforLLMInference. Splitwise[40]",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "atareadduring\nattentioncomputation.\n8 RelatedWork\nSystemoptimizationsforLLMInference. Splitwise[40]\nandDistServe [59] proposes prefill-decode disaggregation,\nwhichimproveshardwareutilizationandminimizestheinter-\nferencebetweentheprefillanddecodephases.Orca[57]pro-\nposescontinuousbatching,thatbatchesincomingrequestsin\niterationgranularity.Comparedwithwhole-requestbatching,\ncontinuousbatchinggreatlyreducesresourcewastecaused\n(b)LLaMA3-70B,DOP=(2,4).\nbyearlyterminationduringthedecodephase. PagedAtten-\ntion[28]focusesonmemorymanagementoptimizations,us-\nFigure14:Timebetweentokens(TBT)resultswithautomatic\ningfine-grainedKVcachemanagementtoreducememory\nresourceutilizationoverlappingenabledanddisabled.\nwaste.PagedAttentioncanalsobeusedtooptimizevariousde-",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "urceutilizationoverlappingenabledanddisabled.\nwaste.PagedAttentioncanalsobeusedtooptimizevariousde-\ncodingscenarios,likebeamsearchandsharedprefixes.These\nAsillustratedinFigure14,theLLaMA-65Bmodelexperi-\noptimizations can all be used in oursystem. FlexGen [44]\nencesasignificantimprovementinperformance,achievingup\nisaheterogeneousLLMinferencesystememployinglayer-\ntoa13.2%withthroughautomatedresourceutilizationover-\nandtoken-leveltaskpartitioningandscheduling.However,it\nlapping.Thespeedupisparticularlynotableforlargerbatch\ndoesnotaccountforthevaryingcharacteristicsofdifferent\nsizes,whichproducelargerKVtensorsandresultingreater\noperatorswithinalayer.LLM-tailoredinferencesystems,like\nlatencyreduction.Theeffectivenessislesspronouncedforthe\nDeepSeed[11],Megatron-LM[45],andTensorRT-LLM[39],",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "yreduction.Theeffectivenessislesspronouncedforthe\nDeepSeed[11],Megatron-LM[45],andTensorRT-LLM[39],\nLLaMA3-70Bmodel,wherethemaximumlatencyreduction\nuse optimizations of various aspects including kernel opti-\nis only 3.5%. This is because LLaMA3-70B adopts GQA,\nmization [17,23],advanced scheduling [8,19,33,51],and\nwhose KV size is 8× smaller. Consequently, there is less\nefficientmemorymanagement[19].\nroomforresourceutilizationoverlappinginLLaMA3-70B.\nSpeculativeDecoding Thespeculativedecodingtechnol-\n7 Discussion ogy[31,36,38]enablesparallelgenerationofmultipletokens\nforasinglerequestduringthedecodingphase.Thisisdone\nGeneralityofourtechniques. AlthoughLaminaisbuilt by guessing the next few tokens using a smaller auxiliary\nformodel-attentiondisaggregation,relevanttechniquescan model.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "t few tokens using a smaller auxiliary\nformodel-attentiondisaggregation,relevanttechniquescan model.Thesepredictedtokensarethenvalidatedbythepri-\nalso be used to enable a wider range of fine-grained LLM mary LLM. This validation ofthe predictedtokens can be\ndisaggregationtechniquesindistributedheterogeneousenvi- executedinparallel,therebyenhancingthearithmeticinten-\nronments.Forexample,LoRA[24]andMixture-of-Experts sityandreducinglatency.However,speculativedecodingcan\n(MoE)[18,53]alladdlesscomputation-intensiveoperators leadtoatrade-offinthroughputduetotheauxiliarymodel’s\ntoexistingLLMarchitectures.LikeLamina,wemayalsoof- overheadandthepotentialneedforre-executionincaseof\nfloadtheLoRAandMoEoperatorstolesspowerfulbutmore misprediction.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "otentialneedforre-executionincaseof\nfloadtheLoRAandMoEoperatorstolesspowerfulbutmore misprediction.\neconomic remote accelerators to reduce the inference cost.\nSuchoperator-leveldisaggregations,unlikeprefill-decodedis- VariationsoftheAttentionOperator. Researchershave\naggregation,requirefrequentlayer-wisecommunicationsand developedmanyvariationsoftheattentionoperatorforlarge\nareconsiderednotfeasibleunlessanoptimizednetworking languagemodelstomitigatethememorybottleneck.GQA\nstackliketheoneinLaminaisused. [10] and MLA [34] are two recent attention mechanisms\nAlternative heterogeneous devices. In Lamina,we may targeted for memory efficiency. Model quantization uses\nusemorespecializedacceleratingdevicesforoptimalperfor- reduced-precisionformats(e.g.,FP8)tostoreKVcaches.Var-\nmanceandcost.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "eratingdevicesforoptimalperfor- reduced-precisionformats(e.g.,FP8)tostoreKVcaches.Var-\nmanceandcost.Forexample,weanticipatethatProcessing- ioussparseattentionmechanisms[14,15,27,35,37,42,43,56]\nin-Memory(PIM)devices[13,22,26,29,30,32,47,54]willbe havebeen adopted,focusingon asubsetofallhistorykey-\namoresuitablecandidateformemory-optimizeddevicesas valuepairsduringattentioncomputation.Allthesemodifica-\ntheydemonstrateevengreatercostadvantagesalongsidetheir tionstotheattentionoperator,however,mightcompromise\nlargercapacityandhigherbandwidth.Besides,wecanalso themodelquality.\n12",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\n60 Enabled\n)sm(\nDisabled\n55\nTBT\n50\n10 20\nBatch size | E\nD | E\nD | nabled\nisabled | \n |  |  |  | \n |  |  |  | ",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "9 Conclusion [11] RezaYazdaniAminabadi,SamyamRajbhandari,Minjia\nZhang,AmmarAhmadAwan,ChengLi,DuLi,Elton\nInthispaper,wepresentmodel-attentiondisaggregation,an Zheng,JeffRasley,ShadenSmith,OlatunjiRuwase,and\ninnovativearchitecturalapproachtoimprovetheefficiencyof YuxiongHe. Deepspeedinference:Enablingefficient\nLLMdecoding.Thisapproachismotivatedbytheobservation inferenceoftransformermodelsatunprecedentedscale,\nthattheLLMdecodingphasecanbedividedintocomputation- 2022.\nintensivepartsandmemory-intensiveparts(i.e.,theattention\n[12] Anonymous. Hexgen-2:Disaggregatedgenerativein-\noperators). Hence,wemayusecomputation-andmemory-\nference of LLMs in heterogeneous environment. In\noptimizeddevicesforeachparttoimprovethehardwarere-\nSubmittedtoTheThirteenthInternationalConference\nsourceutilization.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "oreachparttoimprovethehardwarere-\nSubmittedtoTheThirteenthInternationalConference\nsourceutilization.Moreover,byadjustingtheTorealizethis\nonLearningRepresentations,2024. underreview.\nidea,we design a revamped latency-optimized networking\nstackthatfacilitatethefrequentdatatransferbetweenremote [13] KaziAsifuzzaman,NarasingaRaoMiniskar,AaronR\nGPUs.Wealsodevelopautomatedtoolsfortransformingand Young,Frank Liu,and Jeffrey S Vetter. A survey on\noptimizing existing LLMs for model-attention disaggrega- processing-in-memorytechniques:Advancesandchal-\ntion.WedevelopanddeployLaminaonaclustercomprising lenges. Memories-Materials,Devices,CircuitsandSys-\nheterogeneous GPUs. Evaluation on traces collected from tems,4:100022,2023.\nproductionsystemsshowthatLaminaprovides16.1∼90.1%",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "tion on traces collected from tems,4:100022,2023.\nproductionsystemsshowthatLaminaprovides16.1∼90.1%\n[14] IzBeltagy,MatthewEPeters,andArmanCohan. Long-\nhigherthroughputthanheterogeneoussolutionswithsimilar\nformer:Thelong-documenttransformer. arXivpreprint\nhardwarecosts.\narXiv:2004.05150,2020.\n[15] Rewon Child, Scott Gray, Alec Radford, and Ilya\nReferences\nSutskever. Generatinglongsequenceswithsparsetrans-\nformers. arXivpreprintarXiv:1904.10509,2019.\n[1] Azure llm inference trace 2023. https:\n//github.com/Azure/AzurePublicDataset/blob/ [16] Y. Choi, Y. Kim, and M. Rhu. Lazy batching: An\nmaster/AzureLLMInferenceDataset2023.md. sla-aware batching system for cloud machine learn-\ninginference. In2021IEEEInternationalSymposium\n[2] Cloud Computing Services | Google Cloud.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "e learn-\ninginference. In2021IEEEInternationalSymposium\n[2] Cloud Computing Services | Google Cloud. https: onHigh-PerformanceComputerArchitecture(HPCA),\n//cloud.google.com/. pages 493–506, Los Alamitos, CA, USA, mar 2021.\nIEEEComputerSociety.\n[3] GPUDirect RDMA. https://docs.nvidia.com/\ncuda/gpudirect-rdma/. [17] Tri Dao, Daniel Haziza, Francisco Massa, and Grig-\nory Sizov. Flash-decoding for long-context infer-\n[4] Mellanox adapters programmer’s reference manual. ence. https://crfm.stanford.edu/2023/10/12/\nhttps://network.nvidia.com/files/doc-2020/ flashdecoding.html.\nethernet-adapters-programming-manual.pdf.\n[18] Artyom Eliseev and Denis Mazur. Fast inference of\nmixture-of-experts language models with offloading,\n[5] Ray. https://www.ray.io/.\n2023.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "nference of\nmixture-of-experts language models with offloading,\n[5] Ray. https://www.ray.io/.\n2023.\n[6] RDMAcoreuserspacelibrariesanddaemons. https:\n[19] Jiarui Fang,Yang Yu,Chengduo Zhao,and Jie Zhou.\n//github.com/linux-rdma/rdma-core.\nTurbotransformers:Anefficientgpuservingsystemfor\ntransformermodels. InProceedingsofthe26thACM\n[7] TPUv6especification. https://cloud.google.com/\nSIGPLAN Symposium on Principles and Practice of\ntpu/docs/v6e.\nParallelProgramming,PPoPP’21,page389–402,New\nYork,NY,USA,2021.AssociationforComputingMa-\n[8] Amey Agrawal, Ashish Panwar, Jayashree Mohan,\nchinery.\nNipunKwatra,BhargavS.Gulavani,andRamachandran\nRamjee. Sarathi:Efficientllminferencebypiggyback- [20] PinGao,LingfanYu,YongweiWu,andJinyangLi.Low\ningdecodeswithchunkedprefills,2023.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ncebypiggyback- [20] PinGao,LingfanYu,YongweiWu,andJinyangLi.Low\ningdecodeswithchunkedprefills,2023. latencyrnninferencewithcellularbatching. InProceed-\ningsoftheThirteenthEuroSysConference,EuroSys’18,\n[9] AI@Meta. Llama3modelcard. 2024.\nNewYork,NY,USA,2018.AssociationforComputing\nMachinery.\n[10] JoshuaAinslie,JamesLee-Thorp,MichieldeJong,Yury\nZemlyanskiy,FedericoLebrón,andSumitSanghai.Gqa: [21] Amir Gholami, Zhewei Yao, Sehoon Kim, Coleman\nTraining generalized multi-query transformer models Hooper,Michael W Mahoney,and Kurt Keutzer. Ai\nfrommulti-headcheckpoints,2023. andmemorywall. IEEEMicro,2024.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "[22] MingxuanHe,ChoungkiSong,IlkonKim,Chunseok [30] Ann Franchesca Laguna, Arman Kazemi, Michael\nJeong,SehoKim,IlPark,MithunaThottethodi,andT.N. Niemier, and X. Sharon Hu. In-memory computing\nVijaykumar. Newton:Adram-maker’saccelerator-in- basedacceleratorfortransformernetworksforlongse-\nmemory (aim) architecture for machine learning. In quences.In2021Design,AutomationandTestinEurope\n202053rdAnnualIEEE/ACMInternationalSymposium Conference & Exhibition (DATE), pages 1839–1844,\nonMicroarchitecture(MICRO),pages372–385,2020. 2021.\n[23] KeHong,GuohaoDai,JiamingXu,QiuliMao,Xiuhong [31] YanivLeviathan,MatanKalman,andYossiMatias. Fast\nLi,JunLiu,KangdiChen,HanyuDong,andYuWang. inferencefromtransformersviaspeculativedecoding,\nFlashdecoding++: Faster large language model infer- 2023.\nenceongpus,2023.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "rsviaspeculativedecoding,\nFlashdecoding++: Faster large language model infer- 2023.\nenceongpus,2023.\n[32] WantongLi,MadisonManley,JamesRead,AnkitKaul,\n[24] Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan MuhannadS.Bakir,andShimengYu. H3datten:Het-\nAllen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and erogeneous 3-d integrated hybrid analog and digital\nWeizhuChen. Lora:Low-rankadaptationoflargelan- compute-in-memoryacceleratorforvisiontransformer\nguagemodels,2021. self-attention. IEEETransactionsonVeryLargeScale\nIntegration(VLSI)Systems,31(10):1592–1602,2023.\n[25] Wei Huang, Karthick Rajamani, Mircea R Stan, and\nKevin Skadron. Scaling withdesign constraints: Pre- [33] ZhuohanLi,LianminZheng,YinminZhong,Vincent\ndictingthefutureofbigchips.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "design constraints: Pre- [33] ZhuohanLi,LianminZheng,YinminZhong,Vincent\ndictingthefutureofbigchips.IEEEMicro,31(4):16–29, Liu,YingSheng,XinJin,YanpingHuang,ZhifengChen,\n2011. HaoZhang,JosephEGonzalez,etal. AlpaServe:Sta-\ntistical multiplexing with model parallelism for deep\n[26] JinHyunKim,Shin-HaengKang,SukhanLee,Hyeonsu\nlearningserving. In17thUSENIXSymposiumonOper-\nKim, Yuhwan Ro, Seungwon Lee, David Wang, Ji-\natingSystemsDesignandImplementation(OSDI23),\nhyun Choi, Jinin So, YeonGon Cho, JoonHo Song,\npages663–679,2023.\nJeonghyeonCho,KyominSohn,andNamSungKim.\nAquabolt-xlhbm2-pim,lpddr5-pimwithin-memorypro- [34] AixinLiu,BeiFeng,BinWang,BingxuanWang,BoLiu,\ncessing,and axdimm with acceleration buffer. IEEE ChenggangZhao,ChengqiDengr,ChongRuan,Damai\nMicro,42(3):20–30,2022.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "mm with acceleration buffer. IEEE ChenggangZhao,ChengqiDengr,ChongRuan,Damai\nMicro,42(3):20–30,2022. Dai,DayaGuo,DejianYang,DeliChen,DongjieJi,Er-\nhangLi,FangyunLin,FuliLuo,GuangboHao,Guant-\n[27] Nikita Kitaev, Łukasz Kaiser, and Anselm Levskaya. ingChen,GuoweiLi,H.Zhang,HanweiXu,HaoYang,\nReformer: The efficient transformer. arXiv preprint Haowei Zhang,Honghui Ding,Huajian Xin,Huazuo\narXiv:2001.04451,2020.\nGao,HuiLi,HuiQu,J.L.Cai,JianLiang,Jianzhong\nGuo,JiaqiNi,JiashiLi,JinChen,JingyangYuan,Jun-\n[28] Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying\njie Qiu, Junxiao Song, Kai Dong, Kaige Gao, Kang\nSheng,LianminZheng,CodyHaoYu,JosephGonzalez,\nGuan,Lean Wang,Lecong Zhang,Lei Xu,Leyi Xia,\nHao Zhang, and Ion Stoica. Efficient memory man-\nLiang Zhao, Liyue Zhang, Meng Li, Miaojun Wang,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "a,\nHao Zhang, and Ion Stoica. Efficient memory man-\nLiang Zhao, Liyue Zhang, Meng Li, Miaojun Wang,\nagementforlarge language modelserving withpage-\nMingchuan Zhang, Minghua Zhang, Minghui Tang,\ndattention. InProceedingsofthe29thSymposiumon\nMingmingLi,NingTian,PanpanHuang,PeiyiWang,\nOperatingSystemsPrinciples,SOSP’23,page611–626,\nPengZhang,QihaoZhu,QinyuChen,QiushiDu,R.J.\nNewYork,NY,USA,2023.AssociationforComputing\nChen, R. L. Jin, Ruiqi Ge, Ruizhe Pan, Runxin Xu,\nMachinery.\nRuyi Chen, S. S. Li, Shanghao Lu, Shangyan Zhou,\n[29] Yongkee Kwon, Kornijcuk Vladimir, Nahsung Kim, ShanhuangChen,ShaoqingWu,ShengfengYe,Shirong\nWoojaeShin,JongsoonWon,MinkyuLee,HyunhaJoo, Ma,ShiyuWang,ShuangZhou,ShuipingYu,Shunfeng\nHaerang Choi,Guhyun Kim,Byeongju An,Jeongbin Zhou,SizeZheng,T.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "yuWang,ShuangZhou,ShuipingYu,Shunfeng\nHaerang Choi,Guhyun Kim,Byeongju An,Jeongbin Zhou,SizeZheng,T.Wang,TianPei,TianYuan,Tianyu\nKim,JaewookLee,IlkonKim,JaehanPark,Chanwook Sun,W. L. Xiao,Wangding Zeng,Wei An,Wen Liu,\nPark, Yosub Song, Byeongsu Yang, Hyungdeok Lee, WenfengLiang,WenjunGao,WentaoZhang,X.Q.Li,\nSehoKim,DaehanKwon,SeongjuLee,KyuyoungKim, Xiangyue Jin,Xianzu Wang,Xiao Bi,Xiaodong Liu,\nSanghoonOh,JoonhongPark,GimoonHong,Dongy- XiaohanWang,XiaojinShen,XiaokangChen,Xiaosha\noon Ka, Kyudong Hwang, Jeongje Park, Kyeongpil Chen,XiaotaoNie,XiaowenSun,XiaoxiangWang,Xin\nKang,Jungyeon Kim,Junyeol Jeon,Myeongjun Lee, Liu,Xin Xie,Xingkai Yu,Xinnan Song,Xinyi Zhou,\nMinyoungShin,MinhwanShin,JaekyungCha,Chang- XinyuYang,XuanLu,XuechengSu,Y.Wu,Y.K.Li,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ng,Xinyi Zhou,\nMinyoungShin,MinhwanShin,JaekyungCha,Chang- XinyuYang,XuanLu,XuechengSu,Y.Wu,Y.K.Li,\nsonJung,KijoonChang,ChunseokJeong,EuicheolLim, Y.X.Wei,Y.X.Zhu,YanhongXu,YanpingHuang,Yao\nIlPark,JunhyunChun,andSkHynix. Systemarchitec- Li,YaoZhao,YaofengSun,YaohuiLi,YaohuiWang,\ntureandsoftwarestackforgddr6-aim. In2022IEEE YiZheng,YichaoZhang,YiliangXiong,YilongZhao,\nHotChips34Symposium(HCS),pages1–25,2022. Ying He,Ying Tang,Yishi Piao,Yixin Dong,Yixuan\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Tan,YiyuanLiu,YongjiWang,YongqiangGuo,Yuchen [44] YingSheng,LianminZheng,BinhangYuan,Zhuohan\nZhu,YuduanWang,YuhengZou,YukunZha,Yunxian Li,MaxRyabinin,BeidiChen,PercyLiang,Christopher\nMa,YutingYan,YuxiangYou,YuxuanLiu,Z.Z.Ren, Ré,IonStoica,andCeZhang.Flexgen:High-throughput\nZehui Ren,Zhangli Sha,Zhe Fu,Zhen Huang,Zhen generative inference oflarge language models witha\nZhang,ZhendaXie,ZhewenHao,ZhihongShao,Zhiniu single gpu. In Proceedings of the 40th International\nWen,ZhipengXu,ZhongyuZhang,ZhuoshuLi,Zihan ConferenceonMachineLearning,ICML’23.JMLR.org,\nWang,ZihuiGu,ZilinLi,andZiweiXie. Deepseek-v2: 2023.\nAstrong,economical,andefficientmixture-of-experts\n[45] Mohammad Shoeybi, Mostofa Patwary, Raul Puri,\nlanguagemodel,2024.\nPatrickLeGresley,JaredCasper,andBryanCatanzaro.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "bi, Mostofa Patwary, Raul Puri,\nlanguagemodel,2024.\nPatrickLeGresley,JaredCasper,andBryanCatanzaro.\n[35] Hao Liu,Matei Zaharia,and Pieter Abbeel. Ring at- Megatron-lm:Trainingmulti-billionparameterlanguage\ntention with blockwise transformers for near-infinite modelsusingmodelparallelism,2020.\ncontext,2023.\n[46] FranyellSilfa,JoseMariaArnau,andAntonioGonzález.\nE-batch: Energy-efficient and high-throughput rnn\n[36] Xiaoxuan Liu,Lanxiang Hu,Peter Bailis,Ion Stoica,\nbatching. ACMTrans.Archit.CodeOptim.,19(1),jan\nZhijie Deng,Alvin Cheung,and Hao Zhang. Online\n2022.\nspeculativedecoding,2023.\n[47] ShrihariSridharan,JacobR.Stevens,KaushikRoy,and\n[37] ZichangLiu,JueWang,TriDao,TianyiZhou,Binhang\nAnandRaghunathan.X-former:In-memoryacceleration\nYuan,Zhao Song,Anshumali Shrivastava,Ce Zhang,",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "hang\nAnandRaghunathan.X-former:In-memoryacceleration\nYuan,Zhao Song,Anshumali Shrivastava,Ce Zhang,\noftransformers. IEEETransactionsonVeryLargeScale\nYuandong Tian,ChristopherRe,et al. Deja vu: Con-\nIntegration(VLSI)Systems,31(8):1223–1233,2023.\ntextualsparsityforefficientllmsatinferencetime. In\nInternationalConferenceonMachineLearning,pages [48] HugoTouvron,ThibautLavril,GautierIzacard,Xavier\n22137–22176.PMLR,2023. Martinet,Marie-AnneLachaux,TimothéeLacroix,Bap-\ntisteRozière,NamanGoyal,EricHambro,FaisalAzhar,\n[38] Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xin-\nAurelien Rodriguez, Armand Joulin, Edouard Grave,\nhao Cheng, Zeyu Wang, Rae Ying Yee Wong, Alan\nandGuillaumeLample. Llama:Openandefficientfoun-\nZhu,LijieYang,XiaoxiangShi,ChunanShi,Zhuoming\ndationlanguagemodels,2023.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "lama:Openandefficientfoun-\nZhu,LijieYang,XiaoxiangShi,ChunanShi,Zhuoming\ndationlanguagemodels,2023.\nChen,DaiyaanArfeen,ReynaAbhyankar,andZhihao\nJia. Specinfer:Acceleratinggenerativelargelanguage [49] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob\nmodelservingwithspeculativeinferenceandtokentree Uszkoreit,LlionJones,AidanN.Gomez,ŁukaszKaiser,\nverification,2023. and Illia Polosukhin. Attention is all you need. In\nProceedings of the 31st International Conference on\n[39] NVIDIA.Tensorrt-llm:Atensorrttoolboxforoptimized NeuralInformationProcessingSystems,NIPS’17,page\nlarge language model inference. https://github. 6000–6010,RedHook,NY,USA,2017.CurranAsso-\ncom/NVIDIA/TensorRT-LLM. ciatesInc.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ence. https://github. 6000–6010,RedHook,NY,USA,2017.CurranAsso-\ncom/NVIDIA/TensorRT-LLM. ciatesInc.\n[40] PratyushPatel,EshaChoukse,ChaojieZhang,Aashaka [50] Samuel Williams,Andrew Waterman,and David Pat-\nShah,ÍñigoGoiri,SaeedMaleki,andRicardoBianchini. terson. Roofline: An insightful visual performance\nSplitwise:Efficientgenerativellminferenceusingphase model for multicore architectures. Commun. ACM,\nsplitting,2024. 52(4):65–76,apr2009.\n[51] BingyangWu,YinminZhong,ZiliZhang,GangHuang,\n[41] RuoyuQin,ZhemingLi,WeiranHe,MingxingZhang,\nXuanzhe Liu,andXin Jin. Fast distributed inference\nYongweiWu,WeiminZheng,andXinranXu. Moon-\nservingforlargelanguagemodels,2023.\ncake:Akvcache-centricdisaggregatedarchitecturefor\nllmserving. arXivpreprintarXiv:2407.00079,2024.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": ".\ncake:Akvcache-centricdisaggregatedarchitecturefor\nllmserving. arXivpreprintarXiv:2407.00079,2024.\n[52] Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song\nHan, and Mike Lewis. Efficient streaming language\n[42] JiezhongQiu,HaoMa,OmerLevy,ScottWen-tauYih,\nmodelswithattentionsinks,2024.\nSinongWang,andJieTang. Blockwiseself-attention\nfor long document understanding. arXiv preprint [53] LeyangXue,YaoFu,ZhanLu,LuoMai,andMahesh\narXiv:1911.02972,2019. Marina. Moe-infinity:Offloading-efficientmoemodel\nserving,2024.\n[43] Aurko Roy,Mohammad Saffar,Ashish Vaswani,and\nDavidGrangier. Efficientcontent-basedsparseattention [54] XiaoxuanYang,BonanYan,HaiLi,andYiranChen.Re-\nwithroutingtransformers. TransactionsoftheAssocia- transformer:Reram-basedprocessing-in-memoryarchi-",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ithroutingtransformers. TransactionsoftheAssocia- transformer:Reram-basedprocessing-in-memoryarchi-\ntionforComputationalLinguistics,9:53–68,2021. tecturefortransformeracceleration. InProceedingsof\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "the39thInternationalConferenceonComputer-Aided\nDesign,ICCAD’20,NewYork,NY,USA,2020.Asso-\nciationforComputingMachinery.\n[55] Zhuoping Yang, Shixin Ji, Xingzhen Chen, Jinming\nZhuang, Weifeng Zhang, Dharmesh Jani, and Peipei\nZhou. Challenges and opportunities to enable large-\nscale computing via heterogeneous chiplets. In 2024\n29thAsiaandSouthPacificDesignAutomationConfer-\nence(ASP-DAC),pages765–770.IEEE,2024.\n[56] Zihao Ye, Qipeng Guo, Quan Gan, Xipeng Qiu, and\nZheng Zhang. Bp-transformer: Modelling long-\nrange context via binary partitioning. arXiv preprint\narXiv:1911.04070,2019.\n[57] Gyeong-InYu,JooSeongJeong,Geon-WooKim,Soo-\njeongKim,andByung-GonChun. Orca:Adistributed\nservingsystemforTransformer-Basedgenerativemod-\nels. In16thUSENIXSymposiumonOperatingSystems",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ibuted\nservingsystemforTransformer-Basedgenerativemod-\nels. In16thUSENIXSymposiumonOperatingSystems\nDesignandImplementation(OSDI22),pages521–538,\n2022.\n[58] Susan Zhang, Stephen Roller, Naman Goyal, Mikel\nArtetxe,Moya Chen,Shuohui Chen,Christopher De-\nwan,MonaDiab,XianLi,XiVictoriaLin,TodorMi-\nhaylov,Myle Ott,Sam Shleifer,Kurt Shuster,Daniel\nSimig,PunitSinghKoura,AnjaliSridhar,TianluWang,\nand Luke Zettlemoyer. Opt: Open pre-trained trans-\nformerlanguagemodels,2022.\n[59] YinminZhong,ShengyuLiu,JundaChen,JianboHu,\nYiboZhu,XuanzheLiu,XinJin,andHaoZhang. Dist-\nServe:Disaggregatingprefillanddecodingforgoodput-\noptimized large language model serving. In 18th\nUSENIXSymposiumonOperatingSystemsDesignand\nImplementation(OSDI24),pages193–210,2024.\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "and\nImplementation(OSDI24),pages193–210,2024.\n16",
+    "page": 16
+  }
+]

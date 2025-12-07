@@ -1,0 +1,787 @@
+[
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances\nJESSEDODGE,AllenInstituteforAI,USA\nTAYLORPREWITT,UniversityofWashington,USA\nREMITACHETDESCOMBES,MicrosoftResearchMontreal,USA\nERIKAODMARK,Microsoft,USA\nROYSCHWARTZ,HebrewUniversityofJerusalem,Israel\nEMMASTRUBELL,CarnegieMellonUniversity,USA\nALEXANDRASASHALUCCIONI,HuggingFace,USA\nNOAHA.SMITH,AllenInstituteforAIandUniversityofWashington,USA\nNICOLEDECARIO,AllenInstituteforAI,USA\nWILLBUCHANAN,Microsoft,USA\nTheadventofcloudcomputinghasprovidedpeoplearoundtheworldwithunprecedentedaccesstocomputationalpowerand\nenabledrapidgrowthintechnologiessuchasmachinelearning,thecomputationaldemandsofwhichincurahighenergycostanda\ncommensuratecarbonfootprint.Asaresult,recentscholarshiphascalledforbetterestimatesofthegreenhousegasimpactofAI:data",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "onfootprint.Asaresult,recentscholarshiphascalledforbetterestimatesofthegreenhousegasimpactofAI:data\nscientiststodaydonothaveeasyorreliableaccesstomeasurementsofthisinformation,whichprecludesdevelopmentofactionable\ntactics.Wearguethatcloudproviderspresentinginformationaboutsoftwarecarbonintensitytousersisafundamentalstepping\nstonetowardsminimizingemissions.\nInthispaper,weprovideaframeworkformeasuringsoftwarecarbonintensity,andproposetomeasureoperationalcarbon\nemissionsbyusinglocation-basedandtime-specificmarginalemissionsdataperenergyunit.Weprovidemeasurementsofoperational\nsoftwarecarbonintensityforasetofmodernmodelscoveringnaturallanguageprocessingandcomputervisionapplications,anda\nwiderangeofmodelsizes,includingpretrainingofa6.1billionparameterlanguagemodel.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "sionapplications,anda\nwiderangeofmodelsizes,includingpretrainingofa6.1billionparameterlanguagemodel.Wethenevaluateasuiteofapproachesfor\nreducingemissionsontheMicrosoftAzurecloudcomputeplatform:usingcloudinstancesindifferentgeographicregions,usingcloud\ninstancesatdifferenttimesofday,anddynamicallypausingcloudinstanceswhenthemarginalcarbonintensityisaboveacertain\nthreshold.Weconfirmpreviousresultsthatthegeographicregionofthedatacenterplaysasignificantroleinthecarbonintensityfor\nagivencloudinstance,andfindthatchoosinganappropriateregioncanhavethelargestoperationalemissionsreductionimpact.We\nalsopresentnewresultsshowingthatthetimeofdayhasmeaningfulimpactonoperationalsoftwarecarbonintensity.Finally,we",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "newresultsshowingthatthetimeofdayhasmeaningfulimpactonoperationalsoftwarecarbonintensity.Finally,we\nconcludewithrecommendationsforhowmachinelearningpractitionerscanusesoftwarecarbonintensityinformationtoreduce\nenvironmentalimpact.\nAdditionalKeyWordsandPhrases:CO2,emissions,cloud,carbonintensity,carbonawareness,grid\nACMReferenceFormat:\nJesseDodge,TaylorPrewitt,RemiTachetDesCombes,ErikaOdmark,RoySchwartz,EmmaStrubell,AlexandraSashaLuccioni,Noah\nA.Smith,NicoleDeCario,andWillBuchanan.2022.MeasuringtheCarbonIntensityofAIinCloudInstances.In2022ACMConference\nonFairness,Accountability,andTransparency(FAccT’22),June21–24,2022,Seoul,RepublicofKorea.ACM,NewYork,NY,USA,25pages.\nhttps://doi.org/10.1145/3531146.3533234",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "1–24,2022,Seoul,RepublicofKorea.ACM,NewYork,NY,USA,25pages.\nhttps://doi.org/10.1145/3531146.3533234\nPermissiontomakedigitalorhardcopiesofpartorallofthisworkforpersonalorclassroomuseisgrantedwithoutfeeprovidedthatcopiesarenot\nmadeordistributedforprofitorcommercialadvantageandthatcopiesbearthisnoticeandthefullcitationonthefirstpage.Copyrightsforthird-party\ncomponentsofthisworkmustbehonored.Forallotheruses,contacttheowner/author(s).\n©2022Copyrightheldbytheowner/author(s).\nManuscriptsubmittedtoACM\n1\n2202\nnuJ\n01\n]GL.sc[\n1v92250.6022:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\n1 INTRODUCTION\nClimatechangeisanincreasingthreattolifeonourplanet,whichdisproportionatelyimpactsthemostdisadvantaged\ncommunitiesandfragileecosystems[28].Oneofthemaindriversofclimatechangeiscarbondioxide,orCO2,which\ncontributestothegreenhouseeffectbytrappingtheheatfromthesunwithintheatmospherewithoutlettingitdissipate.\nCO2(andothertypesofgreenhousegases,suchasmethaneandozone)areemittedbymanysources,somenatural\nbutmostman-made,suchastheburningofoilandgasfortransportationandheatingorforindustrialprocesses\nsuchassmelting.In2018,itwasestimatedthatglobaldatacenterenergyuserepresentedcloseto1%ofglobalenergy\nusage[27].Whileitisnotyetknownwhatproportionofdatacenteruseisfortrainingartificialintelligence(AI)",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "usage[27].Whileitisnotyetknownwhatproportionofdatacenteruseisfortrainingartificialintelligence(AI)\nmodels,itisundeniablethatAIanditssub-fieldshavegrowndramaticallyinrecentyears,withnosignofslowing\ndown[39,43].WhileanumberofpapershaveaddressedtheCO2emissionsproducedbyAI(e.g.,[23,26,33,34]),the\nextentandprovenanceofCO2emissionsinthefieldisstillunder-explored.Nonetheless,acommonthemeofprevious\nworkisthatitaimstoestimatetheemissionsproducedbytrainingAImodels,orcarryingouttheaccompanying\nneuralarchitecturesearch(NAS)process,basedoncoarsemeasuressuchasCO2emissionsofelectricityusedinthe\nregionwherethecomputationswerecarriedout(e.g.,[42]),orpost-hocanalysesusinginformationthatisnotpublicly\navailable(e.g.,[34]).",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "werecarriedout(e.g.,[42]),orpost-hocanalysesusinginformationthatisnotpublicly\navailable(e.g.,[34]).\nWithanincreasingamountofAImodeltrainingbeingdoneoncloudcomputeinstances,reducingtheemissions\ngeneratedbytheseworkloadswillbekeytoreducingourcarbonfootprintasafield.However,toreducegreenhousegas\nemissionsfromcloudcomputing,weneedconsidertheroleoftwotypesofactors:thecloudprovider(suchasMicrosoft\nAzure,Google’sGCP,orAmazon’sAWS)andtheuserwhoreservesandusescloudresources(e.g.,anAIresearcher\ntrainingamodelonacloudinstance,oracompanyhostingawebsite).Typically,theprovider’smotivationistobuilda\nsystemwhereuserscanaccessthecomputingpowerandstoragethatbestmeetstheirneeds.Theuser,ontheother\nhand,ismotivatedbysomeendtaskwhichrequirescomputingpower,suchasrunningasetofexperimentsorputting",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "er\nhand,ismotivatedbysomeendtaskwhichrequirescomputingpower,suchasrunningasetofexperimentsorputting\namodelintoproduction.Oftentheuserwillfirstconsidertheminimalcomputationalrequirementstoachievetheir\ngoals,thenlaterease-of-usefeaturesrelatingtotransferspeedorextrastoragedependingonavailablebudget.Driven\nbythesemotivations,providersanduserscaneachtakeactionstomeettheirgoals:providerscanbuilddatacenters\nandsetupAPIstoenableusers’accessandaccounting,whileuserscanchoosetheircloudprovider,whichregionto\nuse,andthenumberandtypeofcloudinstancesrequiredfortheirendtaskatagivenpointintime.Basedonthese\nstakeholdersandmotivations,inthisworkweaddressthefollowingresearchquestions:1)howshouldwemeasureand\nreportoperationalcarboncostsofAIworkloads?And2)canweshiftcomputationspatiallyandtemporallytomitigate",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "eportoperationalcarboncostsofAIworkloads?And2)canweshiftcomputationspatiallyandtemporallytomitigate\nemissions?\nInthisarticle,weintroducethefirsttooltoestimatethereal-timeCO2emissionsimpactofinstancesonacloud\ncomputingplatform.Thetoolcalculatesoperationalcarbonemissionsbyusinglocation-basedandtime-specificmarginal\nemissionsdataperenergyunit.Usingthetool,weexploreseveralcasestudiesontheMicrosoftAzurecloudcompute\nplatformspanningtheareasofnaturallanguageprocessing(NLP)andcomputervision,estimatingthecarbonintensity\noftrainingavarietyofcommonlyusedmachinelearningmodels.Wealsoexploretwoavenuesforusersofcloud\ninstancestoreducetheirCO2 usingthistoolby:(1)Changingtheregionofcomputeand(2)changingthetimeof\ndayduringwhichthemodelisrun.Whiletheformerhasbeenrecognizedbypriorwork[13,23],wearethefirstto",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "imeof\ndayduringwhichthemodelisrun.Whiletheformerhasbeenrecognizedbypriorwork[13,23],wearethefirstto\naddressthelattertothebestofourknowledge.Further,ourtoolmakesitpossibletoautomaticallyschedulejobsin\nordertoreducetheircarbonfootprintbyleveragingthesedifferencesincarbonintensityduetotimeandgeographic\nlocation.Finally,weprovideguidanceregardingwhatshouldbemeasuredandhow,followingtheGreenSoftware\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nFoundation’sguidelinesregardingSoftwareCarbonIntensity(SCI),andsuggestfutureareasofresearchtoimprovethe\nstateofcarbonestimationandreportinginAI.\n2 RELATEDWORK\nAttentionwasfirstdrawntotheenvironmentalimpactofAIresearchbytheseminalworkofStrubelletal.[42],which\nquantifiedtheemissionsproducedbytrainingaTransformermodelwithNeuralArchitecturesearch,findingitto\nbecomparabletothelifetimecarbonemissionsoffivecars.Pattersonetal.[34]presentedsomeupdatedanalyses\nofsimilarexperiments,includingpopulararchitectureslikeT5[35]andBERT[8],analyzingCO2 emissionsasa\nfactoroftheirenergyconsumption,carbonintensityoftrainingservers,etc.OtherworksuchasGreenAI[39]delved",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "actoroftheirenergyconsumption,carbonintensityoftrainingservers,etc.OtherworksuchasGreenAI[39]delved\nfurtherintoinequalityofaccesstocomputationalresourceswithintheresearchcommunity,andadvocatedforthe\ninclusionofefficiencyevaluationalongsideaccuracyasaprimaryevaluationcriterion.Muchexistingandongoing\nworkonquantifyingtheenvironmentalfootprintofMLhasbeenfocusedonestimatingtheCO2emissionsofmodel\ntraining.Thisisamorestraightforwardendeavorcomparedtootherstagesbothupstreamanddownstreamfromthe\ntrainingprocess,giventhatitiswell-definedintimeanditsemissionscanbemeasuredinreal-timewithtoolslike\nCodeCarbon[38]andCarbonTracker[1]orestimatedpost-hocusingtoolssuchasMLCO2 ImpactTracker[23].\nOurtoolbuildsuponthisworkbymakingcarbontrackingoncloudinstancespossible,enablingalargerportionof",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "].\nOurtoolbuildsuponthisworkbymakingcarbontrackingoncloudinstancespossible,enablingalargerportionof\nMLmodeltrainingworktoprofitfromfine-grainedcarbonestimation.However,recentworkhasfoundthattheir\nresultsvarysignificantlyandarenotfullyrepresentativeofthetrueemissionsincurredbytraining[3].Perhapsmost\nsimilartoourwork,EnergyVis[41]isaninteractivetoolforvisualizingandcomparingenergyconsumptionofML\nmodelsasafunctionofhardwareandphysicallocation(U.S.state),givenmetadataaboutamodel’senergyuseper\nepoch.Otherstudieshavegonebeyondsimplytrackingtheemissionsfromtrainingmodels,aimingtoquantifythe\nemissionsresultingfrommanufacturingcomputinghardware[15],thebroaderimpactsofsustainableAI[49],andthe\nmethodologiesusedtoassessthoseimpacts[21,26].Buildinguponthisresearch,effortshavealsobeenmadetocertify",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "hodologiesusedtoassessthoseimpacts[21,26].Buildinguponthisresearch,effortshavealsobeenmadetocertify\nsystemsasbeingsocially-andenvironmentally-conscious[14],workingtowardscomparingboththeenvironmental\ncostsandpotentialbenefitsofAImodelsinordertopaintamoreholisticpictureofAI.\nMajortechnologycompanieshavealsobeenincreasinglycommittedtoreducingtheiremissions,largelyviathe\npurchase of Renewable Energy Credits (RECs), which involves directly buying quantities of energy produced by\nrenewablesources,translatingintocarbonreductionsundertheassumptionthatthecleanenergyisdisplacingan\nequivalentamountofelectricityproducedbynon-renewablemethods[11].Manycloudproviders,fromGoogleCloud\nPlatformtoMicrosoftAzure,thereforeclaimthattheyarenow“carbon-neutral,”giventhattheyoffsettheentiretyof",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tformtoMicrosoftAzure,thereforeclaimthattheyarenow“carbon-neutral,”giventhattheyoffsettheentiretyof\ntheemissionsoftheircloudcenters,thoughwemustbewaryofthepreciseprovenanceofRECs,andthedetailsof\nhoweachorganizationdefines“zero”netemissions[36].ThisiscomplementedbyeffortstomitigatetheactualCO2\nemissionsofthecomputeregionsthemselves,withseveralserverlocationspartiallypoweredbyrenewableenergy\nsourcessuchassolarandwind[12,29,40]andgivingusersthenecessarytoolstopickcomputeregionswithasmaller\ncarbonfootprint[13,17],whichareoftentiedtotheamountoflow-carbonenergythatisbeingpurchased,andnotthe\ngridemissionsintensity.Itisimportanttonotethatthedecisiononwhenandwheretodeployaworkloadshouldbe\nbasedonagridemissionssignal,nottheamountofemissionsoffsetthroughmarket-basedmeasures(e.g.,greenpower",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "asedonagridemissionssignal,nottheamountofemissionsoffsetthroughmarket-basedmeasures(e.g.,greenpower\npurchaseagreements(PPAs),renewableenergycertificates(RECs),orothercarbonoffsetmechanisms):purchasing\ncleanenergyisnotthesameasconsumingcleanenergy.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\n3 REPORTINGAICARBONINTENSITY\nCarbonaccountingandreportingisbecomingincreasinglycommoninML,withconferencessuchasNeurIPSrequesting\nthatsubmissionsreporttheiremissions[31]andrecentworkreportingtheemissionsincurred[37,44].However,it\nhasyettobecomethenorminourfield,andwearestilllackingsystematicinformationregardingtheenvironmental\nfootprintoftrainingMLmodelsandhowwecanreduceit.Inthispaper,wearguethatifmembersoftheMLcommunity\nhadaccesstoinformationabouttheCO2emissionsoftheiractions,theycouldadapttheirdecisionstoreducethese\nemissionswhilestillmeetingthecomputationalneedsfortheirendtasks.Inaddition,providersbuildingtoolsthat\nenableuserstotracktheirCO2emissionsdirectlyalignswithproviders’goals,asitwillinformusers’decisionswithout",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "userstotracktheirCO2emissionsdirectlyalignswithproviders’goals,asitwillinformusers’decisionswithout\nbeingoverlyburdensome.Anycloudproviderthatdisclosesthisinformationtouserswill,infact,beimprovingthose\ncustomers’experiences,andlikelyincreaseusageoftheplatform.Morespecifically,weproposethat,foraclouduser\nwhowantstoestimatetheircarbonfootprint,themostsalientinformationproviderscanreportistheCO2emissions\ngeneratedbytheircloudinstances.Arguablythesinglemostimportantcontributionofthispaperisthesimplest:a\npresentationofthesoftwarecarbonintensity(SCI)asaproxyforcarbonemissionsforagivencloudinstanceasitis\nrunning.\n3.1 Methodology:ComputingCO2Intensity\nInthissectionwedescribeamethodforestimatingcarbonintensityforcloudinstances.Atahighlevel,thisinvolves",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "thissectionwedescribeamethodforestimatingcarbonintensityforcloudinstances.Atahighlevel,thisinvolves\ntrackingelectricityconsumptionofhardwarerelatedtoasinglecloudinstance,andmappingthatelectricityusageto\nCO2emissionsbyusingagrid-basedcarbonintensity.\nAsdevelopedbytheGreenSoftwareFoundation,theSoftwareCarbonIntensity(𝑆𝐶𝐼)isarate,carbonemissionsper\nonefunctionalunit,orR.Theequationusedtocalculatethe𝑆𝐶𝐼 valueofasoftwaresystemistherefore:\n𝑆𝐶𝐼 =((𝐸∗𝐼)+𝑀)per𝑅 (1)\nwhere:\n• 𝐸=Energyconsumedbyasoftwaresystem.Specifically,wefocusonenergyconsumptionofGraphicalProcessing\nUnits,orGPUs.Theunitsusedarekilowatt-hours(kWh).\n• 𝐼 =Location-basedmarginalcarbonemissionsforthegridthatpowersthedatacenter.WattTimeprovides\nmeasurementsofgramsofcarbondioxideequivalentperkilowatt-hourofelectricity(gCO2eq/kWh)",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "tTimeprovides\nmeasurementsofgramsofcarbondioxideequivalentperkilowatt-hourofelectricity(gCO2eq/kWh)\n• 𝑀 =Embodiedcarbon(alsoreferredtoas“embeddedcarbon”)istheamountofcarbonemittedduringthe\ncreation,usage,anddisposalofahardwaredevice.Whensoftwarerunsonadevice,afractionofthetotal\nembodiedemissionsofthedeviceisallocatedtothesoftware.\n• 𝑅=Functionalunit.Inthisinstance,wearedefiningthefunctionalunitasonemachinelearningtrainingjob,\nbutitisextensibletootherscenarios.\nTheequationcanbefurtherrefinedto:\n𝑆𝐶𝐼 =(𝑂+𝑀)per𝑅 (2)\nwhere𝑂 =𝐸∗𝐼 calculatestheoperationalemissionsbasedonenergyconsumption(𝐸)multipliedbythelocation-based\nandtime-specificcarbonintensitymeasurement(𝐼).Oncemorethiscanbefurtherrefinedtosimply:\n𝑆𝐶𝐼 =𝐶per𝑅 (3)\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "imply:\n𝑆𝐶𝐼 =𝐶per𝑅 (3)\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nwhere𝐶 =𝑂+𝑀 isthesoftwarecarbonintensityforagivencloudinstance.Inthispaper,wefocusonmeasuring\noperationalemissions𝑂,andleavemeasurementandaccountingforembodiedemissionsduetospecializedMLhardware\nsuchasGPUstofuturework(see§8).\nTheobjectiveoftheGreenSoftwareFoundation’sSoftwareCarbonIntensity(SCI)specificationistocalculateand\nreduceaSCIscore,basedoncarbonemissionsreductions,ratherthanthecurrently-usedmarket-basedneutralization.\nSpecifically,theSCIusesa\"consequential\"carbonaccountingapproach,whichaimstoquantifythemarginalchangein\nemissionscausedbydecisionsorinterventions.Thisdiffersfromthecommonlyused\"attributional\"carbonaccounting",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "sionscausedbydecisionsorinterventions.Thisdiffersfromthecommonlyused\"attributional\"carbonaccounting\napproach,whichusesaveragecarbonintensitydata,meaningitdoesnotprovidethemostactionableinformationto\nhelpreducecarbonemissions.Duetothemyriadpotentialpitfallsofrelyingonmarket-basedmeasuresinplaceof\nactualreductioninemissions[36],itisnotpossibletoreducetheSCIthroughcarbonneutralizationorcarbonoffsets.\nWeassertthatcloudprovidersshouldprovidetheSCItodevelopersanddatascientiststohelpthemmakechoicesthat\nreducethecarbonfootprintoftheirMLworkloads.\n3.2 TheScopeofourTool:GPUComputationofaSingleCloudInstance\nDatacenterstypicallycomprisemanycomputersystemsandhardwarecomponents,includingstorage,GPUs,CPUs,\nandnetworkingcomponents.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "omprisemanycomputersystemsandhardwarecomponents,includingstorage,GPUs,CPUs,\nandnetworkingcomponents.Wecanbreakdowntheelectricityusagefordatacentersinto:1)electricitythatisused\nforasinglecloudinstance,and2)electricitythatisusedforthebenefitofthewholedatacenter.Inthisworkwefocus\nontheformer,asinglecloudinstance;becauseofthis,areadershouldunderstandthatourestimatesoftheelectricity\nconsumptionandemissionsareunderestimates.1\nElectricityConsumptionfromaSingleCloudInstance. ThemostaccurateandpopularAImodelstodayaretypically\n(deep)neuralnetworks,whicharemostperformantonspecialized,highlyparallelized,andoftenenergy-intensive\nhardware[43].ThemostcommonscenarioisforAIworkloadstorunongraphicsprocessingunits(GPUs),whichprovide",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "hardware[43].ThemostcommonscenarioisforAIworkloadstorunongraphicsprocessingunits(GPUs),whichprovide\nsignificantaccelerationcomparedtoCPUs(centralprocessingunits)butaremorepower-hungry(oftenconsuming\n250W-350W,comparedtoCPUconsumptionof10-150W).Duetospecializationtothematrixmultiplyoperationsat\nthecoreofneuralnetworkcomputationsandahighrateofparallelization,GPUscanperformmanymoreofthese\ntypesofcomputationsinthesameamountoftimeasaCPU,butthisincreasedcomputationthroughputcomesatan\nincreasedenergycost.ThusinMLapplicationsbasedondeeplearning,themajorityoftheelectricityconsumption\nisduetotheGPU[5,45].Whilethisresultisfairlyuncontroversial,werananexperimenttoconfirmit.Todoso,\nwetrainedaBERT-basemodel[8]onasingleNVIDIATITANXGPU(12GB)inacommodityserverwithtwoIntel\nXeonE5-2630v3CPUs(2.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "daBERT-basemodel[8]onasingleNVIDIATITANXGPU(12GB)inacommodityserverwithtwoIntel\nXeonE5-2630v3CPUs(2.4GHz)and256GBRAM(16x16GBDIMMs)tomeasuretherelativeelectricityconsumption\nofdifferentcomponents.WetrainedthemodelusingtheoriginalcodeprovidedbyDevlinetal.[8]onthelanguage\nmodelpre-trainingtaskfor12hoursononeGPU,samplingtheinstantaneousenergyuseoftheGPU,CPUandDRAM\nforeachsocketthroughoutthatperiod,thenaveragingtogetaveragepowerdrawpercomponentinwatts.GPU\nenergydrawwasmeasuredusingnvidia-smiandCPUandDRAMpowerdrawwereobtainedusingIntel’sRAPL.\nOurmeasurements,inwatts,arepresentedinTable1.AsexpectedtheGPUaccountsforalmost3/4ofelectricity\nconsumption.\nFocusonGPUs. Inclouddatacenters,theCPUs,RAM,storage,andmotherboardsareoftensharedacrossmultiple",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "on.\nFocusonGPUs. Inclouddatacenters,theCPUs,RAM,storage,andmotherboardsareoftensharedacrossmultiple\ninstances;whilethisprovidestheflexibilitythatmakesthecloudsouseful,itleadstotechnicallimitationsthatmakeit\n1Thereisrelatedworkonestimatingandreducingtheelectricityofdatacentersingeneral,e.g.,[10,24].\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nHardwa. GPU CPU0 CPU1 DRAM0 DRAM1 Total\nWatts 187.1 22.9 9.3 23.0 9.3 251.6\nFraction 74% 9% 4% 9% 4% 100%\nTable1. Theelectricityconsumption,inwattsandpercentages,whentrainingBERTbaseonasingleNVIDIATITANXGPU(12GB),\ninacommodityserverwithtwoIntelXeonE5-2630v3CPUs(2.4GHz)and256GBRAM(16x16GBDIMMs).Powerconsumptionis\naveragedacrossinstantaneousmeasurementsover12hoursoftrainingonusingthemaskedlanguagemodelingobjective.TheGPU\naloneaccountsfor74%ofthetotalenergyconsumptionduetothesecomponents.\ndifficult(andinsomecasesimpossible)toproperlyestimateelectricityconsumptionfromthesesourcesforasingle\ninstance.However,GPUsaretypicallynotsharedacrossinstances,andinfactforlargeAIworkloadsit’softenthe",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "instance.However,GPUsaretypicallynotsharedacrossinstances,andinfactforlargeAIworkloadsit’softenthe\ncasethatmultipleGPUsareattachedtoasingleinstance,leadingtoanevengreaterproportionofthetotalenergy\nconsumptionbeingusedbytheGPUs.Thus,itisrelativelyeasytomeasuretheGPUelectricityconsumptionfora\nsingleinstance,whileitisnotforothercomponents.Forthisreason,andbecausetheytypicallyconsumethemajority\nofelectricityinAIworkloads,inthisworkweonlymeasureGPUelectricityconsumption.Werecognizethisisafirst\nsteptowardsamorecompletemeasurement,andprovidefurtherdiscussioninthenextsection.2\nOthersourcesofCO2. Datacentershaveanumberofelectricityusesthatareimportant,butwillnotbecoveredby\nourtool.AccordingtotheU.S.DepartmentofEnergy:“Theelectricityconsumedinthesedatacentersismainlybythe",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ourtool.AccordingtotheU.S.DepartmentofEnergy:“Theelectricityconsumedinthesedatacentersismainlybythe\nequipment(50%)andHVAC(25%–40%)”[47].Suchothersourcesofemissionscanbeaccountedforusingmethods\nsuchasPowerUsageEffectiveness(PUE),whichcanbeusedtodescribetheproportionofelectricityconsumption\nbythecomputingequipmentvs.othersources.Foragivendatacenter,thiscanbeturnedintoafactorwhichcanbe\nmultipliedagainsttheelectricityconsumptionofcomputingequipmenttogetanestimateofthetotalconsumption.\nSomecompanieshavehighlightedparticularlylowPUEs,suchasGoogleclaimingaPUEof1.10acrossitsfleetofdata\ncentersforthe12monthsendinginQ12021,3comparedtoanaverageglobalPUEof1.59[2].\nOtherfactors,suchastheemissionsproducedbymaintenanceworkersdrivingtoandfromthedatacenter,emissions",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Otherfactors,suchastheemissionsproducedbymaintenanceworkersdrivingtoandfromthedatacenter,emissions\nfrommanufacturingthecomputersystems,andemissionsfrombuildingthestructureinwhichthedatacenteris\nhoused4arenon-negligiblebutbeyondthescopeofthispaper.Finally,forworkloadsthatdonotuseGPUs(e.g.,storage\norwebhosting)werecommenduserschooselowemissionsregionsandtimesofday,astheywillnothaveaccessto\nsingle-instanceemissionscalculations.Weleaveitopenforfutureresearchtoaddresshowtoappropriatelyallocate\nCO2emissionsfromsuchdatacenter-wideprocessestoindividualreservedcloudinstances.\n4 ELECTRICITYCONSUMPTIONFORAIWORKLOADS\nAsoutlinedin§3.1,calculatingsoftwarecarbonintensitybeginswithrecordingtheelectricityconsumption,which\ncanthenbemappedtoemissionsbasedontheemissionsofthegridbeingused.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "dingtheelectricityconsumption,which\ncanthenbemappedtoemissionsbasedontheemissionsofthegridbeingused.Inthissection,wepresentdataon\nelectricityconsumptionforexperimentstraining11differentmodels,coveringnaturallanguageprocessing(NLP)and\ncomputervisionapplications,rangingfromlessthananhouronasingleGPUuptomorethan8dayson256GPUs.We\noutlineboththeexperimentsthemselvesandtheirelectricityconsumption,andinthefollowingsectionweusethe\nelectricityconsumptionandcarbonintensitytooldescribedintheprevioussectiontocalculatetheirsoftwarecarbon\nintensity.\n2Wenotethatourconclusionsdrawnfromexperimentsandanalysesontime-shiftingandlocation-shiftingarestillapplicablewithtoolsthatmeasure\nmoreelectricitythanjusttheGPU.\n3https://www.google.com/about/datacenters/efficiency/",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "olsthatmeasure\nmoreelectricitythanjusttheGPU.\n3https://www.google.com/about/datacenters/efficiency/\n4OneofthelargestsinglesourceofCO2emissions,contributingto7%-8%ofglobalemissions,istheproductionofcement[20].\n6",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nHardwa. | GPU | CPU0 | CPU1 | DRAM0 | DRAM1 | Total\nWatts | 187.1 | 22.9 | 9.3 | 23.0 | 9.3 | 251.6\nFraction | 74% | 9% | 4% | 9% | 4% | 100%",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune pretrain Transf. 121 169 201 Tiny Small Base Large Huge\nGPU 4·V100 8·V100 256·A100 1·P40 1·P40 1·P40 1·V100 1·V100 1·V100 4·V100 4·V100\nHours 6 36 192 0.3 0.3 0.4 19 19 21 90 216\nkWh 3.1 37.3 13,812.4 0.02 0.03 0.04 1.7 2.2 4.7 93.3 237.6\nTable2. Forthe11modelsinouranalysis:thetypeofGPU,thenumberofGPUsofthattype,thenumberofhours,andtheenergy\nusedinkWh.Forexample,ourBERTlanguagemodeling(BERTLM)experimentused8V100GPUsfor36hoursandusedatotalof\n37.3kWh.Wenoteourtrainingrunofthe6billionparametertransformeronlytrainedforapproximately13%ofthetimeitwould\ntaketotraintocompletion,weestimateafulltrainingrunwouldconsumeapproximately103,593kWh.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "etimeitwould\ntaketotraintocompletion,weestimateafulltrainingrunwouldconsumeapproximately103,593kWh.\n4.1 NLP\nBERTTraining. WemonitoredtheenergyconsumptionwhiletrainingaBERT-smallmodel[8]forapproximately36\nhourson8NVIDIAV100GPUs.Thattrainingrunconsumedover37kWhofelectricity.\nBERTFinetuning. WetrackedtheenergyconsumptionwhilefinetuningtheBERT-smallmodelonastandardnatural\nlanguageinferencetask[48,MNLI]forapproximately6hourson4NVIDIAV100GPUs.Ourfinetuningrunconsumed\naround3.2kWhofelectricity,i.e.,lessthanonetenththatduetoBERT-smallpre-training.\n6BillionParameterTransformer. Wetrackedtheenergyconsumptionoftrainingalargelanguagemodelcomprising\nover6.1billionparametersduring8dayson256NVIDIAA100s.Thetotalenergyamountedtoastaggering13.8MWh.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ing\nover6.1billionparametersduring8dayson256NVIDIAA100s.Thetotalenergyamountedtoastaggering13.8MWh.\nThismodelwasnottrainedtocompletion,butonlyuntil13%;afulltrainingrunwouldtake60days.Thus,weestimate\nthetotalenergyconsumptiontotrainthismodeltocompletionwouldbeapproximately(60/8)∗13.8=103.5MWh,or\n103,500kWh—almost2800timesmorethantrainingtheBERT-smallmodel!\n4.2 ComputerVision\nDenseNets. WetrainedthreesizesofDenseNets[19]onMNIST[25].Thejobslastedbetween20and25minutesand\nconsumedbetween20and38Wh(or0.02to0.04kWh)ofelectricity,whichisnegligiblecomparedtotheothermodels.\nVisionTransformers. WeevaluatedtheenergyconsumptionduringthetrainingoffivesizesofVisionTransformers[9]\nonImageNet[7].ForthesmallestViTexperiment(ViTtiny),traininglastedaround19hoursonasingleV100and\nconsumedapproximately1.7kWh.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "llestViTexperiment(ViTtiny),traininglastedaround19hoursonasingleV100and\nconsumedapproximately1.7kWh.Forthelargestone(ViThuge),traininglastedmorethan9daysona4V100sand\nconsumedapproximately237kWh.ThefulllistofmodelscanbefoundinTable2.\n5 EMISSIONSBYREGIONANDTIMEOFDAY\nUsing the methodology presented above, we provide some of the first measurements of the differences of actual\ndatacentersfromamajorcloudprovider.Importantly,whatwehaveisatimeseriesofmarginalemissions:forexample,\nifajobweretorunfrom1pmto5pmintheUSWestregionwithacloudinstancethathasfourfully-utilizedGPUs,both\ntheenergyconsumedandthemarginalcarbonintensityduringthattimeiswhatwewanttorecord.Thistime-series\ndatacanestimatethecumulativeemissionsforthatexperimentattheend.\n5.1 Region",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "torecord.Thistime-series\ndatacanestimatethecumulativeemissionsforthatexperimentattheend.\n5.1 Region\nHowmuchdoesthechoiceofdatacenterregionimpacttheemissions?Andforasingleregion,howmuchvariation\noccursthroughouttheyear?WeaddressthesequestionsinFigure1,whichshowscarbonemissionsthatwouldbe\n7",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nModel | BERT\nfinetune | BERT\npretrain | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nGPU | 4·V100 | 8·V100 | 256·A100 | 1·P40 | 1·P40 | 1·P40 | 1·V100 | 1·V100 | 1·V100 | 4·V100 | 4·V100\nHours | 6 | 36 | 192 | 0.3 | 0.3 | 0.4 | 19 | 19 | 21 | 90 | 216\nkWh | 3.1 | 37.3 | 13,812.4 | 0.02 | 0.03 | 0.04 | 1.7 | 2.2 | 4.7 | 93.3 | 237.6",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nFig.1. CarbonemissionsthatwouldbeemittedfromtrainingBERT(languagemodelingon8V100sfor36hours)in16different\nregions(oneregionperline)atdifferenttimesthroughouttheyear.Eachlineisrelativelyflat,indicatingtheemissionsinasingle\nregionduringdifferentmonthsarerelativelysimilar.Thereislargevariationbetweentheleastcarbon-intensiveregions(thelowest\nlines)comparedtothemostcarbon-intensiveregions(thetoplines),indicatingthatchoosingtheregioninwhichexperimentsrun\ncanbeveryimpactful(7kgramsvs.26kgrams,forthemostefficientvs.leastefficientregions).\nemittedfromtrainingBERT(see§4formoredetails)on8V100GPUsfor36hoursin16differentregions(oneregion\nperline)atdifferenttimesthroughouttheyear.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ails)on8V100GPUsfor36hoursin16differentregions(oneregion\nperline)atdifferenttimesthroughouttheyear.\nWhatdoemissionslooklikeacrossthe11experimentsdescribedin§4?InFigure2weshowresultsforall11\nexperiments,whichcovertwoBERTexperiments(finetuningandlanguagemodeling),partialtrainingofa6.1billion\nparameterTransformer,3sizesofDenseNets,andfivesizesofVisionTransformers.Eachexperimentisrepresentedby\naverticalbluebarshowingtherangeofemissionsthatwouldbeemittedforthatexperimentacrossdifferentregions.\nThetopofthebluebaristheemissionsfromrunningthatexperimentintheregionwiththemostemissions,thebottom\nistheemissionsfromrunningthatexperimentintheregionwiththeleastemissions,theblacklinerepresentsthe\naverage,andthelightblueregionsarethetopandbottomquartiles.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "leastemissions,theblacklinerepresentsthe\naverage,andthelightblueregionsarethetopandbottomquartiles.\nIn Figure 2 we also include estimates of equivalent sources of emissions per the United States Environmental\nProtectionAgency[46].Onephonechargeisestimatedtoemit8.22×10−6metrictons(usingUSnationalweighted\naverageCO2marginalemissionratefordeliveredelectricity),onemiledrivenisestimatedtoemit3.98×10−4metric\ntons(usingaverageUSpassengervehicle,whichgets22.5milespergallonofgasoline),onegallonofgasolineconsumed\nisestimatedtoemit8.887×10−3metrictons,onebarrelofcrudeoilconsumedisestimatedtoemit0.43metrictons,\noneaverageUShomeenergyuseisestimatedtoemit8.30metrictons(usingthesumofemissionsfromgenerating\nelectricity,naturalgas,liquidpetroleum,andfueloil),andonerailcarofcoalisestimatedtoemit181.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "nerating\nelectricity,naturalgas,liquidpetroleum,andfueloil),andonerailcarofcoalisestimatedtoemit181.29metrictons.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nFig.2. Emissionsforour11experimentsdescribedin§4.Foreachmodelweshowaverticalbluebar,wherethetopofthebaris\nthemax,thebottomisthemin,andtheblacklinerepresentstheaverageemissions(acrossregionsandtimeofyear).Firstand\nfourthquartilesarerepresentedbythelightblueatthetopandbottomofeachverticalbluebar.Thelargesttrainingruns(e.g.,6\nbillionparameterLM)releasesasignificantamountofemissions,nomattertheregion(andrecallthe6billionparameterLMisonly\ntrainedfor13%ofafullrun,soafullrunwouldemitaboutanorderofmagnitudemoreemissionsthanreportedhere).Thesmallest\nexperimentsemitverylittle.Presentedonalogscale,withreferencesontherightindicatingequivalentsourcesofemissionsperthe",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "erylittle.Presentedonalogscale,withreferencesontherightindicatingequivalentsourcesofemissionsperthe\nUnitedStatesEnvironmentalProtectionAgency[46].\nThelargestexperimentinoursetisthe6billionparametertransformer,andthatmodelisonlypartiallytrained(as\ndescribedin§4,itisonlytrainedforabout13%ofthetimeneededtoconverge).Evenpartiallytrained,experimentsof\nthissizecanemitmoreCO2thanallemissionsfromtheaverageUShomeforayear(whichincludesemissionsfrom\nelectricitygeneration,naturalgas,liquidpetroleumgas,andfueloil,totaling8.3metrictonsCO2peryear).Perhaps\nunsurprisingly,eventhemostefficientregionofthoseweexaminedforthatexperimentstillleadstomoreemissions\nthanafullbarrelofoil.Ifthishadbeentrainedtocompletion,weestimateitwouldhaveemitted21to78metrictonsof\nCO2(dependingontheregionitwasrunin).",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "nedtocompletion,weestimateitwouldhaveemitted21to78metrictonsof\nCO2(dependingontheregionitwasrunin).\nComparingagainstpreviousworkonmeasuringemissionscanbechallengingwithoutfullinformationaboutdata\nandmodelparallelism,GPUutilization,thenumberofweightupdates,andotherrelevantfactors;whilewedon’thave\nexperimentscoveringthesamemodelsaspreviousworkonestimatingCO2,wecanmakeapproximatecomparisons\nalongthreedimensions:a)kWhperGPUhour,b)CO2 gramsperGPUhour,andc)CO2 gramsperkWh.Herewe\ncompareagainst[34]and[33]whichreportinformationabouttrainingespeciallylargemodels.Theirestimatesalso\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nincludeadditionalsourcesofCO2,likePUE(PowerUsageEffectiveness)oftheirdatacenters,soweexpecttheirkWhper\nGPUhourandCO2perGPUhourtobehigherthanourestimates(whichonlycounttheGPUelectricityconsumption).\nAcrossourexperiments,wefindkWhperGPUhourtorangefrom0.07to0.28,comparedtoPattersonetal.[34]\nwith0.22to0.47,andPattersonetal.[33]with0.36.WefindCO2(grams)perGPUhourinthemostefficientregionto\naverage34,andintheleastefficientregiontoaverage128,wherePattersonetal.[34]foundarangeof63to202,and\nPattersonetal.[33]found32.WefindCO2(grams)perkWhinthemostefficientregiontoaverage200,andintheleast\nefficientregiontoaverage755.TheestimatesfromPattersonetal.[34]rangebetween427and545(exceptGShard600B\nwith200),andPattersonetal.[33]found88.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "sfromPattersonetal.[34]rangebetween427and545(exceptGShard600B\nwith200),andPattersonetal.[33]found88.Inshort,wefindmostoftheirestimatestobewithintherangeofours,\nwiththeexceptionofPattersonetal.[33],whichspecificallyaimedtochoosearegionthatwasmoreCO2efficient.\nHour 0:00 03:00 06:00 09:00 12:00 15:00 18:00 21:00\nBERT Central Day1 2,381 2,341 2,210 2,252 2,354 2,391 2,410 2,403\nfinetune US Day2 2,330 2,249 2,204 2,299 2,320 2,317 2,339 2,344\nDay3 2,430 2,339 2,257 2,313 2,393 2,374 2,317 2,331\nTable3. Howdoemissionsvarythroughoutdifferenttimesofday?WepresenttheemissionsproducedbytheBERTfinetuning\nexperimentdescribedin§4haditrunatdifferenttimesintheCentralUSregion,onthreeseparatedays.\n5.2 TimeofDay",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "erimentdescribedin§4haditrunatdifferenttimesintheCentralUSregion,onthreeseparatedays.\n5.2 TimeofDay\nWhilethechoiceofregionisamajorsourceofvariationinCO2 emissions,diurnalvariationsalsoplayasignifi-\ncantrole.Duringtheday,aregionmayhaveahighermixofrenewableenergyorfossil-fuelbasedsource[6].As\nonecanseeinTable3,dependingontheday,startingtheBERTfinetuningat,e.g.,midnightinsteadof6:00can\nresultincarbonemissionsincreasingbyupto8%.Theamountofvariationvariesbyregionandtimeofyearas\nwell.\n6 OPTIMIZINGCLOUDWORKLOADS\nWeusethetoolspresentedsofartoevaluatetwoalgorithmsforreducingemissionsofAIworkloadsontheMicrosoft\nAzurecloudcomputeplatformusingtemporalshifting.Weconsidersixteenregionswhereworkloadscanbescheduled\nonAzure:nineinNorthAmerica,sixinEuropeandoneinAustralia(seeFigure3).",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "onswhereworkloadscanbescheduled\nonAzure:nineinNorthAmerica,sixinEuropeandoneinAustralia(seeFigure3).Foreachregion,weobtainedfrom\nWattTimethehistoricalmarginalcarbonemissionsfortheyear2020ata5-minutegranularity.Wealsomeasuredthe\nelectricityconsumptionper5-minuteintervalsofthevariousmodelsintroducedin§4.Thetwooptimizationmethods\nwestudiedare:\n• FlexibleStart.Starttheworkloadatthetime,inthenext𝑁 hours,thatminimizesitscarbonemissions.Oncethe\nworkloadislaunched,itisrununtilcompletion.Implementation:Considerallpossiblestarttimes(in5minute\nincrements)inthedesiredwindow.Foreachstarttime,computethejob’scorrespondingemissionsandpickthe\nlowest.\n• PauseandResume.Assumingtheworkloadcanbestoppedandrestarted(afairlyweakconstraint),runits",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "lowest.\n• PauseandResume.Assumingtheworkloadcanbestoppedandrestarted(afairlyweakconstraint),runits\ncomputationsoverthenext(𝑁 +jobduration)hourswhileminimizingitstotalcarbonemissions.Thisinvolves\npausingandresumingthejob,possiblymultipletimes,toavoidconsumingenergywhencarbonintensityishigh.\nImplementation:Findthe5minuteintervalswiththelowestmarginalemissionsduringthe(𝑁 +jobduration)\nhourwindow,andselectenoughintervalstoadduptothejobduration.Thensimulaterunningthejobonly\n10",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\nBERT\nfinetune | Central\nUS | Hour | 0:00 | 03:00 | 06:00 | 09:00 | 12:00 | 15:00 | 18:00 | 21:00\n |  | Day1 | 2,381 | 2,341 | 2,210 | 2,252 | 2,354 | 2,391 | 2,410 | 2,403\n |  | Day2 | 2,330 | 2,249 | 2,204 | 2,299 | 2,320 | 2,317 | 2,339 | 2,344\n |  | Day3 | 2,430 | 2,339 | 2,257 | 2,313 | 2,393 | 2,374 | 2,317 | 2,331",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\n80\n70\n60\n50\n40\n30\n20\n10\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n% ni\nesaerced\nsnoissime\n2OC\n6h 1.4\n12h 18h 1.2\n24h\n1.0\n0.8\n0.6\n0.4\n0.2\n0.0\nEast U W S est W U e S st U W S e 2 st C U e S n N 3 tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimizationforDense201.\n% ni\nesaerced\nsnoissime\n2OC\n6h\n12h 18h\n24h\n(b)FlexibleStartoptimizationfor6BparametersTransformer.\nFig.3.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "esaerced\nsnoissime\n2OC\n6h\n12h 18h\n24h\n(b)FlexibleStartoptimizationfor6BparametersTransformer.\nFig.3. Whatproportionofemissionscanweexpecttosaveifwechangethestarttimebyupto24hours?Forveryshortexperiments\nlikeDenseNet201(a),whichranforlessthanhalfanhour,wecanfindsignificantreduction,greaterthan30%inmultipleregions,\nandupto80%inWestUS;forverylongrunsliketraininga6billionparameterlanguagemodelfor8days(b),changingthestarttime\nbyupto24hoursleadstolessthan1.5%reductionatbestinanyregion.Note:weconfirmedwithWattTimethatemissionsestimates\nforWestUSwerecorrect,thatregionhaslargevariance.\nduringthoseintervalsandcomputethecorrespondingemissions.Weexploredtwosetsofvaluesfor𝑁:one\nabsolute,correspondingtoincreasingthetotaldurationofthejobbyatmost{6,12,18,24}hours;andasecond",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ":one\nabsolute,correspondingtoincreasingthetotaldurationofthejobbyatmost{6,12,18,24}hours;andasecond\nonerelative,whereweallowthejobtoincreaseindurationbyatmost{25%,50%,75%,100%}.Inotherwords,\nforthesecondset,weallowtheworkloadtolastforatmosttwiceitsdurationhaditnotbeenstopped.While\narbitrary,wemotivatethechoiceofthosetwosetsbytheextremerangeofpossiblejobduration(fromminutesto\nweeks).Notethatweassumepausingandrestartingthejobisimmediateanddoesnotconsumeadditionalenergy:\nthisissimilarinspirit(forcarbonemissions)toSpotInstancesonexistingcloudplatformswhichautomatically\npauseaninstanceifitspricerisesaboveathresholdsetbytheuser.\nWefindtheregionthatthealgorithmsareevaluatedinhasasignificantimpact.Forexample,theregionwelabeled",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ".\nWefindtheregionthatthealgorithmsareevaluatedinhasasignificantimpact.Forexample,theregionwelabeled\nWestUSvariesfrequentlythroughoutasingledaybetweenperiodsofhighemissionsandverylowemissions,and\nthusPauseandResumecanleadtosignificantreductions.However,otherregionsdonotpresentasmuchvariance,\nandthusleadtolessreductioninemissions.SeeFigures3and4.Thelackofgeographicdiversityintheregionlistis\nanunfortunateconsequenceoftheunavailabilityofcarbonintensitydatafromothercontinents;wehopesuchdata\nbecomesbroadlyavailableinthenearfuture.\n6.1 EvaluationofEmissionsReductionAlgorithms\nWeevaluatehowthetwooptimizationalgorithmswouldimpacttheemissionsfromthe11experimentsdescribedin§4.\nInordertoaccountfordailyvariations(weather,electricitydemand,etc.),wereporttheaverageemissionsdecrease",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "rdertoaccountfordailyvariations(weather,electricitydemand,etc.),wereporttheaverageemissionsdecrease\ncomputedover5differentstarttimesineachmonth,givingatotalof60datapoints.\n6.1.1 EmissionsReductionbyRegion.\nFlexibleStart. WhenevaluatingtheFlexibleStartalgorithmforafixeddurationbetween6hoursand24hours,we\nfindsignificantemissionsreductionsforshorterjobs(e.g.,theDenseNetexperiments),withminimalsavingsforjobs\n11",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n | 6h\n12h\n18h\n24h",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\n | 6h\n12h\n18h\n24h",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nthatarelongerthanaday;thisalignswithourexpectations,asshortjobscanberunwhenemissionsarelowest\nthroughoutaday,butlongjobsnaturallyaverageacrossmultipledays.SeeFigure3,withresultsforallexperiments\nintheappendix.ThisanalysisisdesignedtohighlightausecasewhereanAIworkloadneedstorunregularly,but\nthepractitionerhassomeflexibilityonwhenitruns(soitcould,e.g.,runovernight,ifthatiswhencarbonintensity\nislowest).ThisisinfactacommonusecaseinproductionMLsystemsdeployedatcompanies,wheremodelsare\nre-trainedonaregularscheduletoincorporatenewdataovertime[16].\nPauseandResume. WhenevaluatingthePauseandResumealgorithmfordurationsupto100%ofthedurationofthe\noriginalexperiment,wefindtheoppositeoftheFlexibleStartresult:shortexperimentslikeDenseNet201onlysee",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "originalexperiment,wefindtheoppositeoftheFlexibleStartresult:shortexperimentslikeDenseNet201onlysee\nemissionsreductionssmallerthan10%,whilethe6billiontransformertrainingrun(ourexperimentwiththelargest\ncarbonintensity)actuallyseesthelargestdecreaseinemissions.SeeFigure4fortwoexamples,withresultsforall11\nexperimentsintheappendix.ThisanalysisisdesignedtohighlightausecasewhereanAIworkloadcanbeincreased\nindurationbysomeproportionoftheoriginalruntime.\n8\n7\n6\n5\n4\n3\n2\n1\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n S W tr . a C l e U n S tral U C S anada Fran G c e e r W m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n%\nni\nesaerced\nsnoissime\n2OC\n30\n25%\n50%\n75% 25\n100%\n20\n15\n10\n5\n0",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "p N e orw U a K y Sou A th ustralia\n%\nni\nesaerced\nsnoissime\n2OC\n30\n25%\n50%\n75% 25\n100%\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)PauseandResumeoptimizationforDense201.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimizationfor6BparametersTransformer.\nFig.4. WhatproportionofemissionscanweexpecttosaveifwepauseanAIworkloadwhenemissionsinaregionarehighand\nresumewhenemissionsarelow,increasingthetotaldurationbyuptodoubletheoriginalduration?Forshortexperiments,the\ndoubleddurationisstillrelativelyshort,andthusleadstominimalemissionsreduction(seeDenseNet201in(a));forverylongruns",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "isstillrelativelyshort,andthusleadstominimalemissionsreduction(seeDenseNet201in(a));forverylongruns\nlikeour6billionparameterlanguagemodeltrainingrunin(b),whichranfor8days,doublingthedurationcanleadtosignificant\nsavingsuptoabout25%.WeconfirmedwithWattTimethatemissionsestimatesforWestUSwerecorrect,asthatregionhaslarge\nvariance.\n6.1.2 ComparableDurationIncreases. Intheprevioussectionweexaminedtheamountofemissionsreductionfor\nourtwoalgorithmsbyregion,andcomparedPauseandResumeincreasingdurationbyaproportionoftheoriginal\nexperimentandFlexibleStartbyafixedduration.Hereweevaluatethetwoalgorithmswhentheyincreasetheduration\nofanAIworkloadbythesameamount(eachresultisaveragedacrossallregionsandtimesofyear).Onecanthink",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ation\nofanAIworkloadbythesameamount(eachresultisaveragedacrossallregionsandtimesofyear).Onecanthink\noftheFlexibleStartalgorithmasaversionofPauseandResumewherethereisonlyonestarttime,andnopausing\nallowed;thusweshouldexpecttheFlexibleStartresultstoalwayslowerboundthePauseandResumeones.\nWeshowresultsforbothalgorithmsandtwosituations:increasingthedurationoftherunby24hoursinTable4,\nandby100%inTable5.Inthesetableswealsoincludeinformationabouttheaveragenumberofpausesperhourfor\nthePauseandResumealgorithm.Perhapssurprisingly,wefindtheaveragenumberofpausesisquitelow.Thiscanbe\n12",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\n |  | 75%\n100%",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\n | 75%\n100%",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\ninterpretedasthenumberoftimesthecarbonintensitycrossesabovethethresholdminimizingtotalemissionsbeing\nsmall.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 14.5% 3.4% 0.5% 26.8% 26.4% 25.9% 5.6% 5.3% 4.2% 1.3% 0.5%\nP&R 19.0% 8.5% 2.5% 27.7% 27.3% 27.1% 12.5% 12.3% 11.7% 4.7% 2.4%\nPauses/hr 0.23 0.3 0.15 0.06 0.07 0.08 0.3 0.3 0.3 0.23 0.14\nTable4. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora24hincreaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "seinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nNotethattheaboveoptimizationswereperformedusinghistoricaldata,meaningthattheirresultsarethebest\nachievable,assumingaccesstoanoraclepredictingcarbonintensityperfectly.WattTimecurrentlyprovidesmarginal\nemissionrateestimatesandforecastsforupto24hours,soforshortworkloads,ourfindingswillreflectgainsobserved\ninpracticeusingtheforecasts.Forlongerworkloads,ournumbersgiveanupperboundontherealizablegains.For\nexample,thePauseandResumealgorithmpausestheworkloadwhenemissionsareaboveathreshold,andresumes\nwhenemissionsarebelowthatthreshold.Inourevaluationherewesetthisthresholdsuchthatthetotalruntimeis\nincreasedby,e.g.,24hours;amachinelearningpractitionerwouldhavetoestimatehowmuchaparticularthreshold",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "increasedby,e.g.,24hours;amachinelearningpractitionerwouldhavetoestimatehowmuchaparticularthreshold\nwouldincreasejobduration,butwouldnotknowexactly.ThedynamicnatureofthePauseandResumeoptimizations\nsuggeststhatwell-designedschedulingalgorithmsshouldbeabletogetratherclosetotheupper-bound.Weleavesuch\nalgorithmstofutureworkandhopeourtoolscaninspirefurtherresearchintothattypeofscheduling.Moreover,itis\nlikelythatcarbonintensityforecastingwillimproveovertheyearsandeventuallyextendbeyond24hours,allowing\ntime-shiftingdecisionstobecomeincreasinglyaccurate.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 7.0% 4.1% 2.6% 1.8% 2.5% 2.7% 5.0% 4.8% 3.9% 3.3% 3.0%\nP&R 9.5% 11.0% 11.4% 2.0% 2.8% 3.1% 11.0% 11.0% 10.8% 11.4% 11.3%",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ".5% 2.7% 5.0% 4.8% 3.9% 3.3% 3.0%\nP&R 9.5% 11.0% 11.4% 2.0% 2.8% 3.1% 11.0% 11.0% 10.8% 11.4% 11.3%\nPauses/hr 0.42 0.29 0.27 1.5 1.88 2.0 0.31 0.32 0.31 0.27 0.26\nTable5. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora100%increaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\n7 CONSIDERATIONSFORMODELDEVELOPMENTANDDEPLOYMENT\nGenerallyspeaking,weadvocatethatresearchersandpractitionersrecordandreporttheamountofemissionsincurred\nbyMLprojects,startingwiththeinitialexploratorytrainingphasesallthewaythroughhyperparametertuningand\ndeploymentforthefinalmodel.ThiscaninformanOperationalLifecycleAnalysis(OLCA)foramachinelearning",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "and\ndeploymentforthefinalmodel.ThiscaninformanOperationalLifecycleAnalysis(OLCA)foramachinelearning\nmodel,whichwouldaccountforallphasesoftheMLlifecycle.Inthesubsectionsbelow,weoutlinesomewaysinwhich\ntheproposedtoolcanbeusedatdifferentstagesofthemodeldevelopmentanddeploymentprocess,anddescribesome\nenvironmentalimpactsduetoMLmodelingthatareoutsidethescopeofmeasurementofthistool.\n13",
+    "page": 13
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 13):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 14.5% | 3.4% | 0.5% | 26.8% | 26.4% | 25.9% | 5.6% | 5.3% | 4.2% | 1.3% | 0.5%\nP&R | 19.0% | 8.5% | 2.5% | 27.7% | 27.3% | 27.1% | 12.5% | 12.3% | 11.7% | 4.7% | 2.4%\nPauses/hr | 0.23 | 0.3 | 0.15 | 0.06 | 0.07 | 0.08 | 0.3 | 0.3 | 0.3 | 0.23 | 0.14",
+    "page": 13
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 13):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 7.0% | 4.1% | 2.6% | 1.8% | 2.5% | 2.7% | 5.0% | 4.8% | 3.9% | 3.3% | 3.0%\nP&R | 9.5% | 11.0% | 11.4% | 2.0% | 2.8% | 3.1% | 11.0% | 11.0% | 10.8% | 11.4% | 11.3%\nPauses/hr | 0.42 | 0.29 | 0.27 | 1.5 | 1.88 | 2.0 | 0.31 | 0.32 | 0.31 | 0.27 | 0.26",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nWeseevariouswaysinwhichourtoolcanhelpguidemodeltraining,forinstanceviacarbon-informedoptimization\n(similarlytowhat[22]proposedforenergyefficiencyinfederatedlearning),orforcloud-basedrecommendationsthat\nenableuserstoopt-inforcarbon-awareconfigurations(intermsofregion,time,etc.)toreducethecarbonintensityof\ntheirtrainingworkloads.Webelievethattrackingandreducinggreenhousegasemissionscanbeaveryimportant\nfeatureforusersdecidingonhowtheywillsetuptheircloudusage,butwerecognizethattherearenaturaltrade-offs\nthatmustbeconsidered.Wethereforerecommendthatthemeasurementsprovidedbyourtoolbeusedtoguide\ninformeddecisionsalongsideotherconsiderationsaspartofaholisticapproach,andnotasasinglegoldstandard\ntooptimizeagainst.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "alongsideotherconsiderationsaspartofaholisticapproach,andnotasasinglegoldstandard\ntooptimizeagainst.Forexample,evenjustwithinthescopeofMLmodeldevelopment,itoftentakesengineering\ntimetooptimizeaworkloadtobemoreefficient(i.e.,uselesscomputationalresources),andausershouldconsider\nwhetherthattimewouldbebetterspentelsewhere(e.g.,transferringtheworkloadtoanotherregionwithloweraverage\nemissions).Furthermore,someprojectshavestricttimeconstraints,andsoschedulingjobstoonlyrunatnightwould\nsignificantlydelayprogress,potentiallyleadingtomoreemissionsinotherpartsoftheproject.Thus,oursuggestions\narenotmeantasaone-size-fits-allsolutionwhichwilleliminatecarbonemissions,butinsteadasasetofoptionswhich\ncanbereferencedbyusersanddecidedupononacase-by-casebasis.Finally,therearealsomanyadditionalupstream",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "canbereferencedbyusersanddecidedupononacase-by-casebasis.Finally,therearealsomanyadditionalupstream\nanddownstreamemissionsconsiderationsduetotheMLmodellifecycle,dueto,e.g.,hardwaremanufacturingand\ndownstreamusesormisusesofthemodel,thatcouldeclipsethedirectemissionsduetomodeltrainingalone.See§2\nforfurtherdiscussionofthiscrucialpoint.\nAnotherimportantconsiderationisoperatingcost;itcouldbethecasethatRegionAisloweremissionsbuthigher\ncostthanRegionBforaparticularworkload,andthusausercouldruntheirworkloadinRegionBandhavesome\nbudgetleftoverthatcouldbeusedforotherreductionsinemissions.Afinalconsiderationiscostofdatatransfer;it\ncouldbethecasethatRegionAisloweremissionsandmonetarycostthanRegionBforaparticularworkload,butthe",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "it\ncouldbethecasethatRegionAisloweremissionsandmonetarycostthanRegionBforaparticularworkload,butthe\nenergetic,environmental,ormonetarycostofmovingthedatacouldexceedthebenefitsgained.\nIfweseebroadadoptionofsuchreportingtools,wemayseeincreasesinclouduseinregionswhichhavelow\nemissions.Insuchascenario,providerscouldbeincentivizedtobuildnewdatacenters,andprovidersshouldconsider\nthelocalimpactofsuchconstruction.\n8 FUTUREDIRECTIONS\nAsmentionedin§7,single-instanceemissionsareawell-definedstartingplaceforquantifying,mitigating,andreducing\ntheenvironmentalimpactduetoML,butdonotpresentacompletepictureofthetotalemissionsthatshouldbe\naccountedforwhenconsideringtheoverallcarbonemissionsoftheMLlifecycle.Herearesomeaspectsthatareyetto",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "accountedforwhenconsideringtheoverallcarbonemissionsoftheMLlifecycle.Herearesomeaspectsthatareyetto\nbeaccountedfor(andinsomecases,yettobedefined)intermsoftheoverallOLCAofmachinelearning:\nScopesofemissions. TheGreenhouseGasProtocol(GHGP)isastandardcreatedbytheWorldResourcesInstitute\nandtheBusinessCouncilforSustainableDevelopment,andhasseenbroadadoptioninternationally.ItdefinesScope1,\nScope2,andScope3emissionsasfollows:Scope1emissionsarethosegeneratedbydirectactionsofacompany,suchas\nrunningmotorvehicles;Scope2emissionsarethoseassociatedwithpurchaseofelectricity,steam,heating,orcooling;\nandScope3emissionsarethosethatthecompanyindirectlyparticipatesin,suchasthoseduetoinvestmentsofthe\ncompanyanddownstreamuseofproducts.Inthepresentwork,wehavefocusedontheScope2emissionsincurred",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "softhe\ncompanyanddownstreamuseofproducts.Inthepresentwork,wehavefocusedontheScope2emissionsincurred\nduetoelectricityusagebycloudproviders.ThecurrentGHGPScope2isanattributionalguidancethatprecludesthe\nuseofmarginalemissionsrates,andprimarilyfocusesonbroadgeneration-basedaveragerates.Itisimportanttonote\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nthattheGHGPScope2guidanceisincompatiblewiththeproposedmethod;thispaperillustratestheneedtorevisitthe\nScope2guidancetobetteralignwithconsequentialaccountingmethods.\nWedonotcovertheScope1emissions(e.g.emissionsthatdirectlyresultfrombusinessactivities,suchasstationary\ncombustionoffuelsforbackuppowergenerationinclouddatacenters),foramoredetaileddiscussionseee.g.Gupta\netal.[15],northeScope3emissions(e.g.emissionsthatindirectlyresultfromallotherbusinessactivities,suchas\nthoseassociatedwiththeupstreamrawmaterialsextraction,manufacturing,anddeliveryofcloud-basedITasset\ninfrastructuresuchasserversfromsupplierstobeusedinacloudprovider’sdatacenters).Bothofthesetypesof",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "t\ninfrastructuresuchasserversfromsupplierstobeusedinacloudprovider’sdatacenters).Bothofthesetypesof\nemissionswarrantdiscussionanddebatebytheAIcommunity—andindeedsomeworkhasbegunonthesubject,\ne.g.,[21,26]—butwearemissingamoreconcretestructureforcategorizing,quantifyingandmitigatingthedifferent\nscopesofemissionsinourfield.Thiswouldinvolvetheactiveparticipationofspecificstakeholderstoestablishthe\ntoolingandreportingrequiredtobetterestimatetheseaspects,whichisachallengeinitself.\nDevelopingcertificationsystemsfor“GreenAI”. WhileinitiativesliketheGreenSoftwareFoundationaremaking\nimportantprogresstowardsmeasuringandmitigatingthecarbonfootprintofsoftwareingeneral,thedecentralized\nanddata-drivennatureofMLwillcallforspecificapproachesandguidelinestoensureitsefficiency.Weanticipatethat",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ta-drivennatureofMLwillcallforspecificapproachesandguidelinestoensureitsefficiency.Weanticipatethat\nAI-specificinitiatives,spanningbothresearchandacademia,willhelpestablishcertificationsystems(orbadgesystems)\nthatwillallowbothmodeldevelopersandusersmakemoreinformedchoiceswithregardstosustainability.Thecurrent\nframingofScopes1,2,and3maynotencompassalltheemissionsreasonablyassociatedwithanAIprogram.\nImprovingthecarbontransparencyofresearchandpractice. DespitetheexistenceoftoolssuchasCodeCarbon[38]\nandEvergyVis[41],bothcarbonestimationandreportinginMLpublicationsandtechnicalreportsremainarelatively\nrarephenomenon.ConferencessuchasNeurIPSandNAACLhaverecentlyaddedemissionsreportingasanoptionalpart\nofthesubmissionprocess;however,moreencouragementwillbenecessaryforthistobecomecommonplace.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ionalpart\nofthesubmissionprocess;however,moreencouragementwillbenecessaryforthistobecomecommonplace.Gathering\nmoredataabouttheenvironmentalimpactofourfieldisacrucialsteptowardsidentifyingroomforimprovementand,\neventually,reducingouremissions.\nSupportingimprovedestimatesofemissionsrates. Theestimatesofemissionsratesproviderswouldbenefitfrommore\nandbetterdatabeingprovidedbyelectricsystemoperators.Thisisparticularlytrueinareasoftheworldwhereitis\ncurrentlynotpossibletoproducehourlymarginalestimates.\nReducingAI’sscope-enabledemissions. ResponsibledevelopmentandapplicationofAImustaccountnotonlyforthe\nhiddencostsofdevelopment,asdiscussedinthispaper,butforthepositiveornegativecarbonimpacttheapplication\nenables.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "sofdevelopment,asdiscussedinthispaper,butforthepositiveornegativecarbonimpacttheapplication\nenables.AImodelscontinuetobeusedforoilexploration[32],deforestation[30],andmining[18],amongother\nenvironmentally-detrimentalpractices.WhenconsideringthenetimpactsofanAIapplication,itisimperativeto\ndeterminetheextenttowhichAIisincentivizingpracticesthathaveanegativeimpactontheenvironment,orthe\nextenttowhichapplicationsaredirectlyreducingemissionsorotherwiseincentivizingpracticesthatarebeneficialto\ntheclimate,andtakethesedownstreamdirectandindirecteffectsintoaccountintheoverallenvironmentalimpact\nassessmentofourfield[4,21].\nACKNOWLEDGMENTS\nWethankAviAllison(Microsoft)forinsightsassociatedwithcarbonaccountingandLocation-basedMarginalEmissions",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ankAviAllison(Microsoft)forinsightsassociatedwithcarbonaccountingandLocation-basedMarginalEmissions\n(LME)data,HenryRichardson(WattTime)forinsightsonLMEdataandtheSoftwareCarbonIntensity(SCI)specification,\nAbhishekGuptaforhisworkontheSCIspecification,andAnanyaGanesh(CUBoulder)forhelpinobtainingthe\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nmeasurementsincludedinTable1.WealsothankAlessandroSordoni,PayalBajaj,andVibhavVineetforsharingtheir\ntrainingandinferencejobs,andJonBorchardtforhelpwithplotting.\nREFERENCES\n[1] LasseF.WolffAnthony,BenjaminKanding,andRaghavendraSelvan.2020. Carbontracker:TrackingandPredictingtheCarbonFootprintof\nTrainingDeepLearningModels. arXiv:2007.03051[cs.CY]\n[2] RhondaAsciertoandALawrence.2020.Uptimeinstituteglobaldatacentersurvey2020.UptimeInstitute2(2020).\n[3] NesrineBannour,SaharGhannay,AurélieNévéol,andAnne-LaureLigozat.2021.EvaluatingthecarbonfootprintofNLPmethods:asurveyand\nanalysisofexistingtools.InEMNLP,WorkshopSustaiNLP.\n[4] AbebaBirhane,PratyushaKalluri,DallasCard,WilliamAgnew,RavitDotan,andMichelleBao.2021.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "SustaiNLP.\n[4] AbebaBirhane,PratyushaKalluri,DallasCard,WilliamAgnew,RavitDotan,andMichelleBao.2021.Thevaluesencodedinmachinelearning\nresearch.arXivpreprintarXiv:2106.15590(2021).\n[5] Buildcomputers.net.2021. PowerConsumptionofPCComponentsinWatts. https://www.buildcomputers.net/power-consumption-of-pc-\ncomponents.html\n[6] JacquesAdeChalendarandSallyMBenson.2019.Why100%renewableenergyisnotenough.Joule3,6(2019),1389–1393.\n[7] JiaDeng,WeiDong,RichardSocher,Li-JiaLi,KaiLi,andLiFei-Fei.2009.Imagenet:Alarge-scalehierarchicalimagedatabase.In2009IEEEconference\noncomputervisionandpatternrecognition.Ieee,248–255.\n[8] JacobDevlin,Ming-WeiChang,KentonLee,andKristinaToutanova.2019.BERT:Pre-trainingofDeepBidirectionalTransformersforLanguage\nUnderstanding. arXiv:1810.04805[cs.CL]",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": ".BERT:Pre-trainingofDeepBidirectionalTransformersforLanguage\nUnderstanding. arXiv:1810.04805[cs.CL]\n[9] AlexeyDosovitskiy,LucasBeyer,AlexanderKolesnikov,DirkWeissenborn,XiaohuaZhai,ThomasUnterthiner,MostafaDehghani,Matthias\nMinderer,GeorgHeigold,SylvainGelly,etal.2020.Animageisworth16x16words:Transformersforimagerecognitionatscale.arXivpreprint\narXiv:2010.11929(2020).\n[10] JimGao.2014.Machinelearningapplicationsfordatacenteroptimization.(2014).\n[11] MichaelGillenwater.2008.RedefiningRECs—Part1:untanglingattributesandoffsets.EnergyPolicy36,6(2008),2109–2119.\n[12] Google.2021.CarbonfreeenergyforGoogleCloudregions. https://cloud.google.com/sustainability/region-carbon\n[13] Google.2021.HelpingyoupickthegreenestregionforyourGoogleCloudresources. https://cloud.google.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "n\n[13] Google.2021.HelpingyoupickthegreenestregionforyourGoogleCloudresources. https://cloud.google.com/blog/topics/sustainability/pick-the-\ngoogle-cloud-region-with-the-lowest-co2\n[14] AbhishekGupta,CamylleLanteigne,andSaraKingsley.2020. SECure:ASocialandEnvironmentalCertificateforAISystems. arXivpreprint\narXiv:2006.06217(2020).\n[15] UditGupta,YoungGeunKim,SylviaLee,JordanTse,Hsien-HsinSLee,Gu-YeonWei,DavidBrooks,andCarole-JeanWu.2021.ChasingCarbon:\nTheElusiveEnvironmentalFootprintofComputing.In2021IEEEInternationalSymposiumonHigh-PerformanceComputerArchitecture(HPCA).\nIEEE,854–867.\n[16] K.Hazelwood,S.Bird,D.Brooks,S.Chintala,U.Diril,D.Dzhulgakov,M.Fawzy,B.Jia,Y.Jia,A.Kalro,J.Law,K.Lee,J.Lu,P.Noordhuis,M.\nSmelyanskiy,L.Xiong,andX.Wang.2018.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "akov,M.Fawzy,B.Jia,Y.Jia,A.Kalro,J.Law,K.Lee,J.Lu,P.Noordhuis,M.\nSmelyanskiy,L.Xiong,andX.Wang.2018.AppliedMachineLearningatFacebook:ADatacenterInfrastructurePerspective.In2018IEEEInternational\nSymposiumonHighPerformanceComputerArchitecture(HPCA).620–629. https://doi.org/10.1109/HPCA.2018.00059\n[17] KeesHertogh.2021. EmpoweringcloudsustainabilitywiththeMicrosoftEmissionsImpactDashboard. https://azure.microsoft.com/en-\nus/blog/empowering-cloud-sustainability-with-the-microsoft-emissions-impact-dashboard/\n[18] ZeshanHyder,KengSiau,andFionaNah.2019.Artificialintelligence,machinelearning,andautonomoustechnologiesinminingindustry.Journal\nofDatabaseManagement(JDM)30,2(2019),67–79.\n[19] ForrestIandola,MattMoskewicz,SergeyKarayev,RossGirshick,TrevorDarrell,andKurtKeutzer.2014.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "–79.\n[19] ForrestIandola,MattMoskewicz,SergeyKarayev,RossGirshick,TrevorDarrell,andKurtKeutzer.2014.Densenet:Implementingefficientconvnet\ndescriptorpyramids.arXivpreprintarXiv:1404.1869(2014).\n[20] InternationalEnergyAuthority(IEA).2020.EnergyTechnologyPerspectives2020. https://www.iea.org/reports/energy-technology-perspectives-\n2020\n[21] LynnKaack,PriyaDonti,EmmaStrubell,GeorgeKamiya,FelixCreutzig,andDavidRolnick.2021.Aligningartificialintelligencewithclimate\nchangemitigation.(2021).\n[22] YoungGeunKimandCarole-JeanWu.2021.AutoFL:EnablingHeterogeneity-AwareEnergyEfficientFederatedLearning.InMICRO-54:54thAnnual\nIEEE/ACMInternationalSymposiumonMicroarchitecture.183–198.\n[23] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres.2019.Quantifyingthecarbonemissionsofmachinelearning.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "lexandraLuccioni,VictorSchmidt,andThomasDandres.2019.Quantifyingthecarbonemissionsofmachinelearning.arXiv\npreprintarXiv:1910.09700(2019).\n[24] NevenaLazic,TylerLu,CraigBoutilier,MKRyu,EehernJayWong,BinzRoy,andGregImwalle.2018.Datacentercoolingusingmodel-predictive\ncontrol.(2018).\n[25] YannLeCun,LéonBottou,YoshuaBengio,andPatrickHaffner.1998.Gradient-basedlearningappliedtodocumentrecognition.Proc.IEEE86,11\n(1998),2278–2324.\n[26] Anne-LaureLigozat,JulienLefèvre,AurélieBugeau,andJacquesCombaz.2021.UnravelingthehiddenenvironmentalimpactsofAIsolutionsfor\nenvironment.arXivpreprintarXiv:2110.11822(2021).\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\n[27] EricMasanet,ArmanShehabi,NuoaLei,SarahSmith,andJonathanKoomey.2020.Recalibratingglobaldatacenterenergy-useestimates.Science\n367,6481(2020),984–986.\n[28] ValérieMasson-Delmotte,PanmaoZhai,Hans-OttoPörtner,DebraRoberts,JimSkea,PriyadarshiRShukla,AnnaPirani,WilfranMoufouma-Okia,\nClotildePéan,RozPidcock,etal.2018.Globalwarmingof1.5C.AnIPCCSpecialReportontheimpactsofglobalwarmingof 1,5(2018).\n[29] MicrosoftAzure.2021.Azuresustainability. https://azure.microsoft.com/en-us/global-infrastructure/sustainability/#overview\n[30] VasiliiMosin,RobertoAguilar,AlexanderPlatonov,AlbertVasiliev,AlexanderKedrov,andAntonIvanov.2019. Remotesensingandmachine",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "uilar,AlexanderPlatonov,AlbertVasiliev,AlexanderKedrov,andAntonIvanov.2019. Remotesensingandmachine\nlearningfortreedetectionandclassificationinforestryapplications.InImageandSignalProcessingforRemoteSensingXXV,Vol.11155.International\nSocietyforOpticsandPhotonics,111550F.\n[31] NeurIPS2021Conference.2021.NeurIPS2021PaperChecklistGuidelines. https://neurips.cc/Conferences/2021/PaperInformation/PaperChecklist\n[32] VitoAlexanderNordloh,AnnaRoubícková,andNickBrown.2020.MachineLearningforGasandOilExploration.arXivpreprintarXiv:2010.04186\n(2020).\n[33] DavidPatterson,JosephGonzalez,UrsHölzle,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.\n2022.TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink.TexRxiv(2022).",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": ",andJeffDean.\n2022.TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink.TexRxiv(2022).\n[34] DavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.2021.\nCarbonemissionsandlargeneuralnetworktraining.arXivpreprintarXiv:2104.10350(2021).\n[35] ColinRaffel,NoamShazeer,AdamRoberts,KatherineLee,SharanNarang,MichaelMatena,YanqiZhou,WeiLi,andPeterJLiu.2019.Exploringthe\nlimitsoftransferlearningwithaunifiedtext-to-texttransformer.arXivpreprintarXiv:1910.10683(2019).\n[36] JoeriRogelj,OliverGeden,AnnetteCowie,andAndyReisinger.2021.Net-zeroemissionstargetsarevague:threewaystofix.Nature591(2021),\n365–368.\n[37] VictorSanh,AlbertWebson,ColinRaffel,StephenHBach,LintangSutawika,ZaidAlyafeai,AntoineChaffin,ArnaudStiegler,TevenLeScao,Arun",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "olinRaffel,StephenHBach,LintangSutawika,ZaidAlyafeai,AntoineChaffin,ArnaudStiegler,TevenLeScao,Arun\nRaja,etal.2021.Multitaskpromptedtrainingenableszero-shottaskgeneralization.arXivpreprintarXiv:2110.08207(2021).\n[38] VictorSchmidt,KamalGoyal,AdityaJoshi,BorisFeld,LiamConell,NikolasLaskaris,DougBlank,JonathanWilson,SorelleFriedler,andSasha\nLuccioni.2021.CodeCarbon:EstimateandTrackCarbonEmissionsfromMachineLearningComputing.\n[39] RoySchwartz,JesseDodge,NoahASmith,andOrenEtzioni.2020.GreenAI.Commun.ACM63,12(2020),54–63.\n[40] AmazonWebServices.2021.SustainabilityintheCloud. https://sustainability.aboutamazon.com/environment/the-cloud\n[41] OmarShaikh,JonSaad-Falcon,AustinPWright,NilakshDas,ScottFreitas,OmarAsensio,andDuenHorngChau.2021.EnergyVis:Interactively",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "con,AustinPWright,NilakshDas,ScottFreitas,OmarAsensio,andDuenHorngChau.2021.EnergyVis:Interactively\nTrackingandExploringEnergyConsumptionforMLModels.AssociationforComputingMachinery,NewYork,NY,USA. https://doi.org/10.1145/\n3411763.3451780\n[42] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019. EnergyandpolicyconsiderationsfordeeplearninginNLP. arXivpreprint\narXiv:1906.02243(2019).\n[43] NeilCThompson,KristjanGreenewald,KeeheonLee,andGabrielFManso.2020. Thecomputationallimitsofdeeplearning. arXivpreprint\narXiv:2007.05558(2020).\n[44] RomalThoppilan,DanielDeFreitas,JamieHall,NoamShazeer,ApoorvKulshreshtha,Heng-TzeCheng,AliciaJin,TaylorBos,LeslieBaker,YuDu,\nYaGuangLi,HongraeLee,HuaixiuStevenZheng,AminGhafouri,MarceloMenegali,YanpingHuang,MaximKrikun,DmitryLepikhin,JamesQin,",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "e,HuaixiuStevenZheng,AminGhafouri,MarceloMenegali,YanpingHuang,MaximKrikun,DmitryLepikhin,JamesQin,\nDehaoChen,YuanzhongXu,ZhifengChen,AdamRoberts,MaartenBosma,YanqiZhou,Chung-ChingChang,IgorKrivokon,WillRusch,Marc\nPickett,KathleenMeier-Hellstern,MeredithRingelMorris,TulseeDoshi,RenelitoDelosSantos,TojuDuke,JohnnySoraker,BenZevenbergen,\nVinodkumarPrabhakaran,MarkDiaz,BenHutchinson,KristenOlson,AlejandraMolina,ErinHoffman-John,JoshLee,LoraAroyo,RaviRajakumar,\nAlenaButryna,MatthewLamm,ViktoriyaKuzmina,JoeFenton,AaronCohen,RachelBernstein,RayKurzweil,BlaiseAguera-Arcas,ClaireCui,\nMarianCroak,EdChi,andQuocLe.2022.LaMDA:LanguageModelsforDialogApplications. arXiv:2201.08239[cs.CL]\n[45] GeorginaTorbet.2019.HowMuchEnergyDoesYourPCUse?(And8WaystoCutItDown). https://www.makeuseof.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "L]\n[45] GeorginaTorbet.2019.HowMuchEnergyDoesYourPCUse?(And8WaystoCutItDown). https://www.makeuseof.com/tag/much-energy-pc-\nuse-8-ways-cut/\n[46] UnitedStatesEnvironmentalProtectionAgency.2021.GreenhouseGasEquivalenciesCalculator. https://www.epa.gov/energy/greenhouse-gas-\nequivalencies-calculator\n[47] USDepartmentofEnergy.2021.Energy-EfficientCoolingControlSystemsforDataCenters. https://www.energy.gov/eere/amo/energy-efficient-\ncooling-control-systems-data-centers\n[48] AdinaWilliams,NikitaNangia,andSamuelRBowman.2017.Abroad-coveragechallengecorpusforsentenceunderstandingthroughinference.\narXivpreprintarXiv:1704.05426(2017).\n[49] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "pta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.Sustainableai:Environmentalimplications,challengesandopportunities.arXivpreprintarXiv:2111.00364(2021).\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nA ADDITIONALPLOTS\n12\n10\n8\n6\n4\n2\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n30\n6h\n12h\n18h 25\n24h\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.5. OptimizationresultsforthetrainingofBERTsmallon8V100s.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "75%\n100%\n(b)PauseandResumeoptimization.\nFig.5. OptimizationresultsforthetrainingofBERTsmallon8V100s.Withoutoptimization,thejobranforapproximately36hours\nandconsumed37.3kWh.\nInFigures5,6,7,8,9,10,11,12,13,14and15,wereportthedecreaseinCO2emissions(inpercent)obtainedwhen\nperformingthetwooptimizationsintroducedinthemaintextforall16regions,all11models,averagedovertheyear\nandforvariousvaluesofthe𝑁 denotingtheincreaseinjobdurationstemmingfromtheoptimization.\n50\n40\n30\n20\n10\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h 12h 20.0\n18h 17.5\n24h\n15.0\n12.5\n10.0\n7.5\n5.0\n2.5\n0.0",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h 12h 20.0\n18h 17.5\n24h\n15.0\n12.5\n10.0\n7.5\n5.0\n2.5\n0.0\nEast U W S est W U e S st U W S e 2 st C U e S n N 3 tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a st n N y E o u r r t o h p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25% 50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.6. OptimizationresultsforthefinetuningofBERTsmallontheMNLIdataset,using4V100s.Withoutoptimization,thejobran\nforapproximately6hoursandconsumed3.1kWh.\n18",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n | 6h\n12h\n18h\n24h",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n | 25%\n50%\n75%\n100%",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n | 6h\n12h\n18h\n24h",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n | 25%\n50%\n75%\n100%",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\n1.4\n1.2\n1.0\n0.8\n0.6\n0.4\n0.2\n0.0\nEast U W S est W U e S st U W S e 2 st C U e S n N 3 tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n30\n6h\n12h\n18h 25\n24h\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.7.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "tartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.7. Optimizationresultsforthetrainingofa6BParameterTransformeron256A100s.Withoutoptimization,thejobranfor\napproximately8daysandconsumed13,812kWh.\n80\n70\n60\n50\n40\n30\n20\n10\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 5\n18h\n24h\n4\n3\n2\n1\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n S W tr . a C l e U n S tral U C S anada Fran G c e e r W m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n(a)FlexibleStartoptimization.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.8. OptimizationresultsforaDenseNet121trainedonMNISTon1P40.Withoutoptimization,thejobranforapproximately20\nminutesandconsumed20WH.\n19",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n | 18h\n24h",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n | 50%\n75%\n100%",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n | 6h\n12h\n18h\n24h",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n | 25%\n50%\n75%\n100%",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\n80\n70\n60\n50\n40\n30\n20\n10\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 7\n18h\n6 24h\n5\n4\n3\n2\n1\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n S W tr . a C l e U n S tral U C S anada Fran G c e e r W m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.9. OptimizationresultsforaDenseNet169trainedonMNISTon1P40.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "%\n100%\n(b)PauseandResumeoptimization.\nFig.9. OptimizationresultsforaDenseNet169trainedonMNISTon1P40.Withoutoptimization,thejobranforapproximately20\nminutesandconsumed28WH.\n80\n70\n60\n50\n40\n30\n20\n10\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n8 6h\n12h 7\n18h\n24h 6\n5\n4\n3\n2\n1\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n S W tr . a C l e U n S tral U C S anada Fran G c e e r W m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "a K y Sou A th ustralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.10. OptimizationresultsforaDenseNet201trainedonMNISTon1P40.Withoutoptimization,thejobranforapproximately25\nminutesandconsumed37WH.\n20",
+    "page": 20
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 20):\n | 6h\n12h\n18h\n24h",
+    "page": 20
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 20):\n |  | 25%\n50%\n75%\n |  | 100%",
+    "page": 20
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 20):\n | 6h\n12h\n18h\n24h",
+    "page": 20
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 20):\n |  | 25%\n50%\n75%\n |  | 100%",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\n16\n14\n12\n10\n8\n6\n4\n2\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 25\n18h\n24h\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.11. OptimizationresultsforaTinyViTtrainedon1V100.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "5%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.11. OptimizationresultsforaTinyViTtrainedon1V100.Withoutoptimization,thejobranforapproximately19hoursand\nconsumed1.7kWh.\n14\n12\n10\n8\n6\n4\n2\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 25\n18h\n24h 20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.12. OptimizationresultsforaSmallViTtrainedon1V100.Withoutoptimization,thejobranforapproximately19hoursand\nconsumed2.2kWh.\n21",
+    "page": 21
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 21):\n | 6h\n12h\n18h\n24h",
+    "page": 21
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 21):\n | 25%\n50%\n75%\n100%",
+    "page": 21
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 21):\n | 6h\n12h\n18h\n24h",
+    "page": 21
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 21):\n | 25%\n50%\n75%\n100%",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\n8\n6\n4\n2\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n S W tr . a C l e U n S tral U C S anada Fran G c e e r W m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A th ustralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 25\n18h\n24h 20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.13. OptimizationresultsforaBaseViTtrainedon1V100.Withoutoptimization,thejobranforapproximately21hoursand\nconsumed4.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "nresultsforaBaseViTtrainedon1V100.Withoutoptimization,thejobranforapproximately21hoursand\nconsumed4.7kWh.\n3.5\n3.0\n2.5\n2.0\n1.5\n1.0\n0.5\n0.0\nEast U W S est W U e S st U W S e 2 st C U e S n N 3 tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n30\n6h\n12h\n18h 25\n24h\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.14.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "artoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.14. OptimizationresultsforaLargeViTtrainedon4V100.Withoutoptimization,thejobranforapproximately90hoursand\nconsumed93.3kWh.\n22",
+    "page": 22
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 22):\n | 6h\n12h\n18h\n24h",
+    "page": 22
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 22):\n | 25%\n50%\n75%\n100%",
+    "page": 22
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 22):\n | 6h\n12h\n18h\n24h",
+    "page": 22
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 22):\n | 25%\n50%\n75%\n100%",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\n1.2\n1.0\n0.8\n0.6\n0.4\n0.2\n0.0\nEast U W S est W U e S st U W S e 2 st C U e S n N 3 tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n%\nni\nesaerced\nsnoissime\n2OC\n6h\n12h 25\n18h\n24h\n20\n15\n10\n5\n0\nEast U W S est W U e S st U W S e 2 st C U e S n 3 N tr . a C l e U n S S tr . a C l e U n W S tr . a C l e U n S tral U C S anada Fran G c e e W r m e a s n t y N Eu o r r o th p e Europ N e orw U a K y Sou A t u h stralia\n(a)FlexibleStartoptimization.\n%\nni\nesaerced\nsnoissime\n2OC\n25%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.15. OptimizationresultsforaHugeViTtrainedon4V100.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "5%\n50%\n75%\n100%\n(b)PauseandResumeoptimization.\nFig.15. OptimizationresultsforaHugeViTtrainedon4V100.Withoutoptimization,thejobranforapproximately9daysand\nconsumed237.6kWh.\n23",
+    "page": 23
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 23):\n | 6h\n12h\n18h\n24h",
+    "page": 23
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 23):\n | 25%\n50%\n75%\n100%",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "FAccT’22,June21–24,2022,Seoul,RepublicofKorea Dodgeetal.\nB ADDITIONALTABLES\nInTables6,7,8,9,10,11,12and13,wereportthedecreaseinCO2emissions(inpercent)obtainedwhenperforming\nthetwooptimizationsintroducedinthemaintextforall11models,averagedacrossthe16regionsweconsiderand\novertheyear,forvariousvaluesofthe𝑁 denotingtheincreaseinjobdurationstemmingfromtheoptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 1.9% 1.7% 0.8% 0.6% 0.4% 0.4% 1.8% 1.8% 1.6% 1.3% 0.9%\nP&R 3.1% 4.1% 4.5% 0.7% 0.6% 0.5% 4.5% 4.6% 4.4% 4.4% 4.5%\nPauses/hr 0.45 0.25 0.22 2.2 2.4 2.4 0.28 0.29 0.28 0.22 0.21\nTable6. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "he11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora25%increaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 3.6% 2.9% 1.5% 1.0% 1.3% 1.2% 3.3% 3.1% 2.5% 2.1% 1.6%\nP&R 5.5% 7.0% 7.4% 1.1% 1.5% 1.6% 7.2% 7.0% 7.0% 7.3% 7.4%\nPauses/hr 0.47 0.29 0.27 1.83 2.33 2.33 0.32 0.33 0.32 0.27 0.26\nTable7. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora50%increaseinjobduration.Thelastlinerepresentstheaverage",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "auseandResume(P&R)optimizationsallowingfora50%increaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 5.4% 3.6% 2.0% 1.5% 1.7% 1.9% 4.2% 4.0% 3.3% 2.8% 2.2%\nP&R 7.6% 9.2% 9.6% 1.6% 2.0% 2.4% 9.2% 9.3% 9.2% 9.6% 9.6%\nPauses/hr 0.45 0.3 0.27 1.71 2.0 2.14 0.33 0.33 0.32 0.28 0.26\nTable8. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora75%increaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf.",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "edbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 7.0% 4.1% 2.6% 1.8% 2.5% 2.7% 5.0% 4.8% 3.9% 3.3% 3.0%\nP&R 9.5% 11.0% 11.4% 2.0% 2.8% 3.1% 11.0% 11.0% 10.8% 11.4% 11.3%\nPauses/hr 0.42 0.29 0.27 1.5 1.88 2.0 0.31 0.32 0.31 0.27 0.26\nTable9. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexibleStart\n(FS)andPauseandResume(P&R)optimizationsallowingfora100%increaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\n24",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 1.9% | 1.7% | 0.8% | 0.6% | 0.4% | 0.4% | 1.8% | 1.8% | 1.6% | 1.3% | 0.9%\nP&R | 3.1% | 4.1% | 4.5% | 0.7% | 0.6% | 0.5% | 4.5% | 4.6% | 4.4% | 4.4% | 4.5%\nPauses/hr | 0.45 | 0.25 | 0.22 | 2.2 | 2.4 | 2.4 | 0.28 | 0.29 | 0.28 | 0.22 | 0.21",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 3.6% | 2.9% | 1.5% | 1.0% | 1.3% | 1.2% | 3.3% | 3.1% | 2.5% | 2.1% | 1.6%\nP&R | 5.5% | 7.0% | 7.4% | 1.1% | 1.5% | 1.6% | 7.2% | 7.0% | 7.0% | 7.3% | 7.4%\nPauses/hr | 0.47 | 0.29 | 0.27 | 1.83 | 2.33 | 2.33 | 0.32 | 0.33 | 0.32 | 0.27 | 0.26",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 5.4% | 3.6% | 2.0% | 1.5% | 1.7% | 1.9% | 4.2% | 4.0% | 3.3% | 2.8% | 2.2%\nP&R | 7.6% | 9.2% | 9.6% | 1.6% | 2.0% | 2.4% | 9.2% | 9.3% | 9.2% | 9.6% | 9.6%\nPauses/hr | 0.45 | 0.3 | 0.27 | 1.71 | 2.0 | 2.14 | 0.33 | 0.33 | 0.32 | 0.28 | 0.26",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 7.0% | 4.1% | 2.6% | 1.8% | 2.5% | 2.7% | 5.0% | 4.8% | 3.9% | 3.3% | 3.0%\nP&R | 9.5% | 11.0% | 11.4% | 2.0% | 2.8% | 3.1% | 11.0% | 11.0% | 10.8% | 11.4% | 11.3%\nPauses/hr | 0.42 | 0.29 | 0.27 | 1.5 | 1.88 | 2.0 | 0.31 | 0.32 | 0.31 | 0.27 | 0.26",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "MeasuringtheCarbonIntensityofAIinCloudInstances FAccT’22,June21–24,2022,Seoul,RepublicofKorea\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 6.9% 1.2% 0.2% 15.3% 14.9% 14.5% 2.3% 2.2% 1.7% 0.5% 0.2%\nP&R 9.4% 2.9% 0.8% 15.8% 15.5% 15.3% 5.5% 5.3% 4.8% 1.5% 0.7%\nPauses/hr 0.41 0.21 0.06 0.22 0.27 0.28 0.29 0.3 0.29 0.11 0.06\nTable10. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexible\nStart(FS)andPauseandResume(P&R)optimizationsallowingfora6hincreaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 10.1% 2.",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "nse Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 10.1% 2.3% 0.3% 21.6% 21.1% 20.6% 3.8% 3.6% 2.7% 0.8% 0.3%\nP&R 13.8% 5.3% 1.4% 22.2% 21.7% 21.5% 8.3% 8.1% 7.7% 2.7% 1.3%\nPauses/hr 0.33 0.27 0.1 0.12 0.15 0.15 0.32 0.33 0.32 0.17 0.09\nTable11. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexible\nStart(FS)andPauseandResume(P&R)optimizationsallowingfora12hincreaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 13.3% 2.9% 0.4% 24.1% 23.7% 23.2% 4.9% 4.6% 3.6% 1.1% 0.4%\nP&R 17.4% 7.0% 2.0% 24.9% 24.5% 24.2% 10.8% 10.5% 9.9% 3.8% 1.9%",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": ".7% 23.2% 4.9% 4.6% 3.6% 1.1% 0.4%\nP&R 17.4% 7.0% 2.0% 24.9% 24.5% 24.2% 10.8% 10.5% 9.9% 3.8% 1.9%\nPauses/hr 0.26 0.29 0.13 0.08 0.09 0.1 0.31 0.32 0.32 0.2 0.12\nTable12. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexible\nStart(FS)andPauseandResume(P&R)optimizationsallowingfora18hincreaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\nModel BERT BERT 6B Dense Dense Dense ViT ViT ViT ViT ViT\nfinetune LM Transf. 121 169 201 Tiny Small Base Large Huge\nFS 14.5% 3.4% 0.5% 26.8% 26.4% 25.9% 5.6% 5.3% 4.2% 1.3% 0.5%\nP&R 19.0% 8.5% 2.5% 27.7% 27.3% 27.1% 12.5% 12.3% 11.7% 4.7% 2.4%\nPauses/hr 0.23 0.3 0.15 0.06 0.07 0.08 0.3 0.3 0.3 0.23 0.14\nTable13.",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "1% 12.5% 12.3% 11.7% 4.7% 2.4%\nPauses/hr 0.23 0.3 0.15 0.06 0.07 0.08 0.3 0.3 0.3 0.23 0.14\nTable13. Forthe11modelsinouranalysis:thegaininpercentaveragedovertheyearandacrossthe16regionsfortheFlexible\nStart(FS)andPauseandResume(P&R)optimizationsallowingfora24hincreaseinjobduration.Thelastlinerepresentstheaverage\nnumberofpausesperhourperformedbytheP&Roptimization.\n25",
+    "page": 25
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 25):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 6.9% | 1.2% | 0.2% | 15.3% | 14.9% | 14.5% | 2.3% | 2.2% | 1.7% | 0.5% | 0.2%\nP&R | 9.4% | 2.9% | 0.8% | 15.8% | 15.5% | 15.3% | 5.5% | 5.3% | 4.8% | 1.5% | 0.7%\nPauses/hr | 0.41 | 0.21 | 0.06 | 0.22 | 0.27 | 0.28 | 0.29 | 0.3 | 0.29 | 0.11 | 0.06",
+    "page": 25
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 25):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 10.1% | 2.3% | 0.3% | 21.6% | 21.1% | 20.6% | 3.8% | 3.6% | 2.7% | 0.8% | 0.3%\nP&R | 13.8% | 5.3% | 1.4% | 22.2% | 21.7% | 21.5% | 8.3% | 8.1% | 7.7% | 2.7% | 1.3%\nPauses/hr | 0.33 | 0.27 | 0.1 | 0.12 | 0.15 | 0.15 | 0.32 | 0.33 | 0.32 | 0.17 | 0.09",
+    "page": 25
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 25):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 13.3% | 2.9% | 0.4% | 24.1% | 23.7% | 23.2% | 4.9% | 4.6% | 3.6% | 1.1% | 0.4%\nP&R | 17.4% | 7.0% | 2.0% | 24.9% | 24.5% | 24.2% | 10.8% | 10.5% | 9.9% | 3.8% | 1.9%\nPauses/hr | 0.26 | 0.29 | 0.13 | 0.08 | 0.09 | 0.1 | 0.31 | 0.32 | 0.32 | 0.2 | 0.12",
+    "page": 25
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 25):\nModel | BERT\nfinetune | BERT\nLM | 6B\nTransf. | Dense\n121 | Dense\n169 | Dense\n201 | ViT\nTiny | ViT\nSmall | ViT\nBase | ViT\nLarge | ViT\nHuge\nFS | 14.5% | 3.4% | 0.5% | 26.8% | 26.4% | 25.9% | 5.6% | 5.3% | 4.2% | 1.3% | 0.5%\nP&R | 19.0% | 8.5% | 2.5% | 27.7% | 27.3% | 27.1% | 12.5% | 12.3% | 11.7% | 4.7% | 2.4%\nPauses/hr | 0.23 | 0.3 | 0.15 | 0.06 | 0.07 | 0.08 | 0.3 | 0.3 | 0.3 | 0.23 | 0.14",
+    "page": 25
+  }
+]

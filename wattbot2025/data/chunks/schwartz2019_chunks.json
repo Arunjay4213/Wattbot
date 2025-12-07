@@ -1,0 +1,307 @@
+[
+  {
+    "type": "text",
+    "content": "Green AI\nRoySchwartz∗♦ JesseDodge∗♦♣ NoahA.Smith♦♥ OrenEtzioni♦\n♦AllenInstituteforAI,Seattle,Washington,USA\n♣ CarnegieMellonUniversity,Pittsburgh,Pennsylvania,USA\n♥ UniversityofWashington,Seattle,Washington,USA\nJuly2019\nAbstract\nThe computations required for deep learning research have been doubling every few months, resulting in an\nestimated300,000xincreasefrom2012to2018[2]. Thesecomputationshaveasurprisinglylargecarbonfootprint\n[40].Ironically,deeplearningwasinspiredbythehumanbrain,whichisremarkablyenergyefficient.Moreover,the\nfinancialcostofthecomputationscanmakeitdifficultforacademics,students,andresearchers,inparticularthose\nfromemergingeconomies,toengageindeeplearningresearch.\nThispositionpaperadvocatesapracticalsolutionbymakingefficiencyanevaluationcriterionforresearchalong-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "hispositionpaperadvocatesapracticalsolutionbymakingefficiencyanevaluationcriterionforresearchalong-\nsideaccuracyandrelatedmeasures.Inaddition,weproposereportingthefinancialcostor“pricetag”ofdeveloping,\ntraining,andrunningmodelstoprovidebaselinesfortheinvestigationofincreasinglyefficientmethods. Ourgoalis\ntomakeAIbothgreenerandmoreinclusive—enablinganyinspiredundergraduatewithalaptoptowritehigh-quality\nresearchpapers.GreenAIisanemergingfocusattheAllenInstituteforAI.\n1 Introduction and Motivation\nSince 2012, the field of artificial intelligence has reported remarkable progress on a broad range of capabilities in-\ncluding object recognition, game playing, machine translation, and more [36]. This progress has been achieved by\nincreasinglylargeandcomputationally-intensivedeeplearningmodels.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "This progress has been achieved by\nincreasinglylargeandcomputationally-intensivedeeplearningmodels.1 Figure1reproducedfrom[2]plotstraining\ncostincreaseovertimeforstate-of-the-artdeeplearningmodelsstartingwithAlexNetin2012[20]toAlphaZeroin\n2017[38]. Thechartshowsanoverallincreaseof300,000x,withtrainingcostdoublingeveryfewmonths. Aneven\nsharpertrendcanbeobservedinNLPwordembeddingapproachesbylookingatELMo[29]followedbyBERT[8],\nopenGPT-2[30],andXLNet[48]. Animportantpaper[40]hasestimatedthecarbonfootprintofseveralNLPmodels\nand argued that this trend is both environmentally unfriendly (which we refer to as Red AI) and expensive, raising\nbarrierstoparticipationinNLPresearch.\nThistrendisdrivenbythestrongfocusoftheAIcommunityonobtaining“state-of-the-art”results,2asexemplified",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "histrendisdrivenbythestrongfocusoftheAIcommunityonobtaining“state-of-the-art”results,2asexemplified\nbytherisingpopularityofleaderboards[46,45], whichtypicallyreportaccuracymeasuresbutomitanymentionof\ncost or efficiency (see, for example, leaderboards.allenai.org). Despite the clear benefits of improving\nmodelaccuracyinAI,thefocusonthissinglemetricignorestheeconomic,environmental,orsocialcostofreaching\nthereportedaccuracy.\nWe advocate increasing research activity in Green AI—AI research that is more environmentally friendly and\ninclusive. WeemphasizethatRedAIresearchhasbeenyieldingvaluablecontributionstothefieldofAI,butit’sbeen\noverlydominant.WewanttoshiftthebalancetowardstheGreenAIoption—toensurethatanyinspiredundergraduate",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "overlydominant.WewanttoshiftthebalancetowardstheGreenAIoption—toensurethatanyinspiredundergraduate\nwithalaptophastheopportunitytowritehigh-qualitypapersthatcouldbeacceptedatpremierresearchconferences.\n∗Thefirsttwoauthorscontributedequally.TheresearchwasdoneattheAllenInstituteforAI.\n1Forbrevity,werefertoAIthroughoutthispaper,butourfocusisonAIresearchthatreliesondeeplearningmethods.\n2Meaning,inpractice,thatasystem’saccuracyonsomebenchmarkisgreaterthananypreviouslyreportedsystem’saccuracy.\n1\n9102\nguA\n31\n]YC.sc[\n3v79501.7091:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Figure1: Theamountofcomputeusedtotraindeeplearningmodelshasincreased300,000xin6years. Figuretaken\nfrom[2].\nSpecifically,weproposemakingefficiencyamorecommonevaluationcriterionforAIpapersalongsideaccuracyand\nrelatedmeasures.\nAIresearchcanbecomputationallyexpensiveinanumberofways, buteachprovidesopportunitiesforefficient\nimprovements; for example, papers could be required to plot accuracy as a function of computational cost and of\ntrainingsetsize,providingabaselineformoredata-efficientresearchinthefuture. Reportingthecomputationalprice\ntag of finding, training, and running models is a key Green AI practice (see Equation 1). In addition to providing\ntransparency,pricetagsarebaselinesthatotherresearcherscouldimproveon.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "1). In addition to providing\ntransparency,pricetagsarebaselinesthatotherresearcherscouldimproveon.\nOurempiricalanalysisinFigure2suggeststhattheAIresearchcommunityhaspaidrelativelylittleattentionto\ncomputationalefficiency.Infact,asFigure1illustrates,thecomputationalcostofresearchisincreasingexponentially,\nat a pace that far exceeds Moore’s Law [28]. Red AI is on the rise despite the well-known diminishing returns of\nincreasedcost(e.g.,Figure3).ThispaperidentifieskeyfactorsthatcontributetoRedAIandadvocatestheintroduction\nof a simple, easy-to-compute efficiency metric that could help make some AI research greener, more inclusive, and\nperhapsmorecognitivelyplausible. GreenAIispartofabroader,long-standinginterestinenvironmentally-friendly\nscientific research (e.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "e. GreenAIispartofabroader,long-standinginterestinenvironmentally-friendly\nscientific research (e.g., see the journal Green Chemistry). Computer science, in particular, has a long history of\ninvestigating sustainable and energy-efficient computing (e.g., see the journal Sustainable Computing: Informatics\nandSystems).\nTheremainderofthispaperisorganizedasfollows. Section2analyzespracticesthatmovedeep-learningresearch\nintotherealmofRedAI.Section3discussesourproposalsforGreenAI.Section4considersrelatedwork, andwe\nconcludewithadiscussionofdirectionsforfutureresearch.\n2 Red AI\nRed AI refers to AI research that seeks to obtain state-of-the-art results in accuracy (or related measures) through\nthe use of massive computational power—essentially “buying” stronger results.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ated measures) through\nthe use of massive computational power—essentially “buying” stronger results. Yet the relationship between model\nperformanceandmodelcomplexity(measuredasnumberofparametersorinferencetime)haslongbeenunderstood\nto be at best logarithmic; for a linear gain in performance, an exponentially larger model is required [18]. Similar\ntrendsexistwithincreasingthequantityoftrainingdata[41,13]andthenumberofexperiments[9]. Ineachofthese\ncases,diminishingreturnscomeatincreasedcomputationalcost.\nThissectionanalyzesthefactorscontributingtoRedAIandshowshowitisresultingindiminishingreturnsover\ntime(seeFigure3). WenoteagainthatRedAIworkisvaluable,andinfact,muchofitcontributestowhatweknow\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Figure 2: AI papers tend to target accuracy rather than efficiency. The figure shows the proportion of papers that\ntargetaccuracy,efficiency,bothorotherfromasampleof60papersfromtopAIconferences.\nbypushingtheboundariesofAI.Ourexpositionhereismeanttohighlightareaswherecomputationalexpenseishigh,\nandtopresenteachasanopportunityfordevelopingmoreefficienttechniques.\nTodemonstratetheprevalenceofRedAI,wesampled60papersfromtopAIconferences(ACL,3 NeurIPS,4 and\nCVPR5). For each paper we noted whether the authors claim their main contribution to be (a) an improvement to\naccuracyorsomerelatedmeasure,(b)animprovementtoefficiency,(c)both,or(d)other. AsshowninFigure2,inall\nconferencesweconsidered,alargemajorityofthepaperstargetaccuracy(90%ofACLpapers,80%ofNeurIPSpapers\nand75%ofCVPRpapers).",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "dered,alargemajorityofthepaperstargetaccuracy(90%ofACLpapers,80%ofNeurIPSpapers\nand75%ofCVPRpapers). Moreover,forbothempiricalAIconferences(ACLandCVPR)onlyasmallportion(10%\nand20%respectively)argueforanewefficiencyresult.6 ThishighlightsthefocusoftheAIcommunityonmeasures\nofperformancesuchasaccuracy,attheexpenseofmeasuresofefficiencysuchasspeedormodelsize. Inthispaper\nwearguethatalargerweightshouldbegiventothelatter.\nTobetterunderstandthedifferentwaysinwhichAIresearchcanbered,consideranAIresultreportedinascientific\npaper. Thisresulttypicallyincludesamodeltrainedonatrainingdatasetandevaluatedonatestdataset. Theprocess\nof developing that model often involves multiple experiments to tune its hyperparameters. When considering the",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ng that model often involves multiple experiments to tune its hyperparameters. When considering the\ndifferentfactorsthatincreasethecomputationalandenvironmentalcostofproducingsucharesult,threefactorscome\ntomind: thecostofexecutingthemodelonasingle(E)xample(eitherduringtrainingoratinferencetime);thesize\nofthetraining(D)ataset,whichcontrolsthenumberoftimesthemodelisexecutedduringtraining,andthenumberof\n(H)yperparameterexperiments,whichcontrolshowmanytimesthemodelistrainedduringmodeldevelopment. The\ntotalcostofproducinga(R)esultinmachinelearningincreaseslinearlywitheachofthesequantities. Thiscostcan\nbeestimatedasfollows:\nCost(R) ∝ E · D · H\nEquation1: TheequationofRedAI:ThecostofanAI(R)esultgrowslinearlywiththecostofprocessingasingle",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "· H\nEquation1: TheequationofRedAI:ThecostofanAI(R)esultgrowslinearlywiththecostofprocessingasingle\n(E)xample,thesizeofthetraining(D)atasetandthenumberof(H)yperparameterexperiments.\nEquation1isasimplification(e.g.,differenthyperparameterassignmentscanleadtodifferentcostsforprocessing\nasingleexample). Italsoignoresotherfactorssuchasthenumberoftrainingepochs. Nonetheless,itillustratesthree\n3https://acl2018.org\n4https://nips.cc/Conferences/2018\n5http://cvpr2019.thecvf.com\n6Interestingly,manyNeurIPSpapersincludedconvergenceratesorregretboundswhichdescribeperformanceasafunctionofexamplesor\niterations,thustargetingefficiency(55%).Thisindicatesanincreasedawarenessoftheimportanceofthisconcept,atleastintheoreticalanalyses.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tintheoreticalanalyses.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "quantitiesthatareeachanimportantfactorinthetotalcostofgeneratingaresult. Below,weconsidereachquantity\nseparately.\nExpensive processing of one example Our focus is on neural models, where it is common for each training step\nto require inference, so we discuss training and inference cost together as “processing” an example. Some works\nhaveusedincreasinglyexpensivemodelswhichrequiregreatamountsofresources,andasaresult,inthesemodels,\nperforminginferencecanrequirealotofcomputation,andtrainingevenmoreso. Forinstance,Google’sBERT-large\n[8] contains roughly 350 million parameters. openAI’s openGPT2-XL model [30] contains 1.5 billion parameters.\nAI2, our home organization, recently released Grover [49], also containing 1.5 billion parameters. In the computer",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rganization, recently released Grover [49], also containing 1.5 billion parameters. In the computer\nvisioncommunity,asimilartrendisobserved(Figure1).\nSuchlargemodelshavehighcostsforprocessingeachexample,whichleadstolargetrainingcosts. BERT-large\nwastrainedon64TPUchipsfor4days. Groverwastrainedon256TPUchipsfortwoweeks,atanestimatedcostof\n$25,000. XLNethadasimilararchitecturetoBERT-large,butusedamoreexpensiveobjectivefunction(inaddition\ntoanorderofmagnitudemoredata),andwastrainedon512TPUchipsfor2.5days.7 Itisimpossibletoreproduce\nthebestBERT-largeresults8 orXLNetresults9 usingasingleGPU.Specializedmodelscanhaveevenmoreextreme\ncosts, suchasAlphaGo, thebestversionofwhichrequired1,920CPUsand280GPUstoplayasinglegameofGo\n[37]atacostofover$1,000perhour.10\nWhenexaminingvariantsofasinglemodel(e.g.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "GPUstoplayasinglegameofGo\n[37]atacostofover$1,000perhour.10\nWhenexaminingvariantsofasinglemodel(e.g.,BERT-smallandBERT-large)weseethatlargermodelscanhave\nstrongerperformance,whichisavaluablescientificcontribution. However,thisimpliesthefinancialandenvironmen-\ntalcostofincreasinglylargeAImodelswillnotdecreasesoon,asthepaceofmodelgrowthfarexceedstheresulting\nincreaseinmodelperformance[16]. Asaresult,moreandmoreresourcesaregoingtoberequiredtokeepimproving\nAImodelsbysimplymakingthemlarger.\nProcessing many examples Another way state-of-the-art performance has recently been progressing in AI is by\nsuccessivelyincreasingtheamountoftrainingdatamodelsaretrainedon. BERT-largehadtopperformancein2018\nacross many NLP tasks after training on 3 billion word-pieces.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "on. BERT-largehadtopperformancein2018\nacross many NLP tasks after training on 3 billion word-pieces. XLNet recently outperformed BERT after training\non 32 billion word-pieces, including part of Common Crawl; openGPT-2-XL trained on 40 billion words; FAIR’s\nRoBERTa [23] was trained on 160GB of text, roughly 40 billion word-pieces, requiring around 25,000 GPU hours\ntotrain. Incomputervision,researchersfromFacebook[25]pretrainedanimageclassificationmodelon3.5billion\nimagesfromInstagram,threeordersofmagnitudelargerthanexistinglabelledimagedatasetssuchasOpenImages.11\nThe use of massive data creates barriers for many researchers for reproducing the results of these models, or\ntrainingtheirownmodelsonthesamesetup(especiallyastrainingformultipleepochsisstandard). Forexample,the",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ainingtheirownmodelsonthesamesetup(especiallyastrainingformultipleepochsisstandard). Forexample,the\nJune 2019 Common Crawl contains 242 TB of uncompressed data,12 so even storing the data is expensive. Finally,\nas in the case of model size, relying on more data to improve performance is notoriously expensive because of the\ndiminishing return of adding more data [41]. For instance, Figure 3, taken from [25], shows a logarithmic relation\nbetweentheobjectrecognitiontop-1accuracyandthenumberoftrainingexamples.\nMassive number of experiments Some projects have poured large amounts of computation into tuning hyperpa-\nrametersorsearchingoverneuralarchitectures,wellbeyondthereachofmostresearchers. Forinstance,researchers",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "tersorsearchingoverneuralarchitectures,wellbeyondthereachofmostresearchers. Forinstance,researchers\nfromGoogle[51]trainedover12,800neuralnetworksintheirneuralarchitecturesearchtoimproveperformanceon\nobjectdetectionandlanguagemodeling. Withafixedarchitecture,researchersfromDeepMind[26]evaluated1,500\nhyperparameterassignmentstodemonstratethatanLSTMlanguagemodel[15]canreachstate-of-the-artperplexity\nresults. DespitethevalueofthisresultinshowingthattheperformanceofanLSTMdoesnotplateauafteronlyafew\nhyperparametertrials,fullyexploringthepotentialofothercompetitivemodelsforafaircomparisonisprohibitively\nexpensive.\n7Someestimatesforthecostofthisprocessreach$250,000(twitter.com/eturner303/status/1143174828804857856).\n8Seehttps://github.com/google-research/bert\n9Seehttps://github.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rner303/status/1143174828804857856).\n8Seehttps://github.com/google-research/bert\n9Seehttps://github.com/zihangdai/xlnet\n10RecentversionsofAlphaGoarefarmoreefficient[39].\n11https://opensource.google.com/projects/open-images-dataset\n12http://commoncrawl.org/2019/07/\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Figure3: Diminishingreturnsoftrainingonmoredata: objectdetectionaccuracyincreaseslinearlyasthenumberof\ntrainingexamplesincreasesexponentially[25].\nThe topic of massive number of experiments is not as well studied as the first two discussed above. In fact, the\nnumber of experiments performed during model construction is often underreported. Nonetheless, evidence for a\nlogarithmicrelationexistshereaswell,betweenthenumberofexperimentsandperformancegains[9].\nDiscussion ThebenefitsofpouringmoreresourcesintomodelsarecertainlyofinteresttotheAIcommunity.Indeed,\nthereisvalueinpushingthelimitsofmodelsize,datasetsize,andthehyperparametersearchspace. Currently,despite\nthe massive amount of resources put into recent AI models, such investment still pays off in terms of downstream",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "mount of resources put into recent AI models, such investment still pays off in terms of downstream\nperformance (albeit at an increasingly lower rate). Finding the point of saturation (if such exists) is an important\nquestionforthefutureofAI.\nOur goal in this paper is to raise awareness of the cost of Red AI, as well as encourage the AI community to\nrecognizethevalueofworkbyresearchersthattakeadifferentpath,optimizingefficiencyratherthanaccuracy. Next\nweturntodiscussconcretemeasuresformakingAImoregreen.\n3 Green AI\nThetermGreenAIreferstoAIresearchthatyieldsnovelresultswithoutincreasingcomputationalcost, andideally\nreducingit.WhereasRedAIhasresultedinrapidlyescalatingcomputational(andthuscarbon)costs,GreenAIhasthe\noppositeeffect.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "asRedAIhasresultedinrapidlyescalatingcomputational(andthuscarbon)costs,GreenAIhasthe\noppositeeffect. Ifmeasuresofefficiencyarewidelyacceptedasimportantevaluationmetricsforresearchalongside\naccuracy, thenresearcherswillhavetheoptionoffocusingontheefficiencyoftheirmodelswithpositiveimpacton\nboth the environment and inclusiveness. This section reviews several measures of efficiency that could be reported\nandoptimized, andadvocatesoneparticularmeasure—FPO—whichweargueshouldbereportedwhenAIresearch\nfindingsarepublished.\n3.1 MeasuresofEfficiency\nTomeasureefficiency,wesuggestreportingtheamountofworkrequiredtogeneratearesultinAI,thatis,theamount\nofworkrequiredtotrainamodel,andifapplicable,thesumofworksforallhyperparametertuningexperiments. As\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rksforallhyperparametertuningexperiments. As\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "thecostofanexperimentdecomposesintothecostofaprocessingasingleexample,thesizeofthedataset,andthe\nnumberofexperiments(Equation1),reducingtheamountofworkineachofthesestepswillresultinAIthatismore\ngreen.\nWhenreportingtheamountofworkdonebyamodel,wewanttomeasureaquantitythatallowsforafaircom-\nparisonbetweendifferentmodels. Asaresult,thismeasureshouldideallybestableacrossdifferentlabs,atdifferent\ntimes,andusingdifferenthardware.\nCarbon emission Carbon emission is appealing as it is a quantity we want to directly minimize. Nonetheless it\nis impractical to measure the exact amount of carbon released by training or executing a model, and accordingly—\ngenerating an AI result, as this amount depends highly on the local electricity infrastructure. As a result, it is not",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "sult, as this amount depends highly on the local electricity infrastructure. As a result, it is not\ncomparablebetweenresearchersindifferentlocationsoreventhesamelocationatdifferenttimes.\nElectricity usage Electricity usage is correlated with carbon emission while being time- and location-agnostic.\nMoreover,GPUsoftenreporttheamountofelectricityeachoftheircoresconsumeateachtimepoint,whichfacilitates\nthe estimation of the total amount of electricity consumed by generating an AI result. Nonetheless, this measure is\nhardwaredependent,andasaresultdoesnotallowforafaircomparisonbetweendifferentmodels.\nElapsedrealtime ThetotalrunningtimeforgeneratinganAIresultisanaturalmeasureforefficiency,asallother\nthingsbeingequal, afastermodelisdoinglesscomputationalwork.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "sanaturalmeasureforefficiency,asallother\nthingsbeingequal, afastermodelisdoinglesscomputationalwork. Nonetheless, thismeasureishighlyinfluenced\nbyfactorssuchastheunderlyinghardware, otherjobsrunningonthesamemachine, andthenumberofcoresused.\nThese factors hinder the comparison between different models, as well as the decoupling of modeling contributions\nfromhardwareimprovements.\nNumber of parameters Another common measure of efficiency is the number of parameters (learnable or total)\nusedbythemodel. Aswithruntime,thismeasureiscorrelatedwiththeamountofwork. Unliketheothermeasures\ndescribedabove,itdoesnotdependontheunderlyinghardware.Moreover,thismeasurealsohighlycorrelateswiththe\namountofmemoryconsumedbythemodel. Nonetheless,differentalgorithmsmakedifferentuseoftheirparameters,",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "amountofmemoryconsumedbythemodel. Nonetheless,differentalgorithmsmakedifferentuseoftheirparameters,\nforinstancebymakingthemodeldeepervs.wider. Asaresult,differentmodelswithasimilarnumberofparameters\noftenperformdifferentamountsofwork.\nFPO As a concrete measure, we suggest reporting the total number of floating point operations (FPO) required to\ngenerate a result.13 FPO provides an estimate to the amount of work performed by a computational process. It is\ncomputedanalyticallybydefiningacosttotwobaseoperations, ADDand MUL. Basedontheseoperations,theFPO\ncostofanymachinelearningabstractoperation(e.g.,atanhoperation,amatrixmultiplication,aconvolutionoperation,\northeBERTmodel)canbecomputedasarecursivefunctionofthesetwooperations. FPOhasbeenusedinthepast",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "tion,\northeBERTmodel)canbecomputedasarecursivefunctionofthesetwooperations. FPOhasbeenusedinthepast\ntoquantifytheenergyfootprintofamodel[27,43,12,42],butisnotwidelyadoptedinAI.\nFPOhasseveralappealingproperties. First,itdirectlycomputestheamountofworkdonebytherunningmachine\nwhen executing a specific instance of a model, and is thus tied to the amount of energy consumed. Second, FPO is\nagnostictothehardwareonwhichthemodelisrun. Thisfacilitatesfaircomparisonsbetweendifferentapproaches,\nunlikethemeasuresdescribedabove. Third,FPOisstronglycorrelatedwiththerunningtimeofthemodel[4]. Unlike\nasymptoticruntime,FPOalsoconsiderstheamountofworkdoneateachtimestep.\nSeveralpackagesexistforcomputingFPOinvariousneuralnetworklibraries,14 thoughnoneofthemcontainsall",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": ".\nSeveralpackagesexistforcomputingFPOinvariousneuralnetworklibraries,14 thoughnoneofthemcontainsall\nthebuildingblocksrequiredtoconstructallmodernAImodels. Weencouragethebuildersofneuralnetworklibraries\ntoimplementsuchfunctionalitydirectly.\n13FloatingpointoperationsareoftenreferredtoasFLOP(s),thoughthistermisnotuniquelydefined[12].Toavoidconfusion,weusetheterm\nFPO.\n14E.g.,https://github.com/Swall0w/torchstat;https://github.com/Lyken17/pytorch-OpCounter\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "(a)Differentmodels. (b)DifferentlayersoftheResNetmodel.\nFigure 4: Increase in FPO results in diminishing return for object detection top-1 accuracy. Plots (bottom to top):\nmodel parameters (in million), FPO (in billions), top-1 accuracy on ImageNet. (4a): Different models: AlexNet\n[20],ResNet[14],ResNext[47],DPN107[5],SENet154[17]. (4b): Comparisonofdifferentsizes(measuredbythe\nnumberoflayers)oftheResNetmodel[14].\nDiscussion Efficientmachinelearningapproacheshavereceivedattentionintheresearchcommunity,butaregener-\nallynotmotivatedbybeinggreen. Forexample,asignificantamountofworkinthecomputervisioncommunityhas\naddressedefficientinference,whichisnecessaryforreal-timeprocessingofimagesforapplicationslikeself-driving\ncars[24,31,22],orforplacingmodelsondevicessuchasmobilephones[16,34].",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "forapplicationslikeself-driving\ncars[24,31,22],orforplacingmodelsondevicessuchasmobilephones[16,34]. Mostoftheseapproachestargetef-\nficientmodelinference[32,50,12],15andthusonlyminimizethecostofprocessingasingleexample,whileignoring\ntheothertworedpracticesdiscussedinSection2.16\nTheaboveexamplesindicatethatthepathtomakingAIgreendependsonhowitisused. Whendevelopinganew\nmodel,muchoftheresearchprocessinvolvestrainingmanymodelvariantsonatrainingsetandperforminginference\nonasmalldevelopmentset. Insuchasetting,moreefficienttrainingprocedurescanleadtogreatersavings,whilein\naproductionsettingmoreefficientinferencecanbemoreimportant. Weadvocateforaholisticviewofcomputational\nsavingswhichdoesn’tsacrificeinsomeareastomakeadvancesinothers.\nFPOhassomelimitations.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "fcomputational\nsavingswhichdoesn’tsacrificeinsomeareastomakeadvancesinothers.\nFPOhassomelimitations. First,ittargetstheelectricityconsumptionofamodel,whileignoringotherpotential\nlimiting factors for researchers such as the memory consumption by the model, which can often lead to additional\nenergyandmonetarycosts[24]. Second, theamountofworkdonebyamodellargelydependsonthemodelimple-\nmentation, astwodifferentimplementationsofthesamemodelcouldresultinverydifferentamountsofprocessing\nwork. Due to the focus on the modeling contribution, the AI community has traditionally ignored the quality or ef-\nficiencyofmodels’implementation.17 Wearguethatthetimetoreversethisnormhascome, andthatexceptionally\ngoodimplementationsthatleadtoefficientmodelsshouldbecreditedbytheAIcommunity.\n3.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ndthatexceptionally\ngoodimplementationsthatleadtoefficientmodelsshouldbecreditedbytheAIcommunity.\n3.2 FPOCostofExistingModels\nTodemonstratetheimportanceofreportingtheamountofwork,wepresentFPOcostsforseveralexistingmodels.18\nFigure 4a shows the number of parameters and FPO of several leading object recognition models, as well as their\n15Someveryrecentworkalsotargetedefficienttraining[7].\n16Infact,creatingsmallermodelsoftenresultsinlongerrunningtime,somitigatingthedifferenttrendsmightbeatodds[44].\n17WeconsiderthisexclusivefocusonthefinalpredictionanothersymptomofRedAI.\n18ThesenumbersrepresentFPOperinference,i.e.,theworkrequiredtoprocessasingleexample.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "performance on the ImageNet dataset [6].19 A few trends are observable. First, as discussed in Section 2, models\nget more expensive with time, but the increase in FPO does not lead to similar performance gains. For instance, an\nincrease of almost 35% in FPO between ResNet and ResNext (second and third points in graph) resulted in a 0.5%\ntop-1 accuracy improvement. Similar patterns are observed when considering the effect of other increases in model\nwork.Second,thenumberofmodelparametersdoesnottellthewholestory:AlexNet(firstpointinthegraph)actually\nhasmoreparametersthanResNet(secondpoint),butdramaticallylessFPO,andalsomuchloweraccuracy.\nFigure4bshowsthesameanalysisforasingleobjectrecognitionmodel,ResNet[14],whilecomparingdifferent\nversions of the model with different number of layers.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "itionmodel,ResNet[14],whilecomparingdifferent\nversions of the model with different number of layers. This creates a controlled comparison between the different\nmodels, astheyareidenticalinarchitecture, exceptfortheirsize(andaccordingly, theirFPOcost). Onceagain, we\nnoticethesametrend: thelargeincreaseinFPOcostdoesnottranslatetoalargeincreaseinperformance.\n3.3 AdditionalWaystoPromoteGreenAI\nIn addition to reporting the FPO cost of the final reported number, we encourage researchers to report the bud-\nget/accuracycurveobservedduring training. Inarecent paper[9], weobservedthatselectingthe betterperforming\nmodelonagiventaskdependshighlyontheamountofcomputeavailableduringmodeldevelopment. Weintroduced\namethodforcomputingtheexpectedbestvalidationperformanceofamodelasafunctionofthegivenbudget.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "troduced\namethodforcomputingtheexpectedbestvalidationperformanceofamodelasafunctionofthegivenbudget. We\narguethatreportingthiscurvewillallowuserstomakewiserdecisionsabouttheirselectionofmodelsandhighlight\nthestabilityofdifferentapproaches.\nWefurtheradvocateformakingefficiencyanofficialcontributioninmajorAIconferences,byadvisingreviewers\nto recognize and value contributions that do not strictly improve state of the art, but have other benefits such as\nefficiency. Finally,wenotethatthetrendofreleasingpretrainedmodelspubliclyisagreensuccess,andwewouldlike\ntoencourageorganizationstocontinuetoreleasetheirmodelsinordertosaveothersthecostsofretrainingthem.\n4 Related Work\nRecentworkhasanalyzedthecarbonemissionsoftrainingdeepNLPmodels[40]andconcludedthatcomputationally",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "k\nRecentworkhasanalyzedthecarbonemissionsoftrainingdeepNLPmodels[40]andconcludedthatcomputationally\nexpensive experiments can have a large environmental and economic impact. With modern experiments using such\nlargebudgets,manyresearchers(especiallythoseinacademia)lacktheresourcestoworkinmanyhigh-profileareas;\nincreased value placed on computationally efficient approaches will allow research contributions from more diverse\ngroups. Weemphasizethattheconclusionsof[40]aretheresultoflong-termtrends,andarenotisolatedwithinNLP,\nbutholdtrueacrossmachinelearning.\nWhilesomecompaniesoffsetelectricityusagebypurchasingcarboncredits, itisnotclearthatbuyingcreditsis\nas effective as using less energy. In addition, purchasing carbon credits is voluntary; Google cloud20 and Microsoft",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "sing less energy. In addition, purchasing carbon credits is voluntary; Google cloud20 and Microsoft\nAzure21 purchasecarboncreditstooffsettheirspentenergy,butAmazon’sAWS22 (thelargestcloudcomputingplat-\nform23)onlycoveredfiftypercentofitspowerusagewithrenewableenergy.\nThepushtoimprovestate-of-the-artperformancehasfocusedtheresearchcommunity’sattentiononreportingthe\nsinglebestresultafterrunningmanyexperimentsformodeldevelopmentandhyperparametertuning. Failuretofully\nreporttheseexperimentspreventsfutureresearchersfromunderstandinghowmucheffortisrequiredtoreproducea\nresultorextendit[9].\nOurfocusisonimprovingefficiencyinthemachinelearningcommunity,butmachinelearningcanalsobeused\nasatoolforworkinareaslikeclimatechange. Forexample,machinelearninghasbeenusedforreducingemissions",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "d\nasatoolforworkinareaslikeclimatechange. Forexample,machinelearninghasbeenusedforreducingemissions\nof cement plants [1] and tracking animal conservation outcomes [11], and is predicted to be useful for forest fire\nmanagement [33]. Undoubtedly these are important applications of machine learning; we recognize that they are\northogonaltothecontentofthispaper.\n19Numberstakenfromhttps://github.com/sovrasov/flops-counter.pytorch\n20https://cloud.google.com/sustainability/\n21https://www.microsoft.com/en-us/environment/carbon\n22https://aws.amazon.com/about-aws/sustainability/\n23https://tinyurl.com/y2kob969\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "5 Conclusion\nThevisionofGreenAIraisesmanyexcitingresearchdirectionsthathelptoovercometheinclusivenesschallengesof\nRed AI. Progress will reduce the computational expense with a minimal reduction in performance, or even improve\nperformance as more efficient methods are discovered. Also, it would seem that Green AI could be moving us in a\nmorecognitivelyplausibledirectionasthebrainishighlyefficient.\nIt’s important to reiterate that we see Green AI as a valuable option not an exclusive mandate—of course, both\nGreenAIandRedAIhavecontributionstomake. WewanttoincreasetheprevalenceofGreenAIbyhighlightingits\nbenefits, advocatingastandardmeasureofefficiency. Below, wepointtoafewimportantgreenresearchdirections,\nandhighlightafewopenquestions.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "eofefficiency. Below, wepointtoafewimportantgreenresearchdirections,\nandhighlightafewopenquestions.\nResearchonbuildingspaceortimeefficientmodelsisoftenmotivatedbyfittingamodelonasmalldevice(such\nasaphone)orfastenoughtoprocessexamplesinrealtime,suchasimagecaptioningfortheblind(seeSection3.1).\nSomemodernmodelsdon’tevenfitonasingleGPU(seeSection2). Hereweargueforafarbroaderapproach.\nDataefficiencyhasreceivedsignificantattentionovertheyears[35,19].ModernresearchinvisionandNLPoften\ninvolves first pretraining a model on large “raw” (unannotated) data then fine-tuning it to a task of interest through\nsupervised learning. A strong result in this area often involves achieving similar performance to a baseline with\nfewertrainingexamplesorfewergradientsteps.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "involves achieving similar performance to a baseline with\nfewertrainingexamplesorfewergradientsteps. Mostrecentworkhasaddressedfine-tuningdata[29],butpretraining\nefficiencyisalsoimportant.Ineithercase,onesimpletechniquetoimproveinthisareaistosimplyreportperformance\nwithdifferentamountsoftrainingdata. Forexample,reportingperformanceofcontextualembeddingmodelstrained\non10million,100million,1billion,and10billiontokenswouldfacilitatefasterdevelopmentofnewmodels,asthey\ncanfirstbecomparedatthesmallestdatasizes. Researchhereisofvaluenotjusttomaketraininglessexpensive,but\nbecauseinareassuchaslowresourcelanguagesorhistoricaldomainsitisextremelyhardtogeneratemoredata,soto\nprogresswemustmakemoreefficientuseofwhatisavailable.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "omainsitisextremelyhardtogeneratemoredata,soto\nprogresswemustmakemoreefficientuseofwhatisavailable.\nFinally,thetotalnumberofexperimentsruntogetafinalresultisoftenunderreportedandunderdiscussed[9].The\nfewinstancesresearchershaveoffullreportingofthehyperparametersearch,architectureevaluations,andablations\nthat went into a reported experimental result have surprised the community [40]. While many hyperparameter opti-\nmizationalgorithmsexistwhichcanreducethecomputationalexpenserequiredtoreachagivenlevelofperformance\n[3,10],simpleimprovementsherecanhavealargeimpact. Forexample,stoppingtrainingearlyformodelswhichare\nclearlyunderperformingcanleadtogreatsavings[21].\nReferences\n[1] Prabal Acharyya, Sean D Rosario, Roey Flor, Ritvik Joshi, Dian Li, Roberto Linares, and Hongbao Zhang.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "bal Acharyya, Sean D Rosario, Roey Flor, Ritvik Joshi, Dian Li, Roberto Linares, and Hongbao Zhang.\nAutopilotofcementplantsforreductionoffuelconsumptionandemissions,2019. ICMLWorkshoponClimate\nChange.\n[2] DarioAmodeiandDannyHernandez. AIandcompute,2018. Blogpost.\n[3] JamesS.Bergstra,Re´miBardenet,YoshuaBengio,andBala´zsKe´gl. Algorithmsforhyper-parameteroptimiza-\ntion. InProc.ofNeurIPS,2011.\n[4] Alfredo Canziani, Adam Paszke, and Eugenio Culurciello. An analysis of deep neural network models for\npracticalapplications. InProc.ofISCAS,2017.\n[5] YunpengChen, JiananLi, HuaxinXiao, XiaojieJin, ShuichengYan, andJiashiFeng. Dualpathnetworks. In\nProc.ofNeurIPS,2017.\n[6] Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. ImageNet: A large-scale hierarchical\nimagedatabase.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "chard Socher, Li-Jia Li, Kai Li, and Li Fei-Fei. ImageNet: A large-scale hierarchical\nimagedatabase. InProc.ofCVPR,2009.\n[7] TimDettmersandLukeZettlemoyer. Sparsenetworksfromscratch: Fastertrainingwithoutlosingperformance,\n2019. arXiv:1907.04840.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "[8] JacobDevlin,Ming-WeiChang,KentonLee,andKristinaToutanova. BERT:Pre-trainingofdeepbidirectional\ntransformersforlanguageunderstanding. InProc.ofNAACL,2019.\n[9] JesseDodge,SuchinGururangan,DallasCard,RoySchwartz,andNoahA.Smith. Showyourwork: Improved\nreportingofexperimentalresults. InProc.ofEMNLP,2019.\n[10] JesseDodge, KevinJamieson, andNoahA.Smith. Openloophyperparameteroptimizationanddeterminantal\npointprocesses. InProc.ofAutoML,2017.\n[11] ClementDuhart,GershonDublon,BrianMayton,GloriannaDavenport,andJosephA.Paradiso. Deeplearning\nforwildlifeconservationandrestorationefforts,2019. ICMLWorkshoponClimateChange.\n[12] ArielGordon,EladEban,OfirNachum,BoChen,HaoWu,Tien-JuYang,andEdwardChoi. MorphNet: Fast&\nsimpleresource-constrainedstructurelearningofdeepnetworks. InProc.ofCVPR,2018.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "hoi. MorphNet: Fast&\nsimpleresource-constrainedstructurelearningofdeepnetworks. InProc.ofCVPR,2018.\n[13] Alon Halevy, Peter Norvig, and Fernando Pereira. The unreasonable effectiveness of data. IEEE Intelligent\nSystems,24:8–12,2009.\n[14] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In\nProc.ofCVPR,2016.\n[15] Sepp Hochreiter and Ju¨rgen Schmidhuber. Long short-term memory. Neural computation, 9(8):1735–1780,\n1997.\n[16] AndrewG.Howard,MenglongZhu,BoChen,DmitryKalenichenko,WeijunWang,TobiasWeyand,MarcoAn-\ndreetto,andHartwigAdam. MobileNets:Efficientconvolutionalneuralnetworksformobilevisionapplications,\n2017. arXiv:1704.04861.\n[17] JieHu,LiShen,andGangSun. Squeeze-and-excitationnetworks. InProc.ofCVPR,2018.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "arXiv:1704.04861.\n[17] JieHu,LiShen,andGangSun. Squeeze-and-excitationnetworks. InProc.ofCVPR,2018.\n[18] JonathanHuang,VivekRathod,ChenSun,MenglongZhu,AnoopKorattikara,AlirezaFathi,IanFischer,Zbig-\nniewWojna,YangSong,SergioGuadarrama,andKevinMurphy. Speed/accuracytrade-offsformodernconvo-\nlutionalobjectdetectors. InProc.ofCVPR,2017.\n[19] SanketKamtheandMarcPeterDeisenroth. Data-efficientreinforcementlearningwithprobabilisticmodelpre-\ndictivecontrol. InProc.ofAISTATS,2018.\n[20] AlexKrizhevsky,IlyaSutskever,andGeoffreyEHinton. Imagenetclassificationwithdeepconvolutionalneural\nnetworks. InProc.ofNeurIPS,2012.\n[21] Lisha Li, Kevin Jamieson, Giulia DeSalvo, Afshin Rostamizadeh, and Ameet Talwalkar. Hyperband: Bandit-\nbasedconfigurationevaluationforhyperparameteroptimization. InProc.ofICLR,2017.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "r. Hyperband: Bandit-\nbasedconfigurationevaluationforhyperparameteroptimization. InProc.ofICLR,2017.\n[22] WeiLiu,DragomirAnguelov,DumitruErhan,ChristianSzegedy,ScottReed,Cheng-YangFu,andAlexanderC.\nBerg. Ssd: Singleshotmultiboxdetector. InProc.ofECCV,2016.\n[23] Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis,\nLuke Zettlemoyer, and Veselin Stoyanov. RoBERTa: A robustly optimized bert pretraining approach, 2019.\narXiv:1907.11692.\n[24] NingningMa, XiangyuZhang, Hai-TaoZheng, andJianSun. ShuffleNetV2: Practicalguidelinesforefficient\ncnnarchitecturedesign. InProc.ofECCV,2018.\n[25] Dhruv Mahajan, Ross Girshick, Vignesh Ramanathan, Kaiming He, Manohar Paluri, Yixuan Li, Ashwin\nBharambe,andLaurensvanderMaaten.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": ", Vignesh Ramanathan, Kaiming He, Manohar Paluri, Yixuan Li, Ashwin\nBharambe,andLaurensvanderMaaten. Exploringthelimitsofweaklysupervisedpretraining. InProc.ECCV,\n2018.\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "[26] Ga´borMelis,ChrisDyer,andPhilBlunsom. Onthestateoftheartofevaluationinneurallanguagemodels. In\nProc.ofEMNLP,2018.\n[27] PavloMolchanov,StephenTyree,TeroKarras,TimoAila,andJanKautz.Pruningconvolutionalneuralnetworks\nforresourceefficientinference. InProc.ofICLR,2017.\n[28] GordonE.Moore. Crammingmorecomponentsontointegratedcircuits,1965.\n[29] MatthewPeters,MarkNeumann,MohitIyyer,MattGardner,ChristopherClark,KentonLee,andLukeZettle-\nmoyer. Deepcontextualizedwordrepresentations. InProc.ofNAACL,2018.\n[30] AlecRadford,JeffreyWu,RewonChild,DavidLuan,DarioAmodei,andIlyaSutskever. Languagemodelsare\nunsupervisedmultitasklearners,2019. OpenAIBlog.\n[31] Mohammad Rastegari, Vicente Ordonez, Joseph Redmon, and Ali Farhadi. Xnor-net: Imagenet classification\nusingbinaryconvolutionalneuralnetworks.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "h Redmon, and Ali Farhadi. Xnor-net: Imagenet classification\nusingbinaryconvolutionalneuralnetworks. InProc.ofECCV,2016.\n[32] JosephRedmon,SantoshDivvala,RossGirshick,andAliFarhadi. Youonlylookonce:Unified,real-timeobject\ndetection. InProc.ofCVPR,2016.\n[33] David Rolnick, Priya L. Donti, Lynn H. Kaack, Kelly Kochanski, Alexandre Lacoste, Kris Sankaran, An-\ndrewSlavinRoss,NikolaMilojevic-Dupont,NatashaJaques,AnnaWaldman-Brown,AlexandraLuccioni,Tegan\nMaharaj,EvanD.Sherwin,S.KarthikMukkavilli,KonradP.Ko¨rding,CarlaGomes,AndrewY.Ng,DemisHas-\nsabis,JohnC.Platt,FelixCreutzig,JenniferChayes,andYoshuaBengio. Tacklingclimatechangewithmachine\nlearning,2019. arXiv:1905.12616.\n[34] Mark Sandler, Andrew Howard, Menglong Zhu, Andrey Zhmoginov, and Liang-Chieh Chen. MobileNetV2:",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "34] Mark Sandler, Andrew Howard, Menglong Zhu, Andrey Zhmoginov, and Liang-Chieh Chen. MobileNetV2:\nInvertedresidualsandlinearbottlenecks. InProc.ofCVPR,2018.\n[35] Roy Schwartz, Sam Thomson, and Noah A. Smith. SoPa: Bridging CNNs, RNNs, and weighted finite-state\nmachines. InProc.ofACL,2018.\n[36] Yoav Shoham, Raymond Perrault, Erik Brynjolfsson, Jack Clark, James Manyika, Juan Carlos Niebles, Terah\nLyons, John Etchemendy, and Z Bauer. The AI index 2018 annual report. AI Index Steering Committee,\nHuman-Centered AI Initiative, Stanford University. Available at http://cdn.aiindex.org/2018/AI%\n20Index%202018%20Annual%20Report.pdf,202018,2018.\n[37] David Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van Den Driessche, Julian",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "d Silver, Aja Huang, Chris J Maddison, Arthur Guez, Laurent Sifre, George Van Den Driessche, Julian\nSchrittwieser, Ioannis Antonoglou, Veda Panneershelvam, Marc Lanctot, Sander Dieleman, Dominik Grewe,\nJohnNham,NalKalchbrenner,IlyaSutskever,TimothyLillicrap,MadeleineLeach,KorayKavukcuoglu,Thore\nGraepel, and Demis Hassabis. Mastering the game of Go with deep neural networks and tree search. Nature,\n529(7587):484,2016.\n[38] David Silver, Thomas Hubert, Julian Schrittwieser, Ioannis Antonoglou, Matthew Lai, Arthur Guez, Marc\nLanctot, Laurent Sifre, Dharshan Kumaran, Thore Graepel, Timothy Lillicrap, Karen Simonyan, and Demis\nHassabis. Mastering chess and shogi by self-play with a general reinforcement learning algorithm, 2017.\narXiv:1712.01815.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ess and shogi by self-play with a general reinforcement learning algorithm, 2017.\narXiv:1712.01815.\n[39] David Silver, Julian Schrittwieser, Karen Simonyan, Ioannis Antonoglou, Aja Huang, Arthur Guez, Thomas\nHubert, Lucas Baker, Matthew Lai, Adrian Bolton, Yutian Chen, Timothy Lillicrap, Fan Hui, Laurent Sifre,\nGeorge van den Driessche, Thore Graepel, and Demis Hassabis. Mastering the game of Go without human\nknowledge. Nature,550(7676):354,2017.\n[40] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum. Energyandpolicyconsiderationsfordeeplearningin\nNLP. InProc.ofACL,2019.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "[41] ChenSun, AbhinavShrivastava, SaurabhSingh, andAbhinavGupta. Revisiting unreasonableeffectivenessof\ndataindeeplearningera. InProc.ofICCV,2017.\n[42] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser,\nandIlliaPolosukhin. Attentionisallyouneed. InProc.ofNeurIPS,2017.\n[43] TomVeniatandLudovicDenoyer. Learningtime/memory-efficientdeeparchitectureswithbudgetedsupernet-\nworks. InProc.ofCVPR,2018.\n[44] AaronWalsman,YonatanBisk,SaadiaGabriel,DipendraMisra,YoavArtzi,YejinChoi,andDieterFox. Early\nfusionforgoaldirectedroboticvision. InProc.ofIROS,2019.\n[45] AlexWang,YadaPruksachatkun,NikitaNangia,AmanpreetSingh,JulianMichael,FelixHill,OmerLevy,and\nSamuelR.Bowman. SuperGLUE:Astickierbenchmarkforgeneral-purposelanguageunderstandingsystems,\n2019.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "nd\nSamuelR.Bowman. SuperGLUE:Astickierbenchmarkforgeneral-purposelanguageunderstandingsystems,\n2019. arXiv:1905.00537.\n[46] Alex Wang, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel R. Bowman. GLUE: A\nmulti-taskbenchmarkandanalysisplatformfornaturallanguageunderstanding. InProc.ofICLR,2019.\n[47] Saining Xie, RossGirshick, PiotrDollar, ZhuowenTu, andKaiming He. Aggregatedresidual transformations\nfordeepneuralnetworks. InProc.ofCVPR,2017.\n[48] Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, and Quoc V. Le. XLNet:\nGeneralizedautoregressivepretrainingforlanguageunderstanding,2019. arXiv:1906.08237.\n[49] RowanZellers,AriHoltzman,HannahRashkin,YonatanBisk,AliFarhadi,FranziskaRoesner,andYejinChoi.\nDefendingagainstneuralfakenews,2019. arXiv:1905.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "natanBisk,AliFarhadi,FranziskaRoesner,andYejinChoi.\nDefendingagainstneuralfakenews,2019. arXiv:1905.12616.\n[50] Xiangyu Zhang, Xinyu Zhou, Mengxiao Lin, and Jian Sun. ShuffleNet: An extremely efficient convolutional\nneuralnetworkformobiledevices. InProc.ofCVPR,2018.\n[51] BarretZophandQuocV.Le. Neuralarchitecturesearchwithreinforcementlearning. InProc.ofICLR,2017.\n12",
+    "page": 12
+  }
+]

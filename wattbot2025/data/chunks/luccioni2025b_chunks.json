@@ -1,0 +1,762 @@
+[
+  {
+    "type": "text",
+    "content": "5202\nrpA\n1\n]YC.sc[\n1v79700.4052:viXra\nBridging the Gap:\nIntegrating Ethics and Environmental Sustainability in AIResearchand\nPractice\nALEXANDRASASHALUCCIONIandGIADAPISTILLI,HuggingFace,Canada/France\nRAESETJESEFALAandNYALLENGMOOROSI,DistributedAIResearchInstitute,Canada/Lesotho\nAsthepossibilitiesforArtificialIntelligence(AI)havegrown,sohaveconcernsregardingitsimpactsonsocietyandtheenvironment.\nHowever,theseissuesareoftenraisedseparately;i.e.carbonfootprintanalysesofAImodelstypicallydonotconsiderhowthepursuit\nofscalehascontributedtowardsbuildingmodelsthatarebothinaccessibletomostresearchersintermsofcostanddisproportionately\nharmfultotheenvironment.Ontheotherhand,modelauditsthataimtoevaluatemodelperformanceanddisparateimpactsmostly",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "theenvironment.Ontheotherhand,modelauditsthataimtoevaluatemodelperformanceanddisparateimpactsmostly\nfailtoengagewiththeenvironmentalramificationsofAImodelsandhowthesefitintotheirauditingapproaches.Inthisseparation,\nbothresearchdirectionsfailtocapturethedepthofanalysisthatcanbeexploredbyconsideringthetwoinparallelandthepotential\nsolutionsformakinginformedchoicesthatcanbedevelopedattheirconvergence.Inthisessay,webuilduponworkcarriedoutinAI\nandinsistercommunities,suchasphilosophyandsustainabledevelopment,tomakemoredeliberateconnectionsaroundtopicssuch\nasgeneralizability,transparency,evaluationandequityacrossAIresearchandpractice.Wearguethattheeffortsaimingtostudy\nAI’sethicalramificationsshouldbemadeintandemwiththoseevaluatingitsimpactsontheenvironment,andweconcludewitha",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "alramificationsshouldbemadeintandemwiththoseevaluatingitsimpactsontheenvironment,andweconcludewitha\nproposalofbestpracticestobetterintegrateAIethicsandsustainabilityinAIresearchandpractice.\n1 INTRODUCTION\nInrecentyears,AIsystemshavebecomepervasive,presentedasakeytoolinthefightagainstclimatechange[168]\nandinsocietally-beneficialdomainssuchashealthandeducation[64,71,87].However,thetraininganddeployment\nofAIsystemsalsocomeswithacostintermsofenergyandnaturalresources[52,117,192]andcaninadvertently\nresult in the amplification of inequalities [183] and proliferation of biases [6] when systems are put into practice.\nHistorically,thesocietal and environmental impacts ofAIsystems have been addressed separately, in two distinct\nareasofstudy–i.e.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "environmental impacts ofAIsystems have been addressed separately, in two distinct\nareasofstudy–i.e.scholarshipthataimstoaddresstheethicsofAImodelsfocusesonaspectssuchasbiasevaluation\norauditing[33,201],typicallyoverlookingmodels’impactsonnaturalresourcesandecosystems[127].Conversely,\nworkthataimstoestimatethegrowingcarbonfootprintandenergyconsumptionofAImodels[121,192]doesnot\ntypicallyaddressthecontributionthishastowardsshiftingthebalanceofpoweroramplifyinginequalities[1,2].\nSomerecentscholarshiphasstartedtoestablishexplicitlinksbetweenethicsandsustainabilityoftenhonesinon\nspecificapplications,suchastheemblematic\"StochasticParrots\"paper,whichaddressesbothsustainabilityandethics\nasissuesinthecontextoflargelanguagemodels(LLMs)[16].Apartfromthisexceptionandapreciousfewothers,",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "cs\nasissuesinthecontextoflargelanguagemodels(LLMs)[16].Apartfromthisexceptionandapreciousfewothers,\nconversationsaroundAIethicsandsustainabilityhavetakenplaceseparately,indifferentvenuesandbydifferentsets\nofstakeholders.However,sinceinbothAIsustainabilityandAIethicsresearch,theaimistothinkthroughhowwe\nmightdeveloptechnologieswhichareusefulandinclusivewhilewelimitharmtopeopleandenvironments,similar\nthemesemerge,oftenstructuredviaconceptssuchasfunctionalityandefficiencyjustasmuchasjustice,fairnessand\nequity.Inbothofthesedisciplines.\nInthepresent article,wehighlight thesetransversal themesandarguethatboththesocietalandenvironmental\nimpactsofAIsystemsshouldbeconsideredinparallelinallaspectsofAItheory,practiceandgovernance.Drawing",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "impactsofAIsystemsshouldbeconsideredinparallelinallaspectsofAItheory,practiceandgovernance.Drawing\nuponworkfromwithintheAIcommunityaswellasrelatedfields,weexploreaseriesofusecasesillustratingthat\nAuthors’addresses:AlexandraSashaLuccioni;GiadaPistilli,sasha.luccioni@huggingface.co,HuggingFace,Canada/France;RaesetjeSefala;Nyalleng\nMoorosi,DistributedAIResearchInstitute,Canada/Lesotho.\n1",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "2 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\nethicsandsustainabilitygohand-in-glovewhenitcomestothedevelopmentandthedeploymentofAIsystems.By\ndoingso,wehopetoshedlightontheimportanceofpursuingresearchthatblendstogetherdifferentperspectivesto\nallowforabetterunderstandingofthesocietalimpactsofAIsystems.\nGiventhatourgoalistoallowourworktobereadandunderstoodbyavarietyofaudiences,westart,inSection§2,\nbydefiningtheconceptsandtermsthatarecoretooursubsequentanalysis.Wecontinuebyexaminingthecurrent\nstateofAIethicsandsustainabilityfrom3differentbutcomplementaryperspectives:theoreticalprinciplesandframe-\nworks(§3.1), AIresearch and practice(§3.2), and AIregulationand governance (§3.3). Next, in§4,we identify four",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": ", AIresearch and practice(§3.2), and AIregulationand governance (§3.3). Next, in§4,we identify four\ntransversalthemesthatwehavefoundtobeparticularlycentraltobothAIethicsandsustainability:generalizability,\nevaluation,transparency,andpower.Finally,in§5,weproposewaysforwardattheintersectionofthesethemesand\nthreedirectionsofAIresearchandpractice.Wewrapupthearticlewithideasforfutureworkthatcanbepursuedat\nthenexusofAIethicsandsustainabilityandabriefconclusion.\n2 KEYCONCEPTSANDDEFINITIONS\nSustainability\nWhenitcomestotheconceptofsustainability,oneofitsfirstandmostwidely-accepteddefinitionsoriginatesfrom\nthe1987BrundtlandReport,whichdefinessustainabledevelopmentas“developmentthatmeetstheneedsofthepresent\nwithoutcompromisingtheabilityoffuturegenerationstomeettheirownneeds” [1987][p.41].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "needsofthepresent\nwithoutcompromisingtheabilityoffuturegenerationstomeettheirownneeds” [1987][p.41].Thisdefinitionremains\ncentraltothefieldofsustainabilitywritelarge,informingframeworkssuchastheUNSustainableDevelopmentGoals\n(SDGs),whichweredevelopedin2015asablueprintforachievingpeaceandprosperityforpeopleandtheplanet[199].\nHowever,alsoin1987,environmentaleconomistEdwardBarbierproposedanalternativedefinitiontosustainability,\nstructuringitaroundthreepillars:environmental,societalandeconomic,arguingthatsustainabledevelopmentcan\nonlybetrulyachieved whenbothenvironmental stewardship, socialequityand economicviabilitycoexistandare\ninter-connected[1987].\nInthecontextofAI,theterm‘sustainability’ismostoftenusedtorefersolelytoenvironmentalsustainability[41,\n61].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ontextofAI,theterm‘sustainability’ismostoftenusedtorefersolelytoenvironmentalsustainability[41,\n61]. The umbrellaterm ‘Sustainable AI’ wasinitially proposedby van Wynsberghe as a field ofpractice that both\naimstouseAIinclimate-positiveapplications,aswell asimproving uponthe(environmental) sustainabilityofAI\napproachesthemselves[203].Thisproposalwouldthenencompassthevastvarietyofworkbeingdoneatthenexus\nofmachinelearningandfieldssuchasbiodiversitymonitoring,agriculture,transportation,etc.(forareview,see[206]\nand[168]).AIandsustainabilityhasalsobeencentraltoworkshopssuchasSustaiNLPandtheInternationalSustainable\nAI Workshop, that have put the emphasis on efficient methods and the application of AI to sustainability-related",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "that have put the emphasis on efficient methods and the application of AI to sustainability-related\nproblems,aswellastheTacklingClimateChangewithMachineLearningworkshop,whichaimstodemonstratethat\nAIcanbeaninvaluabletoolinhelpingsocietyadapttoandmitigatetheeffectsofclimatechange.\nEthics\nInherentlycharacterizedbyongoingperplexity,ethicsaspiresforcertaintyandconsensus,yetalsoremainsdynamic\nandevolving.IthasitsoriginsintheworkofphilosopherssuchasAristotle,whopositedthatethicsconnectstheory\nwithpraxis,withthegoalofguidinghumanactionstowardseudaimonia(i.e.thehighesthumangood)[8].Inthemil-\nlenniasinceAristotle,thephilosophicalsub-domainofappliedethicshassoughttoestablishnormativeprinciplesfor\navarietyofhumanactivitiesanddomains,whichinexorablydependonthecontextofapplicationandtheindividuals",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "etyofhumanactivitiesanddomains,whichinexorablydependonthecontextofapplicationandtheindividuals",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 3\ninvolved,leadingtomuchdebateregardingwhichnormsshouldbeapplicableinwhichcontexts,aswellasthedefini-\ntionofkeyethicalconceptssuchasfairness[89,175],transparency[60,147]and,indeed,theverydefinitionofethics\nitself[21,195].\nLackingconsensus,thefieldofAIethicsoftenappliesWesternmoraltheoriesrangingfromutilitarianism[18,134]\ntoegalitarianism[209]andvirtueethics[7,8]toproposewaysofassessingtheethicalityofAIsystems.However,the\napplicationofthesemoraltheoriesfaceschallengesgiventhedifficultyof,e.g.quantifyingtheconceptofutilityin\nutilitarianism,assessingandcomparingwhoisworseoffinegalitarianism,orevaluatingculturalvariabilityindefining\nvirtues in virtue ethics.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ingwhoisworseoffinegalitarianism,orevaluatingculturalvariabilityindefining\nvirtues in virtue ethics. This is also the case in terms of the application of these theories in modern-day contexts\ninvolvingnewtypesofAI-driventechnologiessuchasrobotsorautonomousvehicles,whichcanbelimitedwithouta\ncomprehensiveunderstandingofbothAI’stechnicalcapabilities(e.g.thelimitationsoftheunderlyingmodels)aswell\nasthediversityoflifeexperiencesofthepeopleusingthesetools,whocaninteractwiththeminwaysthatarehard\ntopredictordesignfor[102].Giventhattheseconceptsencompassworkfromamultitudeofdomainsthatespouse\ndifferent objectives, values and methods [23], their definition can have major consequences on the way in which\ntheseconceptsareoperationalizedinAImodelsandsystems[10,65,183].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "jor consequences on the way in which\ntheseconceptsareoperationalizedinAImodelsandsystems[10,65,183].Workthataddressestheethicalaspectsof\nAIsystemsisdiscussedandpublishedinconferencessuchastheACMConferenceonFairness,Accountability,and\nTransparency(FAccT),aswellastheAAAI/ACM Conference onAI,Ethics,and Society(AIES),whichbothhave a\ncross-disciplinaryfocusandcoveramultitudeoftopicsintermsofthesocietalandethicalaspectsofAI.\n3 EXISTINGSCHOLARSHIPINAIETHICSANDSUSTAINABILITY\nInthesectionsbelow,weexploreexistingscholarshipinordertocriticallyanalyzehowbothethicsandsustainability\naredefinedintheoryandoperationalizedinpracticewithinthediversecommunitiesthatpursueAI.First,wedescribe\ntheprinciplesandframeworksthathavebeenproposedtoguideAIfrombothanethicalandenvironmentalperspective;",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "heprinciplesandframeworksthathavebeenproposedtoguideAIfrombothanethicalandenvironmentalperspective;\nnext,weexaminehowtheseprinciplesareapplied,implicitlyandexplicitly,inAIresearchandpractice.Finally,we\nlookatseveralrecentapproachesforregulatingandgoverningAIandthedifferentrolesadoptedbystakeholdersand\norganizations.\n3.1 PrinciplesandFrameworks\nAcommonstartingpointtoensuretheethicaldevelopmentanddeploymentofAIsystemsisthedefinitionofastruc-\ntureforguidingthisprocess,whichcanbeoperationalizedviasetsofprinciplesoraframework.Ontheonehand,\nethicalprinciplesareoftendefinedatahighlevel,describingvaluesandconceptsoutsideofanyspecificcontextof\ndeployment.Assuch,multiplesetsofguidingprinciplesfor‘ethicalAI’havebeenproposedbydifferentorganizations",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "oyment.Assuch,multiplesetsofguidingprinciplesfor‘ethicalAI’havebeenproposedbydifferentorganizations\nrangingfromresearchinstitutestononprofitandfor-profitentities.However,giventhemanydifferent typesofAI\napproachesthatexist,aswellascontextualfactorsthatinfluencetheirapplication,itisdifficulttodefineuniversal,or\nevengeneralizable,guidelines.Tothispoint,a2019analysisbyJobinetal.reviewed84setsofguidelinesmentioning\na variety of principles, finding very limited convergence between them butidentifying the values of transparency,\nfairness,non-maleficence,privacyandresponsibilityasbeingmostcommon[2019].Similarly,amultitudeofethical\nframeworkshavebeenproposed,withmostofthemespousingspecificvisionsofethicsbyputtinganemphasison\naspectsrangingfromhumanempowerment[64]tovirtueethics[79].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ecificvisionsofethicsbyputtinganemphasison\naspectsrangingfromhumanempowerment[64]tovirtueethics[79].Incomparisontoprinciples,ethicalframeworks\noftenaimtoframeethicsfromtheperspectiveofimplementation,identifyinghowchallengescanbeaddressedand\nhowtobuildconsensusaroundethicalvalues,oftenanchoredtospecificcontextsofdeploymentofAIsystems,such\nasmedicine[125]orautonomousvehicles[109].However,thetechnologicalmechanismsproposedtooperationalize",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "4 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\ntheseframeworksareoftendefinedinabstractterms,whichhavebeenfoundtobedifficulttoimplementinpractice\nfromanengineeringperspective,makingthemdifficulttooperationalizeinpractice[155].Intermsofenvironmental\nsustainability,theUNSDGsaremostcommonlyusedtoinformAIframeworks[72],withinspirationfromfieldssuch\nasecologytoguidethedefinitionofmethodsbasedonmetricsandevaluationmethodsthatenableamoreholistic\nassessment ofAI’senvironmental impacts.[112].However, similarlytoAIprinciples,thereisanequalmultiplicity\nofAIframeworks,andmultipleanalyseshavebeencarriedoutwiththegoalofestablishingoverlapandtransversal\nconnections,whichwerefoundtobelacking[14,155,205].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "utwiththegoalofestablishingoverlapandtransversal\nconnections,whichwerefoundtobelacking[14,155,205].\nConversely,analysesofethicalAIprincipleshavealsoobservedagenerallackofrecognitionofAI’senvironmental\nimpactswithinthedifferentsetsofprinciplesthathavebeendefined.Differentreasonshavebeenproposedforthislack\nofconnection,fromtherelianceofmostAIprinciplesontraditionalWesternethicalperspectives,whicharehuman-\ncenteredandassignintrinsicvaluetohumanbeingsaboveotherlivingthings[28],tothepaucityofresearchonAI’s\nenvironmentalimpacts,whichhindersthedevelopmentofcoherentprinciples[25].Whensustainabilityisaddressed\ninethicalAIframeworks,itisonceagainonlylimitedtoenvironmental sustainability,notablycarbonfootprintes-\ntimation.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rameworks,itisonceagainonlylimitedtoenvironmental sustainability,notablycarbonfootprintes-\ntimation.Forinstance,severalindustry-ledsetsofprinciplesspecificallyaddressingtheenvironmentalsustainability\nofAIhavebeenproposedinrecentyearsbyorganizationssuchasSalesforce[2024]andtheGreenSoftwareFounda-\ntion[2023].Whilethesepropositionstouchuponmetricssuchasenergyefficiency,theydonotaddresstopicssuchas\nreboundeffects[120]1,transparencyandaccesstocompute,whichweconsidertobecoretothesediscussionsand\nwhichwediscussinSection4.Nonetheless,certainframeworks,suchastheUNESCOrecommendationsontheethics\nofartificialintelligence[2021]doemphasizetheimportanceofsustainabilityandofevaluatingtechnologiesbasedon\ntheirenvironmentalimpactsviatheUNSDGs,which,asdiscussedintheintroduction,havesustainabledevelopment",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "theirenvironmentalimpactsviatheUNSDGs,which,asdiscussedintheintroduction,havesustainabledevelopment\nattheircore–whichweexploreinmoredepthinsubsequentsections.\n3.2 ResearchandPractice\nGiventhatAIisadistributedfieldconsistingofamultitudeofpractitionersandorganizations,thepracticalapplication\noftheprinciplesandframeworksdescribedintheprevioussectioncandiffer immensely.Ina2022studyofpapers\nsubmittedtoconferencessuchasICMLandNeurIPS,Birhaneetal.analyzedthevaluesthatwerehighlightedbytheir\nauthors–i.e.thepositiveattributesoftheirprojectthattheyemphasizedandthenegativeimpactstheyconsidered\nexplicitly[2022a].Fromthe59valuestheyidentified,themostemphasiswasputonaspectssuchastechnicalprogress,\nquantitativeevidence,andnovelty,whereasethicalconsiderationsaroundvaluessuchasbeneficence,interpretability",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ativeevidence,andnovelty,whereasethicalconsiderationsaroundvaluessuchasbeneficence,interpretability\nandrespectforprivacy(whicharecoretomanyAIprinciplesandframeworkscitedabove)werepresent onlyina\nfractionofpapers.Also,notasingleoneofthevaluesBirhaneetal.identifiedwasexplicitlylinkedtoenvironmental\nsustainability,highlightingonceagainthelackofconnectionintheresearchcommunitywithsustainabilitywritlarge.\nProgressing from this observation, while sustainability-oriented research has not been prominently featured in\nvenues thatdirectlyaddressAIethics, it remains atopicofresearch thathasbeen gathering momentuminrecent\nyears.ThefirstresearchtoformallyaddresstheenvironmentalimpactsoftrainingAImodelswastheseminal2019\narticleby Strubellet al.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "toformallyaddresstheenvironmentalimpactsoftrainingAImodelswastheseminal2019\narticleby Strubellet al.which quantifiedthecarbonfootprintoftraining BERT,a largelanguage model(LLM), as\nreaching 626,155poundsof𝐶𝑂 2 emissions[192].Follow-upworkbyotherresearchers hasshedmorelightonthis\nissue,revealingdifferentaspectsofmodelarchitecture[153]andtrainingprocedure[53]thatcanimpactitsensuing\n1Therelationshipbetweenefficiencyandsustainabilityisfarfromstraightforward,givenphenomenasuchasreboundeffects,inwhichimproved\nefficiencyofagiventechnologycanleadtoincreasedusageofitandthereforeincreasetheoverallconsumptionofresources–see[27,120]foramore\nin-depthreview.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 5\ncarbonfootprint.Thefirstproposalfor“GreenAI”,i.e.AIresearchthattakesenvironmentalimpactsintoconsideration\nwhentrainingAImodels,wasmadebySchwartzetal.in2020[181]-itwassubsequentlybroadenedtoincludeaspects\nsuchashardwareandscaling[215]andmodeldeployment[121]morerecently.However,thisfieldofresearch,while\nincreasinglyprolific,hasfailedtotakeethicalconsiderationsintoaccountinitsanalyses,focusingsolelyonaspects\nsuch as carbon intensity and energy efficiency, and not on issues such as the environmental impacts of increased\nconsumptionduetotheuseofAIintargetedadvertising[96],ortheapplicationofAIintheoilandgassector[77],\nwhichareliabletocounter-balanceanyactualefficiencygains2.\n3.3 GovernanceandRegulation",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "assector[77],\nwhichareliabletocounter-balanceanyactualefficiencygains2.\n3.3 GovernanceandRegulation\nGovernanceandregulationaimtoestablishmechanismsfordecision-making, guidingthedevelopmentanddeploy-\nment of AI systems, and outlining the roles and responsibilities of each partyinvolved [219]. There are many dis-\ntributedeffortsforgovernance inAIwhoseaimistodevelopethicalguardrails,withsomehighlighting theimpor-\ntanceofinternationalinstitutions[85],andothersfocusingonthepublicsector[101]–reflectingthatbothbottom-up\nandtop-downendeavorsareusefultoestablishfunctionalmechanismsforgoverningAI.Ifwetakealookatrecent\ncommunityendeavorsforAIgovernance,the2022BigScienceworkshopproposedabottom-upapproachthatestab-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ent\ncommunityendeavorsforAIgovernance,the2022BigScienceworkshopproposedabottom-upapproachthatestab-\nlishedmechanismsforvariousethicalaspectsoftheprojectsuchasdatagovernance,qualitymetrics,andfostering\nstakeholdercollaborationandtransparency[92],aswellasdraftingaconsensus-drivenethicalframeworkforgovern-\ningtheresultingartifactsthatencompassesbothlegalandtechnicaldimensions[154].Interestingly,BigSciencewas\noneofthefewprojectsthatalsoconsideredanddocumentedthecarbonfootprintofmodeltraining,evaluationand\ndeployment,proposingaholistic,lifecycleapproachtoestimatingemissions[121].Therehavealsobeenproposals\narguingforputtingsustainabilityinthecenterofAIdevelopmentanddeployment[203],aswellasframeworksfor\ncertifyingthesustainabilityofAIsystems[25],acrossallthedifferentpillarsofsustainability(i.e.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "orksfor\ncertifyingthesustainabilityofAIsystems[25],acrossallthedifferentpillarsofsustainability(i.e.social,environmen-\ntalandeconomic)[70].However,wearestillatthebeginningofbuildinggovernancemechanismsthatofferamore\ncomprehensiveanalysisoftheimpactsofAIsystemsfromtheperspectiveofethicsandsustainability.\nA pivotal example oftop-downgovernance is the EuropeanUnion’s AIAct, which drawsfrombroadly defined\nethicalprinciplestoinformitsregulations[39].Infact,thetextoftheActdemonstratesconsiderableprogressfollow-\ningtherecentEuropeandialogues,seekingtoregulateAIapplicationsthatmayinfringeonhumanrights,adhering,\namongothers,totheethicalprinciplesofhumanoversight,humanagencyandtransparency.Moreover,theAIAct’s",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ",\namongothers,totheethicalprinciplesofhumanoversight,humanagencyandtransparency.Moreover,theAIAct’s\nfoundationonthepremisethatriskequatestopotentialhumanrightsharms[152]echoesoneofthelongstandingtra-\nditionsinAIethicsofprioritizinghumanrights[9,216].Thisapproachembodiestheethicalcommitmenttosafeguard\nfundamentalfreedomsandhumanrightsinthedigitalera,ensuringthatAItechnologiesdonotinfringeupontheseim-\nportantprinciples.However,whilebothEUAIAct[2022],aswellassimilarregulatoryinitiativesinChina[2023]and\nCanada[2023]pointtotheneedtoprotectbothfundamentalhumanrightsaswellastolimitdamagetoenvironment,\ntherearenoofficialprovisionsregardingsustainabilityinanyoftheirtexts,anditremainstobeseenhowexisting\nstandards for environmental impacts in all of these jurisdictions will apply to AI systems.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "existing\nstandards for environmental impacts in all of these jurisdictions will apply to AI systems. Similarly, sustainability\nconsiderationswerealsolackinginthe2023USExecutiveOrderregardingAI[20],whichdidnotmentionAI’sgreen-\nhousegasemissionsnorenergyusage,aswellasmulti-nationdeclarationssuchastheBletchleyDeclaration[2023],\nillustratingthedisconnectbetweensustainabilityandethicsinrecentapproachestoAIregulation.\n2RecentmediacoverageofMicrosoft’ssustainabilitypromiseshasestimatedthatasinglecontracttouseAItoexpandoilproduction“couldenable\ncarbonemissionsaddingupto640percentofthecompany’scarbonremovaltargets\"[191].",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "6 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\n4 TRANSVERSALISSUESINAIETHICSANDSUSTAINABILITY\n\"Isitfair... thattheresidentsoftheMaldives(likelytobeunderwaterby2100)orthe800,000peoplein\nSudanaffectedbydrasticfloodspaytheenvironmentalpriceoftraininganddeployingeverlargerEnglish\nLMs,whensimilarlarge-scalemodelsaren’tbeingproducedforDhivehiorSudaneseArabic?\"\nBender,Gebruetal.[2021]\nInthecurrentsection,wedefinefourrecurringissuesthatwehavefoundtobeparticularlysalienttodiscussions\naroundbothAIethicsandsustainability.Theseissuesareinspiredbypreviouscarriedoutbycriticalscholarssuch\nas Dobbe and Whittaker [2019], Birhane [2022b], van Wynsberghe [2021] as well as Bender and Gebru [2021], as\ncitedabove.Westart,inSection4.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "[2022b], van Wynsberghe [2021] as well as Bender and Gebru [2021], as\ncitedabove.Westart,inSection4.1withadiscussionoftheperilsofassumptionsofthegeneralizabilityofdataand\nmodelsinbothethicsandsustainability.Wefollow,inSection4.2withareflectionuponthecurrentstateofevaluation\nofAIsystems,whatismeasured,whatismissing,andwhythatmatters.Next,weremarkuponthecurrentlackof\ntransparencywithregardstoinformationrelevanttobothethicsandsustainabilityinSection4.3.Finally,inSection4.4,\nwediscussthebalanceofpowerandtheallocationofjustice,andhowexistinginequalitiescanbefurtheramplified\nbyAIsystems.\n4.1 Generalizability\nAItechnologiesfunctionbasedonassumptionsofgeneralizabilityandrepresentativeness –i.e.thatgivensufficient",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "hnologiesfunctionbasedonassumptionsofgeneralizabilityandrepresentativeness –i.e.thatgivensufficient\ndata,anAImodelcanlearntoaccuratelyrepresent(any)givenprocessandevenadapttopreviouslyunseendata[74].\nForinstance,theconceptofpre-trainingAImodelsonlargedatasetssuchasImageNet[47]datesbacktotheearly\n1990s[178]and has since becomethe dominant training paradigm in bothcomputer vision [162, 193] and natural\nlanguageprocessing[50,114].Infact,pre-trainingisheavilydependentupontheassumptionofrepresentativeness-i.e.\nthatthehugeamountsoftrainingdatausedforpre-trainingrepresenttheworldasawhole,oratleastasufficientpart\nofittobeusefulforanykindofdownstreamapplication(i.e.fine-tuning,transferlearning,etc).Whilethelimitations",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "beusefulforanykindofdownstreamapplication(i.e.fine-tuning,transferlearning,etc).Whilethelimitations\nofsuchclaimsforbothAImodelsanddatasetshavebeenpreviouslyshown(seeChasalowandLevy[36],Kochetal.\n[98], Raji et al. [157], Smith et al. [188]), the theory of generalizability, and the perception of certain types of AI\nmodels,ie.LLMs,as“general purposetechnologies”continuestopersist[57].Thiscancomewithbothethical and\nenvironmentalramificationswhensystemstrainedunderthepretenseofgeneralizabilityareappliedincontextsthat\ndifferfromtheonesrepresentedintheirtrainingdata–wediscusssomeofthesebelow.\nGiventhedatathatfuelsAImodelsisproducedbyhumans,itisintrinsicallyladenwithsubjectivejudgments[132]\nandrepresentativeofspecificworldviews[46].NumerousstudieshaveshownthatboththedatausedfortrainingAI",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "andrepresentativeofspecificworldviews[46].NumerousstudieshaveshownthatboththedatausedfortrainingAI\nmodels[54,157,166]andthemodelsthemselves[16,73,213]arenot,infact,representativeoftheworldatlargeand\nthatthebiasescontainedintrainingdatapersisteveniffurtherfine-tuningiscarriedout[103],whichcanhave‘cas-\ncade’effectswhenmodelsaredeployedinproduction[173],whichcancontributetoperpetuatingnegativebiases[68].\nSimilarly, off-the-shelf, proprietarytechnologiesthat aremarketed asgeneric canfail at thetaskswhen appliedin\ndifferingcontexts,e.g.inapplicationssuchasfacialrecognition(whentheyfailtorecognizepeoplefrompopulations\nunder-representedintrainingdatasets[33])andcrimeprediction(wheretheyhavedismalaccuracyratesacrossdif-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "der-representedintrainingdatasets[33])andcrimeprediction(wheretheyhavedismalaccuracyratesacrossdif-\nferentlocations[174])–andyet,out-of-the-boxAIsystemsforthesetasksandmanyotherscontinuetobebuiltand\ndeployedundertheassumptionsthattheywillworknomatterthecontextoftheirapplication.Thiscanhavedevas-\ntatingeffectsonalreadymarginalizedcommunitieswhenappliedfortaskssuchascriminalsentencing[6],andfacial\nrecognition[33].",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 7\nSimilarlytodataconcerninghumanbeings,environmentalandecologicaldatacanalsocontainbiases,forinstance\ninitstemporalcoverageandgeographicalspread,whichcanbeasdamagingtobiomes3ofplantsandanimalsasthey\naretocommunitiesofhumans[95,187].Fromamodelingperspective,AImodelstrainedtocarryoutbiodiversity\nmonitoring on one ecosystem often fail to perform accurately on others, no matter the species [99, 184], and yet\necologicalbiasassessmentsarenotoftencarriedoutbeforemodeltraining.Infact,Whiteetal.refertogeographical\ndifferencesinecologicaldatasetsasthemainfactorlimitingourcapacitytopredicthowbiodiversitywillbeimpacted\nbyfuturechangesintheclimate,notablyduetomissingdatafromregionssuchasAfricaandSouthAmerica,making",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ed\nbyfuturechangesintheclimate,notablyduetomissingdatafromregionssuchasAfricaandSouthAmerica,making\ndata-drivenapproachessuchasAIunrepresentativeofentirecontinents[210].\nAnexampleofthedireconsequencesthiscanhavecanbefoundinthefieldofshort-termclimatemodelingand\ndisasterdetection,whichreliesondatafromsensorsandweatherradarstationsthatallowforeventssuchasfloods\nand wildfires to betracked in real-time across borders, oceans and continents. While geospatial datais inherently\nglobal (given that satellites circle the planet as a whole), it relies upon assumptions of generalizability that often\nfail to hold when applied in contexts that differ from the training data, or the fact that many regions are missing",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "n applied in contexts that differ from the training data, or the fact that many regions are missing\nthese data sources for reasons ranging from insufficient funding and aging technological infrastructure to lack of\nconnectivity[37,198],whichresultsindatagaps[182,197].Thiscancomeatacosttolivingbeings,bothhumanand\nanimal,intheregionsandcontextswherethesetechnologiesareapplied–forinstanceinearlywarningsystemsfor\nextremeweatherevents[150].anddeforestationdetection[97].Ofcourse,anyassessmentofrepresentativity(orlack\nthereof)hingesuponanappropriateevaluationofthisassumption–whichweaddressinthefollowingsection.\n4.2 Evaluation\nApopularadagestatesthat“youcan’timprovewhatyoudon’tmeasure”4;inthecontextofAIsystems,thiscanbe",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "tion\nApopularadagestatesthat“youcan’timprovewhatyoudon’tmeasure”4;inthecontextofAIsystems,thiscanbe\ntranslatedintothefactthatthecriteriathatweusetoevaluateAIsystemsandthewayinwhichthisevaluationare\ncarriedoutareimportant–i.e.themetricswechoosehelpusembedourvaluesascommunitiesaboutoutcomeswe\nwishtoseeandthosethatweputlessemphasison[136].WhileleaderboardssuchasPapersWithCodetendtoonly\nmeasureperformance-basedmetricssuchasaccuracyorprecision,factoringinothermetricscanmakecomparisons\nbetweendifferentmodelsmoremeaningfulandactionable.Thisisduetothefactthatreal-worldconstraintsonmodel\ndeploymentoftenresultintrade-offsbeingmadebetweendifferentfactorsthatincludeaccuracyandefficiency[31],\nbutalsorobustness[217],inclusion[88]anddataquality[11].Thismeansthatinordertomeaningfully assessthe",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "butalsorobustness[217],inclusion[88]anddataquality[11].Thismeansthatinordertomeaningfully assessthe\nutilityofAIsystemsindifferentpracticalcontexts,othermeasuresmustbeconsideredinparalleltoperformanceand\naccuracy[122];andoftenthebestpeopletodotheassessmentsforthetrade-offsarethepopulationswhowilluse\nthesetools.Forexample,whenitcomestotheevaluationofgenerativetechnologiessuchaslargelanguagemodels,\nthesedonothaveasinglewell-establishedevaluationapproach[139,159].Approachesthatareusedforevaluating\ntheirethicallimitationsincludered-teaming[66],externalaudits[139,158]aswellasmoreholisticmodelevaluations\nthat reflect different aspectsof model performance [26, 67]. However, critiques of the approaches described above",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ifferent aspectsof model performance [26, 67]. However, critiques of the approaches described above\nalsoincludetheirnon-inclusivity ofmarginalized communities[48]aswellasalackofformalizedapproachesand\nstandardsformodelevaluation,makingapples-to-applescomparisonsbetweenmodelsdifficult[40].Also,asmanyof\nthemostwidelydeployedAIsystemsarecurrentlyproprietaryanddirectaccesstomodelsisnotpossible,itishard\ntoexhaustivelyevaluatemanypopularcommercialmodelsforanymeaningfulevaluationtotakeplace[118,190].\n3Abiomeisabio-geographicalunitthatcorrespondstoacommunityofplantsandanimalsthatshareaphysicalenvironmentandaclimate.\n4ThequoteisoftenattributedtoPeterDrucker,althoughitsexactoriginsareunclear.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "8 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\nSimilarly,evaluatingtheenvironmentalimpactsofAIsystemsisfarfromstraightforward,andwearestillmissing\nmanypiecesofthepuzzleneededinordertomeaningfullyestimatetheseimpacts.Forinstance,mostofthecarbon\nfootprintassessmentsonlyfocusonthetrainingstageofAImodels,whichiseasiertoquantifyandreport[153,192],\nbutwhichonlyrepresentsaportionofmodels’totalenvironmentalimpacts.Ina2023articleestimatingthecarbon\nfootprintofBLOOM,a176billionparameterLLM,Luccionietal.proposedusingaLifeCycleAssessmentapproach\nforthisevaluation,sinceittakesintoaccountdifferentstagesofthemodellifecycleincludingthemanufacturingof\ncomputinghardware,idleenergyusage,andmodeldeployment,findingthattrainingaccountedforonlyhalfofthe",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "f\ncomputinghardware,idleenergyusage,andmodeldeployment,findingthattrainingaccountedforonlyhalfofthe\nmodel’soverall emissions [121],meaning thatsimilarstudiesthatonlytooktrainingintoaccountwere potentially\nunderestimating their emissions by half. Also, while commendable in terms of its granularity, this kind of carbon\naccountingfailstorecognizethesocietalandeconomicaspectsofsustainability,suchasthecontributionofLLMssuch\nasBLOOMtowardsamplifyingtheexistinginequalitiesinthefieldofAIduetotheincreasedamountofcomputing\nresourcesthattheyrequire,whichareunattainabletomanymembersoftheAIcommunity,aswellasthepropagation\nofbiasesviatheirusage.Furthermore,theauthorsthemselvesnotethatthereiscurrentlynoinformationavailable",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "fbiasesviatheirusage.Furthermore,theauthorsthemselvesnotethatthereiscurrentlynoinformationavailable\nabout the embodied emissions linked to manufacturing GPUs, so it is impossible to estimate what portion of the\noverallcarbonfootprintthisrepresents.Thishighlightsthattheemphasisonenvironmentalsustainabilityoftenfails\ntoaccountforotheraspectsofAI’sglobalimpacts–andanykindofevaluationhingesupontransparency,whichis\nsorelylackinginthefieldofAI–wediscussthisinmorelengthinthefollowingsection.\n4.3 Transparency\nTransparencyiswidelyrecognizedasafundamentalprincipleinscienceingeneralandAIinparticular[63,107,208,\n212] but actualizing it in practice can be challenging. This is, in part, due to the fact that machine learning-based",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ng it in practice can be challenging. This is, in part, due to the fact that machine learning-based\nsystemsarenotinherentlytransparentorinterpretable,giventhecomplexityoftheneuralnetworkarchitecturesthey\nespouseand thenumber ofparameterstheycontain[105,113,140].Effortssuchasinterpretabilityapproachesare\nusefulandcanhelpinterpretthepredictionsofmodelsposthoc[104,164],whereasartifactssuchasdatasheetsand\nmodelcards[69,137]cancontributetowardsmakingAIsystemsmoreunderstandableforusers,providingessential\ninformation about AI models in a user-friendly format. These artifacts allow users to understand not just how an\nAIsystemfunctions,butalsoitslimitations,potentialbiases,implications,andenvironmentalimpacts.However,even",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "emfunctions,butalsoitslimitations,potentialbiases,implications,andenvironmentalimpacts.However,even\nthoughmodelcardsareincreasinglyusedinpractice(forinstancebyAImodel-sharingplatformssuchasHuggingFace)\nandprovideimportantinformationaboutmodels,theyarenotsufficienttoguarantee,forinstance,thereproducibility\nofreportedresults,whichisacoretenetofscientificpractice[146].\nIndeed,several studiesoftransparencyfoundthatanoverwhelming amountofresultspublishedattechnicalAI\nconferencesdonotdocumentallofthevariablesnecessarytoreproducetheresultstheyreport[78,156].Thissituation\nhighlightstheneedforanapproachtotransparencythatwouldinvolvereportingbutalsoensuringthereproducibility\nof AI modelsand their findings. Such an approach would acknowledge the connection between transparency and",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "odelsand their findings. Such an approach would acknowledge the connection between transparency and\nreproducibility:transparentresearchpracticesenablereproducibility,whichinturnfacilitatesindependentscrutiny,\nvalidation,furtherdevelopmentofresearchfindingsbyotherscientists[80].Theabsenceoftransparency,especiallyin\nsharingessentialmaterialssuchasmodelweights,codeanddata,impedestheabilitytoreproduceresults,diminishing\nAImodels’scientificimpactandimpedingtheiradoptionwithinthewiderscientificcommunity[80].\nIntermsofsustainability,theAIcommunityhashistoricallybeenevenlesstransparentregardingtheenvironmental\nimpactsofAImodelsandsystems,withmostworkinthisfieldbeingdonepost-hocbyresearcherswhodidnotdothe\ninitialmodeltraininganddeployment(e.g.[116,192]).",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "sfieldbeingdonepost-hocbyresearcherswhodidnotdothe\ninitialmodeltraininganddeployment(e.g.[116,192]).ThemostcommonenvironmentalsustainabilitymetricforAI",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 9\nmodels,theircarbonfootprint,israrely,ifever,disclosed.WhilemodelcardsofrecentmodelssuchasBLOOM[214]\nandStableDiffusion[169]haveincludedcarbonfootprintinformation,itremainsfarfromcommoninformationcom-\nmunicatedbymodelcreators–recentworkhasfoundthattheoverwhelmingmajorityofmodelssharedpubliclydo\nnotincludethisinformation[34].Infact,mostcarbonfootprintanalysesgathertheinformationmanuallybywriting\ntoauthors.Forinstance, LuccioniandHernandez-Garcia reached outtoover500authorsofAIpaperstogetinfor-\nmationneededtoestimatethecarbonfootprintoftheirmodels,andwereonlyabletocollect95answers,withmany\nauthorsrefusingtoprovidetherelevantinformation,citingprivacyconcernsandlackofexperimentallogs[2023].In",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "horsrefusingtoprovidetherelevantinformation,citingprivacyconcernsandlackofexperimentallogs[2023].In\nfact,untilrecentyears,thegeneralemphasisintheAIcommunitywasputontheefficiencyand‘greenness‘ofAIas\nopposedtoitsenvironmentalcosts,whicharenowslowlystartingtogaintractionasanimportantconsiderationforAI\nsystems[86,141].Infact,giventheincreasingsizeandcomputationalrequirementsofmodelsbeingproductionizedin\nrecentyears(especiallyLLMs),trainingthemisonlyaccessibletoasmallfractionoftheAIcommunity,whichmeans\nthattheorganizationswhohavethenecessaryresourcesforthishaveadisproportionateinfluenceonthefieldasa\nwhole—wediscussthisinthefollowingsection.\n4.4 PowerandEquity\nModernAIresearchandpracticearenotequitablebydesign:theircostintermsofcomputerhardwareaswellashuman",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ModernAIresearchandpracticearenotequitablebydesign:theircostintermsofcomputerhardwareaswellashuman\nskillsmeansthatonlyasmallpercentageofbothacademicandindustrialorganizationscancontributetomanyaspects\nofmodeldevelopment.WiththerecentadventofAImodelsofever-increasingscaleandcomplexity,thedigitaldivide\ninAIisonlyincreasing,asittakesmorecomputeandhumanskilltotrainanddeployAImodelsandsystems[1,19,35,\n118].Thismeansthatthefuturewide-sweepingbenefitsthatAItechnologiesarepromisedtohaveforhumanityasa\nwhole[149]arecontingentuponaccesstotechnologiesthatarefundamentallyunequallydistributed.Despiteexplicit\nproposalstopursuemoreequitableandexplicitlyde-colonialistapproaches[124,138],the‘bigger-is-better’paradigm\ncontinuestobecentraltoAIresearchandpractice[204].",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "tapproaches[124,138],the‘bigger-is-better’paradigm\ncontinuestobecentraltoAIresearchandpractice[204].Inasimilarfashion,theplaceswhereAIresearchisbeing\ncarriedoutarealsoskewedtowardsinstitutionsfromahandfulofcountriesmostlylocatedintheGlobalNorth[2],\nwhichinexorablyimpactsthechoicesmadeduringtheAIdevelopmentanddeploymentprocess,introducingmany\nbiases(whichwehavealreadyaddressedinprevioussections).Infact,recentworkhasproposedthattheverypursuit\nofsustainableAIhastheoppositeeffect,contributingtowardsmaintainingthestatusquoand“securingthedominant\nsocio-economicinterestsofneo-liberalcapitalism\"[180].Forinstance,majortechnologicalcorporationshavededicated\nsignificant resourcestowardssolutionssuchasimproving theefficiency oftheir datacenters,proposingnumerous",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ficant resourcestowardssolutionssuchasimproving theefficiency oftheir datacenters,proposingnumerous\ninitiativestowardstechnologicalsustainability[4,75],includingresearchatthenexusofAIandtheclimate[44,128].\nHowever,bothMicrosoftandGoogleannouncedthattheywouldmisstheir2024sustainabilitytargets,dueinpartto\ntheenergy demandsoftheAItoolsthattheyhavebeendevelopinganddeploying[130,161].Theimpactsofthese\ncomputation-intensivedatacenterscanfurtherbeexpandedtoincludetheminingofraremetalsandthedisposalof\ne-waste,bothofwhichpredominantlyaffectcountriesfromtheGlobalSouthwhichprofitingtechnologycompanies\nfromtheGlobalNorth[86,194].\nSimilarlytoAI,issuesofpower,equityandjusticearealsocentralinthefieldofsustainability,sinceclimatechange",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "larlytoAI,issuesofpower,equityandjusticearealsocentralinthefieldofsustainability,sinceclimatechange\nisaninherentlyinequitablephenomenon–withahandfulofcountriesandregionsinNorthAmerica,EastAsiaand\nEuroperesponsibleforadisproportionateportionofglobalemissions,whiletheimpactsofsealevelriseandextreme\nweathereventsbeingfeltmoststronglyincountrieswithveryminimalcarbonfootprints,raisingquestionsofequity\nandjusticeandhowtoaddressthem[49,126,151,177].Similarly,themajorityofclimate-focusedAIsolutionsover-\nlookissuesofjusticeandpower,focusingpredominantlyontheclimate-positiveaspectsoftechnologiesandnotwho",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "10 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\nstandstobenefitfromthem,orwhethertheseissuescanbesolvedwithtechnologyinthefirstplace[30].Forinstance,\nwhenAIsystemsthatcarryoutprecisionagriculturearedeveloped,theemphasisismadeonefficiencyorincreased\ncropyields[185],andnotthefactthatthesesystemsareliabletoreplacealreadyunderprivilegedcommunitiessuchas\nmigrantworkersthattraditionallyharvestedcropsbyhand,orthedisparateimpactsofproposedsolutionsondifferent\ncommunities[55,207,218].Inaddition,AItechnologiescanbeseenasfurtherexacerbatingtheexistinginequalities\nintermsofthedistributionofpowerandprofits[83]andperpetuatingtheexistingextractionistapproachesinterms\noflaborbyexploitingalreadyunder-paidandmarginalizedworkersfordatacollectionandlabelingtasks[165]aswell",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "aborbyexploitingalreadyunder-paidandmarginalizedworkersfordatacollectionandlabelingtasks[165]aswell\nascreatinganewclassofprecariouscrowd-sourcedworkers[211],whichareoftenlocatedintheGlobalSouthorin\nalreadymarginalizedcommunities,wheretheimpactsofclimatechangehavereducedtheviabilityoftraditionalpro-\nfessionssuchasfarming[81,163].Thisisanadditionalexampleforwhyweadvocateforestablishingmoreconcerted\neffortsforintegratingAIethicsandsustainability–wedescribetheseinthefollowingsection.\n5 ESTABLISHINGBESTPRACTICESFORAIETHICSANDSUSTAINABILITY\nHavingestablishedamultitudeoftransversaltopicsthatspanAIethicsandsustainability,wenowfocusonproposing\nbestpracticesthatwouldintegratethetwoinAIresearchandpractice.Wedrawuponexistingworktoshowhowwe",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "sing\nbestpracticesthatwouldintegratethetwoinAIresearchandpractice.Wedrawuponexistingworktoshowhowwe\ncanbuilduponitbothwithintheAIcommunityandintandemwithmembersofothercommunitiesrangingfrom\nsustainabledevelopmenttopolicy-makingandengineering.\nPrinciplesandFrameworks ResearchandPractice GovernanceandRegulation\nShiftingfromthedominant StudyinghowwellAImodels Espousingbottom-upgovernance\nWesternmoralphilosophies generalizetodifferentpopulations approachesbasedonthecultural,\nGeneralizability\ntoincludeperspectivesfrom ofhumanandnon-humanliving societalandgeographicalconstraints\nnon-Westerntraditions beings ofAIsystemdeployment\nCarryingoutmoreholistic Integratingbothsocialand\nDevelopingframeworksthat\nevaluationofmodelsandsystems, environmentalassessments\nEvaluation accommodatebothethicaland",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rksthat\nevaluationofmodelsandsystems, environmentalassessments\nEvaluation accommodatebothethicaland\nspanningbothethicaland intoexistingandin-progress\nenvironmentalresponsibility\nenvironmentalcriteria AIregulation\nCommunicatethecosts RequiringdeployedAIsystems\nBroadeningthescopeof\nandimpactsofAIsystems tocarryoutauditsandreport\nTransparency transparencytoincludeits\nonboththeenvironment aminimumofmetricsspanning\nsocialandenvironmentalaspects\nandsociety bothbiasandethics\nInvolvingmultiplestakeholders,\nDevelopingprinciplesand Makeequity-informed\nespeciallyonesfromtheconcerned\nPower frameworksthataddress trade-offswhendeveloping\ncommunitiesandareas,inthe\nbothhumanandecologicalneeds anddeployingAI\ngovernanceprocess\nTable1.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "oping\ncommunitiesandareas,inthe\nbothhumanandecologicalneeds anddeployingAI\ngovernanceprocess\nTable1. Asummaryoftheproposedbestpracticesfordifferentaxesthatwecoverinourarticle\n5.1 Principles\nInthecontextofAI,therearemultiplefacetsofAItechnologiesthathavetobetakenintoconsideration,giventhe\nintersectionbetweenAIandthebroadersocietalcontextinwhichitoperates.Importantly,integratingbroadersus-\ntainabilityintoAIguidelinesensuresthatjusticeandfairnessarenotjustaboutsocialdimensions butalsoinclude\nrespectingandprotectingtheenvironment–i.e.expandingthedefinitionofsustainableAItoincludethesocialand\neconomicpillarsproposedbyBarbier[12].ThisintegrationalsoacknowledgesthattruejusticeinAIcannotbeachieved",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "omicpillarsproposedbyBarbier[12].ThisintegrationalsoacknowledgesthattruejusticeinAIcannotbeachieved\nwithoutconsideringitsenvironmentalandsocietalimplications,whichhelpsbuildthebridgebetweencomplementary\napproachesinbothAIethicsand(environmental)sustainabilityresearch.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 11\nGeneralizability. GiventheobserveddisconnectbetweenethicsandsustainabilityinthecontextofAIprinciplesand\nframeworks,wefindthat,whiletheseofferavaluablestartingpoint,theyoftenfallshortinaddressingAI’scomplex\nethicalissuesduetotheirlackofcontextualsensitivity[142].Wealsobelievethatimprovinguponthisnecessitatesa\nmorenuancedandcontext-specificapproachtoAIethics,onethatembracesthevariedethicaldimensionspresented\nbyAI,includingitsenvironmental implications.CurrentethicalchartersinAI,oftendetachedfromthisperplexity,\nrepresentpreliminarythoughtsontheethicallandscapebutlackthedepthrequiredformanypracticalapplications[5].",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "sentpreliminarythoughtsontheethicallandscapebutlackthedepthrequiredformanypracticalapplications[5].\nByrecognizingtheselimitations,weintendnottodiscardthesedefinitionsandprinciplesbuttoimproveuponthem.In\nthiscontext,environmentalandsustainabilitychallengesrelatedtoAIdevelopmentanddeploymentareintegraltothe\nbroaderethicalreflectionswithinthefield.ThisintegrationbetweenethicsandsustainabilityinAIcallsforaholistic\napproach,whereethicalconsiderationsarenotviewedinisolationbutareintrinsicallylinkedwithenvironmentaland\nsustainabilityoversight.Forinstance,shiftingfromthedominantWesternmoralphilosophiestoincludeperspectives\nfromnon-Westerntraditionssuchasrelationalethics[131],Ubuntuethics[145],andConfucianethics[111]canoffer",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "mnon-Westerntraditionssuchasrelationalethics[131],Ubuntuethics[145],andConfucianethics[111]canoffer\nvaluableinsightsintocommunity,socialharmony,andtheinterconnectednessofbeings,emphasizingtheimpactof\nAIonsocietyandinterpersonalrelationships.\nEvaluation. There is no one-size-fits-all solutionfor either ethics orsustainability and, indeed, no single wayof\nconcludingthatanAIsystemisneither trulyethicalnor sustainable.Recent workhasbegunbridgingthegap;for\ninstance,workbyLynchetal.isinspiredbytheconceptofurgentgovernanceinenvironmentalstudies,whichdistin-\nguishessystemreliabilityandsocietalharmandadvocatesfortheconsiderationofbothwhenauditinginfrastructure\nandtechnologies[123].Rajietal.useasimilarapproachfortheirproposedend-to-endframeworkforinternalalgo-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ndtechnologies[123].Rajietal.useasimilarapproachfortheirproposedend-to-endframeworkforinternalalgo-\nrithmicauditingofAImodels,whichtakesintoaccountbothtechnicalandethicalassessments[159].Inasimilarvein,\narecentmodelevaluationframeworkbyRakovaetal.,proposesanenvironmentaljustice-orientedlenstocarryout\nalgorithmicaudits[160],thatofGenovesiandMönigplacessustainabilityatthecenterofEthicalAIcertification[70],\nwhilethatofMetcalfetal.usesenvironmentalimpactassessmentsasanexampleofaformalmechanismthatcanbe\nusedtoinspiretheassessmentofAItechnologies[129].Alloftheseapproachesacknowledgethatethicaldecisionsin\nAIhaveenvironmentalconsequencesandviceversa,thusnecessitatingaframingthataccommodatesbothethicaland\nenvironmentalresponsibility.\nTransparency.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "a,thusnecessitatingaframingthataccommodatesbothethicaland\nenvironmentalresponsibility.\nTransparency. When viewed as a means to foster greater accountability, transparency takes on a central role: it\nbecomes a principle that enhances ethical compliance and promotes environmental responsibility, contributing to\nsustainability. For instance, integrating social transparency and sustainability can be exemplified by an AI system\ndesigned for urban planning, such as an AI tooldeveloped to optimize city layouts for efficiency. In this example,\ntoincludesustainability approaches,developers wouldalsoprovide informationontheenvironmental footprintof\nrunningtheAIsystem,suchasenergyconsumptionduringdataprocessingandpotentialenvironmentalbenefitsof",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "f\nrunningtheAIsystem,suchasenergyconsumptionduringdataprocessingandpotentialenvironmentalbenefitsof\ntheproposedurbanlayouts,likereducedcarbonemissionsfromoptimizedtrafficflowsorgreenspaces.Inthisway,by\ndeepeningtheconceptoftransparencytoincludesocialandenvironmentalaspects,wewouldmovetowardscreating\nAIsystemsthataremorerobust,sociallyresponsibleandultimatelymoreaccountableabouttheenvironmentalimpacts\ntheyhaveandmakingmoreinformeddecisionsbasedontheinformationatourdisposal[51].\nEquityandPower. Equityisaboutensuringfairaccessandparticipationinthebenefitsandgovernanceoftechnology\nacrossdifferentcommunities,especiallythosehistoricallymarginalized.Philosophicalperspectivesonequity,drawing",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "12 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\nfromtheoriesofdistributivejustice[106,135],emphasizethenecessityofequitabledistributionofresourcesandre-\nsponsibilitiesandrisksassociatedwithAItechnologies.Thisprincipleisespeciallyrelevantinenvironmentaljustice,\nwherethedisproportionateimpactofenvironmentalharmsonspecificpopulationsdemandsareevaluationofAItech-\nnologiesaredeployedatscale–forinstance,Schlosberg’stheoryofrecognitionaljusticehighlightstheimportanceof\nrecognizingandrespectingdiversecommunityneedsandvaluesinenvironmentalpolicies[176].Additionally,equity\nrequiresthatAIdevelopmentactivelyincludesdiversevoicesinitscreationandimplementationphases,ensuringthat\nAIsystemsdonotperpetuateexistingdisparitiesbutrathercontributetorectifyingthem.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "nphases,ensuringthat\nAIsystemsdonotperpetuateexistingdisparitiesbutrathercontributetorectifyingthem.Thisapproachdrawsupon\nenvironmentaljusticeliteraturefordevelopingprinciplesandframeworksthataddressesbothhumanandecological\nneeds,thusframingequityasamatterofdistribution,proceduralandinteractionalfairness[32].\n5.2 Research\nDespitealackofcommonterminology,similarissuesarisebothintermsofconsiderationsofAIethicsandsustainabil-\nityandconsideringtheinter-connectednessofthetwowhendesigninganddeployingAIsystemsisparamountgiven\ntheirsocio-technicalityandtheconsequencesthiscanhaveonthehumanandnon-humanspeciesresidinginthese\nregions.\nGeneralizability. AtthenexusofAIethicsandsustainability,existingscholarshiphasalreadyestablishedthatthe",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ralizability. AtthenexusofAIethicsandsustainability,existingscholarshiphasalreadyestablishedthatthe\nmostdisadvantagedandmarginalizedmembersofoursocietiestendtobetheleastwell-representedinthe‘BigData’\nusedinmanyAImodelsandsystems[33,43,68,186];thesameappliesatthelevelofcountriesandregions,with‘global’\ndatasetsreflectingthingslikewealthandeconomicdevelopmentonlybeingtestedinaselectfewcountries[24,84]\nandthemostextensivebiodiversitydatasetsconsistingofdatacollectedinasubsetofregionsfromtheGlobalNorth,\naswellasregionsclosetocitiesandroads[15,196].StudyingthelimitsofapplicationofAIsystemsbothinterms\nofethicsandsustainabilityandhowwelltheygeneralizetodifferentpopulationsofhumanandnon-humansubjects\nisimportanttoquestionexistingassumptions.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "eneralizetodifferentpopulationsofhumanandnon-humansubjects\nisimportanttoquestionexistingassumptions.Forinstance,studiesofemblematicdatasetssuchasImageNetfound\nthatittomisrepresent bothhumans[2021]andotherlivingbeingssuchasinsectsandfish[2023].Developingnew\ndatasetsthataremorerepresentativeofdiversepopulationsandcontexts-suchastheDollarStreetdataset[167]and\nCropHarvest[197]-andusingthisdatasetinresearchandpracticeandhelpimprovetheapplicabilityofAIsystems\nandtheirabilitytorepresentmorediversepopulationsfrombothasocietalandenvironmentalperspective.\nEvaluation. AsAIisincreasinglyusedinthefightagainstclimatechange,holisticevaluationofmodelsandsystems\nbecomesevermorerelevant.Forinstance,inthehigh-stakesdomainofsolargeoengineering,whichaimstodevelop",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "becomesevermorerelevant.Forinstance,inthehigh-stakesdomainofsolargeoengineering,whichaimstodevelop\nnewwaysformodifyingtheEarth’sclimatetoreducetheglobalwarmingeffect(i.e.byenhancingthereflexivityof\ncloudssothattheyreflectmoreofthesun’srays),AIisoftenusedtohelpmodelthepotentialfar-reaching effects\nof even minor interventions and understand how they will impact local and global climate patterns [62, 148, 179].\nThisisbecauseregionalchangestotheclimatemaytriggerincreasedfragilityofsomeregionsandnotothers,which\nishardtoquantifyandtherefore, tobeoptimizedforinAImodelsthataimtopredicttheconsequencesofclimate\ninterventions[83].Forinstance,differentthresholdsofsolarreflexivityareoptimalfordifferentregions,andoptimizing\nresultsbasedonagivenregion(e.g.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "esholdsofsolarreflexivityareoptimalfordifferentregions,andoptimizing\nresultsbasedonagivenregion(e.g.thecontinentalUnitedStates)wouldmakethingsworseforothers(e.g.Western\nAfrica),whichcansufferdroughtsandotherformsofdamage[126].Considerationsaroundthewiderreboundeffects",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 13\nofproposedAIsolutionsarealsoimportant:forinstance,inthecaseofAIsystemsthatimproveaircraftefficiency[108],\nmoreefficientaircraftcanresultincheaperairfareandtherefore,moretraveloverall5.\nTransparency. FalkandvanWynsberghe arguethattransparencyisacrucialfactorforestablishing “whetherthe\nnetenvironmentalimpactofAIforSustainabilityispositiveorhowthepositiveimpactontherespectivesustainability\ngoal can outweigh the very different negative impact of the models’ development on sustainability\" [61] – we would\nexpandthistoincludeAIsystemsingeneral,whichshoulduseavarietyofmechanismstocommunicatethecostsand\npotentialimpactsoftheirsystemsonboththeenvironmentandsociety.Infact,asproposedbyEhsanetal.,thenotion",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "otentialimpactsoftheirsystemsonboththeenvironmentandsociety.Infact,asproposedbyEhsanetal.,thenotion\noftransparencyinAIcanbeexpandedtoencompass\"socialtransparency\",whichinvolvesintegratingsocio-technical\naspectsinthedescriptionand understanding ofAIsystems [56].Social transparency involves aportrayalofanAI\nsystem’ssocietalimpacts,ethicalconsiderations,andeventuallyitsenvironmentalfootprint.Bydoingso,itprovides\na more complete picture, making the AI system transparent but also understandable in a broader societal context.\nThisaugmentedviewoftransparency,whichwouldintegratebothsocialandenvironmental dimensions, resonates\nwiththeincreasingawarenessthatAIisnotsimplyatechnologicaltoolbutasocio-technicalsystemwithextensive\nrepercussions,spanningbothpeopleandtheenvironment[202].\nEquity.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "tasocio-technicalsystemwithextensive\nrepercussions,spanningbothpeopleandtheenvironment[202].\nEquity. RecognizingthatGreenAI(orsustainableAI),i.e.thedevelopmentanddeploymentofAIsystemsthatputs\ntheemphasissolelyonefficiency orthereductionofgreenhouse gasemissions, isnotnecessarily inherently more\nequitableorjust – forinstance, ifthemoreefficient modelsare not widelyshared, orentail anincreased usageof\ncomputeduetotheirefficiency–isanimportantfirststeptowardsimprovingthecurrentdirectiontowardsbigger\nmodels.RecentresearchinbothAIethicsandsustainabilityhasshedlightontheextenttowhichAIsystemsenable\ntheamplificationofexistingsocialinequities[17,58,115]aswellascontributingtothepreservationoftheecological\nstatusquovis-a-vistoclimatechange[194].",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ",58,115]aswellascontributingtothepreservationoftheecological\nstatusquovis-a-vistoclimatechange[194].Giventhesefindings,itisimportanttomakeequity-informedtrade-offs\nwhendevelopinganddeployingAI–forinstancebycarryingoutenergypredictioninresource-constrainedenergy\ngrids,whicharecommoninlow-andmiddle-incomecountries[13],orbyusingAItopredicttheimpactsofchanges\ninclimateonsocietalaspectssuchasdiseasepropagationandhealth[100].\n5.3 Governance\nAsthefieldofAIethicsincreasinglyintersectswithregulation,includinglawandpolicy,itshowcasesitsinterdisci-\nplinarynature,meaningthatinordertobesuccessful,governanceinitiativesmustincorporateeffortsfromdifferent\ndomains,dependingonthecontextoftheapplication.\nGeneralizability.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "mustincorporateeffortsfromdifferent\ndomains,dependingonthecontextoftheapplication.\nGeneralizability. While there is no single solution to complex questions involving governance over AI systems,\nvariousbottom-upgovernanceapproacheshavebeenproposedbasedonthecultural,societalandgeographicalcon-\nstraintsofAIsystemdeployment.SomeofthesefollowthetenetsoftheMa¯oriculture,whichisbasedonprinciples\nthatconsiderbothimpactsonnatureaswellasonfellowhumanbeings,bridgingthegapbetweenethicsandsustain-\nability[82,143];othersespousethoseestablishedbytheIndigenousAIcommunity,whichisbasedonbothvaluesand\npracticesofsocialandenvironmentalsustainability,bothcoretomanyIndigenousepistemologies[110].Also,regu-\nlatingthedeploymentofout-of-the-boxAIsolutionsthatoperateonthepremiseofgeneralizabilitywithouttaking",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "atingthedeploymentofout-of-the-boxAIsolutionsthatoperateonthepremiseofgeneralizabilitywithouttaking\n5ThisisoftenreferredtoasJevonsparadox,whichobservesthatwhentechnologicalprogressimprovestheefficiencyoftechnology,thisactuallyresults\ninitsincreasedusageandincreasesoverallresourceuse[93].",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "14 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\ncontextintoaccountcanhelpensurethatsystemsthataremeanttobewidelyapplicablearetrulyrepresentativeof\nthecontextofapplication–whereevaluations,asexplainedbelow,willplayacrucialrole.\nEvaluation. AsnotedbyMetcalfetal.[2021],thereisaparallelbetweenenvironmentalimpactassessmentsandAI\nethicsaudits,whichcanbeextendedbeyondethicalcompliancetoincludeassessmentsofenvironmentalimpacts,such\nasenergyconsumptionandcarbonemissions.RequiringauditsofcommercialAIsystemsbeforetheirdeploymentin\npractice,bothincontextssuchaseducationandhealthcarethatcomewithhighstakesintermsofsocietalimpacts,but\nalsoincontextssuchasdisasterpredictionandclimatemodeling,thatcomewithpotentiallywidespreadenvironmental",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "incontextssuchasdisasterpredictionandclimatemodeling,thatcomewithpotentiallywidespreadenvironmental\nimpacts,willrequirethedevelopmentofnewgovernanceapproaches.Forinstance,attemptingtoevaluatethewider\nrebound effectsofAItoolsand their impactsonconsumptionand human behavior isimportantto represent their\nbroaderimpactsonbothsocietyandtheenvironment[86,96,194].Finally,integratingbothsocialandenvironmental\nassessmentsintoexistingandin-progressregulationanddevelopingnewapproachestoevaluatetheseimpactscan\nhelpensurethatthedeploymentofAIsystemsiscarriedoutinawaythatisethicallysoundandsustainableacross\nmultipledimensions.\nTransparency. RecentyearshaveseenlesstransparencyinAIresearchandpractice,especiallyintermsofgenerative\nAI models [189].",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "tyearshaveseenlesstransparencyinAIresearchandpractice,especiallyintermsofgenerative\nAI models [189]. However, as these systems are increasingly being deployed in society, having more information\nregardinghowthesesystemswerecreatedanddeployedremainsparamount.Ensuringthatenoughdetailsareprovided\nbothregardingtheenergyconsumedandgreenhousegassesemittedduringmodeltraininganddeploymentcanhelp\ntrackhowtheenvironmentalimpactsofAIareevolvingovertime.MandatingtransparencyforalreadydeployedAI\nsystemscanhelpestablishaudits,redteamingeffortsandAIenergyscoreratingstoraiseusers’awarenessaroundthe\nimpactsofthesystemstheyuse[29],contributingtowhatcanbetermed\"usabletransparency\"[144].Byensuringthat\ntheprocessesandresultsofthesepracticesarewell-documentedandpubliclyaccessible,stakeholderswouldbebetter",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "rocessesandresultsofthesepracticesarewell-documentedandpubliclyaccessible,stakeholderswouldbebetter\nequippedtounderstandandevaluatetheethicalandsustainableaspectsofAIsystems.Suchpolicieswouldpromote\nacultureofopennessintheAIindustry,encouragingdeveloperstoprioritizeethicalconsiderationsandsustainability\nalongsidetechnicaladvancements.\nEquity. Involvingmultiplestakeholders,especiallyonesfromtheconcernedcommunitiesanddomains,inthispro-\ncess is important to ensure that different perspectives and lived experiences are reflected in the development and\ndeploymentofAIsystems[170,171]aswellasthedifferentcommunitiesandcaninfluenceexistingandfutureprac-\ntices[45, 126].Fromaregulatoryperspective,theFinnish ETAIROS(Ethical AIfortheGovernance oftheSociety)",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ces[45, 126].Fromaregulatoryperspective,theFinnish ETAIROS(Ethical AIfortheGovernance oftheSociety)\nprojectproposedtheintegrationofethics,sustainability,designandforesightforinter-disciplinarygovernanceofAI\nsystems [133],whereas the WhiteHouseOffice ofManagement and Budget (OMB)’s first government-wide policy\naround the usage of AI includes, inter alia, clauses that stipulate that government agencies should take bothenvi-\nronmentalimpactsandbiasandfairnessintoaccountwhenprocuringAI-enabledservices[59]-exhibitingthought\nleadershipthatwillhopefullyhavewiderrepercussions.\n6 CONCLUSION\nWerecognizethatissuesofethicsandsustainabilityarecomplexand,especiallyinthecontextofemergingtechnologies\nlikeAI,itcanbedifficulttodefinewhatprogresslookslikeandhowitcanbeachieved.Wedonotpretendtohave",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "gies\nlikeAI,itcanbedifficulttodefinewhatprogresslookslikeandhowitcanbeachieved.Wedonotpretendtohave\ndevelopedauniversal approachforeither oftheseissues(and donotbelieve thatonecanexist)–butbyadopting\namultitudeofendeavorssuchastheonesdescribedintheparagraphsabovecanhelpinvolve different actorsand",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 15\nhopefullybuildmomentumacrosstheAIcommunity.Thebeautyofmakingtransversal connectionsthatgoabove\nandbeyondthesilosinwhichmanyAItechnologiststendtooperateisthatwecanalsobeinspiredbythemultitude\nofrichandrelevantworkthathasbeendoneinotherdomains–fromecologytophilosophy,aswellasgovernanceand\nclimatescience,toproposewaysforwardthatwouldallowtheAIcommunitytoimprovesystemsfromtheperspective\nofbothethicsandsustainability.Lookingforward,thefieldofAIethicsisrapidlyevolving,withinsightsracingtokeep\nupwiththerapidpaceoftechnologicaladvancementsinAI.Thisdynamiclandscapepresentsanongoingchallenge:\ntodevelopAIinawaythatisinclusive,just,andcognizantofitsenvironmentalandsocietalimpacts.Furthermore,itis",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "velopAIinawaythatisinclusive,just,andcognizantofitsenvironmentalandsocietalimpacts.Furthermore,itis\nbecomingincreasinglyclearthatAIethicsandsustainabilityareinterdependent:theymustgohandinhandtoensurea\nholisticsocietalimpact.Theabsenceofeitheraspectleadstoanincompleteperspective,potentiallyoverlookingcritical\nsocietal and environmental consequences. Therefore, integrating AIethics with sustainability is not just beneficial\nbutnecessary,ensuring thatAIadvancementsarenotonlytechnologicallyinnovative and ethicallysoundbutalso\nmaximizingtheirpotentialtoengendersustainableadvancement.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "16 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\nREFERENCES\n[1] MohamedAbdallaandMoustafaAbdalla.2021.TheGreyHoodieProject:Bigtobacco,bigtech,andthethreatonacademicintegrity.InProceedings\nofthe2021AAAI/ACMConferenceonAI,Ethics,andSociety.287–297.\n[2] MohamedAbdalla,JanPhilipWahle,TerryRuas,AurélieNévéol,FannyDucel,SaifMMohammad,andKarënFort.2023. Theelephantinthe\nroom:Analyzingthepresenceofbigtechinnaturallanguageprocessingresearch.arXivpreprintarXiv:2305.02797(2023).\n[3] AI Safety Summit. 2023. The Bletchley Declaration by Countries Attending the AI Safety Summit, 1-2 November 2023. (2023).\nhttps://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-\n[4] AmazonWebServices.2021.SustainabilityintheCloud.https://sustainability.aboutamazon.com/environment/the-cloud.\n[5] DanielAndler.2023.Intelligenceartificielle,intelligencehumaine:ledoubleénigme.Gallimard,Paris.\n[6] JuliaAngwin,JeffLarson,SuryaMattu,andLaurenKirchner.2022.Machinebias.InEthicsofdataandanalytics.AuerbachPublications,254–264.\n[7] ThomasAquinas.1702.Summatheologica.J.Mentelin.\n[8] Aristotle.350.NicomacheanEthics. Originalworkpublishedin350B.C.E..\n[9] HutanAshrafian.2015.Intelligentrobotsmustupholdhumanrights.Nature519(2015),391. https://doi.org/10.1038/519391a\n[10] CarolynAshurst,SolonBarocas,RosieCampbell,andDeborahRaji.2022.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "https://doi.org/10.1038/519391a\n[10] CarolynAshurst,SolonBarocas,RosieCampbell,andDeborahRaji.2022.DisentanglingtheComponentsofEthicalResearchinMachineLearning.\nInProceedingsofthe2022ACMConferenceonFairness,Accountability,andTransparency(Seoul,RepublicofKorea)(FAccT’22).Associationfor\nComputingMachinery,NewYork,NY,USA,2057–2068. https://doi.org/10.1145/3531146.3533781\n[11] RicardoBaeza-YatesandZeinabLiaghat.2017. Quality-efficiencytrade-offsinmachinelearningfortextprocessing.In2017IEEEinternational\nconferenceonbigdata(bigdata).IEEE,897–904.\n[12] EdwardBBarbier.1987.Theconceptofsustainableeconomicdevelopment.Environmentalconservation14,2(1987),101–110.\n[13] MohiniBariya,GenevieveFlaspohler,NgoranClare-Joyce,andMargaretOdero.2023. TopologyEstimationfromVoltageEdgeSensingfor",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ieveFlaspohler,NgoranClare-Joyce,andMargaretOdero.2023. TopologyEstimationfromVoltageEdgeSensingfor\nResource-ConstrainedGrids.TacklingClimateChangewithMachineLearningWorkshop-ICLR2023(2023).\n[14] VitaSantaBarletta,DaniloCaivano,DomenicoGigante,andAzzurraRagone.2023.ARapidReviewofResponsibleAIframeworks:Howtoguide\nthedevelopmentofethicalAI.InProceedingsofthe27thInternationalConferenceonEvaluationandAssessmentinSoftwareEngineering.358–367.\n[15] JanBeck,MarianneBöller,AndreasErhardt,andWolfgangSchwanghart.2014. SpatialbiasintheGBIFdatabaseanditseffectonmodeling\nspecies’geographicdistributions.EcologicalInformatics19(2014),10–15.\n[16] EmilyM.Bender,TimnitGebru,AngelinaMcMillan-Major,andShmargaretShmitchell.2021.OntheDangersofStochasticParrots:CanLanguage\nModelsBeTooBig?.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "llan-Major,andShmargaretShmitchell.2021.OntheDangersofStochasticParrots:CanLanguage\nModelsBeTooBig?.InProceedingsofthe2021ACMConferenceonFairness,Accountability,andTransparency(VirtualEvent,Canada)(FAccT’21).\nAssociationforComputingMachinery,NewYork,NY,USA,610–623. https://doi.org/10.1145/3442188.3445922\n[17] RuhaBenjamin.2023.Raceaftertechnology.InSocialTheoryRe-Wired.Routledge,405–415.\n[18] JeremyBentham.1789.AnIntroductiontothePrinciplesofMoralsandLegislation.T.PayneandSon.\n[19] TamayBesiroglu,SageAndrusBergerson,AmeliaMichael,LennartHeim,XueyunLuo,andNeilThompson.2024. TheComputeDividein\nMachineLearning:AThreattoAcademicContributionandScrutiny?arXivpreprintarXiv:2401.02452(2024).\n[20] JosephRBiden.2023.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ThreattoAcademicContributionandScrutiny?arXivpreprintarXiv:2401.02452(2024).\n[20] JosephRBiden.2023.Executiveorderonthesafe,secure,andtrustworthydevelopmentanduseofartificialintelligence.(2023).\n[21] ElettraBietti.2020. FromEthicsWashingtoEthicsBashing:AViewonTechEthicsfromwithinMoralPhilosophy.InProceedingsofthe2020\nConferenceonFairness,Accountability,andTransparency(Barcelona,Spain)(FAT*’20).AssociationforComputingMachinery,NewYork,NY,USA,\n210–219. https://doi.org/10.1145/3351095.3372860\n[22] AbebaBirhane,PratyushaKalluri,DallasCard,WilliamAgnew,RavitDotan,andMichelleBao.2022.TheValuesEncodedinMachineLearning\nResearch. arXiv:2106.15590[cs.LG]\n[23] AbebaBirhane,ElayneRuane,ThomasLaurent,MatthewS.Brown,JohnathanFlowers,AnthonyVentresque,andChristopherL.Dancy.2022.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "neRuane,ThomasLaurent,MatthewS.Brown,JohnathanFlowers,AnthonyVentresque,andChristopherL.Dancy.2022.\nTheforgottenmarginsofAIethics.InProceedingsofthe2022ACMConferenceonFairness,Accountability,andTransparency.948–958.\n[24] JoshuaBlumenstock.2018.Don’tforgetpeopleintheuseofbigdatafordevelopment.\n[25] LarissaBolte,TijsVandemeulebroucke,andAimeevanWynsberghe.2022. FromanEthicsofCarefulnesstoanEthicsofDesirability:Going\nBeyondCurrentEthicsApproachestoSustainableAI.Sustainability14,8(2022). https://doi.org/10.3390/su14084472\n[26] RishiBommasani,PercyLiang,andTonyLee.2023.Holisticevaluationoflanguagemodels.AnnalsoftheNewYorkAcademyofSciences1525,1\n(2023),140–146.\n[27] MioaraBorza.2014. Theconnectionbetweenefficiencyandsustainability–atheoreticalapproach. ProcediaEconomicsandFinance15(2014),",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ectionbetweenefficiencyandsustainability–atheoreticalapproach. ProcediaEconomicsandFinance15(2014),\n1355–1363.\n[28] AndrewBrennanandNorvaY.S.Lo.2022.EnvironmentalEthics.InTheStanfordEncyclopediaofPhilosophy(Summer2022ed.),EdwardN.Zalta\n(Ed.).MetaphysicsResearchLab,StanfordUniversity.\n[29] BenedettaBrevini.2020. Blackboxes,notgreen:Mythologizingartificialintelligenceandomittingtheenvironment. BigData&Society7,2\n(2020),2053951720935141. https://doi.org/10.1177/2053951720935141\n[30] BenedettaBrevini.2023.Myths,technosolutionismandartificialintelligence:reclaimingAImaterialityanditsmassiveenvironmentalcosts.In\nHandbookofCriticalStudiesofArtificialIntelligence.EdwardElgarPublishing,869–877.\n[31] AlexanderEIBrownlee,JasonAdair,SaemundurOHaraldsson,andJohnJabbo.2021.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ElgarPublishing,869–877.\n[31] AlexanderEIBrownlee,JasonAdair,SaemundurOHaraldsson,andJohnJabbo.2021. Exploringtheaccuracy–energytrade-offinmachine\nlearning.In2021IEEE/ACMInternationalWorkshoponGeneticImprovement(GI).IEEE,11–18.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 17\n[32] RobertD.Bullard,GlennS.Johnson,andBeverlyH.Wright.1997.ConfrontingEnvironmentalInjustice:It’stheRightThingtoDo.Race,Gender\n&Class5,1(1997),63–79.\n[33] JoyBuolamwiniandTimnitGebru.2018. Gendershades:Intersectionalaccuracydisparitiesincommercialgenderclassification.InConference\nonfairness,accountabilityandtransparency.PMLR,77–91.\n[34] JoelCastaño,SilverioMartínez-Fernández,XavierFranch,andJustusBogner.2023.ExploringtheCarbonFootprintofHuggingFace’sMLModels:\nARepositoryMiningStudy.arXivpreprintarXiv:2305.11164(2023).\n[35] AlanChan,ChinasaTOkolo,ZacharyTerner,andAngelinaWang.2021. ThelimitsofglobalinclusioninAIdevelopment. arXivpreprint\narXiv:2102.01265(2021).\n[36] KylaChasalowandKarenLevy.2021.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "linclusioninAIdevelopment. arXivpreprint\narXiv:2102.01265(2021).\n[36] KylaChasalowandKarenLevy.2021.Representativenessinstatistics,politics,andmachinelearning.InProceedingsofthe2021ACMConference\nonFairness,Accountability,andTransparency.77–89.\n[37] Rachel Chason and Rael Ombuor. 2021. A lack of weather data in Africa is thwarting critical climate research.\nhttps://www.washingtonpost.com/world/2021/09/24/africa-climate-weather-data/\n[38] ChineseDataLawAlliance.2023.ChineseArtificialIntelligenceLaw,v.1.0. https://mp.weixin.qq.com/s/85D8TjMkN9Tl-oWjq15JiQ\n[39] Concil of EU. 2022. Artificial Intelligence Act: Council calls for promoting safe AI that respects fundamental rights.\nhttps://www.consilium.europa.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Council calls for promoting safe AI that respects fundamental rights.\nhttps://www.consilium.europa.eu/en/press/press-releases/2022/12/06/artificial-intelligence-act-council-calls-for-promoting-safe-ai-that-respects-fundamental-rights/\n[40] SashaCostanza-Chock,InioluwaDeborahRaji,andJoyBuolamwini.2022.WhoAuditstheAuditors?Recommendationsfromafieldscanofthe\nalgorithmicauditingecosystem.InProceedingsofthe2022ACMConferenceonFairness,Accountability,andTransparency.1571–1583.\n[41] JoshCowls,AndreasTsamados,MariarosariaTaddeo,andLucianoFloridi.2023.TheAIgambit:leveragingartificialintelligencetocombatclimate\nchange—opportunities,challenges,andrecommendations.Ai&Society(2023),1–25.\n[42] KateCrawfordandTrevorPaglen.2021. ExcavatingAI:Thepoliticsofimagesinmachinelearningtrainingsets.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "42] KateCrawfordandTrevorPaglen.2021. ExcavatingAI:Thepoliticsofimagesinmachinelearningtrainingsets. Ai&Society36,4(2021),\n1105–1116.\n[43] RowenaCullen.2001.Addressingthedigitaldivide.Onlineinformationreview25,5(2001),311–320.\n[44] AmaneDannouni,StefanA.Deutscher,GhitaDezzaz,AdamElman,AntoniaGawel,MarsdenHanna,AndrewHyland,AmjadKharij,Hamid\nMaher,DavidPatterson,EdmondRhysJones,JulietRothenberg,HamzaTber,MaudTexier,andAliZiat.2023.AcceleratingClimateActionwith\nAI. https://www.gstatic.com/gumdrop/sustainability/accelerating-climate-action-ai.pdf\n[45] RozitaDara,SeyedMehdiHazratiFard,andJasminKaur.2022.Recommendationsforethicalandresponsibleuseofartificialintelligenceindigital\nagriculture.FrontiersinArtificialIntelligence5(2022),884192.\n[46] HannahDavis.2020.ADatasetisaWorldview.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "culture.FrontiersinArtificialIntelligence5(2022),884192.\n[46] HannahDavis.2020.ADatasetisaWorldview.TowardsDataScience(2020).\n[47] JiaDeng,WeiDong,RichardSocher,Li-JiaLi,KaiLi,andLiFei-Fei.2009. ImageNet:Alarge-scalehierarchicalimagedatabase.In2009IEEE\nconferenceoncomputervisionandpatternrecognition.IEEE,248–255.\n[48] NathanDennler,AnaeliaOvalle,AshwinSingh,LucaSoldaini,ArjunSubramonian,HuyTu,WilliamAgnew,AvijitGhosh,KyraYee,IreneFont\nPeradejordi,etal.2023. BoundbytheBounty:CollaborativelyShapingEvaluationProcessesforQueerAIHarms.InProceedingsofthe2023\nAAAI/ACMConferenceonAI,Ethics,andSociety.375–386.\n[49] FatmaDenton.2002.Climatechangevulnerability,impacts,andadaptation:Whydoesgendermatter?Gender&Development10,2(2002),10–20.\n[50] JacobDevlin,Ming-WeiChang,KentonLee,andKristinaToutanova.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "r?Gender&Development10,2(2002),10–20.\n[50] JacobDevlin,Ming-WeiChang,KentonLee,andKristinaToutanova.2018. BERT:Pre-trainingofdeepbidirectionaltransformersforlanguage\nunderstanding.arXivpreprintarXiv:1810.04805(2018).\n[51] NicholasDiakopoulos.2020.Accountability,transparency,andalgorithms.TheOxfordhandbookofethicsofAI17,4(2020),197.\n[52] RoelDobbeandMeredithWhittaker.2019. AIandclimatechange:howthey’reconnected,andwhatwecandoaboutit. AINowInstitute17\n(2019).\n[53] JesseDodge,TaylorPrewitt,RemiTachetdesCombes,ErikaOdmark,RoySchwartz,EmmaStrubell,AlexandraSashaLuccioni,NoahASmith,\nNicoleDeCario,andWillBuchanan.2022.MeasuringthecarbonintensityofAIincloudinstances.InProceedingsofthe2022ACMConferenceon\nFairness,Accountability,andTransparency.1877–1894.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "dinstances.InProceedingsofthe2022ACMConferenceon\nFairness,Accountability,andTransparency.1877–1894.\n[54] JesseDodge,MaartenSap,AnaMarasović,WilliamAgnew,GabrielIlharco,DirkGroeneveld,MargaretMitchell,andMattGardner.2021.Docu-\nmentinglargewebtextcorpora:Acasestudyonthecolossalcleancrawledcorpus.arXivpreprintarXiv:2104.08758(2021).\n[55] AnuoluwapoAbosedeDurokifaandEdwinChikataIjeoma.2018. Neo-colonialismandMillenniumDevelopmentGoals(MDGs)inAfrica:A\nblendofanoldwineinanewbottle.AfricanJournalofScience,Technology,InnovationandDevelopment10,3(2018),355–366.\n[56] UpolEhsan,Q.VeraLiao,MichaelMuller,MarkO.Riedl,andJustinD.Weisz.2021. ExpandingExplainability:TowardsSocialTransparency\ninAISystems.InProceedingsofthe2021CHIConferenceonHumanFactorsinComputingSystems(Yokohama,Japan)(CHI’21).",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Systems.InProceedingsofthe2021CHIConferenceonHumanFactorsinComputingSystems(Yokohama,Japan)(CHI’21).Associationfor\nComputingMachinery,NewYork,NY,USA,Article82,19pages. https://doi.org/10.1145/3411764.3445188\n[57] TynaEloundou,SamManning,PamelaMishkin,andDanielRock.2023. GPTsareGPTs:Anearlylookatthelabormarketimpactpotentialof\nlargelanguagemodels.arXivpreprintarXiv:2303.10130(2023).\n[58] VirginiaEubanks.2018.Automatinginequality:Howhigh-techtoolsprofile,police,andpunishthepoor.St.Martin’sPress.\n[59] Executive Office of the President, Office of Management and Budget. 2024. Memorandum for the heads of executive depart-\nments and agencies on Advancing Governance, Innovation, and Risk Management for Agency Use of Artificial Intelligence.\nhttps://www.whitehouse.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": ", Innovation, and Risk Management for Agency Use of Artificial Intelligence.\nhttps://www.whitehouse.gov/wp-content/uploads/2024/03/M-24-10-Advancing-Governance-Innovation-and-Risk-Management-for-Agency-Use-of-Artificial-Intelligence.pdf",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "18 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\n[60] FlorianEyertandPaolaLopez.2023.RethinkingTransparencyasaCommunicativeConstellation.InProceedingsofthe2023ACMConferenceon\nFairness,Accountability,andTransparency(Chicago,IL,USA)(FAccT’23).AssociationforComputingMachinery,NewYork,NY,USA,444–454.\nhttps://doi.org/10.1145/3593013.3594010\n[61] SophiaFalkandAimeevanWynsberghe.2023.ChallengingAIforSustainability:whatoughtitmean?AIandEthics(2023),1–11.\n[62] AlecFeinberg.2022.SolarGeoengineeringModelingandApplicationsforMitigatingGlobalWarming:AssessingKeyParametersandtheUrban\nHeatIslandInfluence.FrontiersinClimate4(2022),870071.\n[63] H.Felzmann,E.Fosch-Villaronga,C.Lutz,etal.2020.TowardsTransparencybyDesignforArtificialIntelligence.ScienceandEngineeringEthics",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "a,C.Lutz,etal.2020.TowardsTransparencybyDesignforArtificialIntelligence.ScienceandEngineeringEthics\n26(2020),3333–3361. https://doi.org/10.1007/s11948-020-00276-4\n[64] LucianoFloridi,JoshCowls,MonicaBeltrametti,RajaChatila,PatriceChazerand,VirginiaDignum,ChristophLuetge,RobertMadelin,Ugo\nPagallo,FrancescaRossi,etal.2018.AI4People—anethicalframeworkforagoodAIsociety:opportunities,risks,principles,andrecommendations.\nMindsandmachines28(2018),689–707.\n[65] SorelleAFriedler,CarlosScheidegger,andSureshVenkatasubramanian.2021. The(im)possibilityoffairness:Differentvaluesystemsrequire\ndifferentmechanismsforfairdecisionmaking.Commun.ACM64,4(2021),136–143.\n[66] DeepGanguli,LianeLovitt,JacksonKernion,AmandaAskell,YuntaoBai,SauravKadavath,BenMann,EthanPerez,NicholasSchiefer,Ka-\nmalNdousse,etal.2022.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": ",AmandaAskell,YuntaoBai,SauravKadavath,BenMann,EthanPerez,NicholasSchiefer,Ka-\nmalNdousse,etal.2022. Redteaminglanguagemodelstoreduceharms:Methods,scalingbehaviors,andlessonslearned. arXivpreprint\narXiv:2209.07858(2022).\n[67] Leo Gao, Jonathan Tow, BaberAbbasi,Stella Biderman, Sid Black, Anthony DiPofi, Charles Foster,LaurenceGolding, JeffreyHsu, Alain\nLeNoac’h,HaonanLi,KyleMcDonell,NiklasMuennighoff,ChrisOciepa,JasonPhang,LariaReynolds,HaileySchoelkopf,AviyaSkowron,\nLintangSutawika,EricTang,AnishThite,BenWang,KevinWang,andAndyZou.2023.Aframeworkforfew-shotlanguagemodelevaluation.\nhttps://doi.org/10.5281/zenodo.10256836\n[68] TimnitGebru.2019.OxfordhandbookonAIethicsbookchapteronraceandgender.arXivpreprintarXiv:1908.06165(2019).",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "tGebru.2019.OxfordhandbookonAIethicsbookchapteronraceandgender.arXivpreprintarXiv:1908.06165(2019).\n[69] TimnitGebru,JamieMorgenstern,BrianaVecchione,JenniferWortmanVaughan,HannaWallach,HalDauméIii,andKateCrawford.2021.\nDatasheetsfordatasets.Commun.ACM64,12(2021),86–92.\n[70] SergioGenovesiandJuliaMariaMönig.2022.AcknowledgingSustainabilityintheFrameworkofEthicalCertificationforAI.Sustainability14,\n7(2022). https://doi.org/10.3390/su14074157\n[71] MarzyehGhassemi,TristanNaumann,PeterSchulam,AndrewLBeam,IreneYChen,andRajeshRanganath.2020. Areviewofchallengesand\nopportunitiesinmachinelearningforhealth.AMIASummitsonTranslationalScienceProceedings2020(2020),191.\n[72] AmandeepSGillandStefanGermann.2022. ConceptualandnormativeapproachestoAIgovernanceforaglobaldigitalecosystemsupportive",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "fanGermann.2022. ConceptualandnormativeapproachestoAIgovernanceforaglobaldigitalecosystemsupportive\noftheUNSustainableDevelopmentGoals(SDGs).AIandEthics2,2(2022),293–301.\n[73] HilaGonenandYoavGoldberg.2019. Lipstickonapig:Debiasingmethodscoverupsystematicgenderbiasesinwordembeddingsbutdonot\nremovethem.arXivpreprintarXiv:1903.03862(2019).\n[74] IanGoodfellow,YoshuaBengio,andAaronCourville.2016.Deeplearning.MITpress.\n[75] Google.2022.CarbonfreeenergyforGoogleCloudregions.https://cloud.google.com/sustainability/region-carbon.\n[76] GreenSoftwareFoundation.2023.CanAIbeTrulyGreen? https://greensoftware.foundation/articles/can-ai-truly-be-green\n[77] GreenPeace. 2020. Oil in the Cloud: How Tech Companies are Helping Big Oil Profit from Climate Destructions.\nhttps://www.greenpeace.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "ud: How Tech Companies are Helping Big Oil Profit from Climate Destructions.\nhttps://www.greenpeace.org/usa/reports/oil-in-the-cloud/\n[78] OddErikGundersenandSigbjørnKjensmo.2018.Stateoftheart:Reproducibilityinartificialintelligence.InProceedingsoftheAAAIConference\nonArtificialIntelligence,Vol.32.\n[79] ThiloHagendorff.2022.Avirtue-basedframeworktosupportputtingAIethicsintopractice.Philosophy&Technology35,3(2022),55.\n[80] BenjaminHaibe-Kainsetal.2020.Transparencyandreproducibilityinartificialintelligence.Nature586,7829(2020),E14–E16.\n[81] KarenHao.2022.Artificialintelligenceiscreatinganewcolonialworldorder.MITTechnologyReview(2022).\n[82] KarenHao.2022.Anewvisionofartificialintelligenceforthepeople.MITTechnologyReview(2022).\n[83] Jan-ChristophHeilinger,HendrikKempt,andSaskiaNagel.2023.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "orthepeople.MITTechnologyReview(2022).\n[83] Jan-ChristophHeilinger,HendrikKempt,andSaskiaNagel.2023. BewareofsustainableAI!Usesandabusesofaworthygoal. AIandEthics\n(2023),1–12.\n[84] MartinHilbert.2016.Bigdatafordevelopment:Areviewofpromisesandchallenges.DevelopmentPolicyReview34,1(2016),135–174.\n[85] LewisHo,JoslynBarnhart,RobertTrager,YoshuaBengio,MilesBrundage,AllisonCarnegie,RummanChowdhury,AllanDafoe,GillianHadfield,\nMargaretLevi,etal.2023.InternationalinstitutionsforadvancedAI.arXivpreprintarXiv:2307.04699(2023).\n[86] MélHogan.2018.Bigdataecologies.Ephemera18,3(2018),631.\n[87] WayneHolmesandIlkkaTuomi.2022.StateoftheartandpracticeinAIineducation.EuropeanJournalofEducation57,4(2022),542–570.\n[88] SaraHooker,NyallengMoorosi,GregoryClark,SamyBengio,andEmilyDenton.2020.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "tion57,4(2022),542–570.\n[88] SaraHooker,NyallengMoorosi,GregoryClark,SamyBengio,andEmilyDenton.2020.Characterisingbiasincompressedmodels.arXivpreprint\narXiv:2010.03058(2020).\n[89] BenHutchinsonandMargaretMitchell.2019. 50YearsofTest(Un)Fairness:LessonsforMachineLearning.InProceedingsoftheConference\nonFairness,Accountability,andTransparency(Atlanta,GA,USA)(FAT*’19).AssociationforComputingMachinery,NewYork,NY,USA,49–58.\nhttps://doi.org/10.1145/3287560.3287600\n[90] StrategicImperatives.1987. ReportoftheWorldCommissiononEnvironmentandDevelopment:Ourcommonfuture. AccessedFeb10(1987),\n1–300.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 19\n[91] Innovation, ScienceandEconomic DevelopmentCanada.2023. TheArtificialIntelligence andDataAct(AIDA) – Companiondocument.\nhttps://ised-isde.canada.ca/site/innovation-better-canada/en/artificial-intelligence-and-data-act-aida-companion-document\n[92] YacineJerniteetal.2022.Datagovernanceintheageoflarge-scaledata-drivenlanguagetechnology.InProceedingsofthe2022ACMConference\nonFairness,Accountability,andTransparency.ACM.\n[93] WStanleyJevons.1866.Thecoalquestion.InTheEconomicsofPopulation.Routledge,193–204.\n[94] AnnaJobin,MarcelloIenca,andEffyVayena.2019.ThegloballandscapeofAIethicsguidelines.Naturemachineintelligence1,9(2019),389–399.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "dEffyVayena.2019.ThegloballandscapeofAIethicsguidelines.Naturemachineintelligence1,9(2019),389–399.\n[95] LNJoppa,BrianO’Connor,PieroVisconti,CathySmith,JonasGeldmann,MichaelHoffmann,JamesEMWatson,StuartHMButchart,Malika\nVirah-Sawmy,BenjaminSHalpern,etal.2016.Fillinginbiodiversitythreatgaps.Science352,6284(2016),416–418.\n[96] LynnHKaack,PriyaLDonti,EmmaStrubell,GeorgeKamiya,FelixCreutzig,andDavidRolnick.2022.Aligningartificialintelligencewithclimate\nchangemitigation.NatureClimateChange12,6(2022),518–527.\n[97] EvaKinnebrew,JoseIOchoa-Brito,MatthewFrench,MeganMills-Novoa,ElizabethShoffner,andKatherineSiegel.2022.Biasesandlimitations\nofGlobalForestChangeandauthor-generatedlandcovermapsindetectingdeforestationintheAmazon.PLoSOne17,7(2022),e0268970.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "angeandauthor-generatedlandcovermapsindetectingdeforestationintheAmazon.PLoSOne17,7(2022),e0268970.\n[98] BernardKoch,EmilyDenton,AlexHanna,andJacobGFoster.2021. Reduced,reusedandrecycled:Thelifeofadatasetinmachinelearning\nresearch.arXivpreprintarXiv:2112.01716(2021).\n[99] PangWeiKoh,ShioriSagawa,HenrikMarklund,SangMichaelXie,MarvinZhang,AkshayBalsubramani,WeihuaHu,MichihiroYasunaga,\nRichardLanasPhillips,IrenaGao,etal.2021. Wilds:Abenchmarkofin-the-wilddistributionshifts.InInternationalConferenceonMachine\nLearning.PMLR,5637–5664.\n[100] JulianKuehnert,DeborahMcGlynn,SekouL.Remy,AishaWalcott-Bryant,andAnneJones.2022.SurrogateEnsembleForecastingforDynamic\nClimateImpactModels. arXiv:2204.05795[cs.LG]\n[101] MaciejKuziemskiandGianlucaMisuraca.2020.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "rDynamic\nClimateImpactModels. arXiv:2204.05795[cs.LG]\n[101] MaciejKuziemskiandGianlucaMisuraca.2020.AIgovernanceinthepublicsector:Threetalesfromthefrontiersofautomateddecision-making\nindemocraticsettings.Telecommunicationspolicy44,6(2020),101976.\n[102] TravisLaCroixandAlexandraSashaLuccioni.2022.Metaethicalperspectiveson’Benchmarking’AIethics.arXivpreprintarXiv:2204.05151(2022).\n[103] FaisalLadhak,EsinDurmus,MiracSuzgun,TianyiZhang,DanJurafsky,KathleenMcKeown,andTatsunoriHashimoto.2023. WhenDoPre-\nTrainingBiasesPropagatetoDownstreamTasks?ACaseStudyinTextSummarization.InProceedingsofthe17thConferenceoftheEuropean\nChapteroftheAssociationforComputationalLinguistics,AndreasVlachosandIsabelleAugenstein(Eds.).AssociationforComputationalLinguis-\ntics,Dubrovnik,Croatia,3206–3219. https://doi.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "eAugenstein(Eds.).AssociationforComputationalLinguis-\ntics,Dubrovnik,Croatia,3206–3219. https://doi.org/10.18653/v1/2023.eacl-main.234\n[104] HimabinduLakkaraju,StephenHBach,andJureLeskovec.2016. Interpretabledecisionsets:Ajointframeworkfordescriptionandprediction.\nInProceedingsofthe22ndACMSIGKDDinternationalconferenceonknowledgediscoveryanddatamining.1675–1684.\n[105] HimabinduLakkaraju,EceKamar,RichCaruana,andJureLeskovec.2019. Faithfulandcustomizableexplanationsofblackboxmodels.In\nProceedingsofthe2019AAAI/ACMConferenceonAI,Ethics,andSociety.131–138.\n[106] JulianLamont(Ed.).2017.DistributiveJustice.Routledge.\n[107] S.LarssonandF.Heintz.2020.Transparencyinartificialintelligence.InternetPolicyReview9,2(2020). https://doi.org/10.14763/2020.2.1469",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "parencyinartificialintelligence.InternetPolicyReview9,2(2020). https://doi.org/10.14763/2020.2.1469\n[108] SoledadLeClainche,EstebanFerrer,SamGibson,ElisabethCross,AlessandroParente,andRicardoVinuesa.2023.Improvingaircraftperformance\nusingmachinelearning:areview.AerospaceScienceandTechnology(2023),108354.\n[109] JaanaLeikas,RaijaKoivisto,andNadezhdaGotcheva.2019. Ethicalframeworkfordesigningautonomousintelligentsystems. JournalofOpen\nInnovation:Technology,Market,andComplexity5,1(2019),18.\n[110] JasonEdwardLewis,AngieAbdilla,NoelaniArista,KaipulaumakaniolonoBaker,ScottBenesiinaabandan,MichelleBrown,MelanieCheung,\nMeredithColeman,AshleyCordes,JoelDavison,etal.2020.Indigenousprotocolandartificialintelligencepositionpaper.(2020).\n[111] ChenyangLi.2013.TheConfucianphilosophyofharmony.Vol.10.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "icialintelligencepositionpaper.(2020).\n[111] ChenyangLi.2013.TheConfucianphilosophyofharmony.Vol.10.Routledge.\n[112] MochenLiao,KaiLan,andYuanYao.2022.Sustainabilityimplicationsofartificialintelligenceinthechemicalindustry:Aconceptualframework.\nJournalofindustrialecology26,1(2022),164–182.\n[113] ZacharyCLipton.2018.Themythosofmodelinterpretability:Inmachinelearning,theconceptofinterpretabilityisbothimportantandslippery.\nQueue16,3(2018),31–57.\n[114] YinhanLiu,MyleOtt,NamanGoyal,JingfeiDu,MandarJoshi,DanqiChen,OmerLevy,MikeLewis,LukeZettlemoyer,andVeselinStoyanov.\n2019.Roberta:Arobustlyoptimizedbertpretrainingapproach.arXivpreprintarXiv:1907.11692(2019).\n[115] KirstenLloyd.2018.Biasamplificationinartificialintelligencesystems.arXivpreprintarXiv:1809.07842(2018).",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "tenLloyd.2018.Biasamplificationinartificialintelligencesystems.arXivpreprintarXiv:1809.07842(2018).\n[116] AlexandraSashaLuccioniandAlexHernandez-Garcia.2023.Countingcarbon:Asurveyoffactorsinfluencingtheemissionsofmachinelearning.\narXivpreprintarXiv:2302.08476(2023).\n[117] AlexandraSashaLuccioni,YacineJernite,andEmmaStrubell.2023. PowerHungryProcessing:WattsDrivingtheCostofAIDeployment?\narXiv:2311.16863[cs.LG]\n[118] AlexandraSashaLuccioniandAnnaRogers.2023.MindyourLanguage(Model):Fact-CheckingLLMsandtheirRoleinNLPResearchandPractice.\narXivpreprintarXiv:2308.07120(2023).\n[119] AlexandraSashaLuccioniandDavidRolnick.2023. Bugsinthedata:HowImageNetmisrepresentsbiodiversity.InProceedingsoftheAAAI\nConferenceonArtificialIntelligence,Vol.37.14382–14390.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "epresentsbiodiversity.InProceedingsoftheAAAI\nConferenceonArtificialIntelligence,Vol.37.14382–14390.\n[120] AlexandraSashaLuccioni,EmmaStrubell,andKateCrawford.2025.FromEfficiencyGainstoReboundEffects:TheProblemofJevons’Paradox\ninAI’sPolarizedEnvironmentalDebate.arXivpreprintarXiv:2501.16548(2025).",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "20 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\n[121] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.2022.EstimatingthecarbonfootprintofBLOOM,a176Bparameterlanguage\nmodel.arXivpreprintarXiv:2211.02001(2022).\n[122] FedericaLucivero.2020.Bigdata,bigwaste?Areflectionontheenvironmentalsustainabilityofbigdatainitiatives.Scienceandengineeringethics\n26,2(2020),1009–1030.\n[123] AmandaHLynchandSiriVeland.2018.UrgencyintheAnthropocene.MITPress.\n[124] MircaMadianou.2021. Nonhumanhumanitarianism:when’AIforgood’canbeharmful. Information,Communication&Society24,6(2021),\n850–868.\n[125] MelissaMccradden,OluwadaraOdusi,ShalmaliJoshi,IsmailAkrout,KagisoNdlovu,BenGlocker,GabrielMaicas,XiaoxuanLiu,MjayeMazwi,\nTeeGarnett,etal.2023.What’sfairis...",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "t,KagisoNdlovu,BenGlocker,GabrielMaicas,XiaoxuanLiu,MjayeMazwi,\nTeeGarnett,etal.2023.What’sfairis...fair?PresentingJustEFAB,anethicalframeworkforoperationalizingmedicalethicsandsocialjusticein\ntheintegrationofclinicalmachinelearning:JustEFAB.InProceedingsofthe2023ACMConferenceonFairness,Accountability,andTransparency.\n1505–1519.\n[126] DuncanPMcLaren.2018.Whoseclimateandwhoseethics?Conceptionsofjusticeinsolargeoengineeringmodelling. Energyresearch&social\nscience44(2018),209–221.\n[127] NinarehMehrabi,FredMorstatter,NripsutaSaxena,KristinaLerman,andAramGalstyan.2021.Asurveyonbiasandfairnessinmachinelearning.\nACMcomputingsurveys(CSUR)54,6(2021),1–35.\n[128] AmilMerchant,SimonBatzner,SamuelSSchoenholz,MuratahanAykol,GowoonCheon,andEkinDogusCubuk.2023. Scalingdeeplearning\nformaterialsdiscovery.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "enholz,MuratahanAykol,GowoonCheon,andEkinDogusCubuk.2023. Scalingdeeplearning\nformaterialsdiscovery.Nature624,7990(2023),80–85.\n[129] JacobMetcalf,EmanuelMoss,ElizabethAnneWatkins,RanjitSingh,andMadeleineClareElish.2021. AlgorithmicImpactAssessmentsand\nAccountability:TheCo-ConstructionofImpacts.InProceedingsofthe2021ACMConferenceonFairness,Accountability,andTransparency(Virtual\nEvent,Canada)(FAccT’21).AssociationforComputingMachinery,NewYork,NY,USA,735–746. https://doi.org/10.1145/3442188.3445935\n[130] RachelMetz.2024.Google’sEmissionsShotUp48%OverFiveYearsDuetoAI.Bloomberg(2024).\n[131] ThaddeusMetzandScottC.Miller.2016.Relationalethics.InTheinternationalencyclopediaofethics.1–10.\n[132] MilagrosMiceli,JulianPosada,andTianlingYang.2022.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "InTheinternationalencyclopediaofethics.1–10.\n[132] MilagrosMiceli,JulianPosada,andTianlingYang.2022. Studyingupmachinelearningdata:Whytalkaboutbiaswhenwemeanpower?\nProceedingsoftheACMonHuman-ComputerInteraction6,GROUP(2022),1–14.\n[133] NieminenMika,GotchevaNadezhda,LeikasJaana,andKRaija.2019.EthicalAIfortheGovernanceoftheSociety:ChallengesandOpportunities.\nInCEURWorkshopProceedings,Vol.2505.20–26.\n[134] JohnStuartMill.1863.Utilitarianism.Parker,Son,andBourn.\n[135] DavidMillerandMichaelWalzer(Eds.).1995.Pluralism,Justice,andEquality.OxfordUniversityPress.\n[136] MargaretMitchell,DylanBaker,NyallengMoorosi,EmilyDenton,BenHutchinson,AlexHanna,TimnitGebru,andJamieMorgenstern.2020.\nDiversityandinclusionmetricsinsubsetselection.InProceedingsoftheAAAI/ACMConferenceonAI,Ethics,andSociety.117–123.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "clusionmetricsinsubsetselection.InProceedingsoftheAAAI/ACMConferenceonAI,Ethics,andSociety.117–123.\n[137] MargaretMitchell,SimoneWu,AndrewZaldivar,ParkerBarnes,LucyVasserman,BenHutchinson,ElenaSpitzer,InioluwaDeborahRaji,and\nTimnitGebru.2019.Modelcardsformodelreporting.InProceedingsoftheconferenceonfairness,accountability,andtransparency.220–229.\n[138] ShakirMohamed,Marie-TheresePng,andWilliamIsaac.2020. DecolonialAI:Decolonialtheoryassociotechnicalforesightinartificialintelli-\ngence.Philosophy&Technology33(2020),659–684.\n[139] JakobMökander,JonasSchuett,HannahRoseKirk,andLucianoFloridi.2023.Auditinglargelanguagemodels:athree-layeredapproach.AIand\nEthics(2023),1–31.\n[140] ChristophMolnar.2020.Interpretablemachinelearning.Lulu.com.\n[141] StevenGonzalezMonserrate.2022.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "40] ChristophMolnar.2020.Interpretablemachinelearning.Lulu.com.\n[141] StevenGonzalezMonserrate.2022.Thecloudismaterial:Ontheenvironmentalimpactsofcomputationanddatastorage.(2022).\n[142] L.Munn.2022.TheUselessnessofAIEthics.AIEthics(2022). https://doi.org/10.1007/s43681-022-00209-w\n[143] LukeMunn.2023.Thefivetests:designingandevaluatingAIaccordingtoindigenousMa¯oriprinciples.AI&SOCIETY(2023),1–9.\n[144] PatrickMurmannandSimoneFischer-Hübner.2017.Usabletransparencyenhancingtools:Aliteraturereview.(2017).\n[145] MechthildNagel.2022.Ludicubuntuethics:Decolonizingjustice.Taylor&Francis.\n[146] NationalAcademiesofSciences,EngineeringandMedicine.2019.Reproducibilityandreplicabilityinscience.(2019).\n[147] ChrisNorval,KristinCornelius,JenniferCobbe,andJatinderSingh.2022.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "plicabilityinscience.(2019).\n[147] ChrisNorval,KristinCornelius,JenniferCobbe,andJatinderSingh.2022. DisclosurebyDesign:DesigningInformationDisclosurestoSupport\nMeaningfulTransparencyandAccountability.InProceedingsofthe2022ACMConferenceonFairness,Accountability,andTransparency(Seoul,\nRepublicofKorea)(FAccT’22).AssociationforComputingMachinery,NewYork,NY,USA,679–690. https://doi.org/10.1145/3531146.3533133\n[148] PeerNowack,PeterBraesicke,JoannaHaigh,NathanLukeAbraham,JohnPyle,andApostolosVoulgarakis.2018. Usingmachinelearningto\nbuildtemperature-basedozoneparameterizationsforclimatesensitivitysimulations.EnvironmentalResearchLetters13,10(2018),104016.\n[149] VictorOrdonez,TaylorDunn,andEricNoll.2023.OpenAICEOSamAltmansaysAIwillreshapesociety,acknowledgesrisks:‘Alittlebitscared\nofthis’.(2023).",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": ".2023.OpenAICEOSamAltmansaysAIwillreshapesociety,acknowledgesrisks:‘Alittlebitscared\nofthis’.(2023). https://abcnews.go.com/Technology/openai-ceo-sam-altman-ai-reshapesociety-acknowledges/story\n[150] Friederike Otto. 2023. Without Warning: A Lack of Weather Stations Is Costing African Lives.\nhttps://e360.yale.edu/features/africa-weather-stations-climate-change\n[151] EdwardAPage.2008.Distributingtheburdensofclimatechange.EnvironmentalPolitics17,4(2008),556–575.\n[152] European Parliament. 2023. Artificial Intelligence Act: deal on comprehensive rules for trustworthy AI. (2023).\nhttps://www.europarl.europa.eu/news/en/press-room/20231206IPR15699/artificial-intelligence-act-deal-on-comprehensive-rules-for-trustworthy-ai",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "rules-for-trustworthy-ai",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 21\n[153] DavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.2021.\nCarbonemissionsandlargeneuralnetworktraining.arXivpreprintarXiv:2104.10350(2021).\n[154] GiadaPistilli,CarlosMuñozFerrandis,YacineJernite,andMargaretMitchell.2023. StrongerTogether:ontheArticulationofEthicalCharters,\nLegalTools,andTechnicalDocumentationinML.InProceedingsofthe2023ACMConferenceonFairness,Accountability,andTransparency(<conf-\nloc>,<city>Chicago</city>,<state>IL</state>,<country>USA</country>,</conf-loc>)(FAccT’23).AssociationforComputingMachinery,New\nYork,NY,USA,343–354. https://doi.org/10.1145/3593013.3594002\n[155] ErichPrem.2023.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "tingMachinery,New\nYork,NY,USA,343–354. https://doi.org/10.1145/3593013.3594002\n[155] ErichPrem.2023.FromethicalAIframeworkstotools:areviewofapproaches.AIandEthics3,3(2023),699–716.\n[156] EdwardRaff.2019.AStepTowardQuantifyingIndependentlyReproducibleMachineLearningResearch. arXiv:1909.06674[cs.LG]\n[157] InioluwaDeborahRaji,EmilyMBender,AmandalynnePaullada,EmilyDenton,andAlexHanna.2021.AIandtheeverythinginthewholewide\nworldbenchmark.arXivpreprintarXiv:2111.15366(2021).\n[158] InioluwaDeborahRaji,SASHACOSTANZAChock,andJBuolamwini.2023.Changefromtheoutside:Towardscrediblethird-partyauditsofai\nsystems.MissinglinksinAIgovernance(2023),5.\n[159] I.D.Raji,A.Smart,R.N.White,M.Mitchell,T.Gebru,B.Hutchinson,etal.2020. ClosingtheAIaccountabilitygap:Defininganend-to-end",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "White,M.Mitchell,T.Gebru,B.Hutchinson,etal.2020. ClosingtheAIaccountabilitygap:Defininganend-to-end\nframeworkforinternalalgorithmicauditing.InProceedingsofthe2020ConferenceonFairness,Accountability,andTransparency.ACM,33–44.\n[160] BogdanaRakovaandRoelDobbe.2023.AlgorithmsasSocial-Ecological-TechnologicalSystems:anEnvironmentalJusticeLensonAlgorithmic\nAudits.In2023ACMConferenceonFairness,Accountability,andTransparency.ACM. https://doi.org/10.1145/3593013.3594014\n[161] AkshatRathiandDinaBass.2024.Microsoft’sAIPushImperilsClimateGoalasCarbonEmissionsJump30%.Bloomberg(2024).\n[162] Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi. 2016. You Only Look Once: Unified, Real-Time Object Detection.\narXiv:1506.02640[cs.CV]\n[163] JenniferRhee.2018.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "nly Look Once: Unified, Real-Time Object Detection.\narXiv:1506.02640[cs.CV]\n[163] JenniferRhee.2018.Theroboticimaginary:Thehumanandthepriceofdehumanizedlabor.UofMinnesotaPress.\n[164] Marco Tulio Ribeiro, Sameer Singh, and Carlos Guestrin. 2016. Model-agnostic interpretability of machine learning. arXiv preprint\narXiv:1606.05386(2016).\n[165] PaolaRicaurte.2022.Ethicsforthemajorityworld:AIandthequestionofviolenceatscale.Media,Culture&Society44,4(2022),726–745.\n[166] AnnaRogers.2021.Changingtheworldbychangingthedata.arXivpreprintarXiv:2105.13947(2021).\n[167] WilliamAGaviriaRojas,SudnyaDiamos,KeertanRanjanKini,DavidKanter,VijayJanapaReddi,andCodyColeman.2022. TheDollarStreet\ndataset:Imagesrepresentingthegeographicandsocioeconomicdiversityoftheworld.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "an.2022. TheDollarStreet\ndataset:Imagesrepresentingthegeographicandsocioeconomicdiversityoftheworld.InThirty-sixthConferenceonNeuralInformationProcessing\nSystemsDatasetsandBenchmarksTrack.\n[168] DavidRolnick,PriyaLDonti,LynnHKaack,KellyKochanski,AlexandreLacoste,KrisSankaran,AndrewSlavinRoss,NikolaMilojevic-Dupont,\nNatashaJaques,AnnaWaldman-Brown,etal.2022.Tacklingclimatechangewithmachinelearning.ACMComputingSurveys(CSUR)55,2(2022),\n1–96.\n[169] RobinRombach,AndreasBlattmann,DominikLorenz,PatrickEsser,andBjörnOmmer.2022. High-ResolutionImageSynthesisWithLatent\nDiffusionModels.InProceedingsoftheIEEE/CVFConferenceonComputerVisionandPatternRecognition(CVPR).10684–10695.\n[170] SarahRotz,EvanGravely,IanMosby,EmilyDuncan,ElizabethFinnis,MervynHorgan,JosephLeBlanc,RalphMartin,HannahTaitNeufeld,",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "vely,IanMosby,EmilyDuncan,ElizabethFinnis,MervynHorgan,JosephLeBlanc,RalphMartin,HannahTaitNeufeld,\nAndrewNixon,etal.2019.Automatedpasturesandthedigitaldivide:Howagriculturaltechnologiesareshapinglabourandruralcommunities.\nJournalofRuralStudies68(2019),112–122.\n[171] MarkRyan.2022. Thesocialandethicalimpactsofartificialintelligenceinagriculture:mappingtheagriculturalAIliterature. AI&SOCIETY\n(2022),1–13.\n[172] Salesforce.2024.SustainableAIPolicyPrinciples.https://www.salesforce.com/content/dam/web/en_us/www/documents/company/sustainability/salesforce-sustainable-ai-policy-principles.pdf\n[173] NithyaSambasivan,ShivaniKapania,HannahHighfill,DianaAkrong,PraveenParitosh,andLoraMAroyo.2021. “Everyonewantstodothe\nmodelwork,notthedatawork”:DataCascadesinHigh-StakesAI.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "osh,andLoraMAroyo.2021. “Everyonewantstodothe\nmodelwork,notthedatawork”:DataCascadesinHigh-StakesAI.Inproceedingsofthe2021CHIConferenceonHumanFactorsinComputing\nSystems.1–15.\n[174] Aaron Sankin and Surya Mattu. 2023. Predictive Policing Software Terrible At Predicting Crimes.\nhttps://themarkup.org/prediction-bias/2023/10/02/predictive-policing-software-terrible-at-predicting-crimes.\n[175] NripsutaAniSaxena,KarenHuang,EvanDeFilippis,GoranRadanovic,DavidC.Parkes,andYangLiu.2019.HowDoFairnessDefinitionsFare?\nExaminingPublicAttitudesTowardsAlgorithmicDefinitionsofFairness.InProceedingsofthe2019AAAI/ACMConferenceonAI,Ethics,andSociety\n(Honolulu,HI,USA)(AIES’19).AssociationforComputingMachinery,NewYork,NY,USA,99–106. https://doi.org/10.1145/3306618.3314248\n[176] DavidSchlosberg.2012.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "Machinery,NewYork,NY,USA,99–106. https://doi.org/10.1145/3306618.3314248\n[176] DavidSchlosberg.2012.ClimateJusticeandCapabilities:AFrameworkforAdaptationPolicy.Ethics&InternationalAffairs26,4(2012),445–461.\n[177] DavidSchlosbergandLisetteBCollins.2014.Fromenvironmentaltoclimatejustice:climatechangeandthediscourseofenvironmentaljustice.\nWileyInterdisciplinaryReviews:ClimateChange5,3(2014),359–374.\n[178] JurgenSchmidhuber.1991.NeuralSequenceChunkers.TechnicalReportFKI-148-91(1991).\n[179] ChristianSchroederdeWittandThomasHornigold.2019. StratosphericAerosolInjectionasaDeepReinforcementLearningProblem. arXiv\ne-prints(2019),arXiv–1905.\n[180] PaulSchütze.2024. TheProblemofSustainableAI:ACriticalAssessmentofanEmergingPhenomenon. WeizenbaumJournaloftheDigital\nSociety4,1(2024).",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "inableAI:ACriticalAssessmentofanEmergingPhenomenon. WeizenbaumJournaloftheDigital\nSociety4,1(2024).\n[181] RoySchwartz,JesseDodge,NoahASmith,andOrenEtzioni.2020.GreenAI.Commun.ACM63,12(2020),54–63.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "22 AlexandraSashaLuccioni,GiadaPistilli,RaesetjeSefala,andNyallengMoorosi\n[182] RaesetjeSefala,TimnitGebru,LuzangoMfupe,NyallengMoorosi,andRichardKlein.2021.Constructingavisualdatasettostudytheeffectsof\nspatialapartheidinSouthAfrica.InThirty-fifthconferenceonneuralinformationprocessingsystemsdatasetsandbenchmarkstrack(round2).\n[183] AndrewDSelbst,DanahBoyd,SorelleAFriedler,SureshVenkatasubramanian,andJanetVertesi.2019.Fairnessandabstractioninsociotechnical\nsystems.InProceedingsoftheconferenceonfairness,accountability,andtransparency.59–68.\n[184] SarabSSethi,AveryBick,RobertMEwers,HolgerKlinck,VijayRamesh,Mao-NingTuanmu,andDavidACoomes.2023.Limitstotheaccurate\nandgeneralizableuseofsoundscapestomonitorbiodiversity.NatureEcology&Evolution7,9(2023),1373–1378.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "e\nandgeneralizableuseofsoundscapestomonitorbiodiversity.NatureEcology&Evolution7,9(2023),1373–1378.\n[185] AbhinavSharma,ArpitJain,PrateekGupta,andVinayChowdary.2020.Machinelearningapplicationsforprecisionagriculture:Acomprehensive\nreview.IEEEAccess9(2020),4843–4873.\n[186] BenShenglin,FeliceSimonelli,ZhangRuidong,RomainBosc,andLiWenwei.2017. Digitalinfrastructure:Overcomingthedigitaldividein\nemergingeconomies.G20Insights3(2017),1–36.\n[187] AhmedAHSiddig.2019. Whyisbiodiversitydata-deficiencyanongoingconservationdilemmainAfrica? JournalforNatureConservation50\n(2019),125719.\n[188] JessieJSmith,SaleemaAmershi,SolonBarocas,HannaWallach,andJenniferWortmanVaughan.2022. RealML:Recognizing,exploring,and\narticulatinglimitationsofmachinelearningresearch.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "tmanVaughan.2022. RealML:Recognizing,exploring,and\narticulatinglimitationsofmachinelearningresearch.InProceedingsofthe2022ACMConferenceonFairness,Accountability,andTransparency.\n587–597.\n[189] IreneSolaiman.2023.ThegradientofgenerativeAIrelease:Methodsandconsiderations.InProceedingsofthe2023ACMConferenceonFairness,\nAccountability,andTransparency.111–122.\n[190] IreneSolaiman,ZeerakTalat,WilliamAgnew,LamaAhmad,DylanBaker,SuLinBlodgett,HalDauméIIIau2,JesseDodge,EllieEvans,Sara\nHooker,YacineJernite,AlexandraSashaLuccioni,AlbertoLusoli,MargaretMitchell,JessicaNewman,Marie-TheresePng,AndrewStrait,and\nApostolVassilev.2023.EvaluatingtheSocialImpactofGenerativeAISystemsinSystemsandSociety. arXiv:2306.05949[cs.CY]\n[191] Maddie Stone. 2024.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "ialImpactofGenerativeAISystemsinSystemsandSociety. arXiv:2306.05949[cs.CY]\n[191] Maddie Stone. 2024. Microsoft employees spent years fighting the tech giant’s oil ties. Now, they’re speaking out.\nhttps://grist.org/accountability/microsoft-employees-spent-years-fighting-the-tech-giants-oil-ties-now-theyre-speaking-out/\n[192] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019. EnergyandpolicyconsiderationsfordeeplearninginNLP. arXivpreprint\narXiv:1906.02243(2019).\n[193] ChristianSzegedy,WeiLiu,YangqingJia,PierreSermanet,ScottReed,DragomirAnguelov,DumitruErhan,VincentVanhoucke,andAndrew\nRabinovich.2015.Goingdeeperwithconvolutions.InProceedingsoftheIEEEconferenceoncomputervisionandpatternrecognition.1–9.\n[194] SyTaffel,LauraBedford,andMoniqueMann.2019.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "onferenceoncomputervisionandpatternrecognition.1–9.\n[194] SyTaffel,LauraBedford,andMoniqueMann.2019. Ecocideisn’tethical:PoliticalecologyandcapitalistAIethics. ECONOMIESOFVIRTUE20\n(2019),58.\n[195] Petros Terzis.2020. Onwardfor the Freedom of Others: Marchingbeyondthe AI Ethics. In Proceedings of the 2020 Conferenceon Fair-\nness,Accountability,andTransparency (Barcelona,Spain)(FAT*’20).AssociationforComputingMachinery,NewYork,NY, USA, 220–229.\nhttps://doi.org/10.1145/3351095.3373152\n[196] JulienTroudet,PhilippeGrandcolas,AmandineBlin,RégineVignes-Lebbe,andFrédéricLegendre.2017.Taxonomicbiasinbiodiversitydataand\nsocietalpreferences.Scientificreports7,1(2017),9132.\n[197] Gabriel Tseng, Ivan Zvonkov, Catherine Lilian Nakalembe, and Hannah Kerner. 2021. CropHarvest: A global dataset for crop-",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "onkov, Catherine Lilian Nakalembe, and Hannah Kerner. 2021. CropHarvest: A global dataset for crop-\ntype classification. In Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2).\nhttps://openreview.net/forum?id=JtjzUXPEaCu\n[198] AsafTzachor,CatherineERichards,MasilinGudoshava,PatriciaNying’uro,HerbertMisiani,JemimahGOngoma,YoavYair,YacobMulugetta,\nandAmadouTGaye.2023.HowtoreduceAfrica’sundueexposuretoclimaterisks.Nature620,7974(2023),488–491.\n[199] UN General Assembly. 2015. Transforming our world : the 2030 Agenda for Sustainable Development.\nhttps://www.refworld.org/legal/resolution/unga/2015/en/111816\n[200] UNESCO.2021.Recommendationontheethicsofartificialintelligence.\n[201] PrasetyaAjieUtama,NafiseSadatMoosavi,andIrynaGurevych.2020.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "theethicsofartificialintelligence.\n[201] PrasetyaAjieUtama,NafiseSadatMoosavi,andIrynaGurevych.2020. TowardsdebiasingNLUmodelsfromunknownbiases. arXivpreprint\narXiv:2009.12303(2020).\n[202] I. van de Poel. 2020. Embedding Values in Artificial Intelligence (AI) Systems. Minds & Machines 30 (2020), 385–409.\nhttps://doi.org/10.1007/s11023-020-09537-4\n[203] AimeeVanWynsberghe.2021.SustainableAI:AIforsustainabilityandthesustainabilityofAI.AIandEthics1,3(2021),213–218.\n[204] GaÃG,lVaroquaux,AlexandraSashaLuccioni,andMeredithWhittaker.2024.Hype,Sustainability,andthePriceoftheBigger-is-BetterParadigm\ninAI.arXivpreprintarXiv:2409.14160(2024).\n[205] LuciaVesnic-Alujevic,SusanaNascimento,andAlexandrePolvora.2020.Societalandethicalimpactsofartificialintelligence:Criticalnoteson",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "scimento,andAlexandrePolvora.2020.Societalandethicalimpactsofartificialintelligence:Criticalnoteson\nEuropeanpolicyframeworks.TelecommunicationsPolicy44,6(2020),101961.\n[206] RicardoVinuesa,HosseinAzizpour,IolandaLeite,MadelineBalaam,VirginiaDignum,SamiDomisch,AnnaFelländer,SimoneDanielaLanghans,\nMaxTegmark,andFrancescoFusoNerini.2020. TheroleofartificialintelligenceinachievingtheSustainableDevelopmentGoals. Nature\ncommunications11,1(2020),1–10.\n[207] JohannesMWaldmueller.2015.Agriculture,knowledgeandthe‘colonialmatrixofpower’:approachingsustainabilitiesfromtheGlobalSouth.\nJournalofGlobalEthics11,3(2015),294–302.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "BridgingtheGap:\nIntegratingEthicsandEnvironmentalSustainabilityinAIResearchandPractice 23\n[208] J. Walmsley. 2021. Artificial Intelligence and the Value of Transparency. AI & Society 36 (2021), 585–595.\nhttps://doi.org/10.1007/s00146-020-01066-z\n[209] LauraWeidinger,KevinR.McKee,RichardEverett,SaffronHuang,TinaO.Zhu,MartinJ.Chadwick,ChristopherSummerfield,andIasonGabriel.\n2023. UsingtheVeilofIgnorancetoalignAIsystemswithprinciplesofjustice. ProceedingsoftheNationalAcademyofSciences120,18(2023),\ne2213709120. https://doi.org/10.1073/pnas.2213709120arXiv:https://www.pnas.org/doi/pdf/10.1073/pnas.2213709120\n[210] CraigRWhite,DustinJMarshall,StevenLChown,SusanaClusella-Trullas,StevenJPortugal,CraigEFranklin,andFrankSeebacher.2021.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "Marshall,StevenLChown,SusanaClusella-Trullas,StevenJPortugal,CraigEFranklin,andFrankSeebacher.2021.\nGeographicalbiasinphysiologicaldatalimitspredictionsofglobalchangeimpacts.FunctionalEcology35,7(2021),1572–1578.\n[211] AdrienneWilliams,MilagrosMiceli,andTimnitGebru.2022.Theexploitedlaborbehindartificialintelligence.NoemaMagazine13(2022).\n[212] T.Wischmeyer.2020.ArtificialIntelligenceandTransparency:OpeningtheBlackBox.InRegulatingArtificialIntelligence.Springer,75–101.\n[213] RobertWolfeandAylinCaliskan.2022.American==whiteinmultimodallanguage-and-imageai.InProceedingsofthe2022AAAI/ACMConference\nonAI,Ethics,andSociety.800–812.\n[214] BigScienceWorkshop,TevenLeScao,AngelaFan,ChristopherAkiki,ElliePavlick,SuzanaIlić,DanielHesslow,RomanCastagné,AlexandraSasha\nLuccioni,FrançoisYvon,etal.2022.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": ",ElliePavlick,SuzanaIlić,DanielHesslow,RomanCastagné,AlexandraSasha\nLuccioni,FrançoisYvon,etal.2022.BLOOM:A176b-parameteropen-accessmultilinguallanguagemodel.arXivpreprintarXiv:2211.05100(2022).\n[215] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.SustainableAI:EnvironmentalImplications,ChallengesandOpportunities.arXivpreprintarXiv:2111.00364(2021).\n[216] D. Zeng. 2015. AI Ethics: Science Fiction Meets Technological Reality. IEEE Intelligent Systems 30, 03 (may 2015), 2–5.\nhttps://doi.org/10.1109/MIS.2015.53\n[217] HongyangZhang,YaodongYu,JiantaoJiao,EricXing,LaurentElGhaoui,andMichaelJordan.2019.Theoreticallyprincipledtrade-offbetween\nrobustnessandaccuracy.InInternationalconferenceonmachinelearning.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "eticallyprincipledtrade-offbetween\nrobustnessandaccuracy.InInternationalconferenceonmachinelearning.PMLR,7472–7482.\n[218] AramZiai.2016.Developmentdiscourseandglobalhistory:Fromcolonialismtothesustainabledevelopmentgoals.Taylor&Francis.\n[219] OferZwikaelandJohnSmyrk.2015. Projectgovernance:Balancingcontrolandtrustindealingwithrisk. InternationalJournalofProject\nManagement33,4(2015),852–862.",
+    "page": 23
+  }
+]

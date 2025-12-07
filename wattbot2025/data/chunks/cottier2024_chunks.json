@@ -1,0 +1,542 @@
+[
+  {
+    "type": "text",
+    "content": "THE RISING COSTS OF TRAINING FRONTIER AI MODELS\nBenCottier1 RobiRahman1,2\nLoredanaFattorini2 NestorMaslej2 TamayBesiroglu1 DavidOwen1\nABSTRACT\nThecostsoftrainingfrontierAImodelshavegrowndramaticallyinrecentyears,butthereislimited\npublic data on the magnitude and growth of these expenses. This paper develops a detailed cost\nmodeltoaddressthisgap,estimatingtrainingcostsusingthreeapproachesthataccountforhardware,\nenergy,cloudrental,andstaffexpenses. Theanalysisrevealsthattheamortizedcosttotrainthemost\ncompute-intensivemodelshasgrownprecipitouslyatarateof2.4×peryearsince2016(90%CI:\n2.0×to2.9×). Forkeyfrontiermodels,suchasGPT-4andGemini,themostsignificantexpenses\nareAIacceleratorchipsandstaffcosts,eachcostingtensofmillionsofdollars. Othernotablecosts",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ntexpenses\nareAIacceleratorchipsandstaffcosts,eachcostingtensofmillionsofdollars. Othernotablecosts\nincludeservercomponents(15-22%),cluster-levelinterconnect(9-13%),andenergyconsumption\n(2-6%). Ifthetrendofgrowingdevelopmentcostscontinues,thelargesttrainingrunswillcostmore\nthanabilliondollarsby2027,meaningthatonlythemostwell-fundedorganizationswillbeableto\nfinancefrontierAImodels.\n1 Introduction\nThe large and growing cost of training state-of-the-art AI models has become an important issue in the field of\nAI[1]. ImprovingAIcapabilitiesdemandexponentialincreasesincomputingpower,asevidencedbybotheconomic\nanalysis[2]andthediscoveryofempiricalscalinglaws,whichshowthatmodelperformanceimproveswithmore\nparametersandtrainingdata[3,4].",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ofempiricalscalinglaws,whichshowthatmodelperformanceimproveswithmore\nparametersandtrainingdata[3,4]. DarioAmodei,CEOoftheAIlabAnthropic,hasstatedthatfrontierAIdevelopers\narelikelytospendclosetoabilliondollarsonasingletrainingrunthisyear,anduptotenbillion-dollartrainingruns\ninthenexttwoyears[5]. Giventhistrend,someinnovations,particularlythoserequiringlarge-scaletraining,may\nbecomeinaccessibletoallbutthemostwell-fundedorganizations.\nAlthoughitiswidelyknownthattrainingthelargestMLmodelsisexpensive,untilrecentlytherewerefewconcrete\nestimatesoftrainingcostsinthepublicdomain. IncollaborationwithEpochAI,the2024AIIndexpresentedoneof\nthemostcomprehensivedatasetstodate,estimatingthecostsoftrainingrunsbasedoncloudrentalprices[6]. We",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "themostcomprehensivedatasetstodate,estimatingthecostsoftrainingrunsbasedoncloudrentalprices[6]. We\nbuildonthatworkwithamorein-depthaccountofhardware,energyandR&Dstaffcostsforbothtrainingrunsand\nexperiments,aswellasamoredetailedanalysisofhowcostsareincreasingovertime. Toourknowledge,ourstudyis\nthemostthoroughanalysisofmodeldevelopmentcoststodate.\nOur methods are built upon a comprehensive database of notable machine learning models [7], and informed by\ninterviews with industry experts. We consider three complementary approaches to measuring the cost of frontier\nmodels. Thefirstapproachestimatesthehardwarecapitalexpenses(CapEx)amortizedoverthefinaltrainingrun,\nalongwith thecostof hardwareenergyconsumption. ByconsideringAI acceleratorchips, otherserverhardware,",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ongwith thecostof hardwareenergyconsumption. ByconsideringAI acceleratorchips, otherserverhardware,\nnetworkinghardware,andenergyseparately,thisapproachcanprovidemoreaccuratetrainingcosts. Wefindthatthe\nmostexpensivepublicly-announcedtrainingrunstodateareOpenAI’sGPT-4at$40MandGoogle’sGeminiUltraat\n$30M.Amongfrontiermodels,definedasmodelswithinthetop10mostcompute-intensivemodelswhentheyare\nreleased,wefindthattraininghasbecome2.4×moreexpensiveperyearsince2016(90%CI:2.0×to2.9×).\nWethencomparethisapproachtothecloud-priceapproachthatwasfirstpresentedintheAIIndex[6]. Insteadof\nestimating hourly compute costs in detail, the cloud-price approach simply uses historical rental rates from cloud\nplatforms. Thecloud-priceapproachshowsasimilargrowthrate(2.5×peryearwitha90%CIof2.1×to3.1×),but\n1EpochAI.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "orms. Thecloud-priceapproachshowsasimilargrowthrate(2.5×peryearwitha90%CIof2.1×to3.1×),but\n1EpochAI.2StanfordUniversity.\n5202\nbeF\n7\n]YC.sc[\n2v51012.5042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Figure1: Amortizedhardwarecostplusenergycostforthefinaltrainingrunoffrontiermodels. Theselectedmodels\nareamongthetop10mostcompute-intensivefortheirtime. Amortizedhardwarecostsaretheproductoftraining\nchip-hours and a depreciated hardware cost, with 23% overhead added for cluster-level networking. Open circles\nindicatecostswhichusedanestimatedproductioncostofGoogleTPUhardware. Thesecostsaregenerally more\nuncertainthantheothers,whichusedactualpricedataratherthanestimates.\nyieldscoststhatareabouttwiceaslargeonaverage. Weexpectthecloud-priceapproachtooverestimatefrontiermodel\ncosts,sincemodeldevelopersusuallyeitherownorhaveprivaterentalagreementsfortheirtraininghardware. Using\nbothapproacheshelpsvalidateourestimateofcostgrowth,whilealsohighlightingtheuncertaintyofindividualcosts.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "pproacheshelpsvalidateourestimateofcostgrowth,whilealsohighlightingtheuncertaintyofindividualcosts.\nOurthirdandmostin-depthapproachbreaksdownhardware,energy,andR&Dstaffcostsovertheentiredevelopment\nofthemodel(i.e. bothexperimentsandtraining). Weselectfourespeciallynotablemodelsforthisapproach—GPT-3,\nOPT-175B,GPT-4,andGeminiUltra. Forthesemodels,wefindthatR&Dstaffcostsincludingequityarebetween\n29%and49%ofthetotalamortizedcost. Computinghardwaremakesup47–64%,whileenergycomprisesonly2–6%.\nHowever,ifweexcludeequitythefractionforR&Dstaffdropsto19–33%,andthefractionsofcomputinghardware\ncostsandenergyriseto61–76%and2–7%respectively.\nBytakingintoaccounthardwarepurchasecosts,energycosts,andthemoreopaquecostsofR&Dlabor,ouranalysis\nprovidesaclearerpictureofthetruecostsofAIdevelopment.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ts,andthemoreopaquecostsofR&Dlabor,ouranalysis\nprovidesaclearerpictureofthetruecostsofAIdevelopment. Thisshedslightonnotonlycurrentcostsbutalsothe\neconomichurdlesthatlieaheadasAIcontinuestoscale.\nAllofourresultscanbereproducedusingthecodeanddataavailableathttps://github.com/epoch-research/\ntraining-cost-trends.\n2 Methodology\n2.1 Datasetsandfrontiermodelselection\nOurinvestigationdrawsupontheNotableAIModelsdatabase,whichdocuments796notablemodelsacrossthehistory\nofmachinelearning[7]. Keydetailscapturedforeachmodelincludetrainingcompute,datasetsize,andparameter\ncount. Tofocusonthelargest-scalemodels, weinitiallyfilteredthedatabasetomodelsthathadtrainingcompute\nestimatesandthatwerepublishedonorafter1October2015(thestartofthelarge-scaleMLeraaccordingto[8])\nandupto31December2023.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "republishedonorafter1October2015(thestartofthelarge-scaleMLeraaccordingto[8])\nandupto31December2023. Thisresultedin276selectedmodels. Forthesemodels,werecordedthetrainingtime,\nhardwaretypeandquantity,andutilizationratesourcedfromeachmodel’soriginalpublication,wherepossible.\nForourmainresults,weexamined41modelsthatwerehistoricallyatthefrontierofcompute. Specifically,wefiltered\nformodelsthatwereinthetop10oftrainingcomputeasoftheirrelease.1 AppendixB.1providesfurtherdetailsonthis\nselectionprocedureandacomparisontothreealternativemethods.\n1Weexcludedmodelsthatarefine-tunedversionsofaseparatelylistedmodel,toavoiddouble-countingcosts.\n2",
+    "page": 2
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 2):\n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | ",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Inadditiontothedataonmachinelearningmodels,wecompiledadatasetofhistoricalhardwareprices,allowingusto\nestimatetrainingcosts. Thispricedatasetcontainedcloudrentalpricesandhardwarepurchasepricesfor24different\nhardwaremodels(e.g. NVIDIAA100)between2015and2023. Intotaltherewere142entries,52ofwhichwere\npurchasepricesand90ofwhichwerecloudrentalprices.\n2.2 Amortizingthecostofhardwarefortraining\nToestimatethecostofhardwareforatrainingrun,wefirstcalculatedthecosttoacquirethenecessaryacceleratorchips\n(GPUs/TPUs),servers,andnetworkinghardware. ThisinvolvedlookinguphistoricalpricesforGPUs,orestimating\nproductioncostsforTPUs. FurtherdetailsareprovidedinAppendixA.1.\nHardwarenormallyremainsavailableforfutureuseafteratrainingrunfinishes,butitsvaluedepreciatesovertimedue\ntohardwareprogress.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "availableforfutureuseafteratrainingrunfinishes,butitsvaluedepreciatesovertimedue\ntohardwareprogress. Weamortizedthecostofatrainingrunbasedonthisdepreciation. Specifically,wedepreciated\nthe value of hardware at a rate of r = 0.14 orders of magnitude per year, based on the growth rate of ML GPU\nprice-performance[9].2 Togetthevalueofthehardwareatthestartoftraining,weusedthefollowingformula:\nAcquisitioncostperchip\nStartvalueperchip=\n(cid:16)(cid:2) (cid:3) (cid:17)\nexp Trainingstartdate−Hardwareavailabilitydate ·rln10\nwherethedifferenceindatesisinunitsofyears. Forexample, ifthetrainingrunstartsoneyearafterhardwareis\nacquired,thestartvalueisapproximately72%oftheacquisitioncost. Weneglectedtheimpactofhardwarefailureson\ndepreciation,astheeffectseemedsmallcomparedtohardwareprogress.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "eglectedtheimpactofhardwarefailureson\ndepreciation,astheeffectseemedsmallcomparedtohardwareprogress. WeprovideevidenceforthatinAppendixA.3.\nAfterfindingtheinitialvalueofthehardware,theamortizedcostofthetrainingrunisthentheportionofvaluethatis\nlostduringthetrainingrun. However,thetrainingtimeisoftendifficulttodetermine,duetoalackofpublicinformation.\nMoreoften,wewereabletoestimatethenumberofchip-hours: theproductofthetrainingtimeandthenumberof\nchips. Sowesubstitutedchip-hoursforthetrainingtimeandthenumberofchips,usingalinearapproximation. This\nledtoourfinalformulaforamortizedtrainingcost:\nTrainingchip-hours\nAmortizedtrainingcost≈Startvalueperchip× ×rln10\n(365×24)hours/year\nUpuntilSection3.5,ourresultsonlyaccountforthechip-hoursofthefinaltrainingrun. InSection3.5,wescaleupthe",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tilSection3.5,ourresultsonlyaccountforthechip-hoursofthefinaltrainingrun. InSection3.5,wescaleupthe\nchip-hourstoaccountforallexperimentstowardsdevelopinganAImodel. Althoughtheamortizedcostmodelinvolves\nseveralestimatesandapproximations,ourresultsarerobusttoreasonablechangesinthemethod(seeAppendixA.3for\nfurthermethodologicaldetailsandAppendixB.3forthesensitivityanalysis).\n2.3 Hardwareenergyconsumptioncost\nInadditiontothecapitalcostsofhardware,wealsoconsideredthecostofenergyconsumedbyhardwareduringmodel\ntraining. Weestimatedthisusingthefollowingformula:\nTotalenergycostoftraining=Energycostrate($/kWh)×HardwareTDP(kW)×\nAveragepowertoTDPratio(%)×DatacenterPUE×Trainingchip-hours(h)\nwhereTDPisthermaldesignpowerandPUEispowerusageeffectiveness,whichaccountsfortheoverheadofdata",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "rs(h)\nwhereTDPisthermaldesignpowerandPUEispowerusageeffectiveness,whichaccountsfortheoverheadofdata\ncenterpowerdistributionandcooling. Weselectedtheenergycostratebyyear,hardwareTDPbythehardwaretype,\naveragepowertoTDPratiobythehardwaremanufacturer,andthedatacenterPUEbytheMLmodeldeveloper. These\nwere set based on hardware manufacturers’ literature. However, some parameters such as average power to TDP\nratiocouldnotbefoundintechnicalspecificationsandhadtobeestimated. Forreferencesandmethoddetails,see\nAppendixA.4.\n2.4 Cloudcomputecost\nWhiletheamortizedhardwareCapEx+energyapproachisabottom-upmethodthataccountsforhardwareandenergy\ncosts,cloudrentalpricesofferasimplermethod. ManyAIlabsrelyoncloudcomputingservicestotraintheirmodels,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "sts,cloudrentalpricesofferasimplermethod. ManyAIlabsrelyoncloudcomputingservicestotraintheirmodels,\nandtheassociatedcostsareoftenmorereadilyavailableandeasiertoestimate. Bycomparingourbottom-upestimates\n2Thisgrowthratemeasuresimprovementat32-bitprecision.One-timeimprovementsfromlower-precisionandtensornumber\nformatswouldmaketheratefaster,butthiswasnotestimated.Thisalsoassumesthathardwareimprovescontinuously.Inreality,\nhardwareimprovesinincrementswitheachnewrelease.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "withthosederivedfromcloudrentalprices,wecanvalidateourapproachandprovideamorecomprehensivepicture\nofAItrainingcosts. Thecloudapproachalsoallowsestimatesofmodeltrainingcostthatarenotpossibleusingthe\namortizedhardwareCapEx+energyapproachandourdata. However,notethatthecloudapproachcanoverestimate\nthecostofmodelswhosedevelopersusedtheirownhardwareratherthanrentingcomputefromacloudprovider.\nToestimatetrainingcostsfromcloudrentalprices,weusedthefollowingformula:\nTotalcost=Priceperchip-hour×Trainingchip-hours\nThepriceperchip-hourwasobtainedfromourhardwarepricedatabase,whichincludespricesforvarioushardware\ntypes,cloudproviders,andrentaldates. WematchedthehardwaretypeandpublicationdateofeachMLmodelwiththe\nmostappropriateprice,usingthedeveloperoftheMLmodeltodeterminethemostlikelycloudprovider(e.g.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "withthe\nmostappropriateprice,usingthedeveloperoftheMLmodeltodeterminethemostlikelycloudprovider(e.g.,Google\nCloudforGooglelabs,MicrosoftAzureforOpenAI).SeeAppendixA.5forfurtherdetails.\n2.5 Totalamortizedmodeldevelopmentcost\nAlthoughthefinaltrainingrunultimatelydeterminesanAImodel’scapabilitiesandimpact,theresearchanddevelop-\nmentsurroundingitiscrucial. Wethereforeusedathirdapproachthatconsidersallofthecomputethatwentintomodel\ndevelopment,aswellasthecostofR&Dstaffdevelopingthemodel. Sincethisapproachwasmoretime-intensive,and\nreliedonhavingalistofcontributorstoestimateR&Dstaffcost,weappliedittojustfourmodels: GPT-3,OPT-175B,\nGPT-4,andGeminiUltra.\nToestimatethecomputecostovermodeldevelopment—includingexperiments,failedattempts,evaluationandfine-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Toestimatethecomputecostovermodeldevelopment—includingexperiments,failedattempts,evaluationandfine-\ntuning—we applied a multiplicative factor to the final training run compute. We estimated this factor based on\nevidenceaboutthedevelopmentofGPT-3,OPT-175BandBLOOM,aswellasthegeneralAIinfrastructureatMeta.\nAppendixA.6providesfurtherdetails. Basedonthis,wesampledthefactorfromalog-normaldistributionwitha90%\nCIof1.2xto4x,meaningthattotalcomputeformodeldevelopmentis1.2xto4xlargerthanthefinaltrainingrun.\n2.5.1 R&Dstaffcosts\nResearchanddevelopment(R&D)staffcostsareanoften-neglectedcomponentofthetotalcostofdevelopingML\nmodels. Thesecostsincludethesalariesandequitycompensationoftheresearchers,engineers,andmanagersinthe\nproject,butexcludesoperationsstaffanddatacenteremployees.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ftheresearchers,engineers,andmanagersinthe\nproject,butexcludesoperationsstaffanddatacenteremployees. Wesetouttobetterquantifythesecostsforafew\nselectedmodelstoseehowsignificanttheyarerelativetothehardwarecosts.\nWeestimatedtotalannualcompensationofR&Dpersonnelbymultiplyingtheestimatedfull-timeequivalentworkload\npercontributorbytheircompensationandbythetotaltimespentonmodeldevelopment. Sincetheseparameterswere\nallquiteuncertain,wesampledfromlog-normaldistributionsovereachparameter.\nForfull-timeequivalentworkers,wewereinformedbythetypeandnumberofcontributorslistedontheresearchpaper.\nForallmodelsexceptGeminiUltra,wesampledfull-timeequivalentworkloadsfroma90%credibleintervalof5%to\n80%FTEforeachcontributor,resultinginamedianof20%. ForGeminiUltra,weuseddifferentworkloadsforeach",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "to\n80%FTEforeachcontributor,resultinginamedianof20%. ForGeminiUltra,weuseddifferentworkloadsforeach\ntypeofcontributorlisted[10,pp. 66–69].\nFor compensation, we were informed by company-specific data from https://www.levels.fyi/ and https:\n//aipaygrad.es/. From levels.fyi, we used data for Google Software Engineers from level 3 to level 8. From\naipaygrad.es,weusedtheoverallstatisticsforallcompaniesandallroles(researchers,engineersandmanagers). After\naveragingthetwosources,basesalariesweremodeledwitha90%CIof$140Kto$160K,andequitywitha90%CIof\n$35Kto$490K.Weappliedanoverheadfactorof1.25xto1.4xtobasesalariestoaccountfortaxesandbenefits[11],\nresultingintotalcompensationwitha90%CIof$210Kto$690Kandamedianof$330K.\nActual staff compensation may vary significantly between AI labs.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "CIof$210Kto$690Kandamedianof$330K.\nActual staff compensation may vary significantly between AI labs. The chosen estimate of compensation may be\nparticularly unreliable for small and early companies, such as OpenAI in its earlier years, where there are many\nuncertaintiesabouthowtovalueequitycompensation. However,thesenumbersserveasareasonablebaseline,andour\nestimatesprovideausefulstartingpointtoanalyzeR&Dlaborcosts.\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "3 Results\n3.1 Amortizedtrainingcostsoffrontiermodelshavegrownby2.4xperyearsince2016\nTheamortizedtrainingcostsoffrontiermodelshaveincreasedbyafactorof2.4xperyearsince2016. Thisistheresult\nofthepreferredamortizedhardwareCapEex+energyapproach,showninFigure2. Table1comparesthistothecloud\napproach,whichyieldsasimilargrowthrateof2.5×peryear. Thegrowthrateisalsosimilarifwevaryhardware\ndepreciationortrainingstartdatewithinreasonablelimits(seeAppendixB.4). However,thegrowthraterisesto2.9x\nperyearifweexcludeTPUs,whichhavemoreuncertaincoststhanpublicly-soldGPUs.\nApproach N×increaseperyear OOMs/year DoublingTime(months) R-squared N\nAmortizedhardware 2.4[2.0,2.9] 0.38[0.29,0.47] 9[8,12] 0.58 41\nCapEx+energy\nAmortizedhardware 3.0[2.4,3.7] 0.47[0.37,0.57] 8[6,10] 0.77 22\nCapEx+energy—noTPUs",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "41\nCapEx+energy\nAmortizedhardware 3.0[2.4,3.7] 0.47[0.37,0.57] 8[6,10] 0.77 22\nCapEx+energy—noTPUs\nRentingfromthecloud 2.5[2.1,3.1] 0.40[0.32,0.48] 9[7,11] 0.66 36\nTable1:Costgrowthratesbasedonlog-linearregression,fordifferentcostestimationapproaches.Allapproachesselect\nthetop10mostcomputeintensivemodelsatthetimeofmodelrelease. N referstothenumberofrelevantobservations.\nBasedonatwo-sidedt-testadjustedforcorrelationofresiduals,thegrowthratesforamortizedhardwarecapex+energy\nandcloudarenotsignificantlydifferent(p=0.13). However,whenthecostsofmodelstrainedwithestimatedTPU\nproductioncostsareexcluded,thegrowthraterisessignificantlyto2.9xperyear(p<0.01). OOMs/year: ordersof\nmagnitudeperyear. Squarebrackets: 90%confidenceinterval.\nFigure2: (ReproductionofFigure1forconvenience.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nitudeperyear. Squarebrackets: 90%confidenceinterval.\nFigure2: (ReproductionofFigure1forconvenience.) Amortizedhardwarecostplusenergycostforthefinaltraining\nrunoffrontiermodels. Theselectedmodelsareamongthetop10mostcompute-intensivefortheirtime. Amortized\nhardwarecostsaretheproductoftrainingchip-hoursandadepreciatedhardwarecost,with23%overheadaddedfor\ncluster-levelnetworking. OpencirclesindicatecostswhichusedanestimatedproductioncostofGoogleTPUhardware.\nThesecostsaregenerallymoreuncertainthantheothers,whichusedactualpricedataratherthanestimates.\nEstimatingcostsfromcloudrentalprices,althoughlessrepresentativeofactualcosts,hastheadvantageofsimplicity.\nThe cloud cost approach also helps to check the robustness of the amortized hardware CapEx + energy approach.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "cost approach also helps to check the robustness of the amortized hardware CapEx + energy approach.\nFigure3showsthetrendofcloudcomputecosttotrainmodelsamongthetop10mostcompute-intensiveasoftheir\nrelease. Notethatsomeoftheseestimatespreviouslyappearedinthe2024AIIndexreport[6]. Wefindthatthecostof\ntrainingmodelsbasedoncloudrentalpriceshasgrownby2.5×peryearsince2016,witha90%CIof2.1×to3.1×.\n5",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Figure3: Estimatedcloudcomputecostsforthefinaltrainingrunoffrontiermodels. Theselectedmodelsareamong\nthetop10mostcompute-intensivefortheirtime. Thecostsaretheproductofthenumberoftrainingchip-hoursanda\nhistoricalcloudrentalprice.\nThisisconsistentwiththeamortizedhardwareCapEx+energyapproach,asshowninTable1. Thisshowsthatour\ntrendestimatesarerobusttotwodifferentwaysofestimatingpricesperchip-hour.\nOverall,theseresultssuggestthatthecloudapproachisvalidforestimatinggrowthratesincomputecosts,andhasthe\nadvantageofsimplicity. However,publiccloudrentalpricesarelessreliableforindividualmodelcostswhenthemodel\ndeveloperownsthehardwareorhasaspecialpartnershipwithacloudprovider.\n3.2 Thetrendsuggeststhatthemostexpensivepubliclyannouncedmodelwillcostonebilliondollarstotrain\nbythestartof2027",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "suggeststhatthemostexpensivepubliclyannouncedmodelwillcostonebilliondollarstotrain\nbythestartof2027\nThegrowthrateintrainingcostindicateshowrapidlyAIinvestmentisscaling.Wecanusethisgrowthratetoextrapolate\nthecostofthelargesttrainingrun. Currently,GPT-4hasthelargestamortizedhardwareandenergycost,at$40M.\nGPT-4waspublishedinMarchof2023[12]. Thisimpliesthat,atagrowthrateof2.4×peryear,themostexpensive\npubliclyannouncedmodelbythestartof2027willcostabout$1billion.\nWhetherthiscostisjustifiedhingesonhowprofitabletheresultingAImodelis—butpartsoftheAIindustrybelieveit\nisworthwhile. TheCEOoftheAIlabAnthropichasclaimedthatclosetoabilliondollarswillalreadybespentona\nsingletrainingrunin2024(implyinganamortizedcost),whichisevensoonerthanthehistoricaltrendsuggests[5].\n3.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "gletrainingrunin2024(implyinganamortizedcost),whichisevensoonerthanthehistoricaltrendsuggests[5].\n3.3 Hardwareacquisitioncostsareonetotwoordersofmagnitudehigherthanamortizedcosts\nIt’simportanttodistinguishtheamortizedcostofthehardwareusedfortraining,whichisspreadovertheusefullifetime\nofthehardware,andtheacquisitioncostofpurchasingthathardwareoutright. Thechoiceofwhichcosttoconsider\ndependsonthepurposeoftheanalysis. Amortizedcostsaremorerelevantforunderstandingtheeconomicsoftraining\nanddeployingmodelsoveranextendedperiod,whileacquisitioncostsgiveasenseofthecapitalbarrierstoentryand\nfinancialrisksinvolvedindevelopingsuchmodels.\nToillustratethedifferencebetweenamortizedhardwarecostandacquisitioncost,Figure4showstheacquisitioncosts",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "lustratethedifferencebetweenamortizedhardwarecostandacquisitioncost,Figure4showstheacquisitioncosts\nwewereabletoestimateusinghardwarepurchasepricesandtraininghardwarequantities. Sincethisistheup-front\ncostofacquiringthehardware,thecostsareonetotwoordersofmagnitudelargerthanamortizedhardwarecosts.\nForexample,weestimatethatitcost$800MtoacquirethehardwareusedtotrainGPT-4,comparedto$40Mforthe\namortizedhardwareCapEx+energycost. Theratiobetweenthetwodependsonwhenandforhowlongthemodelis\ntrained.\nBasedon40estimatesofacquisitioncost,wefindagrowthrateof2.5×peryear(90%CI:2.1×,3.0×). Thisisslightly\nfasterthantherateof2×peryearsuggestedbyamortizedcosts(2.4×peryear)dividedbytrainingtimes(1.2×per\n6",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "year)[13]. ThediscrepancyisduetodifferentAImodelsappearingineachanalysis,highlightingasourceofsensitivity\ninourresults.\nFigure4: Estimatedhardwareacquisitioncoststotrainfrontiermodels. Theselectedmodelsareamongthetop10most\ncompute-intensivefortheirtime. Thecostsaretheproductofthenumberofserversandtheearliestavailableserver\nprice,withabout23%overheadaddedforcluster-levelnetworkinghardware.\n3.4 HalfofamortizedhardwareCapEx+energycostisforAIacceleratorchips\nBreakingdownthecomponentsofamortizedhardwareCapEx+energyinFigure5,wefindthatonaverage,44%goes\ntowardAIacceleratorchips. Therestoftheserver(includingmarkup)makesup29%ofthecost,whileclusterlevel\ninterconnectmakesup17%.\nEnergymakesuptheremainderofcosts,averaging9%butvaryingacrossmodels. Althoughthisisasmallfraction,",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": ".\nEnergymakesuptheremainderofcosts,averaging9%butvaryingacrossmodels. Althoughthisisasmallfraction,\nitcorrespondstorapidgrowthinenergyuseandpowerrequirementsovertime. Thetrendinpowerrequirementsis\nprovidedinAppendixC.\nNotethatthisbreakdowndoesnotincludeallcostsassociatedwithanAIsupercomputer. Othercostsincludethedata\ncenterinfrastructurebesidesserversandnetworking,aswellasdatacenterpersonnelandmaintenance.\n3.5 R&Dstaffareasignificantfractionofcostsoverthewholemodeldevelopmentprocess\nWe now use our third cost estimation approach to examine how the cost of labor from researchers and engineers\ncomparestotheamortizedcostofcompute. Unlikethepreviousapproaches,whichonlymeasuredthecostofthefinal\ntrainingrun,thisapproachcountscomputeusagethroughoutmodeldevelopmentincludingexperiments,fine-tuning",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "rainingrun,thisapproachcountscomputeusagethroughoutmodeldevelopmentincludingexperiments,fine-tuning\nandevaluation. Figure6showsthecostbreakdownforGPT-3,OPT-175B(notableasaGPT-3replicationattemptbya\nteamatMetaAI),theoriginalGPT-4modelbyOpenAI,andtheoriginalGemini1.0UltramodelbyGoogleDeepMind.\nWe find that when equity is included, R&D staff costs make up between 29% and 49% of total amortized model\ndevelopmentcosts,dependingonthemodel. Excludingequity,thefractiondecreasesto21%to33%(seeAppendixB.5\nforadditionalplots). Notably,thisfractiondoesnotchangemuchfromGPT-3toGPT-4,whichspansthreeandahalf\nyearsofAIprogress. Thenumberofreportedcontributorsincreasedfrom25forGPT-3[14]to284forGPT-4[12],\nwhiletheamortizedhardwarecostoverthewholemodeldevelopmentincreasedfrom$4Mto$90M.However,dueto",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "[12],\nwhiletheamortizedhardwarecostoverthewholemodeldevelopmentincreasedfrom$4Mto$90M.However,dueto\nthelimiteddata,wecautionagainstextrapolatingthefractionofR&Dstaffcoststofuturefrontiermodels.\nGeminiUltrahasthehighestfractionofR&Dstaffcostat49%,butweexpectthisisunusuallyhighamongfrontier\nmodels.Firstly,GeminiUltrawastrainedonGoogleTPUs,whicharecheaperforGooglethanbuyingotheraccelerators,\nand this makes the hardware cost relatively low. Secondly, our methodology is limited by deriving the number of\nfull-timeequivalentstafffromthereportednumberofcontributors,forwhichGeminihad941—muchhigherthan\n7",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Breakdown of amortized hardware and energy costs for frontier AI models\nAI accelerator chips Other server components Cluster-level interconnect Energy\n0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%\nGemini 1.0 Ultra\nInflection-2\nFalcon-180B\nPaLM 2\nGPT-4\nGPT-3.5 (text-davinci-003)\nBLOOM-176B\nGLM-130B\nParti\nOPT-175B\nPaLM (540B)\nLaMDA\nGLaM\nGopher (280B)\nMegatron-Turing NLG 530B\nHyperCLOVA 82B\nGOAT\nByT5-XXL\nProtT5-XXL\nMeta Pseudo Labels\nSwitch\nDALL-E\niGPT-XL\nGPT-3 175B (davinci)\nTuring-NLG\nMeena\nAlphaStar\nT5-11B\nMegatron-LM (8.3B)\nMegatron-BERT\nRoBERTa Large\nBigGAN-deep 512x512\nAlphaZero\nAlphaGo Zero\nJFT\nMoE\nAlphaGo Master\nPolyNet\nXception\nGNMT\nDeepSpeech2 (English)\nFigure5: ThepercentageoftheamortizedhardwareCapEx+energyestimatesmadeupbydifferenthardwareand\nenergycosts.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "5: ThepercentageoftheamortizedhardwareCapEx+energyestimatesmadeupbydifferenthardwareand\nenergycosts. Notethatthebreakdownacrossmodelsisapproximate. Cluster-levelinterconnectisassumedtobea\nconstant19%fractionoftheclusterCapEx,andtheproportionofservercomponentsisbasedononlythreecomparisons\nbetweenNVIDIADGXserverpricesandsingleGPUprices(seeAppendixA.1fordetails). Theenergycostsaremore\nspecific,varyingwiththenumberoftrainingchip-hoursandthehardware(seeAppendixA.4).\n8",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nAI accelerator chips Other server components Cluster-level interconnect Energy\n0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 10\nGemini 1.0 Ultra\nInflection-2\nFalcon-180B\nPaLM 2\nGPT-4\nGPT-3.5 (text-davinci-003)\nBLOOM-176B\nGLM-130B\nParti\nOPT-175B\nPaLM (540B)\nLaMDA\nGLaM\nGopher (280B)\nMegatron-Turing NLG 530B\nHyperCLOVA 82B\nGOAT\nByT5-XXL\nProtT5-XXL\nMeta Pseudo Labels\nSwitch\nDALL-E\niGPT-XL\nGPT-3 175B (davinci)\nTuring-NLG\nMeena\nAlphaStar\nT5-11B\nMegatron-LM (8.3B)\nMegatron-BERT\nRoBERTa Large\nBigGAN-deep 512x512\nAlphaZero\nAlphaGo Zero\nJFT\nMoE\nAlphaGo Master\nPolyNet\nXception\nGNMT\nDeepSpeech2 (English) |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | ",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Amortized hardware, energy, and R&D staff costs for training and experiments\nCost (2023 USD, log scale) R&D staff (including equity)\n200M AI accelerator chips\n100M Other server components\n50M Cluster-level interconnect\n20M Energy\n10M\n5M\n2M\n1M\n500k\n200k\n100k\n50k\n20k\n10k\nGPT-3 175B (davinci) OPT-175B GPT-4 Gemini 1.0 Ultra\n(a)\nPercentage of costs for training and experiments of ML models\nR&D staff (including equity) AI accelerator chips Other server components Cluster-level interconnect Energy\nGPT-3 175B (davinci) 33% 31% 21%XX 12% 3%\n%\nOPT-175B 43% 27% 18% 11%\nGPT-4 29% 32% 21% 12% 6%\nGemini 1.0 Ultra 49% 23% 15% 9% 5%\n0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%\nProportion\n(b)\nFigure6: (a)Breakdownoftotalamortizedmodeldevelopmentcostsforselectedmodels. Hardwarecostsareamortized",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ure6: (a)Breakdownoftotalamortizedmodeldevelopmentcostsforselectedmodels. Hardwarecostsareamortized\nto the total number of chip-hours spent on experiments and training, while R&D staff costs cover the duration of\ndevelopmentfrominitialexperimentstopublication. Errorbarsindicate90%credibleintervals,whilethemainbar\nvaluesaremedians. (b)Costscomponentsasapercentageofthetotal,basedonmedianestimates.\nGPT-4at284contributors. Thoughweassumedaverysmallcontributionfromthe428peopleunderthe“Contributors”\nrole—amedianfull-timeequivalentofabout1%—theestimatemaystillbetoohigh.\nOnthecomputeside,wefindthatamortizedhardwarecostmakesup47–64%ofthefullmodeldevelopmentcost,while\nenergycomprisesonly2–6%. WithequityexcludedfromR&Dcosts,thefractionofhardwarecostandenergycostrise\nto61–76%and2–7%respectively.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "thequityexcludedfromR&Dcosts,thefractionofhardwarecostandenergycostrise\nto61–76%and2–7%respectively. Notethatwhileenergyconsumptionisasmallfractionoftotalcost,thisdoesn’t\nentailthatpowerrequirementsarenotachallengeinfrontierAIdevelopment. Regulatoryandlogisticalhurdlesto\nsecurepowersuppliesmaycausebottlenecksinthecomingyears,butweleavethattopictofuturework.\n4 Discussion\n4.1 Implications\nTherapidgrowthinAItrainingcostswillhaveamajorimpactonthefutureofAIdevelopment. Ourfindingssuggest\nthatifthecurrenttrendof2.4xperyeargrowthcontinues,thentheamortizedcostoffrontiertrainingrunswillexceed\nonebilliondollarsby2027. Giventhepotentialbiasinourestimates’absolutevalues,thismayhappenevensooner—as\nsuggestedbycloud-pricecosts,andnewsreportingontrainingcosts[5].",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "utevalues,thismayhappenevensooner—as\nsuggestedbycloud-pricecosts,andnewsreportingontrainingcosts[5]. Ifrealized,thislevelofinvestmentislikelyto\ndriverapidadvancesinAIcapabilities,giventhetrackrecordofscalingupAImodels.\n9",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n33% 31% 21%XX\n%\n\n43% 27% 18%\n\n29% 32% 21%\n\n49% 23% 15%",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "However,onlyahandfuloflargecompaniesandgovernmentinstitutionshavethefinancialresourcestooperateat\nthisfrontier. ThisconcentrationofAIdevelopmentcouldlimittherangeofperspectivesandapproachesconsidered,\nespeciallyfromacademiaandbroadersociety. BothAIdevelopersandpolicymakersmustgrapplewiththerapidAI\nadvancesbroughtonbyincreasinginvestment,aswellasthetradeoffsinvolvedintheconcentrationofAIdevelopment.\nOnonehand, havingfewkeyplayersatthefrontiercouldmakeiteasierforthemtocoordinateonresponsibleAI\ndevelopment. Ontheotherhand,thisraisesconcernsaboutalackofpublicoversightforsuchapowerfultechnology.\n4.2 Howtoestimatetrainingcosts\nWeusedtwoapproachestoestimatethecostoffinaltrainingruns: theamortizedhardwareCapEx+energyapproach,\nandthecloudrentalpriceapproach.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "hecostoffinaltrainingruns: theamortizedhardwareCapEx+energyapproach,\nandthecloudrentalpriceapproach. Thesetwoapproachesproducedconsistentestimatesofthegrowthrateintraining\ncostovertime. However,theapproachesdivergedonindividualcosts: thecloudcostsweretwiceaslargeonaverage.\nWerecommendusingtheamortizedhardwareCapEx+energyapproachforfrontiermodelswhereverit’sfeasible,\nbecauseitaccountsforthelowercostsinpracticeforlargetrainingruns,andcanbebrokendownintocomponents.\nOurthirdapproachaddsthecostofR&Dstaff,aswellasthecomputecostofexperiments,evaluations,andfine-tuning\ninvolvedinmodeldevelopment. Toourknowledge,wepresentthefirstdetailedestimatesofthesecostsforGPT-3,\nOPT-175BandGeminiUltra. Moreover,ourresultssuggestthatR&Dstaffcostswereamajorcomponentoftotalcosts\nforthesefrontiermodels.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": ". Moreover,ourresultssuggestthatR&Dstaffcostswereamajorcomponentoftotalcosts\nforthesefrontiermodels. Althoughthisisthemostcomprehensiveofthethreeapproaches,furtherdatacollectionand\nevidenceontheAIdevelopmentprocessareneededbeforewecanrecommenditasthedefault.\n4.3 Limitations\nWhileourstudyprovidesvaluableinsightsintothegrowthofAItrainingcosts,thereareimportantlimitations. The\nanalysisreliesonpubliclyavailableinformation, whichmayleadtobiasesorgapsinthedataset. Costestimation\nmethodsaresubjecttouncertaintiesduetofactorssuchashardwaredepreciationratesandpricingdynamics. Moreover,\nourmethodsneglectseveralcoststhatarepotentiallysignificant,includingthedatacenterinfrastructureapartfromthe\ntrainingcluster,andtheacquisitionofdataformodeltraining.\nOurresultsmayalsohavelimitedgenerality.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "the\ntrainingcluster,andtheacquisitionofdataformodeltraining.\nOurresultsmayalsohavelimitedgenerality. Thetrendsobservedfortheselectedfrontiermodelsmaynotgeneralizeto\nthebroaderAIlandscape,orspecificAIdomainssuchaslanguagemodeling. Rapidinnovationcouldalsoleadtolarge\ngainsinhardwareandsoftwareefficiencythataredifficulttopredictfromhistoricaldata. Furtherresearchonallof\ntheseunknownswouldhelprefineourinsights,andinformevidence-basedstrategiestorespondtogrowingfinancial\nbarriersinML.\n5 Conclusion\nIn this paper we used three approaches to analyze the cost of training ML models at the frontier. The first two\napproaches—onebasedonhardwarepurchasepricesandenergycosts,theotherbasedoncloudrentalprices—indicate\nthattheamortizedcostofcomputeforthesetrainingrunshasgrownbyaround2.4xperyear(90%CI:2.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rices—indicate\nthattheamortizedcostofcomputeforthesetrainingrunshasgrownbyaround2.4xperyear(90%CI:2.0xto2.9x)\nsince2016. ThisshowsthelargeroleofinvestmentindrivingAIprogress.\nBreakingdownthetotalamortizedmodeldevelopmentcostforselectedfrontiermodels(GPT-3,OPT-175B,GPT-4and\nGeminiUltra),wefoundthatR&Dstaffareamajorcomponent,makingup29–49%ofthetotal. Thismotivatesfurther\nresearchonthescalingofR&Dlaborwithcomputingpower.\nTherapidexponentialgrowthofcostsovereightyearssuggeststhatgrowthisunlikelytostallinthenextfewyears.\nHowever,frontierAIlabsappeartofacenon-trivialchallengestoscalingfurther. Onesuchchallengeissecuringenough\npowercapacityforincreasinglylargecomputingclusters. Analyzingpotentialbottleneckssuchasthisisanimportant\ntopicforfuturework.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "glylargecomputingclusters. Analyzingpotentialbottleneckssuchasthisisanimportant\ntopicforfuturework.\nThe rapid increase in AI investment is likely to drive major advances in AI capabilities. Given that total model\ndevelopmentcostsatthefrontierarealreadyover$100million,theseadvancesmayonlybeaccessibletothelargest\ncompaniesandgovernmentinstitutions. Theconcentrationofsuchapowerfultechnologyamongafewkeyplayers\nraisesquestionsaboutresponsibledevelopmentanddeployment. BothAIdevelopersandpolicymakersmustengage\nwiththeseissuesandconsiderthetradeoffsinvolved. Thestakesarehigh—decisionsmadenowaboutthegovernance\nandtrajectoryofAIcouldhaveprofoundconsequencesforsociety.\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Acknowledgements\nWethankBartoszPodkanowiczforassistingwithdatacollection,LukeFrymireforassistingwithgroundtruthcost\nverification, and Josh You for copyediting. We thank Igor Molybog, Yafah Edelman and Horace He for helpful\nconversationsaboutthetrainingprocessandrequirementsforcreatinglargeMLmodels. WethankKonstantinPilz,\nYafahEdelman,TomDavidson,IsabelJuniewicz,CarlShulman,JaimeSevilla,AleksandarKostovic,TimFist,Haydn\nBelfield,AlanChan,DavidPatterson,MauricioBaker,ErichGrunewald,andCullenO’Keefeforfeedbackondrafts.\nThisstudywassupportedbyagrantfromtheAIIndexbasedoutoftheStanfordInstituteforHuman-CenteredArtificial\nIntelligence. Thecloudcomputecostestimatesshownherepreviouslyappearedinthe2024StanfordAIIndexReport.\nReferences",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ". Thecloudcomputecostestimatesshownherepreviouslyappearedinthe2024StanfordAIIndexReport.\nReferences\n[1] NestorMaslej, LoredanaFattorini, ErikBrynjolfsson, JohnEtchemendy, KatrinaLigett, TerahLyons, James\nManyika,HelenNgo,JuanCarlosNiebles,VanessaParli,etal. ArtificialIntelligenceIndexReport2023. arXiv\npreprintarXiv:2310.03715,2023.\n[2] NeilCThompson,ShuningGe,andGabrielFManso. Theimportanceof(exponentiallymore)computingpower.\narXivpreprintarXiv:2206.14007,2022.\n[3] Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B Brown, Benjamin Chess, Rewon Child, Scott Gray,\nAlec Radford, Jeffrey Wu, and Dario Amodei. Scaling laws for neural language models. arXiv preprint\narXiv:2001.08361,2020.\n[4] JordanHoffmann,SebastianBorgeaud,ArthurMensch,ElenaBuchatskaya,TrevorCai,ElizaRutherford,Diego",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "[4] JordanHoffmann,SebastianBorgeaud,ArthurMensch,ElenaBuchatskaya,TrevorCai,ElizaRutherford,Diego\ndeLasCasas,LisaAnneHendricks,JohannesWelbl,AidanClark,etal. Trainingcompute-optimallargelanguage\nmodels. arXivpreprintarXiv:2203.15556,2022.\n[5] Ezra Klein and Dario Amodei. What if Dario Amodei Is Right about A.I.? https://www.nytimes.com/\n2024/04/12/opinion/ezra-klein-podcast-dario-amodei.html?showTranscript=1,2024. Accessed:\n2024-05-30.\n[6] NestorMaslej, LoredanaFattorini, ErikBrynjolfsson, JohnEtchemendy, KatrinaLigett, TerahLyons, James\nManyika,HelenNgo,JuanCarlosNiebles,VanessaParli,etal. ArtificialIntelligenceIndexReport2024,2024.\n[7] EpochAI.Parameter,ComputeandDataTrendsinMachineLearning.https://epochai.org/data/epochdb/\nvisualization,2022. Accessed: 2024-05-30.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "TrendsinMachineLearning.https://epochai.org/data/epochdb/\nvisualization,2022. Accessed: 2024-05-30.\n[8] JaimeSevilla,LennartHeim,AnsonHo,TamayBesiroglu,MariusHobbhahn,andPabloVillalobos. Compute\ntrendsacrossthreeerasofmachinelearning. In2022InternationalJointConferenceonNeuralNetworks(IJCNN),\npages1–8.IEEE,2022.\n[9] MariusHobbhahn,LennartHeim,andGökçeAydos. TrendsinMachineLearningHardware. https://epochai.\norg/blog/trends-in-machine-learning-hardware,2023. Accessed: 2024-05-30.\n[10] GeminiTeam. Gemini: AFamilyofHighlyCapableMultimodalModels. arXivpreprintarXiv:2312.11805,2024.\n[11] Barbara Weltman. How Much Does an Employee Cost You? . https://www.sba.gov/blog/\nhow-much-does-employee-cost-you,2019. Accessed: 2024-05-30.\n[12] OpenAI. GPT-4TechnicalReport. arXivpreprintarXiv:2303.08774,2024.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "u,2019. Accessed: 2024-05-30.\n[12] OpenAI. GPT-4TechnicalReport. arXivpreprintarXiv:2303.08774,2024.\n[13] Epoch AI. The length of time spent training notable models is growing. https://epoch.ai/data/\nnotable-ai-models#training-time-growth,2024. Accessed: 2024-12-09.\n[14] TomBrown,BenjaminMann,NickRyder,MelanieSubbiah,JaredDKaplan,PrafullaDhariwal,ArvindNee-\nlakantan,PranavShyam,GirishSastry,AmandaAskell,etal. Languagemodelsarefew-shotlearners. Advances\ninneuralinformationprocessingsystems,33:1877–1901,2020.\n[15] NVIDIACorporation. NVIDIADGXSuperPODReferenceArchitecture,2023.\n[16] TimFist. Personalcommunication,2024.\n[17] NormanPJouppi,CliffYoung,NishantPatil,DavidPatterson,GauravAgrawal,RaminderBajwa,SarahBates,\nSureshBhatia,NanBoden,AlBorchers,etal.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "tPatil,DavidPatterson,GauravAgrawal,RaminderBajwa,SarahBates,\nSureshBhatia,NanBoden,AlBorchers,etal. In-datacenterperformanceanalysisofatensorprocessingunit. In\nProceedingsofthe44thannualinternationalsymposiumoncomputerarchitecture,pages1–12,2017.\n[18] TheInformation. GooglediscusseddroppingBroadcomastheirAIchipssupplier,2023. Accessed: 2024-05-30.\n[19] DylanPatelandGeraldWong. AIservercostanalysis–memoryisthebiggestloser,2023. Accessed: 2024-05-30.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "[20] Tae Kim. Raymond James estimates it costs Nvidia $3,320. https://x.com/firstadopter/status/\n1691877797487165443,2024. Accessed: 2024-05-30.\n[21] TechPowerUp. NVIDIATeslaK80Specs,2024.\n[22] TechPowerUp. NVIDIATeslaP100PCIeSpecs,2024.\n[23] TechPowerUp. NVIDIATeslaV100SXM232GBSpecs,2024.\n[24] TechPowerUp. NVIDIAA100SXM440GBSpecs,2024.\n[25] BigScienceWorkshop,TevenLeScao,AngelaFan,ChristopherAkiki,ElliePavlick,SuzanaIlic´,DanielHesslow,\nRomanCastagné,AlexandraSashaLuccioni,FrançoisYvon,etal. BLOOM:A176B-ParameterOpen-Access\nMultilingualLanguageModel. arXivpreprintarXiv:2211.05100,2022.\n[26] NormanP.Jouppi,DoeHyunYoon,MatthewAshcraft,MarkGottscho,ThomasB.Jablin,GeorgeKurian,James\nLaudon,ShengLi,PeterMa,XiaoyuMa,ThomasNorrie,NishantPatil,SushmaPrasad,CliffYoung,Zongwei",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ian,James\nLaudon,ShengLi,PeterMa,XiaoyuMa,ThomasNorrie,NishantPatil,SushmaPrasad,CliffYoung,Zongwei\nZhou,andDavidPatterson. TenLessonsFromThreeGenerationsShapedGoogle’sTPUv4i: IndustrialProduct.\nIn2021ACM/IEEE48thAnnualInternationalSymposiumonComputerArchitecture(ISCA),pages1–14,2021.\n[27] NVIDIACorporation. NVIDIADGXH100Datasheet,2023.\n[28] David Patterson, Joseph Gonzalez, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel Rothchild, David\nSo, Maud Texier, and Jeff Dean. Carbon Emissions and Large Neural Network Training. arXiv preprint\narXiv:2104.10350,2021.\n[29] NVIDIACorporation. NVIDIADGXSuperPODDataCenterDesign(forNVIDIADGXH100Systems),42023.\nVersion01.\n[30] LuizAndreBarroso, UrsHolzle, ParthasarathyRanganathan, andMargaretMartonosi. TheDatacenterAsa",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "[30] LuizAndreBarroso, UrsHolzle, ParthasarathyRanganathan, andMargaretMartonosi. TheDatacenterAsa\nComputer: DesigningWarehouse-scaleMachines,2018.\n[31] Meta. Datacenters-Metasustainability. https://sustainability.fb.com/data-centers/, 2024. Ac-\ncessed: 2024-05-30.\n[32] DylanPatel, DanielNishball, andJeremieEliahouOntiveros. AIDatacenterEnergyDilemma-RaceforAI\nDatacenter Space. https://www.semianalysis.com/p/ai-datacenter-energy-dilemma-race, 2024.\nAccessed: 2024-05-30.\n[33] Electric Power Monthly. https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=\nepmt_5_6_a,2024. Accessed: 2024-01-15.\n[34] SusanZhang,StephenRoller,NamanGoyal,MikelArtetxe,MoyaChen,ShuohuiChen,ChristopherDewan,\nMonaDiab,XianLi,XiVictoriaLin,etal. OPT:Openpre-trainedtransformerlanguagemodels. arXivpreprint",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "an,\nMonaDiab,XianLi,XiVictoriaLin,etal. OPT:Openpre-trainedtransformerlanguagemodels. arXivpreprint\narXiv:2205.01068,2022.\n[35] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,\nFiona Aga, Jinshi Huang, Charles Bai, et al. Sustainable AI: Environmental implications, challenges and\nopportunities. ProceedingsofMachineLearningandSystems,4:795–813,2022.\n[36] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.EstimatingtheCarbonFootprintofBLOOM,\na176BParameterLanguageModel. arXivpreprintarXiv:2211.02001,2022.\n[37] NVIDIA Corporation. Why GPUs are great for AI. https://blogs.nvidia.com/blog/\nwhy-gpus-are-great-for-ai/,2023. Accessed: 2024-05-30.\n[38] Electricity generation, capacity, and sales in the United States. https://web.archive.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "-05-30.\n[38] Electricity generation, capacity, and sales in the United States. https://web.archive.\norg/web/20240407085026/https://www.eia.gov/energyexplained/electricity/\nelectricity-in-the-us-top-10.php,2022. Accessed: 2024-05-29.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "A Trainingcostestimation\nA.1 Hardwareacquisitioncost\nThefrontierAImodelsinourdatasetweretrainedonclustersofmanyGPUorTPUchips(or“chips”forshort). We\nsetouttoestimatethetotalcostofthechips,servers,andnetworkingequipmentintheseclusters,whichwecallthe\nhardwareacquisitioncost. Thiscostiscalculatedasfollows:\nHardwareacquisitioncost=Acquisitioncostperchip×Numberofchips\nWhere “Acquisition cost per chip” accounts for the GPU or TPU chip itself, other server costs (CPUs, memory,\nchip-to-chipnetworking,andmarkup),andthecostofserver-to-servernetworkingequipment. Table2showshowwe\ncalculatedthisquantitydependingonwhatwasknownaboutthetraininghardware.\nKnowninformation Formulafor“Acquisitioncostperchip”\nSingleGPUprice GPUchipprice×Chip-to-serverfactor×Server-to-clusterfactor",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "or“Acquisitioncostperchip”\nSingleGPUprice GPUchipprice×Chip-to-serverfactor×Server-to-clusterfactor\nGPUserverprice GPUserverprice/GPUsperserver×Server-to-clusterfactor\nChipsareTPUs TPUchipcost×Chip-to-serverfactor×Server-to-clusterfactor\nTable2: Theformulatoestimate“Acquisitioncostperchip”,dependingonwhatisknownaboutthetraininghardware.\nIfthetraininghardwarewasaGPU,welookeduptheearliestknownpricelinkedtothatGPU.Ifthepricewefound\nwasforasingleGPU,wemultipliedthatpricebya“chip-to-server”costfactor(detailedlater). Ifthepricewefound\nwasinsteadforaDGXserver,wedividedthatpricebythenumberofGPUsperserver.3 Finally,ifthetraininghardware\nwasaGoogleTPU,weusedthe“Geometricmean”productioncostestimatefromTable3. Thisrepresentsthecostof\ntheTPUchipitself,whichwethenmultipliedbyachip-to-servercostfactor.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "mTable3. Thisrepresentsthecostof\ntheTPUchipitself,whichwethenmultipliedbyachip-to-servercostfactor.\nWecalculatedchip-to-servercostfactorsbasedonknownDGXandsingle-GPUpricesnearrelease,usingtheformula\n(DGXcost)/(8×GPUcost). WewereabletoestimatethisfortheNVIDIAP100(1.54×),V100(1.69×),andA100\n(1.66×). ForotherNVIDIAchips,andforTPUs,weusedthemeanofthesethreeknownfactors(1.64×). Weassumed\nthattheDGXserverpricesincludedthecostofchip-to-chipinterconnectswitchesandtransceivers.4 Wedidnotaccount\nforfinancing,i.e. theinterestpaidonaloantopurchasethehardwareup-front.\nOncewehadthecostperchipforasingleserver,weaddedthecostofserver-to-servernetworkingequipment. We\nusedanestimatebyKostovic(forthcoming),basedonthereferencearchitectureoftheNVIDIAH100SuperPOD[15].",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "e\nusedanestimatebyKostovic(forthcoming),basedonthereferencearchitectureoftheNVIDIAH100SuperPOD[15].\nAccordingtothisestimate,approximately19%ofthetotalcostoftheSuperPODgoestowardscluster-levelinterconnect\nforconfigurationswithlessthan4096GPUs,and20%for4096GPUsandabove,duetoanadditionalthirdlayerof\nswitches. Consistentwiththesefigures,anotherexpertinAIhardwareestimatedarangeof10%to20%forA100-based\nclusterswithanInfinibandnetwork[16].\nForsimplicity,weassumedthat19%ofthehardwareacquisitioncostwasforserver-to-servernetworkingequipment.We\nthereforemultipliedthecostperchipforasingleserverbya“server-to-cluster”factorof100%/(100%−19%)≈1.23×,\nresultinginthefinal“Acquisitioncostperchip”. WeassumedthattheoverheadfactorisaccurateforTPUserversas",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "esultinginthefinal“Acquisitioncostperchip”. WeassumedthattheoverheadfactorisaccurateforTPUserversas\nwellasGPUservers,thoughwehavesubstantialuncertaintyaboutthis. Inreality,theproportionofcostsvarieswith\ntheclusterarchitectureandsize.\nA.2 CostofGoogleTPUs\nTensorProcessingUnitsareaclassofproprietaryAIacceleratorhardwaredevelopedbyGoogle,andusedintheir\ninternalcomputingprojectsandemployedinGoogleClouddatacenters[17]. Thesechipsarenotavailableforsale,but\nsomeofthemcanberentedonthecloud. Sincetheyhaveneverbeensold,therearenoavailablepurchaseprices,which\nmakesitmoredifficulttoestimatetheamortizedcapitalexpensesforGoogleBrain,DeepMind,andotherGooglelabs.\n3HGXserversaremoresuitedtolarge-scale,customizedAIsupercomputers,butwefoundverylittleinformationontheirpricing,\nsoweusedDGXpricing.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "scale,customizedAIsupercomputers,butwefoundverylittleinformationontheirpricing,\nsoweusedDGXpricing.\n4SomeoftheNVIDIAproductpageswherewefoundhardwarepriceslistedNVSwitchesascomponents,butitwasunclear\nwhetherNVLinkcablesforchip-to-chiplinkswereincluded.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ToestimatethecostofTPUsusedbyGooglelabs,weaggregatedtwoapproaches. ThefirstapproachestimatesTPU\nmanufacturing costs based on a bill of materials (BOM) for the NVIDIA H100 GPU. We consider this a low-end\nestimate,asitdoesnotaccountforR&Dcosts,lowerproductionofTPUscomparedtoNVIDIAGPUs,andtheoverhead\nofco-designingTPUswithBroadcom[18]. ThesecondapproachmodelstheequivalentpurchasepricesofGoogle\nTPUshadtheybeenofferedforsale,bycomparingthemtocontemporaryhardwarewithsimilarspecifications. We\nconsider this a high-end estimate, because GPU prices include a markup on the cost of developing the chips. We\ninterpolatedhardwarecostsbasedonprice-performance:\nTPUperformance\nTPUeffectivecost=GPUcost× ×dateadjustmentfactor\nGPUperformance",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "donprice-performance:\nTPUperformance\nTPUeffectivecost=GPUcost× ×dateadjustmentfactor\nGPUperformance\nwherethedateadjustmentfactoradjustscostscomparedondifferentdatestomakethemcomparable,basedonthe\ntrendthatGPUperformanceperunitcostimprovesatarateof0.14ordersofmagnitudeperyear.\nForthemanufacturingcostapproach,weestimatedthemanufacturingcostfortheNVIDIADGXSuperPODat$8,665\nperGPU.Thisestimatewasinformedby[19]and[20]—calculationsareavailablein‘h100_manufacturing_cost.ipynb‘.\nAfterconvertingthistotheTPUcostusingtheaboveformula, wedividedbytheaverageserver-to-chipcostratio\nof1.64thatweestimatedfromNVIDIAGPUprices(seeAppendixA.1). TheresultsarelistedinTable3. Forthe\nequivalentGPUpriceapproach,wefoundthespecifications,releasedates,andpricesofthemostsimilarnon-Google",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "quivalentGPUpriceapproach,wefoundthespecifications,releasedates,andpricesofthemostsimilarnon-Google\nMLGPUs,listedinTable4[21,22,23,24].\nH100 TPUv1 TPUv2 TPUv3 TPUv4\nReleasedate 2022-09-21 2015-05-20 2017 2018 2021\nPerformanceratiotoH100 100% 5% 9% 12% 28%\nDateadjustmentfactor 1.00 10.66 5.38 3.90 1.48\nServermanufacturingcost(perchip) $8,665 $4,295 $4,244 $4,200 $3,570\nChipmanufacturingcost(estimate) $5,346 $2,650 $2,619 $2,591 $2,203\nPriceofequivalentGPU(estimate) - $11,263 $9,752 $10,742 $12,119\nGeometricmean - $5,463 $5,054 $5,276 $5,176\nTable3: CostandperformancecomparisonbetweenGoogleTPUsandtheNVIDIAH100. Performanceratiostothe\nNVIDIAH100usethesamenumberformatandarewithoutsparsity. OuroverallestimateofTPUcostsisthegeometric",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "e\nNVIDIAH100usethesamenumberformatandarewithoutsparsity. OuroverallestimateofTPUcostsisthegeometric\nmeanofestimatesforthechipmanufacturingcostandthepriceofanequivalent-performanceGPU.\nK80 P100PCIe16GB V100SXM232GB A100SXM440GB\nReleasedate 2014-11-17 2016-06-20 2018-03-27 2020-05-14\nPerformanceinTFLOPS 8(FP32) 19(FP16) 125(FP16) 312(FP16)\nMemory 24GB 16GB 32GB 40GB\nSaleprice $5,000(atrelease) $5,699(atrelease) $11,458(2018-05-08) $15,000(2020)\n$3,700(2016) $12,500(2022)\nTable4: ComparisonofGPUspecifications. ByinterpolationbetweenGPUs,andtheirprice-performancedata,we\nestimateperformance-equivalentpricesforTPUversions.\nAsexplainedabove,weconsiderthemanufacturingcoststobelowestimatesandtheequivalentGPUpricestobe\nhigh-end estimates of the full production cost.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ngcoststobelowestimatesandtheequivalentGPUpricestobe\nhigh-end estimates of the full production cost. To aggregate the two approaches into a final estimate, we took the\ngeometricmean,asshowninTable3. EachTPUversionhasanestimatedcost(forGoogle)ofabout$5,000.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "A.3 Amortizationmodel\nAsexplainedinsection2.2,weestimatedthevalueofthetraininghardwareatthebeginningoftrainingas:\nAcquisitioncostperchip\nStartvalueperchip=\n(cid:16)(cid:2) (cid:3) (cid:17)\nexp Trainingstartdate−Hardwareavailabilitydate ·rln10\nwhererisadepreciationrateinordersofmagnitudeperyear,andthedifferenceindatesisinyears. Thehardware\navailability date depended on the type of hardware. If the hardware was a Google TPU, we used the hardware\nannouncementdate. ForGPUs, weuseda90-daybufferbetweentheGPUfirstgoingonthemarketandtheGPU\nactuallybeingshippedtothebuyer. Ourresultsarerobusttovariationsinthisbuffertime—seeAppendixB.4.\nForthetrainingstartdate,therewereafewknowncases—forexample,GPT-4finishedtraininginAugust2022[12].",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": ".\nForthetrainingstartdate,therewereafewknowncases—forexample,GPT-4finishedtraininginAugust2022[12].\nOtherwise,wesubtractedthetrainingtimefromthepublicationdate,andthensubtractedafurther60daystoaccount\nfortimespentevaluatingthemodelandwritingthepaper. Again,ourresultsarerobusttovariationsinthisbuffer. Ifthe\ntrainingtimewasunknown,weusedthemedianofknownvaluesinourdataset,whichwasapproximately33days.\nTheprecisewaytoamortizethetrainingcostthroughexponentialdepreciationis:\nAmortizedtrainingcost=Startvalueperchip×Numberofchips×Depreciationduringtraining\n(cid:16) (cid:2) (cid:3)(cid:17)\n=Startvalueperchip×Numberofchips× 1−exp −Trainingtime×rln10\nwheretrainingtimeisinyears. However,wecouldestimatechip-hoursmoreoftenandmorereliablythanthetraining\ntimeorthenumberofchipsseparately.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "r,wecouldestimatechip-hoursmoreoftenandmorereliablythanthetraining\ntimeorthenumberofchipsseparately. Thisisbecausechip-hourscanalsobeestimatedfromtrainingcomputein\nFLOPdividedbytheFLOP/sachievedduringtraining. Weusedalinearapproximationtotakeadvantageofthese\nchip-hourestimates:\nTrainingchip-hours\nAmortizedtrainingcost=Startvalueperchip× ×rln10\n(365×24)hours/year\nThisapproximationisvalidif(Trainingtime)×rln10issmall,andthisisthecaseforthetrainingtimesinourdataand\nourchoiceofr =0.14. Inanextremecase,atrainingtimeof1yearresultsin1×0.14ln(10)∼=32%deprecation\ncomparedto1−exp(−1×0.14ln(10))∼=28%depreciation. Thisisnotalargedifferencerelativetoothersources\nofuncertainty.\nDuetoNVIDIAcoveringdefectsandcomponentfailuresunderwarranty,weconcludedthathardwarefailuresarenota",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "DuetoNVIDIAcoveringdefectsandcomponentfailuresunderwarranty,weconcludedthathardwarefailuresarenota\nsignificantsourceofdepreciationrelativetohardwareprogress. Asonedatapoint,anaverageof1to2failuresper\nweekoccurredwhentrainingtheBLOOMmodelonaclusterof384NVIDIAA100GPUs[25]. Evenifthesewereall\ncatastrophicfailures,theexpectedhardwarelifetimewouldbe3.7years. WeexpectthatNVIDIAreplacesorrepairs\ndefectiveGPUsonafastertimescale,whichmakesthecostoffailuresmallcomparedtohardwarepricedepreciation.\nA.4 Energycostestimation\nTomodelthecostofenergyconsumedbyhardwareduringatrainingrun,westartedwiththethermaldesignpower\n(TDP)oftheGPUorTPUusedfortraining. WethenscaledthisuptoestimatetheTDPofoneserver. ForTPUs,the\nserverscale-upwasbasedondatafromTable1of[26]. ForNVIDIAGPUs,weusedspecificationssuchas[27].",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "PUs,the\nserverscale-upwasbasedondatafromTable1of[26]. ForNVIDIAGPUs,weusedspecificationssuchas[27].\nNext,weconvertedTDPtotheaveragepoweractuallyconsumedduringtraining. ForTPUsweusedanaveragevalue\nof43%usingdataonTDPandaveragepowerin[28,Table4],aswellasdataonTDPin[26,Table1]. ForGPUswe\nalsoaggregatedmultiplesources([29],[28],and[30,p.133]),arrivingatanall-things-consideredestimateof75%.\nToaccountforpowerconsumedbydatacenterpowerdistributionandcooling,wemultipliedaverageserverpowerby\nthepowerusageeffectiveness. WeusedaPUEof1.1fordatacentersownedbyhyperscalerssuchasAlphabetand\nMicrosoft,basedon[28,Table4]andastatementbyMeta[31]. Otherwise,weused1.25[32].\nTogetthetotalenergycostofthetrainingrun,wemultipliedtheenergyconsumptionbytheaverageindustrialelectricity",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "hetotalenergycostofthetrainingrun,wemultipliedtheenergyconsumptionbytheaverageindustrialelectricity\npriceinthemodelpublicationyear[33].\nA.5 Cloudpriceselection\nToestimatetrainingcostsfromcloudrentalprices,wematchedthehardwaretypeandpublicationdateofeachML\nmodelwithapricefromthehardwarepricedatabase. Todothis,wefirstfilteredthedatabaseforpriceswhichmatched\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "thehardwaretypeandthemostlikelycloudproviderthatwouldbeused,withthelatterbasedonthedeveloperof\ntheMLmodel,e.g. usingGoogleCloudforanyGooglelab,andusingMicrosoftAzureforOpenAIbasedontheir\npartnershipwithMicrosoft. Wethenestimatedthedateofhardwareprocurementasthepublicationdateminusthe\ntrainingtime,andminusafurther2monthstoaccountforpreparationbeforethetrainingrun.5 Ifthetrainingtimewas\nunavailable,weusedthemedianvalueofapproximately33days.\nFinally,wesearchedthepricedatabaseforthepriceperchip-hourthatwasdatednearesttotheestimatedprocurement\ndate. Wedefaultedtothepricefora3-yearrentalcommitment. Basedonafewcustomquoteswerequestedfromcloud\nproviders,wefoundthatactualcloudcomputingpricesarenegotiableandcanbesubstantiallylowerthanpublicly\nlistedprices.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "foundthatactualcloudcomputingpricesarenegotiableandcanbesubstantiallylowerthanpublicly\nlistedprices. Weconcludedthata3-yearcommitmentpriceistheclosestonaveragetowhatdeveloperswouldbe\nquoted,eveniftheymakeashortercommitment.\nPrices were not available for every specific combination of hardware, cloud provider, and rental date, so we used\nseveralfallbackstoselectthemostcloselyapplicablecloudrentalprice,forexampleusingnearestpricesintime,using\npricesforsimilarhardwaremodels,etc. Thefullprocedureisprovidedathttps://github.com/epoch-research/\ntraining-cost-trends/blob/main/prices.py#L210-L294.\nA.6 Accountingforcomputeusedthroughoutmodeldevelopment\nItisimportanttoconsidercomputeusedthroughoutmodeldevelopment. Thecostofexperiments,evaluations,and",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Itisimportanttoconsidercomputeusedthroughoutmodeldevelopment. Thecostofexperiments,evaluations,and\nfine-tuningreflectsactualcostsfordeveloperstoresearchandpossiblydeployausefulMLmodel. Thiscomputeisnot\nonlyimportant,butsignificantinscale: weestimatethattheratiooftotalcomputetofinaltrainingruncomputeranges\nfrom1.2xto4x,withamedianof2.2x.\nOnesourceofevidenceontheallocationofcomputeisthetrainingofsmallermodelsizesforagivenarchitecture. For\nexample,smallerversionsofGPT-3used4.5e22FLOP(basedoncompute=6×parameters×tokens)[14,Table\n2.1]. Thisshowsatleast14%ofcomputewasspentoutsidethemaintrainingrun. SimilarreasoningforBLOOM\nrevealsabout63%ofcomputewasusedonsmallermodels[25,Table5].\nAnothersourceofevidenceisreportsofhowcomputebudgetsareallocated. Forexample,theOPT-175Bdevelopers",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": ".\nAnothersourceofevidenceisreportsofhowcomputebudgetsareallocated. Forexample,theOPT-175Bdevelopers\nestimatedtotalcostat“roughly2xhigher”thanthelargesttrainingrun[34].Meanwhile,acrossMeta’sAIinfrastructure,\none estimate in the literature suggested a 1:2 ratio between experimentation and training, where training includes\nadditionalhyper-parametertuningandretraining[35].\nForGPT-3,thetrueratioisalmostcertainlyhigherthan1.14xduetofailuresandotherexperiments. Webelievethe\nMeta, BLOOMandOPT-175Bcasesarethemorecentralexamplesastheyaccountbetterforallexperiments. So\nafactorcloseto2xseemslikeareasonablemedianestimate. Onthehighend,it’splausiblethatseverallarge-scale\nexperimentsarenecessarybeforetraining—say,4x. Wesampledfromtherangeofplausiblevaluesusingalog-normal\ndistribution.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "necessarybeforetraining—say,4x. Wesampledfromtherangeofplausiblevaluesusingalog-normal\ndistribution. Thedistributionwasdefinedbya90%CIof1.2xto4x,leadingtoamedianof2.2x.\nA.7 Costuncertaintyanalysis\nOurcostestimationmethodshavemanysourcesofuncertainty,makingitimportanttomeasureoveralluncertaintyin\ntheestimates. Todothis,wefirstmadearoughestimateoftherelativeuncertaintyineachinputvariable,basedon\nempiricaldata. Forexample,fortheoverheadofper-GPUservercostrelativetosingleGPUcostweassigneda90%\ncredibleintervalof1.3xto2.1x,whichiswiderthantherangeofvaluesinourdataandfromindustrysources.6\nWe then used a simulation to sample from distributions over each input variable. The simulation, along\nwith details of the bounds for each input variable, are available at https://github.com/epoch-research/",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "details of the bounds for each input variable, are available at https://github.com/epoch-research/\ntraining-cost-trends/blob/main/uncertainty.ipynb. Thesimulationusedlog-normaldistributionsforall\nvariablesexceptdepreciationrateandutilizationrate,whichusednormaldistributions. Thesampledvariableswere\ncombinedintoasampleoffinalcosts, usingtherelevantformula. Thecostsamplewasthennormalizedtohavea\nmedianvalueof1. The90%CIofthisnormalizedsamplerepresentstherelativeuncertaintyincost.\nTherelativeuncertaintiesincostarelistedinTable5. Hardwareacquisitioncostinvolvesfewervariableswithless\nuncertainty,soestimatesaregenerallyaccuratewithinafactoroftwoformodelstrainedonGPUs,andwithinafactorof\n4formodelstrainedonTPUs. Meanwhile,amortizedhardwareCapEx+energyisgenerallyaccuratewithinafactorof",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "4formodelstrainedonTPUs. Meanwhile,amortizedhardwareCapEx+energyisgenerallyaccuratewithinafactorof\nthreeorfourformodelstrainedonGPUs,andafactoroffiveformodelstrainedonTPUs. Thecostestimatesaremost\n5Thechoiceof2monthswasaneducatedguess.Thematchingofmodelstocloudpriceswasnotverysensitivetothischoice\nbecausethepricedatawassparseandstableovertime.\n6Thethreeactualvalueswecalculatedrangedfrom1.54(P100)to1.69(V100).Apre-existingcostbreakdownofaDGXH100\nimpliesaratioofapproximately1.4(totalcostdividedby\"8GPU+4NVSwitchBaseboard\"cost)[19].\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "sensitivetotheGPUandTPUunitcost(accuratewithinfactorsof2and4respectively)andthetrainingchip-hours\n(factorof3).\nCostquantity 90%CI\nHardwareacquisition(GPUs) 0.5xto2x\nHardwareacquisition(TPUs) 0.2xto4x\nAmortizedhardwareCapEx+energy(GPUs) 0.3xto4x\nAmortizedhardwareCapEx+energy(TPUs) 0.2xto5x\nTable5: Estimatedrelativeuncertaintyinindividualcostestimates,fordifferentmethods. TPUestimateshavelarger\nuncertaintyduetotheadditionaluncertaintyinestimatingtheirequivalentcosts.\nA.8 Groundtruthcostcomparison\nInordertoverifythatourresultsarereasonable,wesoughttocompareourcostestimateswithtruecostsreportedby\ndevelopersandothersources. However,thereareveryfewmodelswherethedevelopersreportboththecomputing\nresourceusageandthetotalcost. TrainingcostsandcomputeresourcesareindependentlyknownforBLOOM-176B",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ng\nresourceusageandthetotalcost. TrainingcostsandcomputeresourcesareindependentlyknownforBLOOM-176B\nandOPT-175B,sowecompareourestimateswiththese.\nBLOOM-176Bwastrainedon1,161,261A100-hoursatathroughputof150TFLOP/GPU/sat48%modelFLOPs\nutilizationandacostof$3million(includingexperiments)[25]. Weestimatedacloudcomputecostof$1.99Moran\namortizedcostof$0.8MforBLOOM-176B.Theaccuracyofthisestimatedependsonhowmuchofthegrantwasspent\nonexperimentsversusthefinaltrainingrun. AccordingtoBLOOM’smodelpageonHuggingFace,the“Estimated\ncostoftraining”isthe“Equivalentof$2–5Mincloudcomputing(includingpreliminaryexperiments)”. Preliminary\nexperimentsincludedtrainingsmallerBLOOMmodels. Thefinaltrainingrunforthe176Bmodelused37.24%ofthe",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ry\nexperimentsincludedtrainingsmallerBLOOMmodels. Thefinaltrainingrunforthe176Bmodelused37.24%ofthe\nenergyoftheBLOOMproject[36];ifthetotalcostoftheprojectwas C3Masinthegrantdescription,thisimpliesthat\nBLOOM-176Bhadacostof$1.2M,whichisbetweenourtwoestimatesandalignsmorecloselywiththeamortized\ncostapproach($900K)thanthecloudcostapproach($2M).\nOPT-175Bwastrainedfor793.5hours,atacostof$2500/hourasreportedinthetraininglogbook[34],foratotal\ncostof$1.98million. Weestimatedacloudcomputecostof$1.5MforthefinaltrainingrunofOPT-175B,whichis\noffby25%,andanamortizedhardwareandenergycostof$700K,offby65%. OPT’sclustercostrateperhourwas\nlikelygreaterthanwhatweestimatefromthequantityofGPUs,orlessthantheapproximatefigurementionedbythe\ndevelopersinthetraininglog.\nB Sensitivityanalysis\nB.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Us,orlessthantheapproximatefigurementionedbythe\ndevelopersinthetraininglog.\nB Sensitivityanalysis\nB.1 Selectionofhistoricfrontiermodels\nInordertoanalysetrendsinfrontierMLmodels,wemustdefinewhatcountsasafrontiermodelatanypointintime.7\nOurpreferredapproachistoselectmodelsfromthedatabasethatwereinthetop10mostcompute-intensivemodelsas\noftheirreleasedate,althoughweconsideredothersasshowninFigure7.\nForthemostpart,differentselectionapproachesgavesimilarresults. Theexceptionwasselectingfrontiermodelsbased\nondistancefromthecomputetrend. Thisapproachimposesanartificiallyflatfloorontheeligiblemodels. Duetothis,\nitleavesoutmanyearliermodels,andproducesaflattercosttrendthantheothermethods.\nOurpreferredapproachhasanadvantageoveralternatives: theselectionismorerobusttothesamplingofourdataset.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "preferredapproachhasanadvantageoveralternatives: theselectionismorerobusttothesamplingofourdataset.\nApproachesbasedonquantiles,ordistancefromthehistorictrend,areinfluencedbydatacollectedonmodelsoutside\nthefrontier. Selectingthetop-rankedmodels,incomparison,ismerelyinfluencedbywhetherthedatasetcontainsthose\nfrontiermodels.\n7Modelsinthedatabasemeetoneormoreofthefollowingcriteria:(i)advancedthestateoftheartonaqualifyingbenchmark,\n(ii)atleast1000citations,(iii)atleastonemillionmonthlyactiveusers,or(iv)equivalenthistoricalsignificance[7].However,this\nmeansthedatabaseincludesmanymodelsthatwerefarfromthefrontierofcompute.\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Top-N=10 Top 20% of models in year before/after\ne)\nal 100M 100M\ng\nsc\no\nD, l 1M 1M\nS\nU\n3 10k 10k\n2\n0\n2\nost\n(\n100\n2.4x per year\n100\n2.3x per year\nC\n2016 2018 2020 2022 2024 2016 2018 2020 2022 2024\nTop 15% of models in year before Top 20% of residuals from trend\ne)\nal 100M 100M\ng\nsc\no\nD, l 1M 1M\nS\nU\n3 10k 10k\n2\n0\n2\nost\n(\n100\n2.2x per year\n100\n1.6x per year\nC\n2016 2018 2020 2022 2024 2016 2018 2020 2022 2024\nPublication date Publication date\nFigure7: Comparisonofhardwarecapex+energycostregressionusingdifferentfrontiermodelselectionmethods.\nResultsarefairlysimilaracrossmethods,althoughtakingthetop20%ofresidualsleadstoaflattertrend.\nB.2 VaryingNintop-Nmodelselection\nWhenselectingfrontiermodelsbythetop-N method, thereisaquestionofhowtochooseN. WechoseN = 10",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "lection\nWhenselectingfrontiermodelsbythetop-N method, thereisaquestionofhowtochooseN. WechoseN = 10\ntoproducealargeenoughsamplesizewhilestillfocusingonmodelsnearthefrontier. Theestimatedgrowthrateis\nmoderatelyrobusttothechoiceofN,asitissimilarforN =3,N =5andN =20(seeFigure8).\nB.3 Varyingthedepreciationofhardwarevalue\nThegrowthinprice-performanceforMLGPUsrunningatFP32precisionhasbeenestimatedat0.14OOMs/yearwith\na90%CIof0.10to0.18OOMs/year[9]. SubstitutingthelowerandupperboundsofthatCIforthedepreciation\nratedidnotsignificantlychangethegrowthrateofamortizedhardwareCapEx+energy. Forthelowerboundof0.10\nOOMs/year,costestimatesdecreasedby15%onaverage,whilefortheupperboundof0.18OOMs/year,costestimates\nincreasedby10%onaverage.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "sdecreasedby15%onaverage,whilefortheupperboundof0.18OOMs/year,costestimates\nincreasedby10%onaverage. Notethatincreasingthedepreciationratehastwoeffectsthatpartiallycancelout: 1. the\nvalueofhardwareatthestartoftrainingissmaller,2. theproportionofvalueusedupbytrainingislarger.\nWe also tested 0.3 OOMs/year as an extreme case, based on a claim that single-GPU inference performance has\nimprovedby1000×inthelastdecade[37]. Thisdidnotsignificantlychangethegrowthrateeither,butitincreased\ncostsbyanaverageof30%.\nB.4 Varyingthetimebetweenhardwareacquisitionandthestartoftraining\nWetesteddifferentestimatesofthehardwareacquisitiondaterelativetothereleasedate,aswellasthetrainingstart\ndaterelativetothemodelpublicationdate. Thesedatesaffectthetimeoverwhichhardwarevaluedepreciates. To",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "daterelativetothemodelpublicationdate. Thesedatesaffectthetimeoverwhichhardwarevaluedepreciates. To\nmakethedepreciationtimeslong,weremovedtheminimumbufferof90daysbetweenhardwarereleaseandhardware\nacquisition,andpushedthedefaulttrainingstartdatebackby15daysrelativetothepublicationdate. Thisdecreased\ntheestimatedcostsby4%onaverage,anddidnotchangethegrowthrate. Similarly,wetestedashortdepreciationtime\nbyextendingthehardwareacquisitionbuffertimeto180daysandbringingthedefaulttrainingstartdateforwardby60\ndays. Thisincreasedcostsby10%onaverageanddidnotchangethegrowthrate.\n18",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.4x per | year\n |  |  |  |  | ",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.3x per | year\n |  |  |  |  | ",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.2x per | year\n |  |  |  |  | ",
+    "page": 18
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 18):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 1.6x per | year\n |  |  |  |  | ",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "Top 3 Top 5\ne)\nal 100M 100M\nc\ns\ng\no\nD, l 1M 1M\nS\nU\n3 10k 10k\n2\n0\n2\nst\n(\n100\n2.3x per year\n100\n2.3x per year\no\nC\n2016 2018 2020 2022 2024 2016 2018 2020 2022 2024\nTop 10 Top 20\ne)\nal 100M 100M\nc\ns\ng\no\nD, l 1M 1M\nS\nU\n3 10k 10k\n2\n0\n2\nst\n(\n100\n2.4x per year\n100\n2.8x per year\no\nC\n2016 2018 2020 2022 2024 2016 2018 2020 2022 2024\nPublication date Publication date\nFigure8: Comparisonofamortizedhardwarecapex+energyregressionforvaryingtop-N selection.\nB.5 ExcludingequityfromR&Dstaffcosts\nTomeasuretheimpactofequityonthetotalamortizedmodeldevelopmentcost,Figure9ashowsthecostbreakdown\nwithequityexcludedfromtheR&Dstaffcost. TheproportionofcostonR&Dstaffdecreasesfrom29–49%withequity\nincluded,to19–33%withequityexcluded.\nC Powercapacityformodeltraining",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "fdecreasesfrom29–49%withequity\nincluded,to19–33%withequityexcluded.\nC Powercapacityformodeltraining\nFigure10showsthetrendinthepowercapacityofthecomputeclusterneededfortrainingfrontiermodels. Thiswas\nbasedonthefollowingformula:\nPowercapacity(kW)=Hardwarequantity×HardwareTDP(kW)×DatacenterPUE\nwhere“HardwareTDP”includesallserverhardware. Wefindagrowthrateof2.2xperyear(90%CI:1.9xto2.6x).\nGeminiUltrahasthelargestestimatedpowercapacity,ataround35MW.ProjectingthetrendforwardfromGemini\nUltra,themostpower-intensivetrainingrunwoulddraw1GWatsomepointin2028. Toputthisincontext,thetopten\nlargestpowerplantsintheUnitedStateshaveacapacityrangingfrom3GWto7GW[38].\n19",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.3x per | year\n |  |  |  |  | ",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.3x per | year\n |  |  |  |  | ",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.4x per | year\n |  |  |  |  | ",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  | 2.8x per | year\n |  |  |  |  | ",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "Amortized hardware, energy, and R&D staff costs for training and experiments\nCost (2023 USD, log scale) R&D staff (including equity)\n200M AI accelerator chips\n100M Other server components\n50M Cluster-level interconnect\n20M Energy\n10M\n5M\n2M\n1M\n500k\n200k\n100k\n50k\n20k\n10k\nGPT-3 175B (davinci) OPT-175B GPT-4 Gemini 1.0 Ultra\n(a)\nPercentage of costs for training and experiments of ML models\nR&D staff (excluding equity) AI accelerator chips Other server components Cluster-level interconnect Energy\nGPT-3 175B (davinci) 21% 36% 25% XX 14% 3%\n%\nOPT-175B 32% 32% 21% 13%\nGPT-4 19% 36% 24% 14% 7%\nGemini 1.0 Ultra 33% 30% 19% 11% 6%\n0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%\nProportion\n(b)\nFigure9: (a)Breakdownoftotalamortizedmodeldevelopmentcostsforselectedmodels,withequityexcludedfrom",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "Figure9: (a)Breakdownoftotalamortizedmodeldevelopmentcostsforselectedmodels,withequityexcludedfrom\ntheR&Dstaffcost. Hardwarecostsareamortizedtothetotalnumberofchip-hoursspentonexperimentsandtraining,\nwhileR&Dstaffcostscoverthedurationofdevelopmentfrominitialexperimentstopublication. Errorbarsindicate\n90%credibleintervals,whilethemainbarvaluesaremedians. (b)Costscomponentsasapercentageofthetotal,based\nonmedianestimates.\nFigure10: ThetrendinAIcomputeclusterpower(inkilowatts)requiredtotrainfrontiermodelsovertime. Poweris\ncalculatedastheproductofthenumberofservers,serverTDP,andpowerusageeffectiveness.\n20",
+    "page": 20
+  }
+]

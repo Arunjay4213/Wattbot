@@ -1,0 +1,582 @@
+[
+  {
+    "type": "text",
+    "content": "Cost-Efficient LLM Serving in the Cloud: VM\nSelection with KV Cache Offloading\nKihyun Kim1, Jinwoo Kim1, Hyunsun Chung1, Myung-Hoon Cha2, Hong-Yeon Kim2, Youngjae Kim1,†\n1Dept. of Computer Science and Engineering, Sogang University, Seoul, Republic of Korea\n2ETRI, Daejeon, Republic of Korea\ncan easily lead to GPU memory shortages. Due to the auto-\nAbstract—LLM inference is essential for applications like\ntext summarization, translation, and data analysis, but the regressive nature of LLM inference, the Key-Value (KV) cache,\nhigh cost of GPU instances from Cloud Service Providers which stores past token information, continuously grows. As\n(CSPs) like AWS is a major burden. This paper proposes a result, GPU memory usage increases sharply with sequence",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "S is a major burden. This paper proposes a result, GPU memory usage increases sharply with sequence\nInferSave, a cost-efficient VM selection framework for cloud-\nlength and batch size.\nbasedLLMinference.InferSaveoptimizesKVcacheoffloading\nA common technique to mitigate this issue is KV Cache\nbasedonServiceLevelObjectives(SLOs)andworkloadcharac-\nteristics, estimating GPU memory needs, and recommending Offloading, which offloads KV cache data exceeding GPU\ncost-effective VM instances. Additionally, the Compute Time memory limits to CPU memory or disk. This enables large-\nCalibration Function (CTCF) improves instance selection batch processing without running out of memory [6, 7, 8, 9].\naccuracy by adjusting for discrepancies between theoretical",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "out running out of memory [6, 7, 8, 9].\naccuracy by adjusting for discrepancies between theoretical\nHowever, if the additional latency introduced by offloading is\nand actual GPU performance. Experiments on AWS GPU\nnot properly managed, throughput can significantly degrade,\ninstances show that selecting lower-cost instances without\nKV cache offloading improves cost efficiency by up to 73.7% potentially failing to meet the required SLOs.\nfor online workloads, while KV cache offloading saves up to Cost Efficiency of LLM Inference in Cloud Environ-\n20.19% for offline workloads. ments:MajorcloudserviceproviderssuchasAWS,GCP,and\nIndex Terms—Cloud Computing, LLM Inference Tasks, Ser-\nAzure offer a variety of GPU instance options with different",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "d Computing, LLM Inference Tasks, Ser-\nAzure offer a variety of GPU instance options with different\nvice Level Objective (SLO) Management, KV Cache Offloading\nperformance levels and cost structures, providing flexibility\nin resource utilization [10]. However, selecting a cost-efficient\nI. Introduction GPU instance in a cloud environment is a complex task\nthat is difficult for users to perform manually. The challenge\nLarge Language Models (LLMs) have become a core tech-\narises because GPU instances vary significantly in price and\nnologyinmodernNaturalLanguageProcessing(NLP),demon-\nperformance (Refer to Table I), and workload characteristics\nstratingoutstandingperformanceinvariousapplicationssuch\nrequireflexibleKVcacheoffloadingstrategies,makingoptimal",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "andingperformanceinvariousapplicationssuch\nrequireflexibleKVcacheoffloadingstrategies,makingoptimal\nas text summarization, machine translation, and conversa-\nselection difficult.\ntional AI [1]. LLMs built on Transformer-based architectures,\nGiven this complexity, an optimized approach must inte-\nsuch as GPT [2] and LLaMA [3], leverage multi-layer self-\ngrate the following two key factors:\nattention mechanisms and large-scale pretraining to achieve\nnear-human-level language understanding and generation • GPU instance selection based on task characteristics\ncapabilities. Thanks to their superior performance, LLMs are • Efficient KV Cache Offloading strategy\nwidely used across industries, providing high accuracy and Balancingthroughputtargetsandcostefficiencybycombin-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "across industries, providing high accuracy and Balancingthroughputtargetsandcostefficiencybycombin-\nnatural responses in a wide range of tasks, including text ing these two factors remains a critical challenge that needs\nsummarization, question answering, and document analysis. to be addressed.\nHowever, to efficiently design an LLM inference system, it Limitations of Existing Research: Previous studies on\nis essential to consider task-specific Service Level Objectives cost efficiency in cloud environments [11, 12, 13, 14, 15] have\n(SLOs). For instance, in online inference tasks, such as real- focused primarily on image processing or general machine\ntime conversational services or question answering, latency learning workloads. As a result, they do not capture the",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "al services or question answering, latency learning workloads. As a result, they do not capture the\nmust be minimized to ensure a seamless user experience. unique characteristics of large-scale LLM inference. Moreover,\nReducing inference latency is a key challenge in these recent research on cost-efficient LLM inference has largely\nscenarios. concentrated on real-time inference scenarios [16, 17, 18,\nOn the other hand, in batch processing tasks [4, 5] such 19, 20], neglecting large-scale data processing environments\nas text summarization for large datasets, log analysis, and where KV cache offloading could be leveraged effectively.\ndocument clustering, latency requirements are generally less Furthermore, these studies do not comprehensively analyze\nstrict.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "cy requirements are generally less Furthermore, these studies do not comprehensively analyze\nstrict.Instead,maximizingthroughputiscritical,asthesetasks cost efficiency in relation to Service Level Objectives (SLOs).\ninvolve processing large volumes of input data at once. In Toaddressthesechallenges,thispaperproposesInferSave,\nsuch batch processing environments, handling large batches a software framework that automatically selects the optimal\nVM instance by considering both cost and performance based\n†Y.Kimisthecorrespondingauthor. on SLOs.\n5202\nrpA\n61\n]GL.sc[\n1v61811.4052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "The InferSave framework operates as follows based on operations and improve processing speed. However, the size\nuser input: First, It calculates the required GPU memory of the KV Cache increases significantly with the input length\nbased on the specified SLO and workload size, analyzing and model size.\nthe feasibility of KV cache offloading to determine a set of For example, as shown in Figure 1, in the OPT_2.7B model\ncandidate instances. Next, using pre-collected performance running on an AWS g4dn.xlarge instance with 1024 input\ndata, it performs a modeling step to predict the performance tokens, the KV Cache consumes approximately 0.332GB at a\nandcostofeachinstance.Finally,itevaluatesthesepredictions batch size of 2. When the batch size increases to 32, the",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tance.Finally,itevaluatesthesepredictions batch size of 2. When the batch size increases to 32, the\nto recommend the most cost-efficient instance that meets the KV Cache expands to 5.312GB, which can lead to GPU\nuser’s SLO constraints.Through this process, the InferSave memory exhaustion. This memory constraint may degrade\nframework becomes the first solver system that automatically overall system throughput and reduce resource utilization\nrecommends the most economical VM instance for LLM efficiency [1, 21].\nserving in cloud environments. By integrating KV cache\noffloading and GPU instance characteristics, it ensures SLO B. Memory Optimization for LLM Inference via KV Cache\ncompliance while optimizing costs. Offloading\nThe InferSave framework analyzes GPU instance perfor-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "compliance while optimizing costs. Offloading\nThe InferSave framework analyzes GPU instance perfor-\nDuring LLM inference, the increasing size of the KV Cache\nmance based on user input and comprehensively considers\ncan lead to GPU memory exhaustion, resulting in an Out-of-\nthe feasibility of KV cache offloading to automatically recom-\nMemory (OoM) issue. To address this, KV Cache Offloading\nmend the optimal VM instance for LLM inference in cloud\ntechniques have been proposed [6, 7, 8, 9]. These techniques\nenvironments.ByleveragingInferSave,userscaneasilyfind\noperate by offloading KV Cache data that exceeds GPU\nthe most cost-effective VM instance that meets their specified\nmemory capacity to CPU memory or disk and retrieving\nSLO while minimizing operational expenses.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ied\nmemory capacity to CPU memory or disk and retrieving\nSLO while minimizing operational expenses.\nit back to the GPU when needed for computation. This\nExperimental results show that applying InferSave\napproach effectively alleviates the GPU memory pressure,\nachieves significant cost savings compared to traditional\nenabling the processing of long sequences and large batch\nmaximum-performance-based policies, with reductions of up\nsizes. Additionally, it allows efficient inference on lower-end\nto73.7%foronlineworkloadsand20.19%forofflineworkloads.\nGPUs without requiring additional high-performance GPUs,\nIn addition, it is designed to be flexible across various AWS\nthus reducing deployment costs.\ninstances and cloud environments, providing a practical and",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ous AWS\nthus reducing deployment costs.\ninstances and cloud environments, providing a practical and\nHowever, latency introduced by data transfer between the\nefficient approach to operating LLM inference services.\nGPU and external storage (e.g., CPU memory or disk) is\nII. BackgroundandMotivation a major limitation of KV Cache Offloading. If the transfer\nfrequency of KV Cache data is high, the increased latency\nA. LLM Architecutre and Inference\ncan lead to bandwidth bottlenecks, ultimately degrading\nLarge-scale language models (LLMs), such as OpenAI’s\ninference performance. Therefore, for effective deployment of\nGPT [2] and Meta’s LLaMA [3], are built on the Trans-\nKV Cache Offloading, it is essential to optimize the process\nformer [1] architecture. These models consist of a multi-layer",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "is essential to optimize the process\nformer [1] architecture. These models consist of a multi-layer\nby considering LLM inference characteristics (e.g., sequence\nstructure incorporating Self-Attention mechanisms and Feed-\nlength, batch size) and user-defined Service Level Objectives\nForward Networks, enabling their broad applicability across\n(SLOs), such as maximum allowable response time.\nvarious natural language processing (NLP) tasks.\nTheLLMinferenceprocessisdividedintotwostages:Prefill\nC. Challenges of LLM Inference and KV Cache Offloading in\nandDecode.InthePrefillstage,theinputpromptisprocessed\nthe Cloud\nin parallel to generate the initial output tokens. During\nthis process, Query, Key, and Value vectors are computed Cloud service providers (CSPs) such as Amazon AWS offer",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Query, Key, and Value vectors are computed Cloud service providers (CSPs) such as Amazon AWS offer\nfor each token in the input prompt, capturing contextual a variety of GPU virtual machine (VM) instances. As shown\ninformation through token-wise interactions. Simultaneously, in Table I, the price of these instances varies significantly,\nthe computed Key and Value tensors are stored in the ranging from $0.379 (g4ad.xlarge) to $40.96 (p4de.24xlarge),\nGPU memory as a Key-Value Cache (KV Cache) to alleviate depending on the type of GPU, the memory capacity, and the\ncomputational overhead in subsequent operations. bandwidth of the network [22].\nThe KV Cache is essential for preventing redundant Moreover, when applying KV Cache Offloading to LLM",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "e KV Cache is essential for preventing redundant Moreover, when applying KV Cache Offloading to LLM\ncomputations in Self-Attention, thereby enhancing inference inference, the trade-off between inference performance and\nspeed and resource efficiency. For instance, if the Prefill stage actual cost introduces a complex dilemma. To maximize cost-\ncomputes and stores the Key and Value tensors for the input efficiency, users must carefully optimize their choice of VM\n\"I am a,\" the Decode stage can reuse them to rapidly generate and offloading strategy based on: (i) Model size, (ii) Sequence\nthe next token, \"man,\" without redundant computations. length, and (iii) Service Level Objectives (SLOs), such as\nIn the Decode stage, new tokens are sequentially generated maximum response time.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "s (SLOs), such as\nIn the Decode stage, new tokens are sequentially generated maximum response time.\nin an Auto-Regressive manner based on previously generated However, a systematic framework for making these deci-\noutput tokens. Here, the stored KV Cache is reused to sions is currently lacking. As a result, users must experiment\nreduce the computational burden of repeated Self-Attention with multiple VM options and offloading policies manually to",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "TABLEI\nVariousTypesofinstancesprovidedbyAWS.\nKV Cache Size\nThisinformationwasavailableonFeburary4,2025in\nN.Virginiaregion.\nName T G y P p U e Dem O a n n - d($) G ( P #) U (T F F L L O O P P S S) v (G C i P B U ) GP ( U Gi M B) em (G M b e p m s) N ( e G t b w p o s r ) k\ng4dn.xlarge T4 0.526 1 8.141 4 16 16 -25\ng4ad.xlarge V520Pro 0.379 1 7.373 4 8 16 -10\ng5.xlarge A10G 1.006 1 31.52 4 24 16 -10 g5g.xlarge T4G 0.42 1 8.141 4 16 8 -10\ng6.xlarge L4 0.805 1 30.29 4 24 16 -10\ng6.4xlarge L4 1.323 1 30.29 16 24 64 -25\ng4dn.12xlarge T4 3.912 4 8.141 48 64 192 50\ng4dn.metal T4 7.824 8 8.141 96 128 384 100\ng4ad.16xlarge V520Pro 3.468 4 7.373 64 32 256 25\ng5.12xlarge A10G 5.672 4 31.52 96 96 192 40 (a) g4dn.xlarge with OPT1.3B model (b) g4dn.xlarge with OPT2.7B model\ng5g.16xlarge T4G 2.744 2 8.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "40 (a) g4dn.xlarge with OPT1.3B model (b) g4dn.xlarge with OPT2.7B model\ng5g.16xlarge T4G 2.744 2 8.141 64 32 128 25\ng6.12xlarge L4 4.602 4 30.29 48 96 192 40\ng6.48xlarge L4 13.35 8 30.29 192 196 768 100\np4de.24xlarge A100 40.96 96 19.49 96 7680 640 400\ndetermine an optimal configuration, which adds significant\noverhead [6, 9].\nIn this paper, we outline the key dilemmas of KV Cache\nOffloading for LLM inference in the cloud as follows.\n• Dual Nature of KV Cache Offloading: KV Cache\nOffloadingmitigatesGPUmemoryshortageissues,allowing\nfor the processing of larger batch sizes (e.g., greater than\n16). However, it increases latency due to data transfer\nbetween CPU and GPU (e.g., up to 20% latency increase\nin FlexGen [6]). Specifically, when the sequence length",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "U and GPU (e.g., up to 20% latency increase\nin FlexGen [6]). Specifically, when the sequence length\nexceeds 4096, the KV Cache size grows significantly\n(e.g., exceeding 3.2GB), making offloading essential. This,\nhowever, increases the likelihood of failing to meet Service\nLevel Objectives (SLOs) such as a 100ms response time.\n• Complexity of Cloud VM Selection: As shown in\nTable I, the performance and cost between instances like\ng4dn.xlarge($0.526,16GiBGPUMemory)andp4de.24xlarge\n($40.96, 7680GiB GPU Memory) vary significantly. The\noptimal VM selection depends on the model requirements\n(e.g.,memoryusage,computationspeed).High-performance\nVMsreducetheneedforKVCacheOffloading,whilelower-\nend VMs increase reliance on offloading.\n• Difficulty of SLO-Based Optimization: High-\nperformance VMs (e.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "s increase reliance on offloading.\n• Difficulty of SLO-Based Optimization: High-\nperformance VMs (e.g., g6.48xlarge) solve the Out-\nof-Memory (OoM) problem but may lead to GPU\nutilization dropping below 50% when the inference load\nis low, resulting in wasted costs. On the other hand,\nlower-end VMs (e.g., g4ad.xlarge) have lower initial costs\nbut suffer from frequent KV Cache Offloading due to\nVRAM limitations, causing latency to increase by more\nthan double [9]. This results in a dilemma of (i) resource\nwastage with high-cost VM selection, and (ii) performance\ndegradation with low-cost VM selection.\n• Lack of Automated Optimization Systems: Currently,\nthere is a lack of guidelines for automating the selection of\nVMsandKVCacheOffloadingincloudenvironments.Users",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "lack of guidelines for automating the selection of\nVMsandKVCacheOffloadingincloudenvironments.Users\nmust manually test various VMs (e.g., g5 vs. g6 series) and\noffloading settings, which increases time and cost burdens.\nThisstudyproposesthenecessityofaframeworkthatauto-\nmatically recommends optimal VM and KV Cache Offloading\nstrategies based on SLO, and introduces a model (Solver) that\ncan balance cost and performance.\n)BG(\neziS\nehcaC\nVK\n6 8\nKV Cache Size\n5\n6\n4\n3 4\n2\n2 1\n0 0\n2 4 8 16 32 2 4 8 16 32\nBatch Size Batch Size\nFig.1. AnalysisofKVCachesizegrowthacrossdifferentmodelsinresponse\ntoincreasingbatchsizes.\nD. Existing Approaches and Their Limitations\nExisting research aiming to optimize LLM inference in\ncloud environments [16, 17, 18, 19] reveals limitations in",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "arch aiming to optimize LLM inference in\ncloud environments [16, 17, 18, 19] reveals limitations in\nachieving cost-efficient LLM serving as they do not consider\nan integrated approach to KV Cache Offloading and VM\nselection.\nMelange[16]proposesanallocationstrategythatminimizes\ncost by mixing different GPU types (e.g., high-performance\nGPUs and low-cost GPUs) based on LLM service charac-\nteristics such as request size, frequency, and Service Level\nObjectives (SLOs, e.g., response time within 200ms). However,\nthis method relies on profiling GPU performance and the\nworkload pattern in advance, making it difficult to apply\nto new environments or models. Furthermore, it does not\naccount for KV Cache Offloading, failing to provide optimiza-\ntion solutions in memory-constrained scenarios (e.g.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Cache Offloading, failing to provide optimiza-\ntion solutions in memory-constrained scenarios (e.g., when\nsequence length exceeds 4096).\nAladdin [17] suggests a framework for jointly optimizing\nrequest batches and resource scaling to meet SLOs. For\ninstance, it adds additional GPUs to reduce latency at high\nrequest rates. However, it does not integrate the memory-\nsaving effects of KV Cache Offloading or the trade-offs\nbetween different GPU types, which limits the flexibility in\nVM configuration.\nSplitWise [19] and ThunderServe [18] utilize a Phase\nSplitting strategy, separating the Prefill (initial token gen-\neration) and Decode (subsequent token generation) stages.\nThese approaches allocate specialized GPUs to each stage\n(e.g., high-speed GPUs for Prefill and memory-centric GPUs",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "allocate specialized GPUs to each stage\n(e.g., high-speed GPUs for Prefill and memory-centric GPUs\nfor Decode) to enhance efficiency. However, this method is\nonly effective in environments where the two stages can be\nphysically separated, making it difficult to apply to standard\nsingle-VM-based LLM serving. Additionally, transferring KV\nCache between stages requires high-speed interconnects (e.g.,\nNVLink,withGPU-to-GPUbandwidthabove100GB/s),which\nreduces practicality in cloud VMs without NVLink (e.g., AWS\ng4dn series).\nMeanwhile, DeepVM [12], which deals with deep learning\noptimization in cloud environments, focuses on optimizing\nVM clusters for checkpoint-based distributed CNN training.\nForexample,itreducescostsbyleveragingsavedstatesduring\ntraining interruptions.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ributed CNN training.\nForexample,itreducescostsbyleveragingsavedstatesduring\ntraining interruptions. However, this method is tailored for",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n | KV Cache Siz",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n | \n | ",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\nGPU\nType | On-\nDemand($) | GPU\n(#) | FLOPS\n(TFLOPS) | vCPU\n(GiB) | GPUMem\n(GiB) | Mem\n(Gbps)\nT4\nV520Pro | 0.526\n0.379 | 1\n1 | 8.141\n7.373 | 4\n4 | 16\n8 | 16\n16\nA10G\nT4G\nL4 | 1.006\n0.42\n0.805 | 1\n1\n1 | 31.52\n8.141\n30.29 | 4\n4\n4 | 24\n16\n24 | 16\n8\n16\nL4 | 1.323 | 1 | 30.29 | 16 | 24 | 64\nT4 | 3.912 | 4 | 8.141 | 48 | 64 | 192\nT4 | 7.824 | 8 | 8.141 | 96 | 128 | 384\nV520Pro | 3.468 | 4 | 7.373 | 64 | 32 | 256\nA10G | 5.672 | 4 | 31.52 | 96 | 96 | 192\nT4G | 2.744 | 2 | 8.141 | 64 | 32 | 128\nL4 | 4.602 | 4 | 30.29 | 48 | 96 | 192\nL4 | 13.35 | 8 | 30.29 | 192 | 196 | 768\nA100 | 40.96 | 96 | 19.49 | 96 | 7680 | 640",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n | ",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "training and is not directly applicable to real-time inference\nor KV Cache management in LLM serving. CE task =\nTPS\neffective\n×3600\n(3)\n⌈T ⌉×VM Price\ntask\nIII. ProblemDefinition\nThis metric provides a quantitative measure of how effi-\nA. Definition of Service Level Objective (SLO) Metrics ciently a system meets the required SLO while optimizing\nIn cloud environments, large language model (LLM) in- costs in a cloud-based inference environment.\nference involves a complex trade-off between memory con-\nstraints, cost, and service quality. Depending on the type C. Preliminary Results\nof inference task, users may have different Service Level AsshowninTableIinSectionII,cloudVMinstancesexhibit\nObjectives (SLOs). significant differences in both performance and cost. This",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "oudVMinstancesexhibit\nObjectives (SLOs). significant differences in both performance and cost. This\nInthispaper,wedefinetwotypesofinferencetasks:Online variability makes it challenging for users to select the most\nInference and Offline Inference. cost-efficient instance for LLM inference tasks. To validate\n• Online Inference (e.g., chatbots, voice assistants) pri- the complexity of this decision-making process, we evaluated\noritizes low response latency (e.g., within 100ms) over the Cost Efficiency (CE) of two representative VM instances\nquery throughput, as real-time responsiveness is crucial. (g4dn.xlarge and g5.xlarge) under different batch sizes and\nThus, response time is used as the primary SLO metric. SLO requirements. The experiments were conducted for both\n• Offline Inference (e.g.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "mary SLO metric. SLO requirements. The experiments were conducted for both\n• Offline Inference (e.g., batch processing of large cases: with and without KV Cache offloading, assessing its\ndatasets)prioritizeshighquerythroughputoverresponse impact on cost efficiency. The results of these experiments\nlatency, making throughput the primary SLO metric. are quantitatively presented in Fig. 2.\nTo encompass both of these metrics under a unified In a strict SLO environment (100 TPS), g5.xlarge\nframework, we define Tokens Per Second (TPS) as the SLO demonstrated higher cost efficiency than g4dn.xlarge even\nmetric. TPS represents the number of tokens processed per at small batch sizes (Batch Size < 16). This is because\nsecond, including both input tokens (Lin ) and output tokens g5.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "(Batch Size < 16). This is because\nsecond, including both input tokens (Lin ) and output tokens g5.xlarge delivers higher performance under high-throughput\n(Lout ). requirements, allowing it to maintain superior cost efficiency\nLLM inference is typically performed in batches, where a over g4dn.xlarge even at smaller batch sizes. At Batch Size 16,\nbatch consists of multiple queries (BS). Given that the total g4dn.xlarge faced GPU memory constraints, necessitating KV\nprocessing time for a batch is denoted as TE2E , TPS is defined Cache offloading, which further reduced its cost efficiency. In\nas follows: contrast, g5.xlarge had sufficient memory to operate without\noffloading, maintaining consistently high cost efficiency as\nTPS=\nBS×(Lin+Lout)\n(1)\nthe batch size increased.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": ", maintaining consistently high cost efficiency as\nTPS=\nBS×(Lin+Lout)\n(1)\nthe batch size increased.\nTE2E In a relaxed SLO environment (10 TPS), g4dn.xlarge\nexhibitedhighercostefficiencythang5.xlargeatsmallerbatch\nB. Definition of Cost Efficiency\nsizes (Batch Size < 16). This is because, under relaxed SLO\nIn this study, our primary objective is to minimize user\nconditions, instance cost became a more critical factor than\ncostswhileensuringthatinferencetasksmeettheirdesignated\nraw performance. At Batch Size 16, despite g4dn.xlarge re-\nSLOs.Toachievethis,wedefineacostefficiencymetricbased\nquiring KV Cache offloading due to GPU memory limitations,\non the previously introduced Tokens Per Second (TPS) metric.\nthe performance degradation caused by offloading was not a",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "troduced Tokens Per Second (TPS) metric.\nthe performance degradation caused by offloading was not a\nLet TPS denote the target TPS required by the user\nSLO major issue under the relaxed SLO constraints. As a result,\nto meet the SLO, and let TPS represent the actual\nactual g4dn.xlarge,withitslowerinstancecost,achievedhighercost\nthroughput achieved during inference. Considering that the\nefficiency compared to g5.xlarge.\neffective processing rate cannot exceed the user-defined\nTo sum up, cost efficiency varies significantly depending\nSLO threshold, the effective TPS is defined as: TPS effective = on SLO settings and GPU memory utilization strategies,\nmin(TPS actual,TPS SLO)\ndemonstrating that using a high-performance GPU is not\nGiven this, the total time required to process a batch of",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "that using a high-performance GPU is not\nGiven this, the total time required to process a batch of\nalways the optimal choice. Particularly in offline inference\nqueries, denoted as T , is calculated as:\ntask tasks, where response time constraints are less stringent, KV\nT task =\nBS×(L in+L out)\n(2)\nC\nev\na\ne\nc\nn\nhe\no\no\nn\nffl\nlo\no\nw\nad\ne\ni\nr\nn\n-\ng\nco\nte\nst\nch\nG\nn\nP\niq\nU\nu\ns\ne\n.\ns\nT\nc\nh\na\ne\nn\ns\ne\ne\nn\nfi\nab\nn\nl\nd\ne\nin\nco\ng\ns\ns\nt-\nh\ne\ni\nffi\ngh\nc\nl\ni\ni\ne\ng\nn\nh\nt\nt\nin\nth\nfe\na\nr\nt\nen\nth\nc\ne\ne\nTPS\neffective\n×3600\noptimal GPU instance selection depends on the user’s SLO\nIn cloud environments, GPU usage is typically billed on an\nrequirements and the characteristics of the inference task.\nhourly basis. Therefore, we apply a ceiling function to T\ntask\nto account for the actual billable time. IV.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "basis. Therefore, we apply a ceiling function to T\ntask\nto account for the actual billable time. IV. DesignofInferSave\nBased on this, we define SLO-based cost efficiency (CE) as\nametrictoevaluatethecost-effectivenessofagiveninference A. InferSave: A Cost-Efficient VM Selection Framework\ntask while ensuring compliance with the SLO. Let VM Price Selecting a cost-efficient VM instance in a cloud environ-\nrepresent the hourly cost of the virtual machine (in dollars ment is a challenging task for users. To address this issue,\nper hour). The cost efficiency metric is then defined as: we propose InferSave, a software tool designed to assist",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Normalized Cost Efficiency (100 TPS)\ng4dn.xlarge g5.xlarge\nKV Cache Offloading\n)$/nekoT(\nytneiciffE\ntsoC\ndezilamroN\nNormalized Cost Efficiency (10 TPS)\n2.5\ng4dn.xlarge g5.xlarge\n2\n1.5\n1\n0.5\n0 1 2 4 8 16 Batch Size O K f V fl o C a a d c i h n e g\n)$/nekoT(\nytneiciffE\ntsoC\ndezilamroN\nto pay. This value serves as a fundamental constraint in the\n1.5 subsequent stages of the algorithm, determining the range of\n1 GPU instances that can be considered.\nAdditionally, the user specifies the target LLM model 0.5\n(e.g., OPT-2.7B, LLaMA-7B), and based on this selection, the\n0 1 2 4 8 16 system automatically extracts key model parameters such Batch Size\nas model size, number of attention heads, head dimensions,\nFig. 2.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "model parameters such Batch Size\nas model size, number of attention heads, head dimensions,\nFig. 2. Comparison of cost efficiency per GPU instance based on SLO feed-forward network (FFN) dimensions, and activation size.\nconstraintsandbatchsize,basedonexperimentalresultsusingtheOPT-2.7B\nOther essential input parameters include the average input\nmodelonanAWSg4dn.xlargeinstancewithaninputlengthof512tokens\nandanoutputlengthof128tokens. token length, average output token length, batch size, and\nthe required SLO in terms of TPS (Tokens Per Second).\nTABLEII\nNotationandFormulasforModelandMemoryComputation This stage plays a crucial role in transforming user\nrequirements into quantitative parameters, establishing the\nUserInputParameters\nfoundation for resource suitability assessment and perfor-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rs, establishing the\nUserInputParameters\nfoundation for resource suitability assessment and perfor-\nVariable DescriptionandFormula\nBS Batchsize mance prediction. Ultimately, it is essential for selecting the\nL L o i u n t O In u p tp u u t t to to k k e e n n le le n n g g th th mostcost-efficientGPUinstancethatmeetsbothperformance\nPmax Usermaxpricewillingness objectives and budget constraints.\nTPSSLO UserSLORequirement\nModelParameters\nC. Resource Suitability Assessment and Candidate Instance\nVariable DescriptionandFormula\nh HiddenSize(modeldimension) Identification\n1\nh IntermediateSize(projection)\nnh 2 NumberofAttentionHeads At this stage, the system evaluates the memory require-\nL Transformerlayers ments for inference based on the collected user parameters",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "the memory require-\nL Transformerlayers ments for inference based on the collected user parameters\nPreci C si o o ff nbytes Bytes K p V er c p a a c r h a e m o e ffl te o r a ( d e. i g n . g ,F r P at 1 i 6 o =2B) andassessesthefeasibilityofKVCacheOffloadingtoidentify\nMemmodel(ModelSize) NumberofModelParameters·Precisionbytes the most suitable GPU instance candidates. First, the system\nMemKVcache(KVCacheSize) 2·BS·(Lin+Lout)·nh·Precisionbytes·L\ncalculates the total memory requirement Mem for the\nMem M ac e ti m vat K io V n ca (A ch c e t , i p v e a r_ ti la o y n er Size) KVC 2 a · c ( h L e in p + er Lo l u a t y ) e · r B : S M · em h L 1 KVcache given Transformer-based LLM model and its in to p ta u l t-output\nInstanceSpecifications parameters.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "given Transformer-based LLM model and its in to p ta u l t-output\nInstanceSpecifications parameters. This is defined as the sum of the following\nF V L a O r P ia S b G l P e U D G es P c U r ’ i s pt t i h o e n or a et n ic d al F F o L rm OP u S la three components: Mem total = Mem model + Mem activation +\nBWgpu→cpu BandwidthforGPU-to-CPUdatatransfer Mem KVcache . Additionally, the base memory requirement is\nBWcpu→gpu BandwidthforCPU-to-GPUdatatransfer definedas:Mem\nbase\n=Mem model+Mem\nactivation\n.Thesestages\nfollow three key criteria to evaluate GPU instance suitability\nand Algorithm 1.\nusers in making cost-efficient VM selections. The InferSave\nCase1) No Offloading Required: If the available GPU\nframework operates in the following four stages:",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ase1) No Offloading Required: If the available GPU\nframework operates in the following four stages:\nmemory is greater than or equal to the total memory re-\n1) Stage 1 Requirement Analysis and Parameter Ex- quirement, i.e., GPUi\nmemory\n≥Mem\ntotal\nthen the instance can\ntraction: The user provides input parameters, including\nfully accommodate the model without KV Cache Offloading.\ncost constraints, model characteristics, and performance\nHere, i refers to the current particular running instance. In\nrequirements.\n2) Stage 2 Resource Suitability Assessment and Can- t in h s is ta c n a c s e e, is th a e dd o e ffl d o t a o di t n h g e c c o a e n ffi di c d i a e t n e t p is oo s l e . t to C o i ff =0 and the",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "o t a o di t n h g e c c o a e n ffi di c d i a e t n e t p is oo s l e . t to C o i ff =0 and the\ndidate Instance Identification: Based on the provided Case2) Offloading Not Feasible: An instance is deemed\nparameters,theframeworkcalculatestherequiredmemory\nunsuitable if it meets any of the following conditions:\ncapacity, analyzes the feasibility of KV Cache offloading,\nIf the available GPU memory is smaller than the model\nand identifies a set of suitable GPU instance candidates. •\n3) Stage3Performance-CostPredictionModeling:Lever-\nweights: GPUi\nmemory\n<Mem\nmodel\n.\nIf the KV Cache size per layer exceeds the available\naging pre-profiled performance data, the framework pre- •\ndictstheTPSofeachcandidateGPUinstanceandevaluates\nmemory: Mem\nKVcache,per_layer\n>Memi\navail\n.\nits cost efficiency.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "achcandidateGPUinstanceandevaluates\nmemory: Mem\nKVcache,per_layer\n>Memi\navail\n.\nits cost efficiency. This condition arises because attention operations are per-\n4) Stage 4 SLO-Based Optimization and Instance Selec- formed on the GPU, requiring KV Cache to remain in GPU\ntion: The framework recommends the most cost-efficient memory. When the available memory is insufficient, an Out\nGPU instance that satisfies the SLO constraints. of Memory (OOM) error occurs, preventing execution.\nCase3) KV Cache Offloading Required: If an instance\nB. Requirement Analysis and Parameter Extraction does not fall into either of the previous categories, KV Cache\nOffloading is required. In this case, the offloading coefficient\nThis stage involves collecting key input parameters nec-\nMemi",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "this case, the offloading coefficient\nThis stage involves collecting key input parameters nec-\nMemi\nessary for LLM inference tasks. The most critical parameter is computed as: C o i ff =1– Mem avail\nKVcache\nis the maximum willingness-to-pay price (Pmax ), which Finally, the selected instances are sorted in ascending order\nrepresents the maximum cost ($/hour) that the user is willing based on cost, and the results are used as input for the",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | \n | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | \n | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n |  |  | \n |  |  | \n |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | \n | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | \n | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n |  |  | \n |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | \n | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nUserInputParameters | \nVariable | DescriptionandFormula\nBS | Batchsize\nLin | Inputtokenlength\nLout | Outputtokenlength\nPmax | Usermaxpricewillingness\nTPSSLO | UserSLORequirement\nModelParameters | \nVariable | DescriptionandFormula\nh\n1 | HiddenSize(modeldimension)\nh\n2 | IntermediateSize(projection)\nnh | NumberofAttentionHeads\nL | Transformerlayers\nCoff | KVcacheoffloadingratio\nPrecisionbytes | Bytesperparameter(e.g.,FP16=2B)\nMemmodel(ModelSize) | NumberofModelParameters·Precisionbytes\nMemKVcache(KVCacheSize) | 2·BS·(Lin+Lout)·nh·Precisionbytes·L\nMemKVcache,per_layer | KVCacheperlayer: MemKVcache\nL\nMemactivation(ActivationSize) | 2·(Lin+Lout)·BS·h\n1\nInstanceSpecifications | \nVariable | DescriptionandFormula\nFLOPSGPU | GPU’stheoreticalFLOPS\nBWgpu→cpu | BandwidthforGPU-to-CPUdatatransfer\nBWcpu→gpu | BandwidthforCPU-to-GPUdatatransfer",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Algorithm 1: Resource Suitability Evaluation and • Decode Stage: This stage generates each output token\nInstance Selection (Price Priority) sequentially. The processing time per layer (Tdec ) is\nmultiplied by the number of layers (n) and the number\nInput: MemoryRequirements:\nMem model —Modelweightmemoryrequirement ofgeneratedtokens(Lout–1),sincethefirstoutputtoken\nMemactivation—Activationmemoryrequirement\nis already processed in the Prefill stage.\nMem —TotalKVCachememoryrequirement\nKVcache\nMem —KVCachememoryperlayer\nKVcache,per_layer\nG\nFo\nP\nr\nU\ne\ni\nachG\n—\nPU\nTo\ni\nt\nn\nal\nst\nG\na\nP\nn\nU\nce\nm\ni:\nemory\nThus, the total task processing time Ttask is expressed as\nmemory follows:\nGPUi —GPUprice\nprice\nUser-definedmaximumprice:Pmax",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ssing time Ttask is expressed as\nmemory follows:\nGPUi —GPUprice\nprice\nUser-definedmaximumprice:Pmax\nOutput:GPUcandidatesthatsatisfybothpriceandresourceconditions Ttask = Tpre·n +Tdec·n·(Lout–1) (4)\n1 Candidates←∅// Initialize candidate set (cid:124) (cid:123)(cid:122) (cid:125) (cid:124) (cid:123)(cid:122) (cid:125)\n2 Mem total←Mem model+Memactivation+Mem KVcache ; PrefillTime DecodeTime\n3\nMem base←Mem model+Memactivation;\n4 foreachGPUinstanceido a) Prefill Stage Processing Time: The Prefill stage pro-\n5 ifGP / U / i pri A ce pp ≤ ly Pm P a r x ic th e e F n ilter cessing time Tpre consists of computation time and KV Cache\n6 Memi avail←GPUi memory–Mem base// Calculate Available storagetime.SinceGPUcomputationandKVCacheoffloading",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "vail←GPUi memory–Mem base// Calculate Available storagetime.SinceGPUcomputationandKVCacheoffloading\nMemory occur in parallel, the total delay is determined by the process\n7 ifGP / U / i me O m f o f ry lo ≥ ad M in em g to N t o al t th R e e n quired with the longest execution time:\n8 9 C A o d i ff d ← (i,C 0 o i ff ; )toCandidateSet; Tpre =max (cid:16) CTCF(Tc p ompute),Tt p rans (cid:17) (5)\n10 else\n11 if th G e P n Ui memory <MemmodelORMemKVcache,per_layer>Memi avail The computation time Tc p ompute in the Prefill stage is divided\n// Offloading Not Possible intoLinearLayercomputationandSelf-Attentioncomputation,\n12 MarkGPUiasUnsuitable// Exclude from bothofwhicharecalculatedbydividingtherequiredfloating-\ncandidates\n13 end point operations (FLOPs) by the GPU’s theoretical FLOPS",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "idingtherequiredfloating-\ncandidates\n13 end point operations (FLOPs) by the GPU’s theoretical FLOPS\n14 else capacity:\n// KV Cache Offloading Required\n1 1 5 6 C if o i ff M ← emK 1 Vc – ach M e, M em p e e K m r_ V i a la c v a y a c e il h r e ≤ ; Memi avail then Tc p ompute = BS·(8Lin·h2 1 +4Lin·h 1 ·h 2 ) + 4·BS·L i 2 n ·h 1\n// Layer-Level Constraint Check FLOPSGPU FLOPSGPU\n17 Add(i,Co i ff)toCandidateSet; (cid:124) (cid:123)(cid:122) (cid:125) (cid:124) (cid:123)(cid:122) (cid:125)\n18 end LinearLayercomputetime Self-Attentioncomputetime\n19 else\n20 MarkGPUiasUnsuitable// Exclude from The KV Cache transfer time Tt p rans in the Prefill stage\ncandidates\nrepresents the time required to offload the generated KV\n21 end\n22 end Cache from GPU to CPU memory and is computed as:\n23 end\n2 2\n2\n5 6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ad the generated KV\n21 end\n22 end Cache from GPU to CPU memory and is computed as:\n23 end\n2 2\n2\n5 6\n4\ne So n r d tC\ne\na\nn\nn\nd\ndidateSetbyGPUi price inascendingorder; Tt p rans =\nCoff·{2·(Lin+\nB\n1\nW\n)·\ng\nh\np 1 u→\n·P\nc\nr\np\ne\nu\ncision bytes}·BS\n27\nreturnCandidateSetCandidates;\nb) Decode Stage Processing Time: The Decode stage\nprocessingtimeTdec includescomputationtimeandKVCache\nretrieval time. If the KV Cache fully resides in the GPU, only\nperformance-cost prediction modeling stage. This systematic\ncomputationtimeisconsidered.However,ifoffloadingoccurs,\napproach ensures that the most cost-efficient GPU instance is\nadditional latency is introduced due to data transfer from\nselected within the user’s budget while accurately evaluating\nCPU to GPU. The Decode time is therefore expressed as:",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "he user’s budget while accurately evaluating\nCPU to GPU. The Decode time is therefore expressed as:\nthe feasibility and cost-efficiency of KV Cache Offloading.\nTdec =CTCF(Tc d ompute)+Tt d rans (6)\nD. Instance Performance Prediction\nAt this stage, the system predicts Tokens Per Second (TPS) The Decode computation time Tc d ompute consists of Linear\nLayer and Self-Attention computation, and is computed as\nfor the candidate GPU instances identified in the previous\nfollows:\nstep. This is achieved through mathematical modeling that\n(\nle\nF\nv\nL\ne\nO\nra\nP\ng\nS\ne\n,\ns\nb\nm\nan\no\nd\nd\nw\nel\nid\np\nt\na\nh\nr\n,\nam\net\ne\nc\nt\n.\ne\n)\nrs\no\n,\nf\nh\ne\na\na\nr\nc\nd\nh\nwa\nc\nr\na\ne\nn\np\ndi\nr\nd\no\na\nfi\nt\nl\ne\ning\nin\ni\ns\nn\nta\nfo\nn\nr\nc\nm\ne,\nat\na\ni\nn\non\nd Tc d ompute =\nBS·(8h2\n1\n+4h\n1\n·h\n2\n)\n+\n4·BS·(Lin+ Lo\n2\nut)·h\n1\nFLOPSGPU FLOPSGPU",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "m\ne,\nat\na\ni\nn\non\nd Tc d ompute =\nBS·(8h2\n1\n+4h\n1\n·h\n2\n)\n+\n4·BS·(Lin+ Lo\n2\nut)·h\n1\nFLOPSGPU FLOPSGPU\nthe offloading coefficient to quantitatively estimate the task (cid:124) (cid:123)(cid:122) (cid:125) (cid:124) (cid:123)(cid:122) (cid:125)\nLinearLayercomputetime Self-Attentioncomputetime\nprocessing time.\nThe total task processing time Ttask consists of the Prefill The KV Cache transfer time Tt d rans in the Decode stage refers\nand Decode stages and is calculated as follows [6]: tothetimerequiredtoloadKVCachestoredinCPUmemory\nback into GPU memory and is computed as:\n• Prefill Stage: This stage processes the entire input se-\nq\nb\nu\ny\ne\nt\nn\nh\nc\ne\ne.\nn\nT\nu\nh\nm\ne\nb\np\ne\nr\nr\noc\no\ne\nf\ns\nl\ns\na\nin\ny\ng\ner\nt\ns\nim\n(n\ne\n).\nperlayer(Tpre )ismultiplied\nTt d rans =\n(Coff·2·(Lin+1)+\nBW\nLout)·h\n1",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "s\na\nin\ny\ng\ner\nt\ns\nim\n(n\ne\n).\nperlayer(Tpre )ismultiplied\nTt d rans =\n(Coff·2·(Lin+1)+\nBW\nLout)·h\n1\n·Precision bytes·BS\ncpu→gpu",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "g4dn.xlarge Given TFLOPS g5.2xlarge Given TFLOPS g6.xlarge Given TFLOPS g4dn.xlarge Measured TFLOPS g5.2xlarge Measured TFLOPS g6.xlarge Measured TFLOPS\nSPOLFT\nbetweentheFLOPSvaluesadvertisedbythemanufacturerand\nthose actually utilized in computation across three different\n100 GPU instances. This discrepancy arises from factors such as\n80 memory bottlenecks, reduced GPU utilization, and variations\nin computation patterns, which manifest differently in the\n60\nPrefill and Decode stages of LLM inference. As a result,\n40\nselecting a GPU instance solely based on theoretical FLOPS\n20\ncanleadtosignificantperformancemismatches,causingusers\n0 toincurunnecessarycosts.Toaddressthisissue,itisessential\n2 4 8 12 16 20 24 28 32\ntointroduceacalibrationmethodthatalignstheoreticalFLOPS\nBatch Size",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ssential\n2 4 8 12 16 20 24 28 32\ntointroduceacalibrationmethodthatalignstheoreticalFLOPS\nBatch Size\nvalues with actual computational performance.\nFig.3. ComparisonofFLOPSprovidedbytheGPUmanufacturer(NVIDIA)\nandtheactualFLOPSutilizedwhencalculatingPrefilltimeonAWSGPU • CTCF Modeling: This study conducted preliminary\nVMs. The results present TFLOPS measurements for three different GPU experiments across various batch sizes to analyze the\nVMs using the OPT-2.7B model with an input size of 512 tokens and an\nrelationship between LLM inference time and batch size.\noutputsizeof128tokensasbatchsizegrows.\nThe results consistently showed a linear increase in\nThis modeling approach accounts for both cases where of- inference time for both the Prefill and Decode stages.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "g approach accounts for both cases where of- inference time for both the Prefill and Decode stages.\nfloading is necessary and unnecessary, effectively considering This linear trend was observed across different GPU\nGPU memory constraints and computational performance. architectures, including T4, A10G, L4, and L40s, leading\nBy incorporating both computation latency and KV Cache to the introduction of a regression-based CTCF model.\noffloading overhead, this approach enables a quantitative CTCF is a linear transformation function that adjusts\nanalysis of the trade-off between computation and memory theoretical computation time to match actual execution time.\naccess time in both Prefill and Decode stages. It is defined as follows:\nUsing this modeling framework, Tokens Per Second (TPS)",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "and Decode stages. It is defined as follows:\nUsing this modeling framework, Tokens Per Second (TPS)\ncan be estimated, allowing for the selection of the most\nCTCF(Tcompute)=α·Tcompute+β (7)\noptimal GPU instance for a given inference task. While where α is a scaling factor that corrects overestimation or\nthis theoretical modeling provides a solid foundation, it underestimation of theoretical computation time, and β is a\nis important to note that GPU manufacturers’ theoretical fixed offset that compensates for systematic delays caused\nFLOPSvaluesdonotalwaysaccuratelyreflectreal-worldLLM by GPU execution bottlenecks, memory access latency, and\ninference workloads. The limitations of this approach, along other hardware constraints. These parameters are optimized",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "The limitations of this approach, along other hardware constraints. These parameters are optimized\nwiththeComputeTimeCalibrationFunction(CTCF)designed using the least squares method and are determined through\nto correct these discrepancies, are discussed in Section IV-F. pre-profiling experiments.\nThrough extensive pre-profiling, α and β values were\nE. Step 4: Final Instance Selection Based on SLO\ncomputed for all AWS GPU instances across various batch\nBased on the TPS (Tokens Per Second) values computed\nsizes and stored as reference data. As shown in Table III,\nfor each GPU instance in the previous stage, this step selects\napplying these per-instance α and β values significantly\nthe most cost-efficient instance while ensuring that the user’s",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "stance α and β values significantly\nthe most cost-efficient instance while ensuring that the user’s\nreduces the prediction error, bringing the adjusted execution\nService Level Objective (SLO) is met. The selection process\ntime very close to the actual measurement. Based on this,\nfollows these steps:\nInferSave profiles α and β values for all available AWS\nFirst, instances that fail to satisfy the user-defined SLO\nGPU instances, enabling precise FLOPS-based execution time\nconstraint (TPS≥TPS\nSLO\n) are eliminated from consideration.\npredictions and recommending the optimal instance for users.\nNext, the cost efficiency metric (Equation 3) is calculated for\neachremaininginstance.Finally,theinstancewiththehighest TABLEIII\ncost efficiency is selected.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ed for\neachremaininginstance.Finally,theinstancewiththehighest TABLEIII\ncost efficiency is selected. In the event of a tie, the instance Valuesofα,βtocalculateadjustedT Prefill (Model:OPT2.7B)\nwith the higher TPS is prioritized. InstanceType(GPUModel) α β avg.errorrate(%)\nThefinalselectionresultispresentedtotheuseralongwith g4dn.xlarge(T4) -0.185 24.35 4.47\ng5.2xlarge(A10G) -0.074 46.97 2.60\ncomprehensive details, including instance type, expected TPS,\ng6.xlarge(L4) -0.1238 42.52 2.23\ncost, and KV Cache offloading configuration. Additionally,\nthe system provides alternative options and a performance- TheCTCF-basedcorrectionmethodeffectivelycompensates\ncost trade-off analysis, enabling users to make an informed for the inherent limitations of theoretical FLOPS values",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "alysis, enabling users to make an informed for the inherent limitations of theoretical FLOPS values\ndecision that is optimized for their specific LLM inference provided by GPU manufacturers, leading to more accurate\nworkload. LLM inference performance predictions.\nF. Compute Time Calibration Function (CTCF) V. Implementation\nThe theoretical FLOPS values provided by GPU manufac- We developed InferSave using Python (3.10.14). For per-\nturers do not accurately reflect real-world performance in formance modeling and KV cache offloading optimization, we\nLLM inference workloads. Figure 3 illustrates the discrepancy utilized NumPy (1.24.3) for efficient numerical computations",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nInstanceType(GPUModel) | α | β | avg.errorrate(%)\ng4dn.xlarge(T4) | -0.185 | 24.35 | 4.47\ng5.2xlarge(A10G) | -0.074 | 46.97 | 2.60\ng6.xlarge(L4) | -0.1238 | 42.52 | 2.23",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "and statistical analysis. Our system is built on top of FlexGen, A detailed specification of the instances are specified in Table\na cutting-edge framework for LLM inference that provides IV.\nrobust KV cache offloading capabilities. A key advantage\nof InferSave is its minimal computational overhead and TABLEIV\nSpecificationsofVMinstances,including4GPU-VMsbasedon\nexceptional speed in determining optimal resource config-\nAWSspecifications.\nurations. Once user parameters and SLO requirements are\nOn-DemandPrice GPUMemory FP16 PCIeB/W\nprovided, our system quickly performs TPS predictions and Instance GPU-Type\n($/hr) (GB) (TFLOPS) (GB/s)\ncost-efficiency calculations, enabling rapid and precise GPU g6e.xlarge L40s 2.699 48 91.61 12\ng6.xlarge L4 1.167 24 30.29 12\ninstance recommendations.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ecise GPU g6e.xlarge L40s 2.699 48 91.61 12\ng6.xlarge L4 1.167 24 30.29 12\ninstance recommendations. The complete source code of\ng5.xlarge A10G 1.466 24 31.52 12\nInferSave, along with all associated tools and algorithms, g4dn.xlarge T4 0.71 16 8.24 6\nis publicly available for download at https://github.com/lass-\nlab/InferSave.\nTo validate the effectiveness of InferSave, major\ntransformer-based LLM models such as OPT-1.3B, OPT-2.7B,\nVI. Evaluation OPT-6.7B were used for testing in an in-house benchmark\nsuite. To find the optimal performance configuration, tests\nA. Experimental setup\nwere conducted by varying the batch size from 1 to 64 under\nForourevaluation,weconductedtwocontrastinginference\ndifferent conditions for single GPU processing.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Forourevaluation,weconductedtwocontrastinginference\ndifferent conditions for single GPU processing.\ntasks representative of online and offline inference scenarios\nPolicy To Select Instance: As stated in Section II-D,\nto comprehensively assess the impact of offloading strategies\nthere are no clear state of the art methodologies for GPU\non cost and performance across various cloud-based GPU\ninstanceselectionforinferencing.Therefore,inourevaluation,\ninstances. The objective of the evaluation is to quantitatively\nwe compared the following two baseline approaches with\nanalyze the effects of offloading and the impacts it has\nInferSave.\non cost and performance efficiency, as well as to pick the\noptimal instance given a SLO as input.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "e.\non cost and performance efficiency, as well as to pick the\noptimal instance given a SLO as input. Online inferencing • Mostpowerfulinstance(Max-Performance):Thispolicy\nfocuses on finding the most price-effective inference while simply chooses the GPU instance that offers the most per-\nmeeting the strict SLO requirement, while offline inferencing formance, and aims to lower latency and raise throughput\nrelaxes the SLO requirement, allowing for strategies such as as much as possible. However, this methodology does not\noffloading and used lower priced instances. All experiments take into consideration price, and therefore running costs\nwere performed 3 times for each instance to maintain result can be raised needlessly.\nintegrity,andtheaverageofeachresultwereusedforanalysis.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "to maintain result can be raised needlessly.\nintegrity,andtheaverageofeachresultwereusedforanalysis. • Simple performance prediction(InferSave (without\nWorkload Definition: For a holistic evaluation of KV Cache offloading)): This policy uses theoretical\nperformancemetrics(FLOPS,memorybandwidth)topredict\nInferSave’s ability to select the optimal instance in a variety\nperformance and select an instance. However, it does not\nofscenarios,weperformtwocontrastinginferenceworkloads.\ntake into consideration the effects of KV Cache offloading,\n• OnlineInferenceworkload:Tomodelareal-timechatbot and may not be able to find the most optimal instance.\nsystem, we use a pattern of 128 input tokens and a 512\noutput tokens. This simulates a common AI LLM chatbot B. CTCF Validation",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "128 input tokens and a 512\noutput tokens. This simulates a common AI LLM chatbot B. CTCF Validation\nscenario of a user asking short questions, with the chatbot\nInferSave proposes the Compute Time Calibration Func-\nproviding detailed answers. The workload evaluates a total\ntion (CTCF) to accurately determine the optimal instance\nof 3000 requests.\nbased on user requirements. To validate the accuracy of\n• OfflineInferenceworkload:Tomodelabatchprocessing CTCF, experiments were conducted on two GPU instances,\ntask, an input size of 1024 tokens and an output size\ng4dn.xlarge and g6.xlarge. The experiments utilized the OPT-\nof 128 tokens was used. This takes into account tasks\n2.7B model, with an input token length of 512 and an output\nsuch as document summarization and data wrangling. To",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "th an input token length of 512 and an output\nsuch as document summarization and data wrangling. To\ntoken length of 128. The model’s key computational units,\nsimulate a batch processing task, the workload evaluates\nincluding a hidden size of 2560 and an intermediate size of\nthe performance of completing 1000 requests.\n2560×4, were applied, and the total number of layers (32)\nAWS Cloud Experiment Setup: To maintain uniform was incorporated to measure computation time. For FLOPS\nexperimental conditions and reduce potential disruptions estimation, the theoretical FLOPS values provided by GPU\ncaused by fluctuating cloud workloads, all experiments were manufacturers were used: g4dn.xlarge with NVIDIA T4 (8.24\ncarried out on AWS in the us-east-1 (Northern Virginia) TFLOPS) and g6.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ".xlarge with NVIDIA T4 (8.24\ncarried out on AWS in the us-east-1 (Northern Virginia) TFLOPS) and g6.xlarge with NVIDIA L4 (30.29 TFLOPS).\nregion between 9:00 AM and 10:00 PM KST, spanning After applying CTCF, the corrected prediction times were\nthe period from December 2024 to March 2025. To avoid computedandcomparedwithactualmeasurementstoanalyze\nperformance variations due to regional resource contention, theerrorrate.AsshowninFigure4,theCTCF-adjustedvalues\ntesting was evenly distributed across availability zones us- closely matched the actual measurements. Specifically, in the\neast-1a through us-east-1f. For the GPU-VMs, we utilized Decode stage of g4dn.xlarge, the corrected values exhibited\ng4dn.xlarge(NVIDIA T4), g5.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "we utilized Decode stage of g4dn.xlarge, the corrected values exhibited\ng4dn.xlarge(NVIDIA T4), g5.xlarge(NVIDIA A10G), anaverageerrorrateof1%comparedtoactualmeasurements,\ng6.xlarge(NVIDIA L4) and g6e.xlarge(NVIDIA L40s) while in the Prefill stage of g6.xlarge, the average error rate",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\nInstance | GPU-Type | On-DemandPrice\n($/hr) | GPUMemory\n(GB) | FP16\n(TFLOPS) | PCIeB/W\n(GB/s)\ng6e.xlarge | L40s | 2.699 | 48 | 91.61 | 12\ng6.xlarge | L4 | 1.167 | 24 | 30.29 | 12\ng5.xlarge | A10G | 1.466 | 24 | 31.52 | 12\ng4dn.xlarge | T4 | 0.71 | 16 | 8.24 | 6",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "CTCF Adjusted Time Actual Time\nPredicted Time Error Rate (CTCF vs Actual)\n100\n80\n60\n40\n20\n0\n(a) g4dn.xlarge Prefill Stage (b) g4dn.xlarge Decode Stage\n(c) g6.xlarge Prefill Stage (d) g6.xlarge Decode Stage\nliferPT\n10\n8\n6\n4\n2\n0 5 10 15 20 25 30\nBatch Size\nError\nRate(%)\n10 100\n7.5 80\n5 60\n2.5 40\n0 20\n−2.5 0 5 10 15 20 25 30\nBatch Size\n100\n80\n60\n40\n20\n0\nedoceDT\n3\n2.5\n2\n1.5\n1\n0.5\n0\n5 10 15 20 25 30\nBatch Size\nError\nRate(%)\nSLO400\nSLO600\n1400\n1200 1000\n800\n600\n400\n200\n0 InferSave-1st InferSave-2nd Max-Performance\n10 100\n7.5 80\n5 60\n2.5 40\n0 20\n−2.5 0\n5 10 15 20 25 30\nBatch Size\nFig. 4. CTCF accuracy analysis. The results illustrate the predicted time\n(blue),actualtime(red),andCTCF-adjustedvalues(green)forPrefilland\nDecodetimesasbatchsizeincreasesontwodifferentGPUVMs.Additionally,",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "djustedvalues(green)forPrefilland\nDecodetimesasbatchsizeincreasesontwodifferentGPUVMs.Additionally,\ntheErrorRatebetweentheCTCF-adjustedtimeandactualtimeispresented.\nwas 2%. These results demonstrate that the CTCF-adjusted\ncomputation time aligns well with real-world measurements,\nthereby verifying that InferSave can accurately recommend\nthe most suitable GPU instance for users.\nC. Evaluation results\nTo evaluate the effectiveness of InferSave and our pro-\nposed methodologies, we conducted experiments on both\nonline and offline workloads. While we have performed\ncomprehensive experiments across various model sizes and\nbatch sizes, we have decided to focus on the analysis of\nrepresentative results using the OPT-2.7B model with a batch\nsize of 32.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "to focus on the analysis of\nrepresentative results using the OPT-2.7B model with a batch\nsize of 32. This configuration was chosen as it clearly shows\nthe performance variations of each GPU instance, and also\ndemonstrates a good middle ground of performance and\nresourceutilization.Wesetthemaximumcostperhour(Pmax )\nto $3.00/hr. This value was chosen as g6e.xlarge, the most\npowerful instance in our experiments, has an on-demand cost\nof $2.699/hr, and a slightly higher cost than this allows for a\nfair comparison across all instances.\nTABLEV\nComparisonofInstanceSelectionResultsbySLOConstraints\n(400TPSand600TPS)\nSLO EvaluatedPolicies SelectedInstances TPS(avg.) TotalCost($)\nInferSave-1st g4dn.xlarge 620.17 0.71\n400TPS InferSave-2nd g6.xlarge 802.19 1.167\nMax-Performance g6e.xlarge 1506.54 2.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "xlarge 620.17 0.71\n400TPS InferSave-2nd g6.xlarge 802.19 1.167\nMax-Performance g6e.xlarge 1506.54 2.699\nInferSave-1st g6.xlarge 800.15 1.167\n600TPS InferSave-2nd g5.xlarge 1206.12 1.466\nMax-Performance g6e.xlarge 1505.37 2.699\n)SPT(dnocesrepsnekotegarevA\nMinimumSLO\n2.5\n2.0\n1.5\n1.0\n0.5\n0.0 InferSave-1st InferSave-2nd Max-Performance\n)DSU(tsoC\nTotalCost(USD) SLO400\nHourlyCost(USD/hour) SLO600\nFig. 5. Comparison of average TPS and cost for different InferSave\nconfigurationsandthebaselineconfigurationundervaryingSLOconstraints\nforonlineinferenceworkloads(Left:AverageTPS,Right:Cost).\nTABLEVI\nComparisonofInstanceSelectionResultsbySLOConstraints\n(100TPSand200TPS)\nSLO EvaluatedPolicies SelectedInstances Coff(%) TPS(avg.) TotalPrice($)\nInferSave-1st g4dn.xlarge 100 169.17 2.13",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "olicies SelectedInstances Coff(%) TPS(avg.) TotalPrice($)\nInferSave-1st g4dn.xlarge 100 169.17 2.13\n100TPS InferSave-2nd g6.xlarge 60 415.04 2.344\nMax-Perf.,InferSave(w/oKV) g6e.xlarge 0 1506.54 2.699\nInferSave-1st g6.xlarge 60 414.28 2.334\n200TPS InferSave-2nd g5.xlarge 60 414.01 2.932\nMax-Perf.,InferSave(w/oKV) g6e.xlarge 0 1505.37 2.699\n1) Online inference workload results: Table V and Figure 5\nshows the instances selected by each policy based on the\nSLO requirements given for an online inference workload,\nas well as the performance and price comparisons. We\nanalyze the first and second selections of InferSave’s policy\nwithin two minimum TPS requirements (400 TPS, 600 TPS),\nand compare it with the selection of the Max-Performance\npolicy’sselection.Notethattheresultsof InferSavewithout",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "t with the selection of the Max-Performance\npolicy’sselection.Notethattheresultsof InferSavewithout\nKV Cache offloading were the same as Max-Performance’s\nselection, and thus were excluded from Table V. This result\nwas observed as the workload size used in this experiment\nwas sufficiently small, allowing all KV Cache data to be\naccommodatedwithintheGPUmemory.Therefore,offloading\nhad no impact on performance, and consequently, there was\nno difference in the selected instances. Additionally, for these\nexperiments,thetotalruntimedidnotsurpassanhour,leading\nto the hourly cost and the total cost to be the same.\nWith an SLO requirement of 400 TPS, InferSave selected\ng4dn.xlarge as its first choice, and this instance offered the\nlowest cost of $0.71 while providing 620.17 TPS. On the other",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "choice, and this instance offered the\nlowest cost of $0.71 while providing 620.17 TPS. On the other\nhand, Max-Performance selected g6e.xlarge, which provides\nthehighestperformanceof1506.54TPS,butatacostof$2.699,\nwhich is about 280% more expensive than InferSave’s top\nchoice. A similar pattern was observed with the 600 TPS SLO\nconstraint, with InferSave’s selection of g6.xlarge meeting\nthe SLO at a 56.75% lower cost than g6e.xlarge.\nThis shows that the instances chosen by the Max-\nPerformance policy overshoots the given SLO requirement\ngreatly,leadingtowastedGPUutilizationandhigherrunning\ncosts. Meanwhile, InferSave demonstrates optimal instance\nselection by using accurate performance prediction to select\nthe most favorable instance for the given requirements.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "g accurate performance prediction to select\nthe most favorable instance for the given requirements.\n2) Offline inference workload results: Table VI and Figure 6\nshows the instance selection of each policy based on the\nSLO requirements given for an offline inference workload,\nand performance and price comparisons from the selection",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n2.5\n2.0\n)DSU(tsoC\n1.5\n1.0\n0.5\n0.0 InferSave-1st InferSave-2nd Max-Performance |  | \n |  | \n |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n | \n | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\nEvaluatedPolicies | SelectedInstances | Coff(%) | TPS(avg.)\nInferSave-1st\nInferSave-2nd\nMax-Perf.,InferSave(w/oKV) | g4dn.xlarge\ng6.xlarge\ng6e.xlarge | 100\n60\n0 | 169.17\n415.04\n1506.54\nInferSave-1st\nInferSave-2nd\nMax-Perf.,InferSave(w/oKV) | g6.xlarge\ng5.xlarge\ng6e.xlarge | 60\n60\n0 | 414.28\n414.01\n1505.37",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\nEvaluatedPolicies | SelectedInstances | TPS(avg.)\nInferSave-1st\nInferSave-2nd\nMax-Performance | g4dn.xlarge\ng6.xlarge\ng6e.xlarge | 620.17\n802.19\n1506.54\nInferSave-1st\nInferSave-2nd\nMax-Performance | g6.xlarge\ng5.xlarge\ng6e.xlarge | 800.15\n1206.12\n1505.37",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "SLO100\nMinimumSLO SLO200 7800\n7300 500\n200\n100\nInferSave-1st InferSave-2nd Max-Performance& InferSave(w/ooffloading)\n)SPT(dnocesrepsnekotegarevA 3.0\n2.5\n2.0\n1.5\n1.0\n0.5\n0.0 InferSave-1st InferSave-2nd Max-Performance& InferSave(w/ooffloading)\n)DSU(tsoC\ncost reductions up to 28% were possible with KV Cache\nTotalCost(USD) SLO100\nHourlyCost(USD/hour) SLO200 offloading, while maintaining SLO requirements. On the\nother hand, in online conversational chatbot workloads,\nit was often more advantageous to apply KV Cache\noffloading when considering both cost and performance.\n(iii) Finding the optimal interface through InferSave:\nInferSave comprehensively considers the SLO require-\nments and workload characteristics to find the optimal\nbalancepointincostandperformance.Insteadofnaively\nFig. 6.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rkload characteristics to find the optimal\nbalancepointincostandperformance.Insteadofnaively\nFig. 6. Comparison of average TPS and cost for different InferSave\nconfigurationsandthebaselineconfigurationundervaryingSLOconstraints selecting the instance with the highest performance,\nforofflineinferenceworkloads(Left:AverageTPS,Right:Cost). InferSave finds the instance with the highest cost\nefficiency while still satisfying the SLO requirement.\nmade by each policy. As this workload uses a large input\nThese results reveal an opportunity for both cost and\ntoken size, all instances excluding g6e.xlarge make use of\nperformance optimization by flexibly adjusting the offloading\nKV Cache offloading. Without considering offloading, only\nstrategyandGPUinstancechoicetomatchworkloadpatterns",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ffloading. Without considering offloading, only\nstrategyandGPUinstancechoicetomatchworkloadpatterns\none instance can be considered a top choice, and therefore,\nand SLO requirements. InferSave takes this opportunity and\nInferSave without offloading chose the same instance as the\nperforms said optimizations automatically with the selection\nMax-Performance policy.\nof the optimal instance by considering information from\nGiven a SLO requirement of 100 TPS, InferSave selected\npreciseanalysisofeachworkload’scharacteristics.Asaresult,\ng4dn.xlargeasitstopchoice,providingathroughputofabout\nInferSave achieves optimal performance according to the\n160TPSwiththelowesttotalprocessingcostof $2.13.Onthe\ngiven SLO while maintaining cost efficiency.\nother hand, both Max-Performance and InferSave without",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "given SLO while maintaining cost efficiency.\nother hand, both Max-Performance and InferSave without\nHowever, this work currently has limitations in that it\noffloading selected g6e.xlarge, which delivers a very high\nfocuses on a single GPU environment and does not address\nthroughput of about 7600 TPS, but with a total cost of $2.699,\noptimization strategies in multi-GPU or distributed inference\nan increase of about 26.7%. The selection of g6e.xlarge allows\nenvironments. We plan to extend InferSave to multi-GPU\nfor maximum throughput with the ability to store all KV\nand distributed cluster environments to develop optimization\nCache in GPU memory without offloading. However, despite\nstrategies suitable for inference of more complex workloads",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ry without offloading. However, despite\nstrategies suitable for inference of more complex workloads\nthe high throughput and meeting the SLO, the high cost of\nand large-scale models.\nthe instance itself results in lower overall cost efficiency.\nWith a SLO requirement of 200 TPS, InferSave selected VII. Conclusion\ng5.xlarge as its top choice, as g4dn.xlarge not longer meet the\nIn this study, we propose InferSave, which utilizes SLO-\nperformance requirements. This instance provides about 400\nbased predictions to automatically select cost-efficient VM\nTPS while maintaining a total cost of $2.344. On the other\ninstancesinthecloud,andvalidateitacrossonlineandoffline\nhand, the Max-Performance policy still selected g6e.xlarge,\nworkloads. We identify opportunities to enhance cost effi-",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rmance policy still selected g6e.xlarge,\nworkloads. We identify opportunities to enhance cost effi-\nproviding a performance of about 7600 TPS, but the total\nciencyandutilizecheaper,lesspowerfulGPUinstances,while\ncost increased to $2.699, resulting in about a 15% higher cost.\nmaintaining the specified SLO requirements by exploiting\nThis shows that without considering offloading, a needlessly\ntechniques such as KV Cache offloading. Through extensive\nhighly performant and expensive instance can be chosen,\nevaluation across both online and offline inference workloads,\nleading to excessively high costs, and thus reducing actual\nour results confirm that InferSave accurately exploits said\ncost efficiency.\nopportunities,andachievesatmost73.7%lowerrunningcosts",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ave accurately exploits said\ncost efficiency.\nopportunities,andachievesatmost73.7%lowerrunningcosts\n3) Overall analysis and discussion: By evaluating experi- while maintaining SLO requirements.\nmental results that represent both online chatbot and batch\nThis research suggests that LLM service providers can\nprocessing workloads, we were able to derive key insights\noptimizecostandperformanceinabalancedwaybyselecting\nfor the efficient operation of LLM inference systems.\noptimal instances based on SLO and effectively utilizing\n(i) The impact of a workload’s I/O patterns on optimal offloading strategies. InferSave offers these optimizations\ninfrastructure selection: The requirements of online in a unified package in a LLM inferencing system that both",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "re selection: The requirements of online in a unified package in a LLM inferencing system that both\nconversational chatbot inference and batch processing lowers cost and maintains performance requirements.\ninferencediffergreatlyininputandoutputtokenlengths,\nwhich act as key factors in determining optimal instance References\nand offloading strategies. [1] A. Vaswani, “Attention is all you need,” Advances in\n(ii) The significance of selectively applying KV Cache Neural Information Processing Systems, 2017.\noffloading: KV Cache offloading is not a universally [2] A.Radford,K.Narasimhan,T.Salimans,andI.Sutskever,\napplicable strategy for all workloads and achieves the “Improving language understanding by generative pre-",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "le strategy for all workloads and achieves the “Improving language understanding by generative pre-\ngreatest cost reduction when selectively utilized ac- training,” OpenAI Preprint, 2018.\ncording to workload characteristics. In particular, for [3] H. Touvron, T. Lavril, G. Izacard, X. Martinet, M.-A.\noffline batch processing workloads with long inputs, Lachaux, T. Lacroix, B. Rozière, N. Goyal, E. Hambro,",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  |  |  |  |  |  |  | SL | O10 | \nMinimumSLO\n7800 )SPT(dnocesrepsnekotegarevA\n7300\n500\n200\n100\nInferSave-1st InferSave-2nd Max-\nInferSav |  |  |  |  |  |  |  | SL | O20 | 0\nnce&\noading)\n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  | Perfo\ne(w/ | rma\nooffl | \n |  |  |  |  |  |  |  | ve\nlin\noad\n.\nce\n.\nco\nfflo\nic\ne\nch\nst\nx-\n6e\n60\n6.\nh\ny\nan\nul\nem\noi\ne\nng\nrm\nan\n99,\nou\nnd\ny\na\npr | rag\nec\ns(\nAs\ns\nWi\nns\na\ny.\nme\noi\nto\nPe\n.xl\n0\n7%\npu\nw\nd\nts\ne\nce,\nnts\na\nan\nce\nr\nt c\ne\nhig\nnd\nes | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | \n | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n | ve\nr\ntal | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\na\ns | na\nth",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "F. Azhar, et al., “Llama: Open and efficient foundation [16] T.Griggs,X.Liu,J.Yu,D.Kim,W.-L.Chiang,A.Cheung,\nlanguage models,” arXiv preprint arXiv:2302.13971, 2023. and I. Stoica, “Mélange: Cost efficient large language\n[4] Anthropic, “Message batches api,” 2024. https://www. model serving by exploiting gpu heterogeneity,” 2024.\nanthropic.com/news/message-batches-api, Accessed: De- [17] C. Nie, R. Fonseca, and Z. Liu, “Aladdin: Joint placement\ncember 30, 2024. and scaling for slo-aware llm serving,” arXiv preprint\n[5] OpenAI, “Batch processing and rate limits,” 2024. https: arXiv:2405.06856, 2024.\n//platform.openai.com/docs/guides/batch#rate-limits, Ac- [18] Y. Jiang, F. Fu, X. Yao, T. Wang, B. Cui, A. Klimovic,\ncessed: December 30, 2024. and E.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "s, Ac- [18] Y. Jiang, F. Fu, X. Yao, T. Wang, B. Cui, A. Klimovic,\ncessed: December 30, 2024. and E. Yoneki, “Thunderserve: High-performance and\n[6] Y. Sheng, L. Zheng, B. Yuan, Z. Li, M. Ryabinin, B. Chen, cost-efficient llm serving in cloud environments,” arXiv\nP. Liang, C. Ré, I. Stoica, and C. Zhang, “Flexgen: preprint arXiv:2502.09334, 2025.\nHigh-throughput generative inference of large language [19] P.Patel,E.Choukse,C.Zhang,A.Shah,Í.Goiri,S.Maleki,\nmodels with a single gpu,” in International Conference and R. Bianchini, “Splitwise: Efficient generative llm\non Machine Learning, pp. 31094–31116, PMLR, 2023. inference using phase splitting,” in 2024 ACM/IEEE 51st\n[7] Y. Xiong, H. Wu, C. Shao, Z. Wang, R. Zhang, Y. Guo, Annual International Symposium on Computer Architec-\nJ. Zhao, K.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "C. Shao, Z. Wang, R. Zhang, Y. Guo, Annual International Symposium on Computer Architec-\nJ. Zhao, K. Zhang, and Z. Pan, “Layerkv: Optimizing ture (ISCA), pp. 118–132, IEEE, 2024.\nlarge language model serving with layer-wise kv cache [20] Z.Wang,S.Li,Y.Zhou,X.Li,R.Gu,N.Cam-Tu,C.Tian,\nmanagement,” 2024. and S. Zhong, “Revisiting slo and goodput metrics in\n[8] X. Pan, E. Li, Q. Li, S. Liang, Y. Shan, K. Zhou, Y. Luo, llm serving,” arXiv preprint arXiv:2410.14257, 2024.\nX. Wang, and J. Zhang, “Instinfer: In-storage attention [21] R.Pope,S.Douglas,A.Chowdhery,J.Devlin,J.Bradbury,\noffloading for cost-effective long-context llm inference,” J. Heek, K. Xiao, S. Agrawal, and J. Dean, “Efficiently\n2024. scaling transformer inference,” in Proceedings of Machine\n[9] R.Y.Aminabadi,S.Rajbhandari,A.A.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "2024. scaling transformer inference,” in Proceedings of Machine\n[9] R.Y.Aminabadi,S.Rajbhandari,A.A.Awan,C.Li,D.Li, Learning and Systems 5 (MLSys 2023), 2023.\nE. Zheng, O. Ruwase, S. Smith, M. Zhang, J. Rasley, and [22] AWS, “Aws amazon ec2 instance types-cloud computing\nY.He,“Deepspeed-inference:Enablingefficientinference instances.”\nof transformer models at unprecedented scale,” in SC22:\nInternationalConferenceforHighPerformanceComputing,\nNetworking, Storage and Analysis, pp. 1–15, 2022.\n[10] G. Cloud, “Compare aws and azure services to\ngoogle cloud.” https://cloud.google.com/docs/get-started/\naws-azure-gcp-service-comparison?hl=ko, 2024. Ac-\ncessed: 2024-12-26.\n[11] A. Harlap, A. Tumanov, A. Chung, G. R. Ganger, and\nP. B. Gibbons, “Proteus: Agile ml elasticity through",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "arlap, A. Tumanov, A. Chung, G. R. Ganger, and\nP. B. Gibbons, “Proteus: Agile ml elasticity through\ntiered reliability in dynamic resource markets,” in 12nd\nEuropean Conference on Computer Systems, EuroSys ’17,\np. 589–604, 2017.\n[12] Y. Kim, K. Kim, Y. Cho, J. Kim, A. Khan, K.-D. Kang,\nB.-S. An, M.-H. Cha, H.-Y. Kim, and Y. Kim, “DeepVM:\nIntegrating Spot and On-Demand VMs for Cost-Efficient\nDeep Learning Clusters in the Cloud,” in IEEE/ACM\nInternational Symposium on Cluster, Cloud and Grid\nComputing (CCGRID), 2024.\n[13] G. Fragiadakis, V. Liagkou, E. Filiopoulou, D. Fragkakis,\nC. Michalakelis, and M. Nikolaidou, “Cloud services cost\ncomparison:aclusteringanalysisframework,”Computing,\nvol. 105, pp. 1–28, 03 2023.\n[14] A. Andrzejak, D. Kondo, and S. Yi, “Decision model for",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Computing,\nvol. 105, pp. 1–28, 03 2023.\n[14] A. Andrzejak, D. Kondo, and S. Yi, “Decision model for\ncloud computing under sla constraints,” in Proceedings of\nthe IEEE International Symposium on Modeling, Analysis\nand Simulation of Computer and Telecommunication\nSystems, MASCOTS ’10, pp. 257–266, IEEE, 2010.\n[15] P. Kokkinos, T. A. Varvarigou, A. Kretsis, P. Soumplis,\nand E. A. Varvarigos, “Cost and utilization optimization\nof amazon ec2 instances,” in Proceedings of the 2013\nIEEE Sixth International Conference on Cloud Computing,\npp. 518–525, IEEE, 2013.",
+    "page": 11
+  }
+]

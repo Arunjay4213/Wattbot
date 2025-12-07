@@ -1,0 +1,322 @@
+[
+  {
+    "type": "text",
+    "content": "From Words to Watts: Benchmarking the Energy\nCosts of Large Language Model Inference\nSiddharth Samsi∗§, Dan Zhao†, Joseph McDonald∗, Baolin Li‡, Adam Michaleas∗,\nMichael Jones∗, William Bergeron∗, Jeremy Kepner∗, Devesh Tiwari‡, Vijay Gadepally∗\n∗ MIT, † NYU, ‡ Northeastern University\nAbstract—Large language models (LLMs) have exploded in variety of domains ranging such as education, government,\npopularity due to their new generative capabilities that go far engineering, law, finance and many more.\nbeyondpriorstate-of-the-art.Thesetechnologiesareincreasingly\nThe popularity of these models has also put a spotlight on\nbeing leveraged in various domains such as law, finance, and\nmanysocietalconcernsstemmingfromtheirusage.Fromethi-\nmedicine.However,thesemodelscarrysignificantcomputational",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lconcernsstemmingfromtheirusage.Fromethi-\nmedicine.However,thesemodelscarrysignificantcomputational\nchallenges, especially the compute and energy costs required for calconcernsrangingfromviolationsofcopyrightlaws[2],[3]\ninference. Inference energy costs already receive less attention to safety concerns arising from the fact that these models are\nthantheenergycostsoftrainingLLMs—despitehowoftenthese capable of hallucinating or fabricating information, concerns\nlarge models are called on to conduct inference in reality (e.g., aboutthesemodelsintheeducationalandmedicaldomain[4],\nChatGPT). As these state-of-the-art LLMs see increasing usage\n[5], their carbon footprint, and many more.\nand deployment in various domains, a better understanding",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "], their carbon footprint, and many more.\nand deployment in various domains, a better understanding\nof their resource utilization is crucial for cost-savings, scaling In this paper, we focus primarily on understanding the\nperformance, efficient hardware usage, and optimal inference significant amount of resources—time, computation, and\nstrategies. energy—required for using and deploying some of the large\nInthispaper,wedescribeexperimentsconductedtostudythe language models (LLM) like those that underlie ChatGPT,\ncomputationalandenergyutilizationofinferencewithLLMs.We\nBard, etc. Several prior works have estimated the compute\nbenchmark and conduct a preliminary analysis of the inference\nand energy costs of training language models. Works like [6]",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "preliminary analysis of the inference\nand energy costs of training language models. Works like [6]\nperformance and inference energy costs of different sizes of\nLLaMA—arecentstate-of-the-artLLM—developedbyMetaAI discussthecarbonfootprintoflanguagemodelssuchasBERT,\non two generations of popular GPUs (NVIDIA V100 & A100) ELMo, and precursors to larger models such as GPT-3 and\nand two datasets (Alpaca and GSM8K) to reflect the diverse GPT-4thatpowersomeofthepopularAIchatbotstoday.Oth-\nset of tasks/benchmarks for LLMs in research and practice.\ners have also looked to larger language models; for instance,\nWepresenttheresultsofmulti-node,multi-GPUinferenceusing\nthelargestNVIDIAMegatron-LMmodelrequired3,072A100\nmodel sharding across up to 32 GPUs. To our knowledge, our",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "tNVIDIAMegatron-LMmodelrequired3,072A100\nmodel sharding across up to 32 GPUs. To our knowledge, our\nworkistheoneofthefirsttostudyLLMinferenceperformance GPUs[7]–[9]foritstraining.Whilethecompletedetails(time\nfrom the perspective of computational and energy resources at and resources used) of compute required for training GPT-\nthis scale. 3/4 are not available, several estimates for training [10], [11]\nIndex Terms—Large Language Models, Natural Language\nand inference are publicly available. As industry attempts to\nProcessing, Inference, Green AI, LLM, NLP, Deep Learning,\nshore up competitive moats and restrict information regarding\nDistributed Computing, Energy, Sustainability\ntheir underlying LLM technologies, these details can become\nless reliable and available.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "tainability\ntheir underlying LLM technologies, these details can become\nless reliable and available. Compounding this issue, estimates\nI. INTRODUCTION\nfor inference are even less readily available [12] despite their\nsignificant share of energy costs and their likely larger impact\nGenerativemodels(GenAI)areabletoproducenewcontent\non the environment [13]—especially since model inference\nfrom synthesizing text, images, and audio from which it’s\ncalls can occur more frequently than training/fine-tuning for\ntrained on. While GenAI is not entirely new, the recent\nreal-world deployments and applications.\napplication and broad availability of this technology via tools\nWe present the results of our inference experiments on\nsuch as Stable Diffusion [1], OpenAI’s ChatGPT, Google’s",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "he results of our inference experiments on\nsuch as Stable Diffusion [1], OpenAI’s ChatGPT, Google’s\nLLaMA [14]: an open sourced pre-trained large language\nBard and integration into the Microsoft Bing search engine\nmodels by Meta AI. The LLaMA model is available in a\nhascapturedtheimaginationoftheworldandledtoamassive\nnumberofsizesbut,inmostcases,itslargervariantstypically\nsurge in interest in deploying these types of models across a\nrequire multiple high-end GPUs for both training and in-\nference (assuming no further compression/distillation). While\nDISTRIBUTIONSTATEMENTA.Approvedforpublicrelease.Distribu-\ntionisunlimited.ThismaterialisbaseduponworksupportedbytheAssistant our emphasis is on characterizing the compute performance",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ialisbaseduponworksupportedbytheAssistant our emphasis is on characterizing the compute performance\nSecretaryofDefenseforResearchandEngineeringunderAirForceContract and energy used for multi-node, multi-GPU inference, we\nNo. FA8702-15-D-0001, and United States Air Force Research Laboratory\nalso include results from single node instances using smaller\nCooperativeAgreementNumberFA8750-19-2-1000.Anyopinions,findings,\nconclusions or recommendations expressed in this material are those of the variants of the model as a baseline comparison. We hope our\nauthor(s) and do not necessarily reflect the views of the Assistant Secretary work will help illustrate some of the compute performance\nof Defense for Research and Engineering, or the United States Air Force.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "of the compute performance\nof Defense for Research and Engineering, or the United States Air Force.\nand energy utilization characteristics of LLM inference. We\nThe U.S. Government is authorized to reproduce and distribute reprints for\nGovernmentpurposesnotwithstandinganycopyrightnotationherein. also hope that our experiments, analysis, and data on real-\n3202\ntcO\n4\n]LC.sc[\n1v30030.0132:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "world hardware will spur further analysis, benchmarking, impressive capabilities in tasks that include, but may not be\nand more open dissemination of the systematic performance limited to, natural language.\ncharacteristics for a wider range of large models—especially Typically, LLMs refer to language models containing on\nunder different kinds of hardware, data, and optimization the order of hundreds of millions to billions of parameters\nstrategies. that are trained on extremely large datasets of text. These\nmodelsarealsotypicallybasedonsomevariantoftheoriginal\nII. OVERVIEWOFLARGELANGUAGEMODELS\ntransformer architecture [16] usually leveraging the decoder\nThe landscape of large language models (LLMs) and large half or a hybrid encoder-decoder architecture. Large language",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "arge language models (LLMs) and large half or a hybrid encoder-decoder architecture. Large language\nfoundation models (LFMs) has seen explosive growth in both modelscanbeconsideredasubsetoflargefoundationmodels;\nthe speed of development as well as complexity of ever larger whereas LLMs focus almost exclusively on language data\nmodels. Over the past several years, competition has been for their inputs and outputs, large foundation models include\nfierce and the pace un-relenting as AI research groups across models that allow for multiple modalities such as image and\nprivate companies and academic institutions have developed text(e.g.,GPT-4)orothermodalitiessuchasimagegeneration\nnew models whose performance continues to improve on a (e.g.,StableDiffusion)orvideogeneration(e.g.,MidJourney).",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ose performance continues to improve on a (e.g.,StableDiffusion)orvideogeneration(e.g.,MidJourney).\nwide suite of natural language benchmarks but still requires We refer to [17] for a comprehensive review of the broad\nsignificantamountsofcomputeandenergy.Weprovideabrief classes of GenAI and their capabilities.\noverviewofLLMsandLFMsbelowalongwithdetailsaround\nthe specific LLM we use for our analysis. B. LLaMA\nDeveloped by Meta AI and released in February of 2023,\nLLaMA[14](LargeLanguageModelMetaAI)isalargelan-\nguage model (LLM) that relies on the traditional transformer\narchitecture originally introduced in [16]. Most notably, the\nperformance of LLaMA rivaled or exceeded that of GPT-3 on\nmany NLP benchmarks and remains competitive with other\nstate-of-the-art LLMs [14].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "that of GPT-3 on\nmany NLP benchmarks and remains competitive with other\nstate-of-the-art LLMs [14]. Like other LLMs, LLaMA was\npre-trained on a large collection of data including but not\nlimitedtoCommonCrawl,Github,Wikipedia,etc.Asofspring\n2023,alongsideotherrecentlytimedreleasesofstate-of-the-art\nLLMssuchasGoogle’sBardandOpenAI’sGPT-4,LLaMAis\ncompetitive in its state-of-the-art performance across multiple\ntasks, making it an ideal workhorse for realistically studying\nand benchmarking inference.\nLLaMAcomesinfoursizescharacterizedbythenumberof\nparameters: 7 billion (LLaMA 7B), 13 billion (LLaMA 13B),\n33 billion (LLaMA 33B) and 65 (LLaMA 65B). LLaMA’s\nFig.1:DevelopmentpathsofLLMs:Atreediagramillustrat-\nmodelweights,acrossallofitsvariants,werepubliclyreleased",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "elopmentpathsofLLMs:Atreediagramillustrat-\nmodelweights,acrossallofitsvariants,werepubliclyreleased\ningthedevelopmentoflanguagemodelsandfoundationmod-\nunderanon-commerciallicense,makingitoneofonlyaselect\nels from 2017 to early 2023. Pink branches indicate encoder-\nfew modern, state-of-the-art LLMs that have been publicly\ntypelanguagemodels,greenindicatesencoder-decoderhybrid\navailable.\nmodels,andthedarkgreyindicatesdecoder-stylemodels.The\nTo best understand the realities that lie behind the energy\nbar-plot on the bottom right tallies the number of open/closed\ncostsandthroughputofstate-of-the-artLLMinference,wefo-\nsource models developed by different companies/institutions.\ncus our analysis on the largest available version of LLaMA—\nWestudyLLaMA(outlinedbytheredarrowandredcirclein",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "nalysis on the largest available version of LLaMA—\nWestudyLLaMA(outlinedbytheredarrowandredcirclein\nnamely, LLaMA 65B. We also conduct analysis comparing\nthe diagram above) as an example of one of the more recent,\nthe 7B and 13B LLaMA variants to establish the baseline\nmodern, and state-of-the-art LLMs whose size/complexity\nperformance of the smaller variants of the LLaMA model.\nresemble Google’s Bard and OpenAI’s GPT-4, all three of\nThelargestmodelwefocusouranalysison,LLaMA65B,is\nwhich were released around the same time (spring 2023).\na 65 billion parameter model with an effective model dimen-\nOriginal figure from [15].\nsion of 8,192 and a total of 80 layers and 64 attention heads,\ntrainedover1.4trilliontokens.Byfocusingonthelargest65B\nA. Large Language Models & Large Foundation Models",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "dover1.4trilliontokens.Byfocusingonthelargest65B\nA. Large Language Models & Large Foundation Models\nversion, we also hope to study inference at its fullest scale,\nAs seen in Fig. 1, many different LLMs and foundation controllingforandbenchmarkingphenomenathatwemaynot\nmodels exist—each with their own respective training setup, observeonLLMsofsmallersizeorcomplexity.Thisway,we\narchitectural modifications, purposes or use-cases, etc. Large can realistically benchmark and study the dynamics, as well\nlanguage models and foundation models are best known for as the implications, of inference energy costs and through-put\ntheir sheer size, resource intensity (i.e., the amount of com- on a scale consistent with state-of-the-art LLMs that we see",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ce intensity (i.e., the amount of com- on a scale consistent with state-of-the-art LLMs that we see\nputational resources required for training/inference), and their and use today.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "III. EXPERIMENTALSETUP to as “Alpaca” in our paper which is not to be confused with\nthe Alpaca model). This Alpaca dataset consists of 52,000\nWe conducted our experiments on the MIT Supercloud\ninstruction-followingtasks,instructions/questionswheresome\nhigh-performance computing (HPC) system [18]. This het-\nhaveexampleinputsandsomedonot,thatthemodelisasked\nerogeneous HPC cluster consists of 448 compute nodes with\nto answer. The second dataset is GSM8K [22], consisting of\ndual Intel Xeon Gold 6248 CPUs with 384 GB of RAM\n8,500 human crafted grade school math problems. The goal\nand two NVIDIA Volta V100 GPUs with 32 GB of memory\nof using these two datasets is two-fold: (1) to evaluate the\nper node. Each node on the system has two independent",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "two datasets is two-fold: (1) to evaluate the\nper node. Each node on the system has two independent\nmodel on a diverse set of tasks in NLP and (2) evaluate\nback-end fabrics: a 100 Gb/s Intel Omnipath as well as a\nhow different types of data and its underlying dynamics\n25 Gb/s Ethernet interconnect using Mellanox ConnectX-4\ncan impact energy and inference performance. While natural\nadapters with all servers connected to a single, non-blocking\nlanguageismorecommoninLLMusageandinLLMtraining\nAristaDCS-7516Ethernetcoreswitch.TheGPUs,Omnipath,\ndata, increasingly new capabilities have been demonstrated\nand Ethernet cards are all connected to PCIe slots that route\nin LLMs, including the ability to solve simple mathematical\ndirectlytotheXeonprocessorswithoutanyintermediaryPCIe",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ding the ability to solve simple mathematical\ndirectlytotheXeonprocessorswithoutanyintermediaryPCIe\nproblems, provide/correct examples of code, and more. Math\nswitches. All experiments in this paper exclusively used the\nquestions also differ considerably from questions posed in\n25 Gb/s Ethernet interconnect. The system also includes 480\nnaturallanguagewhichcanresultinsmallercontextwindows,\nCPU-only nodes with Intel Xeon Platinum 8260 processors.\ninputs/outputsofdifferinglengths,numberofdecodedtokens,\nIn addition, four nodes with NVIDIA A100 GPUs were also\netc. This, in turn, may impact inference performance in\navailable for experiments described in this paper. A summary\neither throughput rates or energy costs. For this reason, our\nofthehardwareisshowninTableI.Allexperimentsdescribed",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ut rates or energy costs. For this reason, our\nofthehardwareisshowninTableI.Allexperimentsdescribed\nbenchmarking experiments are conducted on both datasets.\nin this paper were run exclusively on NVIDIA GPUs.\nFor both datasets, we sample 4,096 inputs for our inference\nTABLE I: Compute node configurations: This table lists experiments. Using the entirety of the datasets would only\nthe types of hardware used for inference evaluations in our serve to increase inference time and energy used for the ex-\nexperiments. Each node consists of 2 CPUs and 2 GPUs in perimentationunreasonablyanddidnotprovideanysignificant\nthe configuration listed below. All GPUs are from NVIDIA. benefits to the study.\nCPU GPU C. Evaluation",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "configuration listed below. All GPUs are from NVIDIA. benefits to the study.\nCPU GPU C. Evaluation\nType Memory TDP Type Memory TDP Our goal is to evaluate the inference performance, latency,\n(GB) (W) (GB) (W) andinferenceenergycosts ofLLaMA65Basarepresentative\nlarge language model that requires sharding across multiple\nIntelXeon\nGold6248 384 150 V100 32 250 GPUs. We intend this to be a preliminary analysis that will\nhelp guide more in-depth experiments and benchmarking for\nIntelXeon\nourfuturework.Ouranalysisalsoincludeslimitedanalysisof\nPlatinum8358 503 240 A100 80 300\nsmaller LLaMA variants to illustrate inference performance\nand energy trade-offs in bare-minimum hardware settings:\nA. Models namely, LLaMA 7B and 13B. While we do not control for",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "in bare-minimum hardware settings:\nA. Models namely, LLaMA 7B and 13B. While we do not control for\nExperiments were performed using open-source implemen- the correctness/quality of the outputs or the complexity of the\ntation of the pre-trained LLaMA 65B model available via inputs/outputsinstudyingtrade-offsbetweeninferenceenergy\nrequest from Meta [14] and evaluation scripts available via and performance, we hope to account for this as an ablative\nGitHub [19]. This implementation of the model uses Pytorch study in future work. Similarly, we do not perform a com-\nandtheFairScale[20]librarytoenablemodelshardingacross prehensive evaluation with different optimization techniques\nmultiple GPUs and nodes. For the models, we use a decoder or inference settings available for LLMs such as modeling",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "d nodes. For the models, we use a decoder or inference settings available for LLMs such as modeling\ntemperature setting τ = 0.8 and a top-p value of 0.95 in query arrival rates, model quantization, continuous batching,\nattempts to align our settings with the general range of values etc. which we also leave for future work.\nthat are typically used. In future work, we aim to study Inferenceperformanceismeasuredintermsofrates:words,\nhow varying decoding temperature, top-p, and other hyper- tokens, and responses per second or, equivalently, the number\nparametersmayaffectcomputeperformanceandenergyusage of words, tokens, and responses generated per second. When\nduring inference. While our main focus is on LLaMA 65B, running inference with LLaMA, the model generates a string",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "e. While our main focus is on LLaMA 65B, running inference with LLaMA, the model generates a string\nwealsoexamineLLaMA7BandLLaMA13Btocharacterize of text for each input until the length of the text hits a\ninference performance and energy under the bare minimum maximum generation length or a stop-word is encountered.\nsettings/resources required to run these models. The number of words are calculated by counting the number\nof words present in the output by splitting each output string\nB. Datasets\nonspaces.ThenumberoftokensiscalculatedusingLLaMA’s\nWe used two datasets to evaluate inference performance. owndefaulttokenizerbycountingthenumberoftokensinthe\nThe first is an instruction following dataset used to fine-tune tokenized output. Lastly, the number of responses per second",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "on following dataset used to fine-tune tokenized output. Lastly, the number of responses per second\nthe Alpaca [21] model (from here on, this dataset is referred or the response rate is calculated using the total number of",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "TABLE II: Baseline configurations for LLaMA 7B, 13B,\nresponses and the total time needed to run inference over the\nand65B:Thistableliststhebareminimumhardwarerequired\ninput data.\nWe monitor GPUs using the nvidia-smi [23] and for different models and the maximum batch size possible\nNVIDIA DCGM[24]utilitiestostudyGPUutilization,energy, given the bare minimum hardware for a max response length\npower draw, etc. during our experiments. The nvidia-smi of 256. These limits are imposed by a combination of GPU\nmemory,modelsize,responselengthandthenumberofGPUs.\nutility is used to capture GPU usage over time at 100ms\nintervals and the DCGM monitoring tool is used to capture While the 65B model can sharded across 6 V100 GPUs, we\nuse 8 since the model architecture makes it better suited for",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "el can sharded across 6 V100 GPUs, we\nuse 8 since the model architecture makes it better suited for\naggregate GPU energy in Joules for the rank-0 node. For a\nbalanced sharding across 8 GPUs.\nmulti-node, multi-GPU model, we multiply the rank-0 energy\nbythenumberofnodesused.MaximumpowerdrawonGPUs\nModelSize V10032GB A10080GB\nis capped at 250 Watts unless otherwise stated. Due to limits\nCount Max.Batchsize Count Max.Batchsize\nonresourceavailability,wemainlyuseV100GPUsforlarger-\nscale distributed experiments (i.e., for 8, 16, and 32 shards) 7B 1 64 1 64\nand A100 GPUs for smaller scale experiments. 13B 2 64 1 64\n65B 8 64 4 128\nInference energy metrics are calculated by combining the\ninference metrics above with the energy data collected from\nour GPUs using NVIDIA’s utilities described above.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "metrics above with the energy data collected from\nour GPUs using NVIDIA’s utilities described above. Specif-\nically, energy per second is defined as the total aggregate\n13B on two GPUs in each case whereas the 65B model was\nGPU energy spent from a single experiment/job (across all\nrun on 8 V100 GPUs and 4 A100 GPUs respectively due to\nshards) divided by the total run time of that experiment/job in\nthe size of the model and available memory on the GPU(s).\nseconds.Asingleexperiment/jobdenotesasinglerunthrough\nAs expected, we observe that the A100 outperforms V100\nall 4,096 prompts under a specified batch size. Energy per\non both the Alpaca and GSM8K datasets: particularly for the\ntoken and energy per response are similarly defined as total\nsmaller LLaMA 7B and 13B, we see anywhere from a 2",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ergy per response are similarly defined as total\nsmaller LLaMA 7B and 13B, we see anywhere from a 2\nenergy divided by the number of decoded output tokens and\ntimes (7B) to a 1.25 times increase (13B) in inference latency\nthe number of responses as defined above, respectively.\non the A100 when compared to the V100 across words per\nIV. RESULTS second, tokens per second, and responses per second. Faster\nA. Baselines: LLaMA 7B, 13B, & 65B response rates and inference are likely due to the fact that\nthe number of computations, directly related to the number\n1) Inference Performance: We begin our analysis with\nof parameters of said model, involved in the 7B and 13B\na baseline comparison of LLaMA 65B with smaller-scale\nmodelsaresignificantlylowerthanthe65Bmodel.Wedonote",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "line comparison of LLaMA 65B with smaller-scale\nmodelsaresignificantlylowerthanthe65Bmodel.Wedonote\nLLaMA models: LLaMA 7B and 13B. The goal is to under-\nthat for LLaMA 65B, we see a much smaller improvement in\nstandthefollowing:whatdoinferenceperformanceandenergy\nusing the A100 over the V100; however, since the 65B model\ntrade-offslooklikeforthedifferentsizesofLLaMAunderthe\nrequires sharding across two (A100) or four (V100) compute\nbare-minimum set of resources required to have them running\nnodes at the mininum, this could result in additional latency\ninference? This question can be important for researchers\nto each forward pass of the model, explaining the smaller\nand users who have may not have limitless computational\nimprovements.WealsoobservethatwhileLLaMA7Bexhibits",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rs who have may not have limitless computational\nimprovements.WealsoobservethatwhileLLaMA7Bexhibits\nresources and hardware acceleration or may be constrained\na considerable improvement in inference throughput on both\nin terms of GPU memory, etc.\nAlpacaandGSM8KwiththeA100,theimprovementismuch\nGiven the sizes of the models, the size of the data, and the\nlarger for Alpaca than GSM8K. This can also be attributed to\nhardware memory limits, we only show results from experi-\nthe different complexities of inputs from each dataset.\nmentsthatwerepossibleforagivencombinationofparameters\n(i.e., for some models, certain combinations of batch size and 2) Inference Energy: Figure 3 shows a comparison of the",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "els, certain combinations of batch size and 2) Inference Energy: Figure 3 shows a comparison of the\nnumber of shards are infeasible due to memory limits of the energy per second required to run inference on LLaMA 7B,\nunderlyingGPUs).TableIIshowsthebareminimumhardware 13B,and65B,withdifferentGPUsunderthesamebaremini-\nrequirementsforeachLLaMAvariantandthemaximumbatch mum hardware settings as the above. For both the Alpaca and\nsizepossibleforeachcombination,assumingnofurthermodel GSM8K datasets, we see that there is a considerable increase\ncompression, optimization, quantization, distillation etc. in the energy per second across all LLaMA sizes when using\nWith these limits in mind, we present the inference per- theA100overtheV100wherethemostconsiderableincrease",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "se limits in mind, we present the inference per- theA100overtheV100wherethemostconsiderableincrease\nformance of LLaMA 7B, 13B, and 65B on the Alpaca and is for the smallest 7B model. Although Figure 2 shows a\nGSM8K datasets with the bare minimum hardware settings in considerable increase in inference throughput from using the\nFigure2.TheplotsinFigure2showabaselinecomparisonof A100,Figure3showsusthatthisimprovementdoesnotcome\ninference performance of the three LLaMA variants on both for free: it comes at an increased energy cost per second.\nthe V100 and A100 GPUs respectively. For each model, in Moreover,forthelargestLLaMA65B,itislessclearwhether\nline with the spirit of the bare minimum settings, inference the increased inference energy per second (Figure 3) is worth",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "the bare minimum settings, inference the increased inference energy per second (Figure 3) is worth\nis done with a batch size of 64 and an maximum generation the small improvement in inference throughput in terms of\nlength of 256. The 7B model was run on a single GPU and words/token/responses per second (Figure 2).",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "(a) Results from the Alpaca dataset.\n(b) Results from GSM8K dataset\nFig. 2: Baseline comparison of inference perfor-\nmance/latencybetweenLLaMA7B,13Band65B:inference\nperformance comparisons on the minimum set of hardware\nrequired to run inference (see Table II) across model sizes\nand between V100s and A100s.\nFig.4:Energypersecond(Watts)estimatesofLLaMA65B\nacrossbatchsizesof64/128/256/256and8/16/32shardsfor\nmax generation length 512: inference energy estimates on\nAlpaca and GSM8K on log-scale. Color indicates batch size.\nB. Energy per Second: LLaMA 65B\nWefirsttakealookattheamountofenergyinferencecosts\nper unit time in seconds. Figures 4 and 5 show a more in-\ndepthlookoftheenergyinferencecostsofLLaMA65Bacross\ndifferent batch sizes and degrees of sharding. Specifically,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "heenergyinferencecostsofLLaMA65Bacross\ndifferent batch sizes and degrees of sharding. Specifically,\nFigure 4 shows energy costs for maximum generation length\n512 and Figure 5 shows energy costs for 1024.\nOverall, we see an average increase in energy per second\nwith the number of shards. While there is a slight correlation\nas energy per second increases with increasing batch size,\nincreasing the number of shards always increases the wattage.\nIndeed, the energy per second increases with the number of\nshardsevenatthesamebatchsize(e.g.,theenergyofinference\nat batch size 64, going from 16 shards to 32 shards). For both\ndatasets, increasing the max generation length from 512 to\n1024 does seem to increase the energy per second for each\nFig.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "the max generation length from 512 to\n1024 does seem to increase the energy per second for each\nFig.3:Baselineenergypersecond(Watts)estimatesofper- batch size within each shard configuration, but the overall\nforminginferencewithLLaMA7B,13B,and65B:inference effectislessclearorconsistent.Overall,weseethattheenergy\nenergy comparisons on the minimum set of hardware/settings per second for inference with LLaMA 65B is on the order of\nrequired(seeTableII)withAlpacaandGSM8Konalog-scale. 300Wattsto1Kilowattfromthelowershardconfigurationof\nColor indicates device (V100/A100), bars indicate average 8 GPUs to the higher end of 32 GPUs.\nquantities and lines indicate error bars. Energy is averaged\nC. Energy per Decoded Token: LLaMA 65B\nover maximum generation lengths of 256, 512, and 1024 due",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ed\nC. Energy per Decoded Token: LLaMA 65B\nover maximum generation lengths of 256, 512, and 1024 due\ntonear-identicalenergy/sizetrendsforeachgenerationlength. Movingontoenergypereachdecodedoutputtoken,wesee\nthat in Figures 6 and 7 that energy per token tends to follow\na similar pattern in relation to the number of shards: as the\nnumber of shards increases, the energy per output token also",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Fig.5:Energypersecond(Watts)estimatesofLLaMA65B Fig. 6: Energy per output token estimates of LLaMA 65B\nacrossbatchsizesof64/128/256/512and8/16/32shardsfor across batch sizes of 64/128/256/512 and 8/16/32 shards\nmax generation length 1024: inference energy estimates on for max generation length 512: inference energy estimates\nAlpaca and GSM8K on log-scale. Color indicates batch size. on Alpaca and GSM8K on log-scale. Color indicates batch\nsize.\nincreases.However,weseelittlechangeintheaverageenergy\nper token between max generation length 512 and 1024. For\ninstance,withlength512,weseethatittakesabout3-4Joules\nfor a output token, which is approximately the same amount\nfor length 512. As with energy per second, max generation\nlength seems to have a negligible effect on energy costs from",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ith energy per second, max generation\nlength seems to have a negligible effect on energy costs from\n512to1024.Interestingly,thereappearstobeanexceptionfor\ntheGSM8Kmathproblemdataset;thereexistsa“sweetspot”\nat 16 shards where continuously increasing the batch size can\nactually reduce the energy per token at max generation length\n512. However, this disappears under max generation length\n1024 where increasing the batch size increases the energy per\ntoken. The definitive existence of this sweet spot for datasets\nof differing styles/complexities, or others like it, will require\nmore experimentation and benchmarking to establish.\nD. Energy per Response: LLaMA 65B\nFigures 8 and 9 show energy metrics in terms of responses\nfrom the 65B model. Like before, we see that increasing",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "9 show energy metrics in terms of responses\nfrom the 65B model. Like before, we see that increasing\nthe number of shards still tends to increase the energy costs\nof inference per response most overall while increasing the\nmaximum generation length from 512 (Figure 8) to 1024\n(Figure 9) does not induce a clear or significant effect in\nFig. 7: Energy per output token estimates of LLaMA 65B\ninference energy costs. Also like before, while we see slight\nacrossbatchsizesof64/128/256/512and8/16/32shardsfor\nincreases in energy costs per response generated within a\nmax generation length 1024: inference energy estimates on\nshardconfigurationasbatchsizeincreases,butnotconsistently\nAlpaca and GSM8K on log-scale. Color indicates batch size.\nor significantly. Again, we see that for GSM8K, at max",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "og-scale. Color indicates batch size.\nor significantly. Again, we see that for GSM8K, at max",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Fig. 8: Energy per response estimates of LLaMA 65B\nFig. 9: Energy per response estimates of LLaMA 65B\nacross batch sizes of 64/128/256/512 and 8/16/32 shards\nacross batch sizes of 64/128/256/512 and 8/16/32 shards\nfor max generation length 512: inference energy estimates\nfor max generation length 512: inference energy estimates\non Alpaca and GSM8K on log-scale. Color indicates batch\non Alpaca and GSM8K on log-scale. Color indicates batch\nsize.\nsize.\ngenerationlength512,increasingthebatchsizewhilekeeping\ncap for all GPU workloads may not show the same effective-\nthe number of shards fixed at 16 is associated with a decrease\nness depending on the task and additional experimentation is\nin energy per response, which is consistent with what we\nrequired to make broader recommendations.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "in energy per response, which is consistent with what we\nrequired to make broader recommendations.\nobserved in energy per tokens in the same setting.\nE. Effects of GPU Power Capping on LLaMA 65B Output Time Energy TokenRate\nlength %change %change %change\nPower consumption in AI is an increasingly important\n175W 150W 175W 150W 175W 150W\nconcern.Inpriorwork,wehaveshown[25]thatpowercapping\nGPUs during training of language models such as BERT [26] 256 6.23 15.33 -21.82 -32.76 -5.87 -13.15\n512 6.51 21.70 -23.95 -34.66 -6.11 -17.83\nis an effective way of reducing the energy consumed training\n1024 7.40 21.65 -23.87 -34.59 -6.89 -17.80\nthese models. While the work in [25] focused on model\ntraining,inthispaper,wefocusoninference.Inordertostudy TABLEIII:EffectsofGPUpowercappingonLLaMA65B",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "training,inthispaper,wefocusoninference.Inordertostudy TABLEIII:EffectsofGPUpowercappingonLLaMA65B\nthe effect of power capping on inference using large language inference: This table shows the relative performance of the\nmodels, we ran a limited set of experiments using LLaMA LLaMA65BmodelontheGSM8kdatasetwithabatchsizeof\n65B. We ran the 65B model on four 80GB A100 GPUs with 64 and output lengths of 256, 512, 1024 using NVIDIA A100\nthe power cap set at 250W, 175W and 150W. GPUs. The GPUs were power capped at 250W, 175W and\n150W. Results shown here are relative to model performance\nTable III shows the relative change in total inference time,\nat 250W to stay consistent with the settings in the rest of the\nenergy and token rate under power cap conditions. Results\nexperiments described here.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "e rest of the\nenergy and token rate under power cap conditions. Results\nexperiments described here.\nshownherearecalculatedrelativetoapowercapof250W.For\na 30% reduction in power from 250W to 175W, the inference\ntimeincreasesbyanaverageof6.7%foracorrespondingaver-\nF. GPU Resource Utilization under Distributed Inference\nagereductionintotalenergyby23.21%.However,areduction\nin power cap to 150W results in a much more significant Finally, we briefly examine the average GPU resource\n(19.49%) increase in average inference time. These results utilization by the 65B LLaMA model when running model\nshow that power capping as an energy savings intervention shardedinference.Forthesakeofsimplicity,weonlyconsider\ncan be effective when applied appropriately.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "shardedinference.Forthesakeofsimplicity,weonlyconsider\ncan be effective when applied appropriately. A static power a batch size of 64 and a maximum generated output length",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "of 256. For this configuration, we ran on four A100 GPUs varying model parameters, input data, and hardware configu-\nand 8, 16, 32 V100 GPUs. These results are summarized in rations.Bycomparinganaturallanguageinstructionfollowing\nTables IV and V. In all cases, the streaming multiprocessors dataset (Alpaca) and a mathematical question-answer dataset\n(SM) utilization as reported by the DCGM utility was observed (GSM8K),wealsofindthatthecomplexityoftheinputdataset\ntobeinthe94%-95%range.FortheA100GPUs,theaverage can affect the model performance for a given set of hyper-\nSM utilization rises to 98% when the maximum generated parameters and hardware configuration.\noutput length is increased to 2048. Given that the model is Given the size of LLMs and the limits imposed by current",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "increased to 2048. Given that the model is Given the size of LLMs and the limits imposed by current\nsharded in a manner that enables us to load it fully in GPU hardware, inference with large models can impose onerous\nmemory and run inference on a non-trivial amount of data, requirements. For example, we find that, at a minimum, 8\nwe expect memory utilization to be low depending on the V100 GPUs each with 32 GB of RAM or 4 A100 GPUs\nspecific model parameters and input sizes used. Thus, on each with 80GB of memory are required for any meaningful\nthe four 80GB A100 nodes, the memory utilization varies inferences with the 65B LLaMA model. In each case among\nbetween 23%-27% depending the maximum generated output ourexperiments,weshardthemodelevenlyacrossallGPUsin\nlength.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "% depending the maximum generated output ourexperiments,weshardthemodelevenlyacrossallGPUsin\nlength. This under-utilization of memory implies that it may order to fit the model/data; however, this results in only 20%-\nbe possible to co-locate multiple models on the same set 25%oftheGPUmemorybeingutilizedatanygiventime.This\nof GPUs to increase aggregate throughput and potentially over-provisioning of resources represents new opportunities\nreduce cloud compute costs or improve system utilization at for resource sharing across multiple workloads in the latest\na supercomputer center. With new GPU sharing capabilities NVIDIA GPUs. The Multi-Process Service (MPS) [27] and\nsuch as Multi-Process Service (MPS) [27] and Multi-Instance Multi-Instance GPU (MIG) [28] are new capabilities that",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ocess Service (MPS) [27] and Multi-Instance Multi-Instance GPU (MIG) [28] are new capabilities that\nGPU (MIG) [28], a single GPU may be shared by diverse enable GPU sharing across different workloads. Although\nworkloads for an overall improvement in system throughput identifying the optimal MPS or MIG configuration for a\nasshowninrecentwork[29].TheoptimalGPUconfiguration given set of workloads is challenging, recent work [29] has\nfor sharing LLMs and other workloads is a part of our future developednewtechniquestoexploitthesecapabilitiesinorder\nwork in this area. to dynamically partition GPU resources. This opens up the\npotential to optimally partition high-end GPUs such as the\nModelShards OutputLength Max.MemoryUtil. Avg.SMUtil. A100s or H100s to co-locate multiple LLMs for inference—",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "s OutputLength Max.MemoryUtil. Avg.SMUtil. A100s or H100s to co-locate multiple LLMs for inference—\n4 256 23.36 95.00 with the potential of only minimal degradation to computa-\n4 512 24.54 98.81 tional performance.\n4 1024 24.85 98.85\nFinally, as AI compute requirements have increased, there\n4 2048 27.00 98.00\nis an increasing focus on approaches to reduce the carbon\nTABLE IV: A100 Utilization: This table shows GPU utiliza- and energy footprints of datacenters by making larger models\ntion for 80GB A100 GPUs and LLaMA 65B with 4 shards, leaner or more efficient. Approaches such as model quan-\nbatch size of 64 averaged across both datasets used in this tization, distillation, sparsification, etc. are being developed\npaper. to reduce the compute required for AI along with the de-",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ification, etc. are being developed\npaper. to reduce the compute required for AI along with the de-\nvelopment of custom, energy-efficient hardware for inference\nand training. However, simple interventions like GPU power\nModelShards OutputLength Max.MemoryUtil. Avg.SMUtil. capping is available to be deployed today—our preliminary\n8 256 24.25 94.75 analysiswithLLMinferenceinthispapersuggeststhatpower\n16 256 13.33 95.00\ncappingcanbeaneffectivetoolforreducinginferenceenergy.\n32 256 6.66 95.66\nIf applied at the datacenter-scale, this intervention has the\nTABLE V: V100 Utilization: This table shows GPU utiliza- potentialtoreduceoverallenergyusageinthelong-runasnew\ntion for 32GB V100 GPUs and LLaMA 65B with 8, 16, 32 approaches are developed to address the energy consumption",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "B V100 GPUs and LLaMA 65B with 8, 16, 32 approaches are developed to address the energy consumption\nshards, a batch size of 64 and maximum generated output of AI compute.\nlengthof256averagedacrossbothdatasetsusedinthispaper. As part of our future plans, we aim to conduct similar\nWe limit this result to an ouptut length of 256 because longer experiments on other open-source, large language models\noutputson8V100GPUsarenotpossiblegivenmemorylimits along with more in-depth characterization of compute and\nof the GPU. energy for not just inference, but also for the training/fine-\ntuning of these models. It is our hope that this paper provides\na baseline for inference with LLMs and fosters a broader\nV. DISCUSSION\ndiscussion of the challenges and opportunities in this field.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "s and fosters a broader\nV. DISCUSSION\ndiscussion of the challenges and opportunities in this field.\nIn this paper, we show the results of benchmarking a\nrepresentative large language model on NVIDIA GPUs. We\nACKNOWLEDGEMENTS\nshow baseline results from smaller models (7B, 13B) and The authors acknowledge the MIT SuperCloud [18] and\ncompare them against the largest available version (65B) of LincolnLaboratorySupercomputingCenterforprovidingHPC\nLLaMA. We also examine the inference performance and en- andconsultationresourcesthathavecontributedtotheresearch\nergyacrossdistributedsettingsanddifferentconfigurationsby resultsreportedwithinthispaper.Theauthorsacknowledgethe",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "MIT SuperCloud team: William Arcand, William Bergeron, [13] D. Zhao, N. C. Frey, J. McDonald et al., “A green(er) world for\nChansup Byun, Michael Houle, Anna Klein, Peter Michaleas, a.i.” in 2022 IEEE International Parallel and Distributed Processing\nSymposiumWorkshops(IPDPSW),2022,pp.742–750.\nLaurenMilechin,JulieMullen,AlbertReuther,AntonioRosa,\n[14] H. Touvron, T. Lavril, G. Izacard et al., “Llama: Open and efficient\nand Charles Yee. The authors also wish to acknowledge the foundationlanguagemodels,”2023.\nfollowing individuals for their contributions and support: Bob [15] “Different development paths of llms,” https://www.interconnects.ai/p/\nllm-development-paths.\nBond, Allan Vanterpool, Tucker Hamilton, Jeff Gottschalk,\n[16] A. Vaswani, N. Shazeer, N. Parmar et al.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "d, Allan Vanterpool, Tucker Hamilton, Jeff Gottschalk,\n[16] A. Vaswani, N. Shazeer, N. Parmar et al., “Attention is all you need,”\nMikeKanaan,CharlesLeiserson,DaveMartinez,SteveRejto, 2017.\nMarc Zissman. [17] R.Gozalo-BrizuelaandE.C.Garrido-Merchan,“Chatgptisnotallyou\nneed.astateoftheartreviewoflargegenerativeaimodels,”2023.\nREFERENCES [18] A. Reuther, J. Kepner, C. Byun et al., “Interactive supercomputing on\n40,000coresformachinelearninganddataanalysis,”in2018IEEEHigh\n[1] Stability-AI, “Stable Diffusion,” https://github.com/Stability-AI/ PerformanceextremeComputingConference(HPEC). IEEE,2018,pp.\nStableDiffusion,2023. 1–6.\n[2] D.Foster,Generativedeeplearning. ”O’ReillyMedia,Inc.”,2022. [19] Facebook Research, online, 2023. [Online]. Available: https://github.\n[3] Z. Epstein, A.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": ",2022. [19] Facebook Research, online, 2023. [Online]. Available: https://github.\n[3] Z. Epstein, A. Hertzmann, the Investigators of Human Creativity com/facebookresearch/llama\net al., “Art and the science of generative ai,” Science, vol. [20] FairScale authors, “Fairscale: A general purpose modular pytorch li-\n380, no. 6650, pp. 1110–1111, 2023. [Online]. Available: https: braryforhighperformanceandlargescaletraining,”https://github.com/\n//www.science.org/doi/abs/10.1126/science.adh4451 facebookresearch/fairscale,2021.\n[4] B. Mesko´ and E. J. Topol, “The imperative for regulatory oversight [21] R.Taori,I.Gulrajani,T.Zhangetal.,“Stanfordalpaca:Aninstruction-\nof large language models (or generative ai) in healthcare,” npj Digital following llama model,” https://github.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "nguage models (or generative ai) in healthcare,” npj Digital following llama model,” https://github.com/tatsu-lab/stanford alpaca,\nMedicine,vol.6,no.1,p.120,2023. 2023.\n[5] H.Zohny,J.McMillan,andM.King,“Ethicsofgenerativeai,”Journal [22] K.Cobbe,V.Kosaraju,M.Bavarianetal.,“Trainingverifierstosolve\nofMedicalEthics,vol.49,no.2,pp.79–80,2023.[Online].Available: mathwordproblems,”arXivpreprintarXiv:2110.14168,2021.\nhttps://jme.bmj.com/content/49/2/79 [23] NVIDIA. Nvidia-smi. [Online]. Available: http://developer.download.\n[6] E.Strubell,A.Ganesh,andA.McCallum,“Energyandpolicyconsid- nvidia.com/compute/DCGM/docs/nvidia-smi-367.38.pdf\nerationsfordeeplearninginNLP,”inProceedingsofthe57thAnnual [24] ——. Nvidia data center GPU manager (dcgm). [Online]. Available:",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": ",”inProceedingsofthe57thAnnual [24] ——. Nvidia data center GPU manager (dcgm). [Online]. Available:\nMeeting of the Association for Computational Linguistics. Florence, https://developer.nvidia.com/dcgm\nItaly: Association for Computational Linguistics, Jul. 2019, pp. 3645– [25] J.McDonald,B.Li,N.Freyetal.,“Greatpower,greatresponsibility:\n3650. Recommendations for reducing energy for training language models,”\n[7] M.Shoeybi,M.Patwary,R.Purietal.,“Megatron-lm:Trainingmulti- in Findings of the Association for Computational Linguistics: NAACL\nbillionparameterlanguagemodelsusingmodelparallelism,”2020. 2022,2022,pp.1962–1970.\n[8] D. Narayanan, M. Shoeybi, J. Casper et al., “Efficient large-scale [26] J. Devlin, M.-W. Chang, K. Lee et al., “BERT: Pre-training",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "sper et al., “Efficient large-scale [26] J. Devlin, M.-W. Chang, K. Lee et al., “BERT: Pre-training\nlanguagemodeltrainingongpuclustersusingmegatron-lm,”2021. of deep bidirectional transformers for language understanding,” in\n[9] “Nvidia/megatron-lm:Ongoingresearchtrainingtransformermodelsat Proceedings of the 2019 Conference of the North American Chapter\nscale,”https://github.com/NVIDIA/Megatron-LM,2023. of the Association for Computational Linguistics: Human Language\n[10] J.Sevilla,L.Heim,A.Hoetal.,“Computetrendsacrossthreeerasof Technologies, Volume 1 (Long and Short Papers). Minneapolis,\nmachinelearning,”2022. Minnesota: Association for Computational Linguistics, Jun. 2019, pp.\n[11] D. Patel, “The ai brick wall – a practical limit for scaling dense 4171–4186.[Online].",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "019, pp.\n[11] D. Patel, “The ai brick wall – a practical limit for scaling dense 4171–4186.[Online].Available:https://aclanthology.org/N19-1423\ntransformer models, and how gpt 4 will break past it,” https://www. [27] NVIDIA,“Multi-ProcessService,”https://docs.nvidia.com/deploy/mps/,\nsemianalysis.com/p/the-ai-brick-wall-a-practical-limit,2023. 2023.\n[12] R.Desislavov,F.Mart´ınez-Plumed,andJ.Herna´ndez-Orallo,“Trendsin [28] NVIDIA, “NVIDIA Multi Instance GPU User Guide,” https://docs.\naiinferenceenergyconsumption:Beyondtheperformance-vs-parameter nvidia.com/datacenter/tesla/mig-user-guide/,2023.\nlaws of deep learning,” Sustainable Computing: Informatics and Sys- [29] B. Li, T. Patel, S. Samsi et al., “Miso: exploiting multi-instance gpu\ntems,vol.38,p.100857,2023.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "9] B. Li, T. Patel, S. Samsi et al., “Miso: exploiting multi-instance gpu\ntems,vol.38,p.100857,2023. capability on multi-tenant gpu clusters,” in Proceedings of the 13th\nSymposiumonCloudComputing,2022,pp.173–189.",
+    "page": 9
+  }
+]

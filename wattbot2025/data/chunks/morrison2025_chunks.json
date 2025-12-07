@@ -1,0 +1,487 @@
+[
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nHOLISTICALLY EVALUATING THE ENVIRONMENTAL\nIMPACT OF CREATING LANGUAGE MODELS\nJacobMorrison1 ClaraNa2 JaredFernandez2\nTimDettmers1,2 EmmaStrubell1,2 JesseDodge1\n1AllenInstituteforAI 2CarnegieMellonUniversity\njacobm@allenai.org\nABSTRACT\nAs the performance of artificial intelligence systems has dramatically increased,\nsotoohastheenvironmentalimpactofcreatingthesesystems.Whilemanymodel\ndevelopersreleaseestimatesofthepowerconsumptionandcarbonemissionsfrom\nthe final training runs for their latest models, there is comparatively little trans-\nparencyintotheimpactofmodeldevelopment,hardwaremanufacturing,andtotal\nwater usage throughout. In this work, we estimate the real-world environmental\nimpactofdevelopingaseriesoflanguagemodels,rangingfrom20millionto13",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ate the real-world environmental\nimpactofdevelopingaseriesoflanguagemodels,rangingfrom20millionto13\nbillionactiveparameters,trainedonupto5.6trilliontokenseach. Whenaccount-\ningforhardwaremanufacturing,modeldevelopment,andourfinaltrainingruns,\nwefindthat ourseriesofmodelsreleased 493metrictons ofcarbonemissions,\nequivalent to powering about 98 homes in the United States for one year, and\nconsumed2.769millionlitersofwater, equivalenttoabout24.5yearsofwater\nusagebyapersonintheUnitedStates,eventhoughourdatacenterisextremely\nwater-efficient. We measure and report the environmental impact of our model\ndevelopment;tothebestofourknowledgewearethefirsttodosoforLLMs,and\nwe find that model development, the impact of which is generally not disclosed",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rsttodosoforLLMs,and\nwe find that model development, the impact of which is generally not disclosed\nbymostmodeldevelopers,amountedto∼50%ofthatoftraining. Bylookingat\ndetailed time series data for power consumption, we also find that power usage\nthroughout training is not consistent, fluctuating between ∼15% and ∼85% of\nour hardware’s maximum power draw, with negative implications for grid-scale\nplanning as demand continues to grow. We close with a discussion on the con-\ntinued difficulty of estimating the environmental impact of AI systems, and key\ntakeawaysformodeldevelopersandthepublicatlarge.\n1 INTRODUCTION\nIn recent years, the field of artificial intelligence has progressed at an unprecedented pace, driven\ninlargepartbythedevelopmentanddeploymentoflargelanguageandmultimodalmodels.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "precedented pace, driven\ninlargepartbythedevelopmentanddeploymentoflargelanguageandmultimodalmodels. How-\never,thedevelopmentofthesemodelscomeswithsignificantenvironmentalcosts(Schwartzetal.,\n2020;Strubelletal.,2020;Wuetal.,2022). Trainingthesemodelsrequiresmassivecomputational\nresources, which, in turn, require large amounts of energy. Powering training both emits carbon\n(by burning fossil fuels) and consumes water (by evaporating or polluting it in power plants, data\ncenters, and hardware manufacturing processes; Li et al. (2023)). There is a growing demand for\nenergytopowerAIworkloads,withprojectionsestimatingthatdatacentersmayconsumeupwards\nof11.7%ofthetotalUSenergydemandby2030(Shehabietal.,2024;Greenetal.,2024). These",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rsmayconsumeupwards\nof11.7%ofthetotalUSenergydemandby2030(Shehabietal.,2024;Greenetal.,2024). These\nenergyneedsaresubstantialsuchthattheyaffectthedecisionsofbothmachinelearningdevelopers\nandenergyproviders–forinstance,Microsoftrecentlysignedadealtopurchasethenext20years\nofenergygeneratedbyreopeninganuclearpowerplant,1 andmeanwhileenergyprovidersareex-\ntendingthelifeofagingfossilfuelenergyplantstokeepupwithdemand.2 Assuch,especiallyas\n1https://www.technologyreview.com/2024/09/26/1104516/three-mile-island-microsoft/\n2https://www.wsj.com/business/energy-oil/electricity-demand-coal-gas-retirement-charts-dd07029a\n1\n5202\nraM\n3\n]YC.sc[\n1v40850.3052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nincreasingnumbersofstakeholdersbecomeinvolvedinthedevelopmentanduseofAIsystems,itis\nimperativetocarefullycharacterizethetruecostofbuildinganddeployingstate-of-the-artmodels,\ntoinformeffectivestrategiesformitigatingpotentialharmsandplanningforfuturedemand.\n103\n102\n101\n100\n100 101 102\nCarbon Emissions (tCO eq)\n)Lk(\nnoitpmusnoC\nretaW\nIn this paper, we estimate the energy use and\nenvironmental impacts caused by training the\nOLMo series of transformer language models OLMo 2 13B\n(Groeneveld et al., 2024; OLMo et al., 2025),\nranging in size from 20 million to 13 billion OLMo 2 7B\nactiveparameters, trainedon1.7to5.6trillion\nOLMoE 0924\ntokens. To do this, we calculate Scope 2 CO\n2 OLMo 1B\nemissions in accordance with the Greenhouse",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "4\ntokens. To do this, we calculate Scope 2 CO\n2 OLMo 1B\nemissions in accordance with the Greenhouse\nGasProtocol’sdefinitions,3 andScope1and2\nOLMo 700M\nwater consumption following Li et al. (2023);\nin addition, we calculate “upstream” embod- OLMo 150M\niedcarbonandwaterconsumption,andprovide\n“downstream” estimates from use of our mod- OLMo 20M\nels(whicharepart,butnotall,ofScope3).\nImportantly, we calculate (i) electricity con-\nsumption, (ii) carbon emissions, and (iii) wa- Figure1: Environmentalimpactforaselectionofthe\nfinal training runs described in Section 4.1, where we\nterconsumptionatthreepointsinthemachine\nrank each model by both its total water consumption\nlearning pipeline: early model development\nanditsCO emissions.Oursmallmodels(<1Bparam-\n(e.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "umption\nlearning pipeline: early model development\nanditsCO emissions.Oursmallmodels(<1Bparam-\n(e.g., hyperparameter tuning and experiments 2\neters)weretrainedon1.7trilliontokens,OLMo1Bwas\nbefore the final training run), training of the\ntrainedon3trillion,OLMo27Bwastrainedon4tril-\nmain model, and inference. To the best of our lion, OLMoE was trained on 5 trillion, and OLMo 2\nknowledge, we are the first to report this in- 13B was trained on 5.6 trillion. We see that the total\nformationformodeldevelopmentoflargelan- environmental impact for larger training runs is quite\nguage models, and we find the environmental high,andincreasesquicklywithmodelanddatasetsize.\nimpact of developing even our relatively small\nmodels (only up to 13B parameters) is equivalent to burning 2.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "developing even our relatively small\nmodels (only up to 13B parameters) is equivalent to burning 2.1 gasoline tanker trucks of fuel, or\ntheamountofwaterconsumedbyoneaveragepersonintheUnitedStatesinabout7.5years. We\nencouragethereadertoconsiderlargermodelsreleasedbyotherorganizationstohaveequivalently\nlargerenvironmentalimpacts.\nOur methodology draws upon best practices from recent publications, aiming to provide the most\nthoroughreportingyetoftheenvironmentalimpactofLLMs. Forexample,unlikepreviousworks\nthatassumeGPUsoperateat100%oftheirtheoreticalmaximumpowerdraw(Dubeyetal.,2024)\nand report only the cost to train a small set of released models, we measure power consumption\nat sub-second intervals throughout training. We focus our efforts on a wide range of model sizes,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "n\nat sub-second intervals throughout training. We focus our efforts on a wide range of model sizes,\noptimizedforwidespreaddeployment(Dubeyetal.,2024;Mehtaetal.,2024;GemmaTeametal.,\n2024),andestimatewhattheenvironmentalimpactwouldbeifourmodelsweredeployedinava-\nrietyofdifferentscenarios. Wefindthatinsomescenarios,ourmodelswouldneedtoruninference\nonafewbillioninstancestomatchtheelectricityconsumed, carbonemitted, andwaterconsumed\noftheentiretrainingprocess,afigurethatcanbereachedbyproductionsystemsinweekstomonths\nbasedoncurrentusagetrends.4\nWe conclude that more transparency is needed across the industry in reporting the environmental\nimpactofAIsystems. Systemsordersofmagnitudelargerthanthoseinthispaperarebeingbuilt,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "e environmental\nimpactofAIsystems. Systemsordersofmagnitudelargerthanthoseinthispaperarebeingbuilt,\nand deployed at a global scale, leading to emissions 10s or 100s of times larger than what we\nreport. This work is a step in the right direction, but responsibility of reporting and reducing the\nenvironmentalimpactmustfallonthosetrainingthelargestmodels,astheyhavethelargestimpact.\n2 RELATED WORK\nWhilemostpubliclyavailablemodelsdonotreportanyclimateimpact, includingCO emissions,\n2\nwaterusage,orembodiedcarbon,afewreportsrecentlyhaveincludedsomeestimates.Forexample,\n3https://ghgprotocol.org/sites/default/files/standards/ghg-protocol-revised.pdf\n4https://www.cnbc.com/2025/02/20/openai-tops-400-million-users-despite-deepseeks-emergence.\nhtml\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "lion-users-despite-deepseeks-emergence.\nhtml\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nLuccionietal.(2023)reportedestimatesforemissionsfromthemanufacturingprocess(embodied\nemissions), from electricity consumption during training, and from electricity consumption of the\ncluster while it was idle (see their Table 2). Dodge et al. (2022) measured electricity consump-\ntionandcarbonemissionsfortraininglanguagemodelsandcomputervisionmodelswithgranular\ntimestepswithregion-specificcarbonintensity,butdidnotmeasuredevelopmentcosts,watercon-\nsumption,orinference. Similarly,developersoftheLlamamodels(Touvronetal.,2023a;b;Dubey\netal.,2024)reportedelectricityconsumptionandcarbonemissionsestimatesoftrainingtheirfinal\nmodels;theydidnotestimatedevelopmentcostorwaterconsumption,andtheirapproachtocarbon\nintensityvaried.5 Gemmadevelopers(GemmaTeametal.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "mentcostorwaterconsumption,andtheirapproachtocarbon\nintensityvaried.5 Gemmadevelopers(GemmaTeametal.,2024)onlyreportasinglenumber: the\ntotalemissionsfrompretrainingtheirmodels, notbrokendownbymodelorbydifferentstagesof\ntraining, orbyelectricityconsumptionandcarbonintensity. TheOLMoreport(Groeneveldetal.,\n2024) documents electricity consumption per model, and uses region-specific carbon intensity to\nestimateemissionsfortworegions,butdoesnotestimateotherenvironmentalimpacts. TheOLMo\n2report(OLMoetal.,2025)againdocumentselectricityconsumptionpermodelandusesregion-\nanddatacenter-specificintensityfactorstoestimateemissionsandalsowaterconsumption,butdoes\nnotmeasuredevelopmentcostsorpotentialinferencecosts. Energyuseandenvironmentalimpacts\narenottypicallydocumentedforproprietarymodels.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tialinferencecosts. Energyuseandenvironmentalimpacts\narenottypicallydocumentedforproprietarymodels.\nComparablylittletransparencyhasbeenprovidedonthewaterconsumptionofAIsystems. Lietal.\n(2023)estimatethewaterconsumptionofsomeclosedmodelslikeGPT-3, buttheseestimatesare\nbased on speculation about location of training, energy consumption, etc., as there is very little\npublic information about GPT-3’s training. Similarly, there are few estimates of embodied carbon\nforAIsystems,asthemanufacturingprocessisnotoriouslyopaque.Inaddition,almostallreporting\nof environmental impact is based on training of the final model that is released. Instead of only\nfocusingontraining,Luccionietal.(2024)estimatetheimpactofinferenceofdeployedAIsystems.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tead of only\nfocusingontraining,Luccionietal.(2024)estimatetheimpactofinferenceofdeployedAIsystems.\nTothebestofourknowledgeourworkprovidesthefirstpublicestimatesofenvironmentalimpact\nofdevelopmentofanLLM,i.e. hyperparametertuningandablationsbeforethemaintrainingrun.\n3 METHODOLOGY\nOurgoalinthisworkistocharacterizetheholisticenvironmentalimpactsoflargelanguagemodels\ninasmuchdetailaspossible,enablingassessmentofkeychallengesandfuturedirectionstowards\nreducingthoseimpacts. Typically,studiesdocumentinglanguagemodeltraininganddevelopment\nmethodologywilladdressthisconcernbyreportingthecosttotrainthefinal,deployedmodelmea-\nsured in GPU hours, kWh energy, and/or CO emissions. However, this calculation provides an\n2",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "elmea-\nsured in GPU hours, kWh energy, and/or CO emissions. However, this calculation provides an\n2\nincomplete characterization of the factors leading to environmental degradation due to LLMs that\nunder-estimates impacts and provides insufficient information to inform strategies for developing\nanddeployingLLMsinamoreenvironmentallyconsciousway.\nFollowingthemorecomprehensiveanalysisprovidedfortheBLOOMmodel(Luccionietal.,2023),\nwe expand our measurement to include both operational GHG emissions arising from the energy\nrequiredforthedevelopment,training,andinferencephasesoftheMLmodellifecycle,aswellas\nembodied emissions attributed to manufacturing of the hardware supporting those operations. We\nalsogobeyondpreviousworktoreportnon-GHGexternalitiessuchaswateruse,andfiner-grained",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "operations. We\nalsogobeyondpreviousworktoreportnon-GHGexternalitiessuchaswateruse,andfiner-grained\ndatasuchasvarianceinenergyusethroughouttraining.Wedescribeourmethodologyformeasuring\nandestimatingtheseimpactsinmoredetailbelow.\n3.1 OPERATIONALIMPACTS\nOperational environmental impacts of LLMs are those that arise directly from the development\nand use of models, and include the GHG emissions arising from energy sources used to power\nmodeltraininganddeployment,includingserversanddatacentercooling. Webaseouranalysisof\noperationalemissionsaroundthefollowingequationintroducedbySchwartzetal.(2020)todescribe\ntheamountofcomputationrequiredtoproduceamachinelearningartifact,suchasanLLM:\nCost(R)∝E·D·H (1)\n5Llama1didnotusethedatacenterlocation’scarbonintensity,insteadusingUSnationalaveragecarbon",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "·D·H (1)\n5Llama1didnotusethedatacenterlocation’scarbonintensity,insteadusingUSnationalaveragecarbon\nintensity;Llama2didnotspecifythecarbonintensity;Llama3usedaregion-specificcarbonintensity. All3\nassumed100%GPUpowerdrawthroughouttraining.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nwherethecostofascientificresultR(e.g.aclaimthataparticulartrainingsetupreachesXaccuracy\non benchmark Y) is proportional to the product of the cost of processing a single example E, the\nsizeofthetrainingdatasetD,andthenumberofhyperparameterexperimentsH.Inpreviouswork,\nE · D, the cost of training on the training dataset, is what is most commonly reported, and H, the\ntotalnumberofexperiments,ismostoftenexcluded.\nInouranalysis,wecalculatethetotalpowerconsumptionduringmodeltraining,development,and\ninference, and use this to estimate the total carbon emissions and water consumption during each\nstage. We follow previous work (Luccioni et al., 2023; Dubey et al., 2024; Gemma Team et al.,\n2024)tocalculateCO emissions(CO e)frompowerconsumption:\n2 2",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Dubey et al., 2024; Gemma Team et al.,\n2024)tocalculateCO emissions(CO e)frompowerconsumption:\n2 2\nCO e=P ·PUE·CI (2)\n2\nwhere the total carbon emissions is equal to the power usage P, multiplied by the power usage\neffectiveness (PUE)6 of the data center, multiplied by the carbon intensity CI of the local power\ngrid. We run all experiments in our two GPU clusters, Jupiter and Augusta, which are located in\nTexasandIowa,respectively(seeOLMoetal.(2025)formoreinformation). Our13Bmodelwas\ntrainedonAugusta,andallotherexperimentsanalyzedinthispaperweretrainedonJupiter.\nOur data center providers informed us that Jupiter’s PUE is between 1.1 and 1.2 depending on\nthecurrenttotalutilization(weconservativelyassume1.2forourcalculations),andthatAugusta’s\ntrailingtwelve-monthaveragewas1.12.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "on(weconservativelyassume1.2forourcalculations),andthatAugusta’s\ntrailingtwelve-monthaveragewas1.12. JupiterispoweredbyAustinEnergy,whichmostrecently\nreportedacarbonintensityof0.332kgCO perkWh.7 AugustaislocatedinIowa,andthestateof\n2\nIowahasanaveragecarbonintensityof0.352kgCO perkWh,8whichweuseforourcalculations.\n2\nWefollowLietal.(2023)tocalculatewaterconsumedonsiteandthroughpowergeneration:\nConsumption=P ·PUE·(WUE +WUE ) (3)\nonsite offsite\nwhereWUE isthewaterusageeffectivenessofthedatacenter,dictatedbythecoolinghardware\nonsite\nused, and WUE is the water usage effectiveness of the local power provider, dictated by the\noffsite\nprecisemixtureofsourcesofpowergeneration,asthermo-andhydro-electricpowerplantsleadto\nevaporatedwaterthatislostandwillnotre-entercirculationinthelocalenvironment.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ctricpowerplantsleadto\nevaporatedwaterthatislostandwillnotre-entercirculationinthelocalenvironment.\nAs our data center uses an efficient closed-loop cooling system with no evaporative cooling, we\nassume a WUE of 0 liters per kWh. Following Reig et al. (2020), we assume a WUE of\nonsite offsite\n1.29LperkWhforourJupiterclusterand3.10LperkWhforourAugustacluster.\nBoth calculations rely on total power usage. To calculate power usage during development and\ntraining,weanalyzedetailedtimeseriesdataforasinglenodethroughouteachrun,loggingpower\ndataatsub-secondintervals,andextrapolatetothetotalnumberofnodes. AsweonlymeasureGPU\npowerconsumption,ourestimatesshouldbeviewedasalowerboundonthetrueamountofpower\nconsumedduringdevelopmentandtraining.\n3.2 EMBODIEDIMPACTS",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "viewedasalowerboundonthetrueamountofpower\nconsumedduringdevelopmentandtraining.\n3.2 EMBODIEDIMPACTS\nEmbodied impacts are those arising from the production of physical elements required to support\nLLMdevelopmentanduse, suchashardwaremanufacturinganddatacenterconstruction. Tocal-\nculate embodied emissions, we follow Luccioni et al. (2023) by amortizing the carbon emissions\nfrom manufacturing over the lifetime of the hardware to get an estimate of the per hour cost, and\nmultiplying by the number of GPU hours used throughout model development and training. We\nextend this to include water consumption as well, by amortizing estimates of water consumption\nduringmanufacturingoverthelifetimeofthehardware.\n6https://www.techtarget.com/searchdatacenter/definition/power-usage-effectiveness-PUE",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "fthehardware.\n6https://www.techtarget.com/searchdatacenter/definition/power-usage-effectiveness-PUE\n7austinenergy.com/-/media/project/websites/austinenergy/commercial/\ncarbonemissionscalculator.pdf\n8www.eia.gov/electricity/state/iowa\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\n3.3 MODELS,DATA,ANDHARDWARE\nMost of the models we evaluate are standard dense transformers, with an architecture similar to\nLlama (Touvron et al., 2023a;b; Dubey et al., 2024), OLMo (Groeneveld et al., 2024), and other\nrecentpopularmodels,ranginginsizefrom20millionto13billionactiveparameters. Eachofthe\nsub-billionparametermodelswastrainedon1.7trilliontokens,the1billionparametermodelwas\ntrainedto3trilliontokens,the7billionparametermodelsweretrainedto2,3and4trilliontokens,\nand the 13 billion parameter model to 5.6 trillion tokens. We additionally evaluate a mixture-of-\nexperts(MoE)modelwith1billionactiveand7billiontotalparameters,trainedto5trilliontokens.\nEachmodelwastrainedonstandardHGXserverswith8NVIDIAH100GPUsperserver,withhigh",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "inedto5trilliontokens.\nEachmodelwastrainedonstandardHGXserverswith8NVIDIAH100GPUsperserver,withhigh\nspeedinterconnectbetweeneachnode,andbetween2and128nodesconcurrentlypertrainingrun.\nAllmodelsexceptthe13Bweretrainedinthesamedatacenter. SeeOLMoetal.(2025)formore\ninformationonourtechnicalinfrastructure.\n3.4 SIMULATINGINFERENCE\nBecause we do not deploy our models, we do not collect or report data about real usage of our\nmodels. We instead report estimated costs associated with deployment of a subset of our models,\nalong with comparison models, with varying inference configurations. In reality, causal language\nmodelscanhaveavarietyofusecasesandbedeployedonavarietyofhardwareinfrastructure. As\na representative deployment setting, we assume a setting in which users interact with the models",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "As\na representative deployment setting, we assume a setting in which users interact with the models\nviachat;wecollectmeasurementsassumingmodelsareservedonasingleH100GPUviaSGLang\n(Zhengetal.,2024).Allthreeinferenceconfigurationsusedcanbemappedtoapreviouslyproposed\nrealistic online inference scenario (Reddi et al., 2020; Peng et al., 2023). Specifically, other than\nthe “batching” scenario where all requests are sent instantaneously, the requests follow a Poisson\ndistribution, albeit at different rates that influence different batch sizes. The requests themselves\ncome from the ShareGPTdataset,9 and each inferencescenario involves the same sample of 2400\nprompts(samerandomseed). Inputandoutputlengths,therefore,arethesameintheoryforagiven",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "sample of 2400\nprompts(samerandomseed). Inputandoutputlengths,therefore,arethesameintheoryforagiven\nmodel,butduetodifferencesintokenizationandmodelcontextlength,thereareslightvariationsin\nmeaninput/outputlengthsacrossmodels,225-250and190-230tokensrespectively.\nIn our inference experiments, we measure cumulative energy consumption using CodeCarbon\n(Courty et al., 2024) tracking, which was verified against the same time series monitoring used\nthroughouttraining. Notably,wemeasuretotalpowerandenergyconsumptionassociatedwithonly\nthe relevant processes, excluding the overhead associated with, for example, holding the model in\nmemoryorlisteningforrequests.\nWe ran our inference simulations on our Jupiter cluster, used to train almost all of our models,\nbut we use only a single H100 GPU at a time.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "upiter cluster, used to train almost all of our models,\nbut we use only a single H100 GPU at a time. See Appendix A.1 for details about our inference\nmethodologyandassumptions.\n4 RESULTS\n4.1 BUILDINGOURMODELS\nInthissectionweaimtoreportafullaccountingoftheenvironmentalimpactoftrainingourseries\nofmodels,fromhardwaremanufacturing,todevelopment,andthefinaltrainingruns. Wefollowthe\nmethodologyoutlinedinSection3.1andSection3.2.\nWhencalculatingenvironmentalimpact,weuseinformationfromourdatacenterprovidersandtheir\npower providers to measure the efficiency of each cluster. For Jupiter, the cluster used to train all\nmodelsbutthe13B,weassumeacarbonintensityof0.332kgCO emittedperkWh,apowerusage\n2\neffectiveness(PUE)of1.2,andatotalwaterusageeffectiveness(WUE)of1.29litersperkWh. For",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ",apowerusage\n2\neffectiveness(PUE)of1.2,andatotalwaterusageeffectiveness(WUE)of1.29litersperkWh. For\nAugusta, theclusterusedtotrainthe13B,weassumeacarbonintensityof0.351kgCO emitted\n2\nperkWh,aPUEof1.12,andatotalWUEof3.1litersperkWh.\n9https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/main/\nShareGPT_V3_unfiltered_cleaned_split.json,anon8231489123/ShareGPT_Vicuna_unfiltered\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nTable 1: We developed our models in five groups, based on parameter count and architecture: less than 1\nbillion,1billion,7billion,and13billionparameters,andourmixture-of-expertsmodelwith1billionactive\nand7billiontotalparameters. Wefoundthat∼70%ofourdevelopmentalenvironmentalimpactcamefrom\ndevelopingthe7Band13Bmodels,andthetotalimpactwasemissionsequivalentto2.1tankertrucks’worth\nofgasoline,andequaltoabout7andahalfyearsofwaterusedbytheaveragepersonintheUnitedStates.\nCarbon Equivalentto... Water Equivalentto...\nGPU Total\n#Runs Emissions (energyusage, Consumption (waterusage,\nHours MWh\n(tCO eq) 1home,U.S.) (kL) 1person)\n2\n<1B 29k 19 20 6 1yr,4mo 24 3mo\n7B 269k 196 375 65 13yrs,6mo 252 2yrs,7mo\n13B 191k 116 156 46 9yrs,7mo 402 3yrs,7mo",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "1yr,4mo 24 3mo\n7B 269k 196 375 65 13yrs,6mo 252 2yrs,7mo\n13B 191k 116 156 46 9yrs,7mo 402 3yrs,7mo\nMoE 27k 19 35 6 1yr,4mo 24 3mo\nTotal 680k 459 813 159 33yrs,1mo 843 7yrs,5mo\nHardware manufacturing NVIDIA does not release the embodied carbon emissions or water\nconsumption about the hardware it produces, so we assume the same embodied carbon emissions\nas Luccioni et al. (2023), or 3700 kg of CO eq per 8x server node, equal 463 kg per GPU. There\n2\nis little public information on how much water is required to produce a single GPU, though chip\nmanufacturing facilities require millions of liters per day.10 Some estimates11 place TSMC water\nusageat12.33literspersquarecentimeterofhardware,whichequals100.4litersperH100,which\nweuseforouranalysis.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "at12.33literspersquarecentimeterofhardware,whichequals100.4litersperH100,which\nweuseforouranalysis.\nWeadditionallyestimatetheenvironmentalimpactfromminingrareearthmetalsusedduringman-\nufacturing,assuminganH100is 0.1%rareearthmetalbymass. Mining1kgofrareearthmaterials\nconsumes about 11 kL of water and releases 65.4 kg CO eq (Browning et al., 2016), and one 12-\n2\ninchsiliconwaferweighs125grams12 andproducesabout63H100s.13 14 Together, theseaddan\nadditional2.2litersconsumedand0.013kgCO eqperGPU.\n2\nInternally, we assume a 4 year lifespan for our GPUs, which leads to an embodied emissions of\n0.013kgofCO eqand0.003litersofwaterconsumedperGPUhourwhentheestimatedembodied\n2\nimpacts is amortized over the assumed lifetime of the GPU. We used 1.65 million GPU hours in",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "died\n2\nimpacts is amortized over the assumed lifetime of the GPU. We used 1.65 million GPU hours in\ntotal,leadingtoatotalof22tCO eqemittedand4.8kLofwaterconsumedduringmanufacturing.\n2\nDevelopment Beforelaunchingourfinaltrainingrunsforeachmodel,weranaseriesofcontrolled\nexperimentstostabilizeandimproveourtrainingsetup,toexploredifferentparameterinitializations\nand mid-training recipes, and to determine our final hyperparameters and data mixtures through\nscaling law experiments (Bhagia et al., 2024). We ran these in five distinct groups: small models\nwith less than 1 billion parameters, 1 billion parameter models, 7 billion parameter models, 13\nbillionparametermodels,andourmixture-of-expertsmodel. Wereportdetaileddevelopmentcosts\nforeachgroupinTable1.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "rametermodels,andourmixture-of-expertsmodel. Wereportdetaileddevelopmentcosts\nforeachgroupinTable1.\nUnsurprisingly,wefindthatthemajorityofdevelopmentcosts(∼70%)wereincurredatthe7and\n13billionparameterscale,duetoboththerelativesizeofthemodelandourownprioritization,and\nweseethisbothinthetotalenvironmentalimpactandthenumberofindividualrunspercategory.\nUsing our data center’s efficiency factors, we find that our development runs led to 159 tCO eq\n2\nemittedand843kLofwaterconsumed.\nFinal training runs Finally, we fully trained our series of models, ranging from 20 million to\n13 billion active parameters, with detailed information provided in Table 2. As we saw during\ndevelopment, themajorityofthecostincurredcamefromtrainingour7Band13Bmodels, which\nwe trained to 2 to 5 trillion tokens.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "orityofthecostincurredcamefromtrainingour7Band13Bmodels, which\nwe trained to 2 to 5 trillion tokens. We also see that the 1B dense model required about as much\nenergypertrilliontokensastheMoEmodelwith1Bactiveparameters,thoughtheMoEmodelwas\nslightlylessefficient,mostlikelyduetotheextracomputerequiredforroutingtokens. Insummary,\nwefindthatourtrainingrunsledto312tCO eqemittedand1,921kLofwaterconsumed.\n2\n10https://www.azcentral.com/story/opinion/op-ed/joannaallhands/2024/06/12/\ntsmc-arizona-water-use-recycling/74059522007/\n11https://www.semiconductor-digest.com/water-supply-challenges-for-the-semiconductor-industry/\n12https://web.archive.org/web/20131207002716/http://wafercare.com/Page.aspx?id=1012\n13https://anysilicon.com/die-per-wafer-formula-free-calculators/\n14https://developer.nvidia.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "id=1012\n13https://anysilicon.com/die-per-wafer-formula-free-calculators/\n14https://developer.nvidia.com/blog/nvidia-hopper-architecture-in-depth/\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nTable 2: We list the estimated power usage, carbon emissions, and water consumption from training our\ndensetransformers,rangingfrom20millionto13billionparameters,trainedon1.7to5.6trilliontokens,and\namixture-of-expertsmodelwith1billionactiveand7billiontotalparameters,trainedto5trilliontokens. We\nfindthattheenvironmentalimpactisquitehigh,evenforourrelativelysmallmodels. Trainingourseriesof\nmodelsemittedequivalentcarbontoover65yearsofelectricityusebytheaveragehouseholdintheU.S.,and\nconsumedequivalentwatertotheaveragepersonintheU.S.forabout17years.\n*OneoftheoriginalOLMo7BmodelswastrainedonLUMI,whichrunsentirelyonhydroelectricpower.See\nGroeneveldetal.(2024)formoreinformation.\n†denotesunreleasedmodelsthatweretrainedforvariousinternalexperiments.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "tal.(2024)formoreinformation.\n†denotesunreleasedmodelsthatweretrainedforvariousinternalexperiments.\nPower Carbon Equiv.to... Water Equiv.to...\nUsage Emissions (energyusage, Consumption (waterusage,\n(MWh) (tCO eq) 1home,U.S.) (kL) 1person,U.S.)\n2\nGemma2B&9B - 131 25yrs,11mo - -\nLlama27B 81 31 6yrs,1mo - -\nLlama213B 162 62 12yrs,2mo - -\nLlama3.18B - 420 83years - -\nLlama3.21B - 107 14years - -\nOLMo20M† 0.8 0.3 3weeks 1 3days\nOLMo60M† 1.2 0.4 1month 1.6 5days\nOLMo150M† 2.4 1 2mo,1wk 3.6 12days\nOLMo300M† 5 2 5months 5.9 19days\nOLMo700M† 8 3 7months 10 33days\nOLMo7B† 67 22 4yrs,4mo 87 9months\nOLMo1B(3T) 30 10 2years 39 4months\nOLMo7B 149 0* - 0* -\nOLMo7B(Twin) 114 70 13yrs,10mo 487 4yrs,4mo\nOLMo(04|07)247B 95 32 6yrs,4mo 122 1yr,1mo\nOLMo27B 157 52 10yrs,4mo 202 1yr,9mo",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "s,10mo 487 4yrs,4mo\nOLMo(04|07)247B 95 32 6yrs,4mo 122 1yr,1mo\nOLMo27B 157 52 10yrs,4mo 202 1yr,9mo\nOLMo213B 230 101 21years 892 7yrs,10mo\nOLMoE0924 54 18 3yrs,7mo 70 7months\nTotal(Ours) 913 312 65years 1,921 17yrs,1mo\nPuttingitinperspective Intotal,ourseriesofmodelsledtoatleast493tCO eqemitted. Using\n2\nthe U.S. Environmental Protection Agency’s Greenhouse Gas Equivalencies Calculator15, this is\nequivalentto6.5tankertrucks’worthofgasolineburned,emissionsfromtheaverageyearlyenergy\nusefor98.2homesintheU.S.,ortheamountofcarbonsequesteredby472acresofU.S.forestsin\noneyear. Weadditionallyestimateweconsumedatleast2,769kLofwater,whichisequivalentto\nabout24andahalfyearsofwaterconsumptionbytheaveragepersonintheU.S.16\nOtherCosts Inthiswork,westrivetoprovideathoroughaccountingofthetotalcostofdevelop-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ersonintheU.S.16\nOtherCosts Inthiswork,westrivetoprovideathoroughaccountingofthetotalcostofdevelop-\ning our models. However, there remain a number of sources of emissions and water consumption\nthat are difficult, if not impossible to comprehensively measure without access to proprietary in-\nformation across a range of industries, such as transportation and end of life hardware disposal.\nWhile the costs we report above represent a large portion of the total development process, more\ntransparencyisneededtounderstandthefullimpactofmodeltraining.\n4.2 SIMULATINGDEPLOYMENT&INFERENCE\nWe report simulated inference costs; that is, we explore the question of what our models’ impact\nmight be if they were put into production. In contrast to §4.1, where we reported the actual im-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ct\nmight be if they were put into production. In contrast to §4.1, where we reported the actual im-\npactfromouractions,thissectionreportspartialestimatesofScope3carbonemissionsandwater\nconsumption: the impact from the downstream actions of others using our models. We include\ncomparisonswithrecentinstruction-tunedmodelsaswell.\nIn Table 3, we display 1) power and energy costs, 2) carbon and water consumption, and 3) the\ntime to complete 100 requests. We additionally report “breakeven” points, that is the number of\n15https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator\n16https://www.epa.gov/watersense/statistics-and-facts\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nTable 3: MeasurementsandestimatesofresourcecostsfromSGLangbenchmarkingon2400promptsfrom\nShareGPT at varying request rates. Since the models were served on machines from the same cluster that\nourOLMo2modelsweretrainedon,weusethesameWUEandPUEcoefficientsof1.29L/kWhand1.2\nrespectively,andcarbonintensityof0.332kgCO e/kWh.Notethedifferenceinunitsforenergyconsumption\n2\nandcarbonemissions,namelyMWh→kWh,tons→gramsCO eq,andkL→L.Themeasurementsreported\n2\ninthistableaccountfortheGPUprocessesassociatedwithactiveinference,butnotCPUorRAMassociated\nwithe.g.serveroverhead.Thus,thesenumberscanbeconsideredaslowerboundsonusageinsimilarsettings.\nAlsoofnoteistherelativelysmallvariabilityincarbonemissionsandwaterconsumptionacrossdifferentmodel",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ".\nAlsoofnoteistherelativelysmallvariabilityincarbonemissionsandwaterconsumptionacrossdifferentmodel\nsizesincaseswherebatchesarenotsaturated,despitefasterinferenceinsmallermodelswhenfullysaturated;\ngreaterpeakefficiencydoesnotguaranteeefficientdeploymentifinferenceisnotoptimized.Wedonotreport\n”break-even”pointsforQwen2.5becauseitstrainingcostsarenotpublic.\nGPU\nRequest Carbon Water #Inf.for\nPower Seconds\nModel freq. Usage Emissions consump. per100req. CO 2 equiv.\n(req/s) (gCO eq) (L) w/training\n(kWh) 2\nLlama3.21B ∞ 0.003 1.0 0.004 1.38 258bil.\n8 0.036 12.0 0.054 12.64 21.5bil.\n1 0.160 53.1 0.238 100.58 4.83bil.\nQwen2.57B ∞ 0.009 3.0 0.013 1.79 —\n8 0.053 17.6 0.079 12.77 —\n1 0.308 102.3 0.459 100.58 —\nLlama3.18B ∞ 0.011 3.7 0.016 2.13 276bil.\n8 0.051 16.9 0.076 12.79 59.5bil.\n1 0.333 110.6 0.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "00.58 —\nLlama3.18B ∞ 0.011 3.7 0.016 2.13 276bil.\n8 0.051 16.9 0.076 12.79 59.5bil.\n1 0.333 110.6 0.496 100.64 9.12bil.\nLlama213B ∞ 0.034 11.3 0.051 6.53 13.3bil.\n8 0.060 19.9 0.089 13.09 7.52bil.\n1 0.401 133.1 0.597 100.73 1.13bil.\nOLMo11B(3T) ∞ 0.004 1.3 0.006 0.99 18.2bil.\n8 0.038 12.6 0.057 12.63 1.91bil.\n1 0.165 54.8 0.246 100.58 441mil.\nOLMo27B ∞ 0.018 6.0 0.027 3.68 20.9bil.\n8 0.049 16.3 0.073 12.88 7.68bil.\n1 0.358 118.9 0.533 100.54 1.05bil.\nOLMo213B ∞ 0.033 11.0 0.049 6.60 22.1bil.\n8 0.057 18.9 0.085 13.05 12.8bil.\n1 0.386 128.2 0.575 100.57 1.89bil.\nOLMoE0924 ∞ 0.006 2.0 0.009 1.70 21.7bil.\n8 0.037 12.3 0.055 12.82 3.51bil.\n1 0.151 50.1 0.225 100.60 861mil.\ninferencesineachscenariorequiredforinferencecoststobeequalorgreatertotrainingcosts. See\nTable4inAppendixA.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ncesineachscenariorequiredforinferencecoststobeequalorgreatertotrainingcosts. See\nTable4inAppendixA.1foradditionalresults.\nWe find that for most models tested, the number of inferences required to outweigh training costs\nisinthehundredsofmillionstotensofbillions,exceptforthemostover-trainedmodels. Asmany\nof these models were created to be efficient in deployment-focused scenarios – such as on edge\ndevices, or in popular online products – it is important to consider inference costs in addition to\ntrainingcosts. Thelargestmodelprovidersareproducinguptohundredsofbillionsoftokensper\nday,17highlightingthatdeployedmodelscanquicklyreachthistippingpoint.\n4.3 POWERFLUCTUATIONSDURINGTRAINING\nOneproblemcausedbytrainingAImodelsatlargescalesisthatthepowerdemandstartsandstops\nsuddenly (Dubey et al.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "roblemcausedbytrainingAImodelsatlargescalesisthatthepowerdemandstartsandstops\nsuddenly (Dubey et al., 2024), which power grids can struggle to handle. When demand sharply\nrises,generationsourcesthatcanbequicklystartedandstopped–generallypoweredbyfossilfuels,\nsuchascoalandnaturalgas–mustbebroughtonlinequickly,increasingthemarginalcarboninten-\nsityofthegridandpotentiallynegativelyimpactingotherconsumersincaseswheredemandrises\nmorequicklythangenerationcanhandle. Whendemandsharplydrops,excesspowerisdiscarded–\nby grounding the power or venting steam–until generation sources can spin down. Power grids\ncangenerallymanagesomelargevariations(forexample,whencommunitiesexperienceasudden\n17https://x.com/sama/status/1756089361609981993\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "/sama/status/1756089361609981993\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\npoweroutage),butasweaddmorevariabilitytothesystem,itbecomesmoredifficulttomaintain\nthisdelicatebalance,andinfrastructureisnotsetuptohandlefrequent,largefluctuations.\nInFigure2,weshowasnapshotofourmodel’sGPUpowerconsumptionduringpre-training. We\nfindthatpowerconsumptionisnotconsistent–instead,powerisconsistentwhilethemodelistrain-\ning, but drops quickly while saving checkpoints. Though our models are relatively small, and we\nhavesinceimprovedcheckpointingperformance,othermodeldevelopershaveexperiencedsimilar\nissuescausedbycheckpointingandsynchronizationbetweennodes(Dubeyetal.,2024).\n5 DISCUSSION\n5.1 MORETRANSPARENCYIS(STILL)NEEDED\nWhile many model developers–including some of the largest for-profit entities operating in this",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "DED\nWhile many model developers–including some of the largest for-profit entities operating in this\nspace–makebesteffortstoreportatleastpartofthecostofbuildingtheirAIsystems(Dubeyetal.,\n2024; Gemma Team et al., 2024), more transparency is still needed throughout the development\npipeline. TheEUAIAct,18 andsomeproposedlegislation,suchastheArtificialIntelligenceEnvi-\nronmentalImpactsAct19intheUnitedStates,wouldstarttheprocessfordefiningvoluntaryenviron-\nmentalimpactreportingstandardsformodeldevelopers,butuntilsuchstandardsarewidespreadin\nthecommunity,improvedtransparencycanonlycomethroughvoluntaryeffortsbycompaniesand\nresearchorganizations.Policyactionisneededtoensurethereispublicvisibilityintoenvironmental",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "aniesand\nresearchorganizations.Policyactionisneededtoensurethereispublicvisibilityintoenvironmental\nimpactsacrosstheentiresupplychain,fromhardwaremanufacturing,datacenterconstruction,and\nenergyproduction,allthewaythroughtomodeldeploymentandinference.\nEmbodied emissions are still an enigma Though a vital piece of all model development\npipelines, the environmental impact of manufacturing the GPUs used is essentially unknown. In\nprevious work, Wu et al. (2022) and Luccioni et al. (2023) highlighted the fact that researchers\nfocusedonAI’senvironmentalimpactareforcedtouseunreliableestimatesofthecostofmanufac-\nturingstate-of-the-artcomputationalhardware,andthesituationisnobetternow,nearlytwoyears\nlater. Manycompaniesthatmanufactureotherpiecesofdatacenterhardwarediscloseestimatesof",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "earlytwoyears\nlater. Manycompaniesthatmanufactureotherpiecesofdatacenterhardwarediscloseestimatesof\nthelifetimeenvironmentalimpact,20anduntilGPUmanufacturersreleasesimilarinformation–ona\nvoluntaryorcompulsorybasis–thiswillnotimprove.\nDevelopmentcostsaresubstantial,andunreported AsreportedinSection4.1,wepresentde-\ntailed information on the cost of developing our training pipeline, in contrast with previous work.\nWefoundthatdevelopmentcosts–associatedwithfailedruns,hyperparametersearches,testingar-\nchitecture changes, and more–are responsible for a substantial portion of the total environmental\nimpact of creating our systems, highlighting a need for more transparency from developers. This\nisespeciallyimportantinlightofAutoMLtools,wheremanymodelsmaybeautomaticallytrained",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "developers. This\nisespeciallyimportantinlightofAutoMLtools,wheremanymodelsmaybeautomaticallytrained\nwhile searching for a solution, and scaling law experiments, where smaller models are trained to\npredicttheperformanceoflargermodels,andthendiscarded(Lietal.,2024;Bhagiaetal.,2024).\nWatercostsarereal,andunder-explored Whileunder-exploredinpreviouswork,AI’sgrowing\nwaterconsumptionisbeginningtoreceivemoreandmoreattention21 (Lietal.,2023), thoughnot\nasmuchasitmaydeserve. AsshowninSection4.1,eventrainingaseriesofcomparativelysmall\nmodels uses a large amount of water, the amount of which is also drastically impacted by both\nthe cooling systems used in data centers as well as the power generation methods used. Without",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "both\nthe cooling systems used in data centers as well as the power generation methods used. Without\nmoretransparencyfromdevelopersonwhen,where,andhowtheyaretrainingtheirmodels,itwill\ncontinuetobedifficulttoquantifythescaleoftheissue,stymieingeffortstoaddressit.\n5.2 SMALLCHOICESDURINGTRAININGCANHAVELARGEIMPACTS\nWhile many issues relating to transparency require action from corporations and large research\ngroups,choicesmadeduringtraininghavealargeeffectdownstream.\n18https://artificialintelligenceact.eu/article/95/\n19https://www.markey.senate.gov/imo/media/doc/artificial_intelligence_environmental_impacts_\nact_of_2024_-_020124pdf.pdf\n20https://www.hpe.com/psnow/doc/a50005151enw\n21https://www.washingtonpost.com/technology/2024/09/18/energy-ai-use-electricity-water-data-centers/\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "shingtonpost.com/technology/2024/09/18/energy-ai-use-electricity-water-data-centers/\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nSmallermodelsarecheapertotrainanduse,\nbut at what cost? Until recently, to achieve\nhigh model performance, a large model was\nneeded.Compute-optimalscalinglawsforneu-\nral network training (Hoffmann et al., 2022;\nKaplan et al., 2020) imply that it is more ef-\nficient to put more data into a larger model,\nbecause of diminishing returns from “over-\ntraining”asmallmodel. Thismeantthatmod-\nels were expensive to both train and deploy,\nlimiting how widespread they could become,\nand how financially feasible they were to be\nusedinavarietyofscenarios.\nRecently, however, continuing to train models Figure 2: Average GPU power for a single node for\nonmoreandmoretokensbeyondthe“compute- the first 300 logging steps during OLMo 2 7B train-",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "node for\nonmoreandmoretokensbeyondthe“compute- the first 300 logging steps during OLMo 2 7B train-\noptimal”limit22 hasbeenextremelysuccessful ing. The first spike is the beginning of training, and\ninmaking“deployment-optimized”modelsthat eachdrophappenswhenamodelcheckpointissaved.\ncan be substantially cheaper to perform infer- Whenactivelytraining,theaverageGPUpowerisover\n600W, over 85% of an H100’s maximum power draw\nencewith. Thishasledtoanexplosioninboth\nof700W,andduringcheckpointing,powerusagedrops\ntraining cost for small models, and total infer-\ntojustover100W,orabout15%maximum.\nence compute cost, as API-based models be-\ncomecheapertouse2324andsmallmodelsaredeployedon-device(Gunteretal.,2024;Abdinetal.,\n2024).",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "odels be-\ncomecheapertouse2324andsmallmodelsaredeployedon-device(Gunteretal.,2024;Abdinetal.,\n2024). ThismaybeaninstanceofJevons’Paradox(Jevons,1865): whenaresource’sefficiencyin-\ncreases,overallconsumptionofthatresourcetendstoincrease,ratherthandecrease.Inotherwords,\nasthecostoftrainingmodelsdecreases,thedownstreamimpactmaycontinuetogrow.\nThis isespecially clearin context ofour results inSection 4.2, showing that thoughthe raw num-\nberofinferencesrequiredtooutweightrainingisobjectivelyquitelarge,smallermodelsarebeing\ndeployedinmanynewscenariosthatwilldrasticallyincreasetheirtotalusage. Manyinferenceuse\ncasesarealsonotabletobebatched(e.g. generatingtextonaphoneforimmediateuse),meaning\nthat deployers cannot schedule these requests to take advantage of cheaper or cleaner energy, and",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "g\nthat deployers cannot schedule these requests to take advantage of cheaper or cleaner energy, and\nmustmakeuseofimmediatelyavailablepower.Giventhatthistrendwillmostlikelyonlyaccelerate,\nitisvitalthatweimprovetransparencyintothetotalcostofdeploymentinallscenarios.\nPower fluctuations reveal inefficiencies at best, challenges to power grid control at worst\nWhileitisknownthatthedramaticspikeinpowerconsumptionatthebeginningoftrainingandthe\nsubsequentdropattheendareproblematicforpowergridoperatorsatlargescales, littlehasbeen\ndiscussedpubliclyabouthowpowerconsumptionchangesthroughouttraining. Wefoundthatour\nmodels,usinganoptimizedcodebaseandpubliclyavailabletooling,seesrapidpowerfluctuations\nthroughout training caused by the commonplace practice of frequently saving model checkpoints.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ions\nthroughout training caused by the commonplace practice of frequently saving model checkpoints.\nThis means that without careful engineering, one training run can cause thousands of rapid power\nfluctuations,whichposesanimmediatechallengeforlarge-scaleLLMtrainingindatacenters,which\ntypically source energy directly from power providers. Generated power needs to go somewhere,\nandrapid,largedropsinconsumptionduringtrainingbreakscommonassumptionsaboutdatacenter\nsupplyanddemand,leadingtosignificantcontrolchallengesinpowersystems. Whilesomeframe-\nworkshavebeguntoimplementworkaroundstomanagethisissue,25 moreawarenessisneededon\nthepartofresearchersandengineersastrainingrunsscaletotensofthousandsofGPUs26 ormore,",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nessisneededon\nthepartofresearchersandengineersastrainingrunsscaletotensofthousandsofGPUs26 ormore,\nas even some of the largest model developers encounter difficulties from regularly shifting power\ndemand throughout training due to checkpointing, awaiting collective communications, and other\nunforeseen and potentially catastrophic failures (Dubey et al., 2024). We emphasize that address-\ning this will require more comprehensive solutions such as parallelized checkpointing, improved\ndemandresponseindatacentersrunninglargeAIworkloads,andnew,heterogeneousmethodsfor\ndistributedtrainingspanningsoftware,hardware,andscheduling.\n22e.g.scalingfrom1to2to15TtokensforLlama1,2,and3(Touvronetal.,2023a;b;Dubeyetal.,2024)\n23https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "3a;b;Dubeyetal.,2024)\n23https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/\n24https://developers.googleblog.com/en/gemini-15-flash-updates-google-ai-studio-gemini-api/\n25E.g.thenewPYTORCH NO POWERPLANT BLOWUPenvironmentvariableinPyTorch.\n26https://time.com/7021709/elon-musk-xai-grok-memphis/\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nREFERENCES\nMarah Abdin, Jyoti Aneja, Hany Awadalla, Ahmed Awadallah, Ammar Ahmad Awan, Nguyen\nBach,AmitBahree,ArashBakhtiari,JianminBao,HarkiratBehl,AlonBenhaim,MishaBilenko,\nJohan Bjorck, Se´bastien Bubeck, Martin Cai, Qin Cai, Vishrav Chaudhary, Dong Chen, Dong-\ndong Chen, Weizhu Chen, Yen-Chun Chen, Yi-Ling Chen, Hao Cheng, Parul Chopra, Xiyang\nDai, Matthew Dixon, Ronen Eldan, Victor Fragoso, Jianfeng Gao, Mei Gao, Min Gao, Amit\nGarg, Allie Del Giorno, Abhishek Goswami, Suriya Gunasekar, Emman Haider, Junheng Hao,\nRussellJ.Hewett,WenxiangHu,JamieHuynh,DanIter,SamAdeJacobs,MojanJavaheripi,Xin\nJin,NikosKarampatziakis,PieroKauffmann,MahoudKhademi,DongwooKim,YoungJinKim,\nLev Kurilenko, James R.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Jin,NikosKarampatziakis,PieroKauffmann,MahoudKhademi,DongwooKim,YoungJinKim,\nLev Kurilenko, James R. Lee, Yin Tat Lee, Yuanzhi Li, Yunsheng Li, Chen Liang, Lars Liden,\nXihui Lin, Zeqi Lin, Ce Liu, Liyuan Liu, Mengchen Liu, Weishung Liu, Xiaodong Liu, Chong\nLuo, Piyush Madan, Ali Mahmoudzadeh, David Majercak, Matt Mazzola, Caio Ce´sar Teodoro\nMendes,ArindamMitra,HardikModi,AnhNguyen,BrandonNorick,BarunPatra,DanielPerez-\nBecker, Thomas Portet, Reid Pryzant, Heyang Qin, Marko Radmilac, Liliang Ren, Gustavo\ndeRosa,CorbyRosset,SambudhaRoy,OlatunjiRuwase,OlliSaarikivi,AminSaied,AdilSalim,\nMichaelSantacroce,ShitalShah,NingShang,HiteshiSharma,YelongShen,SwadheenShukla,\nXia Song, Masahiro Tanaka, Andrea Tupini, Praneetha Vaddamanu, Chunyu Wang, Guanhua",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "SwadheenShukla,\nXia Song, Masahiro Tanaka, Andrea Tupini, Praneetha Vaddamanu, Chunyu Wang, Guanhua\nWang, Lijuan Wang, Shuohang Wang, Xin Wang, Yu Wang, Rachel Ward, Wen Wen, Philipp\nWitte,HaipingWu,XiaoxiaWu,MichaelWyatt,BinXiao,CanXu,JiahangXu,WeijianXu,Ji-\nlongXue,SonaliYadav,FanYang,JianweiYang,YifanYang,ZiyiYang,DonghanYu,LuYuan,\nChenruidongZhang,CyrilZhang,JianwenZhang,LiLynaZhang,YiZhang,YueZhang,Yunan\nZhang,andXirenZhou. Phi-3technicalreport: Ahighlycapablelanguagemodellocallyonyour\nphone,2024. URLhttps://arxiv.org/abs/2404.14219.\nJoshuaAinslie,JamesLee-Thorp,MichieldeJong,YuryZemlyanskiy,FedericoLebron,andSumit\nSanghai. GQA: Training generalized multi-query transformer models from multi-head check-\npoints.InHoudaBouamor,JuanPino,andKalikaBali(eds.),Proceedingsofthe2023Conference",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "multi-head check-\npoints.InHoudaBouamor,JuanPino,andKalikaBali(eds.),Proceedingsofthe2023Conference\non Empirical Methods in Natural Language Processing, pp. 4895–4901, Singapore, December\n2023.AssociationforComputationalLinguistics. doi: 10.18653/v1/2023.emnlp-main.298. URL\nhttps://aclanthology.org/2023.emnlp-main.298.\nAkshitaBhagia,JiachengLiu,AlexanderWettig,DavidHeineman,OyvindTafjord,AnanyaHarsh\nJha, Luca Soldaini, Noah A. Smith, Dirk Groeneveld, Pang Wei Koh, Jesse Dodge, and Han-\nnanehHajishirzi. Establishingtaskscalinglawsviacompute-efficientmodelladders,2024. URL\nhttps://arxiv.org/abs/2412.04403.\nCallum Browning, Stephen Northey, Nawshad Haque, Warren Bruckard, and Mark Cooksey. Life\nCycle Assessment of Rare Earth Production from Monazite, pp. 83–88. Springer International",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ey. Life\nCycle Assessment of Rare Earth Production from Monazite, pp. 83–88. Springer International\nPublishing,Cham,2016. ISBN978-3-319-48768-7. doi: 10.1007/978-3-319-48768-7 12. URL\nhttps://doi.org/10.1007/978-3-319-48768-7_12.\nBenoit Courty, Victor Schmidt, Goyal-Kamal, MarionCoutarel, Luis Blanche, Boris Feld, inimaz,\nJe´re´my Lecourt, LiamConnell, SabAmine, supatomic, Mathilde Le´val, AlexisCruveiller, oumi-\nnasara, Franklin Zhao, Aditya Joshi, Christian Bauer, Amine Saboni, Patrick LLORET, Alexis\nBogroff, NikoLaskaris, HuguesdeLavoreille, AlexandrePhiev, EdoardoAbati, rosekelly6400,\nDouglas Blank, Ziyao Wang, Lucas Ota´vio, and Armin Catovic. mlco2/codecarbon: v2.7.1,\nSeptember2024. URLhttps://doi.org/10.5281/zenodo.13744486.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Armin Catovic. mlco2/codecarbon: v2.7.1,\nSeptember2024. URLhttps://doi.org/10.5281/zenodo.13744486.\nJesse Dodge, Taylor Prewitt, Remi Tachet Des Combes, Erika Odmark, Roy Schwartz, Emma\nStrubell,AlexandraSashaLuccioni,NoahA.Smith,NicoleDeCario,andWillBuchanan. Mea-\nsuringthecarbonintensityofaiincloudinstances,2022. URLhttps://arxiv.org/abs/\n2206.05229.\nAbhimanyuDubey,AbhinavJauhri,AbhinavPandey,AbhishekKadian,AhmadAl-Dahle,Aiesha\nLetman,AkhilMathur,AlanSchelten,AmyYang,AngelaFan,etal. Thellama3herdofmodels.\narXivpreprintarXiv:2407.21783,2024.\nGemma Team, Thomas Mesnard, Cassidy Hardin, Robert Dadashi, Surya Bhupatiraju, Shreya\nPathak,LaurentSifre,MorganeRivie`re,MihirSanjayKale,JulietteLove,PouyaTafti,Le´onard",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "tiraju, Shreya\nPathak,LaurentSifre,MorganeRivie`re,MihirSanjayKale,JulietteLove,PouyaTafti,Le´onard\nHussenot, Pier Giuseppe Sessa, Aakanksha Chowdhery, Adam Roberts, Aditya Barua, Alex\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nBotev,AlexCastro-Ros,AmbroseSlone,Ame´lieHe´liou,AndreaTacchetti,AnnaBulanova,An-\ntonia Paterson, Beth Tsai, Bobak Shahriari, Charline Le Lan, Christopher A. Choquette-Choo,\nCle´ment Crepy, Daniel Cer, Daphne Ippolito, David Reid, Elena Buchatskaya, Eric Ni, Eric\nNoland, Geng Yan, George Tucker, George-Christian Muraru, Grigory Rozhdestvenskiy, Hen-\nrykMichalewski,IanTenney,IvanGrishchenko,JacobAustin,JamesKeeling,JaneLabanowski,\nJean-Baptiste Lespiau, Jeff Stanway, Jenny Brennan, Jeremy Chen, Johan Ferret, Justin Chiu,\nJustin Mao-Jones, Katherine Lee, Kathy Yu, Katie Millican, Lars Lowe Sjoesund, Lisa Lee,\nLucas Dixon, Machel Reid, Maciej Mikuła, Mateo Wirth, Michael Sharman, Nikolai Chinaev,",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": ", Lisa Lee,\nLucas Dixon, Machel Reid, Maciej Mikuła, Mateo Wirth, Michael Sharman, Nikolai Chinaev,\nNithumThain,OlivierBachem,OscarChang,OscarWahltinez,PaigeBailey,PaulMichel,Petko\nYotov, Rahma Chaabouni, Ramona Comanescu, Reena Jana, Rohan Anil, Ross McIlroy, Ruibo\nLiu, RyanMullins, SamuelLSmith, SebastianBorgeaud, SertanGirgin, SholtoDouglas, Shree\nPandya, Siamak Shakeri, Soham De, Ted Klimenko, Tom Hennigan, Vlad Feinberg, Wojciech\nStokowiec, Yu hui Chen, Zafarali Ahmed, Zhitao Gong, Tris Warkentin, Ludovic Peran, Minh\nGiang,Cle´mentFarabet,OriolVinyals,JeffDean,KorayKavukcuoglu,DemisHassabis,Zoubin\nGhahramani, Douglas Eck, Joelle Barral, Fernando Pereira, Eli Collins, Armand Joulin, Noah\nFiedel, Evan Senter, Alek Andreev, and Kathleen Kenealy. Gemma: Open models based on",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "d Joulin, Noah\nFiedel, Evan Senter, Alek Andreev, and Kathleen Kenealy. Gemma: Open models based on\ngeminiresearchandtechnology,2024. URLhttps://arxiv.org/abs/2403.08295.\nAlistair Green, Humayun Tai, Jesse Noffsinger, and Pankaj Sachdeva. How data centers and the\nenergysectorcansateai’shungerforpower. McKinseyandCompany,2024.\nDirkGroeneveld,IzBeltagy,EvanWalsh,AkshitaBhagia,RodneyKinney,OyvindTafjord,Ananya\nJha,HamishIvison,IanMagnusson,YizhongWang,ShaneArora,DavidAtkinson,RussellAu-\nthur, Khyathi Chandu, Arman Cohan, Jennifer Dumas, Yanai Elazar, Yuling Gu, Jack Hessel,\nTushar Khot, William Merrill, Jacob Morrison, Niklas Muennighoff, Aakanksha Naik, Crys-\ntal Nam, Matthew Peters, Valentina Pyatkin, Abhilasha Ravichander, Dustin Schwenk, Saurabh",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "k, Crys-\ntal Nam, Matthew Peters, Valentina Pyatkin, Abhilasha Ravichander, Dustin Schwenk, Saurabh\nShah, William Smith, Emma Strubell, Nishant Subramani, Mitchell Wortsman, Pradeep Dasigi,\nNathan Lambert, Kyle Richardson, Luke Zettlemoyer, Jesse Dodge, Kyle Lo, Luca Soldaini,\nNoahSmith,andHannanehHajishirzi. OLMo: Acceleratingthescienceoflanguagemodels. In\nLun-WeiKu,AndreMartins,andVivekSrikumar(eds.),Proceedingsofthe62ndAnnualMeet-\ningoftheAssociationforComputationalLinguistics(Volume1:LongPapers),pp.15789–15809,\nBangkok,Thailand,August2024.AssociationforComputationalLinguistics. doi: 10.18653/v1/\n2024.acl-long.841. URLhttps://aclanthology.org/2024.acl-long.841.\nTom Gunter, Zirui Wang, Chong Wang, Ruoming Pang, Andy Narayanan, Aonan Zhang, Bowen",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": ".acl-long.841.\nTom Gunter, Zirui Wang, Chong Wang, Ruoming Pang, Andy Narayanan, Aonan Zhang, Bowen\nZhang, Chen Chen, Chung-Cheng Chiu, David Qiu, Deepak Gopinath, Dian Ang Yap, Dong\nYin, Feng Nan, Floris Weers, Guoli Yin, Haoshuo Huang, Jianyu Wang, Jiarui Lu, John Pee-\nbles, Ke Ye, Mark Lee, Nan Du, Qibin Chen, Quentin Keunebroek, Sam Wiseman, Syd Evans,\nTao Lei, Vivek Rathod, Xiang Kong, Xianzhi Du, Yanghao Li, Yongqiang Wang, Yuan Gao,\nZaidAhmed,ZhaoyangXu,ZhiyunLu,AlRashid,AlbinMadappallyJose,AlecDoane,Alfredo\nBencomo, Allison Vanderby, Andrew Hansen, Ankur Jain, Anupama Mann Anupama, Areeba\nKamal,BuguWu,CarolinaBrum,CharlieMaalouf,ChinguunErdenebileg,ChrisDulhanty,Do-\nminik Moritz, Doug Kang, Eduardo Jimenez, Evan Ladd, Fangping Shi, Felix Bai, Frank Chu,",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "lhanty,Do-\nminik Moritz, Doug Kang, Eduardo Jimenez, Evan Ladd, Fangping Shi, Felix Bai, Frank Chu,\nFredHohman,HadasKotek,HannahGillisColeman,JaneLi,JeffreyBigham,JefferyCao,Jeff\nLai, Jessica Cheung, Jiulong Shan, Joe Zhou, John Li, Jun Qin, Karanjeet Singh, Karla Vega,\nKelvinZou,LauraHeckman,LaurenGardiner,MargitBowler,MariaCordell,MengCao,Nicole\nHay, Nilesh Shahdadpuri, Otto Godwin, Pranay Dighe, Pushyami Rachapudi, Ramsey Tantawi,\nRomanFrigg,SamDavarnia,SanskrutiShah,SaptarshiGuha,SashaSirovica,ShenMa,Shuang\nMa, Simon Wang, Sulgi Kim, Suma Jayaram, Vaishaal Shankar, Varsha Paidi, Vivek Kumar,\nXin Wang, Xin Zheng, Walker Cheng, Yael Shrager, Yang Ye, Yasu Tanaka, Yihao Guo, Yun-\nsong Meng, Zhao Tang Luo, Zhi Ouyang, Alp Aygar, Alvin Wan, Andrew Walkingshaw, Andy",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ihao Guo, Yun-\nsong Meng, Zhao Tang Luo, Zhi Ouyang, Alp Aygar, Alvin Wan, Andrew Walkingshaw, Andy\nNarayanan, Antonie Lin, Arsalan Farooq, Brent Ramerth, Colorado Reed, Chris Bartels, Chris\nChaney,DavidRiazati,EricLiangYang,ErinFeldman,GabrielHochstrasser,GuillaumeSeguin,\nIrina Belousova, Joris Pelemans, Karen Yang, Keivan Alizadeh Vahid, Liangliang Cao, Mah-\nyar Najibi, Marco Zuliani, Max Horton, Minsik Cho, Nikhil Bhendawade, Patrick Dong, Piotr\nMaj, Pulkit Agrawal, Qi Shan, Qichen Fu, Regan Poston, Sam Xu, Shuangning Liu, Sushma\nRao,TashweenaHeeramun,ThomasMerth,UdayRayala,VictorCui,VivekRangarajanSridhar,\nWencong Zhang, Wenqi Zhang, Wentao Wu, Xingyu Zhou, Xinwen Liu, Yang Zhao, Yin Xia,\nZhile Ren, and Zhongzheng Ren. Apple intelligence foundation language models, 2024. URL",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "o, Yin Xia,\nZhile Ren, and Zhongzheng Ren. Apple intelligence foundation language models, 2024. URL\nhttps://arxiv.org/abs/2407.21075.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nJordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor Cai, Eliza\nRutherford, Diego de Las Casas, Lisa Anne Hendricks, Johannes Welbl, Aidan Clark, Tom\nHennigan, Eric Noland, Katie Millican, George van den Driessche, Bogdan Damoc, Aure-\nlia Guy, Simon Osindero, Karen Simonyan, Erich Elsen, Jack W. Rae, Oriol Vinyals, and\nL.Sifre. Trainingcompute-optimallargelanguagemodels. ArXiv,abs/2203.15556,2022. URL\nhttps://api.semanticscholar.org/CorpusID:247778764.\nWilliamStanleyJevons. TheCoalQuestion;AnInquiryConcerningtheProgressoftheNation,and\ntheProbableExhaustionofOurCoalMines. London: MacmillanandCo,1865.\nJared Kaplan, Sam McCandlish, Tom Henighan, Tom B Brown, Benjamin Chess, Rewon Child,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "anandCo,1865.\nJared Kaplan, Sam McCandlish, Tom Henighan, Tom B Brown, Benjamin Chess, Rewon Child,\nScott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. Scaling laws for neural language\nmodels. arXivpreprintarXiv:2001.08361,2020.\nJeffrey Li, Alex Fang, Georgios Smyrnis, Maor Ivgi, Matt Jordan, Samir Gadre, Hritik Bansal,\nEtash Guha, Sedrick Keh, Kushal Arora, Saurabh Garg, Rui Xin, Niklas Muennighoff, Rein-\nhard Heckel, Jean Mercat, Mayee Chen, Suchin Gururangan, Mitchell Wortsman, Alon Al-\nbalak, Yonatan Bitton, Marianna Nezhurina, Amro Abbas, Cheng-Yu Hsieh, Dhruba Ghosh,\nJosh Gardner, Maciej Kilian, Hanlin Zhang, Rulin Shao, Sarah Pratt, Sunny Sanyal, Gabriel Il-\nharco, Giannis Daras, Kalyani Marathe, Aaron Gokaslan, Jieyu Zhang, Khyathi Chandu, Thao",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "abriel Il-\nharco, Giannis Daras, Kalyani Marathe, Aaron Gokaslan, Jieyu Zhang, Khyathi Chandu, Thao\nNguyen, Igor Vasiljevic, Sham Kakade, Shuran Song, Sujay Sanghavi, Fartash Faghri, Se-\nwoongOh,LukeZettlemoyer,KyleLo,AlaaeldinEl-Nouby,HadiPouransari,AlexanderToshev,\nStephanie Wang, Dirk Groeneveld, Luca Soldaini, Pang Wei Koh, Jenia Jitsev, Thomas Kol-\nlar,AlexandrosG.Dimakis,YairCarmon,AchalDave,LudwigSchmidt,andVaishaalShankar.\nDatacomp-lm: Insearchofthenextgenerationoftrainingsetsforlanguagemodels,2024. URL\nhttps://arxiv.org/abs/2406.11794.\nPengfeiLi,JianyiYang,MohammadA.Islam,andShaoleiRen. Makingailess”thirsty”: Uncover-\ningandaddressingthesecretwaterfootprintofaimodels,2023.URLhttps://arxiv.org/\nabs/2304.03271.\nAlexandraSashaLuccioni, SylvainViguier,andAnne-LaureLigozat.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "3.URLhttps://arxiv.org/\nabs/2304.03271.\nAlexandraSashaLuccioni, SylvainViguier,andAnne-LaureLigozat. Estimatingthecarbonfoot-\nprint of bloom, a 176b parameter language model. Journal of Machine Learning Research, 24\n(253):1–15,2023. URLhttp://jmlr.org/papers/v24/23-0069.html.\nSasha Luccioni, Yacine Jernite, and Emma Strubell. Power hungry processing: Watts driving the\ncost of ai deployment? In The 2024 ACM Conference on Fairness, Accountability, and Trans-\nparency,pp.85–99,2024.\nSachin Mehta, Mohammad Hossein Sekhavat, Qingqing Cao, Maxwell Horton, Yanzi Jin, Chen-\nfan Sun, Seyed Iman Mirzadeh, Mahyar Najibi, Dmitry Belenko, Peter Zatloukal, and Moham-\nmadRastegari. OpenELM:Anefficientlanguagemodelfamilywithopentrainingandinference\nframework.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "d Moham-\nmadRastegari. OpenELM:Anefficientlanguagemodelfamilywithopentrainingandinference\nframework. In Workshop on Efficient Systems for Foundation Models II @ ICML2024, 2024.\nURLhttps://openreview.net/forum?id=XNMbTkxroF.\nTeam OLMo, Pete Walsh, Luca Soldaini, Dirk Groeneveld, Kyle Lo, Shane Arora, Akshita Bha-\ngia,YulingGu,ShengyiHuang,MattJordan,NathanLambert,DustinSchwenk,OyvindTafjord,\nTaira Anderson, David Atkinson, Faeze Brahman, Christopher Clark, Pradeep Dasigi, Nouha\nDziri, Michal Guerquin, Hamish Ivison, Pang Wei Koh, Jiacheng Liu, Saumya Malik, William\nMerrill, Lester James V. Miranda, Jacob Morrison, Tyler Murray, Crystal Nam, Valentina Py-\natkin,AmanRangapur,MichaelSchmitz,SamSkjonsberg,DavidWadden,ChristopherWilhelm,\nMichael Wilson, Luke Zettlemoyer, Ali Farhadi, Noah A.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "SamSkjonsberg,DavidWadden,ChristopherWilhelm,\nMichael Wilson, Luke Zettlemoyer, Ali Farhadi, Noah A. Smith, and Hannaneh Hajishirzi. 2\nolmo2furious,2025. URLhttps://arxiv.org/abs/2501.00656.\nHaoPeng,QingqingCao,JesseDodge,MatthewE.Peters,JaredFernandez,TomSherborne,Kyle\nLo, Sam Skjonsberg, Emma Strubell, Darrell Plessas, Iz Beltagy, Evan Pete Walsh, Noah A.\nSmith,andHannanehHajishirzi. Efficiencypentathlon: Astandardizedarenaforefficiencyeval-\nuation,2023. URLhttps://arxiv.org/abs/2307.09701.\nVijayJanapaReddi,ChristineCheng,DavidKanter,PeterMattson,GuentherSchmuelling,Carole-\nJean Wu, Brian Anderson, Maximilien Breughe, Mark Charlebois, William Chou, Ramesh\nChukka, Cody Coleman, Sam Davis, Pan Deng, Greg Diamos, Jared Duke, Dave Fick, J. Scott\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "an Deng, Greg Diamos, Jared Duke, Dave Fick, J. Scott\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nGardner,ItayHubara,SachinIdgunji,ThomasB.Jablin,JeffJiao,TomSt.John,PankajKanwar,\nDavidLee,JefferyLiao,AntonLokhmotov,FranciscoMassa,PengMeng,PauliusMicikevicius,\nColin Osborne, Gennady Pekhimenko, Arun Tejusve Raghunath Rajan, Dilip Sequeira, Ashish\nSirasao, Fei Sun, Hanlin Tang, Michael Thomson, Frank Wei, Ephrem Wu, Lingjie Xu, Koichi\nYamada, Bing Yu, George Yuan, Aaron Zhong, Peizhao Zhang, and Yuchen Zhou. Mlperf in-\nference benchmark. In 2020 ACM/IEEE 47th Annual International Symposium on Computer\nArchitecture(ISCA),pp.446–459,2020. doi: 10.1109/ISCA45697.2020.00045.\nPaul Reig, Tianyi Luo, Eric Christensen, and Julie Sinistore. Guidance for calculating water\nuse embedded in purchased electricity, 2020. URL https://www.wri.org/research/",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "or calculating water\nuse embedded in purchased electricity, 2020. URL https://www.wri.org/research/\nguidance-calculating-water-use-embedded-purchased-electricity.\nRoySchwartz,JesseDodge,NoahA.Smith,andOrenEtzioni. Greenai. Commun.ACM,63(12):\n54–63,November2020. ISSN0001-0782. doi: 10.1145/3381831. URLhttps://doi.org/\n10.1145/3381831.\nArmanShehabi,AlexHubbard,AlexNewkirk,NuoaLei,MdAbuBakkarSiddik,BillieHolecek,\nJonathanKoomey,EricMasanet,DaleSartor,etal. 2024unitedstatesdatacenterenergyusage\nreport. 2024.\nEmma Strubell, Ananya Ganesh, and Andrew McCallum. Energy and policy considerations for\nmoderndeeplearningresearch. InProceedingsoftheAAAIconferenceonartificialintelligence,\nvolume34,pp.13693–13696,2020.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ngresearch. InProceedingsoftheAAAIconferenceonartificialintelligence,\nvolume34,pp.13693–13696,2020.\nHugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timothe´e\nLacroix, Baptiste Rozie`re, Naman Goyal, Eric Hambro, Faisal Azhar, Aurelien Rodriguez, Ar-\nmand Joulin, Edouard Grave, and Guillaume Lample. Llama: Open and efficient foundation\nlanguagemodels,2023a. URLhttps://arxiv.org/abs/2302.13971.\nHugoTouvron,LouisMartin,KevinStone,PeterAlbert,AmjadAlmahairi,YasmineBabaei,Niko-\nlayBashlykov,SoumyaBatra,PrajjwalBhargava,ShrutiBhosale,etal. Llama2: Openfounda-\ntionandfine-tunedchatmodels. arXivpreprintarXiv:2307.09288,2023b.\nCarole-JeanWu, RamyaRaghavendra, UditGupta, BilgeAcun, NewshaArdalani, KiwanMaeng,\nGloriaChang,FionaAga,JinshiHuang,CharlesBai,etal.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "UditGupta, BilgeAcun, NewshaArdalani, KiwanMaeng,\nGloriaChang,FionaAga,JinshiHuang,CharlesBai,etal. Sustainableai: Environmentalimpli-\ncations,challengesandopportunities.ProceedingsofMachineLearningandSystems,4:795–813,\n2022.\nLianminZheng,LiangshengYin,ZhiqiangXie,ChuyueSun,JeffHuang,CodyHaoYu,ShiyiCao,\nChristos Kozyrakis, Ion Stoica, Joseph E. Gonzalez, Clark Barrett, and Ying Sheng. Sglang:\nEfficient execution of structured language model programs, 2024. URL https://arxiv.\norg/abs/2312.07104.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nA APPENDIX\nA.1 ADDITIONALINFERENCESIMULATIONDETAILS\nWe benchmark models using the ShareGPT dataset, assuming an online inference chat setting. In\npractice, withmuchlongerinferenceexamples, OLMomodelsmayhavean“unfair”advantagein\nthattheyweregenerallytrainedwithcontextlengthsshorterthantheothermodelswebenchmark.\nHowever, we do not believe that to be a significant factor in our results. In fact, we observe that\nLlama 3.1 8B is actually measured to be faster and less energy intensive than OLMo 7b models,\nlikelyduetotheuseofgrouped-queryattention(GQA;Ainslieetal.(2023))inLlama8b,vsnotin\nOLMomodels.\nWereportadditionalinferencesimulationresultsonalargersetofmodelsinTable4,\nA.2 LIMITATIONS",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "Momodels.\nWereportadditionalinferencesimulationresultsonalargersetofmodelsinTable4,\nA.2 LIMITATIONS\nOurmainlimitationsarediscussedthroughoutthemainbodyofthiswork–inparticular,wemake\nvariousassumptionsaboutembodiedimpactsduetolackofrealdata,andourinferenceanddeploy-\nmentnumberswerebenchmarkedinacontrolled,limitedsetting,aswedonotinrealityserveour\nmodelsinthesamesense,andwedonothaveaccesstodataaboutmostothermodels’realusage.\nWe present only a limited set of inference simulations following a number of simplistic assump-\ntions. Specifically,wesimulateonlysettingswhereadeployedmodelisingestinginputtokensand\ngeneratingoutputtokensfollowingdefaultparametersdefinedinSGLang(Zhengetal.,2024)–as\nopposedto, forinstance, evaluatingonlythelikelihoodofagiventext. Additionally, wenotethat",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": ",2024)–as\nopposedto, forinstance, evaluatingonlythelikelihoodofagiventext. Additionally, wenotethat\npractitionersfrequentlyemploydifferentinference-timeoptimizationssuchasquantization;perform\ngenerationwithdifferentdecodingalgorithms;and/ordeploytoandruninferenceonedgedevices,\nsometimesevenwithoutGPUs. Wedonotaccountforthisvarietyofscenariosinourexperiments.\nWeobservelineartrendsintrainingcostsrelativetoparametercountacrossfourordersofmagnitude\nand eight model sizes. However, we do not necessarily expect that this trend would hold tightly\nin all training settings across all possible scales – for instance, decentralized training or training\nacrossmultipledatacentersmightbeexpectedtoincursignificantlygreatercommunicationoverhead\nthroughouttraining.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ltipledatacentersmightbeexpectedtoincursignificantlygreatercommunicationoverhead\nthroughouttraining. Thoughwehavenottrainedthesemodelsourselves,ourhopeisthatourwork\nwillencourageothersworkinginabroadrangeofsettingstoprovidetheirownholisticreportsof\nenvironmentalresourceconsumption.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "PublishedasaconferencepaperatICLR2025\nTable4:FullversionofTable3in§4.2.MeasurementsandestimatesofresourcecostsfromSGLang\nbenchmarkingon2400promptsfromShareGPTatvaryingrequestrates. Themodelswereserved\nonmachinesfromthesameclusterthatourmodelsweretrainedon,soweusethesameWUEand\nPUE coefficients of 1.49 L / kWh and 1.2 respectively, and carbon intensity of 0.332 kg CO e /\n2\nkWh.ThemeasurementsreportedinthistableaccountfortheGPUprocessesassociatedwithactive\ninference,butnotCPUorRAMassociatedwithe.g. serveroverhead. Thus,thesenumberscanbe\nconsideredaslowerboundsonusageinsimilarsettings. Wedonotreport“break-even”pointsfor\nQwenmodelssincethetrainingcostsarenotpublic.\nGPU\nRequest Carbon Water #Inf.for\nPower Seconds\nfreq. Emissions consump. CO equiv.\nUsage per100req. 2",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "U\nRequest Carbon Water #Inf.for\nPower Seconds\nfreq. Emissions consump. CO equiv.\nUsage per100req. 2\n(req/s) (gCO eq) (L) w/training\n(kWh) 2\nLlama3.21B ∞ 0.003 1.0 0.004 1.38 258bil.\n8 0.036 12.0 0.054 12.64 21.5bil.\n1 0.16 53.1 0.238 100.58 4.83bil.\nLlama27B ∞ 0.019 6.3 0.028 3.58 11.9bil.\n8 0.054 17.9 0.08 12.83 4.18bil.\n1 0.349 115.9 0.52 100.62 647mil.\nLlama38B ∞ 0.01 3.3 0.015 1.93 282bil.\n8 0.052 17.3 0.077 12.78 54.2bil.\n1 0.337 111.9 0.502 100.63 8.37bil.\nLlama3.18B ∞ 0.011 3.7 0.016 2.13 276bil.\n8 0.051 16.9 0.076 12.79 59.5bil.\n1 0.333 110.6 0.496 100.64 9.12bil.\nLlama213B ∞ 0.034 11.3 0.051 6.53 13.3bil.\n8 0.06 19.9 0.089 13.09 7.52bil.\n1 0.401 133.1 0.597 100.73 1.13bil.\nQwen2.51.5B ∞ 0.003 1.0 0.004 0.86 –\n8 0.033 11.0 0.049 12.65 –\n1 0.163 54.1 0.243 100.57 –\nQwen2.57B ∞ 0.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "51.5B ∞ 0.003 1.0 0.004 0.86 –\n8 0.033 11.0 0.049 12.65 –\n1 0.163 54.1 0.243 100.57 –\nQwen2.57B ∞ 0.009 3.0 0.013 1.79 –\n8 0.053 17.6 0.079 12.77 –\n1 0.308 102.3 0.459 100.58 –\nQwen2.514B ∞ 0.018 6.0 0.027 3.45 –\n8 0.058 19.3 0.086 13.02 –\n1 0.387 128.5 0.577 100.64 –\nQwen1.5MoE ∞ 0.01 3.3 0.015 2.64 –\n(2.7BA,14BT) 8 0.043 14.3 0.064 13.11 –\n1 0.165 54.8 0.246 100.68 –\nOLMo11B ∞ 0.004 1.3 0.006 0.99 18.2bil.\n8 0.038 12.6 0.057 12.63 1.91bil.\n1 0.165 54.8 0.246 100.58 441mil.\nOLMo07247B ∞ 0.017 5.6 0.025 3.33 29.8bil.\n8 0.052 17.3 0.077 12.77 9.73bil.\n1 0.339 112.5 0.505 100.59 1.49bil.\nOLMo27B ∞ 0.018 6.0 0.027 3.68 20.9bil.\n8 0.049 16.3 0.073 12.88 7.68bil.\n1 0.358 118.9 0.533 100.54 1.05bil.\nOLMo213B ∞ 0.033 11.0 0.049 6.6 22.1bil.\n8 0.057 18.9 0.085 13.05 12.8bil.\n1 0.386 128.2 0.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "1.05bil.\nOLMo213B ∞ 0.033 11.0 0.049 6.6 22.1bil.\n8 0.057 18.9 0.085 13.05 12.8bil.\n1 0.386 128.2 0.575 100.57 1.89bil.\nOLMoE0924 ∞ 0.006 2.0 0.009 1.7 21.7bil.\n(1BA,7BT) 8 0.037 12.3 0.055 12.82 3.51bil.\n1 0.151 50.1 0.225 100.6 861mil.\n16",
+    "page": 16
+  }
+]

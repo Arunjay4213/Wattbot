@@ -1,0 +1,862 @@
+[
+  {
+    "type": "text",
+    "content": "The ML.ENERGY Benchmark: Toward Automated\nInference Energy Measurement and Optimization\nJae-WonChung JeffJ.Ma RuofanWu JiachenLiu\nOhJunKweon YuxuanXia ZhiyuWu MosharafChowdhury\nUniversityofMichigan\nTheML.ENERGYInitiative\nAbstract\nAstheadoptionofGenerativeAIinreal-worldservicesgrowexplosively,energy\nhasemergedasacriticalbottleneckresource. However,energyremainsametric\nthatisoftenoverlooked,under-explored,orpoorlyunderstoodinthecontextof\nbuildingMLsystems. WepresenttheML.ENERGYBenchmark, abenchmark\nsuiteandtoolformeasuringinferenceenergyconsumptionunderrealisticservice\nenvironments, and the corresponding ML.ENERGY Leaderboard, which have\nserved as a valuable resource for those hoping to understand and optimize the\nenergyconsumptionoftheirgenerativeAIservices. Inthispaper,weexplainfour",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "understand and optimize the\nenergyconsumptionoftheirgenerativeAIservices. Inthispaper,weexplainfour\nkeydesignprinciplesforbenchmarkingMLenergywehaveacquiredovertime,\nandthendescribehowtheyareimplementedintheML.ENERGYBenchmark. We\nthenhighlightresultsfromtheearly2025iterationofthebenchmark,including\nenergy measurements of 40 widely used model architectures across 6 different\ntasks, casestudiesofhowMLdesignchoicesimpactenergyconsumption, and\nhowautomatedoptimizationrecommendationscanleadtosignificant(sometimes\nmorethan40%)energysavingswithoutchangingwhatisbeingcomputedbythe\nmodel. TheML.ENERGYBenchmarkisopen-sourceandcanbeeasilyextended\ntovariouscustomizedmodelsandapplicationscenarios.\n1 Introduction\nGenerativeAImodelshaverapidlytransitionedfromresearchprototypestoreal-worldservicessuch",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ntroduction\nGenerativeAImodelshaverapidlytransitionedfromresearchprototypestoreal-worldservicessuch\nasChatGPT[56],CharacterAI[6],Sora[57],andMidjourney[50]. However,exponentialgrowth\nrarely continues without facing scaling bottlenecks; currently for generative AI, one of the most\ncrucialbottlenecksistheenergybottleneck[4,15–17,38,48,49,51]. Thatis,evenwithfleetsoflatest\nGPUsandexplodingdemandforMLcompute,gettingaccesstotheenergynecessarytopowerthese\nsystemsisbecomingincreasinglycostly,slow,andsometimesimpossible. Thisparticularlyimpacts\nservingreal-worldservicesasMLinferencereportedlyaccountsfor80–90%ofthetotalcompute\ndemand[12,32,58,60]. Leftunaddressed,theenergybottleneckwillnotonlyhinderAIresearchand\ndevelopmentprogress[31],butalsoleadtoenergybeingsqueezedoutofexistingelectricitygrids",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "AIresearchand\ndevelopmentprogress[31],butalsoleadtoenergybeingsqueezedoutofexistingelectricitygrids\nandimpactingavailabilityandprice[4].\nHowever,despiteitsgrowingimportance,energyremainsasecondaryconsiderationcomparedto\ntraditionaloptimizationobjectivesliketimeandaccuracy. Howmuchenergydoesamodelconsume\nduringinference? Whatistherightwayforenergymeasurementandaccountingduringexecution,\nletaloneoptimization? Tobridgethisgap,welaunchedtheML.ENERGYLeaderboard,1 thefirst\ninferenceenergyleaderboardformoderngenerativeAImodelstothebestofourknowledge. Wehave\nbeengraduallyexpandingtheLeaderboardinmultipledimensionstonowinclude(1)40different\n1https://ml.energy/leaderboard\n39thConferenceonNeuralInformationProcessingSystems(NeurIPS2025)TrackonDatasetsandBenchmarks.\n5202\ntcO\n61\n]GL.sc[\n2v17360.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lInformationProcessingSystems(NeurIPS2025)TrackonDatasetsandBenchmarks.\n5202\ntcO\n61\n]GL.sc[\n2v17360.5052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Model & Dataset Configuration Space Latency Target\n1 3\n2 Benchmark 4 Optimization\nEnergy (J)\nGPU type = H100\nConfigs Tensor parallel = 2\nPipeline parallel = 1 H100 H100\nMax batch size = 256\n……\nMeasured energy & latency\nGPU type = A100\nTensor parallel = 4\nPipeline parallel = 1\nA100 A100 A100 A100\nMax batch size = 512\n…… Target Time (s)\n……\nReusable Measurement Results Energy-Optimal Config\nFigure1: OverviewofthebenchmarkingandoptimizationflowoftheML.ENERGYBenchmark.\ngenerativeAImodelarchitecturesacrossawiderangeoftasks–includingLargeLanguageModel\n(LLM)chatandcoding,Vision–LanguageModel(VLM)visualchat,andtext-to-image,text-to-video,\nand image-to-video generation using Diffusion models – and (2) more up-to-date hardware and\nsoftwarestacksfollowingrapidadvancementsineacharea.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "n models – and (2) more up-to-date hardware and\nsoftwarestacksfollowingrapidadvancementsineacharea.\nInthispaper,wesharethedesignprincipleswehaveestablishedovertime(Section2)andpresent\ntheML.ENERGYBenchmarkthatembodiesthem(Section3). Itprovidestwokeyfunctionalities:\n• Extensiblebenchmark: Itprovidesaneasilyextensiblebenchmarksuiteandacomprehensive\nsetoftoolsformeasuringtheinferenceenergyconsumptionofgenerativeAImodelsforvarious\ntasksunderrealisticdeploymentenvironments.\n• Automatedoptimization: Basedonenergymeasurementresults,itprovidesautomatedenergy\noptimizationrecommendationsforgenerativeAImodeldeployment.\nFinally,wehighlightnotableresultsfromtheearly2025iterationoftheML.ENERGYLeaderboard,\nsheddinglighton(1)howenergyconsumptionvariesacrossdifferentgenerativeAImodelsandtasks,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Leaderboard,\nsheddinglighton(1)howenergyconsumptionvariesacrossdifferentgenerativeAImodelsandtasks,\n(2)thecomplextrade-offsthatinvolveenergy,time,andmodelarchitecturedesign,and(3)theenergy\nsavingsopportunityunlockedbyautomatedoptimization(Section4).\nThispaperdescribesthestateoftheML.ENERGYBenchmarkandLeaderboardasofearly2025.\nThelatestversionoftheML.ENERGYBenchmarkisopen-sourceonGitHub,2andtheML.ENERGY\nLeaderboardallowseveryonetobrowsefullresultsfromthelatestML.ENERGYBenchmark.\n2 DesignPrinciples\nThedesignoftheML.ENERGYBenchmarkisguidedbyfourcoreprinciples. Ouroverarchinggoal\nistocreateabenchmarkthatisrepresentativeofreal-worldgenerativeAIservicedeployments,and\ntoproduceenergymeasurementresultsthatareaccurate,reusable,andultimatelyactionable.\n2.1 GeneralizabilityandPortability\nGoal.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "entresultsthatareaccurate,reusable,andultimatelyactionable.\n2.1 GeneralizabilityandPortability\nGoal. Everycomputersystemisconfiguredwithdifferenthardwareandsoftwarecomponents,and\nmeasurementsfromaparticularsystemwillnevertrulyrepresentthosefromanothersystem. For\ninstance,systemscanbeconfiguredwithdifferentCPUandDRAMmodels,andrunningdifferent\nLinuxkernelversionswithdifferentdaemonsrunninginthebackground. Further,notallusershave\n2https://github.com/ml-energy/benchmark\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "physicalaccesstothetargetsystemhardware,acommoncaseforcloud-basedenvironments. Still,\nwewanted(1)thebenchmarktorunseamlesslyonawidevarietyofsystems,and(2)measurement\nresultstoprovidegeneralizableinsightsandrecommendationsacrossawiderangeofsystems.\nOurapproach. Wefocusonsoftware-basedGPUenergymeasurementforthefollowingreasons:\n• GPUsarethedominantworkerandenergyconsumerinasystemrunningMLservices,accounting\nfor50–70%ofthetotalprovisionedpowerinthedatacenter[52–54,58].\n• Comparedtootherhardwarecomponents,GPUmodelsaremorestandardizedacrossdifferent\nsystems[13],makingmeasurementsusefulacrosssystemsthatusethesameGPU.\n• GPUsallowaccuratesoftware-basedenergymeasurement[1,2,11,81],allowingmeasurement\ntoolstobeportableacrosssystemswithoutrequiringphysicalhardwareaccessormodification.\n2.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ngmeasurement\ntoolstobeportableacrosssystemswithoutrequiringphysicalhardwareaccessormodification.\n2.2 RepresentingReal-WorldDeployments\nGoal. Benchmarkingresultsofteninformreal-worlddeploymentoptimizations,areusedtoplan\nfuturepowercapacityandenergyusage,affectthedesignofnewhardwareandsoftwaresystems,and\nserveasbasenumbersforlongtermprojectionsthataffectpolicymaking. Therefore,itiscrucialthat\nourmeasurementsrepresentthosefromreal-worlddeploymentsascloselyaspossible.\nOurapproach. Toobtainrealisticmeasurements,weadheretothefollowingprinciples:\n• Weadoptproduction-gradesoftwareandhardware(e.g.,vLLM[39]onNVIDIAH100GPUs)\nandrunthemwithgenerationrequestworkloadsthatarerepresentativeofreal-worldusecases.\n• Duringourmeasurement,wedirectlyrunorcloselymimicthestateofaservingsystemduring",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "eal-worldusecases.\n• Duringourmeasurement,wedirectlyrunorcloselymimicthestateofaservingsystemduring\nlong term deployment. This allows us to capture the steady state energy consumption of the\nservicewhileusingafixed-sizebenchmarkingdataset.\n2.3 EnergyMeasurementattheRightGranularity\nGoal. Energycanbemeasuredatdifferentcomputationgranularities. Forinstance,forLLMtext\ngeneration,energycanbereportedfortheend-to-endbenchmarkingrun,foreachgeneratedresponse,\norforeachtokengenerated. Ourgoalistomeasureandreportenergyconsumptionatagranularity\nthatisneithertoocoarse(asitonlyprovideslimitedinsightintotheruntimebehavioroftheservice)\nnortoofine(asitmaymissimportanthigher-levelinsightsrelevanttotheservice).\nOurapproach. Alsoalignedwithourgoalofrepresentingreal-worlddeployments(Section2.2),",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ttotheservice).\nOurapproach. Alsoalignedwithourgoalofrepresentingreal-worlddeployments(Section2.2),\nourapproachistomainlyreportenergyconsumptionatthegranularityofasingle,wholegeneration\nresponsetoarequest(e.g.,entirechatresponse,image,video). Thisisbecauseanyworklessthan\nthefullresponse(e.g.,pertoken)isnotconsideredacompleterequest,andmayignoremodel-and\ntask-specificcharacteristics. Forinstance,forLLMtextgeneration,differentmodelsexhibitdifferent\nverbosity(i.e.,giventhesameprompt,differentmodelsrespondwithvaryingnumberoftokens),and\ndifferenttaskshavevastlydifferentoutputtokenlengthdistributions(e.g.,chatvs.codegeneration),\nallofwhichwewanttocaptureinourmeasurements.\n2.4 ActionableMeasurementResults\nGoal. Whileenergymeasurementsareusefulinthemselves,theyareevenmoreusefulwhenthey",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "MeasurementResults\nGoal. Whileenergymeasurementsareusefulinthemselves,theyareevenmoreusefulwhenthey\nleadtoactionableinsightsandrecommendations. Forinstance,howmuchisthepotentialenergy\nsavingsofyourmodelwithoutsacrificingaccuracyorlatency? Ifyourserviceintendstoguaranteea\nspecificgenerationlatencydeadline(e.g.,50ms),whatistheenergy-optimalconfiguration,andhow\nmuchisthepotentialenergysavings?\nOurapproach. TheML.ENERGYBenchmarkallowsuserstoprovidecomputationlatencycon-\nstraintsspecifictotheirapplicationscenario(e.g.,LLMaverageTimePerOutputToken),andwill\nautomaticallyrecommend(1)theenergy-optimalconfigurationthatmeetsthelatencyconstraints,\nand(2)theexpectedamountofenergysavings. Duetothegeneralizabilityofourmeasurements\n(Section2.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "raints,\nand(2)theexpectedamountofenergysavings. Duetothegeneralizabilityofourmeasurements\n(Section2.1),theserecommendationsinformtheoptimizationofawiderangeofsystems.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "3000 requests Request\nLLM Inference Server\n……\n……\nMax\n…… batch size\n……\n3000\nRunning\nWaiting 4\nrequests\nrequests\nTime\nSteady state (stable server utilization)\nFigure2: LLMinferenceserverandper-requestenergyaccounting. Thesteadystateisdefinedasthe\nperiodwhenbatchsizeissaturatedattheserver’smaximumconfiguredbatchsize,andmeasurements\nduringthesteadystaterepresentthatofaservingsystemduringlong-termdeployment.\n3 TheML.ENERGYBenchmark\nTheML.ENERGYBenchmarkisacomprehensivetoolformeasuringandoptimizingtheinference\nenergy consumption of generative AI models, built upon our core design principles (Section 2).\nHere,wedescribetheoverallflowoftheML.ENERGYBenchmark(Section3.1),whichincludes\nservice-awareenergymeasurementandaccounting(Section3.2)andautomatedoptimizationrecom-\nmendations(Section3.3).",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "wareenergymeasurementandaccounting(Section3.2)andautomatedoptimizationrecom-\nmendations(Section3.3). Finally,wedescribeextensionpointsoftheML.ENERGYBenchmarkthat\nallowsuserstoeasilybenchmarktheircustomizedapplicationscenarios(Section3.4).\n3.1 BenchmarkFlow\nFigure 1 provides an overview of the usage flow of the ML.ENERGY Benchmark. 1 First, the\ngenerativemodeltobenchmarkandtherequestdataset(setofinputs)touseareselected,alongside\nwith the set of configurations to sweep (e.g., GPU model, parallelism configuration, maximum\nbatchsize). 2 ThentheML.ENERGYBenchmarkrunsconfigurationsindependentlyondesignated\nhardware, and measures the time and energy consumption of each configuration using Zeus [2],\na library thatprovides programmaticenergy measurement (Section 3.2). 3 After benchmarking",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Zeus [2],\na library thatprovides programmaticenergy measurement (Section 3.2). 3 After benchmarking\niscomplete, userscanspecifyalatencytargetbasedontheirapplicationrequirements. 4 Given\nthat,theML.ENERGYBenchmarkconstructsthetime–energyParetofrontier,andrecommendsthe\nenergy-optimalconfigurationwhilesatisfyingthelatencytarget(Section3.3).\n3.2 EnergyMeasurementandService-AwareEnergyAccounting\nOur goal is to provide per-request energy measurements (Section 2.3) that are representative of\nreal-world deployments (Section 2.2). However, a realistic serving system batches together the\ngenerationofmultiplerequests(e.g.,iteration-levelbatching[82]forLLMtextgeneration),making\ntheenergyconsumptionofasinglerequestdependentonallotherrequestsbeingprocessedatthe\nsametime.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": ",making\ntheenergyconsumptionofasinglerequestdependentonallotherrequestsbeingprocessedatthe\nsametime. Therefore,weimplementmeasurementandenergyaccountingmethodsthatcapturethe\nbatchingbehaviorofdifferenttypesofmodels.\nDiffusionmodels. Webeginwiththerelativelymorestraightforwardcaseofdiffusionmodels,\nwhichareusedfortext-to-image,text-to-video,andimage-to-videogeneration. Diffusionmodelsare\ntypicallybatchedasawhole,meaningthattheenergyconsumptionofasinglerequestis:\nEnergy\nEnergy = batch (1)\nrequest B\nwherethebatchconsistsofBimageorvideogenerationrequests.\nLLMtextgeneration. Request-levelenergyaccountingislessstraightforwardforLLMinference,\nbecauseiteration-levelbatching[82]isanessentialoptimizationinanyrealistic,production-grade\nLLMservingsystem[39].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "tion-levelbatching[82]isanessentialoptimizationinanyrealistic,production-grade\nLLMservingsystem[39]. Figure2showshowrequestsareservedbyaservingsystemimplementing\niteration-levelbatchingandhowtheML.ENERGYBenchmarkperformsenergyaccounting. Because\n4",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "thebeginningandendofeachrequestareoftennotalignedwitheachother,findingeachrequest’s\nindividualenergyconsumptionisnon-trivial. Forthis, wefirstsubmitallrequestsintherequest\ndataset,andasthesystemruns,identifythesteadystateasthetimeperiodwherethebatchsizeis\nsaturatedattheserver’smaximumconfiguredbatchsize. Thissteadystateisdesignedtoclosely\napproximate the state of a serving system when it is well-utilized during long-term deployment.\nParticularly,whenthesystemisrampingupinitiallywithafullqueueorrampingdownattheend\nwithanemptyqueue,theserverrunswithasmallerbatchsizeanddoesnotexhibitthesameenergy\namortizationbenefitsasthesteadystate. Withthis,wecanderivetheaverageper-requestenergy\nconsumptionwith:\nEnergy = Energy steady × 1 (cid:88) Tokens . (2)\nrequest Tokens N request,i\nsteady\ni",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nsumptionwith:\nEnergy = Energy steady × 1 (cid:88) Tokens . (2)\nrequest Tokens N request,i\nsteady\ni\nInessence,wecomputetheaverageenergyconsumptionpertokenduringthesteadystateandmultiply\nitbytheaveragenumberofoutputtokenstoderivetheaverageper-requestenergyconsumption.\nIndividualrequests’energyconsumptioncanalsobecomputedbymultiplyingtheaverageenergyper\ntokenduringthesteadystatebythenumberofoutputtokensforeachrequest.\nAs we will see in Section 4, batch size is a critical configuration that significantly affects both\ngenerationtimeandenergyconsumption.Bysweepingthebatchsizeconfiguration,theML.ENERGY\nbenchmarkcancapturevaryinglevelsofsystemutilizationandcollectvariousoperationpointswith\ndifferenttimeandenergyconsumption.\n3.3 AutomatedOptimizationRecommendation",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "riousoperationpointswith\ndifferenttimeandenergyconsumption.\n3.3 AutomatedOptimizationRecommendation\nOurgoalistoprovideactionableinsightsbeyondjustenergymeasurements(Section2.4)byrec-\nommendingenergy-optimalconfigurationsforagivenmodelandtask. Centraltotheoptimization\nrecommendationistheconstructionoftheParetofrontierofenergyvs.time,whichisacollectionof\nconfigurationswheretherearenootherconfigurationsthatleadtobothlowerenergyandlowertime.\nThen,theenergy-optimalconfigurationisselectedbasedonuser-specifiedlatencyconstraints.\nLatencyconstraintsinherentlydependontheuser’sorapplication’sneeds. Forexample,forimage\ngeneration with Diffusion models, computation results are useful only when the full image is\ngenerated,solatencyconstraintswouldbespecifiedintermsofthetimetogeneratethewholeimage.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ull image is\ngenerated,solatencyconstraintswouldbespecifiedintermsofthetimetogeneratethewholeimage.\nOntheotherhand,forLLMtextgenerationforchat,outputtokensarestreamedtousers(eitherin\nwrittentextorsynthesizedspeech)astheyaregenerated. Assuch,foruser-facingconversational\nAIservices,aslongastheaveragetimeperoutputtokenisatleastasfastastheusers’readingor\nlisteningspeed, userexperiencewillnotbeaffected[44]. However, forLLMtextgenerationfor\ncoding, wherecodeislikelyonlyusefulwhen itisfullygenerated, latency constraintswouldbe\nspecifiedintermsofthetimetogeneratethewholesnippet,similartothecaseofimagegeneration.\nGiventhelatencyconstraints,thetime–energyParetofrontierisusedtosuggesttheminimum-energy\nconfigurationthatsatisfiesthelatencyconstraint.\n3.4 ExtendingtheBenchmark\nTheML.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "sttheminimum-energy\nconfigurationthatsatisfiesthelatencyconstraint.\n3.4 ExtendingtheBenchmark\nTheML.ENERGYBenchmarkisdesignedtobeeasilyextensible,allowinguserstobenchmarktheir\nownmodelsorcustomizedapplicationscenarios.\nModel. The ML.ENERGY Benchmark already supports various popular architectures like\nLlama[73],LLaVA[43],StableDiffusion[25],andStableVideoDiffusion[14](SeeAppendixA\nforafulllist). Modelsthatarefine-tunedbasedonalready-supportedmodelsworkasis. Models\nwithdifferentarchitecturesshouldalsoworkasisaslongastheyaresupportedbytheunderlying\nruntime,likevLLM[39],whichsupportsarbitraryLLMsprovidedbyHuggingFaceTransformers.\nRequestdataset. Foreachtask(e.g.,LLMtextgenerationforchat),theML.ENERGYBenchmark",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "gFaceTransformers.\nRequestdataset. Foreachtask(e.g.,LLMtextgenerationforchat),theML.ENERGYBenchmark\nprovidesadefaultrequestdatasetthatcontainsasetofinputsrepresentativeofreal-worldusage(See\nAppendixAforafulllist). Userscanalsoprovidetheirownrequestdataset,whichcanbeusedto\ninvoketheruntimeandmeasureenergyconsumption.\nConfiguration space. The ML.ENERGY Benchmark provides a default set of configurations\nspecific to tasks. For instance, for LLM text generation, it supports maximum batch sizes and\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "parallelismconfiguration(e.g.,tensorandpipelineparallelism). Fordiffusionmodels,itsupportsnot\nonlybatchsize,butalsochangingthenumberofdenoisingsteps,asithasanon-trivialimpactontime,\nenergy,andoutputquality. Userscancustomizetherangeofvaluessweptforeachconfiguration,\nand also provide new configurations (e.g., GPU power limit [1,81]) as long as they implement\nthecorrespondingconfigurationinterfaceinthetop-levelroutine. Moreconfigurationdimensions\nand finer grained sweeps will lead to longer benchmarking time, but will also push the Pareto\nfrontiertowardsthelowerleftcornerofthetime–energyspace,leadingtothediscoveryofmore\nenergy-efficientconfigurations.\nHardware. AslongastheruntimeusedbytheML.ENERGYBenchmark(e.g.,vLLM)iscapable",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "fficientconfigurations.\nHardware. AslongastheruntimeusedbytheML.ENERGYBenchmark(e.g.,vLLM)iscapable\nof running on the target hardware and Zeus [2] can measure energy consumption on the target\nhardware(e.g.,NVIDIA/AMDGPUs,Intel/AMDCPUs,AppleSilicon,NVIDIAJetsonplatforms),\ntheML.ENERGYBenchmarkcanrunonthetargethardwareasis.\nMetrics. Energyisafundamentalphysicalquantitythatcanbeusedtoderiveotherusefulmetrics,\nthough these derived metrics are not automatically computed by default as they require context-\nspecific information. Below, we describe how these metrics might be computed based on the\nbenchmark’soutputs.\n• Averagepowerdraw(Watts): Averagepowerdrawoverthesteadystatecanbecalculatedby\ndividingtotalenergyconsumptionduringthesteadystatebythedurationofthesteadystate.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ecanbecalculatedby\ndividingtotalenergyconsumptionduringthesteadystatebythedurationofthesteadystate.\n• ThroughputperWatt: Workthroughput,e.g.,requestortokengenerationthroughput,divided\nbyaveragepowerdrawcandescribehowmuchservicecapacitycanbeextractedfromthesystem\ngivenapowerbudget,whichisacriticalquantityfordatacenterpowerplanning[38].\n• Monetarycost($): Theelectricitycostofcomputecanbecalculatedbyintegratingovertimethe\nmultiplicationofenergyconsumptionandtheelectricitypriceintheregionandtimeinstance. If\nthereisaspecificregionandtimeframetheserviceisexpectedtorun,choosingthatelectricity\npricecansimulatetheoperationalelectricitycostofdeployment.Electricitypricescanbeobtained\nfromsourceslikeOpenEI.3CalculatingtheelectricitycostfromenergyissupportedbyZeus[2],",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "escanbeobtained\nfromsourceslikeOpenEI.3CalculatingtheelectricitycostfromenergyissupportedbyZeus[2],\nthemeasurementlibraryofchoiceforthebenchmark.\n• Operationalcarbonemissions(gCO e): Thisquantityestimatesthegreenhousegasemissions\n2\nassociatedwiththeelectricityconsumed. Itcanbecalculatedbymultiplyingenergyconsumption\nby the carbon intensity (gCO e/kWh) of the particular region and time frame in which the\n2\nbenchmarkwasrun. CarbonintensitydatacanbeobtainedfromsourceslikeElectricityMaps.4\nThisisalsosupportedbyZeus[2],theenergymeasurementlibraryemployedbythebenchmark.\n4 ResultsHighlight\nIn this section, we highlight notable results from the ML.ENERGY Benchmark; the full set of\nresultsisavailableontheML.ENERGYLeaderboard.5 Theearly2025iterationofthebenchmark",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "; the full set of\nresultsisavailableontheML.ENERGYLeaderboard.5 Theearly2025iterationofthebenchmark\nand leaderboard presents energy measurements across 40 models and 6 tasks (See Appendix A\nfor a full list). We ran the benchmark on NVIDIA A100 (40 GB) and H100 (80 GB) GPUs,\neachusingAWSp4d.24xlargeandp5.48xlargeinstances, respectively, andusedvLLM[39]and\nDiffusers[77]astheinferenceruntime. Inthefollowing,wefirstpresentenergymeasurementresults\nanddiscussimplications(Section4.1),andthenprovidedeeperunderstandingbyshowinghowmodel\narchitecture choices affect their energy consumption (Section 4.2). Then, we present the energy\nsavingsopportunitiesfromourautomatedoptimizationrecommendations(Section4.3).\n4.1 EnergyMeasurements\nSignificantvariationinenergyconsumption.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "mizationrecommendations(Section4.3).\n4.1 EnergyMeasurements\nSignificantvariationinenergyconsumption. ThesolidbarsinFigure3(A100GPUsinFigure3a\nandH100inFigure3b)showtheper-requestenergyconsumptionofvariousgenerativeAImodels\nacrossdifferenttasks. First,energyconsumptionvarieswidelyacrossmodels. Inparticular,Diffusion\nmodelsgenerallyconsumeenergythatisonparwithlargerLLMs(e.g.,MistralLarge(123B)).This\n3https://openei.org/wiki/Utility_Rate_Database\n4https://electricitymaps.com/\n5https://ml.energy/leaderboard\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "104\n103\n102\n101\n100\nGemma G 2 e m 2B m G a e 2 m 9 m B a L 2 l a 2 m 7B a L 3 la .1 m 8 a B L 3 la .1 m 7 a 0 P 3 B h .1 i 3 4 0 m 5 i B P ni h ( i 3 P 3 . h 8 s i B m 3 ) a m ll e ( d 7 i B u ) m (1 M 4 i M s B t ) i r s a t l r M a N l i s e 7 t m r B a o l L (1 a M 2 rg B ix e ) t r ( M a 1 l 2 ix 8 3 t x B r 7 a ) B l 8 ( x 4 2 7 2 B B ) C (1 o 4 d 1 e B L C l ) a o m de a L 7 la B C m od a e 1 L 3 la B C m od a e 3 L 4 la B m St a a r 7 C 0 o B d S e ta r2 rC 3 o B S d ta e r r C 2 o 7 C d B e o r d 2 e G 15 e C B m od m e a G 2 e B mm LL a a 7 V B A L 1 L . a 5 V 7 A B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n l h e a o m n e 7 l B eon 30B SD2.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n l h e a o m n e 7 l B eon 30B SD2.1 S S D D X X L L T S u D rb 3 o medium O SS pe D n 1 J M B o o u d rn e e lS y c 4 ope A T2 n V imate I D 2V iff Gen XL SVD SVD XT\n)J(\nnoitpmusnoc\nygrenE\nEnergy Consumption Per Generation (A100)\n2.5x 1.1x 1.1x1.1x\n2.5x1.8x\n1.7x\n2.1x\n3.3x\n2.2x2.1x1.5x1.9x1.8x\n2.6x 2.7x 3.2x\n1.6x1.4x 2.1x\n2.4x\n2.7x1.9x1.4x3.4x1.6x 1.6x 1.3x1.5x1.5x1.5x\n1.4x1.1x 1.0x 1.4x 1.0x 1.1x\n1.2x\n1.1x 1.0x\n(a)NVIDIAA100\n104 103 102\n101\n100\nGemma G 2 e m 2B m G a e 2 m 9 m B a L 2 l a 2 m 7B a L 3 la .1 m 8 a B L 3 la .1 m 7 a 0 P 3 B h .1 i 3 4 0 m 5 i B P ni h ( i 3 P 3 .",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "a L 2 l a 2 m 7B a L 3 la .1 m 8 a B L 3 la .1 m 7 a 0 P 3 B h .1 i 3 4 0 m 5 i B P ni h ( i 3 P 3 . h 8 s i B m 3 ) a m ll e ( d 7 i B u ) m (1 M 4 i M s B t ) i r s a t l r M a N l i s e 7 t m r B a o l L (1 a M 2 rg B ix e ) t r ( M a 1 l 2 ix 8 3 t x B r 7 a ) B l 8 ( x 4 2 7 2 B B ) C (1 o 4 d 1 e B L C l ) a o m de a L 7 la B C m od a e 1 L 3 la B C m od a e 3 L 4 la B m St a a r 7 C 0 o B d S e ta r2 rC 3 o B S d ta e r r C 2 o 7 C d B e o r d 2 e G 15 e C B m od m e a G 2 e B mm LL a a 7 V B A L 1 L . a 5 V 7 A B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n l h e a o m n e 7 l B eon 30B SD2.1 S S D D X X L L T S u D rb 3 o medium O SS pe D n 1 J M B o o u d rn e e lS y c 4 ope A T2 n V imate I D 2V iff Gen XL SVD SVD XT\n)J( noitpmusnoc\nygrenE",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "M B o o u d rn e e lS y c 4 ope A T2 n V imate I D 2V iff Gen XL SVD SVD XT\n)J( noitpmusnoc\nygrenE\nEnergy Consumption Per Generation (H100)\n3.2x2.5x 2.4x 2.6x 2.5x 2.5x 2.7x2.8x2.1x2.9x2.3x 3.2x 3.3x 3.3x 2.3x1.8x2.0x 2.3x 3.4x2.7x2.1x4.1x2.4x 2.0x1.8x1.9x2.1x2.1x 1.9x1.2x 1.2x 2.0x 1.0x1.1x 1.5x 1.2x 1.1x 1.1x 1.1x1.1x\n(b)NVIDIAH100\nFigure3: Per-requestenergyconsumptionacrossvariousgenerativeAImodels. Blackandorange\nrepresentstextandvisionmodalities,respectively. Solidbarsareenergymeasurements,whereas\ndimmedbarsbehindeachsolidbarareestimationsbasedontheGPU’sTDP,withnumbersshowing\ntheratioofoverestimation. NotethelogscaleY-axis.\nMaxbatchsize\nModel TP\n4 8 16 32 64\nDeepSeekdistilledQwen38B[23,80] 1 9713.7 6010.1 4314.9 3340.8 2770.8\nPhi4reasoningplus15B[3] 1 19974.4 12389.6 9347.3 7634.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "B[23,80] 1 9713.7 6010.1 4314.9 3340.8 2770.8\nPhi4reasoningplus15B[3] 1 19974.4 12389.6 9347.3 7634.9 7595.4\nQwen332B[80] 2 26419.7 15168.3 9140.5 6165.5 4520.6\nQwen3235B-A22Bthinking[80] 8 122523.1 86491.5 56720.4 40275.5 33096.4\nTable1: EnergypergenerationofreasoningmodelsonGPQA[64]andNVIDIAH100GPUs. TPis\nthetensorparallelismdegree,whichisalsoequaltothenumberofGPUsused.\nismainlybecauseDiffusionmodels(1)drawhigherpoweringeneral(moreinSection4.2)and(2)\ncannotperformasmanyconcurrentgenerationscomparedtoLLMsduetotheirlonglatencyinreal\nservices,preventingthemfromamortizingenergyconsumptionacrossmanygenerations.\nImportanceofmeasuring. ThedimmedbarsbehindeachsolidbarinFigure3showtheestimated\nenergyconsumptionbasedontheGPU’sThermalDesignPower(TDP)insteadofmeasuringthe",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "igure3showtheestimated\nenergyconsumptionbasedontheGPU’sThermalDesignPower(TDP)insteadofmeasuringthe\nrealGPUpowerconsumption,whichisacommonpractice[8,9,28,40,47,74]. Estimationsusing\nTDP are nearly always an overestimation since it is rare for a GPU – or any computing device –\nto draw its maximum power at every moment in time. In fact, such an estimation can lead to a\nworst-caseoverestimationofenergyconsumptionbyafactorof4.1(CodeGemma2BonH100GPUs).\nInaccuraciesmaybeoverlookedwhentheyinfluencedownstreamdecisionsandprojections,leading\ntomisleadingconclusions. Accuratemeasurementsthatreflectproductionenvironmentsarecrucial.\n4.2 EnergyImplicationsofMLDesignDecisions\nMLdecisionsreflectedinmodelarchitecturesandtrainedmodelsimpactenergyconsumption. For",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "esignDecisions\nMLdecisionsreflectedinmodelarchitecturesandtrainedmodelsimpactenergyconsumption. For\ntheinterestofspace,wedefersystemsimplicationsonenergyconsumptiontoAppendixB.\nLLMresponseverbosityandenergy. InFigure3,wecanseethatenergyconsumptionvarieseven\namongLLMsofsimilarsizes. ThisisbecausedifferentLLMsgenerateresponsesofdifferentlength\nevenwhengiventhesameprompt. Suchdifferencesinverbositycanbenon-trivial; forinstance,\nMistralLarge’sresponseswereonaverage36%longerthanthatofMixtral8×7B.Asthenumberof\n7",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n2.5x 1.1x 1.1x1.1x |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n3.3x\n1.7x\n1.8x 2.1x |  |  |  |  |  |  | 2.6x 2.7x 3.2x 2.4x 1.4x1.1x 1.0x 1.4x 1.0x 1.1x 1.1x 1.0x\n2.2x 1.5x 1.8x 2.1x 1.3x1.5x1.5x1.5x 1.2x |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | 2.5x |  |  |  |  |  |  | 2.1x |  | 1.9x |  |  |  |  | 1.6x1.4x |  |  |  | 2.7x1.9x1.4x3.4x1.6x |  |  |  |  | 1.6x |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | B\nmm a 2\nG e m | 9 m B a 2 2\nLla | 7B\nm a L 3 la .1 m | 8 a B L 3 la .1 m 7 a | 0 3 B .1 4 0\nP h i 3 | m 5 i B P ni h ( i 3 3 .8\nPh | s B m ) a m ll e ( d 7\ni 3 | B ) (14\ni u m\nM | B )\ni M s t i r s a t l r M a N l i | 7 B (1 2",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "Ph | s B m ) a m ll e ( d 7\ni 3 | B ) (14\ni u m\nM | B )\ni M s t i r s a t l r M a N l i | 7 B (1 2\ns e t m r a o l L a M r | g B ix e ) t r ( a 1 l 2 8 3\nM ix | t x B r 7 a ) B l 8 ( x 4 2 7 | B ) (1 4 1\n2 B C o d | B )\ne L l a m de a\nC o | L 7 la B m od a e 1\nC | L 3 la B m od a e 3\nC\n(a\nEner | L 4 la B m St a a r 7\n)\ngy C | C 0 o B d S e ta r2 r\nNV\nons | C 3 o B S d ta e r r C 2\nID\numpt | o 7 C d B e o r d 2 e G 1\nIA\nion | 5 e B m od m e a G\nC\nA\nPer | 2 B mm a\ne LL a\n10\nGene | 7 V B A L 1 L . a 5 V\n0\nratio | 7 A B L 1 L . a 5 V 1 A\nn (H | 3 B eXT\nN\nP\n100 | h 8 i B 3 C V h i a s\n) | m io e C n l h e a o m n | 7 B eon 3\ne l | 0B\nSD | 2.1\nSD\nS | D X X L L T S u D r | b o medi\n3 | um\nSSD\nOpen | 1 J M B o o u d rn e e lS | y 4 ope T\nc A | 2 V imate\nn I | D iff Gen\n2V | XL\nS | VD\nSVD | XT |",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "| 1 J M B o o u d rn e e lS | y 4 ope T\nc A | 2 V imate\nn I | D iff Gen\n2V | XL\nS | VD\nSVD | XT | \n |  |  | 2.4x |  | 2.5x | 2.5x |  |  |  |  |  | 3.2x | 3.3x | 3.3x |  |  |  | 2.3x |  |  |  |  |  |  | 1.8x | 1.9x | 2.1x | 2.1x | 1.9x | 1.2x | 1.2x | 2.0x | 1.0x | 1.1x | 1.5x | 1.2x | 1.1x | 1.1x | 1.1x | 1.1x | \n | 3.2x | 2.5x |  | 2.6x |  |  | 2.7x | 2.8x | 2.1x | 2.9x | 2.3x |  |  |  | 2.3x | 1.8x | 2.0x |  | 3.4x | 2.7x | 2.1x | 4.1x | 2.4x | 2.0x |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | B\nmm a 2\nG e m\n3:\nn\nd\no | 9 m B a 2 2\nLla\nP\nts\nba\nof | 7B\nm a L 3 la .1 m\ner\nte\nrs\nov | 8 a B L 3 la .1 m 7 a\n-re\nxt\nbe\ner | 0 3 B .1 4 0\nP h i 3\nq\nan\nhi\nes | m 5 i B P ni h ( i 3 3 .8\nPh\nue\nd\nnd\nti | s B m ) a m ll e ( d 7\ni 3\nst\nvis\ne\nma | B ) (14\ni u m\nM\nen\nio\nac\ntio | B )",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "3 3 .8\nPh\nue\nd\nnd\nti | s B m ) a m ll e ( d 7\ni 3\nst\nvis\ne\nma | B ) (14\ni u m\nM\nen\nio\nac\ntio | B )\ni M s t i r s a t l r M a N l i\ner\nn\nhs\nn. | 7 B (1 2\ns e t m r a o l L a M r\ngy\nm\nol\nN | g B ix e ) t r ( a 1 l 2 8 3\nM ix\nco\nod\nid\not | t x B r 7 a ) B l 8 ( x 4 2 7\nn\nali\nba\net | B ) (1 4 1\n2 B C o d\nsu\ntie\nra\nhe | B )\ne L l a m de a\nC o\nmp\ns,\nre\nlo | L 7 la B m od a e 1\nC\nti\nre\nes\ng | L 3 la B m od a e 3\nC\n(b\non\nsp\nti\nsc | L 4 la B m St a a r 7\n)\nac\nec\nma\nal | C 0 o B d S e ta r2 r\nNV\nro\ntiv\nti\neY | C 3 o B S d ta e r r C 2\nID\nss\nel\non\n-a | o 7 C d B e o r d 2 e G 1\nIA\nv\ny.\nsb\nxi | 5 e B m od m e a G\nC\nH\nari\nS\nas\ns. | 2 B mm a\ne LL a\n1\nou\noli\ned | 7 V B A L 1 L . a 5 V\n00\ns\nd\no | 7 A B L 1 L . a 5 V 1 A\nge\nba\nnt | 3 B eXT\nN\nP\nne\nrs\nhe | h 8 i B 3 C V h i a s\nra\nar",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "V\n00\ns\nd\no | 7 A B L 1 L . a 5 V 1 A\nge\nba\nnt | 3 B eXT\nN\nP\nne\nrs\nhe | h 8 i B 3 C V h i a s\nra\nar\nG | m io e C n l h e a o m n\ntiv\ne\nP | 7 B eon 3\ne l\ne\nen\nU’ | 0B\nSD\nAI\ner\nsT | 2.1\nSD\nS\nm\ngy\nD | D X X L L T S u D r\nod\nm\nP, | b o medi\n3\nel\nea\nwi | um\nSSD\nOpen\ns.\nsu\nth | 1 J M B o o u d rn e e lS\nB\nre\nn | y 4 ope T\nc A\nlac\nm\num | 2 V imate\nn I\nk\nen\nbe | D iff Gen\n2V\nan\nts,\nrs | XL\nS\nd\nw\ns | VD\nSVD\nor\nhe\nho | XT\nan\nre\nwi | \n | el |  |  |  |  |  |  |  |  |  |  |  |  |  |  | T | P |  |  |  |  | 4 |  |  |  | M\n8 | a | xb | at | ch\n1 | si\n6 | ze |  |  | 32 |  |  |  | 6 | 4 | \n | S\nr\nn\nn | eek\neas\n33\n32 | d\non\n2B\n35 | ist\nin\n[\nB- | ille\ngp\n80]\nA2 | d\nlu\n2 | Qw\ns1\nBt | e\n5B\nhin | n3\n[\nki | 8\n3]\nng | B[\n[8 | 23\n0] | ,8 | 0] |  |  | 1\n1\n2\n8 | 1 | 9\n19\n26\n22 | 71\n97\n41\n52 | 3.\n4.\n9.\n3. | 7\n4\n7",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "]\nng | B[\n[8 | 23\n0] | ,8 | 0] |  |  | 1\n1\n2\n8 | 1 | 9\n19\n26\n22 | 71\n97\n41\n52 | 3.\n4.\n9.\n3. | 7\n4\n7\n1 | 1\n1\n8 | 60\n23\n51\n64 | 10\n89\n68\n91 | .1\n.6\n.3\n.5 |  | 5 | 43\n93\n91\n67 | 14.\n47.\n40.\n20. | 9\n3\n5\n4 |  | 3\n7\n6\n40 | 34\n63\n16\n27 | 0.8\n4.9\n5.5\n5.5 |  | 3 | 27\n75\n45\n30 | 70.\n95.\n20.\n96. | 8\n4\n6\n4 | \n | :\nso\nly\np\ns,\nta\nc\nPU\nre\nw\nas\nra\nea\nn\nci\nre\nes\nL\nh\nL | En\nrp\nb\nerf\npr\nnc\non\np\nn\nits\ne\ncie\ndi\ner\nsio\nst\np\nL\nen\nar | er\nar\nec\nor\nev\ne\nsu\no\near\nm\nov\ns\nng\ngy\nns\nof\non\nMs\ngi\nge | gy\nal\nau\nm\nen\nof\nm\nwe\nly\nax\ner\nma\nc\nI\nr\ns\nse\no\nve\n’s | p\nlel\nse\nas\nti\nm\npti\nrc\na\nim\nest\ny\non\nmp\nefl\npa\nve\nfs\nn\nre | er\nis\nD\nm\nng\nea\non\non\nlw\nu\nim\nbe\nclu\nli\nec\nce,\nrb\nim\nth\nsp | ge\nm\niff\nan\nth\nsu\nb\nsu\nay\nm\nat\no\nsi\nca\nted\nw\nos\nila\nes\non | ne\nde\nus\ny\nem\nrin\nas\nm\ns\np\nio\nve\non\ntio\ni\ne\nit\nr\na\nse | ra\ngr\nio\nco\nf\ng.\ned\npt\nan\now\nno",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "ila\nes\non | ne\nde\nus\ny\nem\nrin\nas\nm\ns\np\nio\nve\non\ntio\ni\ne\nit\nr\na\nse | ra\ngr\nio\nco\nf\ng.\ned\npt\nan\now\nno\nrlo\ns.\nns\nn\nde\nya\nsiz\nme\nsw | tio\nee,\nn\nnc\nro\no\nio\no\ner\nfe\nok\nA\no\nmo\nfe\nn\nes\np\ne | n\nw\nmo\nur\nm\nT\nn\nn,\nver\na\nne\ned\ncc\nf\nde\nrs\nde\n. T\nro\nre | of\nhi\nde\nre\nam\nhe\nthe\nw\nes\nt e\nrg\nw\nur\nM\nl\nys\nne\nhi\nmp\non | re\nch\nls\nnt\no\ndi\nG\nhic\nti\nve\ny\nh\nate\nL\narc\nte\nrg\nsi\nt.\na | as\nis\n(1\nge\nrti\nm\nP\nh\nma\nry\nco\nen\nm\nDe\nhi\nms\ny.\ns\nS\nver | on\nal\n)\nne\nzin\nme\nU’\nis\nti\nm\nns\nth\nea\nsig\nte\ni\nbe\nuc\nag | in\nso\ndra\nra\ng\nd\ns\na\non\no\num\ney\nsu\nn\nctu\nmp\nIn\nca\nh\ne | g\ne\nw\ntio\nen\nba\nTh\nco\nsi\nme\npt\nin\nre\nD\nre\nlic\nFi\nus\ndif\n36 | mo\nqu\nh\nns\ner\nrs\ner\nm\nnc\nnt\nio\nflu\nm\nec\nsa\nat\ngu\ned\nfe\n% | de\nal\nig\nc\ngy\nbe\nm\nmo\ne\ni\nnb\ne\nen\nisi\nn\nio\nre\niff\nre\nlo | ls\nto\nher\nom\nc\nhi\nal\nn\nit i\nn t\ny\nnc\nts\non\ndt\nns\n3,\ner\nnc\nng\n7 | on\nth\np\np\non\nnd\nD\npr\ns\nim",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "re\nlo | ls\nto\nher\nom\nc\nhi\nal\nn\nit i\nn t\ny\nnc\nts\non\ndt\nns\n3,\ner\nnc\nng\n7 | on\nth\np\np\non\nnd\nD\npr\ns\nim\naf\ned\nth\ns\nrai\non\nw\nen\nes\ner | G\ne\now\nare\nsu\ne\nesi\nac\nrar\ne.\nac\now\nat\nne\ne\ne\ntL\nin\nth | P\nnu\ner\nd\nm\nac\ngn\ntic\ne\nI\nto\nn\nre\nd\nne\nca\nL\nv\nan | QA\nm\ni\nto\npti\nhs\nP\ne\nfo\nn\nro\nstr\nfle\nm\nrg\nns\nM\ner\nt | [\nbe\nng\nL\non\noli\no\n[8,\nr a\nfac\nf4\nea\nct\nod\nyc\nee\nsg\nbo\nhat | 64\nro\nen\nLM\na\nd\nwe\n9,\nG\nt,\n.1\nm\npr\nels\no\nth\nen\nsit\no | ]a\nf\ner\ns\ncro\nba\nr(\n2\nP\nsu\n(C\nde\nod\ni\nnsu\nat\ner\ny\nf | n\nGP\nal\nd\nss\nri\nT\n8,\nU\nch\no\nci\nuc\nmp\nm\nen\nat\nca\nMi | d\nU\n(m\nue\nm\nn\nDP\n40\n–\na\nde\nsio\ntio\nac\npt\ner\ner\nn\nxtr | NV\nsu\no\nto\na\nFig\n)\n,4\nor\nn\nGe\nns\nn\nt\nio\ngy\nes\nbe\nal | ID\nse\nre\nth\nny\nur\nins\n7,\na\nes\nm\na\nen\nen\nnt\nc\npo\nno\n8 | I\nd.\nin\nei\nge\ne\nte\n74\nny\nti\nm\nnd\nvi\nerg\no\non\nns\nn\n×7 | A\nS\nrl\nne\n3s\nad\n].\nco\nma\na2\np\nro\ny\nAp\nsu\nes\n-tr\nB. | H1\nect\non",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "74\nny\nti\nm\nnd\nvi\nerg\no\non\nns\nn\n×7 | A\nS\nrl\nne\n3s\nad\n].\nco\nma\na2\np\nro\ny\nAp\nsu\nes\n-tr\nB. | H1\nect\non\nra\nho\no\nEs\nm\ntio\nB\nroj\nnm\nco\npe\nmp\nof\nivi\nA | 00\nio\ngl\ntio\nw\nf\nti\npu\nn\non\nec\nen\nns\nn\nti\ndi\nal\ns | G\nn\nat\nns\nth\nme\nma\nti\nca\nH\ntio\nts\nu\ndix\non\nff\n; f\nthe | P\n4.2\nen\n.\ne\nas\ntio\nng\nn\n10\nn\nar\nmp\nB\nva\nere\nor\nn | Us\n)\ncy\nest\nur\nn\nd\nle\n0\ns,l\ne\nti\n.\nri\nnt\nin\num | .\nan\nin\nim\nin\nsu\nev\nad\nG\nea\ncr\non.\nes\nle\nst\nb | TP\nd\nr\nat\ngt\nsi\nic\nto\nPU\ndi\nuc\nF\nev\nng\nan\ner | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "100\n80\n60\n40\n20\n0\n0 50 100 150 200 250 300\nBatch size\n)J(\nnoitpmusnoc\nygrenE\n400\n300\n200\nPhi 3 mini (3.8B) 100\nPhi 3 small (7B)\n0\n0 200 400 600 800\nMaximum batch size configuration\n(a)Energyvs.BatchSize\nezis\nhctaB\nPhi 3 mini (3.8B)\nPhi 3 small (7B)\n(b)BatchSizevs.MaxBatchSizeconfig\nFigure4: Phi-3MiniandSmall[26]benchmarkedwiththechattaskononeNVIDIAA100GPU.\n3000\n2000\n1000\n0\n0 200 400 600 800 1000\nBatch size\n)W(\nward\nrewoP\n800\n8 x A100 TDP (max power draw)\n600\n4 x H100 TDP (max power draw)\n400\n200\n8 x A100 4 x H100\n0\n0 5 10 15 20 25 30\nBatch size\n(a)Llama3.170B[73]\n)W(\nward\nrewoP\nH100 TDP (max power draw)\nA100 TDP (max power draw)\nA100 H100\n(b)StableDiffusion3Medium[25]\nFigure5: PowerconsumptionofLlama3.170BandStableDiffusion3Mediummodels.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "b)StableDiffusion3Medium[25]\nFigure5: PowerconsumptionofLlama3.170BandStableDiffusion3Mediummodels.\noutputtokensequalsthenumberofforwardpassesthroughthemodel,longerresponsesleadstoa\nproportionalincreaseinenergyconsumption. Ashumansareknowntopreferlongerresponses[85],\nthispotentiallyintroducesatrade-offbetweenenergyconsumptionandusersatisfaction.\nThisisevenmorepronouncedforreasoningmodels,whichproducesignificantlymoreoutputtokens.\nTable1showsenergymeasurementsforreasoningmodelsontheGPQAdataset. Reasoningmodels\nproduceonetotwoordersofmagnitudemoreoutputtokensperrequestcomparedtostandardchat\nmodels,significantlyincreasingenergyconsumptionpergeneration. Additionally,duetotheirlong\noutputlengths,serverscannotrunaslargeabatchsize,preventingthemfromamortizingenergyacross\nmorerequests.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "tputlengths,serverscannotrunaslargeabatchsize,preventingthemfromamortizingenergyacross\nmorerequests. Thisleadstohigherenergypertokenaswell,furtherincreasingenergyconsumption.\nAslonghorizonreasoningandtaskdecompositionbecomemorecommoninreal-worldLLM-based\napplications,weexpectthistrendtocontinue.\nMemoryconsumptionofoperationsandenergyamortization. Generally,modelswithmore\nparametersconsumemoreenergy,butthisisnotalwaysthecase. Figure4highlightsthecaseof\nPhi-3Mini(3.8B)andSmall(7B)[26]. EventhoughSmallhasnearlytwicetheparameters, the\nleftplotshowsthatthelargerSmallmodelcanconsumelessenergythanMiniasbatchsizegrows.\nThishappensbecauseMiniusesMulti-HeadAttention(MHA)[76],whereasSmallusesGrouped\nQuery Attention (GQA) [10]. Due to this, Mini’s KV cache uses 3× more memory than Small,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "sesGrouped\nQuery Attention (GQA) [10]. Due to this, Mini’s KV cache uses 3× more memory than Small,\nwhichpreventsitfromscalingtolargerbatchsizesandamortizingenergyconsumptionacrossmore\ngenerations.\nCompute-intensityofoperationsandpowerdraw. Figure5showsthepowerconsumptionof\nLlama 3.1 70B [73] and Stable Diffusion 3 Medium [25] on A100 and H100 GPUs. It can be\nseenthattheLLM’spowerconsumptionismuchlowerthanwhattheGPUscandrawatmaximum,\nwhereastheDiffusionmodel’spowerconsumptionisclosetothemaximum. ThisisbecauseLLM\ndecodingischaracterizedbylowcompute-intensity,meaningthatthenumberofarithmeticoperations\n(e.g., multiplication and addition) per byte of memory loaded is low [37,58]. This leads to the\nGPU’scomputationthroughputbeingbottleneckedbyVRAMbandwidthandresultsintheGPU’s",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "]. This leads to the\nGPU’scomputationthroughputbeingbottleneckedbyVRAMbandwidthandresultsintheGPU’s\ncomputationunitsbeingunderutilized,leadingtolowpowerdraw. AppendixCdivesdeeperinto\npowerconsumptionwithmeasurementsforallmodelsandGPUpowerbreakdownsovertime.\n8",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  | Phi 3\nPhi 3 | mini (3.\nsmall (7 | 8B)\nB)",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\n |  |  | \n |  |  | \n |  |  | \n |  |  | \n |  |  | \n |  | Phi 3\nPhi 3 s | mini (3.8B)\nmall (7B)",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\n |  | 8 x A10 | 0 TDP (m | ax pow | er draw)\n |  |  |  |  | \n |  |  |  |  | \n |  | 4 x H10 | 0 TDP (m | ax pow | er draw)\n |  |  |  |  | \n |  |  |  |  | 100\n |  | 8 x A1 | 00 | 4 x H | ",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\n |  |  | H100 | TDP ( | max po | wer dr | aw)\n |  |  |  |  |  |  | \n |  |  | A100 | TDP ( | max po | wer dr | aw)\n |  |  |  |  |  |  | \n |  |  |  |  |  | 0 | \n |  |  | A100 |  | H10 |  | ",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "3000\n2000\n1000\n0\n0.0 2.5 5.0 7.5 10.0 12.5 15.0\nBatch size\n)J(\nnoitpmusnoc\nygrenE\nSDXL (1024x1024) 3000\nSDXL Turbo (512x512)\n2000\n1000\n0\n0 10 20 30 40 50\nNumber of denoising steps\n(a)DifferentResolutions\n)J(\nnoitpmusnoc\nygrenE\nSXDL (1024x1024)\nSDXL Turbo (512x512)\n(b)VaryingDenoisingSteps\nFigure6: EnergyconsumptionofSDXL[61]andSDXLTurbo[7]ononeNVIDIAA100GPU.\n100\n80\n60\n40\n20\n0\n0.0 0.1 0.2 0.3 0.4\nAverage Time Per Output Token (s)\n)J(\nnoitpmusnoc\nygrenE\n500\nPareto frontier 400\n300\n200\n100\nA100 H100\n0\n0 5 10 15 20 25\nGeneration latency (s)\n(a)Llama3.18B[73]\n)J(\nnoitpmusnoc\nygrenE Pareto frontier\nA100 H100\n(b)StableDiffusion2.1[65]\nFigure7: Time–energyParetofrontiersconstructedbytheML.ENERGYBenchmark.\nInference-timeparametersandenergy. Figure6showstheenergyconsumptionofStableDiffu-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": ".ENERGYBenchmark.\nInference-timeparametersandenergy. Figure6showstheenergyconsumptionofStableDiffu-\nsionXL(SDXL)[61]andSDXLTurbo[7]. Ontheleft,whileSDXLandSDXLTurbohaveidentical\nmodelsizesandarchitectures,theirenergyconsumptionissignificantlydifferent. Thisisbecause\nSDXLTurboistunedtogeneratesmallerresolutionimages(512×512)thanSDXL(1024×1024),\nwhichleadstodifferentlatentsizesandamountsofcomputation. Ontheright,itcanbeseenthatthe\nnumberofdenoisingstepslinearlyincreasesenergyconsumption,asonedenoisingsteprequiresone\nforwardpassthroughthemodel. Whilesimpleinisolation,theseinference-timeparametersleadto\nnon-trivialdesigntradeoffsattheapplication-level. Forinstance,increasingthenumberofdenoising\nstepsmayimprovefinalimagequality,butbeyondsomepoint,itmaybevirtuallyindistinguishable\ntohumanusers.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "stepsmayimprovefinalimagequality,butbeyondsomepoint,itmaybevirtuallyindistinguishable\ntohumanusers. Also,generatingimagesinlowerresolutionandthenupscalingthemwithaseparate\nsuper-resolutionmodel(e.g.,DAT[19])mayconsumelessenergyend-to-end.\n4.3 AutomatedEnergyOptimizationRecommendation\nFigure7showsthetime–energyParetofrontierconstructedbytheML.ENERGYBenchmarkmea-\nsurementresultsforLlama3.18BandStableDiffusion2.1. Ingeneral,theParetofrontierisconvex,\nmeaningthatbysacrificingsomelatency,onecanachievesignificantenergysavings.\nConversationalAIserviceslikeLLM-basedchatbotsachieveinteractivitybystreamingtokenstousers\neitherinwrittentextorsynthesizedspeech,makingTimePerOutputToken(TPOT)animportant\nperformancemetricthatimpactsuserexperience[44]. Inthiscontext,achatbotprovidercantarget",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "animportant\nperformancemetricthatimpactsuserexperience[44]. Inthiscontext,achatbotprovidercantarget\nanaverageTPOTof100ms(equivalentto10tokenspersecondorabout7.5wordspersecond[55]),\nwhichissufficientformostreadingorlisteningspeeds. ThiswilllandontheParetofrontieratthe\npointwhereaverageTPOTis77ms,reducingenergyconsumptionpergenerationby44%compared\ntotheconfigurationthatsimplyminimizeslatency.\nHere,wenotethatforLlama3.18B[73],theParetofrontierisamixtureofconfigurationsfromboth\nA100andH100GPUs. ThisisbecauseLLMdecodingdoesnotfullyexerttheGPU’scomputeunits\nandareratherboundbymemory,sogoingfromA100toH100GPUsneitherprovidessignificantly\nhigherperformancenorsignificantlyincreasespowerdraw(SeeAppendixCfordetails). Thesetwo–\npowerandtime–multiplied,energyconsumptioniscomparableacrossthetwoGPUs.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "xCfordetails). Thesetwo–\npowerandtime–multiplied,energyconsumptioniscomparableacrossthetwoGPUs.\n9",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  | SDX | L (1024 | x1024) | \n |  |  |  |  |  |  | \n |  |  |  | SDX | L Turbo | (512x5 | 12)\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  | S | XDL (102 | 4x1024) | \n |  | S | DXL Turb | o (512x51 | 2)\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  |  |  | \n |  |  | Pareto f | rontier |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  | A100 |  | H100",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  | Pareto | frontier |  | \n |  |  |  |  |  |  | \n |  |  |  |  | A100 |  | H100",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Ontheotherhand,forStableDiffusion2.1[65],theParetofrontierisdominatedbyconfigurations\non the H100 GPU. Diffusion models consume power close to the GPU’s TDP (See Appendix C\nfordetails),whichincreasespowerdrawsignificantlywhengoingfromA100toH100. However,\nsincecomputationlatencywasreducedevenmore,configurationsonH100Pareto-dominatethoseon\nA100. Ifanapplicationhasagenerationlatencytargetof,forinstance,5seconds,theenergy-optimal\nconfigurationwilllieontheParetofrontierwherelatencyis3.63seconds,whichis21%lessenergy\nthantheconfigurationthatminimizeslatency.\n5 RelatedWork\nMLenergymeasurement. TheHuggingFaceLLM-Perfleaderboard[33]isspecifictoLLMs\nandreportstheper-tokenenergyconsumptionofLLMtextgeneration,whichfailstocapturethe",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "]isspecifictoLLMs\nandreportstheper-tokenenergyconsumptionofLLMtextgeneration,whichfailstocapturethe\nverbosityandtask-specificoutputtokenlengthdistributiondifferenceofLLMs(Section2.3). MLPerf\nPower[75]providesmeasurementsforMLtrainingandinference,butcrucially,requiresdirectaccess\ntothesystemundertesttophysicallyinstallthepoweranalyzer,whichsignificantlylimitswhocan\nrunthebenchmarks(Section2.1). Furthermore,itbenchmarksatmostafewmodelarchitecturesfor\neachtask(sometimesonlyone),failingtoprovideinsightsonhowMLdesignchoicesimpactenergy\nconsumption. TheHuggingFaceAIEnergyScoreleaderboard[27]providesmeasurementdatafor\nbroaderAItasks. However,itfixestheinferencebatchsizeto1forallmodels,failingtoreflecthow\nservicesaredeployedintherealworldandthustheirenergyconsumption(Section2.2). Google",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "lingtoreflecthow\nservicesaredeployedintherealworldandthustheirenergyconsumption(Section2.2). Google\ndisclosed the median energy consumption of their AI service [24]. It provides a comprehensive\nscope of measurement, even including the energy consumption of idle machines provisioned for\nstableserviceoperation. However,measurementsandreportsarebasedoninternalGooglesystems,\nworkloads, hardware (TPUs), and model (Gemini) that are not publicly available, limiting the\ngeneralizabilityandreproducibilityoftheresults(Section2.1). TheML.ENERGYBenchmarkisthe\nfirstinferenceenergybenchmarkformoderngenerativeAImodels,andempowersuserstonotonly\nmeasurebutalsooptimizetheenergyconsumptionoftheirmodels. SeeAppendixDformoredetails.\nMLenergyoptimization. TheML.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ooptimizetheenergyconsumptionoftheirmodels. SeeAppendixDformoredetails.\nMLenergyoptimization. TheML.ENERGYBenchmarkprovidesautomatedenergyoptimization\nrecommendationsbasedonenergymeasurements(Section3.3). Thereareseveralothereffortsthat\nalsoprovidedautomatedenergyoptimizations–whilepreservingmathematicalequivalenceand/or\nmodelquality–forMLtrainingandinference. Zeus[81],EnvPipe[20],andPerseus[21]optimizes\ntheenergyconsumptionofMLtrainingbyadjustingGPU-levelandtrainingjob-levelconfigurations,\neitherstaticallyafterprofilingordynamicallyduringtraining. µ-Serve[63]andDynamoLLM[68]\narealsosimilar,butoptimizeenergyconsumptionforMLinferenceclusters. Optimizationrecom-\nmendationsbytheML.ENERGYBenchmarkarecomplementarytothetechniquesproposedbythese\nworks.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "izationrecom-\nmendationsbytheML.ENERGYBenchmarkarecomplementarytothetechniquesproposedbythese\nworks. Further,ourresultssupporttheneedforautomatedcross-layerenergyoptimizationsthatspan\nallmodel,software,andhardwarelayers[22],asopposedtoeffortssiloedwithinasinglelayer.\n6 Conclusion\nInthiswork,wedescribedtheML.ENERGYBenchmark,acomprehensiveenergybenchmarkfor\ngenerativeAImodelsthatnotonlyprovidesrealisticenergymeasurements,butalsoautomatically\nsuggests energy-optimal configurations based on user- and app-specific performance constraints.\nMeasurementresultsshowthatenergyconsumptionisametricthatisimpactedbydesignchoices\nacrossthewholeAIstack,includingapplication,model,software,andhardware,demonstratingthe\nimportanceofautomatedcross-layer energyoptimizationsinsteadofsiloedoptimizationswithin",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nstratingthe\nimportanceofautomatedcross-layer energyoptimizationsinsteadofsiloedoptimizationswithin\na single layer. We are confident that the ML.ENERGY Benchmark will democratize the art of\nmeasuring,understanding,andoptimizingMLenergyconsumptionforthecommunity.\nAcknowledgmentsandDisclosureofFunding\nWewouldliketothankYunseokJangandSymbioticLabmembersforhelpfulcommentsandsugges-\ntionsonthepaper. ThisworkanditsauthorswereinpartsupportedbyNSFgrantsCNS-2104243,\nCNS-2106184,andCNS-2450085,grantsfromVMware,theMozillaFoundation,Cisco,Ford,and\nGitHub, andgiftsfromSalesforceandGoogle. Jae-WonChungisadditionallysupportedbythe\nKwanjeongEducationalFoundation.\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "References\n[1] NVIDIA Management Library (NVML). https://developer.nvidia.com/\nnvidia-management-library-nvml.\n[2] Zeus: Deep learning energy measurement and optimization. https://github.com/\nml-energy/zeus.\n[3] Marah Abdin, Sahaj Agarwal, Ahmed Awadallah, Vidhisha Balachandran, Harkirat Behl,\nLingjiao Chen, Gustavo de Rosa, Suriya Gunasekar, Mojan Javaheripi, Neel Joshi, Piero\nKauffmann,YashLara,CaioCésarTeodoroMendes,ArindamMitra,BesmiraNushi,Dim-\nitris Papailiopoulos, Olli Saarikivi, Shital Shah, Vaishnavi Shrivastava, Vibhav Vineet, Yue\nWu,SafooraYousefi,andGuoqingZheng. Phi-4-reasoningtechnicalreport. arXivpreprint\narXiv:2504.21318,2025.\n[4] InternationalEnergyAgency. Electricity2025,2025.\n[5] AmeyAgrawal,NitinKedia,AshishPanwar,JayashreeMohan,NipunKwatra,BhargavGula-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ectricity2025,2025.\n[5] AmeyAgrawal,NitinKedia,AshishPanwar,JayashreeMohan,NipunKwatra,BhargavGula-\nvani,AlexeyTumanov,andRamachandranRamjee. TamingThroughput-Latencytradeoffin\nLLMinferencewithSarathi-Serve. InOSDI,2024.\n[6] CharacterAI. Characterai. https://character.ai,2023.\n[7] StabilityAI. IntroducingSDXLturbo: Areal-timetext-to-imagegenerationmodel,2023.\n[8] AI@Meta. Llama3modelcard. 2024.\n[9] AI@Meta. Llama4modelcard. 2024.\n[10] JoshuaAinslie,JamesLee-Thorp,MichieldeJong,YuryZemlyanskiy,FedericoLebron,and\nSumitSanghai. GQA:Traininggeneralizedmulti-querytransformermodelsfrommulti-head\ncheckpoints. Proceedingsofthe2023ConferenceonEmpiricalMethodsinNaturalLanguage\nProcessing,2023.\n[11] YehiaArafa,AmmarElWazir,AbdelrahmanElKanishy,YoussefAly,AyatelrahmanElsayed,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Processing,2023.\n[11] YehiaArafa,AmmarElWazir,AbdelrahmanElKanishy,YoussefAly,AyatelrahmanElsayed,\nAbdel-HameedBadawy,GopinathChennupati,StephanEidenbenz,andNandakishoreSanthi.\nVerifiedinstruction-levelenergyconsumptionmeasurementforNVIDIAGPUs. Proceedingsof\nthe17thACMInternationalConferenceonComputingFrontiers,2020.\n[12] JeffBar. AmazonEC2update–inf1instanceswithAWSinferentiachipsforhighperformance\ncost-effectiveinferencing,2019.\n[13] Nathan Beniach and Air Street Capital. State of AI report compute index. https://www.\nstateof.ai/compute.\n[14] AndreasBlattmann,TimDockhorn,SumithKulal,DanielMendelevitch,MaciejKilian,Do-\nminikLorenz,YamLevi,ZionEnglish,VikramVoleti,AdamLetts,VarunJampani,andRobin\nRombach. Stablevideodiffusion: Scalinglatentvideodiffusionmodelstolargedatasets. arXiv",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ani,andRobin\nRombach. Stablevideodiffusion: Scalinglatentvideodiffusionmodelstolargedatasets. arXiv\npreprintarXiv:2311.15127,2023.\n[15] CBRE. Global data center trends 2023. https://www.cbre.com/insights/reports/\nglobal-data-center-trends-2023,2023.\n[16] CBRE. Global data center trends 2024. https://www.cbre.com/insights/reports/\nglobal-data-center-trends-2024,2024.\n[17] CBRE. Global data center trends 2025. https://www.cbre.com/insights/reports/\nglobal-data-center-trends-2025,2025.\n[18] LinChen,XilinWei,JinsongLi,XiaoyiDong,PanZhang,YuhangZang,ZehuiChen,Haodong\nDuan, Bin Lin, Zhenyu Tang, Li Yuan, Yu Qiao, Dahua Lin, Feng Zhao, and Jiaqi Wang.\nSharegpt4video: Improvingvideounderstandingandgenerationwithbettercaptions. Advances",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "nd Jiaqi Wang.\nSharegpt4video: Improvingvideounderstandingandgenerationwithbettercaptions. Advances\ninNeuralInformationProcessingSystemsDatasetsandBenchmarks,2024.\n[19] Zheng Chen, Yulun Zhang, Jinjin Gu, Linghe Kong, Xiaokang Yang, and Fisher Yu. Dual\naggregationtransformerforimagesuper-resolution.ProceedingsoftheIEEE/CVFInternational\nConferenceonComputerVision(ICCV),2023.\n[20] SangjinChoi,InhoeKoo,JeongseobAhn,MyeongjaeJeon,andYoungjinKwon. EnvPipe:\nPerformance-preservingDNNtrainingframeworkforsavingenergy. Proceedingsofthe2023\nUSENIXAnnualTechnicalConference,2023.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "[21] Jae-WonChung,YileGu,InsuJang,LuoxiMeng,NikhilBansal,andMosharafChowdhury.\nReducingenergybloatinlargemodeltraining. Proceedingsofthe30thACMSymposiumon\nOperatingSystemsPrinciples,2024.\n[22] Jae-Won Chung, Nishil Talati, and Mosharaf Chowdhury. Toward cross-layer energy opti-\nmizations in AI systems. DOE ASCR Energy-Efficient Computing for Science Workshop,\n2024.\n[23] DeepSeek-AI. DeepSeek-R1: IncentivizingreasoningcapabilityinLLMsviareinforcement\nlearning. arXivpreprintarXiv:2501.12948,2025.\n[24] Cooper Elsworth, Keguo Huang, David Patterson, Ian Schneider, Robert Sedivy, Savannah\nGoodman,BenTownsend,ParthasarathyRanganathan,JeffDean,AminVahdat,BenGomes,\nand James Manyika. Measuring the environmental impact of delivering AI at google scale.\narXivpreprintarXiv:2508.15734,2025.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ring the environmental impact of delivering AI at google scale.\narXivpreprintarXiv:2508.15734,2025.\n[25] PatrickEsser,SumithKulal,AndreasBlattmann,RahimEntezari,JonasMüller,HarrySaini,\nYamLevi,DominikLorenz,AxelSauer,FredericBoesel,DustinPodell,TimDockhorn,Zion\nEnglish,andRobinRombach. Scalingrectifiedflowtransformersforhigh-resolutionimage\nsynthesis. InICML,2024.\n[26] MarahAbdinetal. Phi-3technicalreport: Ahighlycapablelanguagemodellocallyonyour\nphone. arXivpreprintarXiv:2404.14219,2024.\n[27] Hugging Face. Ai energy score. https://huggingface.github.io/AIEnergyScore,\n2025.\n[28] MetaGenAI. Llama2: Openfoundationandfine-tunedchatmodels. arXivpreprint,2023.\n[29] Yuwei Guo, Ceyuan Yang, Anyi Rao, Zhengyang Liang, Yaohui Wang, Yu Qiao, Maneesh\nAgrawala,DahuaLin,andBoDai.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "o, Ceyuan Yang, Anyi Rao, Zhengyang Liang, Yaohui Wang, Yu Qiao, Maneesh\nAgrawala,DahuaLin,andBoDai. AnimateDiff: Animateyourpersonalizedtext-to-image\ndiffusionmodelswithoutspecifictuning. InICLR,2024.\n[30] Yatharth Gupta, Vishnu V. Jaddipal, Harish Prabhala, Sayak Paul, and Patrick Von Platen.\nProgressiveknowledgedistillationofstablediffusionxlusinglayerlevelloss. arXivpreprint\narXiv:2401.02677,2024.\n[31] The White House. Fact sheet: President donald j. trump establishes the national energy\ndominancecouncil,2025.\n[32] HPCwire. AWStoofferNVIDIA’sT4GPUsforAIinferencing,2019.\n[33] Régis Pierrard Ilyas Moutawwakil. LLM-Perf leaderboard. https://huggingface.co/\nspaces/optimum/llm-perf-leaderboard,2023.\n[34] Albert Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "rd,2023.\n[34] Albert Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh\nChaplot,DiegodelasCasas,FlorianBressand,GiannaLengyel,GuillaumeLample,Lucile\nSaulnier,LélioRenardLavaud,Marie-AnneLachaux,PierreStock,TevenLeScao,Thibaut\nLavril,ThomasWang,TimothéeLacroix,andWilliamElSayed. Mistral7b. arXivpreprint\narXiv:2310.06825,2023.\n[35] AlbertQ.Jiang,AlexandreSablayrolles,AntoineRoux,ArthurMensch,BlancheSavary,Chris\nBamford,DevendraSinghChaplot,DiegodelasCasas,EmmaBouHanna,FlorianBressand,\nGiannaLengyel,GuillaumeBour,GuillaumeLample,LélioRenardLavaud,LucileSaulnier,\nMarie-AnneLachaux,PierreStock,SandeepSubramanian,SophiaYang,SzymonAntoniak,\nTeven Le Scao, Théophile Gervet, Thibaut Lavril, Thomas Wang, Timothée Lacroix, and\nWilliamElSayed. Mixtralofexperts.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "éophile Gervet, Thibaut Lavril, Thomas Wang, Timothée Lacroix, and\nWilliamElSayed. Mixtralofexperts. arXivpreprintarXiv:2401.04088,2024.\n[36] HeehoonKim,JunyeolRyu,andJaejinLee. TCCL:Discoveringbettercommunicationpaths\nforPCIeGPUclusters. Proceedingsofthe29thACMInternationalConferenceonArchitectural\nSupportforProgrammingLanguagesandOperatingSystems,Volume3,2024.\n[37] SehoonKim,ColemanHooper,ThanakulWattanawong,MinwooKang,RuohanYan,Hasan\nGenc,GraceDinh,QijingHuang,KurtKeutzer,MichaelW.Mahoney,SophiaShao,andAmir\nGholami. Fullstackoptimizationoftransformerinference. ArchitectureandSystemSupport\nforTransformerModels,2023.\n[38] Helen Kou. Power for AI: Easier said than built. https://about.bnef.com/insights/\ncommodities/power-for-ai-easier-said-than-built/,2025.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "om/insights/\ncommodities/power-for-ai-easier-said-than-built/,2025.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "[39] Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody Hao Yu,\nJosephGonzalez,HaoZhang,andIonStoica. Efficientmemorymanagementforlargelanguage\nmodelservingwithPagedAttention. Proceedingsofthe29thSymposiumonOperatingSystems\nPrinciples,2023.\n[40] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres. Quantifying\nthecarbonemissionsofmachinelearning. arXivpreprint,2019.\n[41] Haotian Liu, Chunyuan Li, Yuheng Li, and Yong Jae Lee. Improved baselines with visual\ninstructiontuning. InCVPR,2024.\n[42] HaotianLiu,ChunyuanLi,YuhengLi,BoLi,YuanhanZhang,ShengShen,andYongJaeLee.\nLLaVA-NeXT:Improvedreasoning,ocr,andworldknowledge,2024.\n[43] HaotianLiu,ChunyuanLi,QingyangWu,andYongJaeLee.Visualinstructiontuning.Advances\ninNeuralInformationProcessingSystems,2023.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ingyangWu,andYongJaeLee.Visualinstructiontuning.Advances\ninNeuralInformationProcessingSystems,2023.\n[44] JiachenLiu,Jae-WonChung,ZhiyuWu,FanLai,MyungjinLee,andMosharafChowdhury.\nAndes: Definingandenhancingquality-of-experienceinLLM-basedtextstreamingservices.\narXivpreprintarXiv:2404.16283,2024.\n[45] JiaweiLiu,ChunqiuStevenXia,YuyaoWang,andLingmingZhang. Isyourcodegeneratedby\nchatGPTreallycorrect? rigorousevaluationoflargelanguagemodelsforcodegeneration. In\nNeurIPS,2023.\n[46] AntonLozhkov,RaymondLi,LoubnaBenAllal,FedericoCassano,JoelLamy-Poirier,Noua-\nmaneTazi,AoTang,DmytroPykhtar,JiaweiLiu,YuxiangWei,etal. Starcoder2andthestack\nv2: Thenextgeneration. arXivpreprintarXiv:2402.19173,2024.\n[47] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat. Estimatingthecarbon",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "02.19173,2024.\n[47] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat. Estimatingthecarbon\nfootprintofbloom,a176bparameterlanguagemodel. JournalofMachineLearningResearch,\n2024.\n[48] McKinsey & Company. Investing in the rising data center economy. https:\n//www.mckinsey.com/industries/technology-media-and-telecommunications/\nour-insights/investing-in-the-rising-data-center-economy,2023.\n[49] McKinsey & Company. How data centers and the energy sector can sate AI’s hunger for\npower. https://www.mckinsey.com/industries/private-capital/our-insights/\nhow-data-centers-and-the-energy-sector-can-sate-ais-hunger-for-power,\n2024.\n[50] Midjourney. Midjourney. https://midjourney.com,2022.\n[51] SebastianMoss. Meta’smarkzuckerbergsaysenergyconstraintsareholding backAIdata\ncenterbuildout,2024.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "SebastianMoss. Meta’smarkzuckerbergsaysenergyconstraintsareholding backAIdata\ncenterbuildout,2024.\n[52] NVIDIA. NVIDIA DGX A100 datasheet. https://www.nvidia.com/content/dam/\nen-zz/Solutions/Data-Center/nvidia-dgx-a100-datasheet.pdf,2020.\n[53] NVIDIA. NVIDIA DGX H200 datasheet. https://resources.nvidia.com/\nen-us-dgx-systems/dgx-h200-datasheet,2024.\n[54] NVIDIA. NVIDIA DGX B200 datasheet. https://resources.nvidia.com/\nen-us-dgx-systems/dgx-b200-datasheet,2025.\n[55] OpenAI. What are tokens and how to count them? https://help.openai.com/en/\narticles/4936856-what-are-tokens-and-how-to-count-them.\n[56] OpenAI. ChatGPT. https://chatgpt.com,2022.\n[57] OpenAI. Sora. https://openai.com/index/sora,2024.\n[58] PratyushPatel,EshaChoukse,ChaojieZhang,ÍñigoGoiri,BrijeshWarrier,NithishMahalingam,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "sora,2024.\n[58] PratyushPatel,EshaChoukse,ChaojieZhang,ÍñigoGoiri,BrijeshWarrier,NithishMahalingam,\nandRicardoBianchini. Characterizingpowermanagementopportunitiesforllmsinthecloud.\nASPLOS,2024.\n[59] PratyushPatel,EshaChoukse,ChaojieZhang,AashakaShah,ÍñigoGoiri,SaeedMaleki,and\nRicardoBianchini. Splitwise: Efficientgenerativellminferenceusingphasesplitting. InISCA,\n2024.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "[60] David Patterson, Joseph Gonzalez, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel\nRothchild,DavidSo,MaudTexier,andJeffDean. Carbonemissionsandlargeneuralnetwork\ntraining. arXivpreprint,2021.\n[61] DustinPodell,ZionEnglish,KyleLacey,AndreasBlattmann,TimDockhorn,JonasMüller,\nJoePenna,andRobinRombach. SDXL:Improvinglatentdiffusionmodelsforhigh-resolution\nimagesynthesis. InICLR,2024.\n[62] PromptHero. OpenJourneyv4,2023.\n[63] HaoranQiu,WeichaoMao,ArchitPatke,ShengkunCui,SaurabhJha,ChenWang,Hubertus\nFranke, Zbigniew Kalbarczyk, Tamer Bas¸ar, and Ravishankar K. Iyer. Power-aware deep\nlearningmodelservingwithu-Serve. InATC,2024.\n[64] DavidRein,BettyLiHou,AsaCooperStickland,JacksonPetty,RichardYuanzhePang,Julien\nDirani,JulianMichael,andSamuelR.Bowman. GPQA:Agraduate-levelgoogle-proofq&a",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "chardYuanzhePang,Julien\nDirani,JulianMichael,andSamuelR.Bowman. GPQA:Agraduate-levelgoogle-proofq&a\nbenchmark. InCoLM,2024.\n[65] Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bjorn Ommer.\nHigh-resolutionimagesynthesiswithlatentdiffusionmodels. InCVPR,2022.\n[66] BaptisteRozière,JonasGehring,FabianGloeckle,StenSootla,ItaiGat,XiaoqingEllenTan,\nYossiAdi,JingyuLiu,RomainSauvestre,TalRemez,JérémyRapin,ArtyomKozhevnikov,\nIvanEvtimov,JoannaBitton,ManishBhatt,CristianCantonFerrer,AaronGrattafiori,Wenhan\nXiong,AlexandreDéfossez,JadeCopet,FaisalAzhar,HugoTouvron,LouisMartin,Nicolas\nUsunier,ThomasScialom,andGabrielSynnaeve. Codellama: Openfoundationmodelsfor\ncode. arXivpreprintarXiv:2308.12950,2024.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "om,andGabrielSynnaeve. Codellama: Openfoundationmodelsfor\ncode. arXivpreprintarXiv:2308.12950,2024.\n[67] MohammadShoeybi,MostofaPatwary,RaulPuri,PatrickLeGresley,JaredCasper,andBryan\nCatanzaro. Megatron-LM: Training multi-billion parameter language models using model\nparallelism. arXivpreprint,2019.\n[68] JovanStojkovic,ChaojieZhang,InigoGoiri,JosepTorrellas,andEshaChoukse. DynamoLLM:\nDesigningllminferenceclustersforperformanceandenergyefficiency. InHPCA,2025.\n[69] ChameleonTeam. Chameleon: Mixed-modalearly-fusionfoundationmodels. arXivpreprint\narXiv:2405.09818,2024.\n[70] CodeGemmaTeam,HeriZhao,JeffreyHui,JoshuaHowland,NamNguyen,SiqiZuo,Andrea\nHu,ChristopherA.Choquette-Choo,JingyueShen,JoeKelley,KshitijBansal,LukeVilnis,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "guyen,SiqiZuo,Andrea\nHu,ChristopherA.Choquette-Choo,JingyueShen,JoeKelley,KshitijBansal,LukeVilnis,\nMateoWirth,PaulMichel,PeterChoy,PratikJoshi,RavinKumar,SarmadHashmi,Shubham\nAgrawal,ZhitaoGong,JaneFine,TrisWarkentin,AleJakseHartman,BinNi,KathyKorevec,\nKellySchaefer,andScottHuffman. CodeGemma: Opencodemodelsbasedongemma. arXiv\npreprintarXiv:2406.11409,2024.\n[71] GemmaTeam. Gemma2: Improvingopenlanguagemodelsatapracticalsize. arXivpreprint\narXiv:2408.00118,2024.\n[72] ShareGPTTeam. ShareGPT. https://sharegpt.com/.\n[73] LlamateamatMeta. Thellama3herdofmodels. arXivpreprintarXiv:2407.21783,2024.\n[74] HugoTouvron,ThibautLavril,GautierIzacard,XavierMartinet,Marie-AnneLachaux,Timo-\nthéeLacroix,BaptisteRozière,NamanGoyal,EricHambro,FaisalAzhar,etal. LLaMA:Open",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ie-AnneLachaux,Timo-\nthéeLacroix,BaptisteRozière,NamanGoyal,EricHambro,FaisalAzhar,etal. LLaMA:Open\nandefficientfoundationlanguagemodels. arXivpreprint,2023.\n[75] AryaTschand,ArunTejusveRaghunathRajan,SachinIdgunji,AnirbanGhosh,JeremyHolle-\nman,CsabaKiraly,PawanAmbalkar,RitikaBorkar,RameshChukka,TrevorCockrell,Oliver\nCurtis,GrigoriFursin,MiroHodak,HiwotKassa,AntonLokhmotov,DejanMiskovic,Yuechao\nPan,ManuPrasadManmathan,LizRaymond,TomSt.John,ArjunSuresh,RowanTaubitz,Sean\nZhan,ScottWasson,DavidKanter,andVijayJanapaReddi. MLPerfpower: Benchmarkingthe\nenergyefficiencyofmachinelearningsystemsfromuWattstoMWattsforsustainableai. In\nHPCA,2025.\n[76] AshishVaswani,NoamShazeer,NikiParmar,JakobUszkoreit,LlionJones,AidanN.Gomez,\nŁukaszKaiser,andIlliaPolosukhin. Attentionisallyouneed.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "rmar,JakobUszkoreit,LlionJones,AidanN.Gomez,\nŁukaszKaiser,andIlliaPolosukhin. Attentionisallyouneed. AdvancesinNeuralInformation\nProcessingSystems,2017.\n[77] PatrickvonPlaten,SurajPatil,AntonLozhkov,PedroCuenca,NathanLambert,KashifRasul,\nMishigDavaadorj,DhruvNair,SayakPaul,StevenLiu,WilliamBerman,YiyiXu,andThomas\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Wolf. Diffusers: State-of-the-artdiffusionmodels. https://github.com/huggingface/\ndiffusers.\n[78] Jiuniu Wang, Hangjie Yuan, Dayou Chen, Yingya Zhang, Xiang Wang, and Shiwei Zhang.\nModelScopetext-to-videotechnicalreport. arXivpreprintarXiv:2308.06571,2023.\n[79] YuxingXiang,XueLi,KunQian,WenyuanYu,EnnanZhai,andXinJin. ServeGen: Workload\ncharacterizationandgenerationoflargelanguagemodelservinginproduction. arXivpreprint\narXiv:2505.09999,2025.\n[80] An Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu,\nChangGao,ChengenHuang,ChenxuLv,ChujieZheng,DayihengLiu,FanZhou,FeiHuang,\nFengHu,HaoGe,HaoranWei,HuanLin,JialongTang,JianYang,JianhongTu,JianweiZhang,\nJianxinYang,JiaxiYang,JingZhou,JingrenZhou,JunyangLin,KaiDang,KeqinBao,Kexin",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "anhongTu,JianweiZhang,\nJianxinYang,JiaxiYang,JingZhou,JingrenZhou,JunyangLin,KaiDang,KeqinBao,Kexin\nYang,LeYu,LianghaoDeng,MeiLi,MingfengXue,MingzeLi,PeiZhang,PengWang,Qin\nZhu,RuiMen,RuizeGao,ShixuanLiu,ShuangLuo,TianhaoLi,TianyiTang,WenbiaoYin,\nXingzhangRen,XinyuWang,XinyuZhang,XuanchengRen,YangFan,YangSu,Yichang\nZhang,YingerZhang,YuWan,YuqiongLiu,ZekunWang,ZeyuCui,ZhenruZhang,Zhipeng\nZhou,andZihanQiu. Qwen3technicalreport. arXivpreprintarXiv:2505.09388,2025.\n[81] JieYou,Jae-WonChung,andMosharafChowdhury. Zeus: UnderstandingandoptimizingGPU\nenergyconsumptionofDNNtraining. NSDI,2023.\n[82] Gyeong-InYu,JooSeongJeong,Geon-WooKim,SoojeongKim,andByung-GonChun. Orca:\nAdistributedservingsystemforTransformer-Basedgenerativemodels. InOSDI,2022.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "andByung-GonChun. Orca:\nAdistributedservingsystemforTransformer-Basedgenerativemodels. InOSDI,2022.\n[83] Jiahui Yu, Yuanzhong Xu, Jing Yu Koh, Thang Luong, Gunjan Baid, Zirui Wang, Vijay\nVasudevan, Alexander Ku, Yinfei Yang, Burcu Karagol Ayan, Ben Hutchinson, Wei Han,\nZaranaParekh,XinLi,HanZhang,JasonBaldridge,andYonghuiWu. Scalingautoregressive\nmodelsforcontent-richtext-to-imagegeneration. TransactionsonMachineLearningResearch,\n2022.\n[84] ShiweiZhang,JiayuWang,YingyaZhang,KangZhao,HangjieYuan,ZhiwuQin,XiangWang,\nDeliZhao,andJingrenZhou. I2VGen-XL:High-qualityimage-to-videosynthesisviacascaded\ndiffusionmodels. arXivpreprintarXiv:2311.04145,2023.\n[85] LianminZheng,Wei-LinChiang,YingSheng,SiyuanZhuang,ZhanghaoWu,YonghaoZhuang,\nZiLin,ZhuohanLi,DachengLi,EricP.Xing,HaoZhang,JosephE.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "gSheng,SiyuanZhuang,ZhanghaoWu,YonghaoZhuang,\nZiLin,ZhuohanLi,DachengLi,EricP.Xing,HaoZhang,JosephE.Gonzalez,andIonStoica.\nJudgingllm-as-a-judgewithmt-benchandchatbotarena. InNeurIPS,2023.\n[86] YinminZhong,ShengyuLiu,JundaChen,JianboHu,YiboZhu,XuanzheLiu,XinJin,andHao\nZhang. DistServe: Disaggregatingprefillanddecodingforgoodput-optimizedlargelanguage\nmodelserving. InOSDI,2024.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "NeurIPSPaperChecklist\n1. Claims\nQuestion: Dothemainclaimsmadeintheabstractandintroductionaccuratelyreflectthe\npaper’scontributionsandscope?\nAnswer: [Yes]\nJustification: Theabstractandintroductionreflectthepaper’scontributionsandscope.\nGuidelines:\n• The answer NA means that the abstract and introduction do not include the claims\nmadeinthepaper.\n• Theabstractand/orintroductionshouldclearlystatetheclaimsmade,includingthe\ncontributionsmadeinthepaperandimportantassumptionsandlimitations. ANoor\nNAanswertothisquestionwillnotbeperceivedwellbythereviewers.\n• Theclaimsmadeshouldmatchtheoreticalandexperimentalresults,andreflecthow\nmuchtheresultscanbeexpectedtogeneralizetoothersettings.\n• Itisfinetoincludeaspirationalgoalsasmotivationaslongasitisclearthatthesegoals\narenotattainedbythepaper.\n2.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "netoincludeaspirationalgoalsasmotivationaslongasitisclearthatthesegoals\narenotattainedbythepaper.\n2. Limitations\nQuestion: Doesthepaperdiscussthelimitationsoftheworkperformedbytheauthors?\nAnswer: [Yes]\nJustification: LimitationsarediscussedinAppendixE.\nGuidelines:\n• TheanswerNAmeansthatthepaperhasnolimitationwhiletheanswerNomeansthat\nthepaperhaslimitations,butthosearenotdiscussedinthepaper.\n• Theauthorsareencouragedtocreateaseparate\"Limitations\"sectionintheirpaper.\n• Thepapershouldpointoutanystrongassumptionsandhowrobusttheresultsareto\nviolationsoftheseassumptions(e.g.,independenceassumptions,noiselesssettings,\nmodelwell-specification,asymptoticapproximationsonlyholdinglocally).Theauthors\nshouldreflectonhowtheseassumptionsmightbeviolatedinpracticeandwhatthe\nimplicationswouldbe.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "eauthors\nshouldreflectonhowtheseassumptionsmightbeviolatedinpracticeandwhatthe\nimplicationswouldbe.\n• Theauthorsshouldreflectonthescopeoftheclaimsmade,e.g.,iftheapproachwas\nonlytestedonafewdatasetsorwithafewruns. Ingeneral,empiricalresultsoften\ndependonimplicitassumptions,whichshouldbearticulated.\n• Theauthorsshouldreflectonthefactorsthatinfluencetheperformanceoftheapproach.\nForexample,afacialrecognitionalgorithmmayperformpoorlywhenimageresolution\nisloworimagesaretakeninlowlighting. Oraspeech-to-textsystemmightnotbe\nusedreliablytoprovideclosedcaptionsforonlinelecturesbecauseitfailstohandle\ntechnicaljargon.\n• Theauthorsshoulddiscussthecomputationalefficiencyoftheproposedalgorithms\nandhowtheyscalewithdatasetsize.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "thorsshoulddiscussthecomputationalefficiencyoftheproposedalgorithms\nandhowtheyscalewithdatasetsize.\n• If applicable, the authors should discuss possible limitations of their approach to\naddressproblemsofprivacyandfairness.\n• Whiletheauthorsmightfearthatcompletehonestyaboutlimitationsmightbeusedby\nreviewersasgroundsforrejection,aworseoutcomemightbethatreviewersdiscover\nlimitationsthataren’tacknowledgedinthepaper. Theauthorsshouldusetheirbest\njudgmentandrecognizethatindividualactionsinfavoroftransparencyplayanimpor-\ntantroleindevelopingnormsthatpreservetheintegrityofthecommunity. Reviewers\nwillbespecificallyinstructedtonotpenalizehonestyconcerninglimitations.\n3. Theoryassumptionsandproofs\nQuestion: Foreachtheoreticalresult,doesthepaperprovidethefullsetofassumptionsand",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "sumptionsandproofs\nQuestion: Foreachtheoreticalresult,doesthepaperprovidethefullsetofassumptionsand\nacomplete(andcorrect)proof?\nAnswer: [NA]\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Justification: Thispaperdoesnotincludetheoreticalresults.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludetheoreticalresults.\n• Allthetheorems, formulas, andproofsinthepapershouldbenumberedandcross-\nreferenced.\n• Allassumptionsshouldbeclearlystatedorreferencedinthestatementofanytheorems.\n• Theproofscaneitherappearinthemainpaperorthesupplementalmaterial, butif\ntheyappearinthesupplementalmaterial,theauthorsareencouragedtoprovideashort\nproofsketchtoprovideintuition.\n• Inversely,anyinformalproofprovidedinthecoreofthepapershouldbecomplemented\nbyformalproofsprovidedinappendixorsupplementalmaterial.\n• TheoremsandLemmasthattheproofreliesuponshouldbeproperlyreferenced.\n4. Experimentalresultreproducibility\nQuestion: Doesthepaperfullydisclosealltheinformationneededtoreproducethemainex-",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "sultreproducibility\nQuestion: Doesthepaperfullydisclosealltheinformationneededtoreproducethemainex-\nperimentalresultsofthepapertotheextentthatitaffectsthemainclaimsand/orconclusions\nofthepaper(regardlessofwhetherthecodeanddataareprovidedornot)?\nAnswer: [Yes]\nJustification: Thebenchmarkcodeandtheresultdatathatsupplytheleaderboardareavail-\nableopen-sourceanddocumentedathttps://github.com/ml-energy/leaderboard.\nThe full result data can be browsed at the ML.ENERGY Leaderboard at https://ml.\nenergy/leaderboard.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludeexperiments.\n• Ifthepaperincludesexperiments,aNoanswertothisquestionwillnotbeperceived\nwell by the reviewers: Making the paper reproducible is important, regardless of\nwhetherthecodeanddataareprovidedornot.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "s: Making the paper reproducible is important, regardless of\nwhetherthecodeanddataareprovidedornot.\n• Ifthecontributionisadatasetand/ormodel,theauthorsshoulddescribethestepstaken\ntomaketheirresultsreproducibleorverifiable.\n• Dependingonthecontribution,reproducibilitycanbeaccomplishedinvariousways.\nForexample,ifthecontributionisanovelarchitecture,describingthearchitecturefully\nmightsuffice,orifthecontributionisaspecificmodelandempiricalevaluation,itmay\nbenecessarytoeithermakeitpossibleforotherstoreplicatethemodelwiththesame\ndataset,orprovideaccesstothemodel. Ingeneral. releasingcodeanddataisoften\nonegoodwaytoaccomplishthis,butreproducibilitycanalsobeprovidedviadetailed\ninstructionsforhowtoreplicatetheresults,accesstoahostedmodel(e.g.,inthecase",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "sobeprovidedviadetailed\ninstructionsforhowtoreplicatetheresults,accesstoahostedmodel(e.g.,inthecase\nofalargelanguagemodel),releasingofamodelcheckpoint,orothermeansthatare\nappropriatetotheresearchperformed.\n• WhileNeurIPSdoesnotrequirereleasingcode,theconferencedoesrequireallsubmis-\nsionstoprovidesomereasonableavenueforreproducibility,whichmaydependonthe\nnatureofthecontribution. Forexample\n(a) Ifthecontributionisprimarilyanewalgorithm,thepapershouldmakeitclearhow\ntoreproducethatalgorithm.\n(b) Ifthecontributionisprimarilyanewmodelarchitecture,thepapershoulddescribe\nthearchitectureclearlyandfully.\n(c) Ifthecontributionisanewmodel(e.g.,alargelanguagemodel),thenthereshould\neitherbeawaytoaccessthismodelforreproducingtheresultsorawaytoreproduce\nthemodel(e.g.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "thenthereshould\neitherbeawaytoaccessthismodelforreproducingtheresultsorawaytoreproduce\nthemodel(e.g.,withanopen-sourcedatasetorinstructionsforhowtoconstruct\nthedataset).\n(d) We recognize that reproducibility may be tricky in some cases, in which case\nauthorsarewelcometodescribetheparticularwaytheyprovideforreproducibility.\nInthecaseofclosed-sourcemodels,itmaybethataccesstothemodelislimitedin\nsomeway(e.g.,toregisteredusers),butitshouldbepossibleforotherresearchers\ntohavesomepathtoreproducingorverifyingtheresults.\n5. Openaccesstodataandcode\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Question: Doesthepaperprovideopenaccesstothedataandcode,withsufficientinstruc-\ntionstofaithfullyreproducethemainexperimentalresults,asdescribedinsupplemental\nmaterial?\nAnswer: [Yes]\nJustification: Thebenchmarkcodeandtheresultdatathatsupplytheleaderboardareavail-\nableopen-sourceanddocumentedathttps://github.com/ml-energy/leaderboard.\nThe full result data can be browsed at the ML.ENERGY Leaderboard at https://ml.\nenergy/leaderboard.\nGuidelines:\n• TheanswerNAmeansthatpaperdoesnotincludeexperimentsrequiringcode.\n• Please see the NeurIPS code and data submission guidelines (https://nips.cc/\npublic/guides/CodeSubmissionPolicy)formoredetails.\n• Whileweencouragethereleaseofcodeanddata,weunderstandthatthismightnotbe\npossible,so“No”isanacceptableanswer. Paperscannotberejectedsimplyfornot",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "nderstandthatthismightnotbe\npossible,so“No”isanacceptableanswer. Paperscannotberejectedsimplyfornot\nincludingcode,unlessthisiscentraltothecontribution(e.g.,foranewopen-source\nbenchmark).\n• Theinstructionsshouldcontaintheexactcommandandenvironmentneededtorunto\nreproducetheresults. SeetheNeurIPScodeanddatasubmissionguidelines(https:\n//nips.cc/public/guides/CodeSubmissionPolicy)formoredetails.\n• Theauthorsshouldprovideinstructionsondataaccessandpreparation,includinghow\ntoaccesstherawdata,preprocesseddata,intermediatedata,andgenerateddata,etc.\n• Theauthorsshouldprovidescriptstoreproduceallexperimentalresultsforthenew\nproposedmethodandbaselines. Ifonlyasubsetofexperimentsarereproducible,they\nshouldstatewhichonesareomittedfromthescriptandwhy.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": ". Ifonlyasubsetofexperimentsarereproducible,they\nshouldstatewhichonesareomittedfromthescriptandwhy.\n• Atsubmissiontime, topreserveanonymity, theauthorsshouldreleaseanonymized\nversions(ifapplicable).\n• Providingasmuchinformationaspossibleinsupplementalmaterial(appendedtothe\npaper)isrecommended,butincludingURLstodataandcodeispermitted.\n6. Experimentalsetting/details\nQuestion: Doesthepaperspecifyallthetrainingandtestdetails(e.g.,datasplits,hyper-\nparameters, how they were chosen, type of optimizer, etc.) necessary to understand the\nresults?\nAnswer: [Yes]\nJustification: Wementionimportantdetailsinthemainpaperandprovidemoredetailsin\ntheAppendix. Fulldetailsareavailableinthecoderepository.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludeexperiments.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "eavailableinthecoderepository.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludeexperiments.\n• Theexperimentalsettingshouldbepresentedinthecoreofthepapertoalevelofdetail\nthatisnecessarytoappreciatetheresultsandmakesenseofthem.\n• Thefulldetailscanbeprovidedeitherwiththecode,inappendix,orassupplemental\nmaterial.\n7. Experimentstatisticalsignificance\nQuestion:Doesthepaperreporterrorbarssuitablyandcorrectlydefinedorotherappropriate\ninformationaboutthestatisticalsignificanceoftheexperiments?\nAnswer: [No]\nJustification:Wewerenotabletorunthebenchmarkmultipletimesduetothehighmonetary\ncostofevenasinglerun.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludeexperiments.\n• Theauthorsshouldanswer\"Yes\"iftheresultsareaccompaniedbyerrorbars,confi-",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "oesnotincludeexperiments.\n• Theauthorsshouldanswer\"Yes\"iftheresultsareaccompaniedbyerrorbars,confi-\ndenceintervals,orstatisticalsignificancetests,atleastfortheexperimentsthatsupport\nthemainclaimsofthepaper.\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "• Thefactorsofvariabilitythattheerrorbarsarecapturingshouldbeclearlystated(for\nexample,train/testsplit,initialization,randomdrawingofsomeparameter,oroverall\nrunwithgivenexperimentalconditions).\n• Themethodforcalculatingtheerrorbarsshouldbeexplained(closedformformula,\ncalltoalibraryfunction,bootstrap,etc.)\n• Theassumptionsmadeshouldbegiven(e.g.,Normallydistributederrors).\n• Itshouldbeclearwhethertheerrorbaristhestandarddeviationorthestandarderror\nofthemean.\n• It is OK to report 1-sigma error bars, but one should state it. The authors should\npreferablyreporta2-sigmaerrorbarthanstatethattheyhavea96%CI,ifthehypothesis\nofNormalityoferrorsisnotverified.\n• Forasymmetricdistributions,theauthorsshouldbecarefulnottoshowintablesor\nfiguressymmetricerrorbarsthatwouldyieldresultsthatareoutofrange(e.g.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "uldbecarefulnottoshowintablesor\nfiguressymmetricerrorbarsthatwouldyieldresultsthatareoutofrange(e.g. negative\nerrorrates).\n• Iferrorbarsarereportedintablesorplots,Theauthorsshouldexplaininthetexthow\ntheywerecalculatedandreferencethecorrespondingfiguresortablesinthetext.\n8. Experimentscomputeresources\nQuestion: Foreachexperiment,doesthepaperprovidesufficientinformationonthecom-\nputerresources(typeofcomputeworkers,memory,timeofexecution)neededtoreproduce\ntheexperiments?\nAnswer: [Yes]\nJustification: WementioncomputeresourcesinthebeginningofSection4.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotincludeexperiments.\n• ThepapershouldindicatethetypeofcomputeworkersCPUorGPU,internalcluster,\norcloudprovider,includingrelevantmemoryandstorage.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "thetypeofcomputeworkersCPUorGPU,internalcluster,\norcloudprovider,includingrelevantmemoryandstorage.\n• Thepapershouldprovidetheamountofcomputerequiredforeachoftheindividual\nexperimentalrunsaswellasestimatethetotalcompute.\n• Thepapershoulddisclosewhetherthefullresearchprojectrequiredmorecompute\nthantheexperimentsreportedinthepaper(e.g.,preliminaryorfailedexperimentsthat\ndidn’tmakeitintothepaper).\n9. Codeofethics\nQuestion: Doestheresearchconductedinthepaperconform, ineveryrespect, withthe\nNeurIPSCodeofEthicshttps://neurips.cc/public/EthicsGuidelines?\nAnswer: [Yes]\nJustification:WeconfirmthatwereviewedtheNeurIPSCodeofEthicsandthatourresearch\nconformstoit.\nGuidelines:\n• TheanswerNAmeansthattheauthorshavenotreviewedtheNeurIPSCodeofEthics.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "ch\nconformstoit.\nGuidelines:\n• TheanswerNAmeansthattheauthorshavenotreviewedtheNeurIPSCodeofEthics.\n• IftheauthorsanswerNo,theyshouldexplainthespecialcircumstancesthatrequirea\ndeviationfromtheCodeofEthics.\n• Theauthorsshouldmakesuretopreserveanonymity(e.g.,ifthereisaspecialconsid-\nerationduetolawsorregulationsintheirjurisdiction).\n10. Broaderimpacts\nQuestion: Does the paper discuss both potential positive societal impacts and negative\nsocietalimpactsoftheworkperformed?\nAnswer: [Yes]\nJustification: WediscussthisinAppendixF.\nGuidelines:\n• TheanswerNAmeansthatthereisnosocietalimpactoftheworkperformed.\n19",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "• IftheauthorsanswerNAorNo,theyshouldexplainwhytheirworkhasnosocietal\nimpactorwhythepaperdoesnotaddresssocietalimpact.\n• Examplesofnegativesocietalimpactsincludepotentialmaliciousorunintendeduses\n(e.g.,disinformation,generatingfakeprofiles,surveillance),fairnessconsiderations\n(e.g.,deploymentoftechnologiesthatcouldmakedecisionsthatunfairlyimpactspecific\ngroups),privacyconsiderations,andsecurityconsiderations.\n• Theconferenceexpectsthatmanypaperswillbefoundationalresearchandnottied\ntoparticularapplications,letalonedeployments. However,ifthereisadirectpathto\nanynegativeapplications,theauthorsshouldpointitout. Forexample,itislegitimate\ntopointoutthatanimprovementinthequalityofgenerativemodelscouldbeusedto\ngeneratedeepfakesfordisinformation. Ontheotherhand,itisnotneededtopointout",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "ativemodelscouldbeusedto\ngeneratedeepfakesfordisinformation. Ontheotherhand,itisnotneededtopointout\nthatagenericalgorithmforoptimizingneuralnetworkscouldenablepeopletotrain\nmodelsthatgenerateDeepfakesfaster.\n• Theauthorsshouldconsiderpossibleharmsthatcouldarisewhenthetechnologyis\nbeing used as intended and functioning correctly, harms that could arise when the\ntechnologyisbeingusedasintendedbutgivesincorrectresults,andharmsfollowing\nfrom(intentionalorunintentional)misuseofthetechnology.\n• Iftherearenegativesocietalimpacts,theauthorscouldalsodiscusspossiblemitigation\nstrategies (e.g., gated release of models, providing defenses in addition to attacks,\nmechanismsformonitoringmisuse,mechanismstomonitorhowasystemlearnsfrom\nfeedbackovertime,improvingtheefficiencyandaccessibilityofML).\n11.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "nismstomonitorhowasystemlearnsfrom\nfeedbackovertime,improvingtheefficiencyandaccessibilityofML).\n11. Safeguards\nQuestion: Doesthepaperdescribesafeguardsthathavebeenputinplaceforresponsible\nreleaseofdataormodelsthathaveahighriskformisuse(e.g.,pretrainedlanguagemodels,\nimagegenerators,orscrapeddatasets)?\nAnswer: [NA]\nJustification: Wedonotbelievesafeguardsarenecessaryforourwork.\nGuidelines:\n• TheanswerNAmeansthatthepaperposesnosuchrisks.\n• Releasedmodelsthathaveahighriskformisuseordual-useshouldbereleasedwith\nnecessarysafeguardstoallowforcontrolleduseofthemodel,forexamplebyrequiring\nthatusersadheretousageguidelinesorrestrictionstoaccessthemodelorimplementing\nsafetyfilters.\n• DatasetsthathavebeenscrapedfromtheInternetcouldposesafetyrisks. Theauthors",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "menting\nsafetyfilters.\n• DatasetsthathavebeenscrapedfromtheInternetcouldposesafetyrisks. Theauthors\nshoulddescribehowtheyavoidedreleasingunsafeimages.\n• Werecognizethatprovidingeffectivesafeguardsischallenging,andmanypapersdo\nnotrequirethis,butweencourageauthorstotakethisintoaccountandmakeabest\nfaitheffort.\n12. Licensesforexistingassets\nQuestion: Arethecreatorsororiginalownersofassets(e.g.,code,data,models),usedin\nthepaper,properlycreditedandarethelicenseandtermsofuseexplicitlymentionedand\nproperlyrespected?\nAnswer: [Yes]\nJustification: Weextensivelyusemodelsanddatasetscreatedbyothersinourbenchmark.\nWecredittheauthorsthroughcitation. AppendixAcontainsacomprehensivetable. The\nbenchmarkhasdefaultrequestdatasetsthatwerecommend,butdoesnotcomepackaged\nwithanyspecificmodelordataset.\nGuidelines:",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "ultrequestdatasetsthatwerecommend,butdoesnotcomepackaged\nwithanyspecificmodelordataset.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotuseexistingassets.\n• Theauthorsshouldcitetheoriginalpaperthatproducedthecodepackageordataset.\n• Theauthorsshouldstatewhichversionoftheassetisusedand,ifpossible,includea\nURL.\n• Thenameofthelicense(e.g.,CC-BY4.0)shouldbeincludedforeachasset.\n20",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "• Forscrapeddatafromaparticularsource(e.g.,website),thecopyrightandtermsof\nserviceofthatsourceshouldbeprovided.\n• If assets are released, the license, copyright information, and terms of use in the\npackageshouldbeprovided. Forpopulardatasets,paperswithcode.com/datasets\nhascuratedlicensesforsomedatasets. Theirlicensingguidecanhelpdeterminethe\nlicenseofadataset.\n• Forexistingdatasetsthatarere-packaged,boththeoriginallicenseandthelicenseof\nthederivedasset(ifithaschanged)shouldbeprovided.\n• Ifthisinformationisnotavailableonline,theauthorsareencouragedtoreachoutto\ntheasset’screators.\n13. Newassets\nQuestion:Arenewassetsintroducedinthepaperwelldocumentedandisthedocumentation\nprovidedalongsidetheassets?\nAnswer: [Yes]",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "tsintroducedinthepaperwelldocumentedandisthedocumentation\nprovidedalongsidetheassets?\nAnswer: [Yes]\nJustification: The benchmark code is available open-source and documented at https:\n//github.com/ml-energy/leaderboardundertheApache-2.0license.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotreleasenewassets.\n• Researchersshouldcommunicatethedetailsofthedataset/code/modelaspartoftheir\nsubmissions via structured templates. This includes details about training, license,\nlimitations,etc.\n• Thepapershoulddiscusswhetherandhowconsentwasobtainedfrompeoplewhose\nassetisused.\n• Atsubmissiontime,remembertoanonymizeyourassets(ifapplicable). Youcaneither\ncreateananonymizedURLorincludeananonymizedzipfile.\n14. Crowdsourcingandresearchwithhumansubjects",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "er\ncreateananonymizedURLorincludeananonymizedzipfile.\n14. Crowdsourcingandresearchwithhumansubjects\nQuestion: Forcrowdsourcingexperimentsandresearchwithhumansubjects,doesthepaper\nincludethefulltextofinstructionsgiventoparticipantsandscreenshots,ifapplicable,as\nwellasdetailsaboutcompensation(ifany)?\nAnswer: [NA]\nJustification: Thispaperdoesnotinvolvecrowdsourcingnorresearchwithhumansubjects.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotinvolvecrowdsourcingnorresearchwith\nhumansubjects.\n• Includingthisinformationinthesupplementalmaterialisfine,butifthemaincontribu-\ntionofthepaperinvolveshumansubjects,thenasmuchdetailaspossibleshouldbe\nincludedinthemainpaper.\n• AccordingtotheNeurIPSCodeofEthics,workersinvolvedindatacollection,curation,",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "cludedinthemainpaper.\n• AccordingtotheNeurIPSCodeofEthics,workersinvolvedindatacollection,curation,\norotherlaborshouldbepaidatleasttheminimumwageinthecountryofthedata\ncollector.\n15. Institutional review board (IRB) approvals or equivalent for research with human\nsubjects\nQuestion: Doesthepaperdescribepotentialrisksincurredbystudyparticipants,whether\nsuchrisksweredisclosedtothesubjects,andwhetherInstitutionalReviewBoard(IRB)\napprovals(oranequivalentapproval/reviewbasedontherequirementsofyourcountryor\ninstitution)wereobtained?\nAnswer: [NA]\nJustification: Thispaperdoesnotinvolvecrowdsourcingnorresearchwithhumansubjects.\nGuidelines:\n• TheanswerNAmeansthatthepaperdoesnotinvolvecrowdsourcingnorresearchwith\nhumansubjects.\n21",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "earchwith\nhumansubjects.\n21",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "• Dependingonthecountryinwhichresearchisconducted,IRBapproval(orequivalent)\nmayberequiredforanyhumansubjectsresearch. IfyouobtainedIRBapproval,you\nshouldclearlystatethisinthepaper.\n• Werecognizethattheproceduresforthismayvarysignificantlybetweeninstitutions\nandlocations,andweexpectauthorstoadheretotheNeurIPSCodeofEthicsandthe\nguidelinesfortheirinstitution.\n• Forinitialsubmissions,donotincludeanyinformationthatwouldbreakanonymity(if\napplicable),suchastheinstitutionconductingthereview.\n16. DeclarationofLLMusage\nQuestion: Does the paper describe the usage of LLMs if it is an important, original, or\nnon-standardcomponentofthecoremethodsinthisresearch? NotethatiftheLLMisused\nonlyforwriting,editing,orformattingpurposesanddoesnotimpactthecoremethodology,",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "tethatiftheLLMisused\nonlyforwriting,editing,orformattingpurposesanddoesnotimpactthecoremethodology,\nscientificrigorousness,ororiginalityoftheresearch,declarationisnotrequired.\nAnswer: [NA]\nJustification: WehaveusedLLMstoassistineditingthepaper,generatingfigures,andwrit-\ningcodesnippets,anditsusedoesnotimpactthecoremethodology,scientificrigorousness,\nororiginalityoftheresearch.\nGuidelines:\n• The answer NA means that the core method development in this research does not\ninvolveLLMsasanyimportant,original,ornon-standardcomponents.\n• PleaserefertoourLLMpolicy(https://neurips.cc/Conferences/2025/LLM)\nforwhatshouldorshouldnotbedescribed.\n22",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "Table2: Modeltype,task,anddefaultrequestdatasetusedintheML.ENERGYBenchmark.\nModelarchitecture Task Requestdataset\nChat ShareGPT[72]\nLargeLanguageModel\nCode EvalPlus[45]\nVisionLanguageModel Visualchat LLaVAinstructiondataset[43]\nText-to-image PartiPrompts[83]\nDiffusionModel Text-to-video CaptionsinShareGPT4Video[18]\nImage-to-video CaptionsandfirstframesinShareGPT4Video[18]\nTable3: ModelarchitecturessupportedbytheML.ENERGYBenchmarkforeachtask.\nTask ModelArchitectures\nChat Gemma22B/9B/27B[71],Llama3.18B/70B/405B[73],\nPhi3Mini/Small/Medium[26],Mistral7B/Nemo/Large[34],\nMixtral8x7B/8x22B[35]\nCode CodeLlama7B/13B/34B/70B[66],StarCoder23B/7B/15B[46],\nCodeGemma2B/7B[70]\nVisualchat LLaVA1.57B/13B[41],LLaVANeXT8B[42],Phi3Vision[26],\nChameleon7B/30B[69]\nText-to-image StableDiffusion2.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "aVA1.57B/13B[41],LLaVANeXT8B[42],Phi3Vision[26],\nChameleon7B/30B[69]\nText-to-image StableDiffusion2.1/XL/XLTurbo/3Medium[7,25,61,65],\nOpenJourney4[62],SSD1B[30]\nText-to-video ModelScopeT2V[78],AnimateDiff[29]\nImage-to-video I2VGenXL[84],StableVideoDiffusionandStableVideoDiffusionXT[14]\nA Tasks,ModelArchitectures,andDefaultRequestDatasets\nTables2and3listthemodelarchitecturesandtaskssupportedbycurrentiterationoftheML.ENERGY\nBenchmark,alongwiththedefaultrequestdatasetsforeachtask. Wenotethatmodelsthatwere\nfine-tunedbasedonthesupportedmodelsarealsosupportedasis,andthebenchmarkisdesignedto\nbeextensible(Section3.4).\nTheML.ENERGYBenchmarkcannotavoidbeingoutdatedgiventherapidpaceofdevelopment\ninthegenerativeAIfield. Assuch,wehavebeenupdatingthebenchmark(andtheaccompanying",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "dpaceofdevelopment\ninthegenerativeAIfield. Assuch,wehavebeenupdatingthebenchmark(andtheaccompanying\nLeaderboard) with new tasks, models, datasets, hardware, runtimes, and more, and we intend to\ncontinuedoingsoaslongasresourcesallow.\nB EnergyImplicationofSystemParameters\nThissectiondiscussestheenergyimplicationofdifferentsystem-levelconfigurations. System-level\nconfigurationsarethosethatdonotchangewhatiscomputedbutratherhowitiscomputedbythe\nunderlyingsoftwaresystem.\nB.1 RequestPreemptionMechanism\nEvenwiththemodelandinferenceparametersfixed,thesoftwaresystemusedtoserveinference\nrequests,whichdetermineshowmodelcomputationsareexecutedonagivenhardware,significantly\nimpactsenergyconsumption. Asaconcreteexample,wewillexaminetheeffectof“preemption",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "ware,significantly\nimpactsenergyconsumption. Asaconcreteexample,wewillexaminetheeffectof“preemption\nmechanism,”aconfigurationparameterforLLMinferenceservers. Whenaserverisoverloadedwith\nmorerequeststhanitscapacity,itneedstotemporarilyremove(or,preempt)somerequestsfromthe\nsystemandthenlaterbringthemback(or,restore). ForLLMinference,therearetwowidely-used\nmechanismsforpreemption: RecomputationandSwapping[39]. Recomputationsimplydropsall\ntemporaryrequestdataorstateonpreemptionandrecomputeseverythingfromscratchonrestoration.\nOntheotherhand,SwappingmovestherequeststatetotheCPU’smemory,andthenreturnsitto\ntheGPUonrestoration. Thebestpreemptionmechanismdependsonthecomputinghardwareand\nsoftwareconfigurationandtheLLMbeingserved.\n23",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "urationandtheLLMbeingserved.\n23",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "100\n80\n60\n40\n20\n0\n0 250 500 750 1000 1250 1500\nMaximum batch size configuration\n)J(\nnoitpmusnoc\nygrenE\nServer is overloaded\nRecomputation\nSwapping\nFigure8: EnergyconsumptionpergenerationwhilevaryingthemaximumbatchsizeforMistral\nNemo(12B).TheLLMinferenceserver’spreemptionmechanismiscompared.\n400\n300\n200\n100\n0\n0 200 400 600 800 1000\nBatch size\n)J(\nnoitpmusnoc\nygrenE\n1 GPU\n2 GPUs\n4 GPUs\n8 GPUs\nFigure9: EnergyconsumptionpergenerationwhilevaryingbatchsizeforLlama3.18B.Thenumber\nofNVIDIAA100GPUsusedtorunthesamemodelisscaledup.\nFigure8,wecomparetheenergyconsumptionpergenerationofthetwopreemptionmechanismswith\ntheMistralNemo(12B)modelbyintentionallyoverloadingtheserverwithahighmaximumbatchsize\nconfigurationandcausingpreemption. Itcanbeseenthatwhentheserverisoverloaded,Swapping",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "ximumbatchsize\nconfigurationandcausingpreemption. Itcanbeseenthatwhentheserverisoverloaded,Swapping\nconsistently consumes less energy. This is because Recomputation performs extra computation\nwhenrestoringrequestswhereasSwappingcopiesdatawithoutrunningcomputation,andtheenergy\nconsumption of computation is larger than memory operations (this will be further examined in\nthenextsection). Furthermore,astheservergetsmoreandmoreoverloaded,energyconsumption\ngenerally increases. This is because with higher overload, more preemptions – and thus more\nrecomputation or data movement – occur. Since preemptions do not directly contribute to the\ncompletionoftherequest,theextraenergyconsumptionfrompreemptionsincreasestheaverage\nenergyconsumptionofcompletingeachrequest.\nB.2 TensorParallelismScaling",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "eemptionsincreasestheaverage\nenergyconsumptionofcompletingeachrequest.\nB.2 TensorParallelismScaling\nWeinvestigatetheimpactofcommunicationoverheadtoenergyconsumption. Thisisimportantas\nmodernlargemodelsfrequentlydonotfitwithinthememorycapacityofasingleGPU.Thisrequires\nmultipleGPUstoexecuteinferenceforasinglemodel,andGPUsmustconstantlycommunicatewith\neachothertodoso[67].\nInordertoablatetheeffectofcommunication,weemploythesameLlama3.18Bmodelandvary\nthe number of GPUs used (Figure 9). Because the amount of computation executed is the same\nregardlessofthenumberofGPUs,energyconsumptionshouldideallybeconstant. Indeed,energy\nconsumption barely changes when scaling from one GPU (no communication) to two, but when\nscalingfurther,energyconsumptionsignificantlyincreases.",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "one GPU (no communication) to two, but when\nscalingfurther,energyconsumptionsignificantlyincreases. Thisisbecause,whiletheamountof\ncomputationdecreasesforeachGPU,additionalcommunicationtimebetweentheGPUsoffsetsthe\nreductionincomputationtime. SincecommunicationtimeincreaseswiththenumberofGPUs,using\ntoomanyGPUscanleadtoslowdownsinexecutingthesameamountofcomputationandincrease\nenergyconsumption.\n24",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\n |  |  |  |  |  |  | \n | Se | rver is | overloa |  | ded |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | n\n |  |  |  |  | Reco | mputatio | n\n |  |  |  |  |  |  | \n |  |  |  |  | Swap | ping | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 24
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 24):\n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  | 1 GPU\n2 GPU | s | \n |  |  |  |  |  |  | \n |  |  |  |  | 4 GPU\n8 GPU | s\ns | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "Modelanddeployment Requestdataset\nInputmean512 Inputmean512 Inputmean4096\nOutputmean512 Outputmean4096 Outputmean512\nLlama3.18B(TP=1,1P3D) 37.71,77.2% 665.77,98.7% 208.34,67.2%\nLlama3.18B(TP=1,2P2D) 36.22,76.7% 706.27,98.8% 151.75,55.2%\nLlama3.18B(TP=1,3P1D) 37.26,77.0% 748.45,98.9% 158.85,56.0%\nLlama3.170B(TP=4,1P1D) 276.93,64.8% 907.60,89.2% 1492.59,50.0%\nTable 4: Energy per generation (Joules) and the percentage of decode energy consumption with\nPDdisaggregation. Followingrecenttraceanalysis[79],wesampledinputlengthsfromaPareto\ndistributionwithalpha2.5,andoutputlengthsfromanExponentialdistribution,eachwithmean\nspecifiedinthetable. TPmeanstensorparallelismdegree,andxPyDmeansitwasdeployedwithx\nprefillinstancesandydecodeinstances,eachwithTP-manyGPUs.\nMaxbatchsize Maxbatchedtokens",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "eployedwithx\nprefillinstancesandydecodeinstances,eachwithTP-manyGPUs.\nMaxbatchsize Maxbatchedtokens\n(sequences) 32 64 128 256 512 1024 2048 4096 8192\n32 559.66 374.63 269.29 205.54 188.80 191.61 195.59 191.88 194.52\n64 362.49 266.98 200.43 168.27 165.52 170.17 168.78 169.58\n128 264.18 194.59 164.75 154.64 155.59 156.54 156.93\n256 194.39 161.87 153.97 155.11 157.13 159.25\n512 159.57 151.50 154.52 156.77 154.95\n1024 152.67 156.26 157.98 163.08\nTable5: Energypergeneration(Joules)ofLlama3.18Bonasyntheticlongcontextrequestdataset\nrunningonH100GPUs. Followingrecenttraceanalysis[79],wesampledinputlengthsfromaPareto\ndistributionwithmean4,096andalpha2.5,andoutputlengthsfromanExponentialdistributionwith\nmean512. NotethatvLLMdoesnotallowthemaxnumberofbatchedtokenstobesmallerthanthe",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "tialdistributionwith\nmean512. NotethatvLLMdoesnotallowthemaxnumberofbatchedtokenstobesmallerthanthe\nmaxbatchsize,whichiswhythelowerlefttriangleofthetableisempty.\nFromthisscalingexperiment,wecanobservethattheenergyimpactofcommunicationoverheadcan\nbelarge. Thisimpactwillbeevenmorepronouncedinhardwareenvironmentswithoutsufficientor\nstate-of-the-artnetworkinginfrastructure,whichiscommoninrealworldsettingsduetoitscost[36].\nB.3 Prefill–DecodeDisaggregation\nPrefill–decode(PD)disaggregationisarisingproductiondeploymentsettingwhereprefillanddecode\nphasesarerunonseparateGPUs[59,86]. Thisallowsforindependentscalingandoptimizationof\nprefillanddecodephasesbasedonworkloadcharacteristics, andleadstobetterlatencydeadline\nattainment.",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "of\nprefillanddecodephasesbasedonworkloadcharacteristics, andleadstobetterlatencydeadline\nattainment. Table 4 shows energy measurements for different PD disaggregation configurations,\nwhere“xPyD”denotesxprefillinstancesandydecodeinstances.\nOverall,decodeconsumesthemajorityofenergy,withsomeamountshiftingtoprefillwheninput\nlengthislong. Inoursetup,PDdisaggregationconfigurationsdidnothavealargeimpactonabsolute\nenergyconsumptionortheenergysplitaslongasthethroughputofprefillanddecodeinstancesare\nreasonablybalanced.\nB.4 ChunkedPrefill\nChunkedprefillisatechniquewherelonginputpromptsaresplitintochunksandprocessedalongside\ndecodeiterations,improvingGPUutilizationandreducingtheinterferencebetweenlongprefillsand\ndecodeiterations[5]. Forchunkedprefill,themaxnumberofbatchedtokensisakeyparameterthat",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "ngprefillsand\ndecodeiterations[5]. Forchunkedprefill,themaxnumberofbatchedtokensisakeyparameterthat\ncontrolsthechunksize. Table5showstheimpactofthisparameteronenergyconsumption.\nTable5showsthatthemoresequencesortokensyoubatch,thebettertheenergyamortizationyou\ngetandenergypergenerationdecreases,andafteracertainpoint,returnsdiminish.\n25",
+    "page": 25
+  },
+  {
+    "type": "text",
+    "content": "600\n400\n200\n0\n0 200 400 600 800 1000\nBatch size\n)W(\nward\nrewoP\nH100 TDP (max power draw)\n3000\n2000\nA100 TDP (max power draw)\n1000\nA100 H100\n0\n0 200 400 600 800 1000\nBatch size\n(a)Llama3.18B\n)W(\nward\nrewoP\n8 x A100 TDP (max power draw)\n4 x H100 TDP (max power draw)\n8 x A100 4 x H100\n(b)Llama3.170B\n600\n400\n200\n0\n0 20 40 60 80 100 120\nBatch size\n)W(\nward\nrewoP\n800\nH100 TDP (max power draw)\n600\nA100 TDP (max power draw)\n400\n200\nA100 H100\n0\n0 5 10 15 20 25 30\nBatch size\n(c)LLaVA1.57B\n)W(\nward\nrewoP\nH100 TDP (max power draw)\nA100 TDP (max power draw)\nA100 H100\n(d)StableDiffusion3Medium\n800\n600\n400\n200\n0\n0 10 20 30 40 50 60\nBatch size\n)W(\nward\nrewoP\n800\nH100 TDP (max power draw)\n600\nA100 TDP (max power draw)\n400\n200\nA100 H100\n0\n1 2 3 4\nBatch size\n(e)StableDiffusion2.1\n)W(\nward\nrewoP",
+    "page": 26
+  },
+  {
+    "type": "text",
+    "content": "00 TDP (max power draw)\n400\n200\nA100 H100\n0\n1 2 3 4\nBatch size\n(e)StableDiffusion2.1\n)W(\nward\nrewoP\nH100 TDP (max power draw)\nA100 TDP (max power draw)\nA100 H100\n(f)StableVideoDiffusion\nFigure10: PowerconsumptionofvariousmodelsonA100andH100GPUs.\nC PowerConsumptionAnalysis\nFigure10showsthepowerconsumptionofvariousmodelsonA100andH100GPUs. Figure11\nfurthershowstheratioofamodel’spowerconsumptiontothemaximumGPUpowerdrawacrossall\nmodels. Generally,LLMsandVLMsconsumesignificantlylesspowerthantheGPU’sTDPbecause\nLLMdecoding,thedominantoperationforLLMserving,ismemory-intensiveanddoesnotfully\nutilizetheGPU’scomputeresources. VLMsshowslightlyhigherpowerconsumptionthanLLMs\nduetoitsadditionalmodalityencoder,whichiscompute-intensive. Diffusionmodels,ontheother",
+    "page": 26
+  },
+  {
+    "type": "text",
+    "content": "tionthanLLMs\nduetoitsadditionalmodalityencoder,whichiscompute-intensive. Diffusionmodels,ontheother\nhand,consumenearlythemaximumpoweroftheGPUwhenbatchsizeisnotsmall. Thisisbecause\nDiffusionmodelsaresignificantlymorecompute-intensivecomparedtoLLMdecoding.\nFigure12showstheGPUpowerdrawbreakdownovertimeononeNVIDIAH100GPU.TheGPU’s\npowerismeasured(1)inwholeand(2)onlyfortheVRAMwhiletheML.ENERGYBenchmark\nisrunning. First, forLlama3.18B,thetimelineshowstheeffectofthetwophasesinLLMtext\ngeneration: PrefillandDecode. Prefillhappensonceatthebeginningofarequesttodigesttheinput\nprompt,whichisthenfollowedbyhundredstothousandsofDecodephases,eachofwhichgenerates\noneoutputtoken. Importantly,Prefillhashighcompute-intensity(andalsohighpowerdraw)because",
+    "page": 26
+  },
+  {
+    "type": "text",
+    "content": "hgenerates\noneoutputtoken. Importantly,Prefillhashighcompute-intensity(andalsohighpowerdraw)because\nitneedstodigestthewholeinputprompt,whereasDecodehaslowcompute-intensity(andlowpower\ndraw)asitdoesnotentailverymuchcomputation. Withthis,wecanfirstunderstandtheinitialspike\n26",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  |  |  |  | \n | H10 | 0 TDP (m | ax pow | er draw) | \n |  |  |  |  | \n | A10 | 0 TDP (m | ax pow | er draw) | \n |  |  |  |  | \n | A1 | 00 | H100 |  | \n |  |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  | 8 x A10 | 0 TDP (m | ax pow | er draw)\n |  |  |  |  | \n |  |  |  |  | \n |  | 4 x H10 | 0 TDP (m | ax pow | er draw)\n |  |  |  |  | \n |  |  |  |  | 00\n |  | 8 x A1 | 00 | 4 x H1 | 00\n |  |  |  |  | \n |  |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  |  |  |  |  | \n |  | H100 | TDP ( | max po | wer dra | w)\n |  | A100 | TDP ( | max po | wer dra | w)\n |  |  |  |  |  | \n |  |  |  |  |  | \n |  | A100 |  | H100 |  | \n |  |  |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  |  | H100 | TDP ( | max po | wer dr | aw)\n |  |  |  |  |  |  | \n |  |  | A100 | TDP ( | max po | wer dr | aw)\n |  |  |  |  |  |  | \n |  |  |  |  |  | 0 | \n |  |  | A100 |  | H10 | 0 | \n |  |  |  |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  | H100 | TDP (m | ax po | wer dr | aw)\n |  |  |  |  |  | \n |  | A100 | TDP (m | ax po | wer dr | aw)\n |  |  |  |  |  | \n |  |  |  |  |  | \n |  | A100 |  | H100 |  | \n |  |  |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 26):\n |  | H100 T | DP (max po | wer draw)\n |  |  |  | \n |  | A100 T | DP (max po | wer draw)\n |  |  |  | \n |  |  |  | 0\n |  | A100 | H10 | 0\n |  |  |  | \n |  |  |  | ",
+    "page": 26
+  },
+  {
+    "type": "text",
+    "content": "1.0\n0.8\n0.6\n0.4\n0.2\n0.0\nGemma G 2 e m 2B m G a e 2 m 9 m B a 2 L la 2 m 7B a L 3 la .1 m 8 a B L 3 la .1 m 7 a 0 P 3 B h .1 i 3 4 0 m 5 i B n P i h ( i 3 P 3 . h 8 s i B m 3 ) a m ll e ( d 7 i B u ) m (1 M 4 i M B st ) i r s a t l r M a N l i s e 7 t m r B a o l L (1 a M 2 rg B ix e ) t r ( a M 1 l 2 i 8 x 3 t x B r 7 a ) B l 8 ( x 4 2 7 2 B B ) C (1 o 4 d 1 e B L C l ) a o m d a e L 7 la B C m o a d e 1 L 3 la B C m o a d e 3 L 4 la B m St a a r 7 C 0 o B d S e t r a 2 r C 3 o B S d t e a r r 2 C o 7 C d B e o r d 2 e 1 G 5 e C B m o m de a G 2 e B mm LL a a 7 V B A L 1 L . a 5 V 7 A B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n le h o a n m 7 e B leon 30B SD2.",
+    "page": 27
+  },
+  {
+    "type": "text",
+    "content": "A B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n le h o a n m 7 e B leon 30B SD2.1 S S D D X X L L T S u D rb 3 o medium O SS pe D n 1 J M B o o u d rn e e lS y c 4 ope A T2 n V imate I D 2V iff Gen XL SVD SVD XT\nrewop\nxam\n/ rewop\negarevA\nRatio of power draw to max GPU power (A100)\nMaximum power draw\n(a)NVIDIAA100\n1.0\n0.8\n0.6\n0.4\n0.2\n0.0\nGemma G 2 e m 2B m G a e 2 m 9 m B a 2 L la 2 m 7B a L 3 la .1 m 8 a B L 3 la .1 m 7 a 0 P 3 B h .1 i 3 4 0 m 5 i B n P i h ( i 3 P 3 . h 8 s i B m 3 ) a m ll e ( d 7 i B u ) m (1 M 4 i M B st ) i r s a t l r M a N l i s e 7 t m r B a o l L (1 a M 2 rg B ix e ) t r ( a M 1 l 2 i 8 x 3 t x B r 7 a ) B l 8 ( x 4 2 7 2 B B ) C (1 o 4 d 1 e B L C l ) a o m d a e L 7 la B C m o a d e 1 L 3 la B C m o a d e 3 L 4 la B m St a a r 7 C 0 o B d S",
+    "page": 27
+  },
+  {
+    "type": "text",
+    "content": "L C l ) a o m d a e L 7 la B C m o a d e 1 L 3 la B C m o a d e 3 L 4 la B m St a a r 7 C 0 o B d S e t r a 2 r C 3 o B S d t e a r r 2 C o 7 C d B e o r d 2 e 1 G 5 e C B m o m de a G 2 e B mm LL a a 7 V B A L 1 L . a 5 V 7 A B L 1 L . a 5 V 1 A 3 N B eXT P h 8 i B 3 C V h i a s m io e C n le h o a n m 7 e B leon 30B SD2.1 S S D D X X L L T S u D rb 3 o medium O SS pe D n 1 J M B o o u d rn e e lS y c 4 ope A T2 n V imate I D 2V iff Gen XL SVD SVD XT\nrewop\nxam\n/ rewop\negarevA\nRatio of power draw to max GPU power (H100)\nMaximum power draw\n(b)NVIDIAH100\nFigure11: RatioofpowerconsumptiontomaximumGPUpowerdrawacrossvariousmodels.\n700\n500\n300\n100\n0\n0 20 40 60 80\nTime (s)\n)W(\nward\nrewoP\nPower Draw Breakdown Over Time (Llama 3.1 8B on H100)\nH100 TDP (max power draw)",
+    "page": 27
+  },
+  {
+    "type": "text",
+    "content": "(s)\n)W(\nward\nrewoP\nPower Draw Breakdown Over Time (Llama 3.1 8B on H100)\nH100 TDP (max power draw)\nEntire GPU Only VRAM Entire GPU excluding VRAM\n(a)Llama3.18B\n700\n500\n300\n100\n0\n0 50 100 150 200 250 300\nTime (s)\n)W(\nward\nrewoP\nPower Draw Breakdown Over Time (Stable Video Diffusion XT on H100)\nH100 TDP (max power draw)\nEntire GPU Only VRAM Entire GPU excluding VRAM\n(b)StableVideoDiffusionXT\nFigure 12: GPU power draw breakdown over time on one NVIDIA H100 GPU. “Entire GPU”\nand“OnlyVRAM”(memory)weremeasured,andthetwoweresubtractedtoderive“EntireGPU\nexcludingVRAM.”\ninpowerdraw–whenthebenchmarkbegins,theserverbeginsadmittingnewrequests,creatinga\nshortperiodwherenumerousPrefillsareexecutedback-to-back,leadingtohighpowerdraw. After\ntheinitialspike,powerdrawrepeatsaperiodicfluctuation.",
+    "page": 27
+  },
+  {
+    "type": "text",
+    "content": "utedback-to-back,leadingtohighpowerdraw. After\ntheinitialspike,powerdrawrepeatsaperiodicfluctuation. Thisisbecause,beforeeachPrefillor\nDecode,theservermustmakenumerouscontroldecisions,includingdeterminingwhichrequestsare\nnowfinishedandwhichonesshouldrunnext. SincethesedecisionsareexecutedbytheCPU,this\ncreatesaperiodictimegapwheretheGPUisnotrunninganycomputation. ThisGPUidletimeleads\ntotheperiodicdropinGPUpowerdraw.\nOn the other hand, Stable Video Diffusion XT shows a different power draw pattern. Diffusion\nmodelsgenerallyhavethreephases: Encode,Denoise,andDecode. TheEncodephasedigeststhe\n27",
+    "page": 27
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 27):\nMaximum power draw |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 27
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 27):\nMaximum power draw |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 27
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 27):\n | H100 TDP (max power draw) |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | ",
+    "page": 27
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 27):\n | H100 TDP (max power dra | w) |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 27
+  },
+  {
+    "type": "text",
+    "content": "inputpromptandpassesittotheDenoisephase, whichiterativelyremovesnoisefromarandom\nvector. Finally,theDecodephasetransformsthedenoisedvectorintothefinalimageorvideo.\nFromthetimeline,especiallyDenoiseandDecodecanbeclearlydistinguished. Denoiseisthemost\ncompute-intensiveandconsumespowerclosetotheGPU’sTDP.Foreachbatch,thereare25local\npeaksthathittheGPU’sTDP,eachofwhichcorrespondstoonedenoisingstepinDenoise. During\nDecode,powerdrawgenerallydecreases,witheachlocalpowerpeakcorrespondingtothetwolarge\nlayersinthedecodingmodule. Ontheotherhand, VRAMpowerdrawincreasesduringDecode\nbecauseitallocatesalargechunkofmemoryandperformswritesinordertogeneratethefinalvideo.\nFinally,asthefinalgeneratedvideoiscopiedfromtheGPU’smemorytotheCPU’s,theGPUdoes\nnotrunanycomputation,resultinginasteepdropinpowerdraw.",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "opiedfromtheGPU’smemorytotheCPU’s,theGPUdoes\nnotrunanycomputation,resultinginasteepdropinpowerdraw.\nFromthepowerbreakdown,wecanobservethatmemoryoperationsindeeddrawsignificantlyless\npowercomparedtocomputation,andthuscomputationswithlowcompute-intensityshouldindeed\ndrawlesspower. Furthermore,wecanobservethatthepowerdrawandenergyconsumptionofa\nspecifichardware(GPUinthiscase)isnotafunctionofjustitselfandthecomputationsthatitruns.\nRather,softwareandhardwarecomponentsthatareintegratedinthesamesystemstackimpactshow\ncomputationsareexecutedoneachother,affectingtheirpowerdrawandenergyconsumption.\nD TheML.ENERGYLeaderboardandBenchmark\nOnJuly2023,welaunchedtheML.ENERGYLeaderboardandBenchmark,thefirstinferenceenergy\nleaderboardformoderngenerativeAImodels.6 Ourgoalwastomeasureandunderstandtheenergy",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "tinferenceenergy\nleaderboardformoderngenerativeAImodels.6 Ourgoalwastomeasureandunderstandtheenergy\nconsumptionofgenerativeAImodels,andweprovidedaweb-basedleaderboardtoalloweveryone\ntobrowsetheresults. TheleaderboardstartedwithonlyLLMchatwithtensofdifferentLLMs,but\ngraduallyexpandedtoincludemoretasks,models,anddatasets. Ourbenchmarkingsuitetosupply\ndatatotheleaderboardiswhatwedubtheML.ENERGYBenchmark. Thispapersharesourdesign\nphilosophyandprincipleswehaveacquiredovertimebygraduallymaintainingandupgradingthe\nML.ENERGYBenchmarkandtheLeaderboard,andhighlightsnotableresultswehaveobtained\nfromtheearly2025iterationofthebenchmark. Importantly,weplantocontinuouslyupdatethe\nbenchmarkandtheleaderboardaslongasresourcesallow,andwhatispresentedinthispaperisonly",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "ouslyupdatethe\nbenchmarkandtheleaderboardaslongasresourcesallow,andwhatispresentedinthispaperisonly\nasnapshotofthecurrentstateofthebenchmarkatthetimeofwriting. Weencouragereaderstovisit\ntheleaderboardwebsiteandbenchmarkrepositoryforthelatestresultsandupdates.\nE Limitations\nTheML.ENERGYBenchmarkisnotwithoutlimitations. First,wenotethatthebenchmarkisnot\nexhaustiveanddoesnotcoverallpossibletasks,models,anddatasets. Thisisparticularlytrueas\ntimepassesandnewmodelsandtasksaredeveloped. Weareawareofneweropen-weightmodels\nandworthytasksthatwerereleasedaftertheearly2025iterationofthebenchmarkwasfinalized.\nHowever,wecannotaddeachmodelortaskonebyoneincrementallyastheyarereleased,duetothe\nprohibitivemonetarycostofrunningthebenchmarkonrepresentativehardware;rather,wecollect",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "ased,duetothe\nprohibitivemonetarycostofrunningthebenchmarkonrepresentativehardware;rather,wecollect\nnewadvancesinawindowoftimeandthenmass-updatethewholebenchmark,accompaniedby\nupgrades in hardware, software, and datasets. Second, the benchmark is not exhaustive in terms\nofhardware. WecurrentlymainlysupportflagshipNVIDIAGPUs,whicharguablydominatesthe\nmarketespeciallywhenitcomestoreal-worldgenerativeAIservices. Furthermore,wedonothave\naccesstoallpossiblehardwareconfigurations,nordotheyalwaysprovideawayforustomeasure\nenergyconsumptionfromsoftware. Regardless,weareworkingtoexpandthebenchmarktosupport\nmorehardwareconfigurations.\nF BroaderImpacts\nByallowingeveryonetoaccuratemeasure, understand, andoptimizetheenergyconsumptionof\ngenerativeAImodels,webelievetheML.",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "etoaccuratemeasure, understand, andoptimizetheenergyconsumptionof\ngenerativeAImodels,webelievetheML.ENERGYBenchmarkcanenhancetheunderstandingof\nenergyconsumptionofgenerativeAIintheresearchcommunityandtheindustry,andultimatelyfuel\nworksthatoptimizeenergyconsumption. Furthermore,energyisessentiallythroughputperwatt,\n6https://github.com/ml-energy/leaderboard/releases/tag/2023-07-06\n28",
+    "page": 28
+  },
+  {
+    "type": "text",
+    "content": "whichisonefactorthatdeterminesthecostofrunninggenerativeAIservicesattheinfrastructure\nlevel. Byoptimizingenergyconsumption,wecanreducethecostofrunninggenerativeAIservices,\nwhichcanhelpdemocratizeaccesstogenerativeAI.\n29",
+    "page": 29
+  }
+]

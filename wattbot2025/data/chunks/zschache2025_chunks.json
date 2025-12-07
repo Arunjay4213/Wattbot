@@ -1,0 +1,457 @@
+[
+  {
+    "type": "text",
+    "content": "Comparing energy consumption and accuracy in\ntext classification inference\nJohannes Zschache and Tilman Hartwig\nApplication Lab for AI and Big Data, German Environment Agency,\nAlte Messe 6, Leipzig, 04103, Saxony, Germany.\n*Corresponding author(s). E-mail(s): tilman.hartwig@uba.de;\nContributing authors: johannes.zschache@uba.de;\nAbstract\nTheincreasingdeploymentoflargelanguagemodels(LLMs)innaturallanguage\nprocessing (NLP) tasks raises concerns about energy efficiency and sustainabil-\nity. While prior research has largely focused on energy consumption during\nmodel training, the inference phase has received comparatively less attention.\nThis study systematically evaluates the trade-offs between model accuracy and\nenergy consumption in text classification inference across various model archi-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "model accuracy and\nenergy consumption in text classification inference across various model archi-\ntectures and hardware configurations. Our empirical analysis shows that the\nbest-performing model in terms of accuracy can also be energy-efficient, while\nlarger LLMs tend to consume significantly more energy with lower classifica-\ntionaccuracy.Weobservesubstantialvariabilityininferenceenergyconsumption\n(<mWh to >kWh), influenced by model type, model size, and hardware spec-\nifications. Additionally, we find a strong correlation between inference energy\nconsumption and model runtime, indicating that execution time can serve as\na practical proxy for energy usage in settings where direct measurement is not\nfeasible.ThesefindingshaveimplicationsforsustainableAIdevelopment,provid-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "direct measurement is not\nfeasible.ThesefindingshaveimplicationsforsustainableAIdevelopment,provid-\ning actionable insights for researchers, industry practitioners, and policymakers\nseeking to balance performance and resource efficiency in NLP applications.\nKeywords:NLP,LargeLanguageModel,ResourceEfficiency,SustainableAI\n1 Introduction\nArtificial intelligence (AI) systems, particularly large language models (LLMs), have\ndriven remarkable progress in Natural Language Processing (NLP) applications. This\n1\n5202\nguA\n91\n]LC.sc[\n1v07141.8052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "development has been enabled by the Transformer architecture (Vaswani et al., 2017)\nand exemplified by the emergence of large-scale models such as GPT-3 (Brown et al.,\n2020), which have significantly advanced task performance. However, this progress\nhas come at a cost: the escalating energy demands of AI systems pose significant\nenvironmental and computational challenges. Data centers that support AI com-\nputations are major electricity consumers, often dependent on fossil fuels, thereby\ncontributing to greenhouse gas emissions (Lacoste et al., 2019; Axenbeck et al.,\n2025). This increasing energy demand challenges global climate objectives such as\nthe Paris Agreement (United Nations, 2015a) and the United Nations’ Sustainable",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "objectives such as\nthe Paris Agreement (United Nations, 2015a) and the United Nations’ Sustainable\nDevelopment Goals (SDGs), specifically Goal 13 on climate action (United Nations,\n2015b). Consequently, designing energy-efficient AI systems is imperative for aligning\ntechnological advancements with sustainability goals. Moreover, beyond sustainabil-\nity, energy-efficient models offer additional advantages, including reduced hardware\nrequirements, lower financial costs, and faster inference times.\nWhenevaluatingmachinelearningmodels,moststudiesconcentrateonthequality\nof the model responses by tracking e.g. the accuracy, the RMSE, or other measures.\nAnd even if the energy consumption is taken into account, prior research has mainly\nfocused on the training phase (Strubell et al.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tion is taken into account, prior research has mainly\nfocused on the training phase (Strubell et al., 2019; Patterson et al., 2021; Luccioni\nand Hernandez-Garcia, 2023). The inference phase, which is repeatedly executed in\nreal world deployments, has received comparatively less attention. However, energy\nefficiencyduringtheoperationalphaseisanincreasinglyrelevanttopicasLLMappli-\ncations become ubiquitous and LLM models are trained to use additional test-time\ncomputetoimproveperformance(OpenAI,2024;DeepSeek-AI,2025).Addressingthis\ngap, we present a systematic study on the energy consumption of language models\nduring inference, providing actionable insights for balancing accuracy with efficiency.\nA particularly popular machine learning task is text categorization, a task that",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "y with efficiency.\nA particularly popular machine learning task is text categorization, a task that\nlightweight models have been shown to handle effectively. For instance, Joulin et al.\n(2017) show that a simple classifier built on word embeddings is often as accurate as\ndeep learning classifiers. Despite this, some authors argue for the use of pre-trained\nLLMs for text classification because it reduces the need for model training and sim-\nplifiesdatapreprocessing(Wangetal.,2024).Additionally,popularsoftwaretutorials\npromote LLMs for classification tasks (LangChain Team, 2023; Lamini Team, 2023),\nfurther encouraging their use even when more efficient alternatives exist. In order to\njustify the usage of LLM in relatively simple tasks such as text categorization, we",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "st. In order to\njustify the usage of LLM in relatively simple tasks such as text categorization, we\nadvocateaconsequentcomparisonofamodel’sresponsequalitytoitsenergyefficiency.\nGiven a practical use case that is occurring in public administration, our study\nempiricallyanalyzestrade-offsbetweenmodelaccuracyandenergyconsumptionacross\nvarious language models and hardware configurations. We find that the best perform-\ningmodelisenergyefficientwhileLLMsshowhigherenergyusagewithloweraccuracy.\nGenerally, we see significant variability in inference energy consumption, influenced\nby model type, model size, and hardware specifications. Additionally, the energy con-\nsumptionduringinferenceisshowntohighlycorrelatewiththemodel’sruntime.This",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tionally, the energy con-\nsumptionduringinferenceisshowntohighlycorrelatewiththemodel’sruntime.This\nmakes the duration of computations a valuable proxy measure for energy consump-\ntion in settings where the latter cannot be traced. Our findings have implications\nfor researchers, industry practitioners, and policymakers advocating for sustainable\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "AI development (Kaack et al.; Luccioni et al., 2025). By systematically evaluating\ninference efficiency and runtime across architectures and hardware settings, we con-\ntributetotheongoingdiscourseonAI’senvironmentalimpactandprovideactionable\nguidelines for optimizing NLP applications for both performance and sustainability.\n2 Previous research\nResearchontheenvironmentalimpactofmachinelearning(ML)hasprimarilyfocused\nontheenergyconsumptionandcarbonemissionsproducedduringthetrainingphaseof\nlarge-scalemodels.Mostfamously,Strubelletal.(2019)quantifythecarbonfootprint\nof NLP models, revealing that the training of a single large-scale transformer model\ncan emit as much carbon as five cars over their entire lifetimes (their measurements",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "nsformer model\ncan emit as much carbon as five cars over their entire lifetimes (their measurements\ninclude thousands of hyperparameter tuning jobs, which makes it difficult to disen-\ntanglemodel-inherentefficiencyfromexperimentalsetup).Thisseminalworkspurred\nfurtherinvestigationsintotheenvironmentalcostsoftrainingneuralnetworks,includ-\ning large language models (Patterson et al., 2021; Luccioni and Hernandez-Garcia,\n2023; Patterson et al., 2022).\nWhile training remains a significant contributor to energy consumption, recent\nstudies have begun to focus on the inference phase. Samsi et al. (2023) highlighted\nthesubstantialenergydemandsofLLMinferencebutdidnotexploretherelationship\nbetween energy consumption and task-specific performance. Liu et al. (2022) under-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "etherelationship\nbetween energy consumption and task-specific performance. Liu et al. (2022) under-\nscoretheimportanceofevaluatingNLPmodelsnotjustonefficiencymetricsbutalso\nonaccuracybyintroducingtheEfficientLanguageUnderstandingEvaluation(ELUE)\nbenchmark. ELUE aims to establish a Pareto frontier that balances performance and\nefficiency. It includes various language understanding tasks, facilitating fair and com-\nprehensive comparisons among models. However, the framework adopts number of\nparameters and FLOPs as the metrics for model efficiency, disregarding hardware\nspecificfactors.Similarly,Chienetal.(2023)estimatetheenergyconsumptionassoci-\nated with the inference phase of generative AI applications based on the output word",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "umptionassoci-\nated with the inference phase of generative AI applications based on the output word\ncount and several assumptions about the application such as the number of FLOPS\nper inference and the sampling rate.\nIn contrast, we promote energy-efficient NLP models by the direct measurement\nof the power consumed during inference. Hence, our work follows the approach of the\nSustaiNLP 2020 shared task (Wang and Wolf, 2020). SustaiNLP demonstrated that\nsubstantial energy savings are achievable with minimal performance loss. While this\nstudywaslimitedtotheperformanceofacoupleofsmalllanguagemodelsonasingle\nbenchmark,weextendtheseeffortstoagreaternumberofpartiallyverylargemodels\ndeployed to a practical inference scenario.\nThis makes our study very similar to the one by Alizadeh et al.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "d to a practical inference scenario.\nThis makes our study very similar to the one by Alizadeh et al. (2025), who inves-\ntigatedthetrade-offsbetweenaccuracyandenergyconsumptionwhendeployinglarge\nlanguage models (LLMs) for software development tasks. Besides the finding that\nlarger LLMs with higher energy consumption do not always yield significantly bet-\nteraccuracy,theauthorsdemonstratedthatarchitecturalfactors,suchasfeedforward\nlayer size and transformer block count, directly correlate with energy usage.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Finally, Luccioni et al. (2024) provide one of the most comprehensive analyses\nof energy consumption during ML model inference. Their study systematically com-\npared the energy costs of 88 models across 10 tasks and 30 datasets, including both\nsmaller task-specific and larger multi-purpose models. They found that the larger\nmodelsareordersofmagnitudemoreenergy-intensivethansmallertask-specificones,\nespecially for tasks involving text and image generation. Furthermore, their research\nunderscores the variability in energy consumption across tasks and model architec-\ntures. The authors advocate for increased transparency and sustainable deployment\npractices, emphasizing that the environmental costs of deploying large, multi-purpose\nAI systems must be carefully weighed against their utility.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "costs of deploying large, multi-purpose\nAI systems must be carefully weighed against their utility.\n3 Data and methods\nOur experiments are inspired by an occasionally occurring use case in public admin-\nistration: the management of objections that are submitted by the population. Due\nto a potentially very large amount of submissions, an automatic preprocessing of the\nobjections is of high value. One of the possible steps of an automated workflow is to\ncategorize each submission for optimal forwarding to the responsible department.\nThe data of our study originates from the process of selecting a repository site\nfor high-level radioactive waste in Germany. During the first phase, sub-areas were\nidentified and discussed in a process called FKTG (Fachkonferenz Teilgebiete). The",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": ", sub-areas were\nidentified and discussed in a process called FKTG (Fachkonferenz Teilgebiete). The\nstatements from the population were categorized, processed and published as the\nFKTG-dataset (https://beteiligung.bge.de/index.php). The text of the submission is\ngivenbythecolumn‘Beitrag’(input).Thecolumn‘Themenkomplex’(topic)contains\nthe category of the text.\nWe scraped the dataset from the website and restricted it to entries for which the\ntopic occurs at least 10 times. The remaining 378 entries were split into half: 189\nentries for training and 189 entries for testing. This unusual 50:50 split was done so\nthat the test set should be sufficiently representative by containing enough examples\nof each of the 14 categories. Each of the following experiments was repeated 10 times",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ough examples\nof each of the 14 categories. Each of the following experiments was repeated 10 times\nwith different train-test-splits. To increase comparability, every experiment was run\nwith the same 10 train-test-splits.\nAn experiment run consists of a training phase and a testing phase. Since large\nlanguage models have been argued to be applicable to text categorization without\ntraining (zero-shot), we omit the training phase for these models and apply LLMs\nwithoutfine-tuning.Wereporttheenergyconsumptionandaccuracyonlyforthetest\nphase as averages over all runs.\n3.1 Traditional models\nBesides LLMs, we initially run the experiments with lightweight NLP models that we\ncalltraditionalbecausetheyhavebeenusedforcategorizationtaskslongbeforeLLMs\nexisted.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "P models that we\ncalltraditionalbecausetheyhavebeenusedforcategorizationtaskslongbeforeLLMs\nexisted.Specifically,weusealinearmodel(logisticregression)andagradientboosting\nalgorithm(xgboost).Logisticregressionisasimple,interpretablemodelthatestimates\nthe probability of a class based on a linear combination of input features. XGBoost\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "(Extreme Gradient Boosting) is an efficient, scalable machine-learning algorithm that\ncombines predictions from multiple decision trees to improve accuracy.\nWeconsiderthreedifferenttypesoffeatures:bag-of-words(BoW),termfrequency-\ninverse document frequency (TF-IDF), and a pretrained multilingual sentence\nembedding. BoW represents text by counting word occurrences without consider-\ning order, while TF-IDF adjusts word counts by their importance across documents,\ncapturing rare but informative terms. The TF-IDF features are calculated on all\n2-gram and 3-gram character sequences, which capture local patterns in the text.\nThemultilingualsentenceembedding(https://huggingface.co/sentence-transformers/\nparaphrase-multilingual-mpnet-base-v2)providesdensevectorrepresentationsoftext,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "tence-transformers/\nparaphrase-multilingual-mpnet-base-v2)providesdensevectorrepresentationsoftext,\npreserving semantic meaning across languages. This embedding is not fine-tuned on\nthe training data. Both models are trained using the default parameters provided by\nsklearn.linear model.LogisticRegression and xgboost.XGBClassifier.\n3.2 Large language models\nLarge language models (LLMs) were applied without training (zero-shot) using the\ntestsetonly.Table1givesthenamesandsourcesofthemodelsused.TheLLMswere\nselected by the following criteria:\n• availability on Huggingface\n• support of german language\n• capability of processing the dspy-prompt (see appendix A)\nAdditionally, Jamba Mini 1.5 was chosen as model with an alternative architec-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "mpt (see appendix A)\nAdditionally, Jamba Mini 1.5 was chosen as model with an alternative architec-\nture that includes next to Transformer also Mamba layers (a state-space model). The\nDeepseek distillations (DS) were added to include models with reasoning capabilities\n(test-time compute).\nModel Link\nLlama3.18B https://huggingface.co/meta-llama/Meta-Llama-3.1-8B-Instruct\nLlama3.170B https://huggingface.co/meta-llama/Meta-Llama-3.1-70B-Instruct\nQwen2.57B https://huggingface.co/Qwen/Qwen2-7B-Instruct\nQwen2.572B https://huggingface.co/Qwen/Qwen2-72B-Instruct\nPhi3.5Mini https://huggingface.co/microsoft/Phi-3.5-mini-instruct\nPhi3.5MoE https://huggingface.co/microsoft/Phi-3.5-MoE-instruct\nJambaMini1.5 https://huggingface.co/ai21labs/AI21-Jamba-1.5-Mini\nDSQwen14B https://huggingface.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ruct\nJambaMini1.5 https://huggingface.co/ai21labs/AI21-Jamba-1.5-Mini\nDSQwen14B https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B\nDSQwen32B https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B\nDSLlama8B https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B\nDSLlama70B https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B\nTable 1 Selectionoflargelanguagemodels\n3.3 Computing Resources\nWe used different computing systems for a comparative analysis of energy efficiency\nacrossdiversehardwarearchitectures.Thisenablestheassessmentofhowarchitectural\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "differences - especially GPU tensor core capabilities - affect the inference speed and\npower usage. A diversity in computational infrastructure is crucial for generalizing\nfindings across different environments and ensuring the validity and replicability of\nexperimental results in machine learning research. Furthermore, insights gained from\nusing multiple platforms contribute to optimizing resource allocation strategies and\nimproving cost-effectiveness in large-scale machine learning projects.\nTorunourexperiments,weweregrantedaccesstothehigh-performancecomputing\n(HPC)systemsofTUDDresdenUniversityofTechnology(https://doc.zih.tu-dresden.\nde/) and Leipzig University (https://www.sc.uni-leipzig.de/). For GPU-accelerated",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "c.zih.tu-dresden.\nde/) and Leipzig University (https://www.sc.uni-leipzig.de/). For GPU-accelerated\ncomputing, three different systems are available named Capella, Paula, and Clara\n(see Table 2). The main difference for our study is the GPU: while a node on the\nCapella cluster is equipped with 4 x H100, there are 8 x A30 on each node on Paula\nand 4 x V100 on Clara. This means that a large model such as Llama 3.1 70B or\nQwen2.572Bfitsonasinglenodeof Capella(requiring2GPUs)orPaula(requiring\nall 8 GPUs) but takes up two nodes of the Clara cluster (assuming a 16-bit floating\npoint representation of the parameters).\nCluster Capella Paula Clara\nTUDDresden\nHPCcenter LeipzigUniversity LeipzigUniversity\nUniversityofTechnology\nnumberofnodes 144 12 6\n2xAMD(32cores) 2xAMD(64cores) 1xAMD(32cores)",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "iversity\nUniversityofTechnology\nnumberofnodes 144 12 6\n2xAMD(32cores) 2xAMD(64cores) 1xAMD(32cores)\nCPUpernode\n2.7GHz 2.0GHz 2.0GHz\nRAMpernode 768GB 1TB 512GB\n4xNVIDIAH100 8xNVIDIAA30 4xNVIDIAV100\nGPUpernode\n(94GB) (24GB) (32GB)\nsingleGPUmax\n700W 165W 250W\npowerconsumption\nTable 2 HPCResources\nLLMs were deployed using the vllm library (https://github.com/vllm-project/\nvllm),whichrunsonaraycluster(https://www.ray.io/)formulti-nodecomputations.\nIf a model is too large to be deployed on a single GPU, the model weights are dis-\ntributedovermultipleGPUs,whichallowforaparallelcomputationoftheactivations\n(c.f. tensor model parallelism (TMP) in Bai et al., 2024, pp.16). In cases where two\ncomputing nodes are needed, the model is split into two parts and executed sequen-\ntially (c.f.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "two\ncomputing nodes are needed, the model is split into two parts and executed sequen-\ntially (c.f. pipeline model parallelism (PMP) in Bai et al., 2024, p.17): first the model\npart on the first node and then the model part on the second node.\nThe energy consumption and the runtime of the inference phase were measured\nby the CodeCarbon package (https://github.com/mlco2/codecarbon). This package\nuses the NVIDIA Management Library (NVML) and the Intel RAPL files to track\nthepowerusageofGPUandCPU(https://mlco2.github.io/codecarbon/methodology.\nhtml#power-usage). The power consumption of the memory is flatly added with\n0.375W/GB of memory used. In settings where the model is deployed on more than\none node, the inference duration is taken as the maximum and the energy as the sum",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "yed on more than\none node, the inference duration is taken as the maximum and the energy as the sum\nover all nodes.\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Various software tools have been created to monitor energy consump-\ntion during the application of machine learning models (https://github.com/\ntiingweii-shii/Awesome-Resource-Efficient-LLM-Papers?tab=readme-ov-file#%EF%\nB8%8F-energy-metrics). Similar to CodeCarbon, Carbontracker (Anthony et al.,\n2020) and experiment-impact-tracker (Henderson et al., 2020) estimate energy con-\nsumption by monitoring hardware usage. In some settings, CodeCarbon is considered\nmore accurate, yielding values closer to those obtained via physical wattmeters\n(Bouza et al., 2023). Comparing different tools of energy monitoring is beyond the\nscope of our paper.\n4 Results\nFor each model, we report accuracy, energy consumption, and inference duration.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ur paper.\n4 Results\nFor each model, we report accuracy, energy consumption, and inference duration.\nThe energy consumption and duration were measured only for the inference step, i.e.,\nafter the model and data were already loaded. One inference run involves classifying\n189 text samples from a test set. All tables and figures present the average results\nover 10 runs on different test sets, with the same 10 test sets used for each model.\nMeasurementvariancewasgenerallylow:<0.002foraccuracy,and<0.2dexforboth\nenergy consumption and duration (logarithmically scaled to base 10).\nFigure1illustratesthetrade-offbetweenenergyconsumptionandaccuracyacross\nallmodels.Fortheseexperiments,asinglenodeoftheCapellasystemwasused.The\nminimum number of H100 GPUs required varies by model (see Table B1).",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eoftheCapellasystemwasused.The\nminimum number of H100 GPUs required varies by model (see Table B1).\nThe highest accuracy was achieved by a traditional linear model using pre-trained\nsentence embeddings. Notably, even the most energy-efficient model - a linear model\nwith TF-IDF features - outperformed several large language models (LLMs). Among\nLLMs with relatively high accuracy, the best small model (Qwen 2.5 7B) consumes\nseven times less energy than the most accurate model (Qwen 2.5 72B), with only\na minor accuracy reduction of 0.07 points. Deepseek models, despite their extensive\nreasoningprocessesduringinference,exhibitloweraccuracythannon-reasoningLLMs\nwhile consuming significantly more energy and taking longer to complete inference.\n4.1 Analysis of hardware settings",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ignificantly more energy and taking longer to complete inference.\n4.1 Analysis of hardware settings\nThis section analyzes the impact of different hardware configurations (see Tab. 2) on\nenergy consumption. We focus on GPU usage due to its dominant role in machine\nlearning inference.\nAs shown in Figure 2, GPU consumption accounts for the largest share of total\nenergy usage in all experiments. The only exceptions are traditional models without\nembeddings, which do not use the GPU during inference.\n4.1.1 Varying the Number of GPUs\nWe examined the effect of varying the number of GPUs on energy consumption and\ninference duration. Most LLMs were tested on 1, 2, or 4 GPUs on a single Capella\nsystem node. Larger models (Qwen 72B, Phi MoE, Llama 70B, Jamba Mini, and DS",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Us on a single Capella\nsystem node. Larger models (Qwen 72B, Phi MoE, Llama 70B, Jamba Mini, and DS\nLlama70B)requiredeither2or4GPUs.IncreasingthenumberofGPUsconsistently\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Fig. 1 Accuracy-energy-trade-offofallmodelsfortheinferencetaskontheCapellasystem(single\nnode).Theenergyconsumptionforthesametaskspansoversixordersofmagnitudewithtraditional\nmodelsbeingthemostenergy-efficientmodelsandreasoningmodelsaremostenergy-consuming.The\nbest model for this specific task is a traditional model (Linear Embedding) with moderate energy\nconsumption.\nreduced inference duration but did not reduce energy consumption. In some cases,\nenergyconsumptionincreasedduetotheadditionalGPUsinoperation(seeFigure3).\n4.1.2 Varying the Number of Nodes\nWhilelargemodelscanoftenbeexecutedonasinglecomputingnode,certainhardware\nlimitations or shared high-performance computing (HPC) environments may necessi-\ntate using multiple nodes. In shared systems, it is often easier to access two nodes",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "s may necessi-\ntate using multiple nodes. In shared systems, it is often easier to access two nodes\nwith half the number of available GPUs than a single node with all its GPUs, due\nto scheduling constraints and resource allocation policies. However, deploying mod-\nels across multiple nodes increases network communication overhead and significantly\nraises energy consumption.\nWeevaluatedthiseffectforthelargestmodelsontheCapellasystembycomparing\na‘single-node’configuration(2GPUsononenode)witha‘double-node’configuration\n(1GPUoneachoftwonodes).Forthedouble-nodeconfiguration,energyconsumption\nwassummedacrossbothnodesandaveragedover10runs,whilethereportedduration\nreflects the average of the maximum value between the two nodes.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ver10runs,whilethereportedduration\nreflects the average of the maximum value between the two nodes.\nAs shown in Figure 4, using two nodes increased energy consumption by a factor\nthatdependsonthemodel(seealsoTableB2).Thisincreasestemsfromtheoverhead\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Fig.2 EnergyconsumptionofallmodelsfortheinferencetaskontheCapellasystem(singlenode)\nFig. 3 EffectsofthenumberofGPUsontheruntimeandconsumedenergy(Capella,singlenode).\nDeepseekmodelsarenotshown.\nof coordinating across nodes. Inference duration also increased by the same factor\ndue to the sequential execution of model components and the required inter-node\ncommunication.\n4.1.3 Comparing GPU Architectures\nFinally, we compared the energy efficiency of different GPU architectures (see Figure\n5andTableB3).Interestingly,theexpectedefficiencygainsfromusingthemorepow-\nerfulH100insteadofV100orA30GPUswereonlyobservedfortheDeepseekmodels.\nThis discrepancy is likely to arise because Deepseek models engage in extended rea-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Deepseekmodels.\nThis discrepancy is likely to arise because Deepseek models engage in extended rea-\nsoning by generating a larger output of words before making a classification decision.\nConsequently, the efficiency of H100 GPUs becomes evident only when substantial\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Fig. 4 Comparisonsinglenodevs.doublenodedeployment(Capella).\ntext is generated. For models generating a single token per inference, a V100 or even\na A30 GPU is more efficient in inference.\nFig. 5 ComparisonofdifferentGPUcards:fourexemplaryLLMs.Singlenodedeployment.\n4.2 Linear relationship between duration and energy\nIn most of the tables in appendix B, we report both the duration of each inference\nrun and its corresponding energy consumption. Since energy is the integral of power\nover time, these two measures exhibit a strong correlation. If the power is constant\nover time, this correlation should be linear. Figure 6 illustrates this relationship for\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "all experiments conducted on a single node of the Capella cluster. When controlling\nfor the number of GPUs used for model deployment, the relation between duration\nandenergyisapproximatelylinear.Therefore,thedurationappearstoserveasagood\nproxy for the energy consumed.\nFig.6 Plottingtherelationshipbetweendurationandenergyconsumption(singlenodeonCapella).\nThelinesareaddedbyrunningalinearregressionmodel.\nTo further quantify the relationship between duration and energy consumption,\nwe performed a linear regression analysis for each hardware configuration (see Table\n3). This analysis includes all experiments, regardless of the number of nodes used\nfor model deployment. The consistently high R2 values across all configurations indi-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "of nodes used\nfor model deployment. The consistently high R2 values across all configurations indi-\ncate that, for a given hardware setup, duration and energy consumption are nearly\ninterchangeable as measures of computational effort.\nMoreover, when the regression coefficients are known for a specific computing sys-\ntem,energyconsumptioncanbereliablyestimatedfromthedurationandthenumber\nof GPUs. Only the coefficients of duration (a) and of the interaction term dura-\ntion:GPUs(c)arestatisticallysignificant.Theothercoefficients(bandd)areomitted\nfrom the approximation:\nEnergy≈(a+c·GPUs)·Duration. (1)\nFor instance, on the Capella system, the following approximation holds for any\ncomputation:\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Energy Duration\n≈(0.1+0.09·GPUs)· . (2)\n1Wh 1s\nThis relationship suggests that, under fixed hardware conditions, monitoring the\nduration of computations provides an efficient means of estimating energy usage with\nminimal additional measurement overhead.\nDependentvariable:Energy\nCapella Clara Paula\n(1) (2) (3)\nDuration(a) 0.097∗∗∗ 0.061∗∗∗ 0.079∗∗∗\n(0.008) (0.002) (0.026)\nGPUs(b) −0.500 0.048 −2.195\n(2.297) (0.339) (3.472)\nDuration:GPUs(c) 0.090∗∗∗ 0.036∗∗∗ 0.054∗∗∗\n(0.004) (0.0002) (0.004)\nConstant(d) −6.205 −0.826 3.328\n(5.725) (1.368) (17.220)\nObservations 44 19 23\nR2 0.998 1.000 0.989\nAdjustedR2 0.998 1.000 0.987\nNote: ∗p<0.1;∗∗p<0.05;∗∗∗p<0.01\nTable 3 Linearregressionofenergyconsumptionon\nduration(tableformatbyHlavac,2022).Thenumbers",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "∗p<0.01\nTable 3 Linearregressionofenergyconsumptionon\nduration(tableformatbyHlavac,2022).Thenumbers\n(coefficients)givetheestimatedeffectsofeachpredictoron\nthedependentvariable.Apositivecoefficientmeansthe\nvariableincreasestheoutcome,whileanegativecoefficient\nmeansitdecreasestheoutcome.Thestandarderror(in\nparenthesis)estimatesthevariabilityofthecoefficient\nestimate.Thep-value(givenbytheasterisks)indicates\nwhetherthepredictorisstatisticallysignificant(different\nfromzero).\n5 Discussion\nWe would like to mention the limitations of our study, which also point to the areas\nof future research. First, while traditional models were trained on approximately 200\nexamples, the large language models (LLMs) were applied in a zero-shot setting,\nmeaning they had no access to labeled examples.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "e models (LLMs) were applied in a zero-shot setting,\nmeaning they had no access to labeled examples. Previous research has shown that\nfew-shot prompting - where representative examples are included in the prompt - can\nimprove performance (Brown et al., 2020). For the present study, we kept the prompt\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "assimpleaspossible(seesectionA).Butinanactualapplication,wewouldaddback-\ngroundinformationaboutthedataandthecategories.Ingeneral,promptengineering,\nthe addition of representative examples to the prompt, or even fine-tuning an LLM\ncould yield higher accuracy rates. On the other hand, energy efficiency in LLMs can\nbe improved through model quantization, which reduces computational demands by\ncompressing model parameters (Jacob et al., 2017).\nSecond, we do not account for the energy costs associated with training the tradi-\ntional models because it is infeasible to compare them to the training costs of LLMs.\nThe LLMs used in this study were pre-trained by external organizations and made\npublicly available. As a result, the energy costs of training are distributed among all",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ns and made\npublicly available. As a result, the energy costs of training are distributed among all\nusers, making it difficult to estimate per-user energy consumption. Even if training\nenergy costs for an LLM were known, the number of users remains uncertain. Addi-\ntionally, hosting LLMs (e.g., on Hugging Face) and managing network traffic also\ncontribute to energy consumption. Deploying an LLM on a dedicated server (e.g.,\nusing vLLM) requires setup time and additional energy. Beyond inference, significant\ntime and computational resources are also required for development tasks, including\ndata processing, testing different models and prompts, parameter tuning, and debug-\nging - workloads that apply to both traditional models and LLMs. The measurement",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "tuning, and debug-\nging - workloads that apply to both traditional models and LLMs. The measurement\nof additional related energy consumptions (such as network traffic or disk storage) is\nbeyond the scope of this paper.\nThird, energy consumption was measured using CodeCarbon, a tool recognized\nfor providing reliable estimates of a machine’s total energy use (Bouza et al., 2023).\nHowever, it does not allow for precise measurement of energy consumption at the\nlevel of individual processes. Moreover, power intake was recorded at 15-second\nintervals, meaning the accuracy of energy estimates improves with longer-running\nprocesses. Another limitation of CodeCarbon is that RAM energy consumption is\napproximated at 0.375W per GB of memory used. While the Running Average",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "t RAM energy consumption is\napproximated at 0.375W per GB of memory used. While the Running Average\nPower Limit (RAPL) framework can directly measure RAM power consumption, it\nis not supported on all CPUs (https://github.com/mlco2/codecarbon/issues/717#\nissuecomment-2589805160). Additionally, in shared computing environments such as\nhigh-performance computing (HPC) clusters, measurements may be affected by other\nusers’ activities. Especially when an LLM was deployed across multiple nodes, varia-\ntionsinnetworktrafficatdifferenttimesmayhaveinfluencedenergymeasurements.A\nmore precise assessment of energy efficiency would benefit from using dedicated com-\nputing resources with physical wattmeters and high-resolution energy measurement\ntools(e.g. Ilsche et al., 2019).",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "es with physical wattmeters and high-resolution energy measurement\ntools(e.g. Ilsche et al., 2019).\nIn the following, we assess further limitations of the present study in more detail.\nMore specifically, we address our focus on a single dataset in section 5.1 and the\nlimitationtothetextcategorisationtaskinsection5.2.Subsequently,wecontextualise\nour work in the broader context of planet-centered LLMs (section 5.3).\n5.1 Analysis on other datasets\nOur analysis was conducted on a highly specialized dataset. To assess the generaliz-\nabilityofourfindings,wereplicatedtheexperimentsusingfouradditional,widelyused\ndatasets (see table 4). These datasets were selected from the HuggingFace platform\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "basedonpopularityandhadtomeettwocriteria:suitabilityfortextclassificationand\ninclusionoftwocolumns-textandlabel.Tomaintaincomparabilitywithourinitial\nanalysis,werandomlysampled200trainingexamplesand200testexamplesfromeach\ndataset. Using a slightly larger training set might have provided an advantage to tra-\nditional models, as the LLMs were applied in a zero-shot setting without fine-tuning.\nEach model experiment was repeated 10 times with different samples, ensuring that\neach model was tested on the same 10 sets.\nName ClassificationTask IDonhttps://huggingface.co/datasets\nnews newstopics:World,Sports, fancyzhx/ag news\nBusiness,Sci/Tech\nyelp sentiment:1-5stars Yelp/yelp review full\ntomatoes sentiment:pos,neg cornell-movie-review-data/rotten tomatoes",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "1-5stars Yelp/yelp review full\ntomatoes sentiment:pos,neg cornell-movie-review-data/rotten tomatoes\nemotion emotion:anger,fear,joy, dair-ai/emotion\nlove,sadness,surprise\nTable 4 Selectionofdatasetsfortextclassificationtasks.\nFigure 7 visualizes the relationship between accuracy and energy consumption for\nthese additional text classification tasks. For clarity, we restricted the visualization to\nthe models with the three highest accuracy scores and included the linear model with\nsentence embeddings for comparison (see Tables B4 and B5 for details).\nSimilar to our findings with the FKTG dataset, the DeepSeek models do not\noutperform the best non-reasoning models in most cases. The only exception is the\nemotion dataset, where DeepSeek Llama 70B achieves an accuracy of 0.61, slightly",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "y exception is the\nemotion dataset, where DeepSeek Llama 70B achieves an accuracy of 0.61, slightly\nsurpassing the best non-reasoning model, Phi 3.5 MoE (0.60). However, unlike in the\npreviousanalysis,foreverydataset,atleastoneLLMoutperformsthebesttraditional\nmodel. For the news dataset, Llama 3.1 70B achieves an accuracy 0.05 points higher\nthan the best linear model (0.88 vs. 0.83). However, this comes at the cost of signif-\nicantly higher energy consumption (34.15 Wh vs. 0.0021 Wh), highlighting the need\nfor careful trade-off considerations.\nIn the case of sentiment analysis on the Yelp dataset, traditional models perform\nconsiderablyworsethanLLMs,justifyingtheenergycostsofLLMdeployment.Insome\ncases, a smaller model, such as Qwen 2.5 7B, may be sufficient. While its accuracy is",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "oyment.Insome\ncases, a smaller model, such as Qwen 2.5 7B, may be sufficient. While its accuracy is\nslightly lower than the version with 72B parameters (0.60 vs. 0.68), it consumes only\none-eighth of the energy. A similar pattern is observed for sentiment analysis on the\nRotten Tomatoes dataset, where traditional models fail to match LLM performance.\nAmong the larger models, Jamba Mini 1.5 stands out as one of the most efficient\nchoices, offering strong accuracy while consuming significantly less energy. Notably,\ndespitehavingnearlyasmanyparametersasLlama3.170BandQwen2.572B(51.6B\nvs.70B/72B),JambaMini1.5requiresonlyaquarteroftheenergyforthesametask.\nFinally, for emotion classification, the linear model with sentence embeddings is\namongthetop-performingmodels.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "r emotion classification, the linear model with sentence embeddings is\namongthetop-performingmodels.Inthiscase,atraditionalmodelprovidesthemost\nefficient solution. Hence, accuracy-energy trade-offs must be assessed on a case-by-\ncase basis. In some scenarios, traditional models are sufficient, while in others, LLMs\noffer justifiable benefits despite higher energy consumption. However, a reason for the\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Fig.7 Accuracy-energy-trade-offofthebestmodelsfortheinferencetaskondifferentdatasets(the\nLinear Embedding model was added for comparison), Capella system, single node. See Tables B4\nandB5forresultsofallmodels.\nsuperiorperformanceofLLMsonsomedatasetsmightbethatthedatawereincluded\nin the model’s training data. Our study uses data that are probably not part of\nany LLM training set. Nevertheless, test-time compute, as featured by the Deepseek\nmodels,hasnobenefitsintextclassificationtasks,andthelinearrelationshipbetween\ncomputationruntimeandenergyconsumptionholdsacrossalldatasets(seeTableB6).\n5.2 Transferability to other tasks\nAnother limitation of the present study is its exclusive focus on the categorization\ntask, which confines the analysis to a narrow subset of machine learning challenges.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "categorization\ntask, which confines the analysis to a narrow subset of machine learning challenges.\nWhile this focus allows for a straightforward measurement of a model’s performance\n(using the accuracy metric), it neglects the applicability of the results to other tasks.\nRecentstudiessuggestthatsimilarcomparisonsintermsofefficiencyandaccuracycan\nbe insightful in a variety of domains beyond categorization. For instance, Clavi´e et al.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "(2025)demonstratethatsimpleencoder-basedmodelscaneffectivelytacklegenerative\ntasks, expanding the potential applications of smaller, less energy-hungry models.\nMoreover,agrowingbodyofresearchhighlightstheadvantagesoffine-tunedsmall\nmodels for specialized tasks, where they often outperform larger models (Savvov,\n2024). This trend is evident in studies such as Wei et al. (2024), where an diabetes-\nspecificLLM-despitehavingsignificantlyfewerparameters-outperformsbothGPT-4\nand Claude-3.5 in processing various diabetes tasks. Similarly, Lu et al. (2023) report\nthat their fine-tuned models achieve performance levels comparable to GPT-4 on\ndomain-specific annotation tasks, yet with hundreds of times fewer parameters and\nsignificantly reduced computational costs. Zhan et al.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "t with hundreds of times fewer parameters and\nsignificantly reduced computational costs. Zhan et al. (2025) further emphasize the\nsuperior performance of fine-tuned small models over zero-shot LLMs, particularly in\nin-domain content moderation tasks.\nThe study by Luccioni et al. (2024) provides additional insights into the balance\nbetweenmodelsizeandefficiencywhilelookingattendifferentmachinelearningtasks\nincluding image classification and captioning, question answering, summarization, as\nwell as image and text generation. The authors demonstrate that smaller models can\nachievehighperformancewithconsiderablylessresourceconsumption.Theirinitiative\nresulted into the AI Energy Score (https://huggingface.co/AIEnergyScore), a tool",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "on.Theirinitiative\nresulted into the AI Energy Score (https://huggingface.co/AIEnergyScore), a tool\ndesigned to assess the environmental impact of AI models on a range of tasks, and\nreinforcesthegrowingimportanceofconsideringenergyefficiencyinmodelevaluation.\n5.3 Further Requirements of Planet-Centered LLMs\nWhile energy consumption and the associated carbon footprint remain crucial con-\nsiderations for sustainable AI, truly planet-centered LLMs must meet a broader\nset of requirements that go beyond mere efficiency. These include other limited\nresources (water, rare-earth metals, landuse,...), transparency, accessibility, ethical\nconsiderations, and technical adaptability to ensure responsible and sustainable AI\ndeployment.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "cal\nconsiderations, and technical adaptability to ensure responsible and sustainable AI\ndeployment.\nTransparency in AI models is essential for trust and reproducibility (Raji et al.,\n2020).ThepredictionsoftraditionalLLMmodelsaregenerallymoretransparentthan\nthoseofLLMs.Open-sourceLLMs,wherebothmodelarchitecturesandtrainingdata\narepubliclyavailable,contributetoscientificprogress,allowfordirectmodelcompar-\nisons such as this present study, and reduce dependency on proprietary technologies\n(Weietal.,2023).Furthermore,theabilitytoinspecttrainingdataiscrucialtoassess\npotential biases and copyright compliance (Bender et al., 2021). Many proprietary\nmodels, such as GPT-4, lack such transparency, making it difficult to evaluate their\nfairness and ethical considerations.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": ", lack such transparency, making it difficult to evaluate their\nfairness and ethical considerations. The EU AI Act will require providers of general-\npurpose AI models to publish a sufficiently detailed summary of their training data\nstarting in August 2025, which further highlights the call for transparency.\nLLMs vary significantly in size, ranging from lightweight models such as fast-\nText (Joulin et al., 2017) to massive architectures like BLOOM-176B, which require\nsubstantial GPU memory and network bandwidth (Luccioni et al., 2023). These com-\nputational demands translate into high operational costs and environmental impacts.\nMoreover, some models require proprietary hardware, limiting their accessibility and\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "heir accessibility and\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "long-term sustainability. Future AI systems should prioritize modularity and adapt-\nability, enabling efficient integration into diverse infrastructures without excessive\nresource demands.\nThe relevance and fairness of AI-generated outputs depend on the quality and\nrecency of training data. Stale or biased datasets can lead to misleading results and\nreinforce harmful stereotypes (Bender et al., 2021; Gehman et al., 2020). In par-\nticular, the presence of toxic content or hate speech in training data can result in\nmodels generating harmful or discriminatory outputs, which poses serious challenges\nfor their deployment in sensitive contexts such as education, healthcare, or public\nadministration. Moreover, safety concerns—such as the risk of models producing fac-",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "care, or public\nadministration. Moreover, safety concerns—such as the risk of models producing fac-\ntuallyincorrect,manipulative,orotherwiseharmfulcontent—areespeciallycriticalin\npublic-sector applications, where accountability and trust are paramount (Weidinger\net al., 2021). Addressing these challenges requires robust bias-mitigation strategies\nand transparent documentation of model behavior.\nToalignwithglobalsustainabilityandethicalAIprinciples,futureresearchshould\nemphasize the development of adaptable, transparent, and energy-efficient LLMs. By\nintegrating principles of openness, fairness, and regulatory compliance, we can foster\nAIsystemsthatnotonlyminimizeenvironmentalimpactbutalsopromoteresponsible\nand equitable usage across sectors.\nAcknowledgements.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "zeenvironmentalimpactbutalsopromoteresponsible\nand equitable usage across sectors.\nAcknowledgements. We gratefully acknowledge the support provided by the Fed-\neralMinistryfortheEnvironment,NatureConservationandNuclearSafety(BMUV).\nAdditionally, we thank colleagues from Z 2.3 and the entire AI-Lab team for their\nsupport and inspiration.\nThis work was supported by high-performance computer time and resources from\nthe Center for Information Services and High Performance Computing (ZIH) of TUD\nDresden University of Technology and the systems for scientific computing of Leipzig\nUniversity.WethanktheCenterforScalableDataAnalyticsandArtificialIntelligence\n(ScaDS.AI Dresden/Leipzig) for their support in the acquisition process.\nThe tool ChatGPT (OpenAI) was used to revise the text of the paper.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ort in the acquisition process.\nThe tool ChatGPT (OpenAI) was used to revise the text of the paper.\nAuthorcontributionstatements. T.H.conceivedthestudy,initiatedtheproject,\nledtheresearcheffort,andcontributedtotheliteraturereviewandmanuscriptwriting.\nJ.Z. designed and implemented the experiments, developed the codebase, conducted\ndata analysis, and contributed to drafting the manuscript.\nCompeting interests. There are no competing interests.\nAvailabilityofdataandcode. Allunderlyingdatawillbeshareduponreasonable\nrequest to the corresponding author. The source code will be made public.\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Appendix A LLM prompt\nFor the zero-shot classification, we prompted the LLM with the following instruction\n(originally in German):\nClassify the text as one of the following categories :\n− <category 1>\n− <category 2>\n− ...\nThe categories were a fixed set of 14 options that occurred in the train-\ning as well as the test dataset: ‘geoWK’, ‘Tongestein’, ‘Aktive St¨orungszonen’,\n‘O¨ffentlichkeitsbeteiligung’, ‘Kristallingestein’, ‘FEP/Szenarien/Entwicklungen des\nEndlagersystems’, ‘Anwendung geoWK’, ‘Mindestanforderungen’, ‘Steinsalz in steiler\nLagerung’, ‘Datenverfu¨gbarkeit’, ‘Modellierung’, ‘Referenzdatens¨atze’, ‘Bereitstellung\nder Daten’, ‘Ausschlusskriterien’.\nSince we deployed the dspy framework (https://dspy.ai/) to query the LLMs, the",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "usschlusskriterien’.\nSince we deployed the dspy framework (https://dspy.ai/) to query the LLMs, the\nfinal prompt was automatically extended to the following:\n− role : system\ncontent: |−\nYour input fields are:\n1. ‘text ‘ (str)\nYour output fields are:\n1. ‘category ‘ (str)\nAll interactions will be structured in the following way,\nwith the appropriate values filled in.\n[[ ## text ## ]]\n{text}\n[[ ## category ## ]]\n{category}\n[[ ## completed ## ]]\nIn adhering to this structure , your objective is :\nClassify the text as one of the following categories :\n− <category 1>\n− <category 2>\n− ...\n− role : user\ncontent: |−\n[[ ## text ## ]]\n<text>\nRespond with the corresponding output fields , starting with\nthe field ‘[[ ## category ## ]] ‘ , and then ending with the\nmarker for ‘[[ ## completed ## ]] ‘.\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "the field ‘[[ ## category ## ]] ‘ , and then ending with the\nmarker for ‘[[ ## completed ## ]] ‘.\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "Appendix B Tables\nModel GPUs Energy(Wh) Accuracy Duration(s) AveragePower(W)\nLinearBoW 1 <0.01 0.43 0.01 139.96\nLinearTf-idf 1 <0.01 0.41 0.01 43.72\nLinearEmbedding 1 0.12 0.57 1.64 259.41\nXGBoostBoW 1 <0.01 0.35 0.01 63.32\nXGBoostTf-idf 1 <0.01 0.47 0.01 67.77\nXGBoostEmbedding 1 0.21 0.47 2.87 259.94\nLlama3.18B 1 5.86 0.35 36.88 572.49\nLlama3.170B 2 48.60 0.48 161.59 1082.82\nQwen2.57B 1 5.58 0.45 36.28 553.84\nQwen2.572B 2 48.66 0.51 164.44 1065.31\nPhi3.5Mini 1 5.74 0.30 41.45 498.46\nPhi3.5MoE 2 11.00 0.40 55.51 713.34\nJambaMini1.5 2 17.42 0.34 78.61 797.94\nDSLlama8B 1 79.64 0.37 517.83 553.67\nDSLlama70B 2 702.06 0.46 2543.47 993.68\nDSQwen14B 1 155.20 0.39 981.35 569.33\nDSQwen32B 1 373.56 0.45 2255.99 596.11",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "06 0.46 2543.47 993.68\nDSQwen14B 1 155.20 0.39 981.35 569.33\nDSQwen32B 1 373.56 0.45 2255.99 596.11\nTable B1 MeasurementsofallmodelsfortheinferencetaskontheFKTGdataset,Capellasystem,\nsinglenode,shownareaveragesover10runs\nModel Duration(s) Energyconsumed(Wh)\nsingle double ratio single double ratio\nLlama3.170B 161.59 304.77 1.89 48.60 94.88 1.95\nQwen2.572B 164.44 308.16 1.87 48.66 95.70 1.97\nJambaMini1.5 78.61 113.88 1.45 17.42 29.81 1.71\nDSLlama70B 2543.47 6792.54 2.67 702.06 1899.86 2.71\nTable B2 Comparisonsinglevs.doublenodedeployment,Capellasystem\nModel Duration(s) Energyconsumed(Wh)\nA30 V100 H100 A30 V100 H100\nLlama3.18B 20.78 27.52 36.88 2.91 2.88 5.86\nQwen2.57B 19.58 24.64 36.28 2.87 2.63 5.58\nPhi3.5Mini 19.18 25.02 41.45 2.65 2.50 5.74\nPhi3.5MoE 77.60 32.53 45.93 17.77 6.04 15.04",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "2.63 5.58\nPhi3.5Mini 19.18 25.02 41.45 2.65 2.50 5.74\nPhi3.5MoE 77.60 32.53 45.93 17.77 6.04 15.04\nDSLlama8B 1210.90 1439.58 517.83 175.83 137.90 79.64\nDSQwen14B 1348.09 1736.21 624.38 254.01 230.72 157.58\nDSQwen32B 1688.23 2192.53 806.68 444.67 457.60 378.58\nTable B3 ComparisonofdifferentGPUcards,singlenodedeployment.\n19",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "Dataset news yelp\nModel Energy(Wh) Accuracy Energy(Wh) Accuracy\nLinearBoW <0.01 0.65 <0.01 0.36\nLinearTf-idf <0.01 0.65 <0.01 0.34\nLinearEmbedding <0.01 0.83 0.04 0.43\nXGBoostBoW <0.01 0.48 <0.01 0.31\nXGBoostTf-idf <0.01 0.52 <0.01 0.29\nXGBoostEmbedding 0.03 0.74 0.01 0.40\nLlama3.18B 4.31 0.71 4.73 0.58\nLlama3.170B 34.15 0.88 36.71 0.67\nQwen2.57B 4.21 0.01 4.52 0.60\nQwen2.572B 33.75 0.79 38.20 0.68\nPhi3.5Mini 3.30 0.53 15.55 0.58\nPhi3.5MoE 8.53 0.78 8.32 0.58\nJambaMini1.5 9.34 0.78 11.45 0.56\nDSLlama8B 60.58 0.82 97.18 0.62\nDSLlama70B 483.73 0.83 707.03 0.67\nDSQwen14B 113.81 0.83 177.41 0.63\nDSQwen32B 271.92 0.83 358.62 0.63\nTable B4 Measurementsofallmodelsfortheinferencetaskonthenewsand\nyelpdatasets,Capellasystem,singlenode,shownareaveragesover10runs\nDataset tomatoes emotion",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "henewsand\nyelpdatasets,Capellasystem,singlenode,shownareaveragesover10runs\nDataset tomatoes emotion\nModel Energy(Wh) Accuracy Energy(Wh) Accuracy\nLinearBoW <0.01 0.59 <0.01 0.36\nLinearTf-idf <0.01 0.59 <0.01 0.40\nLinearEmbedding 0.01 0.79 <0.01 0.59\nXGBoostBoW <0.01 0.54 <0.01 0.30\nXGBoostTf-idf <0.01 0.55 <0.01 0.33\nXGBoostEmbedding <0.01 0.76 <0.01 0.53\nLlama3.18B 4.12 0.87 4.46 0.56\nLlama3.170B 32.07 0.91 34.12 0.58\nQwen2.57B 4.04 0.73 4.17 0.37\nQwen2.572B 33.25 0.91 34.81 0.58\nPhi3.5Mini 7.20 0.87 5.13 0.53\nPhi3.5MoE 7.72 0.89 8.82 0.60\nJambaMini1.5 8.37 0.91 10.22 0.56\nDSLlama8B 72.15 0.83 81.82 0.60\nDSLlama70B 510.86 0.90 670.40 0.61\nDSQwen14B 134.02 0.89 148.20 0.60\nDSQwen32B 246.48 0.89 323.48 0.60\nTable B5 Measurementsofallmodelsfortheinferencetaskonthetomatoesand",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "Qwen32B 246.48 0.89 323.48 0.60\nTable B5 Measurementsofallmodelsfortheinferencetaskonthetomatoesand\nemotiondatasets,Capellasystem,singlenode,shownareaveragesover10runs\n20",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "Dependentvariable:Energy\ntomatoes emotion news yelp\n(1) (2) (3) (4)\nDuration 0.040∗∗∗ 0.043∗∗∗ 0.052∗∗∗ 0.045∗∗∗\n(0.002) (0.002) (0.003) (0.003)\nGPUs −0.079 −0.052 0.536 0.810\n(0.950) (1.011) (1.470) (1.545)\nDuration:GPUs 0.122∗∗∗ 0.120∗∗∗ 0.115∗∗∗ 0.120∗∗∗\n(0.001) (0.001) (0.002) (0.002)\nConstant −0.397 −0.464 −1.300 −1.773\n(1.290) (1.372) (1.985) (2.103)\nObservations 17 17 17 17\nR2 1.000 1.000 1.000 1.000\nAdjustedR2 1.000 1.000 1.000 1.000\nNote: ∗p<0.1;∗∗p<0.05;∗∗∗p<0.01\nTable B6 Linearregressionofenergyconsumptionondurationfor\nthedatasetsofsection5.1(tableformatbyHlavac,2022).\nReferences\nVaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.N., Kaiser,\nL., Polosukhin, I.: Attention is all you need. In: Advances in Neural Information\nProcessing Systems, vol. 30 (2017)",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": ".: Attention is all you need. In: Advances in Neural Information\nProcessing Systems, vol. 30 (2017)\nBrown, T.B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.D., Dhariwal, P., Nee-\nlakantan,A.,Shyam,P.,Sastry,G.,Askell,A.,et al.:Languagemodelsarefew-shot\nlearners. In: Advances in Neural Information Processing Systems, vol. 33, pp.\n1877–1901 (2020)\nLacoste,A.,Luccioni,A.,Schmidt,V.,Dandres,T.:QuantifyingtheCarbonEmissions\nof Machine Learning (2019). https://arxiv.org/abs/1910.09700\nAxenbeck, J., Kunkel, S., Blain, J., et al.: Global Embodied Emissions of Digital\nTechnologies: The Hidden 42%. Research Square. Preprint (Version 1) available\nat Research Square (2025). https://doi.org/10.21203/rs.3.rs-6479454/v1 . https://\nwww.researchsquare.com/article/rs-6479454/v1",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "https://doi.org/10.21203/rs.3.rs-6479454/v1 . https://\nwww.researchsquare.com/article/rs-6479454/v1\nUnited Nations: Paris Agreement (2015). https://unfccc.int/sites/default/files/\nenglish paris agreement.pdf\nUnited Nations: Transforming our world: the 2030 Agenda for Sustain-\nable Development (2015). https://sustainabledevelopment.un.org/post2015/\n21",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "transformingourworld\nStrubell, E., Ganesh, A., McCallum, A.: Energy and Policy Considerations for Deep\nLearning in NLP (2019). https://arxiv.org/abs/1906.02243\nPatterson, D., Gonzalez, J., Le, Q., Liang, C., Munguia, L.-M., Rothchild, D., So, D.,\nTexier,M.,Dean,J.:CarbonEmissionsandLargeNeuralNetworkTraining(2021).\nhttps://arxiv.org/abs/2104.10350\nLuccioni, A.S., Hernandez-Garcia, A.: Counting Carbon: A Survey of Factors Influ-\nencing the Emissions of Machine Learning (2023). https://arxiv.org/abs/2302.\n08476\nOpenAI: Learning to reason with LLMs (2024). https://openai.com/index/\nlearning-to-reason-with-llms/\nDeepSeek-AI: DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Rein-\nforcement Learning (2025). https://arxiv.org/abs/2501.12948\nJoulin, A., Grave, E., Bojanowski, P.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "n-\nforcement Learning (2025). https://arxiv.org/abs/2501.12948\nJoulin, A., Grave, E., Bojanowski, P., Mikolov, T.: Bag of tricks for efficient text\nclassification. In: Lapata, M., Blunsom, P., Koller, A. (eds.) Proceedings of the\n15th Conference of the European Chapter of the Association for Computational\nLinguistics: Volume 2, Short Papers, pp. 427–431. Association for Computational\nLinguistics, Valencia, Spain (2017). https://aclanthology.org/E17-2068/\nWang,Z.,Pang,Y.,Lin,Y.,Zhu,X.:AdaptableandReliableTextClassificationusing\nLarge Language Models (2024). https://arxiv.org/abs/2405.10523\nLangChain Team: Classification Tutorial – LangChain Documentation. https://\npython.langchain.com/docs/tutorials/classification/. Accessed: 2025-02-23 (2023)\nLamini Team: CAT Documentation – Lamini.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "docs/tutorials/classification/. Accessed: 2025-02-23 (2023)\nLamini Team: CAT Documentation – Lamini. https://docs.lamini.ai/cat/. Accessed:\n2025-02-23 (2023)\nKaack,L.H.,Donti,P.L.,Strubell,E.,Kamiya,G.,Creutzig,F.,Rolnick,D.:Aligning\nartificial intelligence with climate change mitigation 12(6), 518–527 https://doi.\norg/10.1038/s41558-022-01377-7\nLuccioni, A.S., Strubell, E., Crawford, K.: From Efficiency Gains to Rebound Effects:\nThe Problem of Jevons’ Paradox in AI’s Polarized Environmental Debate (2025).\nhttps://arxiv.org/abs/2501.16548\nPatterson, D., Gonzalez, J., H¨olzle, U., Le, Q., Liang, C., Munguia, L.-M., Rothchild,\nD.,So,D.,Texier,M.,Dean,J.:TheCarbonFootprintofMachineLearningTraining\nWill Plateau, Then Shrink (2022). https://arxiv.org/abs/2204.05149\nSamsi, S., Zhao, D.",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "rningTraining\nWill Plateau, Then Shrink (2022). https://arxiv.org/abs/2204.05149\nSamsi, S., Zhao, D., McDonald, J., Li, B., Michaleas, A., Jones, M., Bergeron, W.,\nKepner, J., Tiwari, D., Gadepally, V.: From Words to Watts: Benchmarking the\n22",
+    "page": 22
+  },
+  {
+    "type": "text",
+    "content": "Energy Costs of Large Language Model Inference (2023). https://arxiv.org/abs/\n2310.03003\nLiu,X.,Sun,T.,He,J.,Wu,J.,Wu,L.,Zhang,X.,Jiang,H.,Cao,Z.,Huang,X.,Qiu,\nX.: Towards Efficient NLP: A Standard Evaluation and A Strong Baseline (2022).\nhttps://arxiv.org/abs/2110.07038\nChien, A.A., Lin, L., Nguyen, H., Rao, V., Sharma, T., Wijayawardana, R.: Reducing\nthecarbonimpactofgenerativeaiinference(todayandin2035).In:Proceedingsof\nthe 2nd Workshop on Sustainable Computer Systems. HotCarbon ’23. Association\nfor Computing Machinery, New York, NY, USA (2023). https://doi.org/10.1145/\n3604930.3605705 . https://doi.org/10.1145/3604930.3605705\nWang, A., Wolf, T.: Overview of the sustainlp 2020 shared task. In: SUSTAINLP\n(2020). https://api.semanticscholar.org/CorpusID:226283937\nAlizadeh, N., Belchev, B.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": ". In: SUSTAINLP\n(2020). https://api.semanticscholar.org/CorpusID:226283937\nAlizadeh, N., Belchev, B., Saurabh, N., Kelbert, P., Castor, F.: Language Models in\nSoftware Development Tasks: An Experimental Analysis of Energy and Accuracy\n(2025). https://arxiv.org/abs/2412.00329\nLuccioni, S., Jernite, Y., Strubell, E.: Power hungry processing: Watts driving the\ncost of ai deployment? In: Proceedings of the 2024 ACM Conference on Fairness,\nAccountability,andTransparency.FAccT’24,pp.85–99.AssociationforComputing\nMachinery, New York, NY, USA (2024). https://doi.org/10.1145/3630106.3658542\nBai, G., Chai, Z., Ling, C., Wang, S., Lu, J., Zhang, N., Shi, T., Yu, Z., Zhu, M.,\nZhang,Y.,Song,X.,Yang,C.,Cheng,Y.,Zhao,L.:BeyondEfficiency:ASystematic\nSurveyofResource-EfficientLargeLanguageModels(2024).",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": ".,Cheng,Y.,Zhao,L.:BeyondEfficiency:ASystematic\nSurveyofResource-EfficientLargeLanguageModels(2024).https://arxiv.org/abs/\n2401.00625\nAnthony, L.F.W., Kanding, B., Selvan, R.: Carbontracker: Tracking and Predicting\nthe Carbon Footprint of Training Deep Learning Models (2020). https://arxiv.org/\nabs/2007.03051\nHenderson,P.,Hu,J., Romoff,J.,Brunskill,E.,Jurafsky,D., Pineau, J.:Towardsthe\nsystematic reporting of the energy and carbon footprints of machine learning. J.\nMach. Learn. Res. 21(1) (2020)\nBouza, L., Bugeau, A., Lannelongue, L.: How to estimate carbon footprint when\ntraining deep learning models? a guide and review. Environmental Research\nCommunications 5(11), 115014 (2023) https://doi.org/10.1088/2515-7620/acf81b\nHlavac, M.",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "tal Research\nCommunications 5(11), 115014 (2023) https://doi.org/10.1088/2515-7620/acf81b\nHlavac, M.: stargazer: Well-Formatted Regression and Summary Statistics Tables. R\npackage version 5.2.3 (2022). https://CRAN.R-project.org/package=stargazer\nBrown, T., Mann, B., Ryder, N., Subbiah, M., Kaplan, J.D., Dhariwal, P., Neelakan-\ntan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger,\n23",
+    "page": 23
+  },
+  {
+    "type": "text",
+    "content": "G.,Henighan,T.,Child,R.,Ramesh,A.,Ziegler,D.,Wu,J.,Winter,C.,Hesse,C.,\nChen, M., Sigler, E., Litwin, M., Gray, S., Chess, B., Clark, J., Berner, C., McCan-\ndlish, S., Radford, A., Sutskever, I., Amodei, D.: Language models are few-shot\nlearners. In: Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M.F., Lin, H. (eds.)\nAdvancesinNeuralInformationProcessingSystems,vol.33,pp.1877–1901.Curran\nAssociates, Inc., ??? (2020)\nJacob, B., Kligys, S., Chen, B., Zhu, M., Tang, M., Howard, A., Adam, H.,\nKalenichenko, D.: Quantization and Training of Neural Networks for Efficient\nInteger-Arithmetic-Only Inference (2017). https://arxiv.org/abs/1712.05877\nIlsche, T., Hackenberg, D., Sch¨one, R., Bielert, M., H¨opfner, F., E. Nagel, W.: Met-",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "s/1712.05877\nIlsche, T., Hackenberg, D., Sch¨one, R., Bielert, M., H¨opfner, F., E. Nagel, W.: Met-\nricq: A scalable infrastructure for processing high-resolution time series data. In:\n2019IEEE/ACMIndustry/UniversityJointInternationalWorkshoponData-center\nAutomation, Analytics, and Control (DAAC), pp. 7–12 (2019). https://doi.org/10.\n1109/DAAC49578.2019.00007\nClavi´e,B.,Cooper,N.,Warner,B.:It’sAllinThe[MASK]:SimpleInstruction-Tuning\nEnables BERT-like Masked Language Models As Generative Classifiers (2025).\nhttps://arxiv.org/abs/2502.03793\nSavvov, S.: Your Company Needs Small Language Models (2024). https://\ntowardsdatascience.com/your-company-needs-small-language-models-d0a223e0b6d9/\nWei, L., Ying, Z., He, M., Chen, Y., Yang, Q., Hong, Y., Lu, J., Li, X., Huang, W.,\nChen, Y.",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "e0b6d9/\nWei, L., Ying, Z., He, M., Chen, Y., Yang, Q., Hong, Y., Lu, J., Li, X., Huang, W.,\nChen, Y.: An adapted large language model facilitates multiple medical tasks in\ndiabetes care (2024). https://arxiv.org/abs/2409.13191\nLu,Y.,Yao,B.,Zhang,S.,Wang,Y.,Zhang,P.,Lu,T.,Li,T.J.-J.,Wang,D.:Human\nStill Wins over LLM: An Empirical Study of Active Learning on Domain-Specific\nAnnotation Tasks (2023). https://arxiv.org/abs/2311.09825\nZhan, X., Goyal, A., Chen, Y., Chandrasekharan, E., Saha, K.: SLM-Mod: Small\nLanguage Models Surpass LLMs at Content Moderation (2025). https://arxiv.org/\nabs/2410.13155\nRaji, I.D., Gebru, T., Mitchell, M., Buolamwini, J., Lee, J., Denton, E.: Saving face:\nInvestigating the ethical concerns of facial recognition auditing. Proceedings of the",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "Saving face:\nInvestigating the ethical concerns of facial recognition auditing. Proceedings of the\nAAAI/ACM Conference on AI, Ethics, and Society (2020)\nWei,J.,Bosma,M.,Zhao,V.Y.,etal.:Llama:Openandefficientfoundationlanguage\nmodels. arXiv preprint arXiv:2302.13971 (2023)\nBender, E.M., Gebru, T., McMillan-Major, A., Shmitchell, S.: On the dangers of\nstochastic parrots: Can language models be too big? Proceedings of the 2021 ACM\nConference on Fairness, Accountability, and Transparency (2021)\n24",
+    "page": 24
+  },
+  {
+    "type": "text",
+    "content": "Luccioni, A.S., Viguier, S., Ligozat, A.-L.: Estimating the carbon footprint of bloom,\na 176b parameter language model. J. Mach. Learn. Res. 24(1) (2023)\nGehman, S., Gururangan, S., Sap, M., Choi, Y., Smith, N.A.: Realtoxicityprompts:\nEvaluating neural toxic degeneration in language models. Proceedings of the 2020\nConference on Empirical Methods in Natural Language Processing (EMNLP)\n(2020)\nWeidinger,L.,Mellor,J.,etal.:Ethicalandsocialrisksofharmfromlanguagemodels.\narXiv preprint arXiv:2112.04359 (2021)\n25",
+    "page": 25
+  }
+]

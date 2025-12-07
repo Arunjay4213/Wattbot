@@ -1,0 +1,347 @@
+[
+  {
+    "type": "text",
+    "content": "Making AI Less “Thirsty”: Uncovering and Addressing the\nSecret Water Footprint of AI Models\nPengfeiLi JianyiYang MohammadA.Islam ShaoleiRen1\nUCRiverside UCRiverside UTArlington UCRiverside\nAbstract\nThegrowingcarbonfootprintofartificialintelligence(AI)hasbeenundergoingpublicscrutiny. Nonethe-\nless,theequallyimportantwater(withdrawalandconsumption)footprintofAIhaslargelyremainedunder\ntheradar. Forexample,trainingtheGPT-3languagemodelinMicrosoft’sstate-of-the-artU.S.datacenters\ncandirectlyevaporate700,000litersofcleanfreshwater,butsuchinformationhasbeenkeptasecret. More\ncritically,theglobalAIdemandisprojectedtoaccountfor4.2–6.6billioncubicmetersofwaterwithdrawal\nin2027,whichismorethanthetotalannualwaterwithdrawalof4–6DenmarkorhalfoftheUnitedKing-\ndom.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ithdrawal\nin2027,whichismorethanthetotalannualwaterwithdrawalof4–6DenmarkorhalfoftheUnitedKing-\ndom. Thisisconcerning,asfreshwaterscarcityhasbecomeoneofthemostpressingchallenges. Torespond\ntotheglobalwaterchallenges,AIcan,andalsomust,takesocialresponsibilityandleadbyexamplebyad-\ndressingitsownwaterfootprint. Inthispaper,weprovideaprincipledmethodologytoestimatethewater\nfootprint of AI, and also discuss the unique spatial-temporal diversities of AI’s runtime water efficiency.\nFinally,wehighlightthenecessityofholisticallyaddressingwaterfootprintalongwithcarbonfootprintto\nenabletrulysustainableAI.\n1 Introduction\nArtificialintelligence(AI)hasenabledremarkablebreakthroughsinnumerousareasofcriticalimportance,\nincludingtacklingglobalchallengessuchasclimatechange.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "akthroughsinnumerousareasofcriticalimportance,\nincludingtacklingglobalchallengessuchasclimatechange. Ontheotherhand,manyAImodels,especially\nlarge generative ones like GPT-4, are trained and deployed on energy-hungry servers in warehouse-scale\ndata centers, accelerating the data center energy consumption at an unprecedented rate [1]. As a result,\nAI’scarbonfootprinthasbeenundergoingscrutiny,drivingtherecentprogressinAIcarbonefficiency[2,3].\nHowever,AI’swaterfootprint—manymillionsoflitersoffreshwaterconsumedforcoolingtheserversand\nfor electricity generation — has largely remained under the radar and keeps escalating. If not properly\naddressed,AI’swaterfootprintcanpotentiallybecomeamajorroadblocktosustainabilityandcreatesocial",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "erly\naddressed,AI’swaterfootprintcanpotentiallybecomeamajorroadblocktosustainabilityandcreatesocial\nconflictsasfreshwaterresourcessuitableforhumanuseareextremelylimitedandunevenlydistributed.\nAsacknowledgedinGoogle’ssustainabilityreport[4]andtherecentU.S.datacenterenergyreport[1],\ntheexpansionofAIproductsandservicesisakeydriveroftherapidincreaseindatacenterwaterconsump-\ntion. Evenexcludingthewaterusageinleasedthird-partycolocationfacilities,onetechnologycompany’s\nself-owneddatacentersalonedirectlywithdrew29billionlitersandconsumed(i.e.,evaporated)morethan\n23billionlitersoffreshwaterforon-sitecoolingin2023,nearly80%ofwhichwaspotablewater[4].2 This\namountofannualwaterconsumptionevenrivalsthatofamajorhousehold-namebeveragecompany[5].",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ter[4].2 This\namountofannualwaterconsumptionevenrivalsthatofamajorhousehold-namebeveragecompany[5].\nImportantly, the company’s data center water consumption increased by ∼20% from 2021 to 2022 and by\n∼17%from2022to2023[4],andanothertechnologycompany’sdatacenterwaterconsumptionsaw∼34%\nand∼22%increasesoverthesameperiods,respectively[6]. Furthermore,accordingtotherecentU.S.data\ncenterenergyreport,thetotalannualon-sitewaterconsumptionbyU.S.datacentersin2028coulddouble\norevenquadruplethe2023level, reachingapproximately150–280billionlitersandfurtherstressingthe\nwaterinfrastructures[1].\nAIrepresentsthefastestexpandingworkloadsindatacenters[1,4]. Forexample, arecentstudysug-\ngeststhattheglobalAIcouldconsume85–134TWhofelectricityin2027[7],whereasamoreaggressive\nprojectionbytherecentU.S.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "globalAIcouldconsume85–134TWhofelectricityin2027[7],whereasamoreaggressive\nprojectionbytherecentU.S.datacenterenergyreportpredictsthatAIservers’electricityconsumptionin\ntheU.S.alonewillsurpass150–300TWhin2028[1]. Evenconsideringthelowerestimate,thecombined\nscope-1 and scope-2 water withdrawal of global AI is projected to reach 4.2 – 6.6 billion cubic meters in\n1Correspondingauthor:ShaoleiRen(shaolei@ucr.edu),UniversityofCalifornia,Riverside.\n2ThedetaileddifferencebetweenwaterwithdrawalandwaterconsumptionispresentedinSection2.1.\n1\n5202\nraM\n62\n]GL.sc[\n5v17230.4032:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "2027, whichismorethanthetotalannualwaterwithdrawalof4–6DenmarkorhalfoftheUnitedKing-\ndom.3 Simultaneously,atotalof0.38–0.60billioncubicmetersofwaterwillbeevaporatedandconsidered\n“consumption”duetotheglobalAIdemandin2027. Moreover,theseglobalestimateswillbeexceededby\nthetotalwaterwithdrawalandconsumptionattributedtoAIintheU.S.alonein2028iftheprojectionin[1]\ncomestofruition.\nDespiteitsprofoundenvironmentalandsocietalimpact,theincreasingwaterfootprintofAIhasreceived\ndisproportionatelylessattentionfromtheAIcommunityaswellasthegeneralpublic. Forexample,while\nthe scope-2 carbon emissions are routinely included as part of AI model cards, even scope-1 direct water\nusage(eitherwithdrawalorconsumption)ismissing,letalonescope-2waterusage. Thismayimpedeinno-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "t water\nusage(eitherwithdrawalorconsumption)ismissing,letalonescope-2waterusage. Thismayimpedeinno-\nvationstoenablewatersustainabilityandbuildtrulysustainableAI.Crucially,waterandcarbonfootprints\nare complementary to, not substitutable of, each other for understanding the environmental impacts. In-\ndeed,optimizingforcarbonefficiencydoesnotnecessarilyresultin,andmayevenworsen,waterefficiency,\nwhichvarieswiththefuelmixesforelectricitygenerationandoutsideweatherinauniqueway[1,9].\nToensurethatthegrowthinAIdoesnotexacerbatetheglobalwaterstressesoroutweightheenviron-\nmentalbenefitsitprovides,itisacriticaltimetouncoverandaddressAI’shiddenwaterfootprintamidthe\nincreasinglyseverefreshwaterscarcitycrisis,worsenedextendeddroughts,andquicklyagingpublicwater\ninfrastructure.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "lyseverefreshwaterscarcitycrisis,worsenedextendeddroughts,andquicklyagingpublicwater\ninfrastructure. The urgency can also be reflected in part by the recent commitment to “Water Positive by\n2030” from industry leaders, including Google [4] and Microsoft [6], and by the inclusion of water foot-\nprintasakeymetricintotheworld’sfirstinternationalstandardonsustainableAItobepublishedbythe\nISO/IEC[10].\nInthispaper,weadvocateforaholisticapproachtosustainableAIthatextendsbeyondthecarbonfoot-\nprinttoalsoaddressthewaterfootprint. Specifically,wepresentaprincipledmethodologytoestimateAI’s\ntotal water footprint, including both operational water and embodied water. By taking the GPT-3 model\nwith175billionparametersasanexample[11],weshowthattrainingGPT-3inMicrosoft’sU.S.datacen-\nterscanconsumeatotalof5.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "nparametersasanexample[11],weshowthattrainingGPT-3inMicrosoft’sU.S.datacen-\nterscanconsumeatotalof5.4millionlitersofwater,including700,000litersofscope-1on-sitewatercon-\nsumption. Additionally,GPT-3needsto“drink”(i.e.,consume)a500mlbottleofwaterforroughly10–50\nmedium-lengthresponses,dependingonwhenandwhereitisdeployed.\nNext,weshowthatWUE(WaterUsageEffectiveness,ameasureofwaterefficiency)variesbothspatially\nand temporally, suggesting that judiciously deciding “when” and “where” to train a large AI model can\nsignificantlycutthewaterfootprint. WealsoemphasizetheneedforincreasingtransparencyofAI’water\nfootprint,includingdisclosingmoreinformationaboutoperationaldataandkeepingusersinformedofthe\nruntimewaterefficiency. Finally,wehighlightthenecessityofholisticallyaddressingwaterfootprintalong",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "runtimewaterefficiency. Finally,wehighlightthenecessityofholisticallyaddressingwaterfootprintalong\nwith carbon footprint to enable truly sustainable AI — the water footprint of AI can no longer stay under the\nradar.\n2 Background\n2.1 WaterWithdrawalvs. WaterConsumption\nTherearetworelatedbutdifferentconcepts—waterwithdrawalandwaterconsumption,bothofwhichare\nimportantforunderstandingtheimpactsonwaterstressandavailability[12,13].\n•Waterwithdrawal: Itreferstofreshwatertakenfromthegroundorsurfacewatersources,eithertem-\nporarilyorpermanently,andthenusedforagricultural,industrial,ormunicipaluses(normallyexcluding\nwater used for hydroelectricity generation) [12]. As water is a finite shared resource, water withdrawal",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "used for hydroelectricity generation) [12]. As water is a finite shared resource, water withdrawal\nindicatesthelevelofcompetitionaswellasdependenceonwaterresourcesamongdifferentsectors.\n•Waterconsumption:Itisdefinedas“waterwithdrawalminuswaterdischarge”,andmeanstheamount\nofwater“evaporated,transpired,incorporatedintoproductsorcrops,orotherwiseremovedfromtheim-\nmediatewaterenvironment”[13]. Waterconsumptionreflectstheimpactondownstreamwateravailability\nandiscrucialforassessingwatershed-levelscarcity[12].\nThesetwotypesofwaterusagecorrespondtotwodifferentwaterfootprints,i.e.,waterwithdrawalfoot-\n3Thescopedefinitionofwaterusage[8]isinlinewiththatofcarbonemissionsandisdiscussedinSection2.2.Ourscope-2water",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "efinitionofwaterusage[8]isinlinewiththatofcarbonemissionsandisdiscussedinSection2.2.Ourscope-2water\nwithdrawal(andconsumptionwhenapplicable)isforlocation-basedelectricitygenerationthroughoutthepaper.Largedatacenters\noftenadoptsustainabilityprograms(e.g.,renewablepurchasingagreements)tooffsettheirlocation-basedelectricityusageandthus\nmayhavelowermarket-basedcarbonandwaterfootprints.\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "print(WWF)[8,14]andwaterconsumptionfootprint(WCF),respectively[15]. Bydefault,waterfootprint\nreferstothewaterconsumptionfootprintunlessotherwisespecified.\n2.2 HowDoesAIUseWater?\nAI’swaterusagespansthreescopes: on-sitewaterfordatacentercooling(scope1),off-sitewaterforelec-\ntricitygeneration(scope2),andsupply-chainwaterforservermanufacturing(scope3).\n2.2.1 Scope-1WaterUsage\nNearlyalltheserverenergyisconvertedintoheat,whichmustthenberemovedfromthedatacenterserver\nroom to avoid overheating. This process involves two sequential stages: server-level cooling followed by\nfacility-levelcooling.\nIntheserver-levelcoolingstage,heatistransferredfromtheserverstothefacilityoraheatexchanger,\ntypically using either air or liquid cooling methods (e.g., direct-to-chip cooling or immersion cooling),",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "lly using either air or liquid cooling methods (e.g., direct-to-chip cooling or immersion cooling),\nwhich do not evaporate or consume water. In general, new data centers dedicated to AI training often\nrelyonliquidcoolingduetothehighserverpowerdensities.\nInthefacility-levelcoolingstage,heatisrejectedfromthedatacenterfacilitytotheoutsideenvironment.\nWhile there are various cooling methods, water-intensive cooling towers and water evaporation-assisted\nair cooling are two common approaches used in many data centers, including those operated by major\ntechnologycompanies[1,4].\nCoolingtower. AsillustratedinFigure1,some\nwaterisevaporated(i.e.,“consumed”)inthecool- Scope-1 Water\ning tower to dissipate heat into the environment, Cooling Heat",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": ",“consumed”)inthecool- Scope-1 Water\ning tower to dissipate heat into the environment, Cooling Heat\nwhile the remaining water moves along an open Scope-2 Water Tower Exchanger Pump\nCooling\nloop to the heat exchanger to further absorb the Tower\nWarm Chilled\nserver heat. Additionally, non-evaporated water Power Water Water\ncanberecycledonlyafewtimes(typically3–10cy- Plant\ncles,dependingonwaterquality)beforedischarge,\nrequiring continuous clean freshwater replenish- ChatGPT AlphaGO\nmenttopreventmineralandsaltbuildup. Thus,to Water CRAH\nSource Server Rack Data Center\nkeepthecoolingtowerworking,newwatermustbe\nconstantlyaddedtomakeupfortheevaporatedwa- Figure1: Anexampleofdatacenter’soperationalwaterus-\nteranddischargedwater.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "makeupfortheevaporatedwa- Figure1: Anexampleofdatacenter’soperationalwaterus-\nteranddischargedwater. Importantly,cleanfresh- age: on-sitescope-1waterusagefordatacentercooling(via\nwater(potablewaterinmanycases[4])isneeded cooling towers in the example), and off-site scope-2 water\ntoavoidpipeclogsand/orbacterialgrowth. usage for electricity generation. The icons for AI models\nFor cooling towers, water withdrawal refers to areonlyforillustrationpurposes.\ntheamountofaddedwater,includingbothevapo-\nratedwateranddischargedwater,whilewaterconsumptionexclusivelyindicatestheamountofevaporated\nwater. Withgoodwaterquality,roughly80%ofwaterwithdrawalisevaporatedandconsidered“consump-\ntion”[4]. Onaverage,dependingontheweatherconditionsandoperationalsettings,datacenterscanevap-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "sump-\ntion”[4]. Onaverage,dependingontheweatherconditionsandoperationalsettings,datacenterscanevap-\norateapproximately1–9litersperkWhofserverenergy: 1L/kWhforGoogle’sannualizedglobalon-site\nwaterefficiency[4]and9L/kWhforalargecommercialdatacenterduringthesummerinArizona[16].\nAircoolingwithwaterevaporationassistance. Whentheclimateconditionisappropriate,datacenters\nmayuse“free”outsideairtodirectlyrejecttheheattotheoutsideenvironment. Nonetheless,waterevapo-\nrationisstillneededwhentheoutsideairistoohot(e.g.,higherthan85degreesFahrenheit);additionally,\nwaterisalsoneededforhumiditycontrolwhentheoutsideairistoodry[17]. Theaddedwaterisconsid-\nered“withdrawal”,outofwhichabout70%isconsumedbasedonMeta’sreport[18]. Generally,outsideair\ncoolingismorewater-efficientthancoolingtowersonaverage.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "asedonMeta’sreport[18]. Generally,outsideair\ncoolingismorewater-efficientthancoolingtowersonaverage. However,hotweatherraisestheevaporative\nwater demand and maximum water consumption, potentially stressing local water supplies during peak\ndemandonhotdays. Additionally,theapplicationofoutsideaircoolingmayhavechallengesinhotregions\nand/orformanycolocationfacilitiesthatarelocatedinbusinessdistricts.\nSomedatacentersmayoptfordrycoolers,whichconsumenoon-sitewateryear-round[19]. However,\nthisapproachtypicallyincreasescoolingenergyconsumptioncomparedtowater-basedcoolingmethods,\npotentiallyexacerbatingtheoverallstressonwaterresourcesduetohigherscope-2waterconsumption.\n3",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n\nPower\nPlant",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n |  |  | \n |  |  | ",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "2.2.2 Scope-2WaterUsage\nInmanycountries,thermoelectricpowerisamongthetopsectorsintermsofwaterwithdrawalandwater\nconsumption[8]. Thus,similarlytoscope-2carbonemissions,datacentersareaccountableforoff-sitescope-\n2 water usage associated with electricity consumption, which forms part of the “true water cost of data\ncenters,”ashighlightedbytherecentU.S.datacenterenergyreport[1].\nDifferentpowerplantsusedifferentamountsofwaterforeachkWhgeneration,dependingonthecooling\ntechniques. Typically,waterwithdrawalduetohydropowergenerationisexcluded,butwaterconsumption\nduetoincreasedwaterevaporationratesfromhydropowergenerationisincluded[1]. Forelectricitygener-\nation,theU.S.nationalaveragewaterwithdrawalandconsumptionareestimatedatabout43.8L/kWh[20]\nand3.1L/kWh[8],respectively.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "nalaveragewaterwithdrawalandconsumptionareestimatedatabout43.8L/kWh[20]\nand3.1L/kWh[8],respectively. Meta’sself-reportedscope-2waterconsumptionforitsglobaldatacenter\nfleetwas3.7L/kWh(i.e.,55,475megalitersdividedby14,975,435MWh)in2023[18].\n2.2.3 Scope-3WaterUsage\nAI chip and server manufacturing uses a huge amount of water [21,22]. For example, ultrapure water is\nneededforwaferfabricationandwaterisalsoneededforkeepingsemiconductorplantscool. Importantly,\nthedischargedwatermaycontaintoxicchemicalsand/orhazardouswastes. Whilewaterrecyclingatsemi-\nconductorplantscaneffectivelyreducewaterwithdrawal,therecyclingrateinmanycasesremainslow,e.g.,\ntheaveragerecyclingrateforwaferplantsandsemiconductorplantsinSingaporeare45%and23%,respec-\ntively [22].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "averagerecyclingrateforwaferplantsandsemiconductorplantsinSingaporeare45%and23%,respec-\ntively [22]. Although largely obscure, scope-3 water usage is likely significant [21]. For instance, Apple\nreportsthatitssupplychainaccountsfor99%ofitstotalwaterfootprint[23].\nIt is important to recognize that, unlike agriculture whose water footprint is mostly green (i.e., water\nstoredinsoilandusedbyplants),themajorityofAI’swaterfootprintisbluewaterextractedfromrivers,\nlakes,orgroundwater,whichisdirectlyaccessibleforhumanusebutoftenmorelimitedinavailability.\n3 Estimating AI’s Water Footprint\nWe present a general methodology for estimating AI’s water consumption footprint. To obtain the water\nwithdrawalfootprint,wesimplyreplacetheWUEwithwaterwithdrawalefficiency.\n3.1 OperationalWaterFootprint",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "thdrawalfootprint,wesimplyreplacetheWUEwithwaterwithdrawalefficiency.\n3.1 OperationalWaterFootprint\nWecollectivelyrefertoon-sitescope-1waterandoff-sitescope-2waterastheoperationalwater.\n•On-siteWUE.Wedenotetheon-sitescope-1WUEattimetbyρ , whichisdefinedastheratioof\ns1,t\ntheon-sitewaterconsumptiontoserverenergyconsumptionandvariesovertimedependingontheoutside\ntemperature(see[9]foranexampleofon-siteWUEbasedoncoolingtowers). Concretely, ρ increases\ns1,t\nsignificantlyforcoolingtowerswhentheoutsidewetbulbtemperatureincreases,andincreasesforoutside\naircoolingwhentheoutsidedrybulbtemperatureistoohotorthehumidityistoolow.\n• Off-site WUE. We denote the off-site scope-2 WUE at time t as ρ , which is defined as the ratio\ns2,t",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ff-site WUE. We denote the off-site scope-2 WUE at time t as ρ , which is defined as the ratio\ns2,t\nof off-site water consumption for each kWh of electricity consumption and measures the electricity water\nintensity factor (EWIF). While there are different methods to estimate ρ , a common one is weighted\ns2,t\naveraging: ρ s2,t = (cid:80) k b (cid:80) k,t k × b E k, W t IFk where b k,t denotes the amountof electricity generated fromfuel type k\nat time t for the grid serving the data center under consideration, and EWIF is the EWIF for fuel type\nk\nk[24,25]. Thus,variationsinenergyfuelmixesofelectricitygenerationresultintemporalvariationsofthe\noff-siteWUE.Moreover,theoff-siteWUEalsovariesacrossregionsduetodifferentenergyfuelmixes[1,8].\n•Operationalwaterfootprint.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "theoff-siteWUEalsovariesacrossregionsduetodifferentenergyfuelmixes[1,8].\n•Operationalwaterfootprint. Consideratime-slottedmodelt=1,2,··· ,T,wherethelengthofeach\ntimeslotdependsonhowfrequentlywewanttoassesstheoperationalwaterfootprint. Attimet,suppose\nthatanAImodelusesenergye whichcanbemeasuredusingpowermetersand/orservers’built-intools,\nt\nand the data center hosting the AI model has a power usage effectiveness (PUE) of θ that accounts for\nt\nthenon-ITenergyoverhead. Then,thetotaloperationalwaterfootprintoftheAImodelcanbewrittenas\nWaterOperational=\n(cid:80)T\ne ·[ρ +θ ·ρ ].\nt=1 t s1,t t s2,t\n3.2 EmbodiedWaterFootprint\nSimilartoaccountingfortheembodiedcarbonfootprint[26],thetotalscope-3waterfootprintisamortized\noverthelifespanofaserver.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "fortheembodiedcarbonfootprint[26],thetotalscope-3waterfootprintisamortized\noverthelifespanofaserver. Specifically,ifW representsthetotalwaterusedtomanufacturetheAIservers\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Table1: EstimateofGPT-3’soperationalwaterconsumptionfootprint. “*”denotesdatacentersunderconstruction\nasofJuly2023,whosePUEandWUEareprojectedbyMicrosoft.\nOn-site Off-site WaterforTraining(millionL) WaterforEachRequest(mL) #ofRequests\nLocation PUE WUE EWIF On-site Off-site Total On-site Off-site Total for500ml\n(L/kWh) (L/kWh) Water Water Water Water Water Water Water\nU.S.Average 1.170 0.550 3.142 0.708 4.731 5.439 2.200 14.704 16.904 29.6\nArizona 1.180 1.630 4.959 2.098 7.531 9.629 6.520 23.406 29.926 16.7\nGeorgia* 1.120 0.060 2.309 0.077 3.328 3.406 0.240 10.345 10.585 47.2\nIllinois 1.350 0.740 2.233 0.952 3.880 4.833 2.960 12.060 15.020 33.3\nIowa 1.160 0.140 3.104 0.180 4.634 4.814 0.560 14.403 14.963 33.4\nTexas 1.280 0.250 1.287 0.322 2.120 2.442 1.000 6.590 7.590 65.9\nVirginia 1.140 0.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "4.403 14.963 33.4\nTexas 1.280 0.250 1.287 0.322 2.120 2.442 1.000 6.590 7.590 65.9\nVirginia 1.140 0.140 2.385 0.180 3.499 3.679 0.560 10.875 11.435 43.7\nWashington 1.150 0.950 9.501 1.223 14.063 15.285 3.800 43.706 47.506 10.5\nWyoming 1.110 0.130 2.574 0.167 3.677 3.845 0.520 11.429 11.949 41.8\nAustralia* 1.120 0.012 4.259 0.015 6.138 6.154 0.048 19.078 19.126 26.1\nDenmark* 1.160 0.010 3.180 0.013 4.747 4.760 0.040 14.754 14.794 33.8\nFinland* 1.120 0.010 4.542 0.013 6.548 6.561 0.040 20.350 20.390 24.5\nIndia* 1.430 0.000 3.445 0.000 6.340 6.340 0.000 19.704 19.704 25.4\nIndonesia* 1.320 1.900 2.271 2.445 3.858 6.304 7.600 11.992 19.592 25.5\nIreland 1.190 0.020 1.476 0.026 2.261 2.287 0.080 7.027 7.107 70.4\nMexico* 1.120 0.056 5.300 0.072 7.639 7.711 0.224 23.742 23.966 20.9\nNetherlands 1.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "7.027 7.107 70.4\nMexico* 1.120 0.056 5.300 0.072 7.639 7.711 0.224 23.742 23.966 20.9\nNetherlands 1.140 0.060 3.445 0.077 5.054 5.131 0.240 15.708 15.948 31.4\nSweden 1.160 0.090 6.019 0.116 8.986 9.101 0.360 27.927 28.287 17.7\nandtheserversareexpectedtooperateforaperiodofT ,thentheembodiedwaterfootprintoveraperiod\n0\nofT iscalculatedasWaterEmbodied= T·W\nT0\nBy adding up the operational and embodied water footprints, we can obtain the total water footprint\nasWaterTotal = (cid:80)T e ·[ρ +θ ·ρ ]+ T·W. Inpractice,toobtainaroughestimate,wecanusethe\nt=1 t s1,t t s2,t T0\naveragevaluesfortheannualizedWUEandtheestimatedAIserverenergyconsumption.\n3.3 CaseStudy: EstimatingGPT-3’sOperationalWaterConsumptionFootprint\nThecoreofChatGPT,apopularonlineservice,isalargelanguagemodel(LLM)basedonsubsequentver-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ionFootprint\nThecoreofChatGPT,apopularonlineservice,isalargelanguagemodel(LLM)basedonsubsequentver-\nsionsofGPT-3. WepresentacasestudytoestimatetheoperationalwaterconsumptionforthefullGPT-3\nmodelwith175billionparameters[11]. Weexcludeembodiedwaterfootprintduetothelackofpublicdata\nforscope-3waterusage. WechooseGPT-3asMicrosoftpublishesitslocation-wiseWUEandPUE[27,28].\nTheresultsaresummarizedinTable1.\n3.3.1 Training\nGPT-3wastrainedanddeployedbyOpenAIinMicrosoft’sdatacenters,withanestimatedtrainingenergy\nof 1287 MWh [29]. In line with the practice of estimating the carbon footprint, we use the most recent\nannualizedaverageon-sitePUEandWUEforeachlocation, asreportedbyMicrosoft[27,28]. Forpower\nplantwater efficiency, differentreferences mayprovidedifferent estimatesofEWIF. Thus, forconsistency",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "lantwater efficiency, differentreferences mayprovidedifferent estimatesofEWIF. Thus, forconsistency\nacrossregions,weusetheEWIFprovidedby[8]toestimatescope-2waterconsumption,asitemploysthe\nsamemethodologyforcalculatingEWIF.Moreover,alargenumberofMicrosoft’sdatacentersarelocated\nintheU.S.,wheretheaverageEWIFprovidedby[8]is3.14L/kWhandsignificantlylowerthan4.35L/kWh\nreportedbytherecentstudy[1]. ThespecificlocationfortrainingGPT-3isnotpublic. Thus,weconsider\nMicrosoft’s different data center locations, while excluding Singapore and Taiwan as EWIF data for these\nregionsisnotavailablein[8].\n3.3.2 Inference\nAs a representative usage scenario for an LLM, we consider a conversation task, which typically includes\na CPU-intensive prompt phase that processes the user’s input (a.k.a.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "task, which typically includes\na CPU-intensive prompt phase that processes the user’s input (a.k.a., prompt) and a memory-intensive\ntokenphasethatproducesoutputs[30]. Morespecifically,weconsideramedium-sizedrequest,eachwith\napproximately≤800wordsofinputand150–300wordsofoutput[30]. Theofficialestimateindicatesthat\nGPT-3consumesanorderof0.4kWhofelectricitytogenerate100pagesofcontent,equivalenttoroughly\n0.004kWhperpage[11]. Whilenodetailsareprovided,theestimatelikelyconsidersonlytheGPUenergy\nusedduringtokengeneration.\nTo account for both the prompt phase and the non-GPU energy consumption of servers, we assume a\n5",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n |  |  | On-site\nWater | Off-site\nWater | Total\nWater | On-site\nWater | Off-site\nWater | Total\nWater\n1.170 | 0.550 | 3.142 | 0.708 | 4.731 | 5.439 | 2.200 | 14.704 | 16.904\n1.180 | 1.630 | 4.959 | 2.098 | 7.531 | 9.629 | 6.520 | 23.406 | 29.926\n1.120 | 0.060 | 2.309 | 0.077 | 3.328 | 3.406 | 0.240 | 10.345 | 10.585\n1.350 | 0.740 | 2.233 | 0.952 | 3.880 | 4.833 | 2.960 | 12.060 | 15.020\n1.160 | 0.140 | 3.104 | 0.180 | 4.634 | 4.814 | 0.560 | 14.403 | 14.963\n1.280 | 0.250 | 1.287 | 0.322 | 2.120 | 2.442 | 1.000 | 6.590 | 7.590\n1.140 | 0.140 | 2.385 | 0.180 | 3.499 | 3.679 | 0.560 | 10.875 | 11.435\n1.150 | 0.950 | 9.501 | 1.223 | 14.063 | 15.285 | 3.800 | 43.706 | 47.506\n1.110 | 0.130 | 2.574 | 0.167 | 3.677 | 3.845 | 0.520 | 11.429 | 11.949",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n1.120 | 0.012 | 4.259 | 0.015 | 6.138 | 6.154 | 0.048 | 19.078 | 19.126\n1.160 | 0.010 | 3.180 | 0.013 | 4.747 | 4.760 | 0.040 | 14.754 | 14.794\n1.120 | 0.010 | 4.542 | 0.013 | 6.548 | 6.561 | 0.040 | 20.350 | 20.390\n1.430 | 0.000 | 3.445 | 0.000 | 6.340 | 6.340 | 0.000 | 19.704 | 19.704\n1.320 | 1.900 | 2.271 | 2.445 | 3.858 | 6.304 | 7.600 | 11.992 | 19.592\n1.190 | 0.020 | 1.476 | 0.026 | 2.261 | 2.287 | 0.080 | 7.027 | 7.107\n1.120 | 0.056 | 5.300 | 0.072 | 7.639 | 7.711 | 0.224 | 23.742 | 23.966\n1.140 | 0.060 | 3.445 | 0.077 | 5.054 | 5.131 | 0.240 | 15.708 | 15.948\n1.160 | 0.090 | 6.019 | 0.116 | 8.986 | 9.101 | 0.360 | 27.927 | 28.287",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "16\n12\n8\n4\n0 0.1 0.3 0.5 0.7 0.9\nCarbon (kg/kWh)\n)hWk/L(\nretaW\n3.0 AKMS\n2.7\nNWPP 2.4\nNYUP\n2.1\nAZNM\nMROE 1.8\nHIOA\n1.5 MON TUE WED THU FRI\n(a) Carbon/waterefficiency\n)hWk/L(\nretaW\n0.40\n0.35\n0.30\n0.25\n0.20\n)hWk/gk(\nnobraC\n60\n40\n20\n0\nMON TUE WED THU FRI\n(b) Hourlycarbon/waterefficiency\negatnecreP\nCoal Oil Hydro\nNatural Gas Wind Other\nNuclear Solar\n(c) Hourlyenergyfuelmixes\nFigure 2: (a) The U.S. eGRID-level scope-2 water consumption intensity factor vs. carbon emission rate [8,33].\nThedashedlinerepresentsalinearregressionmodel,showingthattheeGRID-levelscope-2carbonemissionandwater\nconsumptionefficienciesarenotaligned. (b)A5-daysnapshotofscope-2carbonemissionrateandwaterconsumption\nintensityinVirginia,startingfromApril4,2022. Thevaluesarecalculatedbasedonthefuelmixes,carbonemission",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "tensityinVirginia,startingfromApril4,2022. Thevaluesarecalculatedbasedonthefuelmixes,carbonemission\nrateandwaterconsumptionintensityforeachfueltype[8,20,33]. Thescope-2carbonandwaterefficienciesonlyhave\naweakPearsoncorrelationcoefficientof0.06inVirginia. (c)A5-daysnapshotofenergyfuelmixesservingVirginia,\nstartingfromApril4,2022[20].\nper-requestserverenergyconsumptionof0.004kWhforourconversationtask. ThePUE,WUE,andEWIF\narethesameasthoseusedforestimatingthetrainingwaterconsumption. Ourestimateofinferencewater\nconsumptionforGPT-3isontheconservativeside,andtheactualwaterconsumptioncouldbeseveraltimes\nhigher. Specifically,whenconsideringservicelevelobjectives(SLOs)forLLMresponsetimesinenterprise-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "es\nhigher. Specifically,whenconsideringservicelevelobjectives(SLOs)forLLMresponsetimesinenterprise-\ngrade Nvidia DGX H100 systems for conversation tasks, the inference server energy consumption for a\nmuch smaller model (e.g., Llama-3-70B) is already approximately 0.010 kWh per medium-sized request\nwhenusingastate-of-the-artLLMinferencesolutionandaccountingfornon-GPUserveroverhead[30]. For\ntheFalcon-180Bmodel,whichiscomparableinsizetoGPT-3-175B,theserverenergyconsumptionreaches\napproximately 0.016 kWh per medium-sized request [30]. Furthermore, we emphasize that Microsoft’s\ndatacentersalreadyhavesomeoftheloweston-siteWUEintheindustry. Ifthesamemodelisdeployed\ninathird-partycolocationdatacenter,thescope-1directwaterconsumptionisexpectedtobeseveraltimes\nhigher. Additionally, ourEWIFfortheU.S.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "r,thescope-1directwaterconsumptionisexpectedtobeseveraltimes\nhigher. Additionally, ourEWIFfortheU.S.(3.14L/kWh)isconservativeandsignificantlylowerthanthe\n4.35L/kWhrecentlyreportedby[1].\nWhile no official information is available on the resource consumption, some subsequent models like\nGPT-4 could consume substantially more energy and water than GPT-3 for processing the same request\n[31,32]. WithcontinuedeffortstoreduceAI’scomputationaldemandandimprovetheoverallwatereffi-\nciency,thewaterconsumptionperrequestmaydecreaseinthefuture. However,thetotalwaterconsump-\ntion is likely to continue rising due to the growing demand for AI services and the increasing scale of AI\napplications[1].\n4 Our Recommendations",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "rowing demand for AI services and the increasing scale of AI\napplications[1].\n4 Our Recommendations\nWeprovideourrecommendationstoaddressAI’swaterfootprintfromtheschedulingandpolicyperspec-\ntives,makingfutureAImoreenvironmentallysustainable.\n4.1 MoreTransparencyandComprehensiveReporting\nDespite its growing importance, AI’s water footprint has received relatively less attention. For example,\nwhileAImodelcardsroutinelyincludecarbonemissionsandserveasanimportantreportingframework\nforunderstandingAI’senvironmentalimpacts,theycurrentlyomitinformationonAI’swaterconsumption.\nThe lack of transparency may obstruct efforts to drive innovations that enhance water sustainability and\nsupporttrulysustainableAI.Asaninitialsteptoraiseawarenessamongendusersaboutthewaterresource",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ity and\nsupporttrulysustainableAI.Asaninitialsteptoraiseawarenessamongendusersaboutthewaterresource\nimpactsoftheirAIusage,werecommendtrackingandreportingAI’swaterconsumptioninAImodelcards\nand/orthroughclouddashboards.\nMoreover, a comprehensive understanding and reporting of AI’s scope-2 water consumption associ-\natedwithelectricitygenerationremainlimited. Althoughdatacentershaveincreasinglyadoptedclimate-\n6",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n16 AKMS\n)hWk/L(\n12\nNWPP\n8 retaW NYUP\nAZNM\n4\nMROE\nHIOA\n0\n0.1 0.3 0.5 0.7 0.9\nCarbon (kg/kWh) | 3.0 0.40\n2.7 )hWk/L( 0.35 )hWk/gk(\n2.4\n0.30\nretaW nobraC\n2.1\n0.25\n1.8\n1.5 0.20\nMON TUE WED THU FRI",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n | AK | MS |  |  | \n |  | NWPP |  |  | \n | NYUP | AZNM |  | MROE | \n |  |  |  | HIOA | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  | \n |  |  |  | \n |  |  |  | \n |  |  |  | \n |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nCo | al | O | il | Hydro\nNa\nNu | tural Gas\nclear | W\nS | ind\nolar | Other\n |  |  |  | \n |  |  |  | \n |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "consciouscoolingsystemdesignstominimizeon-sitewaterconsumption[4,17,19],theseeffortsprimarily\nfocusonscope-1waterusagewhilelargelyoverlookingscope-2impacts. Justasaddressingscope-2carbon\nemissions is important for mitigating climate change, it is equally crucial to address scope-2 water con-\nsumption to reduce AI’s “true water cost”, as noted by the recent U.S. data center energy report [1]. To\nbetterreflectthetrueimpactsofdatacentersonwaterresources,sometechnologycompaniessuchasMeta\nhavebeguntoincludescope-2waterconsumptionintheirsustainabilityreports[18]. Werecommendthe\nreporting of scope-2 water consumption as a standard practice. This approach makes the off-site water\nconsumption visible to AI model developers as well as end users and can unlock new opportunities for",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "onsumption visible to AI model developers as well as end users and can unlock new opportunities for\ndemand-sideflexibility,therebyalleviatingtheoverallstrainonwaterresources.\nFinally,despitetheenormousscope-3supply-chainwaterfootprint[23],thereislimiteddataavailable\nforembodiedwaterusagebychipmanufacturing. Werecommendfurtherresearchonscope-3watercon-\nsumptiontoachieveacomprehensiveunderstandingofAI’soverallwaterfootprintandtofostercorporate\nwaterstewardship.\n4.2 “When”and“Where”Matter\nJudiciouslydeciding“when”and“where”totrainalargeAImodelcansignificantlyaffectthewaterfoot-\nprint. Thewaterefficiencyexhibitsaspatial-temporaldiversity—on-sitewaterefficiencychangesdueto\nvariationsofoutsideweatherconditions,andoff-sitewaterefficiencychangesduetovariationsofthegrid’s",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "to\nvariationsofoutsideweatherconditions,andoff-sitewaterefficiencychangesduetovariationsofthegrid’s\nenergy fuel mixes to meet time-varying demands (Figure 2). Therefore, we can dynamically schedule AI\ntraining and inference in a water-wise manner to cut the water footprint. For example, we may schedule\nAI training at midnight and/or in a data center with better water efficiency. Likewise, if informed of the\nreal-timewaterefficiency,somewater-conscioususersmayprefertouseAIinferenceduringwater-efficient\nhoursand/orinwater-efficientdatacenters,whichcanreduceAI’swaterfootprintbyenablingdemand-side\nflexibility.\n4.3 “FollowtheSun”or“UnfollowtheSun”\nTocutthecarbonfootprint,itispreferableto“followthesun”whensolarenergyismoreabundant. Nonethe-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eSun”\nTocutthecarbonfootprint,itispreferableto“followthesun”whensolarenergyismoreabundant. Nonethe-\nless,tocutthewaterfootprint,itmaybemoreappealingto“unfollowthesun”toavoidhigh-temperature\nhoursofadaywhenWUEishigh. ThisconflictcanalsobeshowninFigure2(a)andFigure2(b),wherewe\nseemisalignmentbetweenthescope-2waterconsumptionintensityfactorandcarbonemissionrate: mini-\nmizingonefootprintmightincreasetheotherfootprint. Thisobservationfurthercorroboratestheprevious\nfindingthattheenvironmentalimpactsofcarbonandwaterfootprintsarenotsubstitutable[1,9]. Therefore,\ntojudiciouslyachieveabalancebetween“followthesun”forcarbonefficiencyand“unfollowthesun”for\nwaterefficiency,weneedtoreconcilethepotentialwater-carbonconflictsbyusingholisticapproachesthat\narebothcarbon-efficientandwater-wise.\n5 Conclusion",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ter-carbonconflictsbyusingholisticapproachesthat\narebothcarbon-efficientandwater-wise.\n5 Conclusion\nInthispaper,weuncoverAI’swaterusageasacriticalconcernforsociallyresponsibleandenvironmentally\nsustainable AI. We present a principled methodology to estimate AI’s water footprint. Then, using GPT-\n3 as an example, we show that a large AI model can consume millions of liters of water for training. We\nalso discuss that the scope-1 and scope-2 water efficiencies vary spatially and temporally — judiciously\ndeciding“when”and“where”torunalargeAImodelcansignificantlycutthewaterfootprint. Inaddition,\nwerecommendincreasedtransparencyandcomprehensivereportingofAI’swaterfootprint,andhighlight\nthe necessity of holistically addressing the water footprint along with the carbon footprint to build truly",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ssity of holistically addressing the water footprint along with the carbon footprint to build truly\nsustainableAI.\nAI’swaterfootprintcannolongerstayundertheradarandmustbeaddressedasapriorityaspartofthecollective\neffortstocombatglobalwaterchallenges.\nReferences\n[1] ArmanShehabi,SarahJ.Smith,AlexHubbard,AlexNewkirk,NuoaLei,MdAbuBakarSiddik,Billie\nHolecek,JonathanKoomey,EricMasanet,andDaleSartor.2024UnitedStatesdatacenterenergyusage\nreport. LawrenceBerkeleyNationalLaboratoryLBNL-2001637,December2024.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "[2] RoySchwartz,JesseDodge,NoahA.Smith,andOrenEtzioni.GreenAI.Commun.ACM,63(12):54–63,\nnov2020.\n[3] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum. Energyandpolicyconsiderationsfordeep\nlearninginNLP.InProceedingsofthe57thAnnualMeetingoftheAssociationforComputationalLinguistics,\npages3645–3650,Florence,Italy,July2019.AssociationforComputationalLinguistics.\n[4] Google. Environmentalreport. https://sustainability.google/reports/,2024.\n[5] PepsiCo. ESG-water. https://www.pepsico.com/our-impact/esg-topics-a-z/water,2023.\n[6] Microsoft. Environmental sustainability report. https://www.microsoft.com/en-us/\ncorporate-responsibility/sustainability/report,2024.\n[7] AlexdeVries. Thegrowingenergyfootprintofartificialintelligence. Joule,October2023.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "report,2024.\n[7] AlexdeVries. Thegrowingenergyfootprintofartificialintelligence. Joule,October2023.\n[8] Paul Reig, Tianyi Luo, Eric Christensen, and Julie Sinistore. Guidance for calculating water use em-\nbeddedinpurchasedelectricity. WorldResourcesInstitute,2020.\n[9] Mohammad A. Islam, Kishwar Ahmed, Hong Xu, Nguyen H. Tran, Gang Quan, and Shaolei Ren.\nExploitingspatio-temporaldiversityforwatersavingingeo-distributeddatacenters.IEEETransactions\nonCloudComputing,6(3):734–746,2018.\n[10] ISO/IEC JTC for AI (SC42). ISO/IEC TR 20226 sustainability: Harnessing the power of AI. https:\n//etech.iec.ch/issue/2023-06/sustainability-harnessing-the-power-of-ai,2023.\n[11] TomBrown,BenjaminMann,NickRyder,MelanieSubbiah,JaredDKaplan,PrafullaDhariwal,Arvind",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "f-ai,2023.\n[11] TomBrown,BenjaminMann,NickRyder,MelanieSubbiah,JaredDKaplan,PrafullaDhariwal,Arvind\nNeelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss,\nGretchenKrueger,TomHenighan,RewonChild,AdityaRamesh,DanielZiegler,JeffreyWu,Clemens\nWinter,ChrisHesse,MarkChen,EricSigler,MateuszLitwin,ScottGray,BenjaminChess,JackClark,\nChristopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, and Dario Amodei. Language\nmodelsarefew-shotlearners.InH.Larochelle,M.Ranzato,R.Hadsell,M.F.Balcan,andH.Lin,editors,\nAdvancesinNeuralInformationProcessingSystems,volume33,pages1877–1901.CurranAssociates,Inc.,\n2020.\n[12] PaulReig. What’sthedifferencebetweenwateruseandwaterconsumption? WorldResourcesInstitute\nCommentary,2013.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ig. What’sthedifferencebetweenwateruseandwaterconsumption? WorldResourcesInstitute\nCommentary,2013.\n[13] JordanMacknick,RobinNewmark,GarvinHeath,andKCHallett. Areviewofoperationalwatercon-\nsumptionandwithdrawalfactorsforelectricitygeneratingtechnologies.NRELTech.Report: NREL/TP-\n6A20-50900,2011.\n[14] ElliotCohenandAnuRamaswami. Thewaterwithdrawalfootprintofenergysupplytocities. Journal\nofIndustrialEcology,18(1):26–39,2014.\n[15] Md Abu Bakar Siddik, Arman Shehabi, and Landon Marston. The environmental footprint of data\ncentersintheUnitedStates. EnvironmentalResearchLetters,16(6):064017,2021.\n[16] LeilaKarimi,LeeannYacuel,JosephDegraft-Johnson,JamieAshby,MichaelGreen,MattRenner,Aryn\nBergman,RobertNorwood,andKerriL.Hickenbottom.Water-energytradeoffsindatacenters: Acase",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "tRenner,Aryn\nBergman,RobertNorwood,andKerriL.Hickenbottom.Water-energytradeoffsindatacenters: Acase\nstudyinhot-aridclimates. Resources,ConservationandRecycling,181:106194,2022.\n[17] Meta. Sustainability—water. https://sustainability.fb.com/water/,2023.\n[18] Meta.Sustainabilityreport.https://sustainability.atmeta.com/2024-sustainability-report/,\n2024.\n[19] Steve Solomon. Sustainable by design: Next-generation datacenters consume zero wa-\nter for cooling. https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/\nsustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/,\n2024.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "[20] U.S.EnergyInformationAdministration. Opendata. https://www.eia.gov/opendata/.\n[21] Kali Frost and Inez Hua. Quantifying spatiotemporal impacts of the interaction of water scarcity\nand water use by the global semiconductor manufacturing industry. Water Resources and Industry,\n22:100115,2019.\n[22] Singapore Public Utilities Board. Wafer fabrication and semiconductor plants benchmarks. https:\n//www.pub.gov.sg/Documents/WaterEfficiencyBenchmark_WaferFab.pdf.\n[23] Apple. Environmentalresponsibilityreport. https://www.apple.com/environment/,2024.\n[24] KishwarAhmed,MohammadA.Islam,ShaoleiRen,andGangQuan. Exploitingtemporaldiversity\nofwaterefficiencytomakedatacenterless“thirsty”. InICAC,2014.\n[25] PeterXiangGao,AndrewR.Curtis,BernardWong,andSrinivasanKeshav. It’snoteasybeinggreen.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "CAC,2014.\n[25] PeterXiangGao,AndrewR.Curtis,BernardWong,andSrinivasanKeshav. It’snoteasybeinggreen.\nSIGCOMMComput.Commun.Rev.,2012.\n[26] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat. Estimatingthecarbonfootprint\nofBLOOM,a176Bparameterlanguagemodel. J.Mach.Learn.Res.,24(1),mar2024.\n[27] Microsoft. Microsoftinyourcommunity. https://local.microsoft.com/.\n[28] Microsoft. Microsoft’s sustainability targets. https://datacenters.microsoft.com/\nsustainability/efficiency/,2023.\n[29] David Patterson, Joseph Gonzalez, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel Rothchild,\nDavidSo,MaudTexier,andJeffDean. Carbonemissionsandlargeneuralnetworktraining,2021.\n[30] JovanStojkovic,ChaojieZhang,InigoGoiri,JosepTorrellas,andEshaChoukse.DynamoLLM:Design-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "g,2021.\n[30] JovanStojkovic,ChaojieZhang,InigoGoiri,JosepTorrellas,andEshaChoukse.DynamoLLM:Design-\ningLLMinferenceclustersforperformanceandenergyefficiency. InIEEEInternationalSymposiumon\nHigh-PerformanceComputerArchitecture(HPCA),2025.\n[31] NoahShumba, OpeloTshekiso, PengfeiLi, GiuliaFanti, andShaoleiRen. Awaterefficiencydataset\nforafricandatacenters. InNeurIPSWorkshoponTacklingClimateChangewithMachineLearning,2024.\n[32] Adrien Banse Samuel Rince´ and Valentin Defour. Ecologits calculator. https://huggingface.co/\nspaces/genai-impact/ecologits-calculator,2024.\n[33] U.S.EPA. eGRIDdataexplorer. https://www.epa.gov/egrid/data-explorer.\n[34] Equinix. Sustainabilityreport. https://sustainability.equinix.com/wp-content/uploads/2024/\n07/Equinix-Inc_2023-Sustainability-Report.pdf,2024.\n[35] U.S.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "y.equinix.com/wp-content/uploads/2024/\n07/Equinix-Inc_2023-Sustainability-Report.pdf,2024.\n[35] U.S.EnergyInformationAdministration. U.S.electricpowersectorcontinueswaterefficiencygains.\nhttps://www.eia.gov/todayinenergy/detail.php?id=56820,2022.\n[36] U.S.CentralIntelligenceAgency. Theworldfactbook—totalwaterwithdrawal. https://www.cia.\ngov/the-world-factbook/field/total-water-withdrawal/,2020.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Appendix: Operational Water for Global AI in 2027\nArecentstudysuggeststhattheglobalAIcouldconsume85–134TWhofelectricityin2027basedonthe\nGPUshipment[7],whereasamoreaggressiveestimatebytheU.S.datacenterenergyreportprojectsthat\nAIservers’electricityconsumptionintheU.S.alonewillsurpass150–300TWhin2028[1]. Basedonthe\nformerandmoreconservativeprojection,weestimatethepotentialwaterusageforglobalAIin2027,while\nnoting that our global estimates will be exceeded by the water usage attributed to AI in the U.S. alone in\n2028iftheprojectionin[1]comestofruition.\nScope-1waterusage. Thescope-1waterefficiencydependsonavarietyoffactors,includingthecooling\nsystemdesigns,climateconditions,andoperationalsettings. Tosettheglobalscope-1waterefficiency,we",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ing\nsystemdesigns,climateconditions,andoperationalsettings. Tosettheglobalscope-1waterefficiency,we\nutilizetheannualizedwaterefficienciesreportedbytwoleadingdatacenteroperators,GoogleandEquinix,\nin their latest sustainability reports [4,34]. Specifically, for on-site scope-1 water withdrawal, we assume\n1.2L/kWh,whichresultsinatotalscope-1waterwithdrawalof0.11–0.16billioncubicmeters. Similarly,\nassuming1.0L/kWhforglobalscope-1waterconsumptionefficiency,weobtainatotalon-sitescope-1water\nconsumption of 0.09 – 0.14 billion cubic meters. Note that Google and Equinix both operate data centers\nglobally,butrepresenttwodistinctcategoriesofdatacenters: hyperscaledatacenters(Google)andmulti-\ntenantcolocationdatacenters(Equinix). AccordingtotherecentU.S.datacenterenergyreport[1],these",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ulti-\ntenantcolocationdatacenters(Equinix). AccordingtotherecentU.S.datacenterenergyreport[1],these\ntwotypesofdatacenterscollectivelyaccountforthevastmajorityofdatacenterenergyconsumptioninthe\nU.S.,withcolocationdatacentersconsumingslightlymoreenergythanhyperscalers.\nScope-2 water usage. As noted by the recent U.S. data center energy report [1], scope-2 water usage\nispartofthetruewatercostofdatacenters. TheU.S.averageelectricitywaterwithdrawalandconsump-\ntion intensity factors are both lower than the global averages [8]. Thus, in our estimate, we use the U.S.\naverageelectricitywaterwithdrawalintensityfactor43.83L/kWh[35],andelectricitywaterconsumption\nintensityfactor3.14L/kWh[8], respectively. Notethat, since[8]includeshydropowerinthecalculation,",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "on\nintensityfactor3.14L/kWh[8], respectively. Notethat, since[8]includeshydropowerinthecalculation,\nithasahigherelectricitywaterwithdrawalfactorthantheU.S.EnergyInformationAdministration’scalcu-\nlation (i.e., 386.07 L/kWh vs. 43.83 L/kWh for the U.S.). Moreover, our value of 3.14 L/kWh for the U.S.\naveragewaterconsumptionfactorislowerthan4.35L/kWhreportedby[1], aswellaslowerthanMeta’s\nglobalelectricitywaterconsumptionintensityfactorof3.70L/kWhin2024(i.e.,55,475megalitersdivided\nby 14,975,435 MWh) [18]. Therefore, our choices of 43.83 L/kWh and 3.14 L/kWh for electricity water\nwithdrawalandconsumptionintensityfactorsarebothontheconservativeside, whichcanpartlyabsorb\npotentialover-estimatesofglobalAI’senergydemandin2027providedby[7].",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ativeside, whichcanpartlyabsorb\npotentialover-estimatesofglobalAI’senergydemandin2027providedby[7].\nToaccountforthedatacenternon-ITenergyoverheads,weconservativelyassumeapowerusageeffec-\ntiveness (PUE) of 1.1, which is a fairly low value even for state-of-the-art data center facilities [4]. Thus,\nAI’stotalelectricityconsumptionbecomes93.5–147.4TWh. Thus,aftermultiplying43.83L/kWhand3.14\nL/kWhby93.5–147.4TWh,weobtainthetotalscope-2waterwithdrawalof4.10–6.46billioncubicmeters\nandwaterconsumptionof0.29–0.46billioncubicmeters,respectively.\nTotalwaterusage. Byaddingupscope-1andscope-2waterusagetogether,thetotalwaterwithdrawal\nand water consumption of global AI may reach 4.2 – 6.6 billion cubic meters and 0.38 – 0.60 billion cubic\nmeters,respectively. AccordingtotheU.S.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "4.2 – 6.6 billion cubic meters and 0.38 – 0.60 billion cubic\nmeters,respectively. AccordingtotheU.S.CentralIntelligenceAgency[36],theestimatedU.S.annualwater\nwithdrawalsinDenmarkandtheUnitedKingdomin2020(thelatestyearavailableasofJanuary,2025)were\n0.98 billion cubic meters and 8.42 billion cubic meters, respectively. Thus, assuming that the 2027 water\nwithdrawalsinthesetwocountriesremainsimilartotheir2020levels,thetotalwaterwithdrawalattributed\nto global AI in 2027 is projected to surpass the equivalent of the total annual water withdrawal of 4 – 6\nDenmarkorapproximatelyhalfoftheUnitedKingdom. TheU.S.CentralIntelligenceAgency[36]doesnot\nprovidethecountry-wideannualwaterconsumptioninformation, andhencewedonotcontextualizethe\ntotalwaterconsumptionofglobalAIin2027.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "waterconsumptioninformation, andhencewedonotcontextualizethe\ntotalwaterconsumptionofglobalAIin2027.\nThe estimates of global AI’s water usage in 2027 are naturally subject to uncertainties, e.g., the future\nwaterefficiencymaydifferfromthecurrentvalueweuse. Nonetheless, weemphasizethatourestimates\nareontheconservativeside. Forexample,accordingtotheU.S.datacenterenergyreport,thescope-1water\nconsumptionattributedtoAIintheU.S.alonecouldexceed0.2billioncubicmetersin2028[1]. Moreover,\nbasedonthereportedscope-2waterconsumptionefficiency,thecombinedscope-1andscope-2watercon-\nsumptionattributedtoAIintheU.S.aloneisprojectedtoreachuptoabout2billioncubicmetersin2028[1],\nwhichissignificantlyhigherthanourestimateofglobalAI’stotalwaterconsumptionin2027.\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "stimateofglobalAI’stotalwaterconsumptionin2027.\n10",
+    "page": 10
+  }
+]

@@ -1,0 +1,682 @@
+[
+  {
+    "type": "text",
+    "content": "5202\nnuJ\n31\n]YC.sc[\n2v84561.1052:viXra\nFrom Efficiency Gains to Rebound Effects: The Problem of Jevons’\nParadox in AI’s Polarized Environmental Debate\nAlexandraSashaLuccioni EmmaStrubell KateCrawford\nsasha.luccioni@hf.co CarnegieMellonUniversity MicrosoftResearch;Universityof\nHuggingFace Pittsburgh,USA SouthernCalifornia\nMontreal,Canada NewYork,USA\nAbstract advancesinAIwhileminimizingitsenvironmentalharms,hasdi-\nAstheclimatecrisisdeepens,artificialintelligence(AI)hasemerged videdAIresearchersandpractitionersalike.Somemaintainthatits\nasacontestedforce:somechampionitspotentialtoadvancere- potentialtoacceleratesustainablebreakthroughswillexceeditsen-\nnewable energy, materials discovery, and large-scale emissions vironmentalcostsbyincreasingrenewableenergyproductionand",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rials discovery, and large-scale emissions vironmentalcostsbyincreasingrenewableenergyproductionand\nmonitoring,whileothersunderscoreitsgrowingcarbonfootprint, transmissionoraidinginthedesignofmoresustainablematerials\nwaterconsumption,andmaterialresourcedemands.Muchofthis [76,99].Otherspointtothesoaringresourcedemandsoflarge-\ndebatehasconcentratedondirectimpacts—energyandwaterusage scaleAImodelsandtheirnegativeenvironmentalimpactsfrom\nindatacenters,e-wastefromfrequenthardwareupgrades—without non-renewableenergyuse,waterconsumption,andextractionof\naddressingthesignificantindirecteffects.Thispaperexamineshow minerals[24,28,45,57].Theseopposingpositionstendtocenteron\ntheproblemofJevons’ParadoxappliestoAI,wherebyefficiency thetechnology’sdirectimpacts,measuredinenergyconsumption",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "evons’ParadoxappliestoAI,wherebyefficiency thetechnology’sdirectimpacts,measuredinenergyconsumption\ngainsmayparadoxicallyspurincreasedconsumption.Weargue andgreenhousegas(GHG)emissionsfromdatacenters,orinthe\nthatunderstandingthesesecond-orderimpactsrequiresaninter- e-wastethataccumulatesashardwarebecomesobsolete.\ndisciplinaryapproach,combininglifecycleassessmentswithsocio- YetacriticaldimensionofAI’sclimatefootprintliesoutsidethese\neconomicanalyses. Reboundeffectsunderminethe assumption directresourceandemissionscalculations.Recentworkonindirect\nthatimprovedtechnicalefficiencyalonewillensurenetreductions impacts[63]warnsofpotential“reboundeffects”,wherebygainsin\ninenvironmentalharm.Instead,thetrajectoryofAI’simpactalso efficiencyspurhigheroverallconsumption.Thesesecond-orderef-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "m.Instead,thetrajectoryofAI’simpactalso efficiencyspurhigheroverallconsumption.Thesesecond-orderef-\nhingesonbusinessincentivesandmarketlogics,governanceand fectschallengethepresumptionthatpurelytechnicaloptimizations\npolicymaking,andbroadersocialandculturalnorms.Wecontend alonewilldeliversufficientclimatebenefits.Costsavingsachieved\nthatanarrowfocusondirectemissionsmisrepresentsAI’strue bymoreefficientAIhardware,forexample,canspurincreased\nclimatefootprint,limitingthescopeformeaningfulinterventions. demand for new AI functionalities, which in turn drive further\nWeconcludewithrecommendationsthataddressreboundeffects hardwareupgradesandincreasecosts.Economistsrefertosuch\nandchallengethemarket-drivenimperativesfuelinguncontrolled transformationsasJevons’Paradox,whichwasproposedinthe\nAIgrowth.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "drivenimperativesfuelinguncontrolled transformationsasJevons’Paradox,whichwasproposedinthe\nAIgrowth.Bybroadeningtheanalysistoincludebothdirectand 19thcenturybyeconomistWilliamStanleyJevons,whoobserved\nindirectconsequences,weaimtoinformamorecomprehensive, thatascoalusebecamemoreefficient,itwasalsoparadoxically\nevidence-baseddialogueonAI’sroleintheclimatecrisis. leadingtoanincrease,andnotadecrease,intheconsumptionof\ncoalacrossdifferentindustries[60].Theadditionofincreasingly\nKeywords efficientAItosystemsfromcommercetotransportationcanhave\nfar-reachingeffectsonoursocieties,ourbehaviors,andthefuture\nArtificial intelligence, Environmental Impacts, Lifecycle Assess-\npathsavailabletousintheraceagainstclimatechange.\nment,ReboundEffects,Sustainability",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "fecycle Assess-\npathsavailabletousintheraceagainstclimatechange.\nment,ReboundEffects,Sustainability\nThissystem-levelcomplexityunderscorestheinadequacyofthe\nACMReferenceFormat: question,“IsAInetpositiveornetnegativefortheclimate?”In-\nAlexandraSashaLuccioni,EmmaStrubell,andKateCrawford.2025.FromEf-\nstead,weadoptananalyticapproachthatincludestheintersecting\nficiencyGainstoReboundEffects:TheProblemofJevons’ParadoxinAI’sPo-\nsocial,political,andeconomiccontextsinwhichAIsystemsare\nlarizedEnvironmentalDebate.InThe2025ACMConferenceonFairness,Ac-\ndevelopedanddeployed.Althoughefficiencyhasbeenadefining\ncountability,andTransparency(FAccT’25),June23–26,2025,Athens,Greece.\nethosinrecentAIresearch,reflectedin“scalinglaws”thatpromise\nACM,NewYork,NY,USA,13pages.https://doi.org/10.1145/3715275.3732007",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lectedin“scalinglaws”thatpromise\nACM,NewYork,NY,USA,13pages.https://doi.org/10.1145/3715275.3732007\never-more-powerfulmodels[64],effectiveclimateactionrequires\n1 Introduction grapplingwithhowthesesystemsreshapemarkets,culturalnorms,\nandpolicypriorities.Thus,understandingreboundeffectsrequires\nAstheclimatecrisisintensifies,theenvironmentalimpactsofarti-\ndrawingonbothqualitativeandquantitativemethods,drawnfrom\nficialintelligence(AI)havebecomethesubjectofmanyapolarized\ncomputerscience,economicsandthesocialsciences,astheyhinge\ndebate.Thequestionofwhetherthepotentialpositiveimpactsof\nnotonalgorithmicdesignbuthumanadaptationandusepatterns.\nAIoutweighthenegativeones,andhowtofostertechnological\nAdoptinganinterdisciplinaryapproachallowsforbotharigorous",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "enegativeones,andhowtofostertechnological\nAdoptinganinterdisciplinaryapproachallowsforbotharigorous\nlifecycleaccountingofdirecteffectsaswellasunderstandingthe\nPleaseusenonacmoptionorACMEngageclasstoenableCClicenses socialbehaviorsthatAIcaninduceordisplace.\nThis work is licensed under a Creative Commons Attribution-NonCommercial-\nShareAlike4.0InternationalLicense. Thispaperaimstobridgethegapintheexistingliteratureby,\nFAccT’25,June23–26,2025,Athens,Greece first,providingabriefoverviewofthedebateaboutAI’sdirectpos-\n©2025Copyrightheldbytheowner/author(s). itiveandnegativeimpactsontheenvironment(§2).Wefollowthis\nACMISBN979-8-4007-1482-5/2025/06\nhttps://doi.org/10.1145/3715275.3732007",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\nwithanin-depthexplorationofAI’sindirectimpacts,includingsys- AIdatacentersareputtingstressonalreadystrainedaquifersglob-\ntemicreboundeffects,andproposeactionablestrategiestomitigate ally. Theconstructionandoperationofdatacentersrequiresvast\nthem(§3).Weconcludebyproposingpromisingdirectionsforfu- quantitiesofwater,whichisusedforcoolingserverstoprevent\ntureexplorationandresearchtowardimprovingourunderstanding themfromoverheatingbycirculatingcoolwaterthroughradiators.\nofthefullspectrumofAI’simpactsontheenvironment.Inshort, Thiscoolingprocessrequiresaconstantsupplyofcool,freshwater,\nwearguethatmeaningfullycontendingwithAI’sclimateimpacts whichisheatedupduringtheprocess,causingasignificantportion",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ingfullycontendingwithAI’sclimateimpacts whichisheatedupduringtheprocess,causingasignificantportion\nrequiresgrapplingwithbothdirectandindirecteffects.Otherwise, ofittoevaporate,whereastheresthastobecooledandfiltered\ntheindustryriskspinningitshopesontechnicalefficiencygains before being reused or discharged back into local aquifers [96].\nalonewithoutrecognizingthesocial,cultural,andeconomiccon- Corporate reports have revealed the scale of water demand in-\ntextsthatmateriallyshapetechnologyuses.Ouraimistosupport creases,withMicrosoftreportinga34%increaseinglobalwater\nthefieldinmovingawayfrompolarizedextremesandtowarda consumptionbetween2021and2022,topping1.7billiongallons,\nnuancedpositionthatacknowledgesthestateofclimatechange whileGoogleobserveda20%uptickinthesameperiod[42,78].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ositionthatacknowledgesthestateofclimatechange whileGoogleobserveda20%uptickinthesameperiod[42,78].\nandthepressingneedtomanageallofAI’sclimateimpacts.Byex- Otherstudieshavesoughttoestimatewaterusageatthelevelof\npandingthisdialogueandgroundingitinevidenceacrossmultiple individualAImodels,withonepapersuggestingthat10–50queries\ndisciplines,wecandevelopstrategiesthatgenuinelyaddressAI’s onGPT-3consumesaroundhalfaliterofwater[68].By2050,50%\nroleinenvironmentalsustainability. oftheworld’spopulationisprojectedtoliveinaregionaffectedby\nwaterscarcity[14],butthefullimpactsofdatacenterwaterusage\n2 AIandtheenvironment isunknownas“theentiredatacentreindustrysuffersfromalack\nTheenvironmentalimpactsofAIwerelargelyoverlookeduntil oftransparency”[80].\nrecentyears.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ersfromalack\nTheenvironmentalimpactsofAIwerelargelyoverlookeduntil oftransparency”[80].\nrecentyears.Nowtheseissuesfigureprominentlyinbothscientific\ndebatesandpublicmedia.Centraltothisdiscourseisthequestion Therareearthmineralsneededtoproducecomputinghardware\nofwhetherAI’scapacitytohelpmitigateclimatechange,e.g.by areminedinunsustainableandopaqueways. Metalssuchascobalt,\noptimizingenergyuseordiscoveringsustainablematerials,truly lithium,coltan,gallium,copper,tungsten,andgermaniumarere-\nexceedsitsenvironmentalcostsintermsofenergyconsumption, quiredforAIhardwareandinfrastructure.Individualstudieshave\nwaterusage,andmineralextraction.SomecontendthatAI’spoten- lookedattheimpactsofmininglithiumcobalt,copper,andrare",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "dmineralextraction.SomecontendthatAI’spoten- lookedattheimpactsofmininglithiumcobalt,copper,andrare\ntialbenefitsjustifywidespreaddeploymentacrossvariousclimate- earthforconsumerdevices(smartphones,tablets)totheGPUsand\nfocused applications, whereas others caution that unrestrained TPUspoweringlarge-scaleAImodeltrainingandaddressedthe\nexpansionmayultimatelybemoreharmfulthanbeneficial.Inthis resultingenvironmentaldamageandimpactonlocalconflictand\nsection,wereviewthesecompetingperspectivesonAI’spositive war.Onestudyspecificallyaddressedminingonindigenouslands,\nandnegativeenvironmentalimpactsaspresentedinacademicand with54%oftechnology-criticalmaterialsdrawnfromwhatthey\nindustrydiscussions. describeasIndigenousorpeasantterritory,while62%wereex-\ntractedfromdrought-pronezones[86].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "scussions. describeasIndigenousorpeasantterritory,while62%wereex-\ntractedfromdrought-pronezones[86].Theminingofthesemetals\n2.1 ArgumentsthatAIisanetclimatenegative alsocomeswithacosttotheenvironment,giventhetonnesof\nearththathavetobemined,theradiationproduced,andthetoxic\nResearchintoAI’stotalusageofnaturalresourcesisstillnascent,\nwastecreated[28].TaiwanSemiconductorManufacturingCom-\nbutinitialstudieshavehighlightedsignificantconcernsacrossmul-\npany(TSMC),thecompanythatmanufacturestheGPUsdesigned\ntipledomainsofdirectimpact.Papershaveaddressedcarbonemis-\nbyNVIDIA(amongothercompanies),citingthecomplexityoftheir\nsionsfromtraininglargemodels[67,69,70,120],waterconsump-\nsupplychainsandproprietaryinformationofitscustomers,also\ntionforcoolingservers[52,80],andtheminingofmineralsfor",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "andproprietaryinformationofitscustomers,also\ntionforcoolingservers[52,80],andtheminingofmineralsfor\ndoesnotprovidegranulardatafortheirsuppliersnortheirinternal\ntechnicalinfrastructure[24].Inthepresentsection,wepresent\nprocesses(suchaschemicalpurification)[136],meaningthatitis\nthedifferentdirectionsofstudypursuedintermsofAI’snegative\nimpossibletocarryoutafulllifecycleanalysisofthehundredsof\nenvironmentalimpactsanddiscusstheobservationsthathavebeen\nthousandsofGPUsthataredesignedandmanufacturedeachyear\nputforward.\nandusedtotrainanddeployAImodels.\nAIisusingincreasingamountsofenergy,mostofitgeneratedfrom\nnonrenewablesources. DatafromtheInternationalEnergyAgency AIisresponsibleforalargeamountofgreenhousegas(GHG)emis-\n(IEA)hasprovidedthestrongestinternationalbenchmark.They sions.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "alargeamountofgreenhousegas(GHG)emis-\n(IEA)hasprovidedthestrongestinternationalbenchmark.They sions. DespitesignificanteffortsbyAI-drivencompaniestoinvest\nnotethattheelectricitydemandfromdatacenters,drivenheavilyby inrenewableenergyandmeetnet-zeroemissionspledges,allev-\nAItrainingandinference,iscurrentlyat2%oftotalglobalelectricity idenceindicatesthatdirectGHGemissionsduetoAIareonthe\nandwillmorethandoubleby2026,surpassingCanada’snational rise.ManyAIcompaniesarereportingsignificantlyhigherGHG\npoweruse[45,56].Thisgrowthisputtingstrainonenergygrids emissionsoverearlierbaselines,likelydrivenbyincreasesinde-\naroundtheworldandresultinginmanycountries,suchasIreland velopmentanduseofgenerativeAI.Forexample,intheir2024",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "worldandresultinginmanycountries,suchasIreland velopmentanduseofgenerativeAI.Forexample,intheir2024\nandtheNetherlands,placingamoratoriumontheconstructionof annualenvironmentalsustainabilityreport(ESG),Googlereports\nnewdatacentersincertainregions.IntheUnitedStates,thedemand a48%increaseinGHGemissionssince2019whichtheyattribute\nforelectricityhassurgedinthepasttwelvemonths–accordingto primarilyto“increasesindatacenterenergyconsumption”[42],\narecentreportintothenationalgrid,electricutilitieshavenearly Baidureports32.6%increaseinGHGemissionsover2021citing\ndoubledtheirforecastsofhowmuchadditionalpowertheywill “rapiddevelopmentofLLMs”posing“severechallenges”totheir\nneedinthenextfiveyears[137]. developmentofgreendatacenters[9],andMicrosoftcitesa29.1%",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "lopmentofgreendatacenters[9],andMicrosoftcitesa29.1%",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\nincreasesince2020“as[they]continuetoinvestintheinfrastruc- 2.2 ArgumentsthatAIisanetclimatepositive\ntureneededtoadvancenewtechnologies.”[78].Infact,onerecent TheargumentthatAIwillultimatelybemorebeneficialthanharm-\nanalysisfoundthattherealGHGfootprintsofmajortechcom- fultotheenvironmentisprimarilybasedonthenarrativethatAI\npanydatacenterscanexceedreportedvaluesbyover600%[88].In canbesustainablydevelopedandusedforapplicationsthatdirectly\nresponse,AI-driventechnologyfirmsareincreasinglylookingto benefittheenvironment,orthatcouldacceleratethetechnologi-\nnuclearenergyasalower-carbonalternativetofossil-fuelenergy caladvancesneededtoaddressclimatechange.However,claims",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "salower-carbonalternativetofossil-fuelenergy caladvancesneededtoaddressclimatechange.However,claims\ngenerationthatcanstillprovide24/7powertodatacenters,bothby aroundAI’ssustainabilityandsignificanceinenablingnewsci-\nre-commissioningexistinginfrastructure,suchastheThreeMile entificadvancesremainlargelyhypothetical,withlittleexplicit\nIslandandSusquehannanuclearpowergenerationfacilitiesinthe evidenceorquantitativeanalysisofhowtheoverallimpactofAI\nU.S.stateofPennsylvania[25],andexploringfuturedevelopment applications,whichmaycauseequalorgreaterharmtotheen-\nofmoremodernsmallmodularreactors(SMRs)[124].Inadditionto vironmentorevenaccelerateclimatechange,willbeultimately\ntheregulatoryandsecuritychallengesofincreasingnuclearpower beneficial.WediscussthemainassertionssupportingAI’spositive",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "uritychallengesofincreasingnuclearpower beneficial.WediscussthemainassertionssupportingAI’spositive\ngenerationcapacity,nuclearpowerpresentsadistinctsetofenvi- rolewithrespecttoclimatechangeinmoredetailbelow.\nronmentalharmsrelatedtodisposalofnuclearwaste,andincreased\nwaterconsumptionrequiredforcooling[92],aswellasoperational AIapplicationscancontributetoclimatechangemitigationand\nbottlenecksthatcomplicateitswidespreadadoption[84]. adaptation. ThepositivepotentialofAIforclimateactionhasgen-\neratedconsiderableenthusiasm,andtherearemanyexistingand\nin-progressprojectsandinitiativesthataimtoharnessthispoten-\ntialintoconcretetoolsandapplications[99,132].Thereareseveral\nAImakesoilandgasextractionprocessesevenmoreharmfulto\nkey areas in which this is particularly salient, from generating",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tractionprocessesevenmoreharmfulto\nkey areas in which this is particularly salient, from generating\ntheenvironment. AItechnologiesarecurrentlyextensivelyused\ninsightsfromlargequantitiesofdataindifferentmodalitiestoop-\nin oil and gas exploration and drilling, significantly improving\ntimizingcomplexsystemsandtools[21].Concretely,thiscanbe\nefficiencyandincreasingyield[110,123].Theseenabledemissions\nseeninapplicationsofAIthatanalyzesatelliteimagerytoiden-\naredifficulttoquantifyduetolackofcorporatetransparencyand\ntifydeforestation[133],methaneleaks[102],oreventhehealthof\nreporting,buttheyhavebeenattractingscrutinyinrecentyears,\ncoralreefsfromspace[16].AIhasalsoimprovedtheaccuracyof\ngiventheenvironmentalharmthattheyperpetuate.Forinstance,a",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "mspace[16].AIhasalsoimprovedtheaccuracyof\ngiventheenvironmentalharmthattheyperpetuate.Forinstance,a\nweatherforecasts,whichcanhelprenewableenergygridoperators\ncoalitionofMicrosoftemployeesestimatedthatasingledealthe\npredicttheoutputofsolarpanelsandwindturbines,whichcan\ncompanystruckwithExxonMobilthatusesAItoexpandoiland\nhelpstreamlinethetransitiontowardsrenewableenergysources\ngasproductioninTexasandNewMexicoby50,000barrelsofoilper\nonaglobalscale[66,107]Inrecentyears,thedevelopmentofAI\ndaycouldaddupto640percentmorecarbonemissionscomparedto\nforacceleratingscientificdiscoveryinmaterialssciencehasbe-\nthecompany’scarbonremovaltargetsfortheyear[119],yetthese\ncomeanareaoffocus,especiallyinapplyinggenerativeAImodels,\nnumberswerenotincludedinthecompany’scarbonaccounting",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ffocus,especiallyinapplyinggenerativeAImodels,\nnumberswerenotincludedinthecompany’scarbonaccounting\nwhichareabletoassessorgeneratepotentialnewcompoundswith\nandreportingefforts[118].Otherfirmshavebeenequallyopaque\nclimate-positiveapplicationssuchasrenewableenergyandcarbon\nabouttheirAI-drivenenablingoftheoilandgasexploration,but\ncapture[12,76,140].Finally,theuseofAIinsolargeoengineer-\naGreenpeacereportfrom2020tiesallofthemajortechnology\ning(i.e.injectingaerosolparticlesintotheatmospheretoreflect\ncompaniestothesector[44].\nsunlightandreduceglobalwarming)hasalsogatheredtraction,\ngivenAI’spotentialtohelppredicttheimpactsofgeoengineering\nonexistingecosystemsandavoidpossiblenegativesideeffects[3].\nAI contributes to the ballooning issue of electronic waste. AI’s",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "oidpossiblenegativesideeffects[3].\nAI contributes to the ballooning issue of electronic waste. AI’s\nexpandingoperationalfootprintalsocontributestoelectronicwaste AI’snegativeclimateimpactisnegatedbycarbon-freeenergyand\n(e-waste),whichisnowthefastest-growingsegmentofsolidwaste carbon offsets. AI-driven products and services are the primary\nworldwide,reaching62milliontonnesin2022.Ongoingreports contributortoAI’sdirectenvironmentalimpacts,andleadingAI\nhavepointedtotheurgentneedtofindwaystoreducetheamount companiesincludingGoogle,Microsoft,AmazonandMetahave\nofwasteandtoreusethesematerialsmoreeffectivelygiventhe committedtoachievingnet-zerocarbonemissionsfortheirbusi-\nstatusofe-wasteasbothanenvironmentalandhealthhazard[98]. ness operations, including AI development and use, within the",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "thanenvironmentalandhealthhazard[98]. ness operations, including AI development and use, within the\nTheUN’sGlobalE-WasteMonitor2024showedthatabout22%of next5-15years[6,42,77,78].Theprimarymechanismbywhich\ne-wastehasbeenshowntobeformallycollectedandrecycled,with thesecompaniesplantoachievetheirgoalisbyincreasingthe\nglobalgenerationofelectronicwasterisingfivetimesfasterthan useofrenewableenergyoverthatperiod,alongsidecompensat-\ne-wasterecycling[10].Theremainderendsupdumpedinlandfills, ingforemissionsusingmarket-basedmechanismssuchaspower\noftenindevelopingcountries,whereresearchersassessbothhow purchaseagreements(PPAs),,long-termcontractsbetweenenergy\nhazardoussubstanceslikemercury,arsenic,andleadleachinto providersandcustomerswhopromisetopurchaseacertainamount",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "stanceslikemercury,arsenic,andleadleachinto providersandcustomerswhopromisetopurchaseacertainamount\nlocalecosystemsandhowtheyimpactpublichealth.Highturnover ofgeneratedenergyoveradecades-longhorizon,carbonoffsets,\ninAIhardwareisacceleratinge-wasteoutput:althoughGPUscan andinvestmentincarbon-reducingtechnologies.Thehigh-level\ntheoreticallylastaboutfiveyears,thepushforhigherperformance ideabehindthesemarket-basedmechanismsisthatanycarbon-\nispromptingmorefrequentupgrades–onerecentstudyestimates producingactivitycanbenegatedbyanequallycarbon-reducing\nthatAIwillgenerateanadditional1.2–5millionmetrictonsof activity,resultinginnetzeroemissionsglobally.Intheabsenceof\ne-wasteby2030[134]. significantadvancesinrenewableenergyproduction,storageand",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "dvancesinrenewableenergyproduction,storageand",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\ndistribution(which,likeothertransformativechangesintheclimate positsthatAIwillbesubjecttothesamemarketpressures,such\nspace,wouldalsorequiresignificantinvestmentininfrastructure asenergyprices,asanyotherusecase,andasaresultwillben-\nandnavigatingcorrespondingsociopoliticalsystems),PPAsand efitfromthesameinnovations,suchasamarkettransitionsto\ncarbonoffsetswillremainnecessarytofillthegap.However,off- renewableenergy.Thisoversimplificationignorestherealitythat\nsettingwasonlyevermeanttoserveasatemporarystop-gapto (1)AIisalreadyresponsiblefornon-trivialnegativeenvironmental\nhelpreduceemissionsintheshortterm,anddoesnotrepresent externalities and(2) wecan, andlikely should,regulate certain\naviablereplacementtoreducingactualemissions.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "alities and(2) wecan, andlikely should,regulate certain\naviablereplacementtoreducingactualemissions.Fundamental usesofAIasappropriate/inappropriateornecessary/unnecessary,\nlimitationstocarbonoffsettingare:(1)thedifficultyofproving andthatthisdoesrequirebreakingdownthemonolithof“AI”into\nadditionality,orthatthecarbon-reducingactivitywouldnothave differentusecasesandcorrespondingjudgmentsofpotentialutility.\nhappenedregardlessofinvestmentorpurchaseoftheoffset[17,46], Forexample,underalimitedenergyoremissionsbudget,wemight\nand(2)thatoffsettingrarelymitigateslocalizedimpactstothecom- selectivelyincentivizeusesofAIthatcontributetowardstheUN’s\nmunitieswhereemissionsorotherenvironmentaldegradationis sustainabledevelopmentgoals[130]ormitigatenationalsecurity\noccurring.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "therenvironmentaldegradationis sustainabledevelopmentgoals[130]ormitigatenationalsecurity\noccurring. Increasingly,companiessuch asIntelandTSMC are concerns,overe.g.generatingpersonalizedadsforsocialmedia\nreportingannualwaterwithdrawalandconsumptionaswell,and (aswediscussioninSection3).Finally,AIdoesdiffersubstantially\ncompensatingwithmarket-basedwateroffsetswhicharesubject fromotherenergysinksinitspotentialtoengendervasttransfor-\ntothesamechallenges[138]. mationsintheeconomyandsociety,similartohowtheadventof\ntheInternethasundeniablychangedthenatureofwork,education,\nIncreasesinefficiencywillnegategrowthinAIresourceconsump-\nandsocialinteractions.Purelyeconomicincentiveshaveobviously\ntion. Anothercommonviewpointisthatthedirectenvironmental",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ions.Purelyeconomicincentiveshaveobviously\ntion. Anothercommonviewpointisthatthedirectenvironmental\nfailedtoalignwellwithenvironmentalsustainabilityinthepast,\nimpactsofAIwilldiminishovertimeduetoincreasesinhardware,\nandAIisnodifferent;thisdoesnotmeanthatweshouldnotstrive\nsoftwareandalgorithmicefficiency.Pattersonetal.[90]arguethat\ntodobetterwiththisnewtechnology.\n“the carbon footprint of machine learning training will plateau,\nWhiledebatesoverAI’sroleinclimatechangeandsustainability\nthenshrink”thankstocontinuedinnovationsinmachinelearn-\nhave become increasingly polarized, both sides have tended to\ningmodels,specializedhardwareplatforms,datacenterefficiency,\nfocusonlyonthedirectimpactsofthistechnology—positiveand\nschedulingandusepatterns,whichwillreduceoverallenergyuse\nnegative.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "pactsofthistechnology—positiveand\nschedulingandusepatterns,whichwillreduceoverallenergyuse\nnegative.Butdirecteffectsarenotthewholestory.Asweshow\nandemissions.TheclaimthatincreasingAIefficiencywillleadto\ninthenextsection,theintegrationofAIintotoolsandsystems\nanoverallreductioninAI’sresourceuseisaclearexampleofwhy\nreshapessocialstructuresandinfluenceshumanbehavior,which\nadeeperengagementwithindirecteffectsisneededinthework\nultimatelyhascomplexenvironmentalconsequences.\nonAIandclimatechange.\nSimilarlytoJevons’Paradox,justbecauseanAImodelbecomes\nmoreefficient,thatdoesnotimplythatoverallAIresourceconsump- 3 IndirectImpactsandReboundEffects\ntionwilldecrease,andinfacttheinverseeffectishighlyplausible.\nIneconomicsandlifecycleassessment,directimpacts,suchasthose",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "nfacttheinverseeffectishighlyplausible.\nIneconomicsandlifecycleassessment,directimpacts,suchasthose\nHowever,asKoomeyandMasanet[65]cogentlyargue,thisisnot\ndescribedintheprevioussection,arethoseengenderedbytheprod-\nthefirsttimethealarmhasbeenraisedaboutrisingenergyusedue\nuctduringitslifecycle,whereasindirect(orsecondorder)impacts\ntotechnology,andthatsimilarprojectionsmadeinthedot-com\nrefertosystemicresponsestothedevelopmentoftheproductin\nboomoftheearly2000sfailedtomaterialize.Theycitepoordata\ntermsofbehavioralorstructuralchangeswhichaffectonotherpro-\navailability,flawedmethodology,andinaccuratereportingascauses\ncesses,structuresandlifestyles[22,97,136].Indirectimpactsalso\nforinaccurateprojectionsindatacenterenergyusethatultimately\nincludereboundeffects,whichoccurwhentheimprovementofone",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "jectionsindatacenterenergyusethatultimately\nincludereboundeffects,whichoccurwhentheimprovementofone\ndidnottakeintoaccountsignificantimprovementsindatacenter\naspectofaproductresultsinunintendednegativeconsequences\nefficiency.SimilaruncertaintyiscloudingthepredictionofAI’s\nduetoincreasedadoption,usage,andworkloads[13].Theseim-\nenergyuse,andwearewellalignedwithKoomeyandMasanet[65],\npactsinevitablycomewithconsequencestotheenvironmentdue\nMasanetetal.[74]andothersincallingformoregranulartrans-\ntotheincreasedusage,oraredistributionintheusage,ofnatural\nparentdatafromtechnologyfirmsandserviceproviders,andmore\nresources.GiventhatAIpervadesmanydifferentareasofsociety\nrigorousanalysisofavailabledata.Thisdoesnotimply,however,\nandeconomicsectors,itismoredifficulttoenumerateallofthe",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "isofavailabledata.Thisdoesnotimply,however,\nandeconomicsectors,itismoredifficulttoenumerateallofthe\nthatAIwillnecessarilyfollowthesametrendaspasttechnological\npossibleindirectimpactsandreboundeffectsthatitcanhave,which\nadvances.Further,althoughdatacenterenergyuseisarelatively\nwouldinvolveconsideringthedifferentinteractionsatplaywithin\naccessiblestatisticforapproximatingtheenvironmentalimpacts\neverysectorandbetweenthem[23,53].Nonetheless,ouraimin\nofICT,itrepresentsonlysmallportionofthediversedirectand\nthissectionistoproposeawayofthinkingabouttheindirectenvi-\nindirectnegativeenvironmentalimpactsarisingfromAI,which\nronmentalimpactsofAIthatcanhelpinformdiscussionsaround\nextendfarbeyondGHGemissionsduetotheenergyrequiredto\nAI’senvironmentalcostsandbenefitstomakethemmorecomplete",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rbeyondGHGemissionsduetotheenergyrequiredto\nAI’senvironmentalcostsandbenefitstomakethemmorecomplete\ndevelopanduseAImodels.\nthanthosedescribedinSection2.InTable1,wetakeelementsfrom\nThereisnoreasontofocusonAIoverothertechnologicaladvances thequalitativetaxonomyforsecondorderenvironmentaleffectsof\norsectors. Somewouldarguethatthereisnoreasontoraisecon- ICTproposedbyBörjesson,Riveraetal.[97]aswellastheinitial\ncernsaroundthecurrentorfutureenergyuse(andcorresponding workontheindirectimpactsofAIbyKaacketal.[63].Webuild\nenvironmentalimpacts)ofAIspecifically,ascomparedtoanyother uponandadaptbothoftheseapproachestogetabetterideaofthe\nwaythatenergymightbeused,suchas“forwatchingtelevision,mi- differenttypesofindirectenvironmentalimpactsofAItechnolo-\ncrowavingpopcorn,[or]poweringlights”[18].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "differenttypesofindirectenvironmentalimpactsofAItechnolo-\ncrowavingpopcorn,[or]poweringlights”[18].Thislineofthought giesand,totheextentpossible,proposeapproachestotrackand",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\nmitigatethemtoensurethatgiveninterventionsdonotexacerbate theavailablecomputationbecomesverygreat”[121]hasbecome\ntheverythingsthattheyweremeanttoimprove. acoretenetinthefield.Thisisoftenguidedbyso-calledscaling\nWefurtherdescribeeachtypeofeffectbelow,organizingAI’s lawsthatpredicttheoptimalmodelsizeandnumberoftraining\nreboundeffectsintothreethemes:materialobjectsandphysical stepsbasedondataavailability,incentivizingthedevelopmentand\nspaces (§3.1), micro- and macro-economic processes (§3.2), and deploymentofincreasinglylargemodelsasmoredatabecomes\nsocietyandhumanbehavior(§3.3).Weprovideexamplesofeach, available[49].Atamoregranularlevel,hardwareoptimizations",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "manbehavior(§3.3).Weprovideexamplesofeach, available[49].Atamoregranularlevel,hardwareoptimizations\ndescribingthecomplexwaysinwhichAI-enabledtoolsandservices suchasparallelization,doinfactsupporttheseeconomiesofscale;\nchangeexistingstructures,withunintendedrippleeffectsonthe e.g.batchedinferenceonaGPUscalessub-linearlyinthenumber\nenvironment. ofexamples,allowingmultiplequeriestobeperformedatonce\natonlyamarginallyhighercost[109].Infact,batching,caching\nandotheroptimizationtechniquesareroutinelyusedasameans\n3.1 MaterialReboundEffects\ntoimprovethescalingofAI,allowingmoreuserstointeractwith\nAIisimpactingthedistributionofobjectsandphysicalspaceby evermorepowerfultechnologies[93,141].However,itremains",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ngthedistributionofobjectsandphysicalspaceby evermorepowerfultechnologies[93,141].However,itremains\nchangingthewayproductsaremadeanddistributed,andthefunc- uncleartowhatextentthispursuitofbiggermodelsrequiringmore\ntionalitiesthattheyneedtohaveinordertoallowustointeract computationiscounteractedbyoptimizationapproachesthatare\nwithAItoolsandsystems.Thishasmaterialreboundeffectsacross usedinparallel,andtheconsequencesthismighthaveonpower\ncomplexglobalsupplychains,whichinexorablychangestheway gridsandsupplychainsworldwide.\nnaturalresourcesareexploited,transported,andcombined. Thesekindsofshiftsinthewayobjectsandprocessesoperate\nForinstance,substitutionimpactsarisewhenoneproductor can,inturn,comewithspacereboundeffectsthatchangethe",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "stance,substitutionimpactsarisewhenoneproductor can,inturn,comewithspacereboundeffectsthatchangethe\nservicereplacesanother,renderingdigitalsomethingthatwasprevi- wayphysicalspaceisusedwiththeintroductionofanewprod-\nouslyanalog(i.e.dematerializingit).Recentexamplesofthisinclude uct.Forinstance,newapproachessuchase-commercehavemani-\nonlinestreamingwhichhasreplacedVHScassettes,vinylrecords, festedchangesinthephysicalspaceoccupiedbybrick-and-mortar\nCDsandDVDs,aswellase-readerssubstitutingprintbooksand storesandwarehouses,resultinginsmallerstoresandbiggerware-\nmagazines[48].Thiscancomewithbothpositiveandnegativeim- houses[127].This,inturn,hasimpactsonsupplychaindynamics,\npactsintermsofsustainability:Increasedcapacityandefficiencyof redistributingtheenvironmentalfootprintofoperations(e.g.heat-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "lity:Increasedcapacityandefficiencyof redistributingtheenvironmentalfootprintofoperations(e.g.heat-\nnewtechnologies(e.g.manydifferentmoviesandTVshowsbeing ingandcooling),logisticsandtransportation[41].Similarly,the\navailableonasinglestreamingplatform)canbeinvalidatedbythe proliferationofvideoconferencingplatformsandtheincreasedac-\nincreasedmaterialsneededtosupporttheunderlyinginfrastructure cessibilityofhigh-speedinternet,whichfacilitateremotework,\nneededtohostanddeliverthesetechnologies[95].Forinstance, alsocomeswithspacereboundeffects,withmorepeopleworking\nalifecycleassessment(LCA),whichevaluatestheenvironmental fromhome,requiringhomeoffices(andthereforebiggerhomes),\nimpactsofanartifactarisingthroughoutitsexistence(typically andlessneedfordedicatedofficespaceincommercialbuildings,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "actarisingthroughoutitsexistence(typically andlessneedfordedicatedofficespaceincommercialbuildings,\nincludingdisposal),hasbeenperformedcomparingprintbooksto withfurtherconsequencesinurbanplanning,mobility,andbuild-\ne-readers,findingthat115bookswouldproducethesameamount ingmaintenance[54].Finally,thesizeofdigitaldeviceshasbeen\nofCO2asasingleAmazonKindledevice[32,103].Inthecaseof steadilyshrinkingoverthelastdecade.Forinstance,theaverage\nAI,manypreviouslymaterialtoolsandproductsarebeingsubsti- mass of a mobile phone shrank by half in the last decade [50],\ntutedbydigital,AI-enabledsystems,suchaspapermapshaving whereastheaveragesizeofdatacentershasdoubled[115].With\nbeenreplacedbydigitalnavigationforroutinetravel.Substitution theadventofuser-facingAItoolsandservicesrunningonshrink-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "talnavigationforroutinetravel.Substitution theadventofuser-facingAItoolsandservicesrunningonshrink-\nimpactsmayoccuratvaryingspeedsandmaybemoregradual.For ingmobiledevices,theconfigurationofdatacentersthemselves\ninstance,onlyafractionofillustrationssuchasphotographsand hasshiftedfromadistributednetworkofsmaller,in-houseserver\nartworkshave,asofyet,beenreplacedbyAI-generatedimages, roomstowarehouse-sizedhyperscaledatacentersthathavetensof\nandcombinationsofAItoolsandanalogdictionariesareusedfor thousandsofserversinoneplace.Theselarge,monolithicconcen-\ntranslationandwritingtasks.Whilethesesubstitutionimpactsare trationsofserversenablethelarge-scaletrainingofAImodels,since\nlikelyenvironmentally-positive(giventhatitisnolongernecessary itallowsthehigh-speedinterconnectionofthousandsofcompute",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ly-positive(giventhatitisnolongernecessary itallowsthehigh-speedinterconnectionofthousandsofcompute\ntomanufacturetheequipmentandsuppliesneededtocarryout nodesservingasasinglesupercomputer[51].Whilehyperscale\ntheoriginaltask),theenvironmentalimpactsofdevelopingandde- datacenterstypicallyachievethehighestefficiency(measuredas\nployingtheseAI-enabledtoolsremainsunder-exploredanddirect PUE),theirresourceconsumptionintensity,furthermagnifiedby\ncomparisonsareseldomperformed,orevenpossibleusingstatus theirexceptionallyhighgeographicconcentration[57],canput\nquodataandmethodology(seeSection3.4). unduestrainonlocalinfrastructure.Forexample,LoudounCounty\nAnothertypeofmaterialreboundeffect,referredtoasthescale intheU.S.StateofVirginiahasbecomeknownas“DataCenter",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ypeofmaterialreboundeffect,referredtoasthescale intheU.S.StateofVirginiahasbecomeknownas“DataCenter\neffect,occurswhenlarge-scaleproductionorusageofaproduct Alley,” hosting 25 million square feet of data centers that use a\nhas a lesser environmental impact, therefore reducing some of quarterofthestate’senergyandputextremestrainonitsenergy\ntheenvironmentalimpactsincurred.Forinstance,purchasingraw supply[129].\nmaterialsinbulkorwholesalelowersoverallproductioncostsfor\nbusinesses, and manufacturing on a larger scale allows a more\nefficient use of products that would otherwise be wasted [139].\nScalingisacorepartofAIresearchandpractice,andthepromiseof\n“methodsthatcontinuetoscalewithincreasedcomputationevenas",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "tionevenas",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\nIndirectEffect ExamplesforAI’senvironmentalimpacts\nArtreplacedbyAI-generatedimagery\nSubstitutionimpacts\nEncyclopediasandbooksreplacedbyAI-generatedcontent\nSpacereboundeffects Datacentersaregettingbiggerwhiledevicesaregettingsmaller\nScaleeffects AImodelsgrowinginsizeandcomplexity\nDirecteconomicreboundeffects AIhardwaregettingmoreefficient,yetdatacenterenergyusageisrising\nIndirecteconomicreboundeffects Moreconsumerdevices(speakers,appliances,etc.)thatallowusers\ntointeractwithAIsystems\nEconomy-widereboundeffects PowerpurchaseagreementsfromAIcomputeprovidersenableglobal\nrenewableenergycapacitytobeexpanded\nInductionimpacts TargetedadsthatuseAItoinducemoreconsumption\nAI-optimizednavigation\nTimereboundeffects\nRobotsdoinghouseholdchores",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "atuseAItoinducemoreconsumption\nAI-optimizednavigation\nTimereboundeffects\nRobotsdoinghouseholdchores\nTable1:ExamplesofAI’sindirectimpactsandreboundeffects,expandingonBörjessonRiveraetal[97].\n3.2 EconomicReboundEffects economicreboundeffectscanbeobservedforconsumerelectronics\nAsseeninSection2,AIisincreasinglyintegratedintoeconomic and“smart”devicessuchasspeakers,microwavesandrefrigera-\nsystemsofprofitandproduction,makingexistingtoolsmorepow- tors.WhiletheprimaryfunctionofthesedevicesisnotAI-driven,\nerfulandcreatingnewones.Buttheseintegrationscanengender theycanuseAItoproposerecipes,answerquestionsandcurate\nmacroeconomicrippleeffectsacrossthetechnologysectoraswell playlists. As more and more AI-enabled consumer tools are de-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ffectsacrossthetechnologysectoraswell playlists. As more and more AI-enabled consumer tools are de-\nas adjacent ones, changing structures and processes, as well as veloped,thepressuretoupgradeexistingdevicestobenefitfrom\ntransformingwholeindustries. thesetoolsincreasesaswell.However,theseupgradescomewith\nDirecteconomicreboundeffectsrefertosituationsinwhich apriceintermsofthenaturalresourcesrequiredtomanufacture\ntheimprovedefficiencyofaproductdecreasesitsprice,therefore them,aswellastoprocessuserdataandrespondtouserqueriesin\nleadingtoanincreaseinitsconsumption.Inthecenturiessincethe real-time[58].Forexample,whennewfunctionalitiesarereleased\nconceptofJevons’paradoxwasdeveloped,similarreboundeffects onsmartphones,theyoftenrequirepurchasingthemostrecent",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ons’paradoxwasdeveloped,similarreboundeffects onsmartphones,theyoftenrequirepurchasingthemostrecent\nhavebeenobservedwithrespecttoenergy[40]andwater[33], versionsofphonestousethem,aswasthecasewiththerecent\naswellasindomainssuchasroadtravel(whereimprovements launchofAppleIntelligence,whichrunsonlyonthemostrecent\ntoroadshavebeenfoundtoresultinincreasedcongestion[126]) generationsofiPhones[7],aswellasrunningmostofitsprocessing\nand agriculture (where increasing the yield of a crop makes it inthecloud,ratherthanon-device[34].\nmoreprofitabletogrowit,therebyincreasinglanduseoverall[11]). Onamoremacrolevelstill,economy-widereboundeffects\nTheyarealsothemostcommontypeofindirecteffectsthatare occurwhenaninnovationprovokesfar-reachingchangesinthe",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "alsothemostcommontypeofindirecteffectsthatare occurwhenaninnovationprovokesfar-reachingchangesinthe\ndiscussedinconjunctionwithmanytechnologicalinnovations(see productionanduseofothergoods,producingflow-oneffectsin\n[63,135]).AIisnoexceptiontodirecteconomicreboundeffects. theeconomyatlarge.Forinstance,improvementsinglobalen-\nWhileefficiencyimprovementsarebeingmadetothehardware ergyefficiencyandfuelusehaveenabledthedevelopmentofnew\nused for training and deploying AI models [9, 82, 89], NVIDIA economiesonaglobalscale,allowingthecreationofnewindus-\nshipped3.7millionGPUsin2024(morethanamillionmoreunits tries[87].Thesetypesofreboundeffectscanbeparticularlylarge\nthanin2023)duetoincreaseddemand,despitetheseimprovements forso-called“general-purposetechnologies”suchaselectricity,the",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "easeddemand,despitetheseimprovements forso-called“general-purposetechnologies”suchaselectricity,the\ninefficiency[105].Thedatacentersthathostthishardwareare steamengineandtheInternet,sincethesecanhaveglobalspillover\nalsobecomingmoreefficient,withtheaveragePUE(PowerUsage effectsonindustriesandlabormarkets[111,112].Estimatingthe\nEfficiency)droppingsteadilyinrecentyears[37,106];however,the scopeofeconomy-widereboundeffectshashistoricallybeendif-\nenergyuseandenvironmentalimpactsofthesedatacentershas ficult[117],especiallyfortechnologies[43].Onewayinwhich\nbeenrising(asdescribedinSection2). AIisconcretelyimpactingtheeconomyatlargeisviaPPAs,as\nIndirecteconomicreboundeffectsaresimilartothedirectef- mentionedinSection2.2.In2020,Amazon,Microsoft,Meta,and",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "onomicreboundeffectsaresimilartothedirectef- mentionedinSection2.2.In2020,Amazon,Microsoft,Meta,and\nfectsdescribedabove,butinsteadofimprovedefficiencyincreasing Googlealoneaccountedforalmost30%ofallPPAspurchasedby\ntheusageofthesameproduct,itaffectsadifferentproduct.This corporationsworldwide[131],changingthescopeandextentofthe\nkindofreboundeffectisalsoknownasarealincomeeffectbecause mechanismasawhole.RenewableenergyPPAsmitigatetheriskof\nthereducedpriceofoneproductmeansthatconsumershavemore investmentinrenewableenergyinfrastructure,therebysupporting\nincomeavailabletospendonotherproductsandservices[55].For itsdevelopment[122].Further,whileaportionofthegenerated\ninstance, money saved from more fuel-efficient vehicles can be renewableenergyistransmittedtopurchasersinpractice,there-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "from more fuel-efficient vehicles can be renewableenergyistransmittedtopurchasersinpractice,there-\nspentonairtravelorconsumerproducts[94,112].ForAI,indirect mainderisaddedtotheenergygridinthatregion,allowingother\nuserstobenefitfromitsavailability.Ithasalsobeenproposedthat",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\nfoundationmodelsaregeneralpurposetechnologieswithcorre- licenseplaterecognitionandtollingonhighways,androboticvacu-\nspondingpotentialforbroadimpactstotheeconomyandlabor ums.Initialworkontheenvironmentalconsequencesoftheseshifts\nmarkets[35].Analyzingtheimpactofthesechangesinthefuture hasproposedthatAI-enabledautomationinhouseholdtasksand\nwillbenecessarytovalidatethisclaim(wediscussapproachesto intheworkplaceactuallyleadstogreaterresourceconsumption\ntrackingAI’sindirectimpactsinSection3.4). andhighernegativeenvironmentalimpactsoverall[36].Thiscon-\ntradictsresearchcarriedoutonAI-assistednavigationspecifically,\nwhichhasbeenshowntoreduceemissionsbyanaverageof3.4%,\n3.3 SocietalandBehavioralReboundEffects",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "cally,\nwhichhasbeenshowntoreduceemissionsbyanaverageof3.4%,\n3.3 SocietalandBehavioralReboundEffects\nbasedondatagatheredbyGoogleonusersofGoogleMaps[8].\nAsusersoftechnologyandcitizensofsociety,ourbehaviorsare Thisdiscrepancyhighlightsthedifficultyofmakingfar-reaching\nshapedandaffectedbythetechnologiesweuse.Thishasincreas- claimsregardingthesustainabilityimpactsofagiveninnovation\ninglybecomethecaseforAIasitbecomesmoreintertwinedin withoutconsideringthespillovereffectsandbehavioralchanges\ndaily activities such as shopping, travel, household chores, and thatitmayengendermorebroadly.\ntheworkplace.Inthissection,wedescribewaysinwhichAIcan Indirectpolicyeffects.Inadditiontosocietalandbehavioral",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ce.Inthissection,wedescribewaysinwhichAIcan Indirectpolicyeffects.Inadditiontosocietalandbehavioral\nimpacthumanbehaviorsandhowthosechanges,canhavebroader forces,therearealsoindirectgeopoliticalandpolicyeffects.Inter-\nenvironmentalimpactsinturn. nationalpolicyinterventions,particularlythoseaimingtobolster\nInductioneffectsoccurwhenthesavingsinresourceconsump- nationalself-sufficiencyfromglobalsupplychains,canprovoke\ntion(e.g.energyorwater)gainedthroughimprovedefficiencyare unintendedincreasesinenvironmentalburdensthroughmineralde-\nexceededbytheincreasedconsumptionandtherebyproductionof mandamplification,industrialderegulation,andcompetitiveover-\neitherthematerialsorthefinalproducts.Forinstance,theadventof production.ThedynamicsofKoomey’sLaw,bywhichtheenergy",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ialsorthefinalproducts.Forinstance,theadventof production.ThedynamicsofKoomey’sLaw,bywhichtheenergy\nfastfashionandmass-producedfurniturehavereducedthequantity efficiencyofcomputinghashistoricallydoubledapproximatelyev-\nofnaturalresources,suchaswoodorcotton,neededtoproduce ery1.57years,canalsobeaffectedbygeopoliticaldisputesandtrade\nasinglepieceofclothingorfurniture.However,theamountof wars.Ifchipsalesarerestricted,forexample,nationshavetomake\nplastics,petrochemicalsandwastethatareengenderedbythein- dowithlesspowerfulandlessenergy-efficientsemiconductors.\ncreasedaccessibilityoftheseitemsandthereforetheirincreased Asnationalstrategiestomonopolizeorre-shoresemiconductor\nconsumptionaredamagingtotheenvironment[81].Inthecaseof capacitydevelop,thiscanfurtheracceleratenationalrivalriesand",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "magingtotheenvironment[81].Inthecaseof capacitydevelop,thiscanfurtheracceleratenationalrivalriesand\nAI,aprimeexampleofthisistargetedadvertising,oneofthemost resultinthereplicationofsystemsandfurtherresource-intensive\nlucrativecommercialapplicationsofAI,withrevenuesreaching$36 scalingofmodeltraininginfrastructure.TheUnitedStatesCHIPS\nbillionin2024[116].Advertisingalsoconstitutesthemainsource and Science Act (2022) is one example. This legislation aims to\nofrevenueformanytechnologycompaniessuchasGoogleand re-shoresemiconductorfabrication.Whileitsprimarygoalisto\nMeta[85];Amazon’sAI-poweredproductrecommendationtool reducedependencyonChinesemanufacturing,ithasthepotential\ngeneratesalmostathirdofitsannualsales[73].Althoughitisdiffi- tointensifydomesticresourcedemands.Semiconductorfabrication",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ofitsannualsales[73].Althoughitisdiffi- tointensifydomesticresourcedemands.Semiconductorfabrication\nculttoobtainquantitativedataontheimpactofAIone-commerce, facilities(knownasfabs)imposemassiveenvironmentalburdens,\nthedetailsofwhicharelargelyconsideredsensitivetradesecrets, consuminglargequantitiesofenergy,waterandspecializedchemi-\nthecorrespondingmachinelearningapproachesofrecommenda- calswhilegeneratingsubstantialcarbonemissions(Villard,2015).\ntionandrankingareactivetopicsofresearchintheAIcommunity, ThedomesticexpansionoffabsintheUnitedStatesshiftsrather\npoweredbyanenormousquantityofuserdatabeingcontinuously thanreducestheseenvironmentalimpacts,potentiallyintroducing\ngatheredthroughinteractionswithdigitalplatforms[19,20,31]. newecologicalpressuresinregionswithwaterscarcityissueslike",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eractionswithdigitalplatforms[19,20,31]. newecologicalpressuresinregionswithwaterscarcityissueslike\nTherapidexpansionofonlineadvertisingitsdirectandindirect Arizona,whereseveralnewfacilitieswereplanned.Meanwhile\nenvironmentalimpactshavebeenemphasizedinresearchpapers the ongoing resource pressures continue in China and Taiwan.\nandscientificreportsoverthelastyears[47,91].Thecontribution Moreover,theracetodecoupleUSsemiconductorsupplychains\nofAItothisexpansionisworthconsideringwhenmeasuringthe fromgeopoliticaladversarieshasledtointensifiedextractionof\nperformanceofnewalgorithmsandapproaches[28],especially rare-earthelements,lithium,cobalt,andhigh-purityquartz.This\ngiventhenet-zeroandemissionreductiongoalsofmanyAI-driven geopoliticalreorganizationofmaterialflowsextendstheenviron-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ndemissionreductiongoalsofmanyAI-driven geopoliticalreorganizationofmaterialflowsextendstheenviron-\ncompanieswhoserevenuemodelsdependonit[135]. mentalfootprintofAIbeyondtraditionalcarbonaccounting.China\nTimereboundeffectsoccurwhenaninnovationchangescon- restrictingtheexportofseveralrareearthelementshasmeantthat\nsumers’useoftheirtime,whichthenfreesup(orremoves)time minesinUkraineandAustraliaarealreadyunderexpandedpres-\nforotheractivitiesthattheycarryout.Forexample,ifavacuum suretomeetUSdemand.Theincreasedcompetitionforcritical\ncleanerreducesthetimeneededtocleanthefloorsinahouse,it mineralshasbothsocialandecologicalimpacts,andriskseven\ncanfreeuptimeforleisureactivitiessuchasreadingorsports.Mea- greaterenvironmentalharmsinconflict-affectedregions.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "forleisureactivitiessuchasreadingorsports.Mea- greaterenvironmentalharmsinconflict-affectedregions.\nsuringthesustainabilitybenefitsofthesetimesavingsisfarfrom Theseindirectpolicyeffectsrisksarefurthercompoundedwhen\nstraightforward,becausewhatwedowiththisnewly-freedtime environmentalderegulationcoincideswithlarge-scaleinvestment\ncanhavenegativeenvironmentalimpactsaswell,e.g.iftimeother- in AI-related infrastructure. The Trump administration in 2025\nwisespentdoingchoresisnowspentshoppingortraveling,this hasbeenmarkedbyacomprehensiverollbackofenvironmental\ncanincreaseone’soverallcarbonfootprint[15].AIisundeniably protections,includingawithdrawalfromtheParisagreement,sig-\nimpactinghowtimeisspentatworkandathome:manyactivities nificantlyalteringtheUnitedStates’approachtoclimateanden-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "timeisspentatworkandathome:manyactivities nificantlyalteringtheUnitedStates’approachtoclimateanden-\nhavealreadybeenstreamlinedusingAIoverthelastdecade,such ergypolicy.Simultaneously,PresidentTrumpannounceda$500\nasAI-enablednavigationthatavoidstrafficcongestion,automated",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\nbillionUSDinvestmentinAIinfrastructureknownasProjectStar- anddatathatwouldallowformeaningfulcomparisonoftheen-\ngate,whichaimstosignificantlyincreasethenumberofverylarge vironmentalimpactsofhumansversusthesametasksperformed\n(hyperscale)datacentersandbypassenvironmentalimpactassess- byhumansaloneorassistedbyAI.Initialworkonthissubject\nmentswhileofferingpublicsubsidies.Thesepolicyshiftscanlock- hasconcludedthat“AIsystemsemitbetween130and1500times\ninenergyandenvironmentaldemandsthatoutpaceanycomputa- lessCO2eperpageoftextgeneratedcomparedtohumanwriters,\ntionalefficiencygains. while AI illustration systems emit between 310 and 2900 times",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ohumanwriters,\ntionalefficiencygains. while AI illustration systems emit between 310 and 2900 times\nThisdecouplingofAIinfrastructurefromenvironmentalrespon- lessCO2eperimagethantheirhumancounterparts,”however,the\nsibilityillustratesacriticalreboundmechanism:technicalefficiency authorsthemselvesnotethattheiranalyses“donotaccountfor\nimprovements,suchashigh-efficiencydatacenterdesignsorAI socialimpactssuchasprofessionaldisplacement,legality,andre-\nmodelefficiencyoptimizations,areinsufficientwhenbroaderreg- boundeffects”[128].Morequalitativeandmulti-facetedanalyses\nulatoryandpolicyconditionsincentivizeuncheckedgrowth.By areneeded,suchasthosethattakeintoaccountaspectslikethe\nfacilitatingrapiddeploymentwithoutecologicalconstraint,these lengthoftimethatcontentwillactuallybeusefultoreadersand",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "deploymentwithoutecologicalconstraint,these lengthoftimethatcontentwillactuallybeusefultoreadersand\nconditionscreateanemissionsburdenwithresourcedemandsthat thewayinwhichthedatawascollected,canhelpshedlighton\nscalewithmodelproliferation.Insuchcontexts,eventhebest-case theissue,aswellasmoreempiricalresearchtostudyhowhuman\nefficiencyimprovementsunderKoomey’sLawmaybedwarfedby artistsandwritersuseAItechnologiesandhowthatimpactsthe\nthesheerincreaseinvolumeofcomputeinfrastructure.Thenthe environment.\nindirecteffectsofthesepoliciesontheenvironmentarenolonger\nTransparency. A key challenge to tracking AI’s economic re-\nmarginal,theybecomestructural.TherecentDeepSeekmodelis\nboundeffectsstemsfromtheseverescarcityofinformationregard-\nactuallyaninterestingadditiontothedebatearoundefficiencyand",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "omtheseverescarcityofinformationregard-\nactuallyaninterestingadditiontothedebatearoundefficiencyand\ningthenatureandextentofAI’sactualpermeationthroughoutthe\nenergybecause,ontheonehand,itwastrainedusingrelativelyless\neconomy.TherapidintegrationofAIintomanyexistingproducts\nenergyandcomputecomparedtopreviousgenerationsoflanguage\nandservices,combinedwithvagueandoftenbroaddefinitionsof\nmodels(duemostlytotheexportlimitationsonGPUstoChina,\nAI,hasmadeitdifficulttodisentangleAI-influencedgrowthfrom\nwhichlimitedtheamountofchipsthatwasavailablefortraining\ngrowththatmighthaveoccurredregardless.Thischallengeisin-\nit),butontheotherhand,thiswasonlypossiblebyleveraging\ntensifiedbytheperceptionthatdetailsoncorporateAImodeluse\nsyntheticdatageneratedbythesemodels.Also,themodelitselfis",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "erceptionthatdetailsoncorporateAImodeluse\nsyntheticdatageneratedbythesemodels.Also,themodelitselfis\nrepresentvaluableintellectualpropertyandtradesecrets.Gath-\nverylarge–almost700BparametersfortheR1model–meaning\neringmoreinformationaboutspecificAIdeploymentscenarios,\nthatdeployingitrequiresaccesstomultipleGPUswithseveralhun-\ni.e.whichAImodelsareactuallybeingdeployed,inwhichsectors,\ndredsofGBofmemory,whichissignificantlymorethansmaller\nwhataretheybeingusedforinpractice,andwhataretheimpacts\nmodelsofasmallersize,whichcancontributetomoreenergyuse\nofthoseuses,willbecomeincreasinglyimportantasAIbecomes\noverallasorganizationsdeploythemodelinuser-facingapplica-\nestablishedasamainstreamtechnology.ConnectingdataonAI\ntions.Finally,asdetailedintheDeepSeek-R1-Zeroreport[29],the",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "mainstreamtechnology.ConnectingdataonAI\ntions.Finally,asdetailedintheDeepSeek-R1-Zeroreport[29],the\nmodelresourceconsumptiontocorrespondingpositiveornegative\nmodelrequiresmuchmoreinference-timecomputationandenergy\nimpactsarisingfromthosemodelsiskeytounderstandingtrade-\nthanpreviousapproachesduetoitsreasoningabilities.Thisresults\noffsandinformingdecision-making.Inthecaseofinductioneffects\ninthegenerationofmuchlongeranswerstoqueriesdetailingthe\ninparticular,establishingbaselinesacrossindustries,forinstance\nstepsthatthemodelisgoingthroughtoprovidethefinalresponse,\ndocumentingtheenvironmentalimpactsoftechnologiescurrently\nwhichleadstomoreinference-timecomputeandenergydemands.\ninuse,andmeasuringchangestothosebaselinesasAIisintegrated\nwouldenabletrackinglongitudinaltrends.Requiringcompanies\n3.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "gchangestothosebaselinesasAIisintegrated\nwouldenabletrackinglongitudinaltrends.Requiringcompanies\n3.4 TrackingandMitigatingAI’sRebound usingAIinapplicationssuchastargetedadvertisingtoindicatethis\nEffects usage,aswellaswhatdatawasusedtochooseanadforaspecific\nproduct,canhelpusersbetterunderstandwhytheyarereceiving\nThemainchallengesinmeasuringandmitigatingindirectimpacts\nadsandcontributetowardsmoremindfulconsumption[26,79].\nandreboundeffectsaretheiruncertaintyandheterogeneity.While\ntrackingdirectimpactscanlargelybeachievedbymonitoringa Regulation. Whilefocusingonefficiencyalonehaslargelybeen\nfinitesetofrelativelywell-definedmetrics,suchaslitersofwater sufficientinthepasttocurbtheenvironmentalimpactsofrising",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "elywell-definedmetrics,suchaslitersofwater sufficientinthepasttocurbtheenvironmentalimpactsofrising\nconsumedortonsofCO2emitted,reboundeffectsbydefinitionen- compute[75],giventheastronomicalriseincomputational(and\ncompasssocial,economic,andbehavioralimpactsacrossdifferent correspondingenergyandnatural)resourcesneededtopowerAI\nareasofsociety[114].Realizingeffectiveprogressincharacterizing servicesresultingfromgenerativeAI,complementaryeffortsare\nAI’sreboundeffectsnecessitatesmovingbeyondthebinarynarra- neededtoaddresstheseimpacts[108].Historically,economicpoli-\ntivetowardsmoreholisticassessmentthatincorporatesavarietyof ciesthatincreasethecostoftheseresourceshavebeenshownto\ncomplementaryapproaches.Wediscusssomeoftheseapproaches helpcontrolcertainreboundeffects[39].Initiativessuchasenergy",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "roaches.Wediscusssomeoftheseapproaches helpcontrolcertainreboundeffects[39].Initiativessuchasenergy\nbelow. efficiencycertifications(e.g.theU.SEPA’sEnergyStarcertifica-\ntion, Energy Labels in the EU) can also reduce resource use by\nQualitativeandquantitativeresearch. Startingwiththematerial incentivizingthesalesandproductionofmoreefficienttoolsand\nreboundeffectsofdigitaltechnologiessuchasAI,itcanbetempting systems,successfulforincreasingenergyefficiencyforhousehold\ntomakecomparisonssuchastheresearchdescribedinSection3.1, appliances[27].RelatedproposalshavebeenintroducedforAImod-\nwhichcarryoutLCAcomparisonsbetweene.g.abookandane- els[38,71],althoughthelackofcentralizedauthorityforregulating\nreader.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "arisonsbetweene.g.abookandane- els[38,71],althoughthelackofcentralizedauthorityforregulating\nreader.However,wearecurrentlylackingsufficientmethodology AI(eitheratanationalorinternationallevel)hasmadeitdifficult",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\nsofartooperationalizesuchaproposal.Regulationscouldalso logisticssystemmightreducedeliverytimesandfuelusageper\nserveanimportantroleinmandatingreportingofthenecessary vehicle,yetsimultaneouslyencouragemorefrequentonlineorders,\ndatadescribedabove,e.g.requiringdisclosureoftheusageofAI thuselevatingtotalmilesdriven;AI-driventargetedadvertising\nforenvironmentallyharmfulapplicationssuchasoilandgasex- canhelpusmoreeasilyfindtheproductsthatweneedbasedon\nploration,whichalthoughhighlyrelevant,isnottypicallyreflected ourclicksandsearches,butalsopushustomakemoresuperflu-\nincorporateEnvironmentandSustainabilityGovernance(ESG) ouspurchases.Suchsystemicshiftsinbehaviorchallengelinear\ndocuments.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "andSustainabilityGovernance(ESG) ouspurchases.Suchsystemicshiftsinbehaviorchallengelinear\ndocuments. expectationsthatefficiencyimprovementsalonewilldrivedown\nemissions.Instead,theyunderscoretheneedforadetailed,interdis-\nEfficientdevicesanddistributedcompute. Resource-efficientcom-\nciplinaryapproachthatlinksAIdeploymenttobroaderassessments\nputingdevicesthatrequirelessnaturalresources(energy,water,\nofenvironmental,social,andeconomicfeedbackloops.\nrawmaterials)tobuildandusecanbeseenasanobviousgainin\nApplyingJevons’ParadoxtotechnologieslikeAIhasnotable\ntermsofenvironmentalimpacts,anddifferenthardwareplatforms\nconceptualandempiricallimitationsduetothecomplexityinher-\narebeingdevelopedtowardsthisendasanalternativetoGPUsand\nentintechnologicaldevelopmentanddiffusion[101,113].While",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "opedtowardsthisendasanalternativetoGPUsand\nentintechnologicaldevelopmentanddiffusion[101,113].While\nCPUs,whichrepresentthecurrentstatusquoofAIcomputinghard-\nJevons’Paradoxanticipatesincreasesinresourceconsumptionfol-\nware[61,62].Itisworthnotingthatthereistypicallyatrade-off\nlowingefficiencyimprovements,itsexplanatorypowerdiminishes\nbetweenresourceefficiencyandgeneralityintermsofthecompu-\nwithinthebroadersystemiccontextsofwidespreadAIdiffusion.\ntationalcapabilitiesofthehardware:substantialefficiencygains\nSorrell[2008]critiquesJevons’paradoxforoversimplifyingcomplex\ntypicallyrequirethehardwaretobecorrespondinglyspecializedto\ncausalrelationshipsamongefficiencygains,economicexpansion,\ncertaintypesofcomputation,suchasaspecificfamilyofAImodels,\nandindividualbehavioralresponses.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ansion,\ncertaintypesofcomputation,suchasaspecificfamilyofAImodels,\nandindividualbehavioralresponses.Thisisparticularlyrelevant\nwhichcanaccelerateindirecteffectsvialock-in,increasingdepen-\ngivenAIsystemshavemanyinterdependenciesacrossdiverseeco-\ndenceonanarrowsetofvendorsorproducts.Newapproaches\nnomicsectors.Addressingthesemultifacetedreboundeffectsre-\ntodistributedanddecentralizedcomputation,inwhichAImodel\nquiresshiftingfromsimplisticcausalassumptionstowardmore\nworkloadscanbedistributedacrossmachinesoverwidedistances\nintegratedsociotechnicalanalysesthatcanincludearangeofap-\nratherthanrunningwithinasinglecomputingclusterordatacen-\nproaches,fromdetailedempiricalstudiesoftechnologyadoption,\nter,canalsohelpdistributeenvironmentalburdengeographically",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ledempiricalstudiesoftechnologyadoption,\nter,canalsohelpdistributeenvironmentalburdengeographically\nuserbehavior,policyfactors,andevolvingmarketdynamics.That\nintermsofresourcedemandandlocalimpacts.Examplesinclude\nwouldalsosuggestthattrulyeffectivepolicyresponsesforAIsus-\nfullydecentralizedtraining[59]orredirectingtrainingprocesses\ntainabilitywouldneedtocombinetechnologicalefficiencywith\ndependingonwhichcloudregionhasthelowestcarbonintensity\ninstitutionalreformsandincentivestructuresspecificallydesigned\natagiventimeofday[30].Aboveandbeyondsustainabilitycon-\ntodecouplemodeldevelopmentfromunsustainableresourcecon-\nsiderations,adoptingmoreflexibleAIhardwareandalgorithmscan\nsumption.Thisapproachwouldnotonlyrecognizetheconditional\nhelplowerthebarriertoentryintothefieldofAIandpushback",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "isapproachwouldnotonlyrecognizetheconditional\nhelplowerthebarriertoentryintothefieldofAIandpushback\nvalidityofJevons’Paradoxbutactivelyembedsustainabilitywithin\nagainstindustrymonopolizationofcomputationalresources,and\nAIdevelopment.\ncorrespondingpowerimbalancethatthiscreates[1,2].\nAlthoughtheresearchcommunityhastakeninitialstepstoward\nquantifyingAI’scarbonfootprintandwaterusage,theseefforts\n4 Discussion\noftenfocusondirectresourceconsumptionduringmodeltraining\nInthecontextofclimatechange,artificialintelligencehasemerged andinference.Whilesuchmeasurementsareessential,theyare\nasahighlypolarizingtechnology.Ontheonehand,itischampi- onlyapartialview.Globalsupplychains—encompassingtheextrac-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "izingtechnology.Ontheonehand,itischampi- onlyapartialview.Globalsupplychains—encompassingtheextrac-\nonedasadriverofefficiencythatcouldpotentiallyinventnew tionofrawmaterials,themanufacturingofsemiconductorchips,\nsolutionstotheclimatecrisisorreinventoldones[5,21,99];on andthedisposalofelectronicwaste—alsocontributesubstantially\ntheotherhand,itiscriticizedforitssteeplyincreasingresource toAI’senvironmentalcost,yetthesedistributedimpactsremain\ndemandsandcarbonfootprint[68,120,134].Thisdebateoverlooks notoriouslydifficulttotrack[24,83].Companiesandresearchers\nasignificantreality:westilldonothaveacomprehensivepicture commonly disclose onlya narrow range of environmentalmet-\nof AI’s current environmental impacts on everything from eco- rics.Thislackofstandardizedreportingimpedesafulllifecycle",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ronmental impacts on everything from eco- rics.Thislackofstandardizedreportingimpedesafulllifecycle\nnomicsystemstoindividualbehaviors.Consequently,theAIfield assessmentandperpetuatesanenvironmentinwhichtheindirect\nriskssimplifyingthenuancesthatmustbeunderstoodifAIisto burdensofAIremainopaque[72].\nberesponsiblyintegratedintoenvironmentalpolicyandpractice Another critical factor is the current market-driven context\nwithoutexacerbatingharms.AmoreaccurateassessmentofAI’s inwhichAIoperates.Atpresent,themostprominentAIbreak-\nenvironmentaloutcomeswouldincludeawiderrangeoffactors throughs,particularlylargelanguagemodels,functionwithinan\nspanningdatacenteroperations,supplychains,hardwarelifecy- economicsystemthatrewardsrapidgrowthandever-increasing",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "enteroperations,supplychains,hardwarelifecy- economicsystemthatrewardsrapidgrowthandever-increasing\ncles,socialbehaviors,businessincentives,policycommitments,and computationalpower[4,125].TheresultisthatchangingAIde-\ninstitutionalpractices. velopmenttoalignwiththeclimateagendaisonlypossibleifit\nAsmentionedinSection3,oneunder-exploreddimensionin supportsextantbusinessincentives—oratleastdoesnotlimitthem.\nthesedebatesinvolvestheindirectorreboundeffectsthatAIcan Proposalsthattranscendprofit-drivenimperatives,suchaslimit-\ngenerate.WhilemuchattentionhasbeengiventoAIimproving ingthescaleofAI(so-called“digitaldegrowth”[104])orpolicy\nproductivityandresourceefficiency,thesegainscanresultinhigher mechanismssuchasacarbontaxondatacenterusage,remain\noverallconsumptionduetoeffectssuchasJevonsParadox.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "echanismssuchasacarbontaxondatacenterusage,remain\noverallconsumptionduetoeffectssuchasJevonsParadox.This onthefringesofthefield.Similarly,fewstakeholdersarecalling\nparadoxcanmanifestinseveralways:forinstance,anAI-driven for enforced accountability on AI companies to internalize the",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\ncostsoftheenvironmentaldamagetheycause,includingresource 5 Conclusion\ndepletion,substantialenergyconsumption,orcontributionstoe- ThispaperarguesthattheAIfieldneedstoadoptamoredetailed\nwastestreams.Asaresult,manyofthepurported“solutions”to andnuancedapproachtoframing,articulating,andaddressingAI’s\nclimatechallengesviaAIremaintetheredtoprofit-drivenimpera- environmentalimpactsinordertoavoidunhelpfulpolarization.\ntivesratherthanbroadersystemictransformations.Thisstructural ThisrequiresincludingAI’sdirectimpacts—mineralsupplychain\nconstraintsignificantlynarrowsthescopeofAI’spotentialasa studies,carbonemissionsoftraininglarge-scalemodels,energy",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ficantlynarrowsthescopeofAI’spotentialasa studies,carbonemissionsoftraininglarge-scalemodels,energy\nclimate intervention, often leaving only those applications that andwaterconsumption,ande-wastefromhardware—aswellas\npromisequickreturnsorminimaldisruptionstoexistingmarket mappingthewaysAIinnovationsreshapeeconomicstructuresand\nlogics. societalpracticesthat,inturn,driveincreasedresourceusage.Such\nThisrealityhighlightsastructuralbarrier:ifAIsolutionstocli- acomprehensiveperspectivewillempowerresearchers,policymak-\nmatechangedonotyieldnear-termfinancialreturns,theymay ers, and industry stakeholders to devise strategies that prevent\nstruggletogaintractioninanindustrypropelledbyventurecapital, “tech-solutionism”fromovershadowingtheurgentneedforsys-\nquarterlyearnings,andshareholderexpectations.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "tech-solutionism”fromovershadowingtheurgentneedforsys-\nquarterlyearnings,andshareholderexpectations.Consequently, temicchange.Greatertransparencyinreportingenergyusage,more\nmanyofthetoutedclimatepositiveAIapplications,likeenergygrid robustlifecycleassessmenttools,andmeaningfulindustry-wide\noptimizationorautomatedwatermanagement,riskbeingovershad- enforceablestandardsareexamplesthatwouldfostermuch-needed\nowedbymorelucrativepursuitsthatdonotnecessarilymitigate progress.\nenvironmental harm. The underlying problem, then, is not just Ultimately,whatisatstakeisclear:Thereisascientificconsen-\noneofmeasuringorquantifyingimpactsmorethoroughlywithin susthatthedangersofclimatechangeareextreme,andtheeffects\nexistingmarketlogics—thissimplyperpetuatesJevons’paradox. arealreadyunfoldingglobally.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "andtheeffects\nexistingmarketlogics—thissimplyperpetuatesJevons’paradox. arealreadyunfoldingglobally.Theneedtolimitglobalwarmingto\nInstead,whatisrequiredisamoresubstantialreimaginingofthe below1.5°Cunderscorestheneedfortransformativechangeacross\nrelationshipbetweenAItechnologies,businessobjectives,andeco- sectors,andthetechnologysectorisnoexception.IfAIisdeployed\nlogicalimperatives[100].Genuinelyclimate-alignedAIstrategies withoutadequateconsiderationofitsdirectandindirecteffects,it\nmightrequirepublicpolicyframeworksthatpenalizeunsustainable hasthepotentialtodeepeninequalities,accelerateresourcedeple-\npracticesandrewardgenuinelycarbon-negativedeploymentsof tion,andexacerbatetheveryclimateproblemsithopestoaddress.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "wardgenuinelycarbon-negativedeploymentsof tion,andexacerbatetheveryclimateproblemsithopestoaddress.\nAI,andbusinessmodelsthatdonothingeonperpetualgrowth,in Conversely,ifapproachedwithrigorousassessment,transparent\nordertoensurethatincreasedAIefficiencydoesnotsimplyspur reporting,andsupportivepolicyframeworks,AIcouldserveasa\nmoreconsumption. helpfultoolinclimateadaptation,environmentalmonitoring,and\nYet,asmentionedinSection3.4,foranyofthesestepstoward sustainableplanning.Yetwecannotsimplyhopeforthebestout-\nmeaningfulchangetomaterialize,theindustrymustadoptafar come.TheonusisontheAIindustrytoensuretechnologydoesnot\nmoretransparentstanceonalltheenvironmentalimpactsofAI contributetotheproblembeforeproducinganyfuturesolutions.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rentstanceonalltheenvironmentalimpactsofAI contributetotheproblembeforeproducinganyfuturesolutions.\nsystemsandtakeaccountabilityforthefar-reachingimpactsofthe ThisrequiresreckoningwithAI’sactualimpacts,bothdirectand\ntechnologiesthatitdevelopsanddeploys.Atpresent,thescant indirect,measuredcomprehensivelyandcontextualizedsocially,\npublicinformationonthecarbonfootprintoflarge-scaleAImodels economically,andenvironmentally.\nisfrequentlyderivedfromacademicestimatesorlimitedcorporate\ndisclosuresratherthancomprehensive,standardizedreporting.If\nAIcompaniestrulywanttopositiontheirtechnologiesaspartof\ntheclimatesolution,theymustbeforthcomingwithgranulardata\nontheirenergysources,resourceconsumption,hardwarelifecycles,\nandtheend-of-lifemanagementofelectroniccomponents.Inother",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "s,resourceconsumption,hardwarelifecycles,\nandtheend-of-lifemanagementofelectroniccomponents.Inother\nwords,thefoundationofanynet-positiveAIcontributiontothe\nenvironmentisabaselineofreliable,detaileddata,whichhasyetto\nbemadewidelyavailable.Withoutthisleveloftransparency,poli-\ncymakingbodies,researchers,andthepublicatlargeareleftwith\npartialinsightsatbest,whichunderminesthecapacitytoassess\nAI’senvironmentalimpactseffectively,todesignincentivesthat\nrewardlower-impactAIdevelopment,andforindividualstomake\ninformedchoiceswithrespecttotheiruseofthesetechnologies.\nUltimately,theAIfieldisresponsibleforknowingtheimpactsof\nitsownproducts,anditcannotdosowithoutbetterdata.Thisin-\nformationiscrucialforperformingaccuratelifecycleassessments\nthatcapturebothdirectandindirectconsequences.Absentsuch",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "alforperformingaccuratelifecycleassessments\nthatcapturebothdirectandindirectconsequences.Absentsuch\ndata,theconversationaroundAI’sclimatebenefitsrisksdevolving\nintocorporatebrandingexercisesratherthanagenuinereckoning\nwithenvironmentalandsocialresponsibilities.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\nReferences\n[28] PeterDauvergne.2022.Isartificialintelligencegreeningglobalsupplychains?\n[1] MohamedAbdallaandMoustafaAbdalla.2021.TheGreyHoodieProject:Big Exposingthepoliticaleconomyofenvironmentalcosts.ReviewofInternational\ntobacco,bigtech,andthethreatonacademicintegrity.InProceedingsofthe PoliticalEconomy29,3(2022),696–718.\n2021AAAI/ACMConferenceonAI,Ethics,andSociety.287–297. [29] DeepSeek-AI,DayaGuo,DejianYang,HaoweiZhang,JunxiaoSong,Ruoyu\n[2] MohamedAbdalla,JanPhilipWahle,TerryRuas,AurélieNévéol,FannyDucel, Zhang,RunxinXu,QihaoZhu,ShirongMa,PeiyiWang,XiaoBi,Xiaokang\nSaifMMohammad,andKarënFort.2023.Theelephantintheroom:Analyzing Zhang,XingkaiYu,YuWu,Z.F.Wu,ZhibinGou,ZhihongShao,ZhuoshuLi,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "rt.2023.Theelephantintheroom:Analyzing Zhang,XingkaiYu,YuWu,Z.F.Wu,ZhibinGou,ZhihongShao,ZhuoshuLi,\nthepresenceofbigtechinnaturallanguageprocessingresearch.arXivpreprint ZiyiGao,AixinLiu,BingXue,BingxuanWang,BochaoWu,BeiFeng,Chengda\narXiv:2305.02797(2023). Lu,ChenggangZhao,ChengqiDeng,ChenyuZhang,ChongRuan,DamaiDai,\n[3] EshaanAgrawalandChristianSchroederdeWitt.2025.TestingtheLimitsofthe DeliChen,DongjieJi,ErhangLi,FangyunLin,FucongDai,FuliLuo,Guangbo\nWorld’sLargestControlTask:SolarGeoengineeringasaDeepReinforcement Hao,GuantingChen,GuoweiLi,H.Zhang,HanBao,HanweiXu,Haocheng\nLearningProblem. GeoengineeringandClimateChange:Methods,Risks,and Wang,HonghuiDing,HuajianXin,HuazuoGao,HuiQu,HuiLi,JianzhongGuo,\nGovernance(2025),171–205.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ",Risks,and Wang,HonghuiDing,HuajianXin,HuazuoGao,HuiQu,HuiLi,JianzhongGuo,\nGovernance(2025),171–205. JiashiLi,JiaweiWang,JingchangChen,JingyangYuan,JunjieQiu,JunlongLi,\n[4] Nur Ahmed, Muntasir Wahed, and Neil C. Thompson. 2023. J.L.Cai,JiaqiNi,JianLiang,JinChen,KaiDong,KaiHu,KaigeGao,KangGuan,\nThe growing influence of industry in AI research. Science 379, KexinHuang,KuaiYu,LeanWang,LecongZhang,LiangZhao,LitongWang,\n6635 (2023), 884–886. https://doi.org/10.1126/science.ade2420 LiyueZhang,LeiXu,LeyiXia,MingchuanZhang,MinghuaZhang,Minghui\narXiv:https://www.science.org/doi/pdf/10.1126/science.ade2420 Tang,MengLi,MiaojunWang,MingmingLi,NingTian,PanpanHuang,Peng\n[5] SamAltman.2024.TheIntelligenceAge. https://ia.samaltman.com/ Zhang,QianchengWang,QinyuChen,QiushiDu,RuiqiGe,RuisongZhang,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "lligenceAge. https://ia.samaltman.com/ Zhang,QianchengWang,QinyuChen,QiushiDu,RuiqiGe,RuisongZhang,\n[6] AmazonWebServices.2021.SustainabilityintheCloud. https://sustainability. RuizhePan,RunjiWang,R.J.Chen,R.L.Jin,RuyiChen,ShanghaoLu,Shangyan\naboutamazon.com/environment/the-cloud Zhou,ShanhuangChen,ShengfengYe,ShiyuWang,ShuipingYu,Shunfeng\n[7] Apple. 2024. Apple Intelligence is available today on iPhone, iPad, and Zhou,ShutingPan,S.S.Li,ShuangZhou,ShaoqingWu,ShengfengYe,Tao\nMac. https://www.apple.com/ca/newsroom/2024/10/apple-intelligence-is- Yun,TianPei,TianyuSun,T.Wang,WangdingZeng,WanjiaZhao,WenLiu,\navailable-today-on-iphone-ipad-and-mac/ WenfengLiang,WenjunGao,WenqinYu,WentaoZhang,W.L.Xiao,WeiAn,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "available-today-on-iphone-ipad-and-mac/ WenfengLiang,WenjunGao,WenqinYu,WentaoZhang,W.L.Xiao,WeiAn,\n[8] NehaArora,TheophileCabannes,SanjayGanapathySubramaniam,YechenLi, XiaodongLiu,XiaohanWang,XiaokangChen,XiaotaoNie,XinCheng,XinLiu,\nPrestonMcAfee,MarcNunkesser,CarolinaOsorio,AndrewTomkins,andIveel XinXie,XingchaoLiu,XinyuYang,XinyuanLi,XuechengSu,XuhengLin,X.Q.\nTsogsuren.2021.QuantifyingthesustainabilityimpactofGoogleMaps:Acase Li,XiangyueJin,XiaojinShen,XiaoshaChen,XiaowenSun,XiaoxiangWang,\nstudyofSaltLakeCity.GoogleReport. XinnanSong,XinyiZhou,XianzuWang,XinxiaShan,Y.K.Li,Y.Q.Wang,Y.X.\n[9] Baidu. 2023. 2022 Baidu Sustainability Bond Allocation and Impact Re- Wei,YangZhang,YanhongXu,YaoLi,YaoZhao,YaofengSun,YaohuiWang,Yi\nport. https://esg.baidu.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "d Impact Re- Wei,YangZhang,YanhongXu,YaoLi,YaoZhao,YaofengSun,YaohuiWang,Yi\nport. https://esg.baidu.com/Uploads/File/2023/12/15/Baidu%E2%80%99s% Yu,YichaoZhang,YifanShi,YiliangXiong,YingHe,YishiPiao,YisongWang,\n20Sustainability%20Bond%20Report.20231215162734.pdf YixuanTan,YiyangMa,YiyuanLiu,YongqiangGuo,YuanOu,YuduanWang,\n[10] CornelisPBaldé,VanessaForti,VanessaGray,RuedigerKuehr,PaulStegmann, YueGong,YuhengZou,YujiaHe,YunfanXiong,YuxiangLuo,YuxiangYou,\netal.2024.Theglobale-wastemonitor2024.UnitedNationsUniversity(UNU), YuxuanLiu,YuyangZhou,Y.X.Zhu,YanhongXu,YanpingHuang,YaohuiLi,\nInternationalTelecommunicationUnion(ITU)&InternationalSolidWasteAssoci- YiZheng,YuchenZhu,YunxianMa,YingTang,YukunZha,YutingYan,Z.Z.\nation(ISWA),Bonn/Geneva/Vienna(2024),1–109. https://ewastemonitor.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ",YingTang,YukunZha,YutingYan,Z.Z.\nation(ISWA),Bonn/Geneva/Vienna(2024),1–109. https://ewastemonitor.info/ Ren,ZehuiRen,ZhangliSha,ZheFu,ZheanXu,ZhendaXie,ZhengyanZhang,\n[11] LindsayBarbieri,SonyaAhamed,andSamBliss.2019.Farmingwithinlimits. ZhewenHao,ZhichengMa,ZhigangYan,ZhiyuWu,ZihuiGu,ZijiaZhu,Zijun\nInteractions26,5(2019),70–73. Liu,ZilinLi,ZiweiXie,ZiyangSong,ZizhengPan,ZhenHuang,ZhipengXu,\n[12] YoshuaBengio,SalemLahlou,TristanDeleu,EdwardJHu,MoTiwari,and ZhongyuZhang,andZhenZhang.2025.DeepSeek-R1:IncentivizingReasoning\nEmmanuelBengio.2023.Gflownetfoundations.TheJournalofMachineLearning CapabilityinLLMsviaReinforcementLearning. arXiv:2501.12948[cs.CL]\nResearch24,1(2023),10006–10060. https://arxiv.org/abs/2501.12948\n[13] MathiasBinswanger.2001.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "cs.CL]\nResearch24,1(2023),10006–10060. https://arxiv.org/abs/2501.12948\n[13] MathiasBinswanger.2001.Technologicalprogressandsustainabledevelopment: [30] JesseDodge,TaylorPrewitt,RemiTachetdesCombes,ErikaOdmark,Roy\nwhataboutthereboundeffect?Ecologicaleconomics36,1(2001),119–132. Schwartz,EmmaStrubell,AlexandraSashaLuccioni,NoahASmith,Nicole\n[14] AlbertoBorettiandLorenzoRosa.2019. Reassessingtheprojectionsofthe DeCario,andWillBuchanan.2022.Measuringthecarbonintensityofaiincloud\nworldwaterdevelopmentreport.NPJCleanWater2,1(2019),15. instances.InProceedingsofthe2022ACMconferenceonfairness,accountability,\n[15] JohannesBuhlandJoséAcosta.2016.Workless,doless?Workingtimereduc- andtransparency.1877–1894.\ntionsandreboundeffects.SustainabilityScience11(2016),261–276.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "gtimereduc- andtransparency.1877–1894.\ntionsandreboundeffects.SustainabilityScience11(2016),261–276. [31] EwaDominowskaandVanjaJosifovski.2008.Firstworkshopontargetingand\n[16] ChristopherBurns,BarbaraBollard,andAjitNarayanan.2022. Machine- rankingforonlineadvertising.InProceedingsofthe17thinternationalconference\nlearningformappingandmonitoringshallowcoralreefhabitats.RemoteSensing onWorldWideWeb.1269–1270.\n14,11(2022),2666. [32] DealvaJadeDowd-Hinkle.2012. Kindlevs.Printedbookanenvironmental\n[17] JessicaCampbell,IreneMHerremans,andAnneKleffner.2018. Barriersto analysis.RochesterInstituteofTechnology.\nachievingadditionalityincarbonoffsets:aregulatoryriskperspective.Journal [33] AurélienDumont,BeatrizMayor,andElenaLópez-Gunn.2013.Istherebound",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "latoryriskperspective.Journal [33] AurélienDumont,BeatrizMayor,andElenaLópez-Gunn.2013.Istherebound\nofEnvironmentalPlanningandManagement61,14(2018),2570–2589. effectorJevonsparadoxausefulconceptforbettermanagementofwater\n[18] DanielCastro.2024.RethinkingConcernsAboutAI’sEnergyUse. resources?InsightsfromtheirrigationmodernisationprocessinSpain.Aquatic\n[19] YeChen,MichaelKapralov,JohnCanny,andDmitryPavlov.2009. Factor procedia1(2013),64–76.\nmodelingforadvertisementtargeting.Advancesinneuralinformationprocessing [34] EclecticLight.2024.CheckWritingToolsusingAIR. https://eclecticlight.co/\nsystems22(2009). 2024/10/29/check-writing-tools-using-air/\n[20] Jin-AChoiandKihoLim.2020.Identifyingmachinelearningtechniquesfor [35] TynaEloundou,SamManning,PamelaMishkin,andDanielRock.2023.GPTs",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "yingmachinelearningtechniquesfor [35] TynaEloundou,SamManning,PamelaMishkin,andDanielRock.2023.GPTs\nclassificationoftargetadvertising.ICTExpress6,3(2020),175–180. areGPTs:Anearlylookatthelabormarketimpactpotentialoflargelanguage\n[21] PeterClutton-Brock,DavidRolnick,PriyaLDonti,andLynnKaack.2021.Cli- models.arXivpreprintarXiv:2303.10130(2023).\nmatechangeandAI.recommendationsforgovernmentaction.TechnicalReport. [36] WolfgangErtelandChristopherBonenberger.2024.ReboundEffectsCausedby\nGPAI,ClimateChangeAI,CentreforAI&Climate. ArtificialIntelligenceandAutomationinPrivateLifeandIndustry.(2024).\n[22] VladCCoroamă,PernillaBergmark,MattiasHöjer,andJensMalmodin.2020. [37] RichardEvansandJimGao.2016.DeepMindAIReducesGoogleDataCentre",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "attiasHöjer,andJensMalmodin.2020. [37] RichardEvansandJimGao.2016.DeepMindAIReducesGoogleDataCentre\nAmethodologyforassessingtheenvironmentaleffectsinducedbyictservices: CoolingBillby40%. https://deepmind.google/discover/blog/deepmind-ai-\nParti:Singleservices.InProceedingsofthe7thInternationalConferenceonICT reduces-google-data-centre-cooling-bill-by-40/\nforSustainability.36–45. [38] R.Fischer,M.Jakobs,S.Mücke,andK.Morik.2022.AUnifiedFrameworkfor\n[23] VladCCoroamăandDanielPargman.2020.Skillrebound:Onanunintended AssessingEnergyEfficiencyofMachineLearning.InProceedingsoftheECML\neffectofdigitalization.InProceedingsofthe7thInternationalConferenceonICT WorkshoponDataScienceforSocialGood.\nforSustainability.213–219. [39] JaumeFreire-GonzálezandIgnasiPuig-Ventosa.2015.Energyefficiencypolicies",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ustainability.213–219. [39] JaumeFreire-GonzálezandIgnasiPuig-Ventosa.2015.Energyefficiencypolicies\n[24] KateCrawford.2021.TheatlasofAI:Power,politics,andtheplanetarycostsof andtheJevonsparadox.InternationalJournalofEnergyEconomicsandPolicy5,\nartificialintelligence.YaleUniversityPress. 1(2015),69–79.\n[25] CaseyCrownhart.2024.WhyMicrosoftmadeadealtohelprestartThreeMile [40] MarioGiampietroandKozoMayumi.2018.Unravelingthecomplexityofthe\nIsland. https://www.technologyreview.com/2024/09/26/1104516/three-mile- JevonsParadox:Thelinkbetweeninnovation,efficiency,andsustainability.\nisland-microsoft/ FrontiersinEnergyResearch6(2018),349753.\n[26] RosaMariaDangelicoandDanieleVocalelli.2017. “GreenMarketing”:An [41] BastienGirod,PeterdeHaan,andRolandWScholz.2011. Consumption-as-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "elli.2017. “GreenMarketing”:An [41] BastienGirod,PeterdeHaan,andRolandWScholz.2011. Consumption-as-\nanalysisofdefinitions,strategysteps,andtoolsthroughasystematicreviewof usualinsteadofceterisparibusassumptionfordemand:Integrationofpotential\ntheliterature.JournalofCleanerproduction165(2017),1263–1279. reboundeffectsintoLCA.TheInternationalJournalofLifeCycleAssessment16\n[27] SouvikDattaandMassimoFilippini.2016.AnalysingtheimpactofENERGY (2011),3–11.\nSTARrebatepoliciesintheUS.EnergyEfficiency9(2016),677–698. [42] Google.2024.GoogleEnvironmentalReport2024. https://www.gstatic.com/\ngumdrop/sustainability/google-2024-environmental-report.pdf",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "FAccT’25,June23–26,2025,Athens,Greece Luccionietal.\n[43] CédricGossart.2015.ReboundeffectsandICT:areviewoftheliterature.ICT [68] PengfeiLi,JianyiYang,MohammadAIslam,andShaoleiRen.2023.Making\ninnovationsforsustainability(2015),435–448. AILess\"Thirsty\":UncoveringandAddressingtheSecretWaterFootprintofAI\n[44] GreenPeace.2020.OilintheCloud:HowTechCompaniesareHelpingBigOil Models.arXivpreprintarXiv:2304.03271(2023).\nProfitfromClimateDestructions. https://www.greenpeace.org/usa/reports/oil- [69] Alexandra Sasha Luccioni, Yacine Jernite, and Emma Strubell. 2023.\nin-the-cloud/ Power Hungry Processing: Watts Driving the Cost of AI Deployment?\n[45] GianlucaGuidi,FrancescaDominici,JonathanGilmour,KevinButler,EricBell, arXiv:2311.16863[cs.LG]\nScottDelaney,andFalcoJBargagli-Stoffi.2024.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "hanGilmour,KevinButler,EricBell, arXiv:2311.16863[cs.LG]\nScottDelaney,andFalcoJBargagli-Stoffi.2024. EnvironmentalBurdenof [70] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.2022.Es-\nUnitedStatesDataCentersintheArtificialIntelligenceEra. arXivpreprint timatingthecarbonfootprintofBLOOM,a176Bparameterlanguagemodel.\narXiv:2411.09786(2024). arXivpreprintarXiv:2211.02001(2022).\n[46] RobertHahnandKennethRichards.2013. Understandingtheeffectiveness [71] SashaLuccioni,BorisGamazaychikov,SaraHooker,RégisPierrard,Emma\nofenvironmentaloffsetpolicies. JournalofRegulatoryEconomics44(2013), Strubell,YacineJernite,andCarole-JeanWu.2024. Lightbulbshaveenergy\n103–119. ratings—sowhycan’tAIchatbots?Nature632,8026(2024),736–738.\n[47] PatrickHartmann,AitorMarcos,JuanaCastro,andVanessaApaolaza.2023.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "?Nature632,8026(2024),736–738.\n[47] PatrickHartmann,AitorMarcos,JuanaCastro,andVanessaApaolaza.2023. [72] AmyLuers,JonathanKoomey,EricMasanet,OwenGaffney,FelixCreutzig,\nPerspectives:Advertisingandclimatechange–Partoftheproblemorpartof JuanLavistaFerres,andEricHorvitz.2024. WillAIaccelerateordelaythe\nthesolution?InternationalJournalofAdvertising42,2(2023),430–457. racetonet-zeroemissions? NatureComments628(2024),718–720. https:\n[48] ChrisTHendrickson,LesterBLave,andHScottMatthews.2010.Environmental //doi.org/10.1038/d41586-024-01137-x\nlifecycleassessmentofgoodsandservices:aninput-outputapproach.Routledge. [73] IanMacKenzie.2013.HowRetailersCanKeepUpwithConsumers.McKinsey\n[49] JoelHestness,SharanNarang,NewshaArdalani,GregoryDiamos,HeewooJun, &Company(2013).",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ers.McKinsey\n[49] JoelHestness,SharanNarang,NewshaArdalani,GregoryDiamos,HeewooJun, &Company(2013).\nHassanKianinejad,MdMostofaAliPatwary,YangYang,andYanqiZhou.2017. [74] Eric Masanet, Arman Shehabi, Nuoa Lei, Sarah Smith, and Jonathan\nDeeplearningscalingispredictable,empirically.arXivpreprintarXiv:1712.00409 Koomey.2020. Recalibratingglobaldatacenterenergy-useestimates. Sci-\n(2017). ence 367, 6481 (2020), 984–986. https://doi.org/10.1126/science.aba3758\n[50] LorenzMHilty,AndreasKöhler,FabianVonSchéele,RainerZah,andThomas arXiv:https://www.science.org/doi/pdf/10.1126/science.aba3758\nRuddy.2006.Reboundeffectsofprogressininformationtechnology.Poiesis& [75] EricMasanet,ArmanShehabi,NuoaLei,SarahSmith,andJonathanKoomey.\nPraxis4,1(2006),19–38. 2020.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "is& [75] EricMasanet,ArmanShehabi,NuoaLei,SarahSmith,andJonathanKoomey.\nPraxis4,1(2006),19–38. 2020.Recalibratingglobaldatacenterenergy-useestimates.Science367,6481\n[51] TorstenHoefler,ArielHendel,andDuncanRoweth.2022.Theconvergenceof (2020),984–986.\nhyperscaledatacenterandhigh-performancecomputingnetworks.Computer [76] Amil Merchant, Simon Batzner, Samuel S Schoenholz, Muratahan Aykol,\n55,7(2022),29–37. GowoonCheon,andEkinDogusCubuk.2023.Scalingdeeplearningformate-\n[52] MélHogan.2015.Dataflowsandwaterwoes:TheUtahDataCenter.BigData& rialsdiscovery.Nature624,7990(2023),80–85.\nSociety2,2(2015),2053951715592429.https://doi.org/10.1177/2053951715592429 [77] Meta.2021.Meta2021SustainabilityReport. https://sustainability.fb.com/2021-\narXiv:https://doi.org/10.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "eta.2021.Meta2021SustainabilityReport. https://sustainability.fb.com/2021-\narXiv:https://doi.org/10.1177/2053951715592429 sustainability-report/\n[53] NathanielCHorner,ArmanShehabi,andInêsLAzevedo.2016. Knownun- [78] Microsoft.2024.MicrosoftEnvironmentalReport2024. https://cdn-dynmedia-\nknowns:indirectenergyeffectsofinformationandcommunicationtechnology. 1.microsoft.com/is/content/microsoftcorp/microsoft/msc/documents/\nEnvironmentalResearchLetters11,10(2016),103001. presentations/CSR/Microsoft-2024-Environmental-Sustainability-Report.pdf\n[54] LauraHostettlerMacias,EmmanuelRavalet,andPatrickRérat.2022.Potential [79] ElizabethMinton,ChristopherLee,UlrichOrth,Chung-HyunKim,andLynn\nreboundeffectsofteleworkingonresidentialanddailymobility. Geography Kahle.2012.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "hung-HyunKim,andLynn\nreboundeffectsofteleworkingonresidentialanddailymobility. Geography Kahle.2012.Sustainablemarketingandsocialmedia:Across-countryanalysis\nCompass16,9(2022),e12657. ofmotivesforsustainablebehaviors.Journalofadvertising41,4(2012),69–84.\n[55] KerstinHötte,MellineSomers,andAngelosTheodorakopoulos.2023. Tech- [80] DavidMytton.2021. Datacentrewaterconsumption. npjCleanWater4,1\nnologyandjobs:Asystematicliteraturereview.TechnologicalForecastingand (2021),11.\nSocialChange194(2023),122750. [81] KirsiNiinimäki,GregPeters,HelenaDahlbo,PatsyPerry,TimoRissanen,and\n[56] InternationalEnergyAuthority.2023. DataCentresandDataTransmission AlisonGwilt.2020.Theenvironmentalpriceoffastfashion.NatureReviews\nNetworks. https://www.iea.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "mission AlisonGwilt.2020.Theenvironmentalpriceoffastfashion.NatureReviews\nNetworks. https://www.iea.org/energy-system/buildings/data-centres-and- Earth&Environment1,4(2020),189–200.\ndata-transmission-networks [82] NVIDIA.2024. PowerEfficiency. https://www.nvidia.com/en-us/glossary/\n[57] InternationalEnergyAuthority.2024. WorldEnergyOutlook2024. https: power-efficiency/\n//www.iea.org/reports/world-energy-outlook-2024 [83] OECD.2023.EmissionsMeasurementinSupplyChains:BusinessRealitiesand\n[58] RenéItten,RolandHischier,AndersSGAndrae,JanCTBieser,LiviaCabernard, Challenges. https://www.weforum.org/publications/emissions-measurement-\nAnnemarieFalke,HuguesFerreboeuf,LorenzMHilty,RegulaLKeller,Etienne in-supply-chains-business-realities-and-challenges/\nLees-Perasso,etal.2020.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ty,RegulaLKeller,Etienne in-supply-chains-business-realities-and-challenges/\nLees-Perasso,etal.2020.Digitaltransformation—lifecycleassessmentofdigital [84] MichaelIOjovanandHansJSteinmetz.2022.Approachestodisposalofnuclear\nservices,multifunctionaldevicesandcloudcomputing.TheInternationalJournal waste.Energies15,20(2022),7804.\nofLifeCycleAssessment25(2020),2093–2098. [85] Otto,Melissa.2024.GlobalDigitalAdvertisingRevenues–ALookattheBig\n[59] SamiJaghouar,JackMinOng,ManveerBasra,FaresObeid,JannikStraube, Three:Alphabet(GOOGL),MetaPlatforms(META),Amazon.com(AMZN).\nMichaelKeiblinger,ElieBakouch,LucasAtkins,MaziyarPanahi,CharlesGod- https://visiblealpha.com/blog/global-digital-advertising-revenues-a-look-at-\ndard,etal.2024.INTELLECT-1TechnicalReport.arXivpreprintarXiv:2412.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "l-advertising-revenues-a-look-at-\ndard,etal.2024.INTELLECT-1TechnicalReport.arXivpreprintarXiv:2412.01152 the-big-three-alphabet-googl-meta-platforms-meta-amazon-com-amzn/\n(2024). [86] JohnROwen,DeannaKemp,AlexMLechner,JillHarris,RuilianZhang,and\n[60] WStanleyJevons.1866. Thecoalquestion. InTheEconomicsofPopulation. ÉléonoreLèbre.2023.Energytransitionmineralsandtheirintersectionwith\nRoutledge,193–204. land-connectedpeoples.NatureSustainability6,2(2023),203–211.\n[61] ZheJia,BlakeTillman,MarcoMaggioni,andDanielePaoloScarpazza.2019.Dis- [87] TufanÖzsoy.2024. The“energyreboundeffect”withintheframeworkof\nsectingthegraphcoreipuarchitectureviamicrobenchmarking.arXivpreprint environmentalsustainability.WileyInterdisciplinaryReviews:EnergyandEnvi-\narXiv:1912.03413(2019). ronment13,2(2024),e517.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "bility.WileyInterdisciplinaryReviews:EnergyandEnvi-\narXiv:1912.03413(2019). ronment13,2(2024),e517.\n[62] NormanPJouppi,CliffYoung,NishantPatil,DavidPatterson,GauravAgrawal, [88] IsabelO’Brien.2024.Datacenteremissionsprobably662%higherthanbigtech\nRaminderBajwa,SarahBates,SureshBhatia,NanBoden,AlBorchers,etal.2017. claims.Canitkeepuptheruse?TheGuardian15(2024).\nIn-datacenterperformanceanalysisofatensorprocessingunit.InProceedings [89] DavidPatterson,JosephGonzalez,UrsHölzle,QuocLe,ChenLiang,Lluis-\nofthe44thannualinternationalsymposiumoncomputerarchitecture.1–12. MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.2022.\n[63] LynnHKaack,PriyaLDonti,EmmaStrubell,GeorgeKamiya,FelixCreutzig, TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink.\nandDavidRolnick.2022.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ixCreutzig, TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink.\nandDavidRolnick.2022.Aligningartificialintelligencewithclimatechange https://doi.org/10.48550/ARXIV.2204.05149\nmitigation.NatureClimateChange12,6(2022),518–527. [90] DavidPatterson,JosephGonzalez,UrsHölzle,QuocLe,ChenLiang,Lluis-\n[64] JaredKaplan,SamMcCandlish,TomHenighan,TomBBrown,BenjaminChess, MiquelMunguia,DanielRothchild,DavidR.So,MaudTexier,andJeffDean.\nRewonChild,ScottGray,AlecRadford,JeffreyWu,andDarioAmodei.2020. 2022.TheCarbonFootprintofMachineLearningTrainingWillPlateau,Then\nScalinglawsforneurallanguagemodels.arXivpreprintarXiv:2001.08361(2020). Shrink.Computer55,7(2022),18–28. https://doi.org/10.1109/MC.2022.3148714\n[65] JonathanKoomeyandEricMasanet.2021.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ter55,7(2022),18–28. https://doi.org/10.1109/MC.2022.3148714\n[65] JonathanKoomeyandEricMasanet.2021.Doesnotcompute:Avoidingpitfalls [91] PlanetTracker.2024.FromADversitytoADvantage. https://planet-tracker.\nassessingtheInternet’senergyandcarbonimpacts.Joule5,7(2021),1625–1628. org/wp-content/uploads/2024/02/From-Adversity-to-Advantage.pdf\nhttps://doi.org/10.1016/j.joule.2021.05.007 [92] RemusPrăvălieandGeorgetaBandoc.2018.Nuclearenergy:Betweenglobal\n[66] AdamKrechowicz,MariaKrechowicz,andKatarzynaPoczeta.2022.Machine electricitydemand,worldwidedecarbonisationimperativeness,andplanetary\nlearningapproachestopredictelectricityproductionfromrenewableenergy environmentalimplications.Journalofenvironmentalmanagement209(2018),\nsources.Energies15,23(2022),9146. 81–92.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "talimplications.Journalofenvironmentalmanagement209(2018),\nsources.Energies15,23(2022),9146. 81–92.\n[67] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres. [93] GuillemRamírez,MatthiasLindemann,AlexandraBirch,andIvanTitov.2023.\n2019. Quantifyingthecarbonemissionsofmachinelearning. arXivpreprint Cache&distil:OptimisingAPIcallstolargelanguagemodels.arXivpreprint\narXiv:1910.09700(2019). arXiv:2310.13561(2023).",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "FromEfficiencyGainstoReboundEffects FAccT’25,June23–26,2025,Athens,Greece\n[94] HannaReimers,AnkeJacksohn,DennisAppenfeller,WassiliLasarov,Alexandra about-its-oil-contracts/\nHüttel,KatrinRehdanz,IngoBalderjahn,andStefanHoffmann.2021.Indirect [119] MaddieStone.2024.Microsoftemployeesspentyearsfightingthetechgiant’s\nreboundeffectsontheconsumerlevel:Astate-of-the-artliteraturereview. oilties.Now,they’respeakingout. https://grist.org/accountability/microsoft-\nCleanerandResponsibleConsumption3(2021),100032. employees-spent-years-fighting-the-tech-giants-oil-ties-now-theyre-\n[95] AnnikaRieger.2021.DoesICTresultindematerialization?ThecaseofEurope, speaking-out/\n2005-2017.EnvironmentalSociology7,1(2021),64–75. [120] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019.EnergyandPol-",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "entalSociology7,1(2021),64–75. [120] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019.EnergyandPol-\n[96] BoraRistic,KavehMadani,andZenMakuch.2015.Thewaterfootprintofdata icyConsiderationsforDeepLearninginNLP.InProceedingsofthe57thAnnual\ncenters.Sustainability7,8(2015),11260–11284. MeetingoftheAssociationforComputationalLinguistics,AnnaKorhonen,David\n[97] MiriamBörjessonRivera,CeciliaHåkansson,ÅsaSvenfelt,andGöranFinnveden. Traum,andLluísMàrquez(Eds.).AssociationforComputationalLinguistics,\n2014. IncludingsecondordereffectsinenvironmentalassessmentsofICT. Florence,Italy,3645–3650. https://doi.org/10.18653/v1/P19-1355\nEnvironmentalModelling&Software56(2014),105–115. [121] RichardSutton.2019.Thebitterlesson.IncompleteIdeas(blog)13,1(2019),38.\n[98] BrettHRobinson.2009.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "21] RichardSutton.2019.Thebitterlesson.IncompleteIdeas(blog)13,1(2019),38.\n[98] BrettHRobinson.2009. E-waste:anassessmentofglobalproductionand [122] AdrianTantauandElenaNiculescu.2022.TheroleofPowerPurchaseAgree-\nenvironmentalimpacts.Scienceofthetotalenvironment408,2(2009),183–191. mentsforthepromotionofgreenenergyandthetransitiontoazerocarbon\n[99] DavidRolnick,PriyaLDonti,LynnHKaack,KellyKochanski,AlexandreLacoste, economy.InProceedingsoftheInternationalConferenceonBusinessExcellence,\nKrisSankaran,AndrewSlavinRoss,NikolaMilojevic-Dupont,NatashaJaques, Vol.16.1237–1245.\nAnnaWaldman-Brown,etal.2022. Tacklingclimatechangewithmachine [123] ZeeshanTariq,MurtadaSalehAljawad,AmjedHasan,MobeenMurtaza,Emad\nlearning.ACMComputingSurveys(CSUR)55,2(2022),1–96.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "MurtadaSalehAljawad,AmjedHasan,MobeenMurtaza,Emad\nlearning.ACMComputingSurveys(CSUR)55,2(2022),1–96. Mohammed,AmmarEl-Husseiny,SulaimanAAlarifi,MohamedMahmoud,\n[100] TilmanSantarius,JohannaPohl,andSteffenLange.2020.Digitalizationandthe andAbdulazeezAbdulraheem.2021.Asystematicreviewofdatascienceand\nDecouplingDebate:CanICTHelptoReduceEnvironmentalImpactsWhilethe machinelearningapplicationstotheoilandgasindustry.JournalofPetroleum\nEconomyKeepsGrowing?Sustainability12,18(2020). https://doi.org/10.3390/ ExplorationandProductionTechnology(2021),1–36.\nsu12187496 [124] MichaelTerrell.2024. NewnuclearcleanenergyagreementwithKairos\n[101] HarrySaunders.2009.Theoreticalfoundationsofthereboundeffect.Interna- Power. https://blog.google/outreach-initiatives/sustainability/google-kairos-",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "eboundeffect.Interna- Power. https://blog.google/outreach-initiatives/sustainability/google-kairos-\ntionalhandbookontheeconomicsofenergy(2009). power-nuclear-energy-agreement/\n[102] BerendJSchuit,JoannesDMaasakkers,PieterBijl,GouravMahapatra,Anne- [125] NeilC.Thompson,KristjanGreenewald,KeeheonLee,andGabrielF.Manso.\nWilVandenBerg,SudhanshuPandey,AlbaLorente,TobiasBorsdorff,Sander 2021. DeepLearning’sDiminishingReturns:TheCostofImprovementis\nHouweling,DanielJVaron,etal.2023.Automateddetectionandmonitoringof BecomingUnsustainable.IEEESpectrum58,10(2021),50–55. https://doi.org/\nmethanesuper-emittersusingsatellitedata.AtmosphericChemistryandPhysics 10.1109/MSPEC.2021.9563954\nDiscussions2023(2023),1–47. [126] JWThomson.1972.Methodsoftrafficlimitationinurbanareas.TechnicalReport.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ssions2023(2023),1–47. [126] JWThomson.1972.Methodsoftrafficlimitationinurbanareas.TechnicalReport.\n[103] Joy Scrogum. 2009. Books vs. eBooks – A life cycle compari- 106–112pages.\nson. https://sustainable-electronics.istc.illinois.edu/2009/11/05/books-vs- [127] SunitaTiwariandPratibhaSingh.2011.Environmentalimpactsofe-commerce.\nebooks-a-life-cycle-comparison/ InInternationalconferenceonenvironmentScienceandengineering,Vol.8.202–\n[104] NeilSelwyn.2024.Digitaldegrowth:Towardradicallysustainableeducation 207.\ntechnology.Learning,MediaandTechnology49,2(2024),186–199. [128] BillTomlinson,RebeccaWBlack,DonaldJPatterson,andAndrewWTorrance.\n[105] AgamShah.2024. NvidiaShipped3.76MillionData-centerGPUsin2023, 2024.ThecarbonemissionsofwritingandillustratingarelowerforAIthanfor\nAccordingtoStudy.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "terGPUsin2023, 2024.ThecarbonemissionsofwritingandillustratingarelowerforAIthanfor\nAccordingtoStudy. https://www.hpcwire.com/2024/06/10/nvidia-shipped-3- humans.ScientificReports14,1(2024),3732.\n76-million-data-center-gpus-in-2023-according-to-study/ [129] AlexandraTremayne-Pengelly.2024.AmidtheA.I.Boom,TheseStatesHave\n[106] MadhuSharma,KartikArunachalam,andDharaniSharma.2015.Analyzingthe BecomeDataCenterHubs. https://observer.com/2024/12/ai-demand-where-\ndatacenterefficiencybyusingPUEtomakedatacentersmoreenergyefficient data-centers-using-most-energy/\nbyreducingtheelectricalconsumptionandexploringnewstrategies.Procedia [130] UNGeneralAssembly.2015. Transformingourworld:the2030Agendafor\nComputerScience48(2015),142–148. SustainableDevelopment. https://www.refworld.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "orld:the2030Agendafor\nComputerScience48(2015),142–148. SustainableDevelopment. https://www.refworld.org/legal/resolution/unga/\n[107] NavinSharma,PranshuSharma,DavidIrwin,andPrashantShenoy.2011.Pre- 2015/en/111816\ndictingsolargenerationfromweatherforecastsusingmachinelearning.In2011 [131] LaszloVarroandGeorgeKamiya.5.5waysBigTechcouldhavebigimpactson\nIEEEinternationalconferenceonsmartgridcommunications(SmartGridComm). cleanenergytransitions.(5).\nIEEE,528–533. [132] RicardoVinuesa,HosseinAzizpour,IolandaLeite,MadelineBalaam,Virginia\n[108] Arman Shehabi, Sarah J. Smith, Alex Hubbard, Alex Newkirk, Nuoa Lei, Dignum, Sami Domisch, Anna Felländer, Simone Daniela Langhans, Max\nMdAbuBakarSiddik,BillieHolecek,JonathanKoomey,EricMasanet,and Tegmark,andFrancescoFusoNerini.2020.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "x\nMdAbuBakarSiddik,BillieHolecek,JonathanKoomey,EricMasanet,and Tegmark,andFrancescoFusoNerini.2020. Theroleofartificialintelligence\nDale Sartor. 2024. 2024 United States Data Center Energy Usage Re- inachievingtheSustainableDevelopmentGoals.Naturecommunications11,1\nport. https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024- (2020),1–10.\nunited-states-data-center-energy-usage-report.pdf [133] PetroVorotyntsev,YuriGordienko,OlegAlienin,OleksandrRokovyi,andSergii\n[109] FranyellSilfa,JoseMariaArnau,andAntonioGonzález.2022.E-BATCH:Energy- Stirenko.2021.Satelliteimagesegmentationusingdeeplearningfordeforesta-\nefficientandhigh-throughputRNNbatching.ACMTransactionsonArchitecture tiondetection.In2021IEEE3rdukraineconferenceonelectricalandcomputer",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "g.ACMTransactionsonArchitecture tiondetection.In2021IEEE3rdukraineconferenceonelectricalandcomputer\nandCodeOptimization(TACO)19,1(2022),1–23. engineering(UKRCON).IEEE,226–231.\n[110] AnirbidSircar,KritiYadav,KamakshiRayavarapu,NamrataBist,andHemangi [134] PengWang,Ling-YuZhang,AsafTzachor,andWei-QiangChen.2024.E-waste\nOza.2021.Applicationofmachinelearningandartificialintelligenceinoiland challengesofgenerativeartificialintelligence.NatureComputationalScience\ngasindustry.PetroleumResearch6,4(2021),379–391. (2024),1–6.\n[111] SteveSorrell.2009.Jevons’Paradoxrevisited:Theevidenceforbackfirefrom [135] MartinaWillenbacher,TorstenHornauer,andVolkerWohlgemuth.2021.Re-\nimprovedenergyefficiency.Energypolicy37,4(2009),1456–1469. boundeffectsinmethodsofartificialintelligence.InEnvironmentalInformatics.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "olicy37,4(2009),1456–1469. boundeffectsinmethodsofartificialintelligence.InEnvironmentalInformatics.\n[112] SteveSorrelletal.2007.TheReboundEffect:anassessmentoftheevidencefor Springer,73–85.\neconomy-wideenergysavingsfromimprovedenergyefficiency. [136] EricWilliams.2011.Environmentaleffectsofinformationandcommunications\n[113] SteveSorrellandJohnDimitropoulos.2008.Thereboundeffect:Microeconomic technologies.nature479,7373(2011),354–358.\ndefinitions,limitationsandextensions.EcologicalEconomics65,3(2008),636– [137] JohnDWilsonandZachZimmerman.2023.TheEraofFlatPowerDemandis\n649. Over.GridStrategies(2023).\n[114] BenjaminKSovacool,SarahERyan,PaulCStern,KatyJanda,GeneRochlin, [138] RichardTWoodward,DavidANewburn,andMarianoMezzatesta.2016.Addi-",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "lCStern,KatyJanda,GeneRochlin, [138] RichardTWoodward,DavidANewburn,andMarianoMezzatesta.2016.Addi-\nDanielSpreng,MartinJPasqualetti,HaroldWilhite,andLorenLutzenhiser. tionalityandreversecrowdingoutforpollutionoffsetsinwaterqualitytrading.\n2015.Integratingsocialscienceinenergyresearch.EnergyResearch&Social EcologicalEconomics128(2016),224–231.\nScience6(2015),95–99. [139] XiaoXue,ShufangWang,andBaoyunLu.2015. Computationalexperiment\n[115] Statista. 2023. Supply and demand for multitenant data center approachtocontrolledevolutionofprocurementpatterninclustersupplychain.\n(MTDC) square footage worldwide from 2013 to 2023. https: Sustainability7,2(2015),1516–1541.\n//www.statista.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "quare footage worldwide from 2013 to 2023. https: Sustainability7,2(2015),1516–1541.\n//www.statista.com/statistics/1008058/multitenant-data-center-square- [140] Claudio Zeni, Robert Pinsler, Daniel Zügner, Andrew Fowler, Xiang Fu\nfootage-supply-and-demand-worldwide/ MatthewHorton,ZilongWang,AliaksandraShysheya,JonathanCrabbé,Shoko\n[116] Statista.2024.Marketvalueofartificialintelligence(AI)inmarketingworldwide Ueda,RobertoSordillo,LixinSun,JakeSmith,BichlienNguyen,HannesSchulz,\nfrom2020to2028. https://www.statista.com/statistics/1293758/ai-marketing- SarahLewis,Chin-WeiHuang,ZihengLu,YichiZhou,HanYang,Hongxia\nrevenue-worldwide/ Hao,JielanLi,ChunleiYang,WenjieLi,RyotaTomioka,andTianXie.2025.\n[117] DavidIStern.2020.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "e-worldwide/ Hao,JielanLi,ChunleiYang,WenjieLi,RyotaTomioka,andTianXie.2025.\n[117] DavidIStern.2020.Howlargeistheeconomy-widereboundeffect?Energy Agenerativemodelforinorganicmaterialsdesign. Nature(2025). https:\nPolicy147(2020),111870. //doi.org/10.1038/s41586-025-08628-5\n[118] MaddieStone.2020. Microsoft’sambitiousclimategoalforgetsaboutitsoil [141] BanghuaZhu,YingSheng,LianminZheng,ClarkBarrett,MichaelJordan,and\ncontracts. https://grist.org/energy/microsofts-ambitious-climate-goal-forgets- JiantaoJiao.2024. TowardsOptimalCachingandModelSelectionforLarge\nModelInference.AdvancesinNeuralInformationProcessingSystems36(2024).",
+    "page": 13
+  }
+]

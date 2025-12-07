@@ -1,0 +1,807 @@
+[
+  {
+    "type": "text",
+    "content": "1\nSustainable AI: Environmental Implications,\nChallenges and Opportunities\nCarole-Jean Wu, Ramya Raghavendra, Udit Gupta, Bilge Acun, Newsha Ardalani, Kiwan Maeng,\nGloria Chang, Fiona Aga Behram, James Huang, Charles Bai, Michael Gschwind, Anurag Gupta, Myle Ott,\nAnastasia Melnikov, Salvatore Candido, David Brooks, Geeta Chauhan, Benjamin Lee, Hsien-Hsin S. Lee,\nBugra Akyildiz, Maximilian Balandat, Joe Spisak, Ravi Jain, Mike Rabbat, Kim Hazelwood\nFacebook AI\nAbstract—This paper explores the environmental impact of\nthesuper-lineargrowthtrendsforAIfromaholisticperspective,\n250\nspanning Data, Algorithms, and System Hardware. We character-\nizethecarbonfootprintofAIcomputingbyexaminingthemodel 200\ndevelopment cycle across industry-scale machine learning use",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ntofAIcomputingbyexaminingthemodel 200\ndevelopment cycle across industry-scale machine learning use\ncases and, at the same time, considering the life cycle of system 150\nhardware.Takingastepfurther,wecapturetheoperationaland\nmanufacturingcarbonfootprintofAIcomputingandpresentan 100\nend-to-end analysis for what and how hardware-software design\nand at-scale optimization can help reduce the overall carbon 50\nfootprint of AI. Based on the industry experience and lessons\nlearned, we share the key challenges and chart out important 0\n2011 2013 2015 2017 2019\ndevelopment directions across the many dimensions of AI. We\nhope the key messages and insights presented in this paper\ncan inspire the community to advance the field of AI in an\nenvironmentally-responsible manner.\nI. INTRODUCTION",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "the community to advance the field of AI in an\nenvironmentally-responsible manner.\nI. INTRODUCTION\nArtificial Intelligence (AI) is one of the fastest growing\ndomains spanning research and product development and\nsignificant investment in AI is taking place across nearly every\nindustry, policy, and academic research. This investment in\nAI has also stimulated novel applications in domains such as\nscience, medicine, finance, and education. Figure 1 analyzes\nthenumberofpaperspublishedwithinthescientificdisciplines,\nillustrating the growth trend in recent years1.\nAI plays an instrumental role to push the boundaries of\nknowledge and sparks novel, more efficient approaches to\nconventional tasks. AI is applied to predict protein structures\nradically better than previous methods.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ventional tasks. AI is applied to predict protein structures\nradically better than previous methods. It has the potential to\nrevolutionizebiologicalsciencesbyprovidingin-silicomethods\nfor tasks only possible in a physical laboratory setting [1]. AI\nis demonstrated to achieve human-level conversation tasks,\nsuch as the Blender Bot [2], and play games at superhuman\nlevels, such as AlphaZero [3]. AI is used to discover new\nelectrocatalysts for efficient and scalable ways to store and\nutilize renewable energy [4], predicting renewable energy\navailability in advance to improve energy utilization [5],\noperatinghyperscaledatacentersefficiently[6],growingplants\nusing less natural resources [7], and, at the same time, being\nused to tackle climate changes [8], [9]. It is projected that, in",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "[7], and, at the same time, being\nused to tackle climate changes [8], [9]. It is projected that, in\nthenextfiveyears,themarketforAIwillincreaseby10×into\nhundreds of billions of dollars [10]. All of these investments\n1Basedonmonthlycounts,Figure1estimatesthecumulativenumberof\npaperspublishedpercategoryonthearXivdatabase.\nstnuoC\nelcitrAviXra\nevitalumuC\nsdnasuohT\nAI in Different Disciplines\nComputer Science\nMath\nMachine Learning\nPhysics\nSource: arXiv.org\nFig.1. ThegrowthofMLisexceedingthatofmanyotherscientificdisciplines.\nSignificantresearchgrowthinmachinelearningisobservedinrecentyearsas\nillustratedbytheincreasingcumulativenumberofpaperspublishedinmachine\nlearningwithrespecttootherscientificdisciplinesbasedonthemonthlycount\n(y-axismeasuresthecumulativenumberofarticlesonarXiv).",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "erscientificdisciplinesbasedonthemonthlycount\n(y-axismeasuresthecumulativenumberofarticlesonarXiv).\nin research, development, and deployment have led to a super-\nlinear growth in AI data, models, and infrastructure capacity.\nWith the dramatic growth of AI, it is imperative to understand\nthe environmental implications, challenges, and opportunities\nofthisnascenttechnology.Thisisbecausetechnologiestendto\ncreate a self-accelerating growth cycle, putting new demands\non the environment.\nThis work explores the environmental impact of AI from\na holistic perspective. More specifically, we present the\nchallenges and opportunities to designing sustainable AI\ncomputing across the key phases of the machine learning (ML)\ndevelopment process — Data, Experimentation, Training, and",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "key phases of the machine learning (ML)\ndevelopment process — Data, Experimentation, Training, and\nInference — for a variety of AI use cases at Facebook, such\nas vision, language, speech, recommendation and ranking. The\nsolution space spans across our fleet of datacenters and on-\ndevice computing. Given particular use cases, we consider the\nimpact of AI data, algorithms, and system hardware. Finally,\nweconsideremissionsacrossthelifecycleofhardwaresystems,\nfrom manufacturing to operational use.\nAI Data Growth. In the past decade, we have seen an\nexponential increase in AI training data and model capacity.\nFigure 2(b) illustrates that the amount of training data at\nFacebook for two recommendation use cases — one of the\nfastestgrowingareasofMLusageatFacebook—hasincreased\nby2.4×and1.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ecommendation use cases — one of the\nfastestgrowingareasofMLusageatFacebook—hasincreased\nby2.4×and1.9×inthelasttwoyears,reachingexabytescale.\nThe increase in data size has led to a 3.2× increase in data\ningestion bandwidth demand. Given this increase, data storage\nand the ingestion pipeline accounts for a significant portion of\n2202\nnaJ\n9\n]GL.sc[\n2v46300.1112:viXra",
+    "page": 1
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 1):\nComp\nMath | uter Science |  | \nMach\nPhysi | ine Learning\ncs |  | \n |  |  | \n |  |  | \n |  |  | ",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "20\n15\n10\n5\n0\neziS\nledoM\n45 0.035\n40 0.03 35 0.025\n30\n25 0.02 (c) Model Growth Trend\n20 0.015\n15 0.01 DLRM Parameter #s 10\n5 0.005\n0 0\n0.1 10 1000\nTime\nerocS\nUELB\ntnemevorpmI\nCUA\netulosbA\n(a) 1000x Model Size Scaling\n4.5x x\nGPT English2French GPT French2English 4\nRecSys Search RecSys Images 3.5\n3 2.5 2\n1.5 1 0.5\nx\nx x x\nModel Size (Billions of Parameters in Log Scale) 2019-21\nnoitsegnI\n& ataD\nhtdiwdnaB\n(b) Data Growth Trend\n3\nDLRM1 Data\nDLRM2 Data\nData Ingestion BW 2.5\nTime\n2\n1.5\n1\nYr1-Q1Yr1-Q2Yr1-Q3Yr1-Q4Yr2-Q1Yr2-Q2\nyticapaC\nmetsyS\nIA\n(d) System Growth Trend\n2.9x\nTraining Inference\n2.5x 1,000x\n20x\nFig.2. Deeplearninghaswitnessedanexponentialgrowthindata,modelparameters,andsystemresourcesovertherecentyears.(a)The1000×modelsize\ngrowthhasledtohighermodelaccuracyforvariousMLtasks.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "resourcesovertherecentyears.(a)The1000×modelsize\ngrowthhasledtohighermodelaccuracyforvariousMLtasks.Forexample,withGPT-3,toincreasethemodelqualityBLEUscorefrom5to40requiresa\nmodel1,000×largerinsize.(b)AtFacebook,theamountofdataforrecommendationusecaseshasroughlydoubledbetween2019and2021,leadingto3.2\ntimesincreaseinthedataingestionbandwidthdemand.(c)Facebook’srecommendationandrankingmodelsizeshaveincreasedby20timesduringthesame\ntimeperiod[11].(d)TheexplosivegrowthinAIhasdriven2.9×and2.5×capacityincreasesforAItrainingandinference,respectively.\nthe infrastructure and power capacity compared to ML training for both operational and embodied carbon footprint of AI.\nand end-to-end machine learning life cycles. We must look at the ML pipeline end-to-end: data collection,\nAIModelGrowth.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ne learning life cycles. We must look at the ML pipeline end-to-end: data collection,\nAIModelGrowth.Theever-increasingdatavolumehasalso model exploration and experimentation, model training, model\ndrivenasuper-lineartrendinmodelsizegrowth.Figure2(a)de- optimization and run-time inference. The frequency of training\npicts the 1000× model size increase for GPT3-based language and scale of each stage of the ML development cycle matter.\ntranslation tasks [12], [13], whereas for Baidu’s search engine, From the systems perspective, the life cycle of ML software\nthe model of 1000× larger in size improves accuracy in AUC and system hardware, including manufacturing and operational\nby 0.030. Despite small, the accuracy improvement can lead use, must also be considered.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "perational\nby 0.030. Despite small, the accuracy improvement can lead use, must also be considered.\nto significantly higher-quality search outcomes [14]. Similarly, Optimizing across ML pipelines and systems life cycles end-\nFigure 2(c) illustrates that between 2019 and 2021, the size to-end is a complex and challenging task. While training large,\nof recommendation models at Facebook has increased by sparsely-activated neural networks improves model scalability,\n20× [15], [16], [17], [11]. Despite the large increase in model achieving higher accuracy at lower operational energy foot-\nsizes, the memory capacity of GPU-based AI accelerators, print [21], it can incur higher embodied carbon footprint from\ne.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ty of GPU-based AI accelerators, print [21], it can incur higher embodied carbon footprint from\ne.g. 32GB (NVIDIA V100, 2018) to 80GB (NVIDIA A100, theincreaseinthesystemresourcerequirement.Shiftingmodel\n2021), has increased by < 2× every 2 years. The resource training and inference to data centers with carbon-free energy\nrequirements for strong AI scaling clearly outpaces that of can reduce emissions; however, this approach may not scale to\nsystem hardware. a broad set of use cases. Infrastructure for carbon-free energy\nAIInfrastructureGrowth.Thestrongperformancescaling is limited by factors such as geography and available materials\ndemand for ML motivates a variety of scale-out solutions [11], (e.g.rare metals),and takes significanteconomic resourcesand",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "a variety of scale-out solutions [11], (e.g.rare metals),and takes significanteconomic resourcesand\n[18]byleveragingparallelismatscalewithamassivecollection time to build. In addition, as on-device learning becomes more\noftrainingaccelerators.Figure2(d)illustratesthattheexplosive ubiquitously adopted to improve data privacy, we can see more\ngrowth in AI use cases at Facebook has driven 2.9× increase computation being shifted away from data centers to the edge,\nin AI training infrastructure capacity over the 1.5 years. In where access to renewable energy is limited.\naddition, we observe trillions of inference per day across AHolisticApproach.Thispaperisthefirsttotakeaholistic\nFacebook’s data centers—more than doubling in the past 3 approach to characterize the environmental footprint of AI",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "centers—more than doubling in the past 3 approach to characterize the environmental footprint of AI\nyears. The increase in inference demands has also led to an computing from experimentation and training to inference.\n2.5× increase in AI inference infrastructure capacity. Last but We characterize the carbon footprint of AI computing by\nnotleast,thecarbonfootprintofAIgoesbeyonditsoperational examining the model development cycle across industry-scale\nenergyconsumption.Theembodiedcarbonfootprintofsystems machine learning use cases at Facebook (Section II). This is\nisbecomingadominatingfactorforAI’soverallenvironmental illustrated by the more than 800× operational carbon footprint\nimpact (Section III) [19]. reduction achieved through judicious hardware-software co-\nThe Elephant in the Room.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tion III) [19]. reduction achieved through judicious hardware-software co-\nThe Elephant in the Room. Despite the positive societal design for a Transformer-based universal language model.\nbenefits [20], the endless pursuit of achieving higher model Taking a step further, we present an end-to-end analysis for\nqualityhasledtotheexponentialscalingofAIwithsignificant bothoperationaland embodiedcarbonfootprintforAItraining\nenergy and environmental footprint implications. Although and inference (Section III). Based on the industry experience\nrecent work shows the carbon footprint of training one large and lessons learned, we chart out opportunities and important\nML model, such as Meena [21], is equivalent to 242,231 miles developmentdirectionsacrossthedimensionsofAIincluding—",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "s Meena [21], is equivalent to 242,231 miles developmentdirectionsacrossthedimensionsofAIincluding—\ndriven by an average passenger vehicle [22], this is only one data, algorithm, systems, metrics, standards, and best practices\naspect; to fully understand the real environmental impact we (Section IV). We hope the key messages (Section VI) and the\nmust consider the AI ecosystem holistically going forward — insights in this paper can inspire the community to advance\nbeyond looking at model training alone and by accounting the field of AI in an environmentally-responsible manner.\n2",
+    "page": 2
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 2):\n | DL | RM1 D | ata |  | \n | DL | RM2 D | ata |  | \nData Inge |  |  | stion BW |  | \n |  |  |  |  | \n |  |  |  |  | ",
+    "page": 2
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 2):\n | \n1,00 | 0x\n | ",
+    "page": 2
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 2):\nDLRM | Parameter # | s | \n |  |  | \n |  |  | ",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "(a) Fleet View\nExperimentation Training Inference (b) Machine Learning Task View\n[Section 3.1]\n(c) Infrastructure View\n12\n10\nDeep Learning 8\nStorage –Network --Compute Framework & Library\n6\n4\n2\nManufacturing Transport Product Use Recycling 0\n2016 2017 2018 2019 2020\n-2\ne2OC\nsnoT\ncirteM\nsnoilliM\nMachine Learning Model Development and Deployment Phases [Section 2.1]\nData\nData Training (Offline) Training (Online/Evaluation)\nDeployment\nData Efficiency Resource-Efficient Experimentation, Algorithms, and\n[Section 4.1] Model Architectures [Section 4.2] RM1\nSystem Life Cycle [Section 2.2] 0% 20% 40% 60% 80% 100%\n[Use] Operational (renewable)\n[Use] Operational Scope 1,2\n[Manufacturing] Value Chain CO2 Scope 3\nEfficient, Environmentally-Sustainable AI System Hardware [Section 4.3] Carbon Removal",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "CO2 Scope 3\nEfficient, Environmentally-Sustainable AI System Hardware [Section 4.3] Carbon Removal\nFig.3. ModelDevelopmentPhasesoverAISystemHardwareLifeCycle:(a)AtFacebook,weobservearoughpowercapacitybreakdownof10:20:70for\nAIinfrastructuresdevotedtothethreekeyphases—Experimentation,Training,andInference;(b)ConsideringtheprimarystagesoftheMLpipeline\nend-to-end,theenergyfootprintofRM1isroughly31:29:40overData,Experimentation/Training,andInference;(c)Despitetheinvestmenttoneutralize\ntheoperationalfootprintwithcarbon-freeenergy,theoveralldatacenterelectricityusecontinuestogrow,demandingover7.17millionMWhin2020[23].\nII. MODELDEVELOPMENTPHASESANDAISYSTEM frequencies.Forexample,modelssupportingFacebook’sSearch\nHARDWARELIFECYCLE serviceweretrainedatanhourlycadencewhereastheLanguage",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ssupportingFacebook’sSearch\nHARDWARELIFECYCLE serviceweretrainedatanhourlycadencewhereastheLanguage\nTranslationmodelsweretrainedweekly[24].Ap50production\nFigure 3 depicts the major development phases for ML —\nmodel training workflow takes 2.96 GPU days while a training\nData Processing,Experimentation,Training,andInference\nworkflow at p99 can take up to 125 GPU days.\n(Section II-A) — over the life cycle of AI system hardware\nFinally, for Inference, the best-performing model is de-\n(Section II-B). Driven by distinct objectives of AI research\nployed,producingtrillionsofdailypredictionstoservebillions\nand advanced product development, infrastructure is designed\nof users worldwide. The total compute cycles for inference\nand built specifically to maximize data storage and ingestion",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "he total compute cycles for inference\nand built specifically to maximize data storage and ingestion\npredictions are expected to exceed the corresponding training\nefficiency for the phase of Data Processing, developer effi-\ncycles for the deployed model.\nciency for the phase of Experimentation, training throughput\nefficiency for the phase of Training, and tail-latency bounded\nthroughput efficiency for Inference. B. Machine Learning System Life Cycle\nLife Cycle Analysis (LCA) is a common methodology to\nassess the carbon emissions over the product life cycle. There\nA. Machine Learning Model Development Cycle\nare four major phases: manufacturing, transport, product use,\nML researchers extract features from data during the Data and recycling2. From the perspective of AI’s carbon footprint",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ct features from data during the Data and recycling2. From the perspective of AI’s carbon footprint\nProcessing phase and apply weights to individual features\nanalysis, manufacturing and product use are the focus. Thus,\nbasedonfeatureimportancetothemodeloptimizationobjective.\nin this work, we consider the overall carbon footprint of\nDuring Experimentation, the researchers design, implement\nAI by including manufacturing — carbon emissions from\nand evaluate the quality of proposed algorithms, model ar-\nbuilding infrastructures specifically for AI (i.e., embodied\nchitectures, modeling techniques, and/or training methods for\ncarbon footprint) and product use — carbon emissions from\ndetermining model parameters. This model exploration process\nthe use of AI (i.e., operational carbon footprint).",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "odel parameters. This model exploration process\nthe use of AI (i.e., operational carbon footprint).\nis computationally-intensive. A large collection of diverse ML\nWhile quantifying the exact breakdown between operational\nideas are explored simultaneously at-scale. Thus, during this\nand embodied carbon footprint is a complex process, we\nphase, we observe unique system resource requirements from\nestimate the significance of embodied carbon emissions using\nthe large pool of training experiments. Within Facebook’s ML Facebook’sGreenhouseGas(GHG)emissionstatistics3.Inthis\nresearchcluster,50%(p50)ofMLtrainingexperimentstakeup\ncase, more than 50% of Facebook’s emissions owe to its value\nto1.5GPUdayswhile99%(p99)oftheexperimentscomplete\nchain — Scope 3 of Facebook’s GHG emission. As a result,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Udayswhile99%(p99)oftheexperimentscomplete\nchain — Scope 3 of Facebook’s GHG emission. As a result,\nwithin24GPUdays.Thereareanumberoflarge-scale,trillion\na significant embodied carbon cost is paid upfront for every\nparameter models which require over 500 GPUs days.\nsystemcomponentbroughtintoFacebook’sfleetofdatacenters,\nOnceaMLsolutionisdeterminedaspromising,itmovesinto\nwhere AI is the biggest growth driver.\nTraining where the ML solution is evaluated using extensive\nproductiondata—datathatismorerecent,islargerinquantity, 2Recyclingisanimportantdomain,forwhichtheindustryisdeveloping\nand contains richer features. The process often requires a circular economy model to up-cycle system components — design with\nrecyclinginmind.\nadditional hyper-parameter tuning. Depending on the ML task",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "mponents — design with\nrecyclinginmind.\nadditional hyper-parameter tuning. Depending on the ML task\n3FacebookSustainabilityData:https://sustainability.fb.com/report/2020-sust\nrequirement, the models can be trained/re-trained at different ainability-report/.\n3",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n |  |  |  |  |  | \n |  |  |  |  |  | ",
+    "page": 3
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 3):\n |  |  | \n |  |  | \n | Sco | pe 3 | \n |  |  | ",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "1.00\n0.50\n0.00\n*Training footprint only\nML 1-MR 2-MR 3-MR 4-MR 5-MR SAN-TREB remrofsnarT\ndevlovE\n5T aneeM B006-drahSG remrofsnarT\nhctiwS\n3TPG\nFacebook OSS Large-Scale ML Models\n)gk(\ne2OC\nsnoilliM\nOperational Carbon Footprint of Large-Scale ML Tasks\n1.4\nOffline Training Online Training Inference\n1.2\n1\n0.8\n0.6\n0.4\n0.2\n0\nLM RM-1 RM-2 RM-3 RM-4 RM-5\nFig. 4. The carbon footprint of the LM model is dominated by Inference\nwhereas,forRM1–RM5,thecarbonfootprintofTrainingversusInferenceis\nroughlyequal.TheaveragecarbonfootprintforMLtrainingtasksatFacebook\nis1.8timeslargerthanthatofMeenausedinmodernconversationalagents\nand 0.3 times of GPT-3’s carbon footprint. Carbon footprint for inference\ntasksisincludedformodelsthatareusedinproduction.Note:theoperational",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Carbon footprint for inference\ntasksisincludedformodelsthatareusedinproduction.Note:theoperational\ncarbonfootprintofAIdoesnotcorrelatewiththenumberofmodelparameters.\nTheOSSlarge-scaleMLtasksarebasedonthevanillamodelarchitectures\nfrom[21]andmaynotbereflectiveofproductionusecases.\nIII. AICOMPUTING’SCARBONFOOTPRINT\nA. Carbon Footprint Analysis for Industry-Scale ML Training\nand Deployment\nFigure 4 illustrates the operational carbon emissions for\nmodel training and inference across the ML tasks. We analyze\nsix representative machine learning models in production\nat Facebook4. LM refers to Facebook’s Transformer-based\nUniversal Language Model for text translation [25]. RM1 –\nRM5 represent five unique deep learning recommendation and\nranking models for various Facebook products [26], [27].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ve unique deep learning recommendation and\nranking models for various Facebook products [26], [27].\nWe compare the carbon footprint of Facebook’s production\nML models with seven large-scale, open-source (OSS) models:\nBERT-NAS, T5, Meena, GShard-600B, Switch Transformer,\nand GPT-3. Note, we present the operational carbon footprint\nof the OSS model training from [28], [21]. The operational\ncarbon footprint results can vary based on the exact AI\nsystems used and the carbon intensity of the energy mixture.\nModels with more parameters do not necessarily result in\nlonger training time nor higher carbon emissions. Training\nthe Switch Transformer model equipped with 1.5 trillion\nparameters [29] produces significantly less carbon emission\nthanthatofGPT-3(750billionparameters)[13].Thisillustrates",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "oduces significantly less carbon emission\nthanthatofGPT-3(750billionparameters)[13].Thisillustrates\nthe carbon footprint advantage of operationally-efficient model\narchitectures.\n4Intotal,thesixmodelsaccountforavastmajorityofcomputeresources\nfor the overall inference predictions at Facebook, serving billions of users\nworldwide.\n)gk(\ne2OC\nsnoilliM\nOverall Carbon Footprint of Large-Scale ML Tasks\nOperational Carbon Cost (Offset with solar)\nOperational Carbon Cost (Rest)\nProjected Embodied Carbon Cost\ncarbon-free energy\nFig.5. WhenconsideringtheoveralllifecycleofMLmodelsandsystemsin\nthisanalysis,manufacturingcarboncostisroughly50%ofthe(location-based)\noperationalcarbonfootprintoflarge-scaleMLtasks(Figure4).Takinginto\naccountcarbon-freeenergy,suchassolar,theoperationalenergyconsumption",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "aleMLtasks(Figure4).Takinginto\naccountcarbon-freeenergy,suchassolar,theoperationalenergyconsumption\ncan be significantly reduced, leaving the manufacturing carbon cost as the\ndominatingsourceofAI’scarbonfootprint.\nBothTrainingandInferencecancontributesignificantlytothe\noverallcarbonfootprintofmachinelearningtasksatFacebook.\nThe exact breakdown between the two phases varies across\nML use cases.\nThe overall operational carbon footprint is categorized into\noffline training, online training, and inference. Offline training\nencompasses both experimentation and training models with\nhistorical data. Online training is particularly relevant to\nrecommendation models where parameters are continuously\nupdatedbasedonrecentdata.Theinferencefootprintrepresents\ntheemissionfromservingproductiontraffic.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ly\nupdatedbasedonrecentdata.Theinferencefootprintrepresents\ntheemissionfromservingproductiontraffic.Theonlinetraining\nand inference emissions are considered over the period of\noffline training. For recommendation use cases, we find the\ncarbon footprint is split evenly between training and inference.\nOn the other hand, the carbon footprint of LM is dominated\nby the inference phase, using much higher inference resources\n(65%) as compared to training (35%).\nBoth operational and embodied carbon emissions can con-\ntribute significantly to the overall footprint of ML tasks.\nOperational Carbon Footprint: Across the life cycle of\nthe Facebook models shown in Figure 4, the average carbon\nfootprint is 1.8× higher than that of the open-source Meena",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "s shown in Figure 4, the average carbon\nfootprint is 1.8× higher than that of the open-source Meena\nmodel [30] and one-third of GPT-3’s training footprint. To\nquantify the emissions of Facebook’s models we measure\nthe total energy consumed, assume location-based carbon\nintensities for energy mixes,5 and use a data center Power\nUsage Effectiveness (PUE) of 1.1. In addition to model-level\nandhardware-leveloptimizations,Facebook’srenewableenergy\nprocurement [23] programs mitigates these emissions.\nEmbodied Carbon Footprint: To quantify the embodied\ncarbon footprint of AI hardware, we use LCA (Section II-B).\nWe assume GPU-based AI training systems have similar\n5RenewableenergyandsustainabilityprogramsofFacebook[23].\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ogramsofFacebook[23].\n4",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | \n |  |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n\n",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n\n",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n\n",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "25%\n20%\n15%\n10%\n5%\n0%\ntnemevorpmI\ntnirptooFrewoP\nlanoitarepO\nerutcurtsarfnI\nIA\nllarevO\not\ndezilamroN\nOptimization is an Iterative Process 1,000\n810\nResource-Efficient\nAI Models 100 121\n[Figure 8]\nUtilization Model\n[At-Scale Data Center Optimization;\nLow-Precision Hardware] Platform\nInfrastructure\n10 12 Hardware\nPerformance-per-Watt 5\n[Domain-Specific\nAcceleration]\n1\nPerformance-per-Watt 1\n[Moore’s Law] CPU Baseline CPU Data GPU FP32 GPU FP16 Faster\nManagement Transformer\n2-year time period\nFig.6. Optimizationisaniterativeprocess—wehaveachievedanaverageof\n20%operationalenergyfootprintreductionevery6monthsacrossthemachine\nlearninghardware-softwarestack.\nembodied footprint as the production footprint of Apple’s 28-\ncore CPU with dual AMD Radeon GPUs (2000kg CO ) [31].\n2",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "as the production footprint of Apple’s 28-\ncore CPU with dual AMD Radeon GPUs (2000kg CO ) [31].\n2\nForCPU-onlysystems,weassumehalftheembodiedemissions.\nBasedonthecharacterizationofmodeltrainingandinferenceat\nFacebook,weassumeanaverageutilizationof30-60%overthe\n3- to 5-year lifetime for servers. Figure 5 presents the overall\ncarbon footprint for the large scale ML tasks at Facebook,\nspanning both operational and embodied carbon footprint.\nBased on the assumptions of location-based renewable energy\navailability, the split between the embodied and (location-\nbased) operational carbon footprint is roughly 30% / 70%\nfor the large scale ML tasks. Taking into account carbon-free\nenergy, such as solar, the operational carbon footprint can be",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "sks. Taking into account carbon-free\nenergy, such as solar, the operational carbon footprint can be\nsignificantly reduced, leaving the manufacturing carbon cost\nas the dominating source of AI’s carbon footprint.\nB. Carbon Footprint Optimization from Hardware-Software\nCo-Design\nOptimization is an iterative process — we reduce the power\nfootprint across the machine learning hardware-software stack\nby 20%every6months.Butatthesametime,AIinfrastructure\ncontinued to scale out. The net effect, with Jevon’s Paradox, is\na 28.5% operational power footprint reduction over two years\n(Figure 8).\nOptimizationacrossAIModelDevelopmentandSystem\nStack over Time: Figure 6 shows the operational power\nfootprint reduction across Facebook’s AI fleet over two years.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Figure 6 shows the operational power\nfootprint reduction across Facebook’s AI fleet over two years.\nThe improvement come from four areas of optimizations:\nmodel (e.g., designing resource-efficient models), platform\n(e.g., PyTorch’s support for quantization), infrastructure (e.g.,\ndata center optimization and low-precision hardware), and\nhardware (e.g., domain-specific acceleration). Each bar illus-\ntrates the operational power reduction across Facebook’s AI\nfleet over 6-month period from each of the optimization areas.\nThe optimizations in aggregate provide, on average, a 20%\nreduction in operational power consumption every six months.\not\ndezilamroN\ntnirptooF\nrewoP\nlanoitarepO\nsUPG\nno\nremrofsnarT\ndezimitpO\nleveL-mroftalP\ngnihcaC\nsrotareleccA\nUPG\nnoitazimitpO\nlaciremuN\nmhtiroglA+\nerawdraH",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "fsnarT\ndezimitpO\nleveL-mroftalP\ngnihcaC\nsrotareleccA\nUPG\nnoitazimitpO\nlaciremuN\nmhtiroglA+\nerawdraH\n+mroftalP\nx\n018\nOptimized\nTransformer\nFig.7. Forthecross-lingualMLtask(LM),theoperationalenergyfootprint\ncanbesignificantlyreducedbymorethan800×usingplatform-levelcaching,\nGPUs,lowprecisiondataformat,andadditionalalgorithmicoptimization.\nThe compounded benefits highlight the need for cross-stack\noptimizations.\nOptimizing the Carbon Footprint of LMs: We dive\ninto a specific machine learning task at Facebook: language\ntranslation using a Transformer-based architecture (LM). LM\nis designed based on the state-of-the-art cross-lingual un-\nderstanding through self-supervision. Figure 7 analyzes the\npowerfootprintimprovementsoveracollectionofoptimization",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ugh self-supervision. Figure 7 analyzes the\npowerfootprintimprovementsoveracollectionofoptimization\nsteps for LM: platform-level caching, GPU acceleration, low\nprecision format on accelerator, and model optimization. In\naggregate the optimizations reduce the infrastructure resources\nrequired to serve LM at scale by over 800×. We outline the\noptimization benefits from each area below.\n• Platform-Level Caching. Starting with a CPU server\nbaseline, application-level caching improves power effi-\nciency by 6.7×. These improvements are a result of pre-\ncomputing and caching frequently accessed embeddings\nfor language translation tasks. Using DRAM and Flash\nstoragedevicesascaches,thesepre-computedembeddings\ncan be shared across applications and use cases.\n• GPU acceleration.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "hes,thesepre-computedembeddings\ncan be shared across applications and use cases.\n• GPU acceleration. In addition to caching, deploying LM\nacross GPU-based specialized AI hardware unlocks an\nadditional 10.1× energy efficiency improvement.\n• Algorithmic optimization. Finally, algorithmic optimiza-\ntions provide an additional 12× energy efficiency re-\nduction. Halving precision (e.g., going from 32-bit to\n16-bit operations) provides a 2.4× energy efficiency\nimprovementonGPUs.Another5×energyefficiencygain\ncan be achieved by using custom operators to schedule\nencoding steps within a single kernel of the Transformer\nmodule, such as [32].\nOptimizing the Carbon Footprint of RMs: The LM\nanalysis is used as an example to highlight the optimiza-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "izing the Carbon Footprint of RMs: The LM\nanalysis is used as an example to highlight the optimiza-\ntion opportunities available with judicious cross-stack, hard-\nware/software optimization. In addition to optimizing the\ncarbon footprint for the language translation task, we describe\nadditional optimization techniques tailored for ranking and\n5",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n810 |  | \n |  | \n |  | 121\n |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n |  |  | source-Effici\n |  | Re | \n |  |  | AI Models\n[Figure 8]\n |  |  | \n |  |  | \n |  |  | \n | [At-Scale Da\nLow-Pr | Utilization\nta Center Op\necision Hard | timization;\nware]\n |  |  | \n |  |  | e-per-Watt\n-Specific\n |  | Performanc\n[Domain | \n |  | Accele | ration]\n | e-per-Watt\ns Law] |  | \nPerformanc\n[Moore’ |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n5 | \n | OpFtaimstiezred\nTTrraannssffoorrmmeerr",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "1.3\n1.2\n1.1 Utilization\n[At-Scale Data Center Optimization;\nLow-Precision Hardware]\n1\nPerformance-per-Watt\n0.9 [Domain-Specific\nAcceleration]\n0.8\nYr1-H1 Yr1-H2 Yr2-H1 Yr2-H2\ntnirptooF\nrewoP\nlanoitarepO\nBaseline Optimized (Section 3.2) more effective amortization of shared infrastructure overheads.\nFurthermore,datacentercapacityisnotonlylimitedbyphysical\nspace but also power capacity — higher operational power\nefficiency directly reduces the inherited carbon cost from\nmanufacturing of IT infrastructures and datacenter buildings. 28.5% improvement\nAt-Scale Efficiency Optimization for Facebook Data\nCenters:ServersinFacebookdatacenterfleetsarecustomized\nfor internal workloads only — machine learning tasks [24]\nor not [36], [37]. Compared to public cloud providers, this",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "oads only — machine learning tasks [24]\nor not [36], [37]. Compared to public cloud providers, this\nputs Facebook at a unique position for at-scale resource man-\nagement design and optimization. First, Facebookcustomizes\nserver SKUs — compute, memcached, storage tiers and ML\nFig.8. Theiterativeoptimizationprocesshasledto28.5%operationalenergy\nfootprintreductionoverthetwo-yeartimeperiod(SectionIII-B).Despitethe accelerators — to maximize performance and power efficiency.\nsignificantoperationalpowerfootprintreduction,wecontinuetoseetheoverall Achieving a Power Usage Effectiveness (PUE) of about 1.10,\nelectricity demand for AI to increase over time — an example of Jevon’s\nFacebook’s data centers are about 40% more efficient than",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ncrease over time — an example of Jevon’s\nFacebook’s data centers are about 40% more efficient than\nParadox, where efficiency improvement stimulates additional novel AI use\ncases. small-scale, typical data centers.\nFurthermore, the large-scale deployment of servers of\ndifferent types provides an opportunity to build performance\nrecommendation use cases.\nmeasurementandoptimizationtoolstoensurehighutilizationof\nA major infrastructure challenge faced by deep learning\nthe underlying infrastructure. For data center fleets in different\nRM training and deployment (RM1 – RM5) is the fast-rising\ngeographicalregionswheretheactualserverutilizationexhibits\nmemorycapacityandbandwidthdemands(Figure2).Thereare\na diurnal pattern, Auto-Scaling frees the over-provisioned",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ityandbandwidthdemands(Figure2).Thereare\na diurnal pattern, Auto-Scaling frees the over-provisioned\ntwo primary sub-nets in a RM: the dense fully-connected (FC)\ncapacity during off-peak hours, by up to 25% of the web\nnetwork and the sparse embedding-based network. The FC\ntier’s machines [38]. By doing so, it provides opportunistic\nnetwork is constructed with multi-layer perceptions (MLPs),\nserver capacity for others to use, including offline ML training.\nthuscomputationally-intensive.Theembeddingnetworkisused\nFurthermore, static power consumption plays a non-trivial role\ntoprojecthundredsofsparse,high-dimensionalfeaturestolow-\nin the context of the overall data center electricity footprint.\ndimension vectors. It can easily contribute to over 95% of the",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "l data center electricity footprint.\ndimension vectors. It can easily contribute to over 95% of the\nThis motivates more effective processor idle state management.\ntotal model size. For a number of important recommendation\nCarbon-Free Energy: Finally, over the past years, Face-\nand ranking use cases, the embedding operation dominates the\nbookhasinvestedincarbonfreeenergysourcestoneutralizeits\ninference execution time [27], [33].\noperational carbon footprint [23]. Reaching net zero emissions\nTo tackle the significant memory capacity and bandwidth\nentails matching every unit of energy consumed by data\nrequirement, we deploy model quantization for RMs [34].\ncenters with 100% renewable energy purchased by Facebook.\nQuantization offers two primary efficiency benefits: the low-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "newable energy purchased by Facebook.\nQuantization offers two primary efficiency benefits: the low-\nRemaining emissions are offset with various sustainability\nprecision data representation reduces the amount of compu-\nprograms, further reducing the operational carbon footprint of\ntation requirement and, at the same time, lowers the overall\nAI computing at Facebook. As Section IV-C will later show,\nmemory capacity need. By converting 32-bit floating-point\nmore can be done.\nnumerical representation to 16-bit, we can reduce the overall\nRM2 model size by 15%. This has led to 20.7% reduction in\nmemory bandwidth consumption. Furthermore, the memory D. Going Beyond Efficiency Optimization\ncapacity reduction enabled by quantization unblocks novel",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "y D. Going Beyond Efficiency Optimization\ncapacity reduction enabled by quantization unblocks novel\nDespite the opportunities for optimizing energy efficiency\nsystems with lower on-chip memory. For example, for RM1,\nand reducing environmental footprint at scale, there are many\nquantization has enabled RM deployment on highly power-\nreasons why we must care about scaling AI in a more\nefficient systems with smaller on-chip memory, leading to an\nenvironmentally-sustainablemanner.AIgrowthismultiplicative\nend-to-end inference latency improvement of 2.5 times.\nbeyond current industrial use cases. Although domain-specific\narchitectures improve the operational energy footprint of AI\nC. Machine Learning Infrastructures at Scale model training by more than 90% [21], these architectures",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Machine Learning Infrastructures at Scale model training by more than 90% [21], these architectures\nML Accelerators: GPUs are the de-facto training acceler- require more system resources, leading to larger embodied\nators at Facebook, contributing to significant power capacity carbon footprints.\ninvestment in the context of Facebook’s fleet of datacenters. While shifting model training and inference to data centers\nHowever, GPUs can be severely under-utilized during both the with carbon-free energy sources can reduce emissions, the\nML Experimentation and Training phases (Figure 10) [35]. To solution may not scale to all AI use cases. Infrastructure for\namortizetheupfrontembodiedcarboncostofeveryaccelerator carbon free energy is limited by rare metals and materials,",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ontembodiedcarboncostofeveryaccelerator carbon free energy is limited by rare metals and materials,\ndeployed into Facebook’s datacenters, maximizing accelerator and takes significant economic resources and time to build.\nutilization is a must. Furthermore, the carbon footprint of federated learning and\nEfficiency of Scale: The higher throughput performance optimization use cases at the edge is estimated to be similar to\ndensityachievedwithMLacceleratorsreducesthetotalnumber that of training a Transformer Big model (Figure 11). As on-\nof processors deployed into datacenter racks. This leads to devicelearningbecomesmoreubiquitouslyadoptedtoimprove\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "8\n6\n4\n2\n0\n20% 30% 50% 75%\ntnirptooF\nnobraC\nML\n)%57\not\ndezilamroN(\noverallcommunityremainsunder-investedinresearchthataims\nEmbodied Operational (rest) Operational (offset w/ solar)\nat deeply understanding and minimizing the cost of AI. We\nconjecture the factors that may have contributed to the current\nstate in Appendix A. To bend the exponential growth curve\nof AI and its environmental footprint, we must build a future\nwhere efficiency is an evaluation criterion for publishing ML\nresearchoncomputationally-intensivemodelsbeyondaccuracy-\nrelated measures.\nA. Data Utilization Efficiency\nGPU Utilization\nData Scaling and Sampling: No data is like more data\nFig.9. Asacceleratorutilizationimprovesovertime,bothoperationaland\n— data scaling is the de-facto approach to increase model",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "zationimprovesovertime,bothoperationaland\n— data scaling is the de-facto approach to increase model\nembodiedcarbonfootprintsofAIimprove.Carbon-freeenergyhelpsreduce\ntheoperationalcarbonfootprint,makingembodiedcarboncostthedominating quality, where the primary factor for accuracy improvement\nfactor.ToreducetherisingcarbonfootprintofAIcomputingat-scale,wemust is driven by the size and quality of training data, instead of\ncomplementefficiencyandutilizationoptimizationwithnovelapproachesto\nalgorithmic optimization. However, data scaling has significant\nreducetheremainingembodiedcarbonfootprintofAIsystems.\nenvironmental footprint implications. To keep the model\ntraining time manageable, overall system resources must be\ndata privacy, we expect to see more computation being shifted",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ble, overall system resources must be\ndata privacy, we expect to see more computation being shifted\nscaled with the increase in the data set size, resulting in larger\naway from data centers to the edge, where access to renewable\nembodied carbon footprint and operational carbon footprint\nenergy may be limited. The edge-cloud space for AI poses\nfromthedatastorageandingestionpipelineandmodeltraining.\ninteresting design opportunities (Section IV-C).\nAlternatively, if training system resources are kept fixed, data\nThegrowthofAIinalldimensionsoutpacestheefficiencyim-\nscaling increases training time, resulting in a larger operational\nprovement at-scale. Figure 9 illustrates that, as GPU utilization\nenergy footprint.\nis improved (x-axis) for LM training on GPUs, both embodied",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "t, as GPU utilization\nenergy footprint.\nis improved (x-axis) for LM training on GPUs, both embodied\nWhen designed well, however, data scaling, sampling and\nand operational carbon emissions will reduce. Increasing GPU\nselectionstrategiescanimprovethecompetitiveanalysisforML\nutilization up to 80%, the overall carbon footprint decreases\nalgorithms, reducing the environmental footprint of the process\nby 3×. Powering AI services with renewable energy sources\n(Appendix A). For instance, Sachdeva et al. demonstrated that\ncan further reduce the overall carbon footprint by a factor of 2.\nintelligent data sampling with merely 10% of data sub-samples\nEmbodied carbon cost becomes the dominating source of AI’s\ncan effectively preserve the relative ranking performance\noverall carbon footprint.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "g source of AI’s\ncan effectively preserve the relative ranking performance\noverall carbon footprint. To curb the rising carbon footprint\nof different recommendation algorithms [42]. This ranking\nof AI computing at-scale (Figure 8 and Figure 9), we must\nperformanceisachievedwithanaverageof5.8timesexecution\nlook beyond efficiency optimization and complement efficiency\ntime speedup, leading to significant operating carbon footprint\nandutilizationoptimizationwitheffortstotackletheremaining\nreduction.\nembodied carbon footprint of AI systems.\nData Perishability: Understanding key characteristics of\ndata is fundamental to efficient data utilization for AI applica-\nIV. ASUSTAINABILITYMINDSETFORAI\ntions.Notalldataiscreatedequalanddatacollectedovertime",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "AI applica-\nIV. ASUSTAINABILITYMINDSETFORAI\ntions.Notalldataiscreatedequalanddatacollectedovertime\nTo tackle the environmental implications of AI’s exponential\nloses its predictive value gradually. Understanding the rate at\ngrowth (Figure 2), the first key step requires ML practitioners\nwhich data loses its predictive value has strong implications on\nand researchers to develop and adopt an sustainability mindset.\nthe resulting carbon footprint. For example, natural language\nThe solution space is wide open—while there are significant\ndata sets can lose half of their predictive value in the time\nefforts looking at AI system and infrastructure efficiency opti-\nperiodoflessthan7years(thehalf-lifetimeofdata)[43].The\nmization, the AI data, experimentation, and training algorithm",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ears(thehalf-lifetimeofdata)[43].The\nmization, the AI data, experimentation, and training algorithm\nexact half-life period is a function of context. If we were able\nefficiency space (Sections IV-A and IV-B) beyond system\nto predict the half-life time of data, we can devise effective\ndesign and optimization (Section IV-C) is less well explored.\nsampling strategies to subset data at different rates based on\nWe cannot optimize what cannot be measured — telemetry to\nits half-life. By doing so, the resource requirement for the data\ntrack the carbon footprint of AI technologies must be adopted\nstorageandingestionpipelinecanbesignificantlyreduced[44]\nby the community (Section V-A). We synthesize a number of\n— lower training time (operational carbon footprint) as well as",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ion V-A). We synthesize a number of\n— lower training time (operational carbon footprint) as well as\nimportantdirectionstoscaleAIinasustainablemannerandto\nstorage needs (embodied carbon footprint).\nminimize the environmental impact of AI for the next decades.\nThe field of AI is currently primarily driven by research that\nB. Experimentation and Training Efficiency\nseeks to maximize model accuracy — progress is often used\nsynonymously with improved prediction quality. This endless The experimentation and training phases are closely coupled\npursuit of higher accuracy over the decade of AI research has (SectionII).Thereisanaturaltrade-offbetweentheinvestment\nsignificant implications in computational resource requirement inexperimentationandthesubsequenttrainingcost(SectionIII).",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ns in computational resource requirement inexperimentationandthesubsequenttrainingcost(SectionIII).\nand environmental footprint. To develop AI technologies Neural architecture search (NAS) and hyperparameter op-\nresponsibly, we must achieve competitive model accuracy at a timization (HPO) are techniques that automate the design\nfixed or even reduced computational and environmental cost. space exploration. Despite their capability to discover higher-\nDespitetherecentcalls-to-action[28],[39],[40],[41],[21],the performing neural networks, NAS and HPO can be extremely\n7",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "resource-intensive, involving training many models, especially\nwhen using simple approaches. Strubell et al. show that grid-\nsearch NAS can incur over 3000× environmental footprint\noverhead [28]. Utilizing much more sample-efficient NAS and\nHPO methods [45], [46] can translate directly into carbon\nfootprint improvement. In addition to reducing the number of\ntraining experiments, one can also reduce the training time of\neach experiment. By detecting and stopping under-performing\ntraining workflows early, unnecessary training cycles can be\neliminated.\nMulti-objective optimization explores the Pareto frontier of\nefficient model quality and system resource trade-offs. If used\nearlyinthemodelexplorationprocess,itenablesmoreinformed\ndecisions about which model to train fully and deploy given",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "xplorationprocess,itenablesmoreinformed\ndecisions about which model to train fully and deploy given\ncertain infrastructure capacity. Beyond model accuracy and\ntiming performance [47], [48], [49], [50], energy and carbon\nfootprint can be directly incorporated into the cost function as\noptimization objectives to enable discovery of environmentally-\nfriendly models. Furthermore, when training is decoupled from\nNAS, sub-networks tailoring to specialized system hardware\ncanbeselectedwithoutadditionaltraining[51],[52],[53],[54].\nSuch approaches can significantly reduce the overall training\ntime, however, at the expense of increased embodied carbon\nfootprint.\nDeveloping resource-efficient model architectures funda-\nmentally reduce the overall system capacity need of ML\ntasks.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "e-efficient model architectures funda-\nmentally reduce the overall system capacity need of ML\ntasks. From the systems perspective, accelerator memory\nis scarce. However, DNNs, such as neural recommendation\nmodels, require significantly higher memory capacity and\nbandwidth [55], [33]. This motivates researchers to develop\nmemory-efficient model architectures. For example, the Tensor-\nTrain compression technique (TT-Rec) achieves more than\n100× memory capacity reduction with negligible training time\nand accuracy trade-off [56]. Similarly, the design space trade-\noff between memory capacity requirement, training time, and\nmodel accuracy is also explored in Deep Hash Embedding\n(DHE) [57]. While training time increases lead to higher\noperational carbon footprint, in the case of TT-Rec and DHE,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "training time increases lead to higher\noperational carbon footprint, in the case of TT-Rec and DHE,\nthe memory-efficient model architectures require significantly\nlowermemorycapacitywhilebetterutilizingthecomputational\ncapability of training accelerators, resulting in lower embodied\ncarbon footprint.\nDeveloping efficient training algorithms is a long-time\nobjective of research in optimization and numerical meth-\nods [58]. Evaluations of optimization methods should account\nfor all experimentation efforts required to tune optimizer\nhyperparameters, not just the method performance after tun-\ning [59], [60]. In addition, significant research has gone\ninto algorithmic approaches to efficiently scale training [61],\n[62] by reducing communication cost via compression [63],",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "aches to efficiently scale training [61],\n[62] by reducing communication cost via compression [63],\n[64], pipelining [65], and sharding [66], [67]. The advances\nhave enabled efficient scaling to larger models and larger\ndatasets. We expect efficient training methods to continue\nas an important domain. While this paper has focused on\nsupervised learning relying labeled data, algorithmic efficiency\nextends to other learning paradigms including self-supervised\nand semi-supervised learning (Appendix C).\nytilibaborP\nGPU Utilization\nFig.10. Avastmajorityofmodelexperimentation(overtensofthousandsof\ntrainingworkflows)utilizesGPUsatonly30-50%,leavingroomforutilization\nandefficiencyimprovements.\nC. Efficient,Environmentally-SustainableAIInfrastructureand\nSystem Hardware",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "efficiencyimprovements.\nC. Efficient,Environmentally-SustainableAIInfrastructureand\nSystem Hardware\nToamortizetheembodiedcarbonfootprint,modeldevelopers\nand system architects must maximize the utilization of acceler-\natorandsystemresourceswheninuseandprolongthelifetime\nof AI infrastructures. Existing practices such as the move to\ndomain-specific architectures at cloud scale [68], [69], [70]\nreduce AI computing’s footprint by consolidating computing\nresources at scale and by operating the shared infrastructures\nmore environmentally-friendly with carbon free energy6.\nAccelerator Virtualization and Multi-Tenancy Support:\nFigure10illustratestheutilizationofGPUacceleratorsinFace-\nbook’s research training infrastructure. A significant portion",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "eutilizationofGPUacceleratorsinFace-\nbook’s research training infrastructure. A significant portion\nof machine learning model experimentation utilizes GPUs at\nonly 30-50%, leaving significant room for improvements to\nefficiency and overall utilization. Virtualization and workload\nconsolidation technologies can help maximize accelerator\nutilization [71]. Google’s TPUs have also recently started\nsupportingvirtualization[72].Multi-tenancyforAIaccelerators\nis gaining traction as an effective way to improve resource\nutilization, thereby amortizing the upfront embodied carbon\nfootprint of customized system hardware for AI at the expense\nof potential operational carbon footprint increase [73], [74],\n[75], [76], [77].\nEnvironmentalSustainabilityasaKeyAISystemDesign",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "on footprint increase [73], [74],\n[75], [76], [77].\nEnvironmentalSustainabilityasaKeyAISystemDesign\nPrinciple:Today,serversaredesignedtooptimizeperformance\nand power efficiency. However, system design with a focus\non operational energy efficiency optimization does not always\nproduce the most environmentally-sustainable solution [78],\n[79], [19]. With the rising embodied carbon cost and the expo-\nnential demand growth of AI, system designers and architects\nmust re-think fundamental system hardware design principles\nto minimize computing’s footprint end-to-end, considering the\nentire hardware and ML model development life cycle. In\nadditiontotherespectiveperformance,power,andcostprofiles,\nthe environmental footprint characteristics of processors over",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "veperformance,power,andcostprofiles,\nthe environmental footprint characteristics of processors over\nthegenerationsofCMOStechnologies,DDRxandHBMmem-\nory technologies, SSD/NAND-flash/HDD storage technologies\ncan be orders-of-magnitude different [80]. Thus, designing AI\n6Wediscussadditionalimportantdirectionsforbuildingenvironmentally-\nsustainable systems in Appendix B, including datacenter infrastructure\ndisaggregation;faulttolerant,resilientAIsystems.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "systems with the least environmental impact requires explicit 3.5\nconsideration of environmental footprint characteristics at the\n3\ndesign time.\n2.5\nThe Implications of General-Purpose Processors,\n2\nGeneral-Purpose Accelerators, Reconfigurable Systems,\n1.5\nand ASICs for AI: There is a wide variety of system\n1\nhardware choices for AI from general-purpose processors\n0.5\n(CPUs), general-purpose accelerators (GPUs or TPUs), field-\n0\nprogrammablegatearrays(FPGAs)[81],toapplication-specific\nintegrated circuit (ASIC), such as Eyeriss [82]. The exact\nsystem deployment choice can be multifaceted — the cadence\nof ML algorithm and model architecture evolution, the di-\nversity of ML use cases and the respective system resource\nrequirements,andthematurityofthesoftwarestack.WhileML",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "use cases and the respective system resource\nrequirements,andthematurityofthesoftwarestack.WhileML\naccelerator deployment brings a step-function improvement in\noperational energy efficiency, it may not necessarily reduce\nthe carbon footprint of AI computing overall. This is because\nof the upfront embodied carbon footprint associated with the\ndifferent system hardware choices. From the environmental\nsustainability perspective, the optimal point depends on the\ncompoundingfactorofoperationalefficiencyimprovementover\ngenerations of ML algorithms/models, deployment lifetime\nand embodied carbon footprint of the system hardware. Thus,\nto design for environmental sustainability, one must strike a\ncareful balance between efficiency and flexibility and, at the",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "al sustainability, one must strike a\ncareful balance between efficiency and flexibility and, at the\nsame time, consider environmental impact as a key design\ndimension for next-generation AI systems.\nCarbon-EfficientSchedulingforAIComputingAt-Scale:\nAs the electricity consumption of hyperscale data centers\ncontinuestorise,datacenteroperatorshavedevotedsignificant\ninvestment to neutralize operational carbon footprint. By\noperating large-scale computing infrastructures with carbon\nfreeenergy,technologycompaniesaretakinganimportantstep\nto address the environmental implications of computing. More\ncan be done however.\nAs the renewable energy proportion in the electricity grid\nincreases,fluctuationsinenergygenerationwillincreasedueto\nthe intermittent nature of renewable energy sources (i.e.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "uationsinenergygenerationwillincreasedueto\nthe intermittent nature of renewable energy sources (i.e. wind,\nsolar). Elastic carbon-aware workload scheduling techniques\ncan be used in and across datacenters to predict and exploit\nthe intermittent energy generation patterns [83]. However such\nscheduling algorithms might require server over-provisioning\nto allow for flexibility of shifting workloads to times when\ncarbon-free energy is available. Furthermore, any additional\nserver capacity comes with manufacturing carbon cost which\nneeds to be incorporated into the design space. Alternatively,\nenergystorage(e.g.batteries,pumpedhydro,flywheels,molten\nsalt) can be used to store renewable energy during peak\ngeneration times for use during low generation times. There",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "d to store renewable energy during peak\ngeneration times for use during low generation times. There\nis an interesting design space to achieve 24/7 carbon-free AI\ncomputing.\nOn-Device Learning On-device AI is becoming more\nubiquitously adopted to enable model personalization [84],\n[85], [86] while improving data privacy [87], [88], [89], [90],\nyet its impact in terms of carbon emission is often overlooked.\nOn-device learning emits non-negligible carbon. Figure 11\nillustrates that the operational carbon footprint for training a\nsmall ML task using federated learning (FL) is comparable to\n1-LF 2-LF esaB-UPT neerG-UPT esaB-001P neerG-001P\nFacebook Transformer-big (non-FL)\n)gk(\ne2OC\nsderdnuH Download Upload Compute \"\"\nFig.11. Federatedlearningandoptimizationcanresultinanon-negligible",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "rdnuH Download Upload Compute \"\"\nFig.11. Federatedlearningandoptimizationcanresultinanon-negligible\namount of carbon emissions, equivalent to the carbon footprint of training\nTransformerBig [21]. FL-1 and FL-2 represent two production FL\napplications.P100-BaserepresentsthecarbonfootprintofTransformerBig\ntrainingonP100GPUwhereasTPU-baseisTransformerBig trainingon\nTPU. P100-Green and TPU-Green consider renewable energy at the cloud\n(MethodologydetailinAppendixB).\nthat of training an orders-of-magnitude larger Transformer-\nbased model in a centralized setting. As FL trains local\nmodelsonclientdevicesandperiodicallyaggregatesthemodel\nparameters for a global model, without collecting raw user\ndata[87], theFL processcan emitnon-negligiblecarbon atthe",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "global model, without collecting raw user\ndata[87], theFL processcan emitnon-negligiblecarbon atthe\nedge due to both computation and wireless communication.\nIt is important to reduce AI’s environmental footprint at the\nedge. With the ever-increasing demand for on-device use cases\noverbillionsofclientdevices,suchasteachingAItounderstand\nthe physical environment from the first-person perception [91]\nor personalizing AI tasks, the carbon footprint for on-device\nAI can add up to a dire amount quickly. Also, renewable\nenergy is far more limited for client devices compared to\ndatacenters. Optimizing the overall energy efficiency of FL\nand on-device AI is an important first step [92], [93], [94],\n[95], [96]. Reducing embodied carbon cost for edge devices is",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "mportant first step [92], [93], [94],\n[95], [96]. Reducing embodied carbon cost for edge devices is\nalso important, as manufacturing carbon cost accounts for 74%\nof the total footprint [19] of client devices. It is particularly\nchallenging to amortize the embodied carbon footprint because\nclient devices are often under-utilized [97].\nV. CALL-TO-ACTION\nA. Development of Easy-to-Adopt Telemetry for Assessing AI’s\nEnvironmental Footprint\nWhile the open source community has started building tools\ntoenableautomaticmeasurementofAItraining’senvironmental\nfootprint[39],[40],[98],[99]andtheMLresearchcommunity\nrequiringabroaderimpactstatementforthesubmittedresearch\nmanuscript,morecanbedoneinordertoincorporateefficiency\nand sustainability into the design process. Enabling carbon",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "canbedoneinordertoincorporateefficiency\nand sustainability into the design process. Enabling carbon\naccounting methodologies and telemetry that is easy to adopt\nis an important step to quantify the significance of our\nprogress in developing AI technologies in an environmentally-\nresponsible manner. While assessing the novelty and quality\nof ML solutions, it is crucial to consider sustainability metrics\nincluding energy consumption and carbon footprint along with\nmeasures of model quality and system performance.\n9",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  | \n |  | \n |  | \n |  | \n |  | \n |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n\n\n",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Metrics for AI Model and System Life Cycles: Standard systemhardware,includingmanufacturingandoperationaluse,\ncarbon footprint accounting methods for AI’s overall carbon must also be accounted for.\nfootprint are at a nascent stage. We need simple, easy-to- EfficiencyOptimization:Optimizationacrosstheaxesofal-\nadopt metrics to make fair and useful comparisons between gorithms, platforms, infrastructures, hardware can significantly\nAI innovations. Many different aspects must be accounted reduce the operational carbon footprint for the Transformer-\nfor, including the life cycles of both AI models (Data, based universal translation model by 810×. Along with other\nExperimentation, Training, Deployment) and system hardware efficiency optimization at-scale, this has translated into 25.8%",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "g, Deployment) and system hardware efficiency optimization at-scale, this has translated into 25.8%\n(Manufacturing and Use) (Section II). operationalenergyfootprintreductionoverthetwo-yearperiod.\nIn addition to incorporating an efficiency measure as part More must be done to bend the environmental impact from the\nof leader boards for various ML tasks, data [100], models7, exponential growth of AI (Figure 8 and Figure 9).\ntraining algorithms [101], environmental impact must also be An Sustainability Mindset for AI: Optimization beyond\nconsideredandadoptedbyAIsystemhardwaredevelopers.For efficiency across the software and hardware stack at scale is\nexample, MLPerf [102], [103], [104] is the industry standard crucial to enabling future sustainable AI systems. To develop",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "[103], [104] is the industry standard crucial to enabling future sustainable AI systems. To develop\nfor ML system performance comparison. The industry has AI technologies responsibly, we must achieve competitive\nwitnessed significantly higher system performance speedup, model accuracy at a fixed or even reduced computational\noutstripping what is enabled by Moore’s Law [105], [106]. and environmental cost. We chart out potentially high-impact\nMoreover, an algorithm efficiency benchmark is under develop- researchanddevelopmentdirectionsacrossthedata,algorithms\nment8. The MLPerf benchmark standards can advance the field andmodel,experimentationandsystemhardware,andtelemetry",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rf benchmark standards can advance the field andmodel,experimentationandsystemhardware,andtelemetry\nof AI in an environmentally-competitive manner by enabling dimensions for AI at datacenters and at the edge (Section IV).\nthe measurement of energy and/or carbon footprint. We must take a deliberate approach when developing\nCarbonImpactStatementsandModelCards:Webelieve AI research and technologies, considering the environmental\nit is important for all published research papers to disclose impact of innovations and taking a responsible approach to\nthe operational and embodied carbon footprint of proposed technologydevelopment[108].Thatis,weneedAItobegreen\ndesign; we are only at the beginning of this journey9. Note, and environmentally-sustainable.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "green\ndesign; we are only at the beginning of this journey9. Note, and environmentally-sustainable.\nwhile embodied carbon footprints for AI hardware may not be\nreadilyavailable,describinghardwareplatforms,thenumberof VII. CONCLUSION\nmachines, total runtime used to produce results presented in a\nThis paper is the first effort to explore the environmental\nresearch manuscript is an important first step. In addition, new\nimpact of the super-linear trends for AI growth from a holistic\nmodelsmustbeassociatedwithamodelcardthat,amongother\nperspective, spanning data, algorithms, and system hardware.\naspects of data sets and models [107], describes the model’s\nWe characterize the carbon footprint of AI computing by\noverall carbon footprint to train and conduct inference.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ze the carbon footprint of AI computing by\noverall carbon footprint to train and conduct inference.\nexamining the model development cycle across industry-scale\nML use cases at Facebook and, at the same time, considering\nVI. KEYTAKEAWAYS\nthe life cycle of system hardware. Furthermore, we capture\nThe Growth of AI: Deep learning has witnessed an\nthe operational and manufacturing carbon footprint of AI\nexponential growth in training data, model parameters, and\ncomputing and present an end-to-end analysis for what and\nsystem resources over the recent years (Figure 2). The amount\nhow hardware-software design and at-scale optimization can\nof data for AI has grown by 2.4×, leading to 3.2× increase in\nhelp reduce the overall carbon footprint of AI. We share",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "grown by 2.4×, leading to 3.2× increase in\nhelp reduce the overall carbon footprint of AI. We share\nthe data ingestion bandwidth demand at Facebook. Facebook’s\nthe key challenges and chart out important directions across\nrecommendation model sizes have increased by 20× between\nall dimensions of AI—data, algorithms, systems, metrics,\n2019 and 2021. The explosive growth in AI use cases has\nstandards, and best experimentation practices. Advancing the\ndriven 2.9× and 2.5× capacity increases for AI training and\nfield of machine intelligence must not in turn make climate\ninference at Facebook over the recent 18 months, respectively.\nchange worse. We must develop AI technologies with a deeper\nThe environmental footprint of AI is staggering (Figure 4,",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "st develop AI technologies with a deeper\nThe environmental footprint of AI is staggering (Figure 4,\nunderstanding of the societal and environmental implications.\nFigure 5).\nA Holistic Approach: To ensure an environmentally-\nACKNOWLEDGEMENT\nsustainable growth of AI, we must consider the AI ecosystem\nholistically going forward. We must look at the machine learn- We would like to thank Nikhil Gupta, Lei Tian, Weiyi\ning pipelines end-to-end — data collection, model exploration Zheng, Manisha Jain, Adnan Aziz, and Adam Lerer for\nand experimentation, model training, optimization and run- their feedback on many iterations of this draft, and in-depth\ntime inference (Section II). The frequency of training and technical discussions around building efficient infrastructure",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "n II). The frequency of training and technical discussions around building efficient infrastructure\nscale of each stage of the ML pipeline must be considered and platforms; Adina Williams, Emily Dinan, Mona Diab,\nto understand salient bottlenecks to sustainable AI. From the Ashkan Yousefpour for the valuable discussions and insights\nsystem’s perspective, the life cycle of model development and on AI and environmental responsibility; Mark Zhou, Niket\nAgarwal, Jongsoo Park, Michael Anderson, Xiaodong Wang;\n7Paperswithcode:https://paperswithcode.com/sota/image-classification-on Yatharth Saraf, Hagay Lupesco, Jigar Desai, Joelle Pineau,\n-imagenet\nRam Valliyappan, Rajesh Mosur, Ananth Sankarnarayanan and\n8https://github.com/mlcommons/algorithmic-efficiency/",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "pan, Rajesh Mosur, Ananth Sankarnarayanan and\n8https://github.com/mlcommons/algorithmic-efficiency/\nEytan Bakshy for their leadership and vision without which\n9https://2021.naacl.org/ethics/faq/#-if-my-paper-reports-on-experiments-t\nhat-involve-lots-of-compute-timepower this work would not have been possible.\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "REFERENCES [20] N. Tomasev, J. Cornebise, F. Hutter, S. Mohamed, A. Picciariello,\nB.Connelly,D.Belgrave,D.Ezer,F.C.vanderHaert,F.Mugisha,\n[1] J.Jumper,R.Evans,A.Pritzel,T.Green,M.Figurnov,O.Ronneberger,\nG.Abila,H.Arai,H.Almiraat,J.Proskurnia,K.Snyder,M.Otake-\nK.Tunyasuvunakool,R.Bates,A.Zˇ´ıdek,A.Potapenko,A.Bridgland,\nMatsuura,M.Othman,T.Glasmachers,W.D.Wever,Y.Teh, M.E.\nC. Meyer, S. A. A. Kohl, A. J. Ballard, A. Cowie, B. Romera-\nKhan,R.D.Winne,T.Schaul,andC.Clopath,“Aiforsocialgood:\nParedes,S.Nikolov,R.Jain,J.Adler,T.Back,S.Petersen,D.Reiman,\nunlockingtheopportunityforpositiveimpact,”NatureCommunications,\nE.Clancy,M.Zielinski,M.Steinegger,M.Pacholska,T.Berghammer,\nvol.11,2020.\nS.Bodenstein,D.Silver,O.Vinyals,A.W.Senior,K.Kavukcuoglu,\nP.Kohli,andD.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "a,T.Berghammer,\nvol.11,2020.\nS.Bodenstein,D.Silver,O.Vinyals,A.W.Senior,K.Kavukcuoglu,\nP.Kohli,andD.Hassabis,“Highlyaccurateproteinstructureprediction [21] D.Patterson,J.Gonzalez,Q.Le,C.Liang,L.-M.Munguia,D.Rothchild,\nwithalphafold,”Nature,2021. D. So, M. Texier, and J. Dean, “Carbon emissions and large neural\nnetworktraining,”arXivpreprintarXiv:2104.10350,2021.\n[2] M.Komeili,K.Shuster,andJ.Weston,“Internet-augmenteddialogue\ngeneration,”arXiv:2107.07566,2021. [22] EPA,“Unitedstatesenvironmentalprotectionagencygreenhousegas\nequivalenciescalculator,”2021.\n[3] D. Silver, T. Hubert, J. Schrittwieser, and D. Hassabis, “AlphaZero:\nSheddingnewlightonchess,shogi,andGo,”2018. [23] Facebook,“2020sustainabilityreport,”2021.\n[4] C. L. Zitnick, L. Chanussot, A. Das, S. Goyal, J. Heras-Domingo, [24] K.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ainabilityreport,”2021.\n[4] C. L. Zitnick, L. Chanussot, A. Das, S. Goyal, J. Heras-Domingo, [24] K.Hazelwood,S.Bird,D.Brooks,S.Chintala,U.Diril,D.Dzhulgakov,\nC.Ho,W.Hu,T.Lavril,A.Palizhati,M.Riviere,M.Shuaibi,A.Sriram, M.Fawzy,B.Jia,Y.Jia,A.Kalro,J.Law,K.Lee,J.Lu,P.Noordhuis,\nK.Tran,B.Wood,J.Yoon,D.Parikh,andZ.Ulissi,“Anintroduction M.Smelyanskiy,L.Xiong,andX.Wang,“Appliedmachinelearning\ntoelectrocatalystdesignusingmachinelearningforrenewableenergy atfacebook:Adatacenterinfrastructureperspective,”inProceedings\nstorage,”arXivpreprintarXiv:2010.09435,2020. oftheIEEEInternationalSymposiumonHighPerformanceComputer\nArchitecture,2018.\n[5] C.ElkinandS.Witherspoon,“Machinelearningcanboostthevalue\nofwindenergy,”2019. [25] A. Conneau, K. Khandelwal, N. Goyal, V. Chaudhary, G. Wenzek,\nF. Guzma´n, E.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "fwindenergy,”2019. [25] A. Conneau, K. Khandelwal, N. Goyal, V. Chaudhary, G. Wenzek,\nF. Guzma´n, E. Grave, M. Ott, L. Zettlemoyer, and V. Stoyanov,\n[6] R. Evans and J. Gao, “DeepMind AI Reduces Google Data Centre\n“Unsupervised cross-lingual representation learning at scale,” arXiv\nCoolingBillby40%,”2016.\npreprintarXiv:1911.02116,2020.\n[7] K.Sheikh,“AGrowingPresenceontheFarm:Robots,”February2020.\n[26] M. Naumov, D. Mudigere, H.-J. M. Shi, J. Huang, N. Sundaraman,\n[8] D. Rolnick, P. L. Donti, L. H. Kaack, K. Kochanski, A. Lacoste,\nJ.Park,X.Wang,U.Gupta,C.-J.Wu,A.G.Azzolini,D.Dzhulgakov,\nK.Sankaran,A.S.Ross,N.Milojevic-Dupont,N.Jaques,A.Waldman-\nA. Mallevich, I. Cherniavskii, Y. Lu, R. Krishnamoorthi, A. Yu,\nBrown,A.Luccioni,T.Maharaj,E.D.Sherwin,S.K.Mukkavilli,K.P.\nV. Kondratenko, S.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Krishnamoorthi, A. Yu,\nBrown,A.Luccioni,T.Maharaj,E.D.Sherwin,S.K.Mukkavilli,K.P.\nV. Kondratenko, S. Pereira, X. Chen, W. Chen, V. Rao, B. Jia,\nKording, C. Gomes, A. Y. Ng, D. Hassabis, J. C. Platt, F. Creutzig,\nL. Xiong, and M. Smelyanskiy, “Deep learning recommendation\nJ. Chayes, and Y. Bengio, “Tackling climate change with machine\nmodelforpersonalizationandrecommendationsystems,”arXivpreprint\nlearning,”arXiv:1906.05433,2019.\narXiv:1906.00091,2019.\n[9] R. Nishant, M. Kennedy, and J. Corbett, “Artificial intelligence\n[27] U. Gupta, C.-J. Wu, X. Wang, M. Naumov, B. Reagen, D. Brooks,\nfor sustainability: Challenges, opportunities, and a research agenda,”\nB. Cottel, K. Hazelwood, M. Hempstead, B. Jia, H.-H. S. Lee,\nInternationalJournalofInformationManagement,vol.53,2020.\nA.Malevich,D.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "pstead, B. Jia, H.-H. S. Lee,\nInternationalJournalofInformationManagement,vol.53,2020.\nA.Malevich,D.Mudigere,M.Smelyanskiy,L.Xiong,andX.Zhang,\n[10] FactsandFactors,“Globalartificialintelligencemarket,”2021. “Thearchitecturalimplicationsoffacebook’sdnn-basedpersonalized\n[11] D. Mudigere, Y. Hao, J. Huang, A. Tulloch, S. Sridharan, X. Liu, recommendation,”inProceedingsoftheIEEEInternationalSymposium\nM.Ozdal,J.Nie,J.Park,L.Luo,J.A.Yang,L.Gao,D.Ivchenko, onHighPerformanceComputerArchitecture,2020.\nA.Basant,Y.Hu,J.Yang,E.K.Ardestani,X.Wang,R.Komuravelli, [28] E.Strubell,A.Ganesh,andA.McCallum,“Energyandpolicyconsid-\nC.Chu,S.Yilmaz,H.Li,J.Qian,Z.Feng,Y.Ma,J.Yang,E.Wen, erations for deep learning in nlp,” arXiv preprint arXiv:1906.02243,\nH. Li, L. Yang, C. Sun, W. Zhao, D. Melts, K. Dhulipala, K.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "n nlp,” arXiv preprint arXiv:1906.02243,\nH. Li, L. Yang, C. Sun, W. Zhao, D. Melts, K. Dhulipala, K. R. 2019.\nKishore, T. Graf, A. Eisenman, K. K. Matam, A. Gangidi, G. J.\n[29] W.Fedus,B.Zoph,andN.Shazeer,“Switchtransformers:Scalingto\nChen, M. Krishnan, A. Nayak, K. Nair, B. Muthiah, M. khorashadi,\ntrillion parameter models with simple and efficient sparsity,” CoRR,\nP.Bhattacharya,P.Lapukhov,M.Naumov,L.Qiao,M.Smelyanskiy,\nvol.abs/2101.03961,2021.\nB.Jia,andV.Rao,“Software-hardwareco-designforfastandscalable\ntraining of deep learning recommendation models,” arXiv preprint [30] D.AdiwardanaandT.Luong,“Towardsaconversationalagentthatcan\narXiv:2104.05158,2021. chatabout...anything,”2020.\n[12] D.HernandezandT.B.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "onversationalagentthatcan\narXiv:2104.05158,2021. chatabout...anything,”2020.\n[12] D.HernandezandT.B.Brown,“Measuringthealgorithmicefficiency [31] Apple,“ProductenvironmentalreportMacPro,”2019.\nofneuralnetworks,”arXivpreprintarXiv:2005.04305,2020. [32] NVIDIA,“FasterTransformer,”2021.\n[13] T.B.Brown,B.Mann,N.Ryder,M.Subbiah,J.Kaplan,P.Dhariwal, [33] L. Ke, U. Gupta, B. Y. Cho, D. Brooks, V. Chandra, U. Diril,\nA.Neelakantan,P.Shyam,G.Sastry,A.Askell,S.Agarwal,A.Herbert- A.Firoozshahian,K.Hazelwood,B.Jia,H.-H.S.Lee,M.Li,B.Maher,\nVoss,G.Krueger,T.Henighan,R.Child,A.Ramesh,D.M.Ziegler, D. Mudigere, M. Naumov, M. Schatz, M. Smelyanskiy, X. Wang,\nJ.Wu,C.Winter,C.Hesse,M.Chen,E.Sigler,M.Litwin,S.Gray, B.Reagen,C.-J.Wu,M.Hempstead,andX.Zhang,“Recnmp:Accel-\nB.Chess,J.Clark,C.Berner,S.McCandlish,A.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ray, B.Reagen,C.-J.Wu,M.Hempstead,andX.Zhang,“Recnmp:Accel-\nB.Chess,J.Clark,C.Berner,S.McCandlish,A.Radford,I.Sutskever, eratingpersonalizedrecommendationwithnear-memoryprocessing,”\nandD.Amodei,“Languagemodelsarefew-shotlearners,”arXivpreprint inProceedingsoftheACM/IEEEAnnualInternationalSymposiumon\narXiv:2005.14165,2020. ComputerArchitecture,2020.\n[14] P.Nayak,“Understandingsearchesbetterthaneverbefore,”2019. [34] Z.Deng,J.Park,P.T.P.Tang,H.Liu,J.Yang,H.Yuen,J.Huang,\n[15] X. Yi, Y.-F. Chen, S. Ramesh, V. Rajashekhar, L. Hong, N. Fiedel, D.Khudia,X.Wei,E.Wen,D.Choudhary,R.Krishnamoorthi,C.-J.Wu,\nN.Seshadri,L.Heldt,X.Wu,andE.H.Chi,“Factorizeddeepretrieval S.Nadathur,C.Kim,M.Naumov,S.Naghshineh,andM.Smelyanskiy,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "t,X.Wu,andE.H.Chi,“Factorizeddeepretrieval S.Nadathur,C.Kim,M.Naumov,S.Naghshineh,andM.Smelyanskiy,\nanddistributedtensorflowserving,”inProceedingsofMachineLearning “Low-precision hardware architectures meet recommendation model\nandSystems,2018. inferenceatscale,”IEEEMicro,vol.41,no.5,pp.93–100,2021.\n[16] W.Zhao,D.Xie,R.Jia,Y.Qian,R.Ding,M.Sun,andP.Li,“Distributed [35] L. Wesolowski, B. Acun, V. Andrei, A. Aziz, G. Dankel, C. Gregg,\nhierarchicalgpuparameterserverformassivescaledeeplearningads X. Meng, C. Meurillon, D. Sheahan, L. Tian, J. Yang, P. Yu, and\nsystems,”arXivpreprintarXiv:2003.05622,2020. K. Hazelwood, “Datacenter-scale analysis and optimization of gpu\nmachinelearningworkloads,”IEEEMicro,vol.41,no.5,2021.\n[17] M.Lui,Y.Yetim,O.Ozkan,Z.Zhao,S.-Y.Tsai,C.-J.Wu,andM.Hemp-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "rkloads,”IEEEMicro,vol.41,no.5,2021.\n[17] M.Lui,Y.Yetim,O.Ozkan,Z.Zhao,S.-Y.Tsai,C.-J.Wu,andM.Hemp-\nstead,“Understandingcapacity-drivenscale-outneuralrecommendation [36] A. Sriraman, A. Dhanotia, and T. F. Wenisch, “Softsku: Optimizing\ninference,” in Proceedings of the IEEE International Symposium on server architectures for microservice diversity @scale,” in Proceed-\nPerformanceAnalysisofSystemsandSoftware,2021. ingsofthe46thInternationalSymposiumonComputerArchitecture,\n[18] S.Rajbhandari,O.Ruwase,J.Rasley,S.Smith,andY.He,“Zero-infinity: AssociationforComputingMachinery,2019.\nBreakingthegpumemorywallforextremescaledeeplearning,”arXiv [37] A. Sriraman and A. Dhanotia, “Accelerometer: Understanding ac-\npreprintarXiv:2104.07857,2021.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "v [37] A. Sriraman and A. Dhanotia, “Accelerometer: Understanding ac-\npreprintarXiv:2104.07857,2021. celeration opportunities for data center overheads at hyperscale,” in\n[19] U. Gupta, Y. Kim, S. Lee, J. Tse, H. S. Lee, G. Wei, D. Brooks, ProceedingsoftheInternationalConferenceonArchitecturalSupport\nandC.Wu,“Chasingcarbon:Theelusiveenvironmentalfootprintof forProgrammingLanguagesandOperatingSystems,2020.\ncomputing,”inProceedingsoftheIEEEInternationalSymposiumon [38] C.Tang,K.Yu,K.Veeraraghavan,J.Kaldor,S.Michelson,T.Kooburat,\nHigh-PerformanceComputerArchitecture,2021. A.Anbudurai,M.Clark,K.Gogia,L.Cheng,B.Christensen,A.Gartrell,\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "M.Khutornenko,S.Kulkarni,M.Pawlowski,T.Pelkonen,A.Rodrigues, [60] P. T. Sivaprasad, F. Mai, T. Vogels, M. Jaggi, and F. Fleuret, “Opti-\nR.Tibrewal,V.Venkatesan,andP.Zhang,“Twine:Aunifiedcluster mizerbenchmarkingneedstoaccountforhyperparametertuning,”in\nmanagementsystemforsharedinfrastructure,”inProceedingsofthe Proceedings of the International Conference on Machine Learning,\nUSENIXSymposiumonOperatingSystemsDesignandImplementation, 2020.\n2020. [61] P.Goyal,P.Dolla´r,R.Girshick,P.Noordhuis,L.Wesolowski,A.Kyrola,\n[39] A.Lacoste,A.Luccioni,V.Schmidt,andT.Dandres,“Quantifyingthe A.Tulloch,Y.Jia,andK.He,“Accurate,largeminibatchsgd:Training\ncarbonemissionsofmachinelearning,”WorkshoponTacklingClimate imagenetin1hour,”arXivpreprintarXiv:1706.02677,2017.\nChangewithMachineLearningatNeurIPS2019,2019.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "te imagenetin1hour,”arXivpreprintarXiv:1706.02677,2017.\nChangewithMachineLearningatNeurIPS2019,2019. [62] M.Ott,S.Edunov,D.Grangier,andM.Auli,“Scalingneuralmachine\n[40] P.Henderson,J.Hu,J.Romoff,E.Brunskill,D.Jurafsky,andJ.Pineau, translation,”arXivpreprintarXiv:1806.00187,2018.\n“Towardsthesystematicreportingoftheenergyandcarbonfootprints [63] D. Alistarh, D. Grubic, J. Li, R. Tomioka, and M. Vojnovic, “Qsgd:\nofmachinelearning,”CoRR,vol.abs/2002.05651,2020. Communication-efficientsgdviagradientquantizationandencoding,”in\n[41] E.M.Bender,T.Gebru,A.McMillan-Major,andS.Shmitchell,“On ProceedingsoftheAdvancesinNeuralInformationProcessingSystems,\nthedangersofstochasticparrots:Canlanguagemodelsbetoobig?,”in vol.30,2017.\nProceedingsoftheACMConferenceonFairness,Accountability,and [64] T.Vogels,S.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "toobig?,”in vol.30,2017.\nProceedingsoftheACMConferenceonFairness,Accountability,and [64] T.Vogels,S.P.Karinireddy,andM.Jaggi,“Powersgd:Practicallow-\nTransparency,2021. rankgradientcompressionfordistributedoptimization,”inProceedings\n[42] N.Sachdeva,C.-J.Wu,andJ.McAuley,“Svp-cf:Selectionviaproxy of the Advances In Neural Information Processing Systems, vol. 32,\nforcollaborativefilteringdata,”arXivpreprintarXiv:2107.04984,2021. 2019.\n[43] E.Valavi,J.Hestness,N.Ardalani,andM.Iansiti,TimeandtheValue [65] Y.Huang,Y.Cheng,A.Bapna,O.Firat,D.Chen,M.Chen,H.Lee,\nofData. Workingpapers,HarvardBusinessSchool,2020. J.Ngiam,Q.V.Le,Y.Wu,etal.,“Gpipe:Efficienttrainingofgiant\nneural networks using pipeline parallelism,” in Proceedings of the\n[44] M. Zhao, N. Agarwal, A. Basant, B. Gedik, S. Pan, M. Ozdal,",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "arallelism,” in Proceedings of the\n[44] M. Zhao, N. Agarwal, A. Basant, B. Gedik, S. Pan, M. Ozdal,\nAdvancesinneuralinformationprocessingsystems,vol.32,2019.\nR. Komuravelli, J. Pan, T. Bao, H. Lu, S. Narayanan, J. Langman,\nK.Wilfong,H.Rastogi,C.Wu,C.Kozyrakis,andP.Pol,“Understanding [66] S. Rajbhandari, J. Rasley, O. Ruwase, and Y. He, “Zero: Memory\nandco-designingthedataingestionpipelineforindustry-scalerecsys optimizationstowardtrainingtrillionparametermodels,”inProceedings\ntraining,”CoRR,vol.abs/2108.09373,2021. of the International Conference for High Performance Computing,\nNetworking,StorageandAnalysis,2020.\n[45] R. Turner, D. Eriksson, M. McCourt, J. Kiili, E. Laaksonen, Z. Xu,\nandI.Guyon,“Bayesianoptimizationissuperiortorandomsearchfor [67] J.Rasley,S.Rajbhandari,O.Ruwase,andY.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "dI.Guyon,“Bayesianoptimizationissuperiortorandomsearchfor [67] J.Rasley,S.Rajbhandari,O.Ruwase,andY.He,“Deepspeed:System\nmachine learning hyperparameter tuning: Analysis of the black-box optimizations enable training deep learning models with over 100\noptimizationchallenge2020,”CoRR,vol.abs/2104.10201,2021. billionparameters,”inProceedingsoftheACMSIGKDDInternational\nConferenceonKnowledgeDiscoveryandDataMining,2020.\n[46] P.Ren,Y.Xiao,X.Chang,P.-y.Huang,Z.Li,X.Chen,andX.Wang,\n“Acomprehensivesurveyofneuralarchitecturesearch:Challengesand [68] N.P.Jouppi,C.Young,N.Patil,D.Patterson,G.Agrawal,R.Bajwa,\nsolutions,”ACMComput.Surv.,vol.54,no.4,2021. S. Bates, S. Bhatia, N. Boden, A. Borchers, R. Boyle, P.-l. Cantin,\nC. Chao, C. Clark, J. Coriell, M. Daley, M. Dau, J. Dean, B. Gelb,\n[47] Q.Song,D.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "yle, P.-l. Cantin,\nC. Chao, C. Clark, J. Coriell, M. Daley, M. Dau, J. Dean, B. Gelb,\n[47] Q.Song,D.Cheng,H.Zhou,J.Yang,Y.Tian,andX.Hu,“Towards\nT.V.Ghaemmaghami,R.Gottipati,W.Gulland,R.Hagmann,C.R.\nautomatedneuralinteractiondiscoveryforclick-throughrateprediction,”\nHo, D. Hogberg, J. Hu, R. Hundt, D. Hurt, J. Ibarz, A. Jaffey,\nProceedingsofthe26thACMSIGKDDInternationalConferenceon\nA.Jaworski,A.Kaplan,H.Khaitan,D.Killebrew,A.Koch,N.Kumar,\nKnowledgeDiscoveryandDataMining,2020.\nS. Lacy, J. Laudon, J. Law, D. Le, C. Leary, Z. Liu, K. Lucke,\n[48] M.R.Joglekar,C.Li,M.Chen,T.Xu,X.Wang,J.K.Adams,P.Khaitan, A.Lundin,G.MacKean,A.Maggiore,M.Mahony,K.Miller,R.Na-\nJ.Liu,andQ.V.Le,“Neuralinputsearchforlargescalerecommendation garajan,R.Narayanaswami,R.Ni,K.Nix,T.Norrie,M.Omernick,",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "euralinputsearchforlargescalerecommendation garajan,R.Narayanaswami,R.Ni,K.Nix,T.Norrie,M.Omernick,\nmodels,”inProceedingsoftheACMSIGKDDInternationalConference N.Penukonda,A.Phelps,J.Ross,M.Ross,A.Salek,E.Samadiani,\nonKnowledgeDiscoveryandDataMining,2020. C.Severn,G.Sizikov,M.Snelham,J.Souter,D.Steinberg,A.Swing,\n[49] M. Tan and Q. V. Le, “Efficientnet: Rethinking model scaling for M. Tan, G. Thorson, B. Tian, H. Toma, E. Tuttle, V. Vasudevan,\nconvolutionalneuralnetworks,”arXivpreprintarXiv:1905.11946,2020. R. Walter, W. Wang, E. Wilcox, and D. H. Yoon, “In-datacenter\n[50] D.Eriksson,P.I.Chuang,S.Daulton,P.Xia,A.Shrivastava,A.Babu,\nperformanceanalysisofatensorprocessingunit,”inProceedingsofthe\nS.Zhao,A.Aly,G.Venkatesh,andM.Balandat,“Latency-awareneural",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ensorprocessingunit,”inProceedingsofthe\nS.Zhao,A.Aly,G.Venkatesh,andM.Balandat,“Latency-awareneural\nACM/IEEEInternationalSymposiumonComputerArchitecture,2017.\narchitecturesearchwithmulti-objectivebayesianoptimization,”CoRR, [69] J.Hamilton,“AWSInferentiaMachineLearningProcessor,”2018.\nvol.abs/2106.11890,2021. [70] Azure,“NewAzureHPCandpartnerofferingsatSupercomputing19,”\n[51] H.Cai,C.Gan,T.Wang,Z.Zhang,andS.Han,“Once-for-all:Train 2019.\nonenetworkandspecializeitforefficientdeployment,”arXivpreprint [71] NVIDIA,“GPUsforVirtualization,”2021.\narXiv:1908.09791,2020.\n[72] A.Spiridonov,“NewCloudTPUVMsmaketrainingyourMLmodels\n[52] D.Stamoulis,R.Ding,D.Wang,D.Lymberopoulos,B.Priyantha,J.Liu, onTPUseasierthanever,”2021.\nand D. Marculescu, “Single-path nas: Designing hardware-efficient\n[73] M.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "nTPUseasierthanever,”2021.\nand D. Marculescu, “Single-path nas: Designing hardware-efficient\n[73] M.Gschwind,T.Kaldewey,andD.Tam,“Optimizingtheefficiency\nconvnetsinlessthan4hours,”arXivpreprintarXiv:1904.02877,2019.\nof deep learning through accelerator virtualization,” IBM Journal of\n[53] W. Chen, X. Gong, and Z. Wang, “Neural architecture search on ResearchandDevelopment,vol.61,no.4-5,2017.\nimagenetinfourgpuhours:Atheoreticallyinspiredperspective,”arXiv\n[74] S. Ghodrati, B. H. Ahn, J. Kyung Kim, S. Kinzer, B. R. Yatham,\npreprintarXiv:2102.11535,2021.\nN.Alla,H.Sharma,M.Alian,E.Ebrahimi,N.S.Kim,C.Young,and\n[54] J.Mellor,J.Turner,A.Storkey,andE.J.Crowley,“Neuralarchitecture H. Esmaeilzadeh, “Planaria: Dynamic architecture fission for spatial\nsearchwithouttraining,”arXivpreprintarXiv:2006.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "“Planaria: Dynamic architecture fission for spatial\nsearchwithouttraining,”arXivpreprintarXiv:2006.04647,2021. multi-tenantaccelerationofdeepneuralnetworks,”inProceedingsof\n[55] B. Acun, M. Murphy, X. Wang, J. Nie, C. Wu, and K. Hazelwood, theIEEE/ACMInternationalSymposiumonMicroarchitecture,2020.\n“Understandingtrainingefficiencyofdeeplearningrecommendation [75] S.-C.KaoandT.Krishna,“Domain-specificgeneticalgorithmformulti-\nmodelsatscale,”inProceedingsoftheIEEEInternationalSymposium tenant dnnaccelerator scheduling,” arXiv preprint arXiv:2104.13997,\nonHigh-PerformanceComputerArchitecture,2021. 2021.\n[56] C. Yin, B. Acun, X. Liu, and C.-J. Wu, “TT-Rec: Tensor train [76] M. Jeon, S. Venkataraman, A. Phanishayee, u. Qian, W. Xiao, and",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": ".-J. Wu, “TT-Rec: Tensor train [76] M. Jeon, S. Venkataraman, A. Phanishayee, u. Qian, W. Xiao, and\ncompressionfordeeplearningrecommendationmodels,”inProceedings F. Yang, “Analysis of large-scale multi-tenant gpu clusters for dnn\noftheConferenceonMachineLearningandSystems,2021. trainingworkloads,”inProceedingsoftheUSENIXAnnualTechnical\n[57] W.-C.Kang,D.Z.Cheng,T.Yao,X.Yi,T.Chen,L.Hong,andE.H. Conference,2019.\nChi,“Learningtoembedcategoricalfeatureswithoutembeddingtables [77] P.YuandM.Chowdhury,“Salus:Fine-grainedgpusharingprimitives\nforrecommendation,”arXivpreprintarXiv:2010.10784,2021. fordeeplearningapplications,”arXivpreprintarXiv:1902.04610,2019.\n[58] A.S.NemirovskijandD.B.Yudin,Problemcomplexityandmethod [78] R.JainandJ.Wullert,“Challenges:Environmentaldesignforpervasive",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "udin,Problemcomplexityandmethod [78] R.JainandJ.Wullert,“Challenges:Environmentaldesignforpervasive\nefficiencyinoptimization. Wiley-Interscience,1983. computingsystems,”inProceedingsoftheInternationalConference\n[59] D. Choi, C. J. Shallue, Z. Nado, J. Lee, C. J. Maddison, and G. E. onMobileComputingandNetworking,2002.\nDahl,“Onempiricalcomparisonsofoptimizersfordeeplearning,”arXiv [79] J.Chang,J.Meza,P.Ranganathan,C.Bash,andA.Shah,“Greenserver\npreprintarXiv:1910.05446,2019. design:Beyondoperationalenergytosustainability,”inProceedingsof\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "theInternationalConferenceonPowerAwareComputingandSystems, [96] D. Stamoulis, T.-W. R. Chin, A. K. Prakash, H. Fang, S. Sajja,\n2010. M.Bognar,andD.Marculescu,“Designingadaptiveneuralnetworks\n[80] M.GarciaBardon,P.Wuytens,L.-A.Ragnarsson,G.Mirabelli,D.Jang, for energy-constrained image classification,” in Proceedings of the\nG.Willems,A.Mallik,A.Spessot,J.Ryckaert,andB.Parvais,“DTCO InternationalConferenceonComputer-AidedDesign,2018.\nincluding sustainability: Power-performance-area-cost-environmental [97] C.Gao,A.Gutierrez,M.Rajan,R.G.Dreslinski,T.Mudge,andC.-\nscore(PPACE)analysisforlogictechnologies,”inProceedingsofthe J.Wu,“Astudyofmobiledeviceutilization,”inProceedingsofthe\nIEEEInternationalElectronDevicesMeeting,2020. IEEE International Symposium on Performance Analysis of Systems",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ationalElectronDevicesMeeting,2020. IEEE International Symposium on Performance Analysis of Systems\n[81] A.Putnam,A.M.Caulfield,E.S.Chung,D.Chiou,K.Constantinides, andSoftware,2015.\nJ.Demme,H.Esmaeilzadeh,J.Fowers,G.P.Gopal,J.Gray,M.Hasel- [98] V.Schmidt,K.Goyal,A.Joshi,B.Feld,L.Conell,N.Laskaris,D.Blank,\nman, S. Hauck, S. Heil, A. Hormati, J.-Y. Kim, S. Lanka, J. Larus, J. Wilson, S. Friedler, and S. Luccioni, “CodeCarbon: Estimate and\nE.Peterson,S.Pope,A.Smith,J.Thong,P.Y.Xiao,andD.Burger, TrackCarbonEmissionsfromMachineLearningComputing,”2021.\n“Areconfigurablefabricforacceleratinglarge-scaledatacenterservices,” [99] K.Lottick,S.Susai,S.A.Friedler,andJ.P.Wilson,“Energyusage\nIEEEMicro,2015. reports:Environmentalawarenessaspartofalgorithmicaccountability,”\n[82] Y.-H. Chen, J. Emer, and V.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ". reports:Environmentalawarenessaspartofalgorithmicaccountability,”\n[82] Y.-H. Chen, J. Emer, and V. Sze, “Eyeriss: A spatial architecture Workshop on Tackling Climate Change with Machine Learning at\nfor energy-efficient dataflow for convolutional neural networks,” in NeurIPS2019,2019.\nProceedingsoftheACM/IEEEInternationalSymposiumonComputer [100] D. Kiela, M. Bartolo, Y. Nie, D. Kaushik, A. Geiger, Z. Wu,\nArchitecture,2016. B. Vidgen, G. Prasad, A. Singh, P. Ringshia, Z. Ma, T. Thrush,\n[83] A. Radovanovic, R. Koningstein, I. Schneider, B. Chen, A. Duarte, S.Riedel,Z.Waseem,P.Stenetorp,R.Jia,M.Bansal,C.Potts,and\nB.Roy,D.Xiao,M.Haridasan,P.Hung,N.Care,etal.,“Carbon-aware A.Williams,“Dynabench:RethinkingbenchmarkinginNLP,”arXiv\ncomputingfordatacenters,”arXivpreprintarXiv:2106.11750,2021.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ench:RethinkingbenchmarkinginNLP,”arXiv\ncomputingfordatacenters,”arXivpreprintarXiv:2106.11750,2021. preprintarXiv:2104.14337,2021.\n[84] H.Cai,C.Gan,L.Zhu,andS.Han,“Tinytl:Reducememory,notparam- [101] D.HernandezandT.B.Brown,“Measuringthealgorithmicefficiency\netersforefficienton-devicelearning,”arXivpreprintarXiv:2007.11622, ofneuralnetworks,”arXivpreprintarXiv:2005.04305,2020.\n2020. [102] P.Mattson,V.J.Reddi,C.Cheng,C.Coleman,G.Diamos,D.Kanter,\n[85] K. Wang, R. Mathews, C. Kiddon, H. Eichner, F. Beaufays, and P.Micikevicius,D.Patterson,G.Schmuelling,H.Tang,G.-Y.Wei,and\nD.Ramage,“Federatedevaluationofon-devicepersonalization,”arXiv C.-J.Wu,“Mlperf:Anindustrystandardbenchmarksuiteformachine\npreprintarXiv:1910.10252,2019. learningperformance,”IEEEMicro,vol.40,no.2,pp.8–16,2020.\n[86] K.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "hine\npreprintarXiv:1910.10252,2019. learningperformance,”IEEEMicro,vol.40,no.2,pp.8–16,2020.\n[86] K. Bonawitz, H. Eichner, W. Grieskamp, D. Huba, A. Ingerman, [103] V.J.Reddi,C.Cheng,D.Kanter,P.Mattson,G.Schmuelling,andC.-J.\nV. Ivanov, C. Kiddon, J. Konecˇny`, S. Mazzocchi, H. B. McMahan, Wu,“Thevisionbehindmlperf:Understandingaiinferenceperformance,”\net al., “Towards federated learning at scale: System design,” arXiv IEEEMicro,vol.41,no.3,pp.10–18,2021.\npreprintarXiv:1902.01046,2019. [104] V. J. Reddi, D. Kanter, P. Mattson, J. Duke, T. Nguyen, R. Chukka,\n[87] A.Hard,K.Rao,R.Mathews,S.Ramaswamy,F.Beaufays,S.Augen- K.Shiring,K.-S.Tan,M.Charlebois,W.Chou,M.El-Khamy,J.Hong,\nstein,H.Eichner,C.Kiddon,andD.Ramage,“Federatedlearningfor M. Buch, C. Trinh, T. Atta-fosu, F. Cakir, M. Charkhabi, X.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "Kiddon,andD.Ramage,“Federatedlearningfor M. Buch, C. Trinh, T. Atta-fosu, F. Cakir, M. Charkhabi, X. Chen,\nmobilekeyboardprediction,”arXivpreprintarXiv:1811.03604,2018. J.Chiang,D.Dexter,W.Heo,G.Schmuelling,M.Shabani,andD.Zika,\n[88] T.Yang,G.Andrew,H.Eichner,H.Sun,W.Li,N.Kong,D.Ramage, “Mlperfmobileinferencebenchmark,”arXiv:2012.02328,2021.\nand F. Beaufays, “Applied federated learning: Improving google [105] P. Mattson, C. Cheng, G. Diamos, C. Coleman, P. Micikevicius,\nkeyboardquerysuggestions,”arXivpreprintarXiv:1812.02903,2018. D. Patterson, H. Tang, G.-Y. Wei, P. Bailis, V. Bittorf, D. Brooks,\n[89] S. Ramaswamy, R. Mathews, K. Rao, and F. Beaufays, “Federated D. Chen, D. Dutta, U. Gupta, K. Hazelwood, A. Hock, X. Huang,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ", K. Rao, and F. Beaufays, “Federated D. Chen, D. Dutta, U. Gupta, K. Hazelwood, A. Hock, X. Huang,\nlearning for emoji prediction in a mobile keyboard,” arXiv preprint D.Kang,D.Kanter,N.Kumar,J.Liao,D.Narayanan,T.Oguntebi,\narXiv:1906.04329,2019. G.Pekhimenko,L.Pentecost,V.JanapaReddi,T.Robie,T.StJohn,C.-\nJ.Wu,L.Xu,C.Young,andM.Zaharia,“Mlperftrainingbenchmark,”\n[90] D. Huba, J. Nguyen, K. Malik, R. Zhu, M. Rabbat, A. Yousefpour,\ninProceedingsofMachineLearningandSystems,vol.2,2020.\nC.-J.Wu,H.Zhan,P.Ustinov,H.Srinivas,K.Wang,A.Shoumikhin,\nJ.Min,andM.Malek,“Papaya:Practical,private,andscalablefederated [106] V. J. Reddi, C. Cheng, D. Kanter, P. Mattson, G. Schmuelling, C.-J.\nlearning,”arXiv:2111.04877,2021. Wu,B.Anderson,M.Breughe,M.Charlebois,W.Chou,R.Chukka,\nC. Coleman, S. Davis, P.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "rXiv:2111.04877,2021. Wu,B.Anderson,M.Breughe,M.Charlebois,W.Chou,R.Chukka,\nC. Coleman, S. Davis, P. Deng, G. Diamos, J. Duke, D. Fick, J. S.\n[91] K.Grauman,A.Westbury,E.Byrne,Z.Chavis,A.Furnari,R.Girdhar,\nGardner,I.Hubara,S.Idgunji,T.B.Jablin,J.Jiao,T.S.John,P.Kanwar,\nJ. Hamburger, H. Jiang, M. Liu, X. Liu, M. Martin, T. Nagarajan,\nD. Lee, J.Liao, A. Lokhmotov, F. Massa,P.Meng, P. Micikevicius,\nI. Radosavovic, S. K. Ramakrishnan, F. Ryan, J. Sharma, M. Wray,\nC.Osborne,G.Pekhimenko,A.T.R.Rajan,D.Sequeira,A.Sirasao,\nM.Xu,E.Z.Xu,C.Zhao,S.Bansal,D.Batra,V.Cartillier,S.Crane,\nF. Sun, H. Tang, M. Thomson, F. Wei, E. Wu, L. Xu, K. Yamada,\nT.Do,M.Doulaty,A.Erapalli,C.Feichtenhofer,A.Fragomeni,Q.Fu,\nB.Yu,G.Yuan,A.Zhong,P.Zhang,andY.Zhou,“Mlperfinference\nC.Fuegen,A.Gebreselasie,C.Gonzalez,J.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "i,Q.Fu,\nB.Yu,G.Yuan,A.Zhong,P.Zhang,andY.Zhou,“Mlperfinference\nC.Fuegen,A.Gebreselasie,C.Gonzalez,J.Hillis,X.Huang,Y.Huang,\nbenchmark,” in Proceedings of the ACM/IEEE Annual International\nW.Jia,W.Khoo,J.Kolar,S.Kottur,A.Kumar,F.Landini,C.Li,Y.Li,\nSymposiumonComputerArchitecture,2020.\nZ.Li,K.Mangalam,R.Modhugu,J.Munro,T.Murrell,T.Nishiyasu,\nW.Price,P.R.Puentes,M.Ramazanova,L.Sari,K.Somasundaram, [107] M.Mitchell,S.Wu,A.Zaldivar,P.Barnes,L.Vasserman,B.Hutchin-\nA.Southerland,Y.Sugano,R.Tao,M.Vo,Y.Wang,X.Wu,T.Yagi, son, E. Spitzer, I. D. Raji, and T. Gebru, “Model cards for model\nY.Zhu,P.Arbelaez,D.Crandall,D.Damen,G.M.Farinella,B.Ghanem, reporting,”ProceedingsoftheConferenceonFairness,Accountability,\nV.K.Ithapu,C.V.Jawahar,H.Joo,K.Kitani,H.Li,R.Newcombe, andTransparency,2019.\nA.Oliva,H.S.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ntability,\nV.K.Ithapu,C.V.Jawahar,H.Joo,K.Kitani,H.Li,R.Newcombe, andTransparency,2019.\nA.Oliva,H.S.Park,J.M.Rehg,Y.Sato,J.Shi,M.Z.Shou,A.Torralba, [108] C.-J. Wu, S. Manne, P. Ranganathan, S. Bird, and S. Greenstein,\nL.Torresani,M.Yan,andJ.Malik,“Ego4d:Aroundtheworldin3,000 “Socio-technologicalchallengesandopportunities:Pathsforward,”arXiv\nhoursofegocentricvideo,”arXiv:2110.07058,2021. preprintarXiv:2108.06738,2021.\n[92] Y. G. Kim and C.-J. Wu, “Autofl: Enabling heterogeneity-aware [109] R.Schwartz,J.Dodge,N.A.Smith,andO.Etzioni,“Greenai,”arXiv\nenergyefficientfederatedlearning,”inProceedingsoftheIEEE/ACM preprintarXiv:1907.10597,2019.\nInternationalSymposiumonMicroarchitecture,2021. [110] K. Maeng, S. Bharuka, I. Gao, M. C. Jeffrey, V. Saraph, B.-Y. Su,\n[93] Y.Kang,J.Hauswald,C.Gao,A.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "0] K. Maeng, S. Bharuka, I. Gao, M. C. Jeffrey, V. Saraph, B.-Y. Su,\n[93] Y.Kang,J.Hauswald,C.Gao,A.Rovinski,T.Mudge,J.Mars,and C. Trippel, J. Yang, M. Rabbat, B. Lucia, and C.-J. Wu, “Cpr:\nL.Tang,“Neurosurgeon:Collaborativeintelligencebetweenthecloud Understandingandimprovingfailuretoleranttrainingfordeeplearning\nand mobile edge,” in Proceedings of the International Conference recommendationwithpartialrecovery,”inProceedingsoftheConference\nonArchitecturalSupportforProgrammingLanguagesandOperating onMachineLearningandSystems,2021.\nSystems,2017. [111] A.Eisenman,K.K.Matam,S.Ingram,D.Mudigere,R.Krishnamoorthi,\n[94] Y.G.KimandC.-J.Wu,“Autoscale:Energyefficiencyoptimizationfor K. Nair, M. Smelyanskiy, and M. Annavaram, “Check-n-run: A",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "utoscale:Energyefficiencyoptimizationfor K. Nair, M. Smelyanskiy, and M. Annavaram, “Check-n-run: A\nstochasticedgeinferenceusingreinforcementlearning,”inProceedings checkpointing system for training deep learning recommendation\noftheIEEE/ACMInternationalSymposiumonMicroarchitecture,2020. models,”arXivpreprintarXiv:2010.08679,2021.\n[95] T.-J.Yang,Y.-H.Chen,andV.Sze,“Designingenergy-efficientconvolu- [112] H. D. Dixit, S. Pendharkar, M. Beadon, C. Mason, T. Chakravarthy,\ntionalneuralnetworksusingenergy-awarepruning,”arXiv:1611.05128, B. Muthiah, and S. Sankar, “Silent data corruptions at scale,” arXiv\n2017. preprintarXiv:2102.11245,2021.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "[113] P.H.Hochschild,P.Turner,J.C.Mogul,R.Govindaraju,P.Ranganathan,\nD.E.Culler,andA.Vahdat,“Coresthatdon’tcount,”inProceedings 0.797\noftheWorkshoponHotTopicsinOperatingSystems,2021.\n[114] X.Qiu,T.Parcollet,J.Fernandez-Marques,P.P.B.deGusmao,D.J.\nBeutel, T. Topal, A. Mathur, and N. D. Lane, “A first look into the 0.795\ncarbonfootprintoffederatedlearning,”arXivpreprintarXiv:2102.07627,\n2021.\ny = 0.7892x-0.004 [115] H.Wang,B.Kim,J.Xie,andZ.Han,“Howisenergyconsumedin 0.793 R²= 0.9969\nsmartphone deep learning apps? executing locally vs. remotely,” in\nProceedingsoftheIEEEGlobalCommunicationsConference,2019.\n0.791 [116] C.-J.Wu,D.Brooks,K.Chen,D.Chen,S.Choudhury,M.Dukhan,\nK.Hazelwood,E.Isaac,Y.Jia,B.Jia,T.Leyvand,H.Lu,Y.Lu,L.Qiao,\nB.Reagen,J.Spisak,F.Sun,A.Tulloch,P.Vajda,X.Wang,Y.Wang,\n0.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": ",Y.Jia,B.Jia,T.Leyvand,H.Lu,Y.Lu,L.Qiao,\nB.Reagen,J.Spisak,F.Sun,A.Tulloch,P.Vajda,X.Wang,Y.Wang,\n0.789 y = 0.7903x-0.002\nB.Wasti,Y.Wu,R.Xian,S.Yoo,andP.Zhang,“Machinelearning R²= 0.9986\natfacebook:Understandinginferenceattheedge,”inProceedingsof\nthe IEEE International Symposium on High Performance Computer 0.787\nArchitecture,2019.\n0.125 0.25 0.5 1 2 4\n[117] R.Bommasani,D.A.Hudson,E.Adeli,R.Altman,S.Arora,S.von\nArx,M.S.Bernstein,J.Bohg,A.Bosselut,E.Brunskill,etal.,“On\nthe opportunities and risks of foundation models,” arXiv preprint\narXiv:2108.07258,2021.\n[118] T.Chen,S.Kornblith,M.Norouzi,andG.Hinton,“Asimpleframework\nforcontrastivelearningofvisualrepresentations,”inProceedingsofthe\nInternationalconferenceonmachinelearning,pp.1597–1607,2020.\n[119] M.Assran,M.Caron,I.Misra,P.Bojanowski,A.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ationalconferenceonmachinelearning,pp.1597–1607,2020.\n[119] M.Assran,M.Caron,I.Misra,P.Bojanowski,A.Joulin,N.Ballas,\nandM.Rabbat,“Semi-supervisedlearningofvisualfeaturesbynon-\nparametricallypredictingviewassignmentswithsupportsamples,”arXiv\npreprintarXiv:2104.13963,2021.\n[120] L.M.Dery,P.Michel,A.Talwalkar,andG.Neubig,“Shouldwebe\npre-training?anargumentforend-taskawaretrainingasanalternative,”\narXivpreprintarXiv:2109.07437,2021.\n)retteB\nsi rewoL(\nrorrE\nledoM\n0.010\n0.008\n0.006\nData Scale: 1X\nData Scale: 2X\nData Scale: 4X 0.004 Data Scale: 8X\nData Scale: 16X\nModel Scale: 2X\nModel Scale: 4X\n0.002 Model Scale: 8X\nModel Scale: 16X\nModel Scale: 32X\nModel Scale: 64X\n0 Model Scale: 128X\nEnergy/Step (J)\nFig.12. Modelqualityofrecommendationusecasesimprovesaswescaleup",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "0 Model Scale: 128X\nEnergy/Step (J)\nFig.12. Modelqualityofrecommendationusecasesimprovesaswescaleup\ntheamountofdataand/orthenumberofmodelparameters(e.g.,embedding\ncardinality or dimension), leading to higher energy and carbon footprint.\nMaximizingmodelaccuracyforthespecificrecommendationusecasecomes\nwithsignificantenergycost—Roughly4×energysavingcanbeachieved\nwithonly0.004modelqualitydegradation(greenvs.yellowstars).\nAPPENDIX\nDespite the recent calls-to-action [28], [39], [40], [41], the\noverallcommunityremainsunder-investedinresearchthataims\nat deeply understanding and minimizing the cost of AI. There\nare several factors that may have contributed to the current\nstate of AI:\n• Lack of incentives: Over 90% of the ML publications\nonly focus on model accuracy improvements at the",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ack of incentives: Over 90% of the ML publications\nonly focus on model accuracy improvements at the\nexpense of efficiency [109]. Challenges10 incentivize\ninvestment into efficient approaches.\n• Lack of common tools: There is no standard telemetry\nin place to provide accurate, reliable energy and carbon\nfootprint measurement. The measurement methodology\nis complex — factors, such as datacenter infrastructures,\nhardware architectures, energy sources, can perturb the\nfinal measure easily.\n• Lack of normalization factors: Algorithmic progress in\nMLisoftenpresentedinsomemeasureofmodelaccuracy,\ne.g., BLEU, points, ELO, cross-entropy loss, but without\nconsideringresourcerequirementasanormalizationfactor,\ne.g., the number of\nCPU/GPU/TPU hours used, the overall energy consump-",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "mentasanormalizationfactor,\ne.g., the number of\nCPU/GPU/TPU hours used, the overall energy consump-\ntion and/or carbon footprint required.\n• Platform fragmentation: Implementation details can\nhave a significant impact on real-world efficiency, but\nbest practices remain elusive and platform fragmentation\nprevents performance and efficiency portability across\nmodel development.\nA. Data Utilization Efficiency\nFigure 12 depicts energy footprint reduction potential when\ndata and model scaling is performed in tandem. The x-axis\n10EfficientOpen-DomainQuestionAnswering(https://efficientqa.github.io/),\nSustaiNLP: Simple and Efficient Natural Language Processing (https://site\ns.google.com/view/sustainlp2020/home), and WMT: Machine Translation\nEfficiencyTask(http://www.statmt.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": ".google.com/view/sustainlp2020/home), and WMT: Machine Translation\nEfficiencyTask(http://www.statmt.org/wmt21/efficiency-task.html).\n14",
+    "page": 14
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 14):\n | y = 0.7892x-0.004\nR²= 0.9969\nData Scale: 1X\nData Scale: 2X\nData Scale: 4X\nData Scale: 8X\nData Scale: 16X\nModel Scale: 2X\nModel Scale: 4X\nModel Scale: 8X y = 0.7903x-0.002\nModel Scale: 16X R²= 0.9986\nModel Scale: 32X\nModel Scale: 64X\nModel Scale: 128X\n0.708 7 | ",
+    "page": 14
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 14):\n | y = 0.7892x-0.00\nR²= 0.9969\n00..709036 | ",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "represents the energy footprint required per training step corruption, leading to erroneous computation, model accuracy\nwhereas the y-axis represents model error. The blue solid degradation, non-deterministic ML execution, or fatal system\nlines capture model size scaling (through embedding hash failure. In a large fleet of processors, silent data corruption\nscaling) while the training data set size is kept fixed. Each can occur frequently enough to have disruptive impact on\nline corresponds to a different data set size, in an increasing service productivity [112], [113]. Decommissioning an AI\norderfromtoptobottom.Thepointswithineachlinerepresent systementirelybecauseofhardwarefaultsisexpensivefromthe",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "optobottom.Thepointswithineachlinerepresent systementirelybecauseofhardwarefaultsisexpensivefromthe\ndifferent model (embedding) sizes, in an increasing order from perspective of resource and environmental footprints. System\nlefttoright.Thereddashedlinescapturedatascalingwhilethe architects can design differential reliability levels for micro\nmodel size is kept fixed. Each line corresponds to a different architectural components on an AI system depending on the\nembedding hash size, in an increasing order from left to right. ML model execution characteristics. Alternatively, algorithmic\nThe points within each line represent different data sizes, in fault tolerance can be built into deep learning programming\nan increasing order from top to bottom.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "fault tolerance can be built into deep learning programming\nan increasing order from top to bottom. The dashed black frameworks to provide a code execution path that is cognizant\nline captures the performance scaling trend as we scale data of hardware wear-out characteristics.\nand model sizes in tandem. This represents the energy-optimal On-Device Learning: Federated learning and optimization\nscaling approach. can result in a non-negligible amount of carbon emissions\nScalingdatasizesormodelsizesindependentlydeviatesfrom at the edge, similar to the carbon footprint of training\nthe energy-optimal trend. We highlight two energy-optimal Transformer [21]. Figure 11 shows that the federated\nBig\nsettings along the Pareto-frontier curve.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "l Transformer [21]. Figure 11 shows that the federated\nBig\nsettings along the Pareto-frontier curve. The yellow star uses learning and optimization process emits non-negligible carbon\nthe scaling setting of Data scaling 2× and Model scaling 2× at the edge due to both computation and wireless communi-\nwhereas the green star adopts the setting of Data scaling 8× cation during the process. To estimate the carbon emission,\nandModelscaling16×.Theyellowstarconsumesroughly4× we used a similar methodology to [114]. We collected the\nlower energy as compared to the green star with only 0.004 90-day log data for federated learning production use cases\nmodel quality degradation in Normalized Entropy. Overall at Facebook, which recorded the time spent on computation,",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "gradation in Normalized Entropy. Overall at Facebook, which recorded the time spent on computation,\nmodel quality performance has a (diminishing) power-law data downloading, and data uploading per client device. We\nrelationship with the corresponding energy consumption and multiplied the computation time with the estimated device\nthe power of the power law is extremely small (0.002-0.004). power and upload/download time with the estimated router\nThismeansachievinghighermodelqualitythroughmodel-data power,andomittedotherenergy.Weassumedadevicepowerof\nscaling for recommendation use cases incurs significant energy 3Wandarouterpowerof7.5W[115],[114].Modeltrainingon\ncost. client edge devices is inherently less energy-efficient because\nof the high wireless communication overheads, sub-optimal",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "inherently less energy-efficient because\nof the high wireless communication overheads, sub-optimal\ntrainingdatadistributioninindividualclientdevices[114],large\nB. Efficient, Environmentally-Sustainable AI Systems\ndegree of system heterogeneity among client edge devices, and\nDisaggregating Machine Learning Pipeline Stages: As highly-fragmented edge device architectures that make system-\ndepicted in Figure 3, the overall training throughput efficiency level optimization significantly more challenging [116]. Note,\nfor large-scale ML models depends on the throughput perfor- the wireless communication energy cost takes up a significant\nmance of both data ingestion and pre-processing and model portion of the overall energy footprint of federated learning,\ntraining.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "nd pre-processing and model portion of the overall energy footprint of federated learning,\ntraining. Disaggregating the data ingestion and pre-processing making energy footprint optimization on communication im-\nstage of the machine learning pipeline from model training portant.\nis the de-facto approach for industry-scale machine learning\nmodel training. This allows training accelerator, network\nC. Efficiency and Self-Supervised Learning\nand storage I/O bandwidth utilization to scale independently,\nthereby increasing the overall model training throughput by Self-supervised learning (SSL) have received much attention\n56% [44]. Disaggregation with well-designed check-pointing in the research community in recent years. SSL methods train",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "tion with well-designed check-pointing in the research community in recent years. SSL methods train\nsupport [110], [111] improves training fault tolerance as well. deep neural networks without using explicit supervision in\nBy doing so, failure on nodes that are responsible for data the form of human-annotated labels for each training sample.\ningestion and pre-processing can be recovered efficiently Having humans annotate data is a time-consuming, expensive,\nwithout requiring re-runs of the entire training experiment. and typically noisy process. SSL methods are typically used\nFrom a sustainability perspective, disaggregating the data to train foundation models — models that can readily be fine-",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "perspective, disaggregating the data to train foundation models — models that can readily be fine-\nstorage and ingestion stage from model training maximizes tuned using a small amount of labeled data on a down-stream\ninfrastructure efficiency by using less system resources to task [117]. SSL methods have been extremely successful for\nachievehighertrainingthroughput,resultinginlowerembodied pre-training large language models, becoming the de-facto\ncarbon footprint. By increasing fault tolerance, the operational standard,andtheyhavealsoattractedgreatinterestincomputer\ncarbon footprint is reduced at the same time. vision.\nFault-Tolerant AI Systems and Hardware: One way to When comparing supervised and self-supervised methods,",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "Tolerant AI Systems and Hardware: One way to When comparing supervised and self-supervised methods,\namortize the rising embodied carbon cost of AI infrastructures there is a glaring trade-off between having labels and the\nis to extend hardware lifetime. However, hardware ages amountofcomputationaloverheadinvolvedinpre-training.For\n— depending on the wear-out characteristics, increasingly example, Chen et al. report achieving 69.3% top-1 validation\nmore errors can surface over time and result in silent data accuracy with a ResNet-50 model after SSL pre-training for\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "1000 epochs on the ImageNet dataset and using the linear\nevaluation protocol, freezing the pre-trained feature extractor,\nandfine-tuningalinearclassifierontopfor60epochsusingthe\nfullImageNetdatasetwithalllabels[118].Incontrast,thesame\nmodel typically achieves at least 76.1% top-1 accuracy after\n90 epochs of fully-supervised training. Thus, in this example,\nusing labels and supervised training is worth a roughly 10×\nreduction in training effort, measured in terms of number of\npasses over the dataset.\nRecentworksuggeststhatincorporatingevenasmallamount\nof labeled data can significantly bridge this gap. Assran et\nal. describe an approach called Predicting view Assignments\nWith Support samples (PAWS) for semi-supervised pre-training\ninspired by SSL [119]. With access to labels for just 10% of",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "PAWS) for semi-supervised pre-training\ninspired by SSL [119]. With access to labels for just 10% of\nthe training images in ImageNet, a ResNet-50 achieves 75.5%\ntop-1 accuracy after just 200 epochs of PAWS pre-training.\nRunningon64V100GPUs,thistakesroughly16hours.Similar\nobservations have recently been made for language model pre-\ntraining as well [120].\nSelf-supervised pre-training potentially has advantages in\nthat a single foundation model can be trained (expensive) but\nthen fine-tuned (inexpensive), amortizing the up front cost\nacross many tasks [117]. Substantial additional research is\nneeded to better understand the cost-benefit trade-offs for this\nparadigm.\n16",
+    "page": 16
+  }
+]
