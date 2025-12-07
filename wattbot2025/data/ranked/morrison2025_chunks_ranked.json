@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.119417831291344,
+    "content": "0\nPublished as a conference paper at ICLR 2025\nLuccioni et al. (2023) reported estimates for emissions from the manufacturing process (embodied\n\"emissions),\nfrom electricity consumption during training, and from electricity consumption of the\"\n\"cluster while it was idle (see their Table 2). Dodge et al.\n(2022) measured electricity consump-\"\ntion and carbon emissions for training language models an",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 4.062932711058226,
+    "content": "granular\ntimesteps with region-specific carbon intensity, but did not measure development costs, water con-\nsumption, or inference. Similarly, developers of the Llama models (Touvron et al., 2023a;b; Dubey\net al., 2024) reported electricity consumption and carbon emissions estimates of training their final\nmodels; they did not estimate development cost or water consumption, and their approach to c",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 3.8606137309868167,
+    "content": "missions estimates of training their final\"\n\"models; they did not estimate development cost or water consumption, and their approach to carbon\"\n\"intensity varied.5 Gemma developers (Gemma Team et al., 2024) only report a single number:\nthe\"\n\"total emissions from pretraining their models, not broken down by model or by different stages of\"\n\"training, or by electricity consumption and carbon intensi",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 3.8487434231344544,
+    "content": "ail below.\n3.1 O PERATIONAL IMPACTS\nOperational environmental impacts of LLMs are those that arise directly from the development\nand use of models, and include the GHG emissions arising from energy sources used to power\nmodel training and deployment, including servers and data center cooling. We base our analysis of\noperational emissions around the following equation introduced by Schwartz et al. ",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 3.7389149882158508,
+    "content": "ter usage, or embodied carbon, a few reports recently have included some estimates. For example,\n3https://ghgprotocol.org/sites/default/files/standards/ghg-protocol-revised.pdf\n4https://www.cnbc.com/2025/02/20/openai-tops-400-million-users-despite-deepseeks-emergence.\nhtml\n2\n\nPublished as a conference paper at ICLR 2025\nLuccioni et al. (2023) reported estimates for emissions from the manufacturing",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.5895848027806183,
+    "content": "e, and use this to estimate the total carbon emissions and water consumption during each\nstage. We follow previous work (Luccioni et al., 2023; Dubey et al., 2024; Gemma Team et al.,\n2024) to calculate CO 2emissions (CO 2e) from power consumption:\nCO 2e=P·PUE·CI (2)\nwhere the total carbon emissions is equal to the power usage P, multiplied by the power usage\neffectiveness ( PUE )6of the data cente",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 3.324019000181216,
+    "content": "0k 459 813 159 33 yrs, 1 mo 843 7 yrs, 5 mo\nHardware manufacturing NVIDIA does not release the embodied carbon emissions or water\nconsumption about the hardware it produces, so we assume the same embodied carbon emissions\nas Luccioni et al. (2023), or 3700 kg of CO 2eq per 8x server node, equal 463 kg per GPU. There\nis little public information on how much water is required to produce a single GPU",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 3.288418438187392,
+    "content": "g each\"\n\"stage. We follow previous work (Luccioni et al., 2023; Dubey et al., 2024; Gemma Team et al.,\"\n2024) to calculate CO2 emissions (CO2e) from power consumption:\n\"(2)\nCO2e = P · P U E · CI\"\n\"where the total carbon emissions is equal\nto the power usage P, multiplied by the power usage\"\n\"effectiveness (PUE)6 of\nthe data center, multiplied by the carbon intensity CI of\nthe local power\"\n\"grid. W",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 3.060912677580939,
+    "content": "4) documents electricity consumption per model, and uses region-specific carbon intensity to\nestimate emissions for two regions, but does not estimate other environmental impacts. The OLMo\n2 report (OLMo et al., 2025) again documents electricity consumption per model and uses region-\nand datacenter-specific intensity factors to estimate emissions and also water consumption, but does\nnot measure de",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 3.0528471595067135,
+    "content": "pectively, and carbon intensity of 0.332 kg CO 2e / kWh. Note the difference in units for energy consumption\nand carbon emissions, namely MWh →kWh, tons →grams CO 2eq, and kL →L. The measurements reported\nin this table account for the GPU processes associated with active inference, but not CPU or RAM associated\nwith e.g. server overhead. Thus, these numbers can be considered as lower bounds on usa",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 2.9276503825882934,
+    "content": "can be considered as lower bounds on usage in similar settings.\",,\n,Also of note is the relatively small variability in carbon emissions and water consumption across different model,,\n,\"sizes in cases where batches are not saturated, despite faster inference in smaller models when fully saturated;\",,\n,greater peak efficiency does not guarantee efficient deployment if inference is not optimized. We",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.8474326658841513,
+    "content": "15, this is\nequivalent to 6.5 tanker trucks’ worth of gasoline burned, emissions from the average yearly energy\nuse for 98.2 homes in the U.S., or the amount of carbon sequestered by 472 acres of U.S. forests in\none year. We additionally estimate we consumed at least 2,769 kL of water, which is equivalent to\nabout 24 and a half years of water consumption by the average person in the U.S.16\nOther C",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 2.798310522617105,
+    "content": "cope 2 CO2\"\nemissions in accordance with the Greenhouse\n\"OLMo 700M\nGas Protocol’s definitions,3 and Scope 1 and 2\n101\"\n\"water consumption following Li et al.\n(2023);\"\nOLMo 150M\n\"in addition, we calculate “upstream” embod-\"\n\"ied carbon and water consumption, and provide\"\n\"OLMo 20M\n100\"\n“downstream” estimates from use of our mod-\n\"100\n101\n102\"\n\"els (which are part, but not all, of Scope 3).\"\nCarbon ",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 2.780203245717691,
+    "content": "okens. To do this, we calculate Scope 2 CO 2\nemissions in accordance with the Greenhouse\nGas Protocol’s definitions,3and Scope 1 and 2\nwater consumption following Li et al. (2023);\nin addition, we calculate “upstream” embod-\nied carbon and water consumption, and provide\n“downstream” estimates from use of our mod-\nels (which are part, but not all, of Scope 3).\nImportantly, we calculate (i) electric",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 2.762334558024964,
+    "content": "a range of industries, such as transportation and end of life hardware disposal.\nWhile the costs we report above represent a large portion of the total development process, more\ntransparency is needed to understand the full impact of model training.\n4.2 S IMULATING DEPLOYMENT & INFERENCE\nWe report simulated inference costs; that is, we explore the question of what our models’ impact\nmight be if th",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.7534881822144697,
+    "content": "used a region-specific carbon intensity. All 3\nassumed 100% GPU power draw throughout training.\n3\n\nPublished as a conference paper at ICLR 2025\nwhere the cost of a scientific result R(e.g. a claim that a particular training setup reaches Xaccuracy\non benchmark Y) is proportional to the product of the cost of processing a single example E, the\nsize of the training dataset D, and the number of hyper",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 2.6962676211229004,
+    "content": "0,1,2,3,4,5,6\nAlso of note is the relatively small variability in carbon emissions and water consumption across different model,,,,,,\n\"sizes in cases where batches are not saturated, despite faster inference in smaller models when fully saturated;\",,,,,,\ngreater peak efficiency does not guarantee efficient deployment if inference is not optimized. We do not report,,,,,,\n”break-even” points for Qwe",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 2.529660780464472,
+    "content": "Published as a conference paper at ICLR 2025\nHOLISTICALLY EVALUATING THE ENVIRONMENTAL\nIMPACT OF CREATING LANGUAGE MODELS\nJacob Morrison1Clara Na2Jared Fernandez2\nTim Dettmers1,2Emma Strubell1,2Jesse Dodge1\n1Allen Institute for AI2Carnegie Mellon University\njacobm@allenai.org\nABSTRACT\nAs the performance of artificial intelligence systems has dramatically increased,\nso too has the environmental imp",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.4295757739023154,
+    "content": "0\nABSTRACT\n\"As the performance of artificial\nintelligence systems has dramatically increased,\"\nso too has the environmental impact of creating these systems. While many model\ndevelopers release estimates of the power consumption and carbon emissions from\n\"the final\ntraining runs for\ntheir latest models,\nthere is comparatively little trans-\"\n\"parency into the impact of model development, hardware m",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 2.3282479650036745,
+    "content": "wer usage during development and\ntraining, we analyze detailed time series data for a single node throughout each run, logging power\ndata at sub-second intervals, and extrapolate to the total number of nodes. As we only measure GPU\npower consumption, our estimates should be viewed as a lower bound on the true amount of power\nconsumed during development and training.\n3.2 E MBODIED IMPACTS\nEmbodied ",
+    "type": "text"
+  }
+]

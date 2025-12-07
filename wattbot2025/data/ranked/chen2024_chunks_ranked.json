@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 3.367358090759022,
+    "content": "-\"\n\"the automated resource utilization overlapping optimization,\",trip time is primarily determined by network latency. In this\nwhich will be further profiled in subsection 6.4.,\"case, FHBN achieves an end-to-end latency of 33.0 µs, rep-\"\n,resenting a 50.5% reduction compared to NCCL’s 66.6 µs\n,latency. This improvement is attributed to the removal of host\n\"6.3\nNetwork Stack Optimizations\",\n,\"CPU ",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 3.3235553154734467,
+    "content": "ive and error-prone but\nalso significantly increases maintenance complexity. Hence,\nautomated tools to help slice the models and perform relevant\noptimizations are highly desirable.\nDifficult execution overlapping. In a heterogeneous disag-\ngregated system, various devices such as compute-optimized\nGPUs, memory-optimized GPUs, and NICs can be utilized\nsimultaneously. Hence, we might achieve signif",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 3.239281811178731,
+    "content": "lapping enabled and disabled.\nAs illustrated in Figure 14, the LLaMA-65B model experi-\nences a significant improvement in performance, achieving up\nto a 13.2% with through automated resource utilization over-\nlapping. The speedup is particularly notable for larger batch\nsizes, which produce larger KV tensors and result in greater\nlatency reduction. The effectiveness is less pronounced for the\nLLaM",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 3.239281811178731,
+    "content": "tion overlapping.\nIn a heterogeneous disag-\",\n,5. The remote CPU waits for the RDMA receive operation\n\"gregated system, various devices such as compute-optimized\",\n,to complete.\n\"GPUs, memory-optimized GPUs, and NICs can be utilized\",\n\"simultaneously. Hence, we might achieve significant execu-\",6. The remote CPU launches the subsequent GPU kernels.\ntion time reduction if the execution of operation",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.2121324055593115,
+    "content": "d-trip time from\nthe initiator GPU’s perspective, which encompasses the time\ninterval from the completion of the kernel that generates the\ndata for transmission to the start of the kernel that consumesthe received data.\nGloo NCCL (wo/ GDR) NCCL FHBN\n102104106108\nPayload size (byte)102103Round-trip time (µs)\n(a) Round-trip time.\n102104106108\nPayload size (byte)02040Bandwidth (GB/s) (b) Bandwidth ut",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.1987276511216676,
+    "content": "resenting a 50.5% reduction compared to NCCL’s 66.6 µs\nlatency. This improvement is attributed to the removal of host\nCPU involvement in data transmission, eliminating expensive\nhost-device synchronization and PCIe transactions. This im-\nprovement justifies the efficacy of our fully host-bypassed\nnetwork stack design.\nFor larger payload sizes, the primary factor influencing\nnetworking time is the ",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "Efficient Heterogeneous Large Language Model Decoding\nwith Model-Attention Disaggregation\nShaoyuan Chen1Wencong Xiao2Yutong Lin1Mingxing Zhang1Yingdi Shan1Jinlei Jiang1\nKang Chen1Yongwei Wu1\n1Tsinghua University\n2ByteDance\nAbstract\nTransformer-based large language models (LLMs) exhibit\nimpressive performance in generative tasks but also intro-\nduce significant challenges in real-world serving due ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "s in the\ntransformer-based LLMs. Specifically, the attention operator\nis memory-intensive, exhibiting a memory access pattern that\nclashes with the strengths of modern accelerators, especially\nfor long context requests.\nTo enhance the efficiency of LLM decoding, we introduce\nmodel-attention disaggregation. This approach leverages a\ncollection of cheap, memory-optimized devices for the atten-\ntion ",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "litting the attention computation over multiple devices.\nAlso, the communication bandwidth required between het-\nerogeneous devices proves to be manageable with prevalent\nnetworking technologies. To further validate our theory, we\ndevelop and deploy Lamina, an LLM inference system that\nincorporates model-attention disaggregation in a distributed\nheterogeneous cluster. Experimental results indicate",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "ce requests. The\ncore concept of disaggregation involves allocating separateresources for different tasks to improve resource utilization.\nThis approach aligns perfectly with LLM processing, which\ncan be divided into two distinct phases. The first phase, known\nas the prefill phase, processes all input tokens from the prompt\nin parallel and is computation-bound. The second phase, i.e.,\nthe decode p",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "ach phase, several methods pro-\npose using heterogeneous hardware to reduce the cost of dis-\naggregated serving [12, 59]. Specifically, flagship all-rounder\nGPUs like NVIDIA H100 integrate high-performance com-\nputational units and high-bandwidth memory (HBM) within\na single package, delivering good performance for LLM infer-\nence. However, as shown in Table 1, specialized accelerators\noptimized f",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "nd high-bandwidth internal buses within a single\nchip. Such integration leads to larger die sizes and increased\ntransistor counts, posing additional challenges for chip de-\nsigning, packaging, and thermal management [21, 25, 55], all\nof which drive up the design and manufacturing cost.\nAccording to our analyses and experiments, while the sep-\naration of resources works well for the prefill nodes, ",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "gregated KV cache for large batches, as well as the low arith-\nmetic intensity of the attention operators.\nA detailed examination reveals that the decoding phase\nmainly comprises two types of operators, each facing dis-\ntinct resource bottlenecks. Linear transformations, includ-\n1arXiv:2405.01814v2  [cs.LG]  10 Apr 2025\n\nTable 1: H100, H20, and TPU v6e specifications.\nH100 H20 TPU v6e [7]\nBF16 TFL",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "ailable on cloud service providers, the listed price\nis estimated using the relative complete system cost against H100.\ning QKVO projections and feedforward networks, are im-\nplemented with generalized matrix-matrix multiplications\n(GEMMs). Since all requests multiply with the same parame-\nter matrices in these operators, processing multiple requests in\nbatch can avoid repeated parameter loads fro",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "h sizes does\nnot improve the computation resource utilization but places\nadditional pressure on the already limited memory capacity.\n1.2 Our Contributions\nIn light of the above findings, we propose an innovative con-\ncept called model-attention disaggregation , as illustrated\nin Figure 1. This approach involves further disaggregating\nthe decoding phase by creating two pools of heterogeneous\naccele",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "ind of operators, this architecture further increases\nhardware utilization and leads to better overall performance.\nMoreover, different LLMs and workloads present varying\ncomputation and memory resource requirements. Homoge-\nneous accelerator solutions, however, can only provide a fixed\nratio of computation and memory resources , which can\nresult in resource wastage. For instance, as context lengt",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "ach\nkind of accelerators to better match the LLM and workload\nand hence improve resource utilization.\nThe primary challenge associated with attention offload-\ning arises from the substantial communication demands be-\nModel/Attention Disaggregation\nKV Cache ①\n②Prefill/Decode\nDisaggreagtion\nModel\nWeights\nCompute-\nOptimized GPUKV Cache\nMemory-\nOptimized GPU\nPagedCache\nManagerContinuous\nBatchingReques",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "tors. Unlike the\noriginal prefill-decode disaggregation, where the KV cache\nis transferred only once between the prefill nodes and the\ndecode nodes, our model-attention disaggregation architec-\nture requires inter-GPU communication for every layer of the\nmodel. Even worse, communication between heterogeneous\nGPUs must rely on data center networks (DCNs), such as\nEthernet and InfiniBand, which prov",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "y of our novel disaggregated ar-\nchitecture, we first conduct a detailed quantitative study in-\ndicating that these concerns are manageable in the context\nof LLM inference. In subsection 3.1, we provide profiling\nand analysis to determine the minimum bandwidth threshold\nbetween different accelerator pools. Our findings reveal that\n200/400Gbps DCNs, widely deployed in current AI-oriented\ndata cente",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "two specific techniques to reduce the network-\ning overhead. First, we designed and deployed a fully host-\nbypassed network stack. Leveraging PCIe P2P capabilities,\nthis revamped network stack enables GPUs to directly talk\nwith network interface cards (NICs), eliminating the need\nfor host CPU synchronization and involvement for network\ntransmissions. The network data is also directly read from\nand",
+    "type": "text"
+  }
+]

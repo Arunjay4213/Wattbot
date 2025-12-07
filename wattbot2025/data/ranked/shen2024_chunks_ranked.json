@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 0.0,
+    "content": "JetMoE\nJetMoE: Reaching Llama2 Performance with 0.1M Dollars\nYikang Shen∗\nMIT-IBM Watson AI Lab\nyikang.shn@gmail.comZhen Guo∗\nMIT EECS\nzguo0525@mit.edu\nTianle Cai\nPrinceton University\ntianle.cai@princeton.eduZengyi Qin\nMyShell.ai & MIT\nqinzy@mit.edu\nAbstract\nLarge Language Models (LLMs) have achieved remarkable results, but\ntheir increasing resource demand has become a major obstacle to the devel-",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 0.0,
+    "content": ", with JetMoE-8B outperforming the Llama2-7B model and\nJetMoE-8B-Chat surpassing the Llama2-13B-Chat model. These results\nsuggest that LLM training can be much more cost-effective than gener-\nally thought. JetMoE-8B is based on an efficient Sparsely-gated Mixture-\nof-Experts (SMoE) architecture, composed of attention and feedforward\nexperts. Both layers are sparsely activated, allowing JetMoE-8B t",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 0.0,
+    "content": "in this report to facilitate future efforts in the development of open\nfoundation models. This transparency aims to encourage collaboration and\nfurther advancements in the field of accessible and efficient LLMs. The mod-\nels are publicly available at https://github.com/myshell-ai/JetMoE .\n1 Introduction\nLarge Language Models (LLMs) have achieved remarkable results, but their increasing\nresource de",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 0.0,
+    "content": "et al. 2023) use all of their parameters\nduring inference and training, which are referred to as dense models. Considering the\nsubstantial costs, the Mixture-of-Experts (MoE) architecture (Yuksel et al., 2012; Shazeer\net al., 2017; Du et al., 2022; Pan et al., 2024) has emerged as a popular solution, enabling\nparameter scaling while keeping computational costs modest. Recent applications of MoE\nar",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 0.0,
+    "content": ". However, even though these models achieve excellent\nperformance, they are not truly open-sourced as the training recipes are not published and\nmay contain proprietary datasets inaccessible outside of large corporations. The open-source\ncommunity has also attempted to train MoE models, such as OpenMoE (Xue et al., 2024), but\nits performance is only on par with weak dense models with similar activ",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 0.0,
+    "content": "an innovative MoE architecture inspired by ModuleFormer (Shen et al.,\n2023) that extends the concept of sparse activation to both the attention and feed-forward\nlayers. Unlike prior works that only apply sparse activation to the feed-forward layer,\nJetMoE-8B leverages sparse activation in both components to further reduce computational\ncosts while maintaining performance.\nImpressively, JetMoE-8B i",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "ive than generally\nthought. In addition, JetMoE-8B has 8B parameters while only activating 2B for each input\ntoken, reducing inference computation by about 70% compared to Llama2-7B.\nThe key advantages of JetMoE-8B include:\n•Openness and academia-friendly : JetMoE-8B is trained using only public datasets and\nopen-source training code, making it accessible to many academia research settings.\nThe mo",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "•Comprehensive open-source data mixture , which ensures high-quality training using\nonly open-source datasets.\nThese innovations in JetMoE-8B pave the way for more accessible and efficient LLMs, bene-\nfiting the broader AI research community. To foster collaboration and further advancements,\nwe have detailed all the training parameters and data mixture in this report.\n2 Model Architecture\n2.1 Mixt",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "SMoE, Shazeer et al. 2017). In this JetMoE, we use a linear layer to model the\nrouter\ns=Wrtrx, (1)\ng(e|x) =\u001a\nsoftmax (Topk(s))i,si∈Topk(s)\n0, si/∈Topk(s)(2)\nwhere Wrtris the expert embedding matrix of shape (N,Demb),Topkis the operator that\nselect the top klogits from s. The final output of the SMoE is then given by\ny=N\n∑\ne=1g(e|x)·fe(x) (3)\nWhen g(e|x) = 0,fe(x)will not need to be evaluated, thus",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "place FFD layers.\n2.2 FeedFoward Expert\nEach FFD expert is a standard 2-layer MLP with hidden state size Dffd:\nfmlp(x) =Woutσ(Winx) (4)\nWhere Woutis the output projection matrix of shape (Demb,Df f d),Winin the input projection\nmatrix of shape (2Df f d,Demb),σis the SwiGLU activation function.\n2.3 Attention Expert\nZhang et al. (2022) propose the Mixture of Attention heads (MoA), which extends SMOE",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "he number of attention head inside each attention experts,\nDheadis the dimension of each attention head. Among these matrices, We\nqand We\noare\nowned by each expert, but Wkand Wvare shared across experts to improve the training\nand inference efficiency.\nGiven an input vector sequence x, we first projected it to key vectors kand value vectors v\nusing the shared key and value projection matrices:\nk=W",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "r with more attention experts\nwhile maintaining the same amount of computation. Such that the attention layer will not\nbecome a performance bottleneck, while we scale up the MLP layers.\n3\n\nJetMoE\n2.4 Load Balancing during Pretraining\nTo avoid the SMoE repeatedly using the same module and wasting the extra capacity in\nthe other modules, it requires various load balancing losses to regulate the trai",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "the router probability allocated for expert i. To improve the training stability,\nwe also use the router z-loss introduced in Zoph et al. (2022):\nloss z=1\nBB\n∑\ni=1 \nlogN\n∑\nj=1exp(xi\nj)!2\n(11)\nwhere Bis the number of tokens, xis the logits given by router. The final training loss will\nbe the weighted sum of three losses:\nloss=loss lm+αloss b+βloss z (12)\nwhere αis the weight for load balancing loss",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "token extract of RefinedWeb publicly\navailable.\nStarCoder training data is sourced from The Stack v1.2 with code from GitHub spanning\n86 programming languages (Li et al., 2023b). The data is preprocessed through visual\ninspection, filtering, deduplication, and reweighting low-data languages. A new version of\nthe dataset has been recently released (Lozhkov et al., 2024).\nDolma is a large, open, div",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "encyclopedic content from\nWikipedia and Wikibooks (Soldaini et al., 2024).\nThe Pile is an 825 GB open-source English text corpus for training large language mod-\nels (Gao et al., 2020). It includes 22 diverse, publicly available datasets such as Wikipedia,\nNIH exPORTER, ArXiv, Books3, BookCorpus2, OpenSubtitles, YTSubtitles, and Enron\nEmails.\n3.1.1 Miscellaneous\n◦Proof-Pile-2 is a 55 billion token",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "atical web text (Paster et al., 2023).\n1http://commoncrawl.org/\n4\n\nJetMoE\n◦StackMathQA is a meticulously curated collection of 2 million mathematical questions\nand answers, sourced from various Stack Exchange sites (Zhang, 2024).\n◦OpenAssistant is a human-generated, human-annotated assistant-style conversation\ncorpus in 35 different languages. The corpus is a product of a worldwide crowd-\nsourcing",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "ity\ncommit messages on public Github repos that resemble natural language instruc-\ntions (Muennighoff et al., 2023a).\n3.2 Synthetic Datasets\nOpenHermes 2.5 is a large-scale, diverse, high-quality compilation of open-source and\ncustom synthetic datasets (Teknium, 2023). It contains 1 million primarily synthetically\ngenerated instruction and chat samples, following a ShareGPT structure. The dataset ",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "., 2023a), Glaive Code Assistant (glaiveai, 2023), GPT4-\nLLM (Peng et al., 2023), GPTeacher (Teknium1, 2023), Medical Tasks (CogStack, 2023),\nMetaMath 40k (Yu et al., 2023), SlimOrca 550K (Longpre et al., 2023; Mukherjee et al., 2023;\nLian et al., 2023), Platypus (Lee et al., 2024; Lightman et al., 2023; Wang et al., 2023b),\nShareGPT (GPT4-Only) (lm sys, 2023), and Unnatural Instructions GPT4 (Pen",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "trange-textbooks , and a select high-quality web\ncollection from math-ai/AutoMathText .\nUltraChat 200k is a filtered subset of the UltraChat dataset, which consists of 1.4M dialogues\ngenerated by ChatGPT (Ding et al., 2023; Tunstall et al., 2023b). The subset was created by\nselecting a smaller portion of the data, truecasing the text to fix grammatical errors, and\nremoving dialogues where the assi",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "r-OSS-75K datasets are generated using the\nOSS-INSTRUCT approach, which leverages a LLM to automatically create new coding\nproblems by drawing inspiration from random code snippets collected from open\nsource projects (Wei et al., 2023).\n◦Evol-Code Alpaca is an open-sourced implementation of Evol-Instruct adapted for\ncode instructions by streamlining, simplifying, and adding code-specific evolution",
+    "type": "text"
+  }
+]

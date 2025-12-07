@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.879010288596595,
+    "content": "ublicly is a green success, and we would like\nto encourage organizations to continue to release their models in order to save others the costs of retraining them.\n4 Related Work\nRecent work has analyzed the carbon emissions of training deep NLP models [40] and concluded that computationally\nexpensive experiments can have a large environmental and economic impact. With modern experiments using such",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 3.8263692714761754,
+    "content": "hyperparameter tuning. Failure to fully\nreport these experiments prevents future researchers from understanding how much effort is required to reproduce a\nresult or extend it [9].\nOur focus is on improving efﬁciency in the machine learning community, but machine learning can also be used\nas a tool for work in areas like climate change. For example, machine learning has been used for reducing emiss",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 3.8259028226505656,
+    "content": "long-term trends, and are not isolated within NLP,\nbut hold true across machine learning.\nWhile some companies offset electricity usage by purchasing carbon credits, it is not clear that buying credits is\nas effective as using less energy. In addition, purchasing carbon credits is voluntary; Google cloud20and Microsoft\nAzure21purchase carbon credits to offset their spent energy, but Amazon’s AWS22",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 3.3546057537770846,
+    "content": "ithub.com/sovrasov/flops-counter.pytorch\n20https://cloud.google.com/sustainability/\n21https://www.microsoft.com/en-us/environment/carbon\n22https://aws.amazon.com/about-aws/sustainability/\n23https://tinyurl.com/y2kob969\n8\n\n5 Conclusion\nThe vision of Green AI raises many exciting research directions that help to overcome the inclusiveness challenges of\nRed AI. Progress will reduce the computational ",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 3.148556047487315,
+    "content": "green.\nWhen reporting the amount of work done by a model, we want to measure a quantity that allows for a fair com-\nparison between different models. As a result, this measure should ideally be stable across different labs, at different\ntimes, and using different hardware.\nCarbon emission Carbon emission is appealing as it is a quantity we want to directly minimize. Nonetheless it\nis impractical t",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.1061431120739726,
+    "content": "0\nclearly underperforming can lead to great savings [21].\nReferences\n\"[1] Prabal Acharyya, Sean D Rosario, Roey Flor, Ritvik Joshi, Dian Li, Roberto Linares, and Hongbao Zhang.\"\n\"Autopilot of cement plants for reduction of fuel consumption and emissions, 2019.\nICML Workshop on Climate\"\nChange.\n\"[2] Dario Amodei and Danny Hernandez. AI and compute, 2018. Blog post.\"\n\"[3]\nJames S. Bergstra, R´emi Ba",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 3.0584530573949262,
+    "content": "While many hyperparameter opti-\nmization algorithms exist which can reduce the computational expense required to reach a given level of performance\n[3, 10], simple improvements here can have a large impact. For example, stopping training early for models which are\nclearly underperforming can lead to great savings [21].\nReferences\n[1] Prabal Acharyya, Sean D Rosario, Roey Flor, Ritvik Joshi, Dian L",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.98960194128209,
+    "content": "0\n\"5\nConclusion\"\nThe vision of Green AI raises many exciting research directions that help to overcome the inclusiveness challenges of\n\"Red AI. Progress will reduce the computational expense with a minimal reduction in performance, or even improve\"\n\"performance as more efﬁcient methods are discovered. Also,\nit would seem that Green AI could be moving us in a\"\nmore cognitively plausible direction a",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 2.313901296114107,
+    "content": "Green AI\nRoy Schwartz\u0003}Jesse Dodge\u0003}|Noah A. Smith}~Oren Etzioni}\n}Allen Institute for AI, Seattle, Washington, USA\n|Carnegie Mellon University, Pittsburgh, Pennsylvania, USA\n~University of Washington, Seattle, Washington, USA\nJuly 2019\nAbstract\nThe computations required for deep learning research have been doubling every few months, resulting in an\nestimated 300,000x increase from 2012 to 2018 [2",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 2.2771037139363703,
+    "content": "0\nAbstract\n\"The computations required for deep learning research have been doubling every few months,\nresulting in an\"\n\"estimated 300,000x increase from 2012 to 2018 [2]. These computations have a surprisingly large carbon footprint\"\n\"[40]. Ironically, deep learning was inspired by the human brain, which is remarkably energy efﬁcient. Moreover, the\"\n\"ﬁnancial cost of the computations can make it d",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 2.2154478987381876,
+    "content": "able progress on a broad range of capabilities in-\ncluding object recognition, game playing, machine translation, and more [36]. This progress has been achieved by\nincreasingly large and computationally-intensive deep learning models.1Figure 1 reproduced from [2] plots training\ncost increase over time for state-of-the-art deep learning models starting with AlexNet in 2012 [20] to AlphaZero in\n2017",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 2.2154478987381876,
+    "content": "training or executing a model, and accordingly—\"\n\"generating an AI\nresult, as this amount depends highly on the local electricity infrastructure. As a result,\nit\nis not\"\ncomparable between researchers in different locations or even the same location at different times.\n\"Electricity usage\nElectricity usage is correlated with carbon emission while being time- and location-agnostic.\"\n\"Moreover, GPUs ",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 2.198440499591202,
+    "content": "arper trend can be observed in NLP word embedding approaches by looking at ELMo [29] followed by BERT [8],\"\n\"openGPT-2 [30], and XLNet [48]. An important paper [40] has estimated the carbon footprint of several NLP models\"\n\"and argued that\nthis trend is both environmentally unfriendly (which we refer to as Red AI) and expensive,\nraising\"\nbarriers to participation in NLP research.\n\"This trend is dr",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 2.181692233629117,
+    "content": "ifferent times.\nElectricity usage Electricity usage is correlated with carbon emission while being time- and location-agnostic.\nMoreover, GPUs often report the amount of electricity each of their cores consume at each time point, which facilitates\nthe estimation of the total amount of electricity consumed by generating an AI result. Nonetheless, this measure is\nhardware dependent, and as a result ",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 2.1016382228016464,
+    "content": "0\n\"the cost of an experiment decomposes into the cost of a processing a single example,\nthe size of the dataset, and the\"\n\"number of experiments (Equation 1), reducing the amount of work in each of these steps will result in AI that is more\"\ngreen.\n\"When reporting the amount of work done by a model, we want\nto measure a quantity that allows for a fair com-\"\n\"parison between different models. As a ",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "om emerging economies, to engage in deep learning research.\nThis position paper advocates a practical solution by making efﬁciency an evaluation criterion for research along-\nside accuracy and related measures. In addition, we propose reporting the ﬁnancial cost or “price tag” of developing,\ntraining, and running models to provide baselines for the investigation of increasingly efﬁcient methods. O",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "footprint of several NLP models\nand argued that this trend is both environmentally unfriendly (which we refer to as Red AI) and expensive, raising\nbarriers to participation in NLP research.\nThis trend is driven by the strong focus of the AI community on obtaining “state-of-the-art” results,2as exempliﬁed\nby the rising popularity of leaderboards [46, 45], which typically report accuracy measures bu",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "ctivity in Green AI—AI research that is more environmentally friendly and\ninclusive. We emphasize that Red AI research has been yielding valuable contributions to the ﬁeld of AI, but it’s been\noverly dominant. We want to shift the balance towards the Green AI option —to ensure that any inspired undergraduate\nwith a laptop has the opportunity to write high-quality papers that could be accepted at p",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "me benchmark is greater than any previously reported system’s accuracy.\n1arXiv:1907.10597v3  [cs.CY]  13 Aug 2019\n\nFigure 1: The amount of compute used to train deep learning models has increased 300,000x in 6 years. Figure taken\nfrom [2].\nSpeciﬁcally, we propose making efﬁciency a more common evaluation criterion for AI papers alongside accuracy and\nrelated measures.\nAI research can be computatio",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "tational price\ntag of ﬁnding, training, and running models is a key Green AI practice (see Equation 1). In addition to providing\ntransparency, price tags are baselines that other researchers could improve on.\nOur empirical analysis in Figure 2 suggests that the AI research community has paid relatively little attention to\ncomputational efﬁciency. In fact, as Figure 1 illustrates, the computational",
+    "type": "text"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 9.747596090624022,
+    "content": "ilities were planned. Meanwhile\"\nenvironmental impacts have been emphasized in research papers,the ongoing resource pressures continue in China and Taiwan.\n\"and scientific reports over the last years [47, 91]. The contribution\",\"Moreover, the race to decouple US semiconductor supply chains\"\nof AI to this expansion is worth considering when measuring the,from geopolitical adversaries has led to int",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 7.774602015270526,
+    "content": "-commerce,\nthe details of which are largely considered sensitive trade secrets,\nthe corresponding machine learning approaches of recommenda-\ntion and ranking are active topics of research in the AI community,\npowered by an enormous quantity of user data being continuously\ngathered through interactions with digital platforms [ 19,20,31].\nThe rapid expansion of online advertising its direct and indi",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 5.638022483558511,
+    "content": "issions budget, we might\"\nand (2) that offsetting rarely mitigates localized impacts to the com-,selectively incentivize uses of AI that contribute towards the UN’s\nmunities where emissions or other environmental degradation is,sustainable development goals [130] or mitigate national security\n\"occurring.\nIncreasingly, companies such as Intel and TSMC are\",\"concerns, over e.g. generating personaliz",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 5.353155919964532,
+    "content": "s” [ 18]. This line of thoughtposits that AI will be subject to the same market pressures, such\nas energy prices, as any other use case, and as a result will ben-\nefit from the same innovations, such as a market transitions to\nrenewable energy. This oversimplification ignores the reality that\n(1) AI is already responsible for non-trivial negative environmental\nexternalities and (2) we can, and lik",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 4.811732313453475,
+    "content": "ction goals of many AI-driven\ncompanies whose revenue models depend on it [135].\nTime rebound effects occur when an innovation changes con-\nsumers’ use of their time, which then frees up (or removes) time\nfor other activities that they carry out. For example, if a vacuum\ncleaner reduces the time needed to clean the floors in a house, it\ncan free up time for leisure activities such as reading or sp",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 4.6937532694553585,
+    "content": "p predict the impacts of geoengineering\non existing ecosystems and avoid possible negative side effects [ 3].\nAI’s negative climate impact is negated by carbon-free energy and\ncarbon offsets. AI-driven products and services are the primary\ncontributor to AI’s direct environmental impacts, and leading AI\ncompanies including Google, Microsoft, Amazon and Meta have\ncommitted to achieving net-zero car",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 4.6937532694553585,
+    "content": "would also require significant investment in infrastructure\nand navigating corresponding sociopolitical systems), PPAs and\ncarbon offsets will remain necessary to fill the gap. However, off-\nsetting was only ever meant to serve as a temporary stop-gap to\nhelp reduce emissions in the short term, and does not represent\na viable replacement to reducing actual emissions. Fundamental\nlimitations to car",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 4.403085634110832,
+    "content": "Mobil that uses AI to expand oil and,\n,help streamline the transition towards renewable energy sources\n\"gas production in Texas and New Mexico by 50,000 barrels of oil per\",\n,\"on a global scale [66, 107] In recent years, the development of AI\"\nday could add up to 640 percent more carbon emissions compared to,\n,for accelerating scientific discovery in materials science has be-\n\"the company’s carbon",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 4.151757363190526,
+    "content": "sible for non-trivial negative environmental\n\"help reduce emissions in the short term, and does not represent\",\"externalities and (2) we can, and likely should, regulate certain\"\na viable replacement to reducing actual emissions. Fundamental,\"uses of AI as appropriate/inappropriate or necessary/unnecessary,\"\n\"limitations to carbon offsetting are:\n(1)\nthe difficulty of proving\",and that this does r",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 4.091911738531265,
+    "content": "harm that they perpetuate. For instance, a\ncoalition of Microsoft employees estimated that a single deal the\ncompany struck with Exxon Mobil that uses AI to expand oil and\ngas production in Texas and New Mexico by 50,000 barrels of oil per\nday could add up to 640 percent more carbon emissions compared to\nthe company’s carbon removal targets for the year [ 119], yet these\nnumbers were not included ",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 4.044248137704248,
+    "content": "xandra Luccioni, Victor Schmidt, and Thomas Dandres.\n2019. Quantifying the carbon emissions of machine learning. arXiv preprint\narXiv:1910.09700 (2019).[68] Pengfei Li, Jianyi Yang, Mohammad A Islam, and Shaolei Ren. 2023. Making\nAI Less\" Thirsty\": Uncovering and Addressing the Secret Water Footprint of AI\nModels. arXiv preprint arXiv:2304.03271 (2023).\n[69] Alexandra Sasha Luccioni, Yacine Jernit",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 4.03008737648424,
+    "content": "e Climate Change 12, 6 (2022), 518–527.\n[64] Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B Brown, Benjamin Chess,\nRewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. 2020.\nScaling laws for neural language models. arXiv preprint arXiv:2001.08361 (2020).\n[65] Jonathan Koomey and Eric Masanet. 2021. Does not compute: Avoiding pitfalls\nassessing the Internet’s energy and carbon im",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 4.028383970467848,
+    "content": "veness, and planetary\"\nlearning approaches to predict electricity production from renewable energy,\"environmental implications. Journal of environmental management 209 (2018),\"\n\"sources. Energies 15, 23 (2022), 9146.\",81–92.\n\"[67] Alexandre Lacoste, Alexandra Luccioni, Victor Schmidt, and Thomas Dandres.\",\"[93] Guillem Ramírez, Matthias Lindemann, Alexandra Birch, and Ivan Titov. 2023.\"\n2019. Quan",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 4.004053162607215,
+    "content": "otprint of machine learning training will plateau,\",\n,While debates over AI’s role in climate change and sustainability\nthen shrink” thanks to continued innovations in machine learn-,\n,\"have become increasingly polarized, both sides have tended to\"\n\"ing models, specialized hardware platforms, data center efficiency,\",\n,focus only on the direct impacts of this technology— positive and\n\"scheduling a",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 3.8386544650001033,
+    "content": "ency,\nscheduling and use patterns, which will reduce overall energy use\nand emissions. The claim that increasing AI efficiency will lead to\nan overall reduction in AI’s resource use is a clear example of why\na deeper engagement with indirect effects is needed in the work\non AI and climate change.\nSimilarly to Jevons’ Paradox, just because an AI model becomes\nmore efficient, that does not imply tha",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 3.6332566970274804,
+    "content": "ironmental impacts of e-commerce.\n[127]\"\nebooks-a-life-cycle-comparison/,\"In International conference on environment Science and engineering, Vol. 8. 202–\"\n[104] Neil Selwyn. 2024. Digital degrowth: Toward radically sustainable education,207.\n\"technology. Learning, Media and Technology 49, 2 (2024), 186–199.\",\"[128] Bill Tomlinson, Rebecca W Black, Donald J Patterson, and Andrew W Torrance.\"\n\"Nvid",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 3.6203720396632364,
+    "content": "lectively incentivize uses of AI that contribute towards the UN’s\nsustainable development goals [ 130] or mitigate national security\nconcerns, over e.g. generating personalized ads for social media\n(as we discussion in Section 3). Finally, AI does differ substantially\nfrom other energy sinks in its potential to engender vast transfor-\nmations in the economy and society, similar to how the advent o",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 3.4781837674200187,
+    "content": "airos\nPower. https://blog.google/outreach-initiatives/sustainability/google-kairos-\npower-nuclear-energy-agreement/\n[125] Neil C. Thompson, Kristjan Greenewald, Keeheon Lee, and Gabriel F. Manso.\n2021. Deep Learning’s Diminishing Returns: The Cost of Improvement is\nBecoming Unsustainable. IEEE Spectrum 58, 10 (2021), 50–55. https://doi.org/\n10.1109/MSPEC.2021.9563954\n[126] JW Thomson. 1972. Method",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 3.4342105661471454,
+    "content": ", and Andrew W Torrance.\n2024. The carbon emissions of writing and illustrating are lower for AI than for\nhumans. Scientific Reports 14, 1 (2024), 3732.\n[129] Alexandra Tremayne-Pengelly. 2024. Amid the A.I. Boom, These States Have\nBecome Data Center Hubs. https://observer.com/2024/12/ai-demand-where-\ndata-centers-using-most-energy/\n[130] UN General Assembly. 2015. Transforming our world : the 203",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 3.4342105661471454,
+    "content": "supply chain\nconstraint significantly narrows the scope of AI’s potential as a,,,\n,,,\"studies, carbon emissions of training large-scale models, energy\"\n\"climate intervention, often leaving only those applications that\",,,\n,,,\"and water consumption, and e-waste from hardware—as well as\"\npromise quick returns or minimal disruptions to existing market,,,\n,,,mapping the ways AI innovations reshape eco",
+    "type": "table"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 3.421379999305034,
+    "content": "disproportionately less attention from the AI community as well as the general public. For example, while\nthe scope-2 carbon emissions are routinely included as part of AI model cards, even scope-1 direct water\nusage (either withdrawal or consumption) is missing, let alone scope-2 water usage. This may impede inno-\nvations to enable water sustainability and build truly sustainable AI. Crucially, w",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 3.392398826394855,
+    "content": "ts or crops, or otherwise removed from the im-\"\nmediate water environment” [13]. Water consumption reflects the impact on downstream water availability\nand is crucial for assessing watershed-level scarcity [12].\n\"These two types of water usage correspond to two different water footprints, i.e., water withdrawal foot-\"\n3The scope definition of water usage [8] is in line with that of carbon emission",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 3.1876286479778235,
+    "content": "data center less “thirsty”.\nIn ICAC, 2014.\"\n\"[25] Peter Xiang Gao, Andrew R. Curtis, Bernard Wong, and Srinivasan Keshav.\nIt’s not easy being green.\"\n\"SIGCOMM Comput. Commun. Rev., 2012.\"\n\"[26] Alexandra Sasha Luccioni, Sylvain Viguier, and Anne-Laure Ligozat. Estimating the carbon footprint\"\n\"of BLOOM, a 176B parameter language model.\nJ. Mach. Learn. Res., 24(1), mar 2024.\"\n[27] Microsoft. Micros",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 3.0571952908654345,
+    "content": "ons [1].\n\"4\nOur Recommendations\"\nWe provide our recommendations to address AI’s water footprint from the scheduling and policy perspec-\n\"tives, making future AI more environmentally sustainable.\"\n\"4.1\nMore Transparency and Comprehensive Reporting\"\n\"Despite its growing importance, AI’s water footprint has received relatively less attention.\nFor example,\"\nwhile AI model cards routinely include carbo",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.032379138499444,
+    "content": "eans the amount\nof water “evaporated, transpired, incorporated into products or crops, or otherwise removed from the im-\nmediate water environment” [13]. Water consumption reflects the impact on downstream water availability\nand is crucial for assessing watershed-level scarcity [12].\nThese two types of water usage correspond to two different water footprints, i.e., water withdrawal foot-\n3The scop",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.0079626221695923,
+    "content": "e AI’s computational demand and improve the overall water effi-\nciency, the water consumption per request may decrease in the future. However, the total water consump-\ntion is likely to continue rising due to the growing demand for AI services and the increasing scale of AI\napplications [1].\n4 Our Recommendations\nWe provide our recommendations to address AI’s water footprint from the scheduling an",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 2.925516396092383,
+    "content": "ious cooling system designs to minimize on-site water consumption [4,17,19], these efforts primarily\nfocus on scope-1 water usage while largely overlooking scope-2 impacts. Just as addressing scope-2 carbon\nemissions is important for mitigating climate change, it is equally crucial to address scope-2 water con-\nsumption to reduce AI’s “true water cost”, as noted by the recent U.S. data center ener",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.836658237832637,
+    "content": "0\n\"2027, which is more than the total annual water withdrawal of 4 – 6 Denmark or half of the United King-\"\n\"dom.3 Simultaneously, a total of 0.38 – 0.60 billion cubic meters of water will be evaporated and considered\"\n\"“consumption” due to the global AI demand in 2027. Moreover, these global estimates will be exceeded by\"\nthe total water withdrawal and consumption attributed to AI in the U.S. alo",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 2.4762781105397367,
+    "content": "er, and Jeff Dean. Carbon emissions and large neural network training, 2021.\"\n\"[30]\nJovan Stojkovic, Chaojie Zhang, Inigo Goiri, Josep Torrellas, and Esha Choukse. DynamoLLM: Design-\"\n\"ing LLM inference clusters for performance and energy efficiency.\nIn IEEE International Symposium on\"\n\"High-Performance Computer Architecture (HPCA), 2025.\"\n\"[31] Noah Shumba, Opelo Tshekiso, Pengfei Li, Giulia Fant",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 2.393524323976088,
+    "content": "Patterson, Joseph Gonzalez, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel Rothchild,\nDavid So, Maud Texier, and Jeff Dean. Carbon emissions and large neural network training, 2021.\n[30] Jovan Stojkovic, Chaojie Zhang, Inigo Goiri, Josep Torrellas, and Esha Choukse. DynamoLLM: Design-\ning LLM inference clusters for performance and energy efficiency. In IEEE International Symposium on\nHigh-Perfo",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 1.3223735040834723,
+    "content": "0\n\"0\n1.5\n0.20\"\n\"0.1\n0.3\n0.5\n0.7\n0.9\nI\nI\"\n\"E\nE\nU\nU\nD\nD\nN\nN\nR\nR\nU\nU\"\n\"E\nE\nH\nH\nO\nO\nF\nF\nT\nT\"\n\"T\nT\nCarbon (kg/kWh)\nW\nW\nM\nM\"\n\"(a) Carbon/water efficiency\n(b) Hourly carbon/water efficiency\n(c) Hourly energy fuel mixes\"\n\"Figure 2:\n(a) The U.S. eGRID-level scope-2 water consumption intensity factor vs.\ncarbon emission rate [8, 33].\"\n\"The dashed line represents a linear regression model, showing that the e",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 1.2800437502036672,
+    "content": "l, showing that the eGRID-level scope-2 carbon emission and water\nconsumption efficiencies are not aligned. (b)A 5-day snapshot of scope-2 carbon emission rate and water consumption\nintensity in Virginia, starting from April 4, 2022. The values are calculated based on the fuel mixes, carbon emission\nrate and water consumption intensity for each fuel type [8,20,33]. The scope-2 carbon and water eff",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 1.2730263904808168,
+    "content": "print by enabling demand-side\nflexibility.\n4.3 “Follow the Sun” or “Unfollow the Sun”\nTo cut the carbon footprint, it is preferable to “follow the sun” when solar energy is more abundant. Nonethe-\nless, to cut the water footprint, it may be more appealing to “unfollow the sun” to avoid high-temperature\nhours of a day when WUE is high. This conflict can also be shown in Figure 2(a) and Figure 2(b),",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 1.2062020026811728,
+    "content": "ity usage and thus\"\nmay have lower market-based carbon and water footprints.",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 1.1637825555649157,
+    "content": "rs, which can reduce AI’s water footprint by enabling demand-side\"\nflexibility.\n\"4.3\n“Follow the Sun” or “Unfollow the Sun”\"\n\"To cut the carbon footprint, it is preferable to “follow the sun” when solar energy is more abundant. Nonethe-\"\n\"less, to cut the water footprint, it may be more appealing to “unfollow the sun” to avoid high-temperature\"\n\"hours of a day when WUE is high. This conflict can a",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 1.022460746034035,
+    "content": "provided, the estimate likely considers only the GPU energy\nused during token generation.\nTo account for both the prompt phase and the non-GPU energy consumption of servers, we assume a\n5\n\n0.1 0.3 0.5 0.7 0.9\nCarbon (kg/kWh)0481216Water (L/kWh)AKMS\nHIOAMROENWPP\nNYUP\nAZNM(a) Carbon/water efficiency\nMON TUE WED THU FRI1.51.82.12.42.73.0Water (L/kWh)\n0.200.250.300.350.40\nCarbon (kg/kWh) (b) Hourly ca",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 1.0135353588854576,
+    "content": "areas of critical importance,\"\n\"including tackling global challenges such as climate change. On the other hand, many AI models, especially\"\n\"large generative ones like GPT-4, are trained and deployed on energy-hungry servers in warehouse-scale\"\n\"data centers, accelerating the data center energy consumption at an unprecedented rate [1]. As a result,\"\n\"AI’s carbon footprint has been undergoing scrut",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 1.0105947571743112,
+    "content": "truly sustainable AI.\n1 Introduction\nArtificial intelligence (AI) has enabled remarkable breakthroughs in numerous areas of critical importance,\nincluding tackling global challenges such as climate change. On the other hand, many AI models, especially\nlarge generative ones like GPT-4, are trained and deployed on energy-hungry servers in warehouse-scale\ndata centers, accelerating the data center en",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.9990010259810851,
+    "content": "mpacts of carbon and water footprints are not substitutable [1,9]. Therefore,\"\nto judiciously achieve a balance between “follow the sun” for carbon efficiency and “unfollow the sun” for\n\"water efficiency, we need to reconcile the potential water-carbon conflicts by using holistic approaches that\"\nare both carbon-efficient and water-wise.\n\"5\nConclusion\"\n\"In this paper, we uncover AI’s water usage a",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 0.9904788080213649,
+    "content": "are routinely included as part of AI model cards, even scope-1 direct water\"\n\"usage (either withdrawal or consumption) is missing, let alone scope-2 water usage. This may impede inno-\"\n\"vations to enable water sustainability and build truly sustainable AI. Crucially, water and carbon footprints\"\n\"are complementary to, not substitutable of, each other for understanding the environmental\nimpacts.\nIn",
+    "type": "table"
+  }
+]
