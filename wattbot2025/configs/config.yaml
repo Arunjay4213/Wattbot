@@ -2,9 +2,9 @@
 
 models:
   llm:
-    primary: "claude-3-5-sonnet-20241022"
+    primary: "gemini-2.5-flash"
     temperature: 0.1
-    provider: "anthropic"
+    provider: "gemini"
 
   embedding:
     model: "BAAI/bge-large-en-v1.5"

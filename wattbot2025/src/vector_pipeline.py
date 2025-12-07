@@ -6,8 +6,8 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from tqdm import tqdm
 
-from retrieval.hybrid_search import HybridRetriever, Chunk
-from llm.answer_generator import AnswerGenerator
+from src.retrieval.hybrid_search import HybridRetriever, Chunk
+from src.llm.answer_generator import AnswerGenerator
 
 
 class VectorDBPipeline:

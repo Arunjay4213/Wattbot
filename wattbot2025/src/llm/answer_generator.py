@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from dotenv import load_dotenv
 import openai
 import anthropic
+import google.generativeai as genai
 import yaml
 from pathlib import Path
 
@@ -43,6 +44,12 @@ class AnswerGenerator:
             if not api_key:
                 raise ValueError("ANTHROPIC_API_KEY not found in .env file")
             self.client = anthropic.Anthropic(api_key=api_key)
+        elif self.provider == "gemini":
+            api_key = os.getenv("GOOGLE_API_KEY")
+            if not api_key:
+                raise ValueError("GOOGLE_API_KEY not found in .env file")
+            genai.configure(api_key=api_key)
+            self.client = genai.GenerativeModel(self.model)
         else:
             api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
@@ -63,7 +70,7 @@ class AnswerGenerator:
                     temperature=self.temperature,
                     messages=[{
                         "role": "user",
-                        "content": f"""You are an expert at analyzing environmental AI research papers. 
+                        "content": f"""You are an expert at analyzing environmental AI research papers.
                         Always provide accurate, evidence-based answers.
 
                         {prompt}
@@ -78,6 +85,37 @@ class AnswerGenerator:
                 # Try to extract JSON from the response
                 try:
                     # Look for JSON in the response
+                    import re
+                    json_match = re.search(r'\{.*\}', content, re.DOTALL)
+                    if json_match:
+                        answer_json = json.loads(json_match.group())
+                    else:
+                        answer_json = json.loads(content)
+                except:
+                    # If JSON parsing fails, create structured response from text
+                    answer_json = self._parse_text_response(content)
+
+            elif self.provider == "gemini":
+                # Gemini API call
+                full_prompt = f"""You are an expert at analyzing environmental AI research papers.
+                Always provide accurate, evidence-based answers.
+
+                {prompt}
+
+                Remember to return valid JSON only, no additional text."""
+
+                response = self.client.generate_content(
+                    full_prompt,
+                    generation_config=genai.types.GenerationConfig(
+                        temperature=self.temperature,
+                        max_output_tokens=1000,
+                    )
+                )
+
+                content = response.text
+
+                # Try to extract JSON from the response
+                try:
                     import re
                     json_match = re.search(r'\{.*\}', content, re.DOTALL)
                     if json_match:
@@ -224,9 +262,9 @@ class AnswerGenerator:
         if not context or len(context.strip()) < 50:
             return self._get_fallback_response()
 
-        # For Claude, we can't easily do a quick relevance check due to API differences
-        # So we'll skip the relevance check for Claude and go straight to generation
-        if self.provider == "anthropic":
+        # For Claude and Gemini, we can't easily do a quick relevance check due to API differences
+        # So we'll skip the relevance check and go straight to generation
+        if self.provider in ["anthropic", "gemini"]:
             return self.generate(question, context, chunk_metadata)
 
         # OpenAI relevance check
@@ -315,6 +353,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nError: {e}")
         print("\nMake sure to:")
-        print("1. Create a .env file with your OPENAI_API_KEY or ANTHROPIC_API_KEY")
-        print("2. Install required packages: pip install openai anthropic python-dotenv pyyaml")
+        print("1. Create a .env file with your OPENAI_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_API_KEY")
+        print("2. Install required packages: pip install openai anthropic google-generativeai python-dotenv pyyaml")
         print("3. Check that config.yaml exists and is properly configured")
