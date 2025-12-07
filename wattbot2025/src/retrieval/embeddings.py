@@ -33,14 +33,6 @@ class EmbeddingRetriever:
             cache_dir: str = "./data/cache/embeddings",
             device: str = None
     ):
-        """
-        Initialize the embedding retriever
-
-        Args:
-            model_name: HuggingFace model name for embeddings
-            cache_dir: Directory to cache embeddings
-            device: Device to run model on (cuda/cpu)
-        """
         self.model_name = model_name
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -67,17 +59,6 @@ class EmbeddingRetriever:
             batch_size: int = 32,
             show_progress: bool = True
     ) -> np.ndarray:
-        """
-        Encode a list of chunks into embeddings
-
-        Args:
-            chunks: List of Chunk objects
-            batch_size: Batch size for encoding
-            show_progress: Show progress bar
-
-        Returns:
-            Numpy array of embeddings
-        """
         texts = []
         for chunk in chunks:
             text = chunk.text
@@ -115,19 +96,10 @@ class EmbeddingRetriever:
             chunks: List[Chunk],
             batch_size: int = 32
     ):
-        """
-        Index a collection of document chunks
-
-        Args:
-            chunks: List of Chunk objects to index
-            batch_size: Batch size for encoding
-        """
         print(f"Indexing {len(chunks)} chunks...")
 
         self.chunks = chunks
-
         self.chunk_map = {chunk.chunk_id: i for i, chunk in enumerate(chunks)}
-
         self.embeddings = self.encode_chunks(chunks, batch_size)
 
         print(f"Successfully indexed {len(chunks)} chunks")
@@ -140,18 +112,6 @@ class EmbeddingRetriever:
             filter_doc_ids: Optional[List[str]] = None,
             min_score: float = 0.0
     ) -> List[Tuple[Chunk, float]]:
-        """
-        Search for relevant chunks
-
-        Args:
-            query: Query string
-            top_k: Number of results to return
-            filter_doc_ids: Optional list of doc_ids to search within
-            min_score: Minimum similarity score threshold
-
-        Returns:
-            List of (chunk, score) tuples
-        """
         if self.embeddings is None:
             raise ValueError("No documents indexed. Call index_documents first.")
 
@@ -189,19 +149,7 @@ class EmbeddingRetriever:
             top_k: int = 5,
             alpha: float = 0.5
     ) -> List[Tuple[Chunk, float]]:
-        """
-        Hybrid search combining dense and keyword matching
-
-        Args:
-            query: Query string
-            top_k: Number of results
-            alpha: Weight for dense search (1-alpha for keyword)
-
-        Returns:
-            List of (chunk, score) tuples
-        """
         dense_results = self.search(query, top_k=top_k * 2)
-
         keyword_scores = self._keyword_score(query, self.chunks)
 
         combined_scores = {}
@@ -234,24 +182,12 @@ class EmbeddingRetriever:
             query: str,
             chunks: List[Chunk]
     ) -> List[Tuple[Chunk, float]]:
-        """
-        Simple keyword scoring (TF-IDF approximation)
-
-        Args:
-            query: Query string
-            chunks: List of chunks
-
-        Returns:
-            List of (chunk, score) tuples
-        """
         query_tokens = set(query.lower().split())
         scores = []
 
         for chunk in chunks:
             chunk_tokens = set(chunk.text.lower().split())
-
             overlap = len(query_tokens & chunk_tokens)
-
             score = overlap / len(query_tokens) if query_tokens else 0
 
             if chunk.contains_numeric and any(
@@ -269,16 +205,6 @@ class EmbeddingRetriever:
             chunk_id: str,
             top_k: int = 5
     ) -> List[Tuple[Chunk, float]]:
-        """
-        Find chunks similar to a given chunk
-
-        Args:
-            chunk_id: ID of the reference chunk
-            top_k: Number of similar chunks to return
-
-        Returns:
-            List of (chunk, score) tuples
-        """
         if chunk_id not in self.chunk_map:
             raise ValueError(f"Chunk {chunk_id} not found in index")
 
@@ -286,7 +212,6 @@ class EmbeddingRetriever:
         chunk_embedding = self.embeddings[idx]
 
         similarities = np.dot(self.embeddings, chunk_embedding)
-
         similarities[idx] = -1
 
         top_indices = np.argsort(similarities)[-top_k:][::-1]
@@ -299,7 +224,6 @@ class EmbeddingRetriever:
         return results
 
     def save_index(self, path: str):
-        """Save the indexed chunks and embeddings"""
         index_data = {
             'chunks': self.chunks,
             'embeddings': self.embeddings,
@@ -313,7 +237,6 @@ class EmbeddingRetriever:
         print(f"Index saved to {path}")
 
     def load_index(self, path: str):
-        """Load a saved index"""
         with open(path, 'rb') as f:
             index_data = pickle.load(f)
 
@@ -327,63 +250,15 @@ class EmbeddingRetriever:
         print(f"Loaded index with {len(self.chunks)} chunks")
 
     def _get_cache_key(self, texts: List[str]) -> str:
-        """Generate cache key for texts"""
         text_str = "".join(texts)
         return hashlib.md5(text_str.encode()).hexdigest()
 
     def _save_to_cache(self, key: str, embeddings: np.ndarray):
-        """Save embeddings to cache"""
         cache_path = self.cache_dir / f"{key}.npy"
         np.save(cache_path, embeddings)
 
     def _load_from_cache(self, key: str) -> Optional[np.ndarray]:
-        """Load embeddings from cache"""
         cache_path = self.cache_dir / f"{key}.npy"
         if cache_path.exists():
             return np.load(cache_path)
         return None
-
-
-class ScientificPaperRetriever(EmbeddingRetriever):
-    """
-    Specialized retriever for scientific papers with domain-specific enhancements
-    """
-
-    def __init__(self, cache_dir: str = "./data/cache/embeddings"):
-        super().__init__(
-            model_name="allenai/scibert_scivocab_uncased",
-            cache_dir=cache_dir
-        )
-
-        self.boost_keywords = {
-            'emission', 'co2', 'carbon', 'energy', 'kwh', 'mwh',
-            'pue', 'wue', 'efficiency', 'consumption', 'footprint',
-            'training', 'inference', 'gpu', 'tpu', 'bert', 'gpt'
-        }
-
-    def search(self, query: str, top_k: int = 5, **kwargs) -> List[Tuple[Chunk, float]]:
-        """Enhanced search with domain-specific boosting"""
-        results = super().search(query, top_k=top_k * 2, **kwargs)
-
-        boosted_results = []
-        query_lower = query.lower()
-
-        for chunk, score in results:
-            boost = 1.0
-
-            chunk_lower = chunk.text.lower()
-            for keyword in self.boost_keywords:
-                if keyword in query_lower and keyword in chunk_lower:
-                    boost *= 1.2
-
-            if any(word in query_lower for word in ['how much', 'how many', 'what is the']):
-                if chunk.contains_numeric:
-                    boost *= 1.3
-
-            if chunk.section and chunk.section.lower() in query_lower:
-                boost *= 1.1
-
-            boosted_results.append((chunk, score * boost))
-
-        boosted_results.sort(key=lambda x: x[1], reverse=True)
-        return boosted_results[:top_k]
