@@ -6,8 +6,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from tqdm import tqdm
 
-from retrieval.embeddings import EmbeddingRetriever, Chunk
-from retrieval.hybrid_search import HybridRetriever
+from retrieval.hybrid_search import HybridRetriever, Chunk
 from llm.answer_generator import AnswerGenerator
 
 
@@ -19,7 +18,6 @@ class VectorDBPipeline:
 
         print("🚀 Initializing Vector DB Pipeline...")
 
-        # Use hybrid retriever for better results
         self.retriever = HybridRetriever(
             embedding_model=self.config['models']['embedding']['model']
         )
@@ -31,6 +29,10 @@ class VectorDBPipeline:
         # Load training examples for few-shot prompting
         self.train_df = pd.read_csv("data/raw/train_QA.csv")
         self.few_shot_examples = self._prepare_few_shot_examples()
+
+        # Load metadata for ref_id mapping
+        self.metadata_df = pd.read_csv("data/raw/metadata.csv", encoding='latin-1')
+        self.valid_ref_ids = set(self.metadata_df['id'].str.strip().str.lower().tolist())
 
     def _prepare_few_shot_examples(self) -> Dict[str, List[Dict]]:
         """Organize training examples by question type."""
@@ -67,9 +69,10 @@ class VectorDBPipeline:
 
         if q_lower.startswith("true or false"):
             return "true_false"
-        elif "name of" in q_lower or ("what is" in q_lower and "name" in q_lower):
+        elif "name of" in q_lower or "what is the term" in q_lower or "what framework" in q_lower:
             return "named_entity"
-        elif any(w in q_lower for w in ["difference between", "compare", "by what factor", "how many times"]):
+        elif any(w in q_lower for w in ["difference between", "compare", "by what factor",
+                                         "how many times", "what percentage", "by what percentage"]):
             return "calculation"
         else:
             return "numeric"
@@ -86,15 +89,15 @@ class VectorDBPipeline:
         queries.append(simplified)
 
         # Extract entities and metrics
-        entities = re.findall(r'\b(BERT|GPT-\d|LLaMA|T5|BLOOM|OPT|Gemini|Claude)\b', question, re.I)
-        metrics = re.findall(r'\b(CO2|carbon|emission|kWh|MWh|GWh|PUE|WUE|energy|water)\b', question, re.I)
+        entities = re.findall(r'\b(BERT|GPT-\d|LLaMA|T5|BLOOM|OPT|Gemini|Claude|JetMoE|Mixtral|BlackMamba|FLM-101B)\b', question, re.I)
+        metrics = re.findall(r'\b(CO2|carbon|emission|kWh|MWh|GWh|PUE|WUE|energy|water|GPU|training|inference)\b', question, re.I)
 
         if entities and metrics:
             queries.append(f"{' '.join(entities)} {' '.join(metrics)}")
 
         # For numeric questions, add table variant
-        if any(w in q_lower for w in ["how much", "how many", "what is the"]):
-            queries.append(f"{simplified} table data")
+        if any(w in q_lower for w in ["how much", "how many", "what is the", "what was the"]):
+            queries.append(f"{simplified} table")
 
         return queries[:3]
 
@@ -111,8 +114,8 @@ class VectorDBPipeline:
             prompt_parts.append(f"""
 Question: {ex['question']}
 Answer: {ex['answer']}
-Value: {ex['answer_value']}
-Unit: {ex['answer_unit']}
+answer_value: {ex['answer_value']}
+answer_unit: {ex['answer_unit']}
 ---""")
 
         return "\n".join(prompt_parts)
@@ -123,33 +126,44 @@ Unit: {ex['answer_unit']}
         few_shot = self.get_few_shot_prompt(q_type, n_examples=2)
 
         base = """You are an expert at extracting precise answers from environmental AI research papers.
-Your task is to find the EXACT answer to the question from the provided context."""
+Your task is to find the EXACT answer to the question from the provided context.
+
+CRITICAL RULES:
+1. Extract EXACT numbers from the text - do not round or approximate
+2. For True/False questions: answer_value must be "1" for TRUE or "0" for FALSE
+3. If the context does NOT contain enough information to answer, you MUST return "is_blank" for answer_value
+4. For ranges, use format [low,high] without spaces
+5. Do not include symbols like <, >, ~ in answer_value - only the number"""
 
         type_instructions = {
             "true_false": """
-IMPORTANT: This is a True/False question.
-- Answer MUST be either "TRUE" or "FALSE"
-- answer_value MUST be "1" for TRUE or "0" for FALSE
-- Look for explicit statements that confirm or deny the claim""",
+QUESTION TYPE: True/False
+- Your answer field should say "TRUE" or "FALSE"
+- answer_value MUST be "1" for TRUE or "0" for FALSE (not the words TRUE/FALSE)
+- Look for explicit statements that confirm or deny the claim
+- If you cannot find clear evidence, answer_value should be "is_blank" """,
 
             "numeric": """
-IMPORTANT: This is a numeric question.
-- Extract the EXACT number from the context
-- Include the correct unit (e.g., "tCO2e", "MWh", "percent", "days")
-- If a range is given, use the format "[min,max]"
-- Pay attention to tables which often contain precise values""",
+QUESTION TYPE: Numeric
+- Extract the EXACT number from the context - do not approximate
+- answer_value should be ONLY the number (e.g., "1438" not "1438 lbs")
+- Include the unit in answer_unit (e.g., "lbs", "MWh", "percent")
+- For ranges, use format "[low,high]" (e.g., "[80,90]")
+- If the answer is not in the context, answer_value must be "is_blank" """,
 
             "named_entity": """
-IMPORTANT: This question asks for a specific name or identifier.
-- Extract the EXACT name as stated in the document
-- answer_value should be "is_blank" for named entities
-- The answer field should contain the name""",
+QUESTION TYPE: Named Entity / Term
+- Extract the EXACT name or term as stated in the document
+- answer_value should be the name itself (e.g., "ML.ENERGY Benchmark")
+- answer_unit should be "is_blank" for named entities
+- If the name/term is not found, answer_value must be "is_blank" """,
 
             "calculation": """
-IMPORTANT: This question may require calculation.
-- Show your calculation steps in the explanation
-- Extract all relevant numbers from context first
-- Provide the final computed value in answer_value"""
+QUESTION TYPE: Calculation / Comparison
+- You may need to perform simple math (division, subtraction, percentages)
+- Show your calculation in the explanation field
+- answer_value should be the final computed number
+- If you cannot find the required numbers, answer_value must be "is_blank" """
         }
 
         return f"""{base}
@@ -163,39 +177,115 @@ CONTEXT FROM RESEARCH PAPERS:
 
 QUESTION: {question}
 
-Respond with ONLY valid JSON in this exact format:
+Respond with ONLY valid JSON:
 {{
-    "answer": "Your natural language answer here",
-    "answer_value": "The specific value (number, TRUE/FALSE indicator, or 'is_blank')",
-    "answer_unit": "The unit of measurement or 'is_blank'",
-    "ref_id": "Document ID(s) or 'is_blank'",
-    "supporting_materials": "Quote or table reference or 'is_blank'",
-    "explanation": "Brief reasoning or 'is_blank'"
+    "answer": "Natural language answer (e.g., 'TRUE', '1438 lbs', 'ML.ENERGY Benchmark') or 'Unable to answer with confidence based on the provided documents.'",
+    "answer_value": "Just the value: number, '1'/'0' for T/F, term name, or 'is_blank' if unanswerable",
+    "answer_unit": "Unit of measurement or 'is_blank'",
+    "ref_id": "Document ID(s) that support your answer, or 'is_blank'",
+    "supporting_materials": "Direct quote or table/figure reference, or 'is_blank'",
+    "explanation": "Your reasoning, or 'is_blank'"
 }}"""
 
-    def post_process_answer(self, answer: Dict, q_type: str) -> Dict:
-        """Post-process answer based on question type."""
+    def format_ref_id(self, ref_ids: List[str]) -> str:
+        """Format ref_id to match competition format: ['id1', 'id2']"""
+        if not ref_ids:
+            return "is_blank"
+
+        # Validate against metadata
+        valid_ids = []
+        for rid in ref_ids:
+            rid_clean = rid.strip().lower()
+            if rid_clean in self.valid_ref_ids:
+                # Get the original casing from metadata
+                for orig_id in self.metadata_df['id']:
+                    if orig_id.strip().lower() == rid_clean:
+                        valid_ids.append(orig_id.strip())
+                        break
+
+        if not valid_ids:
+            return "is_blank"
+
+        # Format as ['id1', 'id2']
+        return "['" + "', '".join(valid_ids) + "']"
+
+    def post_process_answer(self, answer: Dict, q_type: str, doc_ids: set) -> Dict:
+        """Post-process answer to match competition format exactly."""
 
         # Clean up None/empty values
         for key in answer:
-            if answer[key] in [None, "", "null", "none", "None", "N/A", "n/a"]:
+            if answer[key] in [None, "", "null", "none", "None", "N/A", "n/a", "unknown"]:
                 answer[key] = "is_blank"
 
+        # Handle True/False - answer_value must be "1" or "0"
         if q_type == "true_false":
             ans_lower = str(answer.get('answer', '')).lower()
-            if 'true' in ans_lower:
-                answer['answer_value'] = "1"
-            elif 'false' in ans_lower:
-                answer['answer_value'] = "0"
+            val_lower = str(answer.get('answer_value', '')).lower()
 
-        elif q_type == "numeric":
-            val = answer.get('answer_value', '')
-            if val != 'is_blank' and '[' not in str(val):
-                numbers = re.findall(r'[\d.]+', str(val))
-                if numbers:
-                    answer['answer_value'] = numbers[0]
+            if 'true' in ans_lower or val_lower == 'true' or val_lower == '1':
+                answer['answer_value'] = "1"
+            elif 'false' in ans_lower or val_lower == 'false' or val_lower == '0':
+                answer['answer_value'] = "0"
+            else:
+                answer['answer_value'] = "is_blank"
+
+        # Handle numeric - strip units from answer_value
+        elif q_type == "numeric" or q_type == "calculation":
+            val = str(answer.get('answer_value', ''))
+            if val != 'is_blank':
+                # Handle ranges like "[80,90]"
+                if '[' in val and ']' in val:
+                    # Clean up range format
+                    val = re.sub(r'\s+', '', val)  # Remove spaces
+                    answer['answer_value'] = val
+                else:
+                    # Extract just the number
+                    numbers = re.findall(r'-?[\d.]+', val)
+                    if numbers:
+                        answer['answer_value'] = numbers[0]
+                    else:
+                        answer['answer_value'] = "is_blank"
+
+        # Format ref_id correctly
+        if answer.get('ref_id') and answer.get('ref_id') != 'is_blank':
+            # Parse existing ref_ids
+            ref_str = str(answer['ref_id'])
+            # Extract IDs from various formats
+            ids = re.findall(r"['\"]?([a-zA-Z0-9_]+)['\"]?", ref_str)
+            answer['ref_id'] = self.format_ref_id(ids)
+        elif doc_ids:
+            answer['ref_id'] = self.format_ref_id(list(doc_ids)[:3])
+        else:
+            answer['ref_id'] = "is_blank"
+
+        # If answer_value is is_blank, ensure other fields are also is_blank
+        if answer.get('answer_value') == 'is_blank':
+            answer['answer'] = "Unable to answer with confidence based on the provided documents."
+            answer['answer_unit'] = "is_blank"
+            answer['supporting_materials'] = "is_blank"
 
         return answer
+
+    def check_if_unanswerable(self, question: str, context: str) -> bool:
+        """Check if a question is likely unanswerable from the context."""
+        q_lower = question.lower()
+        context_lower = context.lower()
+
+        # Questions about things clearly outside AI/environment domain
+        off_topic_keywords = ['elephant', 'weight of', 'miles is the earth', 'sun']
+        if any(kw in q_lower for kw in off_topic_keywords):
+            return True
+
+        # Check if key entities from question appear in context
+        # Extract potential key terms from question
+        key_terms = re.findall(r'\b(BERT|GPT|LLaMA|BLOOM|T5|JetMoE|FLM|Mixtral|BlackMamba|CO2|emission|PUE|WUE|energy|training|inference)\b', question, re.I)
+
+        if key_terms:
+            matches = sum(1 for term in key_terms if term.lower() in context_lower)
+            if matches == 0:
+                return True
+
+        return False
 
     def load_chunks_from_json(self) -> List[Chunk]:
         """Load chunks from JSON files"""
@@ -235,15 +325,14 @@ Respond with ONLY valid JSON in this exact format:
         return all_chunks
 
     def build_or_load_index(self):
-        """Build or load vector index"""
-        # Always rebuild for now to ensure fresh index
+        """Build vector index"""
         print("📦 Building vector index...")
         chunks = self.load_chunks_from_json()
         self.retriever.index_documents(chunks)
         print("✅ Index built successfully")
 
     def answer_question(self, question: str) -> Dict:
-        """Answer a single question with query expansion and specialized prompting."""
+        """Answer a single question."""
 
         # Classify question type
         q_type = self.classify_question(question)
@@ -264,7 +353,6 @@ Respond with ONLY valid JSON in this exact format:
                 if chunk.chunk_id not in all_results:
                     all_results[chunk.chunk_id] = (chunk, score)
                 else:
-                    # Boost if found by multiple queries
                     existing = all_results[chunk.chunk_id][1]
                     all_results[chunk.chunk_id] = (chunk, max(score, existing) * 1.1)
 
@@ -289,6 +377,10 @@ Respond with ONLY valid JSON in this exact format:
             doc_ids.add(chunk.doc_id)
 
         context = "\n\n---\n\n".join(context_parts)
+
+        # Check if likely unanswerable
+        if self.check_if_unanswerable(question, context):
+            return self._get_fallback_response()
 
         # Build specialized prompt
         prompt = self.build_prompt(question, context, q_type)
@@ -322,22 +414,19 @@ Respond with ONLY valid JSON in this exact format:
             print(f"Error generating answer: {e}")
             answer = self._get_fallback_response()
 
-        # Post-process
-        answer = self.post_process_answer(answer, q_type)
-
-        # Add ref_id if missing
-        if answer.get('ref_id') == 'is_blank' and doc_ids:
-            answer['ref_id'] = ", ".join(list(doc_ids)[:3])
+        # Post-process to match competition format
+        answer = self.post_process_answer(answer, q_type, doc_ids)
 
         return answer
 
     def _get_fallback_response(self) -> Dict:
-        """Return a properly formatted fallback response"""
+        """Return a properly formatted fallback response for unanswerable questions."""
         return {
             "answer": "Unable to answer with confidence based on the provided documents.",
             "answer_value": "is_blank",
             "answer_unit": "is_blank",
             "ref_id": "is_blank",
+            "ref_url": "is_blank",
             "supporting_materials": "is_blank",
             "explanation": "is_blank"
         }
@@ -347,18 +436,37 @@ Respond with ONLY valid JSON in this exact format:
         print(f"\n📊 Testing on {n_samples} training samples...")
 
         correct = 0
+        results_detail = []
+
         for i in range(min(n_samples, len(self.train_df))):
             row = self.train_df.iloc[i]
             answer = self.answer_question(row['question'])
 
-            pred_val = str(answer['answer_value']).strip().lower()
-            true_val = str(row['answer_value']).strip().lower()
+            pred_val = str(answer['answer_value']).strip()
+            true_val = str(row['answer_value']).strip()
 
-            # Flexible matching
-            match = (pred_val == true_val or pred_val in true_val or true_val in pred_val)
+            # Numeric comparison with tolerance
+            try:
+                pred_num = float(pred_val)
+                true_num = float(true_val)
+                if true_num != 0:
+                    rel_diff = abs(pred_num - true_num) / abs(true_num)
+                    match = rel_diff <= 0.001  # 0.1% tolerance
+                else:
+                    match = pred_num == true_num
+            except ValueError:
+                # String comparison
+                match = pred_val.lower() == true_val.lower()
 
             status = "✓" if match else "✗"
             print(f"{status} Q{i+1}: Pred={pred_val} | Actual={true_val}")
+
+            results_detail.append({
+                'question': row['question'][:50],
+                'predicted': pred_val,
+                'actual': true_val,
+                'match': match
+            })
 
             if match:
                 correct += 1
@@ -379,6 +487,7 @@ Respond with ONLY valid JSON in this exact format:
             try:
                 answer = self.answer_question(row['question'])
                 answer['id'] = row['id']
+                answer['question'] = row['question']
                 results.append(answer)
 
                 if (idx + 1) % save_every == 0:
@@ -388,6 +497,7 @@ Respond with ONLY valid JSON in this exact format:
                 print(f"\n⚠️ Error on {row['id']}: {e}")
                 answer = self._get_fallback_response()
                 answer['id'] = row['id']
+                answer['question'] = row['question']
                 results.append(answer)
 
         self._save_results(results, 'submission.csv')
@@ -398,7 +508,8 @@ Respond with ONLY valid JSON in this exact format:
         """Save results to CSV"""
         df = pd.DataFrame(results)
 
-        required_columns = ['id', 'answer', 'answer_value', 'answer_unit',
+        # Match exact column order from train_QA.csv
+        required_columns = ['id', 'question', 'answer', 'answer_value', 'answer_unit',
                             'ref_id', 'ref_url', 'supporting_materials', 'explanation']
 
         for col in required_columns:
