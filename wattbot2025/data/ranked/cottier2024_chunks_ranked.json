@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 0.0,
+    "content": "THE RISING COSTS OF TRAINING FRONTIER AIMODELS\nBen Cottier1Robi Rahman1,2\nLoredana Fattorini2Nestor Maslej2Tamay Besiroglu1David Owen1\nABSTRACT\nThe costs of training frontier AI models have grown dramatically in recent years, but there is limited\npublic data on the magnitude and growth of these expenses. This paper develops a detailed cost\nmodel to address this gap, estimating training costs using",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 0.0,
+    "content": "Gemini, the most significant expenses\nare AI accelerator chips and staff costs, each costing tens of millions of dollars. Other notable costs\ninclude server components (15-22%), cluster-level interconnect (9-13%), and energy consumption\n(2-6%). If the trend of growing development costs continues, the largest training runs will cost more\nthan a billion dollars by 2027, meaning that only the most we",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 0.0,
+    "content": "economic\nanalysis [ 2] and the discovery of empirical scaling laws, which show that model performance improves with more\nparameters and training data [ 3,4]. Dario Amodei, CEO of the AI lab Anthropic, has stated that frontier AI developers\nare likely to spend close to a billion dollars on a single training run this year, and up to ten billion-dollar training runs\nin the next two years [ 5]. Given ",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 0.0,
+    "content": "the public domain. In collaboration with Epoch AI, the 2024 AI Index presented one of\nthe most comprehensive datasets to date, estimating the costs of training runs based on cloud rental prices [ 6]. We\nbuild on that work with a more in-depth account of hardware, energy and R&D staff costs for both training runs and\nexperiments, as well as a more detailed analysis of how costs are increasing over ",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 0.0,
+    "content": "he cost of frontier\nmodels. The first approach estimates the hardware capital expenses (CapEx) amortized over the final training run,\nalong with the cost of hardware energy consumption. By considering AI accelerator chips, other server hardware,\nnetworking hardware, and energy separately, this approach can provide more accurate training costs. We find that the\nmost expensive publicly-announced tra",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 0.0,
+    "content": "are this approach to the cloud-price approach that was first presented in the AI Index [ 6]. Instead of\nestimating hourly compute costs in detail, the cloud-price approach simply uses historical rental rates from cloud\nplatforms. The cloud-price approach shows a similar growth rate ( 2.5×per year with a 90% CI of 2.1×to3.1×), but\n1Epoch AI.2Stanford University.arXiv:2405.21015v2  [cs.CY]  7 Feb 20",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "ed for cluster-level networking. Open circles\nindicate costs which used an estimated production cost of Google TPU hardware. These costs are generally more\nuncertain than the others, which used actual price data rather than estimates.\nyields costs that are about twice as large on average. We expect the cloud-price approach to overestimate frontier model\ncosts, since model developers usually either",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "velopment\nof the model (i.e. both experiments and training). We select four especially notable models for this approach—GPT-3,\nOPT-175B, GPT-4, and Gemini Ultra. For these models, we find that R&D staff costs including equity are between\n29% and 49% of the total amortized cost. Computing hardware makes up 47–64%, while energy comprises only 2–6%.\nHowever, if we exclude equity the fraction for R&D ",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "s sheds light on not only current costs but also the\neconomic hurdles that lie ahead as AI continues to scale.\nAll of our results can be reproduced using the code and data available at https://github.com/epoch-research/\ntraining-cost-trends .\n2 Methodology\n2.1 Datasets and frontier model selection\nOur investigation draws upon the Notable AI Models database, which documents 796 notable models acros",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "r 2015 (the start of the large-scale ML era according to [ 8])\nand up to 31 December 2023. This resulted in 276 selected models. For these models, we recorded the training time,\nhardware type and quantity, and utilization rate sourced from each model’s original publication, where possible.\nFor our main results, we examined 41 models that were historically at the frontier of compute. Specifically, ",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "ting costs.\n2\n\nIn addition to the data on machine learning models, we compiled a dataset of historical hardware prices, allowing us to\nestimate training costs. This price dataset contained cloud rental prices and hardware purchase prices for 24 different\nhardware models (e.g. NVIDIA A100) between 2015 and 2023. In total there were 142 entries, 52 of which were\npurchase prices and 90 of which were ",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "timating\nproduction costs for TPUs. Further details are provided in Appendix A.1.\nHardware normally remains available for future use after a training run finishes, but its value depreciates over time due\nto hardware progress. We amortized the cost of a training run based on this depreciation. Specifically, we depreciated\nthe value of hardware at a rate of r= 0.14orders of magnitude per year, based",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "years. For example, if the training run starts one year after hardware is\nacquired, the start value is approximately 72% of the acquisition cost. We neglected the impact of hardware failures on\ndepreciation, as the effect seemed small compared to hardware progress. We provide evidence for that in Appendix A.3.\nAfter finding the initial value of the hardware, the amortized cost of the training run ",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "ed chip-hours for the training time and the number of chips, using a linear approximation. This\nled to our final formula for amortized training cost:\nAmortized training cost ≈Start value per chip ×Training chip-hours\n(365×24)hours/year×rln 10\nUp until Section 3.5, our results only account for the chip-hours of the final training run. In Section 3.5, we scale up the\nchip-hours to account for all ex",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "gy consumption cost\nIn addition to the capital costs of hardware, we also considered the cost of energy consumed by hardware during model\ntraining. We estimated this using the following formula:\nTotal energy cost of training =Energy cost rate ($/kWh) ×Hardware TDP (kW) ×\nAverage power to TDP ratio (%) ×Data center PUE ×Training chip-hours (h)\nwhere TDP is thermal design power and PUE is power usag",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "d on hardware manufacturers’ literature. However, some parameters such as average power to TDP\nratio could not be found in technical specifications and had to be estimated. For references and method details, see\nAppendix A.4.\n2.4 Cloud compute cost\nWhile the amortized hardware CapEx + energy approach is a bottom-up method that accounts for hardware and energy\ncosts, cloud rental prices offer a sim",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "ion and tensor number\nformats would make the rate faster, but this was not estimated. This also assumes that hardware improves continuously. In reality,\nhardware improves in increments with each new release.\n3\n\nwith those derived from cloud rental prices, we can validate our approach and provide a more comprehensive picture\nof AI training costs. The cloud approach also allows estimates of model tr",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "loud rental prices, we used the following formula:\nTotal cost =Price per chip-hour ×Training chip-hours\nThe price per chip-hour was obtained from our hardware price database, which includes prices for various hardware\ntypes, cloud providers, and rental dates. We matched the hardware type and publication date of each ML model with the\nmost appropriate price, using the developer of the ML model to d",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "elop-\nment surrounding it is crucial. We therefore used a third approach that considers all of the compute that went into model\ndevelopment, as well as the cost of R&D staff developing the model. Since this approach was more time-intensive, and\nrelied on having a list of contributors to estimate R&D staff cost, we applied it to just four models: GPT-3, OPT-175B,\nGPT-4, and Gemini Ultra.\nTo estimat",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "infrastructure at Meta.\nAppendix A.6 provides further details. Based on this, we sampled the factor from a log-normal distribution with a 90%\nCI of 1.2x to 4x, meaning that total compute for model development is 1.2x to 4x larger than the final training run.\n2.5.1 R&D staff costs\nResearch and development (R&D) staff costs are an often-neglected component of the total cost of developing ML\nmodels. ",
+    "type": "text"
+  }
+]

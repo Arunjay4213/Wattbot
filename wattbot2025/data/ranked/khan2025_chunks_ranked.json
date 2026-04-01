@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 6.748169202121934,
+    "content": "well with the model’s expectations.\nBelow, we present key examples in Figure. 3 .\nVI. D ISCUSSION\nA. Practical impact\nThe demonstrated reduction in carbon emissions through\noptimization techniques such as quantization and local infer-\nence holds significant value for industries aiming to enhance\nsustainability. With models achieving up to 45% reductions\nin energy consumption, this work directly al",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.671686987178277,
+    "content": "practical roadmap for industries and re-\n\"Below, we present key examples in Figure. 3 .\",\n,searchers seeking to balance sustainability with effectiveness.\n,Future research should explore adaptive optimization strategies\nVI. DISCUSSION,\n,\"to minimize\ntrade-offs\nand\ndevelop\nnew metrics\nbalancing\"\n\"A. Practical\nimpact\",\n,\"sustainability with predictive performance. Additionally,\nex-\"\n\"The demonstrate",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 3.793484230033921,
+    "content": "0,1,2,3,4,5\n,,,,\"positive, negative, or neutral). The dataset\",is well-structured\nC. Expected Outcomes,,,,,\n,,,,,\"and contains no missing values, making it highly suitable for\"\n,The proposed framework is expected to significantly reduce,,,,\n,,,,,sentiment analysis tasks in machine learning studies Figure. 2.\nenergy consumption and carbon emissions during LLM infer-,,,,,\n\"ence, while maintaining ac",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 3.55111291870638,
+    "content": "dataset\nis well-structured\"\nC. Expected Outcomes,\n,\"and contains no missing values, making it highly suitable for\"\nThe proposed framework is expected to significantly reduce,\n,sentiment analysis tasks in machine learning studies Figure. 2.\nenergy consumption and carbon emissions during LLM infer-,\n\"ence, while maintaining accuracy and responsiveness compa-\",\n,\"Sentiment Assessment\nInstructions\"\nra",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.528689015704411,
+    "content": ", the impact on performance metrics such as accu-\nracy, F1 score, recall, and precision varies. While the reduction\nin carbon footprint is consistent, performance trade-offs are ev-\nident, with some metrics experiencing marginal improvements\n\nand others showing slight declines. For instance, precision\nand recall generally exhibit minor increases in specific cases,\nsuggesting that optimization can ",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.4469939580184468,
+    "content": "ing power consumption and utilizing\nemission factor data. Let Edenote the total energy consumed\n(in kWh), and let αbe the emission factor (kg CO 2per kWh).\nWe define the carbon footprint CF as:\nCF=E×α., (4)\nC. Expected Outcomes\nThe proposed framework is expected to significantly reduce\nenergy consumption and carbon emissions during LLM infer-\nence, while maintaining accuracy and responsiveness com",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 2.747417758184034,
+    "content": "gy\nsavings without\ncompromising model\nperformance\",by converting model parameters from high-precision formats\n\"[12]. Likewise, Avatar\nfocuses on creating compact, energy-\",\"(e.g., 32-bit floating-point) to lower-precision formats (e.g., 8-\"\nefficient models optimized for deployment on individual de-,\"bit or even 4-bit),\nthereby reducing memory requirements and\"\n\"vices\n[23]. By\nreducing\ninference\nl",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 2.61196874247817,
+    "content": "e applicability across diverse domains.\n\"sustainability. With models\nachieving up to 45% reductions\",\n,ACKNOWLEDGMENT\n\"in energy consumption,\nthis work directly aligns with corpo-\",\n\"rate\nenvironmental,\nsocial,\nand governance\n(ESG) goals by\",The authors extend their gratitude to the Province of On-\nlowering operational costs and carbon footprints. These tech-,\"tario,\nthe Government\nof Canada\nthrou",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 2.412700935271534,
+    "content": "cy.\n\"illustrating the potential of\ntargeted optimizations [17].\",\"Research efforts have\nshowcased the potential of quanti-\"\n\"In\naddition\nto\nspecific\noptimization\ntechniques,\nbroader\",\"zation\nas\na\nkey\ntechnique\nfor\nenhancing\nenergy\nefficiency\"\n\"frameworks\nfor\nsustainable AI\nhave\nbeen\nproposed. These\",\"in AI\nsystems. For\ninstance, GPTQ (Accurate Post-Training\"\n\"frameworks\nadvocate\nfor\nthe\nintegratio",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 2.3254113570669768,
+    "content": "rating the potential of targeted optimizations [17].\nIn addition to specific optimization techniques, broader\nframeworks for sustainable AI have been proposed. These\nframeworks advocate for the integration of energy-efficient\nalgorithms and the alignment of AI practices with global\nsustainability goals [25]. For instance, intersection of sustain-\nability and software engineering is well establishe",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 2.2840930331648703,
+    "content": "ge (CCS)tCO 2\ncapturedCO2removed and stored\nto prevent releaseIEA, IPCC\nB. Quantization Techniques in LLMs\nQuantization [11] has emerged as a transformative approach\nin optimizing LLMs, addressing the dual challenges of com-\nputational efficiency and environmental sustainability. It works\nby converting model parameters from high-precision formats\n(e.g., 32-bit floating-point) to lower-precision fo",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 1.9618389178931184,
+    "content": "ion techniques. This section reviews,\"kWh\nof electricity consumed\nEnergy\"\n,Agency\n\"key studies that have contributed to this field, highlighting their\",\n,\"Scope 1 Emissions\nDirect\nemissions\nfrom\nGHG Proto-\ntCO2e\"\ncontributions to sustainable AI practices.,\n,\"controlled sources\ncol\"\n\"Efforts to mitigate the environmental\nimpact of LLMs have\",\"Scope 2 Emissions\nIndirect\nemissions\nfrom\nGHG Proto-\ntCO",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 1.9428551319219585,
+    "content": "emissions\nassociated with\nthe CO2\",,,,,,,\n,,,,across value chains,,col,\n\"large-scale models\n[2],\n[4], highlighting significant\nenviron-\",,,,,,,\n,,,tCO2e,,,,\nmental challenges posed by their extensive parameter sizes and,Emissions,,,\"equal\nremovals\",,,\n,Energy,Consump-,MWh,Total energy consumed,,\"IEA, EIA\",\n\"computational demands [15]. Liu and Yin (2024), in particular,\",,,,,,,\n,tion,,,,,,\nemphasiz",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 1.9408362322291453,
+    "content": "0,1\nat high levels even as we adopt energy-saving techniques.,\"actionable\ninsights\nand a\nroadmap for\nadvancing Green AI,\"\n,\"addressing immediate environmental concerns, and fostering\"\nc) Contributions: This study offers several contributions,\n,\"a sustainable future for AI\ntechnologies.\"\n\"to\nthe\ngrowing field\nof Green AI. Primarily,\nit\npresents\na\",\ncomprehensive analysis of carbon emissions generat",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 1.7236424239280361,
+    "content": "ce carbon emissions\n[15]. These\",,,,,,,\n,,,,\"duction or\nremoval\",,Standard,\n\"foundational\ninsights\nunderscore\nthe\nurgency\nof\naddressing\",,,,,,,\n,Carbon,Capture,tCO2,CO2 removed and stored,,\"IEA,\",IPCC\nsustainability in LLM development and deployment.,,and Storage (CCS),captured,\"to prevent\nrelease\",,,\n\"Building on this\nfoundation,\nseveral\ntools and frameworks\",,,,,,,",
+    "type": "table"
+  },
+  {
+    "rank": 16,
+    "score": 1.7227784249535416,
+    "content": "expressed as\nCO2equivalentIPCC, GHG\nProtocol\nCarbon Intensity gCO 2/\nkWhCO2emissions per unit\nof electricity consumedInternational\nEnergy\nAgency\nScope 1 Emissions tCO 2e Direct emissions from\ncontrolled sourcesGHG Proto-\ncol\nScope 2 Emissions tCO 2e Indirect emissions from\npurchased electricityGHG Proto-\ncol\nScope 3 Emissions tCO 2e Indirect emissions\nacross value chainsGHG Proto-\ncol\nNet Zero\nEmi",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 1.7192382991543311,
+    "content": "0,1,2,3\nMetric,Unit,Definition,Reference\n\"Carbon\nDioxide\nEquivalent\n(CO2e)\",\"Metric\ntons\n(tCO2e)\",\"A\nmeasure\nof\ngreen-\nhouse gases expressed as\nCO2 equivalent\",\"IPCC, GHG\nProtocol\"\nCarbon Intensity,\"gCO2/\nkWh\",\"emissions per unit\nCO2\nof electricity consumed\",\"International\nEnergy\nAgency\"\nScope 1 Emissions,tCO2e,\"Direct\nemissions\nfrom\ncontrolled sources\",\"GHG Proto-\ncol\"\nScope 2 Emissions,tCO2e,\"In",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 1.5612465166222433,
+    "content": "nce preser-\nvation, ensuring that accuracy and responsiveness remain © 2025 IEEE. Accepted to IEEE CAI 2025, to appear in IEEE Xplore.arXiv:2504.06307v1  [cs.LG]  7 Apr 2025\n\nat high levels even as we adopt energy-saving techniques.\nc) Contributions: This study offers several contributions\nto the growing field of Green AI . Primarily, it presents a\ncomprehensive analysis of carbon emissions genera",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 1.5612465166222433,
+    "content": "ron-\",\n,tCO2e\nmental challenges posed by their extensive parameter sizes and,\"Emissions\nequal\nremovals\"\n,\"Energy\nConsump-\nMWh\nTotal energy consumed\nIEA, EIA\"\n\"computational demands [15]. Liu and Yin (2024), in particular,\",\n,tion\nemphasizes the critical role of hardware choices in sustainable,\n,\"Global\nWarming\nRatio\nHeat\ntrapped\nby\na\ngas\nIPCC\"\nAI practices and proposes training methods without com",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 1.5347537875893498,
+    "content": "s, and fostering\na sustainable future for AI technologies.\nA. Carbon Emission Metrics\nMeasuring carbon emissions is essential for understand-\ning and reducing the environmental impact of AI systems.\nVarious metrics have been developed to assess emissions\nacross different scopes, intensities, and stages. This subsection\noutlines widely used metrics, such as Carbon Dioxide Equiva-\nlent (CO 2e), Carb",
+    "type": "text"
+  }
+]

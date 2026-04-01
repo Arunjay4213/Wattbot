@@ -1,0 +1,55 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.12, pytest-8.4.2, pluggy-1.6.0 -- /Users/diyakothari/Desktop/Wattbot/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/diyakothari/Desktop/Wattbot
+plugins: cov-7.0.0
+collecting ... collected 24 items
+
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_basic PASSED [  4%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_overlap PASSED [  8%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_empty PASSED [ 12%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_shorter_than_chunk_size PASSED [ 16%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_exact_chunk_size PASSED [ 20%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_text_whitespace_handling PASSED [ 25%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_custom_chunk_size PASSED [ 29%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_custom_overlap PASSED [ 33%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_zero_overlap PASSED [ 37%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_large_overlap PASSED [ 41%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_multiline_text PASSED [ 45%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_text_from_pdf_real_file PASSED [ 50%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_text_from_pdf_returns_string PASSED [ 54%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_text_from_pdf_mock PASSED [ 58%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_tables_from_pdf_success PASSED [ 62%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_tables_from_pdf_failure PASSED [ 66%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_extract_tables_both_flavors PASSED [ 70%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_pdf_real_file PASSED [ 75%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_pdf_creates_text_chunks PASSED [ 79%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_pdf_creates_table_chunks PASSED [ 83%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_save_chunks_to_json PASSED [ 87%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_save_chunks_creates_directory PASSED [ 91%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_init_default_parameters PASSED [ 95%]
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_init_custom_parameters PASSED [100%]
+
+=============================== warnings summary ===============================
+venv/lib/python3.10/site-packages/PyPDF2/__init__.py:21
+  /Users/diyakothari/Desktop/Wattbot/venv/lib/python3.10/site-packages/PyPDF2/__init__.py:21: DeprecationWarning: PyPDF2 is deprecated. Please move to the pypdf library instead.
+    warnings.warn(
+
+venv/lib/python3.10/site-packages/pypdf/_crypt_providers/_cryptography.py:32
+  /Users/diyakothari/Desktop/Wattbot/venv/lib/python3.10/site-packages/pypdf/_crypt_providers/_cryptography.py:32: CryptographyDeprecationWarning: ARC4 has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.ARC4 and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+    from cryptography.hazmat.primitives.ciphers.algorithms import AES, ARC4
+
+wattbot2025/tests/test_chunker.py::TestDocumentChunker::test_chunk_pdf_real_file
+  /Users/diyakothari/Desktop/Wattbot/venv/lib/python3.10/site-packages/camelot/parsers/base.py:238: UserWarning: No tables found in table area (97.691, 188.51954679999997, 515.7449530889999, 485.81292525945946)
+    cols, rows, v_s, h_s = self._generate_columns_and_rows(bbox, user_cols)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.10.12-final-0 _______________
+
+Name                              Stmts   Miss  Cover   Missing
+---------------------------------------------------------------
+wattbot2025/src/data/chunker.py      60      7    88%   82-90
+---------------------------------------------------------------
+TOTAL                                60      7    88%
+======================== 24 passed, 3 warnings in 9.82s ========================

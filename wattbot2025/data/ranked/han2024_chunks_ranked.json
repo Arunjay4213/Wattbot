@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 8.941777248750252,
+    "content": "ated with electricity\nconsumption: location-based and market-based [10]. Specifically, location-based carbon emissions refer\nto the physical carbon emissions attributed to an electricity consumer connected to the power grid, while\nmarket-based carbon emissions are net emissions after applying reductions due to contractual arrangements\nand other credits (e.g., renewable energy credits). In this pap",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 7.12637305417822,
+    "content": "arbon emissions\"\n\"commonly studied in the literature [8], we focus on criteria air pollutants for AI data centers without con-\"\nsidering market-based pollution reduction mechanisms.\n\"While data centers,\nincluding large technology companies, often use various credits to reduce their\"\n\"market-based carbon emissions [10],\nit\nis likely less effective to apply this practice to mitigate the public\"\n\"hea",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 7.033407803917661,
+    "content": "we use the state-\nlevel data center electricity consumption [5] and run AVERT to calculate the resulting county-level marginal\nair pollutant reduction [70]. AVERT allows a maximum of 15% electricity reduction within an electricity\nregion during each hour. For regions where the data center electricity demand exceeds the 15% reduction\nthreshold for certain hours in 2023, we cap the reduction at 15%,",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 5.8657430354407065,
+    "content": "region. The relationship between the health impact and\nemission reduction in COBRA is approximately linear. Thus, we apply a reduction by x%to the baseline\nemissions of all the power plants within the respective electricity region in COBRA and estimate the corre-\nsponding county-level health impacts, including health outcomes and costs.\nWhen assessing the health impact of generative AI training, w",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 5.260661760175559,
+    "content": "Similarly, to estimate the household electricity bills, we use\"\nthe state-level average price for residential users and county-level average household electricity consumption\nin [92].\nLocation-based emission. There are two types of scope-2 carbon emissions associated with electricity\n\"consumption:\nlocation-based and market-based [10].\nSpecifically,\nlocation-based carbon emissions refer\"\n\"to the ph",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 4.565387934161047,
+    "content": "data collection is 5 minutes. We show in Fig. 5a the region-\nwise normalized interquartile ranges (IQR divided by the yearly average) for both public health costs and\ncarbon emissions. The normalized IQR measures the spread of the time-varying health and carbon signals.\nSpecifically, in 110 out of the 114 U.S. regions (96%), the normalized IQR of health cost is higher than that\nof the carbon inten",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 4.565387934161047,
+    "content": "y average marginal health cost and carbon intensity is 0.292.\n\"2024, provided by [71].6 The time granularity for data collection is 5 minutes. We show in Fig. 5a the region-\"\nwise normalized interquartile ranges (IQR divided by the yearly average) for both public health costs and\ncarbon emissions. The normalized IQR measures the spread of the time-varying health and carbon signals.\n\"Specifically, ",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 4.535805641059305,
+    "content": "inference\nrequests. To date, the existing data centers have mostly exploited such scheduling flexibilities for reducing\nelectricity costs [86], carbon emissions [15], water consumption [87], and/or environmental inequity [88].\nNonetheless, the public health impact of AI significantly differs from these environmental costs or metrics.\nConcretely, despite sharing some common sources (e.g., fossil fu",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 4.535805641059305,
+    "content": "to serve AI inference\n\"requests. To date, the existing data centers have mostly exploited such scheduling flexibilities for reducing\"\n\"electricity costs [86], carbon emissions [15], water consumption [87], and/or environmental inequity [88].\"\n\"Nonetheless, the public health impact of AI significantly differs from these environmental costs or metrics.\"\n\"Concretely, despite sharing some common sourc",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 4.217200085760996,
+    "content": "ectricity apportionment in 2030 may vary from the assumption in AVERT.\nThus, we also consider an alternative apportionment to further evaluate the public health impact of U.S.\ndata centers. Specifically, we consider a state-level electricity apportionment scenario in which each state is\nviewed as an electricity region. The evaluation results are shown in Appendix C and further reinforce our\nkey fi",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 4.147411255424593,
+    "content": "the U.S. national electricity demand, in 2030 [4].\nWhen using McKinsey’s projection, we only use its projected percentage of 11.7%. That is, we consider\nthe EPRI’s projection of non-data center loads and scale up the EPRI’s projection of data center electricity\ndemand to match the percentage of 11.7%. As a result, the 2030 U.S. data center electricity demand is 519\nTWh, instead of 606 TWh, in our ",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 3.5615691203001583,
+    "content": "uce their\nmarket-based carbon emissions [10], it is likely less effective to apply this practice to mitigate the public\nhealth impact. The reason is that, unlike carbon emissions that have a similar effect on climate change re-\ngardless of the emission source locations, the public health impact of criteria air pollutants heavily depends\non the location of the emission source. For example, the publ",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 3.368669864538346,
+    "content": "0\n\"(i.e., the actual health impact of data centers is slightly higher). The county-level emission reduction data\"\nprovided by AVERT is then applied to COBRA to estimate the county-level health outcomes and costs.\n\"Electricity price. When estimating the electricity cost for data centers in 2023 and 2030, we use the state-\"\nlevel average price for industrial users in [92]. The projected U.S. nominal",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 3.3147924050653224,
+    "content": "these losses can be further quantified in economic costs based on epidemiology and economics\nresearch for the corresponding health endpoints [22,42]. In contrast, the environmental impacts of AI, e.g.,\ncarbon emission from fossil fuels and water consumption for data center cooling, often do not cause the\nsame immediate health impacts. For instance, while anthropogenic carbon emissions could also p",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 3.2492548711378078,
+    "content": "(90)\n0200 400 600 8001000\nCarbon (kg/MWh)0306090120Health Cost ($/MWh) (c)Average\nFigure 5: Analysis of marginal scope-2 carbon emission rates and public health costs over 114 U.S. regions between\nOctober 1, 2023 and September 30, 2024 [71]. (a) In 110 out of the 114 U.S. regions (96%), the normalized IQR of\nmarginal health cost is higher than that of marginal carbon intensity. (b) In 90 out of th",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 3.238101379977846,
+    "content": "ater temporal\n\"variation than carbon emissions in 110 out of the 114 U.S. regions. Likewise, in Fig. 5b, the greater temporal\"\nvariation of health costs is also supported by its greater normalized standard deviation (STD divided by the\n\"yearly average) in 90 out of the 114 U.S. regions (79%). Next, we show in Fig. 5c the weak spatial correlation\"\n(Pearson correlation coefficient: 0.292) between th",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 3.1854634992937263,
+    "content": "0\n\"0.0\n0.0\n0\"\n\"0.0\n0.3\n0.6\n0.9\n1.2\n1.5\n0.0\n0.2\n0.4\n0.6\n0.8\n0\n200 400 600 800 1000\"\n\"Carbon IQR\nCarbon STD\nCarbon (kg/MWh)\"\n\"(a) Normalized IQR (110)\n(b) Normalized STD (90)\n(c) Average\"\nFigure 5: Analysis of marginal scope-2 carbon emission rates and public health costs over 114 U.S. regions between\n\"October 1, 2023 and September 30, 2024 [71]. (a) In 110 out of the 114 U.S. regions (96%), the nor",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 3.154128326972229,
+    "content": "0\n\"Yuelin Han\nZhifeng Wu\nPengfei Li\nAdam Wierman\nShaolei Ren1\"\n\"UC Riverside\nUC Riverside\nUC Riverside\nCaltech\nUC Riverside\"\nAbstract\n\"The surging demand for AI has led to a rapid expansion of energy-intensive data centers, impacting the envi-\"\nronment through escalating carbon emissions and water consumption. While significant attention has been\n\"paid to AI’s growing environmental footprint, the ",
+    "type": "table"
+  },
+  {
+    "rank": 19,
+    "score": 2.9791354670811074,
+    "content": "emporal\nvariation of health costs is also supported by its greater normalized standard deviation (STD divided by the\nyearly average) in 90 out of the 114 U.S. regions (79%). Next, we show in Fig. 5c the weak spatial correlation\n(Pearson correlation coefficient: 0.292) between the yearly average health cost and carbon intensity across\nthe 114 regions. Furthermore, the normalized IQR of the health c",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 2.9297063803722887,
+    "content": "The Unpaid Toll: Quantifying the Public Health Impact of AI\nYuelin Han\nUC RiversideZhifeng Wu\nUC RiversidePengfei Li\nUC RiversideAdam Wierman\nCaltechShaolei Ren1\nUC Riverside\nAbstract\nThe surging demand for AI has led to a rapid expansion of energy-intensive data centers, impacting the envi-\nronment through escalating carbon emissions and water consumption. While significant attention has been\npai",
+    "type": "text"
+  }
+]

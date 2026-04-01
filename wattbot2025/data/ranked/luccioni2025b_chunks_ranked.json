@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 7.058416545770799,
+    "content": "eclaration [2023],\"\nillustrating the disconnect between sustainability and ethics in recent approaches to AI regulation.\n\"2Recent media coverage of Microsoft’s sustainability promises has estimated that a single contract to use AI\nto expand oil production “could enable\"\n\"carbon emissions adding up to 640 percent of the company’s carbon removal targets\"\" [191].\"",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 6.715940336259481,
+    "content": "ion, since it takes into account diﬀerent st ages of the model life cycle including the manufacturing of\ncomputing hardware, idle energy usage, and model deploymen t, ﬁnding that training accounted for only half of the\nmodel’s overall emissions [121], meaning that similar stud ies that only took training into account were potentially\nunderestimating their emissions by half. Also, while comme ndabl",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 5.8998270468300404,
+    "content": "hno logical Reality. IEEE Intelligent Systems 30, 03 (may 2015), 2–5.\nhttps://doi.org/10.1109/MIS.2015.53\n[217] Hongyang Zhang, Yaodong Yu, JiantaoJiao, EricXing, L aurentEl Ghaoui, and MichaelJordan.2019. Theoreticallyp rincipled trade-oﬀ between\nrobustnessand accuracy.In International conference onmachine learning . PMLR,7472–7482.\n[218] AramZiai.2016. Development discourseand global history:Fro",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 5.245938917427876,
+    "content": "for governing AI. If we take a look at recent\ncommunity endeavors for AI governance, the 2022 Big Science workshop proposeda bottom-upapproach that estab-\nlished mechanisms for various ethical aspects of the projec t such as data governance, quality metrics, and fostering\nstakeholdercollaborationandtransparency[92],aswella sdraftingaconsensus-driven ethicalframeworkforgovern -\ning the resulting ar",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 5.110193257891709,
+    "content": "n endeavors are useful to establish functional mechanisms for governing AI. If we take a look at recent\n\"community endeavors for AI governance, the 2022 Big Science workshop proposed a bottom-up approach that estab-\"\n\"lished mechanisms for various ethical aspects of the project such as data governance, quality metrics, and fostering\"\n\"stakeholder collaboration and transparency [92], as well as dra",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 5.110193257891709,
+    "content": "example,\"\n\"to include sustainability approaches, developers would also provide information on the environmental\nfootprint of\"\n\"running the AI system, such as energy consumption during data processing and potential environmental beneﬁts of\"\n\"the proposed urban layouts, like reduced carbon emissions from optimized traﬃc ﬂows or green spaces. In this way, by\"\n\"deepening the concept of transparency to",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 5.044921228400277,
+    "content": "ection in the research community with sustainability writ large.\"\n\"Progressing from this observation, while sustainability-oriented research has not been prominently featured in\"\n\"venues that directly address AI ethics,\nit remains a topic of research that has been gathering momentum in recent\"\n\"years. The ﬁrst research to formally address the environmental\nimpacts of training AI models was the sem",
+    "type": "table"
+  },
+  {
+    "rank": 8,
+    "score": 4.878745834290865,
+    "content": "hey require, which are unattainable to many members of the AI community, as well as the propagation\"\n\"of biases via their usage. Furthermore, the authors themselves note that there is currently no information available\"\n\"about\nthe embodied emissions linked to manufacturing GPUs, so it\nis impossible to estimate what portion of\nthe\"\noverall carbon footprint this represents. This highlights that the ",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 4.514347993782725,
+    "content": "transparent bu t also understandable in a broader societal context.\nThis augmented view of transparency, which would integrate both social and environmental dimensions, resonates\nwith the increasing awareness that AI is not simply a technol ogical tool but a socio-technical system with extensive\nrepercussions, spanning bothpeopleand theenvironment [2 02].\nEquity.RecognizingthatGreenAI(orsustainabl",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 4.348380826430739,
+    "content": "0\nBridging the Gap:\n\"Integrating Ethics and Environmental Sustainability in AI Research and Practice\n9\"\n\"models, their carbon footprint, is rarely, if ever, disclosed. While model cards of recent models such as BLOOM [214]\"\n\"and Stable Diﬀusion [169] have included carbon footprint information, it remains far from common information com-\"\nmunicated by model creators – recent work has found that the",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 4.306463421602335,
+    "content": "gmented view of\ntransparency, which would integrate both social and environmental dimensions, resonates\"\nwith the increasing awareness that AI is not simply a technological tool but a socio-technical system with extensive\n\"repercussions, spanning both people and the environment [202].\"\n\"Equity. Recognizing that Green AI (or sustainable AI), i.e. the development and deployment of AI systems that pu",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 3.9950907433378577,
+    "content": "nce it takes into account diﬀerent stages of the model\nlife cycle including the manufacturing of\"\n\"computing hardware,\nidle energy usage, and model deployment, ﬁnding that training accounted for only half of the\"\n\"model’s overall emissions [121], meaning that similar studies that only took training into account were potentially\"\n\"underestimating their emissions by half. Also, while commendable in ",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 3.4170688462837893,
+    "content": "ough its exactorigins areunclear.\n\n8 Alexandra Sasha Luccioni, Giada Pistilli, Raesetje Sefal a, and Nyalleng Moorosi\nSimilarly,evaluating theenvironmental impacts ofAI syst ems is far fromstraightforward,and we arestillmissing\nmany pieces of the puzzle needed in order to meaningfully est imate these impacts. For instance, most of the carbon\nfootprintassessments onlyfocus onthetraining stage ofAI ",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 3.024455308090643,
+    "content": "the impacts of sea level rise and extreme\"\n\"weather events being felt most strongly in countries with very minimal carbon footprints, raising questions of equity\"\n\"and justice and how to address them [49, 126, 151, 177]. Similarly, the majority of climate-focused AI solutions over-\"\n\"look issues of justice and power, focusing predominantly on the climate-positive aspects of technologies and not wh",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.9830716329716007,
+    "content": "ghtsaswellastolimitdamagetoenvironment,\nthere are no oﬃcial provisions regarding sustainability in any of their texts, and it remains to be seen how existing\nstandards for environmental impacts in all of these jurisdi ctions will apply to AI systems. Similarly, sustainability\nconsiderationswerealsolackinginthe2023US ExecutiveOr derregarding AI[20],whichdidnotmentionAI’sgreen-\nhouse gas emissions n",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.9423697240405247,
+    "content": "0\nBridging the Gap:\n\"Integrating Ethics and Environmental Sustainability in AI Research and Practice\n21\"\n\"[153]\nDavid Patterson, Joseph Gonzalez, Quoc Le, Chen Liang, Lluis-Miquel Munguia, Daniel Rothchild, David So, Maud Texier, and Jeﬀ Dean. 2021.\"\nCarbon emissions and large neural network training. arXiv preprint arXiv:2104.10350 (2021).\n\"[154]\nGiada Pistilli, Carlos Muñoz Ferrandis, Yacine Jer",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 2.876946545790257,
+    "content": "]\nZachary C Lipton. 2018. The mythos of model interpretability: In machine learning, the concept of interpretability is both important and slippery.\"\n\"Queue 16, 3 (2018), 31–57.\"\n\"[114]\nYinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.\"\n2019. Roberta: A robustly optimized bert pretraining approach. arXiv preprint",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 2.839070741870796,
+    "content": "hareunattainabletomany membersoftheAIcommunity,aswellasthepropagation\nof biases via their usage. Furthermore, the authors themsel ves note that there is currently no information available\nabout the embodied emissions linked to manufacturing GPUs, so it is impossible to estimate what portion of the\noverall carbonfootprintthis represents. This highlights that the emphasis onenvironmental sustainabil",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.7311997228700937,
+    "content": "yment, proposing a holistic,\nlife cycle approach to estimating emissions [121]. There have also been proposals\"\n\"arguing for putting sustainability in the center of AI development and deployment [203], as well as frameworks for\"\n\"certifying the sustainability of AI systems [25], across all the diﬀerent pillars of sustainability (i.e. social, environmen-\"\n\"tal and economic) [70]. However, we are st",
+    "type": "table"
+  },
+  {
+    "rank": 20,
+    "score": 2.7083322592867085,
+    "content": "\"\n\"portant principles. However, while both EU AI Act [2022], as well as similar regulatory initiatives in China [2023] and\"\n\"Canada [2023] point to the need to protect both fundamental human rights as well as to limit damage to environment,\"\n\"there are no oﬃcial provisions regarding sustainability in any of their texts, and it remains to be seen how existing\"\n\"standards for environmental\nimpacts i",
+    "type": "table"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.913278221908811,
+    "content": "hich was commissioned by\nGoogle and published ahead of COP2649. The reasoning behind the 5-10% reduction estimate is unclear and the underlying\ncalculations are not detailed beyond the explanation that they are based on BCG’s experience in dealing with their clients and\nusing AI to optimize and improve existing processes. The second, Google-commissioned BCG study provides slightly more\ndetail in t",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 2.895039966300603,
+    "content": "g, C. The evolved transformer.\nIn Chaudhuri, K. & Salakhutdinov, R. (eds.) Proceedings of the\"\n\"36th International Conference on Machine Learning, vol. 97 of Proceedings of Machine Learning Research, 5877–5886\"\n\"(PMLR, 2019).\"\n\"32. Hao, K. Training a single ai model can emit as much carbon as five cars in their lifetimes. MIT technology Rev. 75, 103\"\n(2019).\n\"33. Toews, R. Deep learning’s carbon e",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 2.7380728676026953,
+    "content": "2024).\n57.Schmidt, V . et al. Codecarbon: Estimate and track carbon emissions from machine learning computing (2021).\n58.Lannelongue, L., Grealey, J. & Inouye, M. Green algorithms: Quantifying the carbon footprint of computation. Adv. Sci.\n2100707 (2021).\n59.Mitchell, M. et al. Model cards for model reporting. In Proceedings of the conference on fairness, accountability, and\ntransparency , 220–229",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 2.6669020553157825,
+    "content": "0,1\n\"56. Ambrose, J. & Hern, A. Ai will be help rather than hindrance in hitting climate targets, bill gates says (2024).\",\n\"57. Schmidt, V. et al. Codecarbon: Estimate and track carbon emissions from machine learning computing (2021).\",\n\"58. Lannelongue, L., Grealey, J. & Inouye, M. Green algorithms: Quantifying the carbon footprint of computation. Adv. Sci.\",\n2100707 (2021).,\n\"59. Mitchell, M. e",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 2.6582703506262972,
+    "content": "er.ai/rankings?view=month (2025). Accessed: 2025-06-03.\n29.Lovins, A. B. Artificial intelligence meets natural stupidity: Managing the risks (2025).\n30.Vaswani, A. et al. Attention is all you need. Adv. neural information processing systems 30(2017).\n31.So, D., Le, Q. & Liang, C. The evolved transformer. In Chaudhuri, K. & Salakhutdinov, R. (eds.) Proceedings of the\n36th International Conference o",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 2.641176854702522,
+    "content": "cation being picked\nup by numerous media outlets (including MIT Technology Review32and Forbes33). The “five cars” number has since been\nmisinterpreted as a proxy for the carbon footprint of training AI models at large, which is misleading given the diversity of\narchitectures, training approaches and electricity sources used for powering AI model training; the original article reports AI\ntraining w",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 2.350894217960084,
+    "content": "A. Energy and policy considerations for deep learning in NLP. arXiv preprint\narXiv:1906.02243 (2019).\n13.Luccioni, A. S. & Hernandez-Garcia, A. Counting carbon: A survey of factors influencing the emissions of machine\nlearning. arXiv preprint arXiv:2302.08476 (2023).\n14.Dodge, J. et al. Measuring the carbon intensity of AI in cloud instances. In Proceedings of the 2022 ACM Conference on\nFairness, ",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.2900839079104873,
+    "content": "versity of\"\n\"architectures, training approaches and electricity sources used for powering AI model training; the original article reports AI\"\n\"training workloads emitting as little as 26 pounds (11.8 kg) CO2e (assuming U.S. average energy carbon emissions intensity),\"\nand AI model training more broadly often requires even less energy and corresponding emissions.\n\"Further, the NAS training workload",
+    "type": "table"
+  },
+  {
+    "rank": 9,
+    "score": 2.256756273124811,
+    "content": "Tech. Rep. ITU-T L.1480, ITU (2022). Accessed: 2025-06-01.\n51.WBCSD. Guidance on Avoided Emissions. Tech. Rep., WBCSD (2023). Accessed: 2025-06-01.\n52.Das, K. P. & Chandra, J. A survey on artificial intelligence for reducing the climate footprint in healthcare. Energy Nexus\n9, 100167 (2023).\n53.The Environment. Artificial intelligence can reduce 5 to 10 percent ghg emission: Study (2022).\n54.Kakka",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 2.2096284655295766,
+    "content": "he current allowance for market-based\naccounting enables companies to significantly under-report their actual AI-related emissions through renewable energy\ncertificates, creating the same problematic disconnect from reality that has undermined carbon offsetting credibility56. For AI\nservices consuming substantial electricity across distributed data centers, mandatory location-based accounting woul",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 2.1898874614539148,
+    "content": "er-report\ntheir actual AI-related emissions through renewable energy\"\n\"certificates, creating the same problematic disconnect from reality that has undermined carbon offsetting credibility 56. For AI\"\n\"services consuming substantial electricity across distributed data centers, mandatory location-based accounting would ensure\"\nenvironmental transparency frameworks capture the true systemic climate ",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.1852714189885414,
+    "content": "(by sharing compute data like GPU type and training length, as well as by\nreleasing their model weights to enable efficiency analysis). In terms of token usage, 84% of LLM usage is through models\nwith no disclosure, 14% for indirectly disclosed models, and only 2% for models with direct disclosure. This indicates that the\nmajority of users who interact with LLMs have no information about their env",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 2.052367312333017,
+    "content": "or energy after all. MIT Technology Review (online). Accessed:\n2025-06-01.\n46.Berry Zwets. Researchers claim to cut energy consumption AI 95 percent. Techzine (online). Accessed: 2025-06-01.\n47.Adam Clark Estes. Should you feel guilty about using AI? V ox (online). Accessed: 2025-06-01.\n48.Degot, C., Duranton, S., Frédeau, M. & Hutchinson, R. Reduce carbon and costs with the power of ai. Boston Co",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 2.010286772936046,
+    "content": "about using AI? Vox (online). Accessed: 2025-06-01.\n\"48. Degot, C., Duranton, S., Frédeau, M. & Hutchinson, R. Reduce carbon and costs with the power of ai. Boston Consult.\"\nGroup 26 (2021).\n\"49. Dannouni, A. et al. Accelerating climate action with ai. Boston Consult. Group Special Rep. Google (2023).\"\n\"50.\nITU. Enabling the Net Zero transition: Assessing how the use of information and communicati",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.002076890139238,
+    "content": "tle as 0.8 MWh (OLMo 20M) to 3,500 MWh\n(LLaMa 4 Scout), with associated GHG emissions varying even more significantly (due to variation in the carbon intensity of\nelectricity across training locations). Inference workloads also show wide variation depending on model size, architecture and\n3/12\n\ntask type, with GPU energy usage for 1,000 queries spanning from just 0.06 Wh (bert-tiny) to over 3,426 ",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 1.977844715619471,
+    "content": "ssions (CO2e), or about five times the emissions of a car during its lifetime, including fuel.\"\n\"The research article was written for a specialized audience of AI and NLP researchers, who would have the background\"\n\"knowledge to understand the appropriate scoping for the estimate. However, an author’s tweet publicizing the paper and\"\n\"featuring a table containing the “five cars” estimate was widel",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 1.5031966531900047,
+    "content": "0,1\n\"in environmental impact transparency: some models disclose sufficient details to enable impact estimation, whereas others\",\nprovide no information at all regarding their approach.,\n,\"Overall, we find that models exhibit three transparency categories:\"\n,• Direct Disclosure: Developers explicitly reported energy or GHG emissions. Note that this category includes methodolo-\n,\"gies ranging from e",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 1.4587725372443987,
+    "content": "carbon data associated with manufacturing AI accelerators and data center infrastructure,\"\n\"significantly extending existing environmental\nimpact models. Building on many of\nthese approaches, Morrison et al.26\"\n\"performed a holistic evaluation of the energy, carbon, and water impacts of AI hardware manufacturing, model development,\"\n\"and training, enhancing the accuracy of these metrics through th",
+    "type": "table"
+  },
+  {
+    "rank": 19,
+    "score": 1.4526396799828134,
+    "content": "hat training an AI model of the LLaMa 3.1 scale can produce air pollutants\nequivalent to more than 10,000 round trips by car between Los Angeles and New York City. In another significant advancement,\nGoogle’s recent TPU lifecycle assessment25offered the most comprehensive cradle-to-grave environmental analysis of AI\nhardware to date, integrating embodied carbon data associated with manufacturing A",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 1.4526396799828134,
+    "content": "ding their approach.\nOverall, we find that models exhibit three transparency categories:\n•Direct Disclosure : Developers explicitly reported energy or GHG emissions. Note that this category includes methodolo-\ngies ranging from estimation (e.g., using hardware TDP, country average carbon intensity) to measurements (i.e., using\ntools like CodeCarbon).\n•Indirect Disclosure : Developers provided trai",
+    "type": "text"
+  }
+]

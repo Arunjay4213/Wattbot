@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.431007954157246,
+    "content": "n last for weeks or even months. Therefore, measuring\nthe energy consumption in terms of carbon emissions is\nparticularly challenging in those environments due to several\nfactors, e.g., parallel jobs or the non-exclusive use of the\ncluster.\nMoreover, even well-maintained LLMs leaderboard bench-\nmarks [19]–[21] do not report energy consumption, focusing\ninstead on accuracy metrics. Figure 1 shows t",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.394225251166906,
+    "content": "eveloped to\",related tasks.\nmeasure the carbon emissions associated with code execution.,While developing a comprehensive methodology for mea-\n\"Among these,\nthe CodeCarbon tool\n[16]\nis a widely adopted\",\"suring LLM energy consumption is beyond this paper’s scope,\"\nPython library that estimates the energy consumption of code,we focus on reducing these emissions through efficient PETs.\n\"executions.\n",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 4.25849883329765,
+    "content": "s the trade-offs between energy\nconsumption in terms of carbon emission, execution time,\nand generated code accuracy to investigate the balance\nbetween energy efficiency and model accuracy;\n•We provide a replication package1to foster further re-\nsearch on the topic.\n1https://github.com/riccardoRubei/Greens-2025-Replication-PackagearXiv:2501.05899v1  [cs.SE]  10 Jan 2025\n\nFig. 1: Carbon emissions o",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 4.060532137056889,
+    "content": "e exact matches\nrise from 63 to 82, reflecting a 23% increase. Both one-\nshot and few-shots see substantial gains with C3, achieving\napproximately a 44% improvement. Interestingly, with C4,\nzero-shot fails to achieve any exact matches.\nFigure 4b shows the impact of custom tags on edit distance\nmetrics, where an edit distance of 0 indicates a perfect result.\nOverall, custom tags contributed to a re",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 3.735445279120476,
+    "content": "cially when consider-\ning the growing scope of LLM-based implementations and\ntheir integration into everyday life. This highlights the need\nto reduce the carbon footprint of LLMs and to examine the\ndetails that contribute to the reported figures.\nTo address the environmental impact of software, a range of\nenergy monitoring tools [5], [6] has been recently developed to\nmeasure the carbon emissions ",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.4375860542900334,
+    "content": "memory requirements of LLMs by lowering the\n\"ing the growing scope of LLM-based implementations\nand\",\"precision of\ntheir numerical\nrepresentations (e.g.,\nfrom 32-bit\"\n\"their\nintegration into everyday life.\nThis highlights the need\",\"to 8-bit). This compression speeds up inference, making LLMs\"\nto reduce the carbon footprint of LLMs and to examine the,\"more efficient with minimal\nimpact on accuracy",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 3.3869855904651747,
+    "content": "s —LLMs, Generative AI, Prompt Engineering,\nEnergy Consumption.\nI. I NTRODUCTION\nThe environmental impact of software systems has been\na growing concern in recent years [1], [2], thus fostering\nthe development of green software engineering (GSE) [3] by\nproposing dedicated methodologies [4], frameworks [5], [6],\nand guidelines [7]. Nevertheless, the rise of AI-intensive sys-\ntems has posed new chal",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 2.9799424648840027,
+    "content": "e\nlearning benchmark dataset for code understanding and generation,”\ninThirty-fifth Conference on Neural Information Processing Systems\nDatasets and Benchmarks Track (Round 1) .\n[15] A. Dubey, A. Jauhri, A. Pandey et al. , “The llama 3 herd of models,”\n2024. [Online]. Available: https://arxiv.org/abs/2407.21783\n[16] M. C. Impact, “Codecarbon: A tool to estimate the carbon emissions\nof machine lear",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 2.9799424648840027,
+    "content": "0,1,2,3,4,5,6,7\n\"footprint\n[12]. Moreover,\nassessing them is\nchallenging due\",,can play a key role,,in reducing the,,energy consumption of,\n\"i)\nii)\nto\nhigher\nvariability\nin\nthe\ngenerated\ncode\nand\nthe\",,LLMs without compromising their performance.,,,,,\n\"lack of\nstandardized guidelines and information for measur-\",,The main contributions of,,this work are as follows:,,,\n\"ing\ncarbon\nemissions\neven\nin",
+    "type": "table"
+  },
+  {
+    "rank": 10,
+    "score": 2.941792277781013,
+    "content": "s-\",for evaluating code completion when using LLMs [17].\ntems has posed new challenges regarding energy consumption,\"Our findings reveal\nthat\nthe energy consumption of LLMs\"\nand carbon emissions [8].,for the inference phase can be reduced by using the introduced\n\"In\nparticular,\nboth\ntraining\nand\nquerying\nlarge\nlanguage\",\"custom tags. Moreover, we show that\nthe energy consumption\"\n\"models (LLMs)\nto",
+    "type": "table"
+  },
+  {
+    "rank": 11,
+    "score": 2.929291697912831,
+    "content": "measuring\",\"most basic PET is\nzero-shot,\nin which the LLM is given a\"\n\"the\nenergy\nconsumption\nin\nterms\nof\ncarbon\nemissions\nis\",\"query without\nany example of outputs, which are\nexpected\"\nparticularly challenging in those environments due to several,\"from the given inputs\n[23].\nIn contrast, one-shot prompting\"\n\"factors,\ne.g.,\nparallel\njobs\nor\nthe\nnon-exclusive\nuse\nof\nthe\",\"provides the model with a ",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.880333998930991,
+    "content": "0,1\nFig. 1: Carbon emissions of GPT-3 models as reported in [18].,\nII. BACKGROUND,\"it\ncan\nestimate\nthe\ncarbon\nintensity\nof\nthe\nregion where\"\n,\"the\ncomputing\nis\ndone. This\nstudy\nfocuses\non\nthe\nenergy\"\n\"While measuring traditional\nsoftware\nimpact\nin terms of\",\"consumption related to GPU usage without\nconsidering the\"\n\"emissions\nis well-established [1],\n[7],\nassessing LLMs\ncon-\",carbon emission.\n\"sum",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 2.8564637418098386,
+    "content": "0,1\n\"[39] conduct a controlled experiment\nin which code generated\",\"task that we decided to study,\nthus\ncode generation or\ntext\"\nby CodeLlama is compared with the human one considering,\"summarization might\nrequire different energy resources. We\"\n\"different\nlanguages,\ni.e., C++,\nJava, and Python,\ntested on a\",mitigated this threat focusing on the effects of the customiza-\ndedicated platform. The re",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 2.8446763664016963,
+    "content": ". Finally, the measurements calculated on the inference\nwithout any customization are strictly related to the particulartask that we decided to study, thus code generation or text\nsummarization might require different energy resources. We\nmitigated this threat focusing on the effects of the customiza-\ntion.\nVII. C ONCLUSION AND FUTURE WORK\nMotivated by the increasing carbon emissions of LLMs, we\np",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 2.8446763664016963,
+    "content": "particular, with the best configuration, zero-shot reduced\nthe consumption of about 7%, whereas one-shot and few-\nshots decreased their consumption of about 99% and 83%,\nrespectively. For future work, we plan to extend the study\nto additional LLMs and code-related tasks. In addition, we\nwill investigate advanced techniques, e.g., retrieval augmented\ngeneration (RAG) or fine-tuning, to further redu",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.775945690453555,
+    "content": "n\nfootprint [12]. Moreover, assessing them is challenging due\ntoi)higher variability in the generated code and ii)the\nlack of standardized guidelines and information for measur-\ning carbon emissions even in dedicated model repositories\n[12]. While a plethora of approaches have been proposed to\nmeasure the impact on the hardware [13], we focus on the\nusage of prompt engineering techniques (PETs) to",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 1.8284110047839826,
+    "content": "comprehensive methodology for mea-\nsuring LLM energy consumption is beyond this paper’s scope,\nwe focus on reducing these emissions through efficient PETs.\nBy utilizing custom tags, we aim to lower energy consumption\nin LLMs used for code-related tasks, offering an approach that\nbalances sustainability with performance.\n\nCodeXGlue\nDataset1\nLlama 3PET Selector Prompt Augmenter2 3\n 4\nCode Carbon \nEn",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 1.7770977127568388,
+    "content": "hows that the proposed approach succeed in reducing the\ncarbon emission even though the region may impact the ob-\ntained results. Liu and Yin [37] investigate how to reduce and\nmeasure the consumption of pre-trained models by combining\nfine-tuning and efficient tokenizers. In particular, BERT, Distil-\nBERT, and T5 models are compared using SQuAD benchmark[38] in terms of accuracy and carbon emissi",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 1.6333249120542226,
+    "content": "Prompt engineering and its implications on the\nenergy consumption of Large Language Models\nRiccardo Rubei\nUniversity of L’Aquila\nL’Aquila, Italy\nriccardo.rubei@univaq.itAicha Moussaid\nUniversity of L’Aquila\nL’Aquila, Italy\naicha.moussaid@student.univaq.itClaudio Di Sipio\nUniversity of L’Aquila\nL’Aquila, Italy\nclaudio.disipio@univaq.itDavide Di Ruscio\nUniversity of L’Aquila\nL’Aquila, Italy\ndavide.d",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 1.5491216918770876,
+    "content": ".\nFig. 3: Energy consumption with different prompt configurations.\nC0 C1 C2 C3 C4020406080100120140Exatch Match Absolute NumberPET\nZeroShot\nOneShot\nFewShot\n(a) Exact Match.\nC0 C1 C2 C3 C4020406080100120Edit DistancePET\nZeroShot\nOneShot\nFewShot (b) Edit Distance.\nFig. 4: LLMs accuracy with different prompt configurations.\nV. R ELATED WORK\nAssessing LLMs energy consumption: Jagannadharao et al.\n[36]",
+    "type": "text"
+  }
+]

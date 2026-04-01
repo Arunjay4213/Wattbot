@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 6.7239019764643135,
+    "content": "model parallelism (Narayanan et al., 2021;\nHuang et al., 2019; Li et al., 2020), speculative\ndecoding (Liu et al., 2024; Leviathan et al., 2023;\nChen et al., 2023, 2025), and disaggregated serving\n(Zhong et al., 2024).\nSolely optimizing system performance for speed\nis insufficient in characterizing and does not pro-\nvide insight into the model energy use and result-\ning carbon emissions of LLM inf",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.950277393110804,
+    "content": "y\nand generative Artificial Intelligence (AI) work-,\n,consumption (green) as compared with an unoptimized\n\"loads,\nincluding conversational AI and code\",\n,baseline PyTorch (purple) implementation.\ngeneration. We introduce a modeling approach,\nthat approximates real-world LLM workflows,\n,\"2025). However, the growing prevalence of LLMs\"\nthrough a binning strategy for input-output to-,\n,yields commens",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 4.90833003467888,
+    "content": "icators (Dehghani et al., 2022). Recent work has\",examine a variety of optimization techniques and\nexplored methods for explicitly reducing energy re-,evaluate on representative data corresponding to\nquirements and carbon emissions for LLM serving,classical NLP tasks as well as modern LLM de-\nvia disaggregated serving over heterogeneous hard-,ployment settings. We conclude that the effective-\n\"war",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 4.7088233357878275,
+    "content": "Sophia,\n*Equal contribution\nBurstGPT Azure Code Azure Conv.\nTask101102103Energy (kWh)\nTheoretical\nPyTorch\nvLLMFigure 1: Proper application of efficiency methods with\noptimized vLLM (orange) approaches the ideal energy\nconsumption (green) as compared with an unoptimized\nbaseline PyTorch (purple) implementation.\n2025). However, the growing prevalence of LLMs\nyields commensurate increases in the ener",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 4.7088233357878275,
+    "content": "athan et al., 2023;\",\n,ence energy use often rely on simplified deploy-\n\"Chen et al., 2023, 2025), and disaggregated serving\",\n,ment settings with limited sets of model architec-\n\"(Zhong et al., 2024).\",\n,tures and serving frameworks.\nSolely optimizing system performance for speed,\n\"is insufficient\nin characterizing and does not pro-\",\n,\"6\nConclusion\"\nvide insight into the model energy use and res",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 4.652095837218008,
+    "content": "\"to induce shorter sequence generations (Li et al.,\",ware framework implementations; and that opti-\n\"2024). However, the exact impact or improvements\",mizations cannot be applied uniformly.\nin energy requirements for latency-optimized meth-,\"Additionally, we conduct a case study of classi-\"\nods remains not fully characterized.,cal NLP tasks and real-world LLM inference work-\n,loads and find that p",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 4.5785516936302955,
+    "content": "rogeneous hard-\nware (Shi et al., 2024), system-wide scheduling\nand request routing to energy-optimized instances\n(Stojkovic et al., 2024b), and prompt directives\nto induce shorter sequence generations (Li et al.,\n2024). However, the exact impact or improvements\nin energy requirements for latency-optimized meth-\nods remains not fully characterized.\nEstimations and Measurement of of Energy Use\nin N",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 4.489828091041859,
+    "content": "died\ninference optimizations can reduce total energy use\nby up to 73% on the BurstGPT chat dataset.\nLimitations and Risks\nIn this work, we evaluate the energy efficiency and\ncarbon emissions of LLM inference as approxi-\nmated by total GPU power usage. Although GPUs\nthe majority of arithmetic operations required for\n9\n\ninference and operate at a higher TDP than other\ncomponents, we do not account f",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 4.2961680981524335,
+    "content": "Energy Considerations of Large Language Model Inference and Efficiency\nOptimizations\nJared Fernandez*1, Clara Na*1, Vashisth Tiwari*1,\nYonatan Bisk1,Sasha Luccioni2,Emma Strubell1\n1Carnegie Mellon University,2Hugging Face,\nCorrespondence: {jaredfern, clarana, vashisthtiwari}@cmu.edu\nAbstract\nAs large language models (LLMs) scale in size\nand adoption, their computational and environ-\nmental costs c",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 4.240619783802857,
+    "content": "a RTX A6000 Ada 300W 91.1 –\n128xAMD EPYC 7763 1TB Nvidia RTX A100-80 GB 300W 156 312\nTable 5: Node Hardware Specifications\n2123252729\nBatch size−12−10−8−6−4−202Energy Reduction (%)\n(a) A100 80GB PCIe\n202122232425262728\nBatch size−12.5−10.0−7.5−5.0−2.50.02.55.0Energy Reduction (%) (b) A6000 Ada\n202122232425262728\nBatch size−10.0−7.5−5.0−2.50.02.55.0Energy Reduction (%) (c) A6000\nFigure 9: Energy re",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 3.2240345259601644,
+    "content": "ity and industry as the,\n,Limitations and Risks\nscale of models and prevalence of deployment has,\n\"increased (Schwartz et al., 2020; Wu et al., 2022).\",\"In this work, we evaluate the energy efficiency and\"\nEstimations of the energy requirements and envi-,carbon emissions of LLM inference as approxi-\nronmental impact of LLMs has largely focused on,mated by total GPU power usage. Although GPUs\nestim",
+    "type": "table"
+  },
+  {
+    "rank": 12,
+    "score": 2.167322860935122,
+    "content": "Maud Texier, and Jeff Dean.\",\n,gpt: A real-world workload dataset to optimize llm\n\"2022.\nThe\ncarbon\nfootprint\nof machine\nlearn-\",\n,\"serving systems. Preprint, arXiv:2401.17644.\"\n\"ing training will plateau,\nthen shrink.\nPreprint,\",\narXiv:2204.05149.,\n,\"Grant Wilkins, Srinivasan Keshav, and Richard Mortier.\"\n\"Jack W Rae, Anna Potapenko, Siddhant M Jayakumar,\",2024. Offline energy-optimal llm serving",
+    "type": "table"
+  },
+  {
+    "rank": 13,
+    "score": 2.15798189096485,
+    "content": "0,1\n\"Deepak Narayanan, Mohammad Shoeybi, Jared Casper,\",\"Tianyao Shi, Yanran Wu, Sihang Liu, and Yi Ding. 2024.\"\n\"Patrick LeGresley, Mostofa Patwary, Vijay Kor-\",Greenllm: Disaggregating large language model serv-\n\"thikanti, Dmitri Vainbrand,\nPrethvi Kashinkunti,\",ing on heterogeneous gpus for lower carbon emis-\n\"Julie Bernauer, Bryan Catanzaro, et al. 2021.\nEf-\",sions. arXiv preprint arXiv:2412.2",
+    "type": "table"
+  },
+  {
+    "rank": 14,
+    "score": 2.1304359194268994,
+    "content": "rating the science of lan-,arXiv:2406.14066.\nguage models. arXiv preprint arXiv:2402.00838.,\n,\"Alexandra Sasha Luccioni, Sylvain Viguier, and Anne-\"\n\"Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song,\",Laure Ligozat. 2023. Estimating the carbon footprint\n\"Ruoyu Zhang, Runxin Xu, Qihao Zhu, Shirong Ma,\",\"of bloom, a 176b parameter language model. Journal\"\n\"Peiyi Wang, Xiao Bi, et al. 2025. Deepseek",
+    "type": "table"
+  },
+  {
+    "rank": 15,
+    "score": 2.0774011527622815,
+    "content": ", Adam Paszke, Jeff Smith,\nBrian Vaughan, Pritam Damania, et al. 2020. Pytorchdistributed: Experiences on accelerating data parallel\ntraining. arXiv preprint arXiv:2006.15704 .\nXiaoxuan Liu, Cade Daniel, Langxiang Hu, Woosuk\nKwon, Zhuohan Li, Xiangxi Mo, Alvin Cheung,\nZhijie Deng, Ion Stoica, and Hao Zhang. 2024.\nOptimizing speculative decoding for serving large\nlanguage models using goodput. arXi",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 2.060304841543708,
+    "content": "ference with,\n,\"Fan, et al. 2024. The llama 3 herd of models. arXiv\"\nsarathi-serve. Proceedings of 18th USENIX Sympo-,\n,preprint arXiv:2407.21783.\nsium on Operating Systems Design and Implementa-,\n\"tion, 2024, Santa Clara.\",\n,\"Ahmad Faiz, Sotaro Kaneda, Ruhan Wang, Rita Osi,\"\n,\"Prateek Sharma, Fan Chen,\nand Lei\nJiang. 2023.\"\n\"Jordan Aljbour, Tom Wilson, and P Patel. 2024. Power-\",\n,Llmcarbon: Mode",
+    "type": "table"
+  },
+  {
+    "rank": 17,
+    "score": 2.0518617761646016,
+    "content": "d car-\"\n\"agement opportunities\nfor\nllms\nin the cloud.\nIn\",\n,\"bon considerations of fine-tuning BERT.\nIn Find-\"\n\"Proceedings of\nthe 29th ACM International Con-\",\n,\"ings of\nthe Association for Computational Linguis-\"\nference on Architectural Support for Programming,\n,\"tics: EMNLP 2023, pages 9058–9069, Singapore.\"\n\"Languages and Operating Systems, Volume 3, pages\",\n,Association for Computational Lin",
+    "type": "table"
+  },
+  {
+    "rank": 18,
+    "score": 2.0434876272085716,
+    "content": "ng library. Advances in\nneural information processing systems , 32.\nPratyush Patel, Esha Choukse, Chaojie Zhang, Íñigo\nGoiri, Brijesh Warrier, Nithish Mahalingam, and Ri-\ncardo Bianchini. 2024. Characterizing power man-\nagement opportunities for llms in the cloud. In\nProceedings of the 29th ACM International Con-\nference on Architectural Support for Programming\nLanguages and Operating Systems, Vol",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 2.0351815543110967,
+    "content": "InInternational Conference on Learning Representa-\ntions .\nAbhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey,\nAbhishek Kadian, Ahmad Al-Dahle, Aiesha Letman,\nAkhil Mathur, Alan Schelten, Amy Yang, Angela\nFan, et al. 2024. The llama 3 herd of models. arXiv\npreprint arXiv:2407.21783 .\nAhmad Faiz, Sotaro Kaneda, Ruhan Wang, Rita Osi,\nPrateek Sharma, Fan Chen, and Lei Jiang. 2023.\nLlmcarbon: Modeling th",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 2.0187703429986863,
+    "content": "erence. In\n2023 IEEE High Performance Extreme Computing\nConference (HPEC) , pages 1–9. IEEE.\nRoy Schwartz, Jesse Dodge, Noah A Smith, and Oren\nEtzioni. 2020. Green ai. Communications of the\nACM , 63(12):54–63.\nArman Shehabi, Alex Hubbard, Alex Newkirk, Nuoa\nLei, Md Abu Bakkar Siddik, Billie Holecek, Jonathan\nKoomey, Eric Masanet, Dale Sartor, et al. 2024. 2024\nunited states data center energy usag",
+    "type": "text"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 4.753906277995125,
+    "content": "e-,\n,cloud provider to see the impact on cost and throughput.\nsources cost-effectively and have additional reliability. In our sce-,\n,(1) No inter-cloud throughput penalty. Figure 10 shows the\n\"nario, we are interested in what throughput per $ can be expected\",\n,throughput and granularity of each multi-cloud experiment. CV and\n\"and if any barriers prevent multi-cloud training. However, one can\",\n,",
+    "type": "table"
+  },
+  {
+    "rank": 2,
+    "score": 4.4825239094888225,
+    "content": "ibuted training setups.\n5 MULTI-CLOUD PERFORMANCE\nUsing multiple cloud providers makes sense if we want to use re-\nsources cost-effectively and have additional reliability. In our sce-\nnario, we are interested in what throughput per $ can be expected\nand if any barriers prevent multi-cloud training. However, one can\nalso consider the data center’s carbon footprint, which can change\ndepending on th",
+    "type": "text"
+  },
+  {
+    "rank": 3,
+    "score": 4.0331160625179665,
+    "content": "me should increase, and the US-EU communication\",\"cheaper than the DGX-2, and 8xT4, which is 58% cheaper than DGX-\"\nbottleneck should slow us down to the same extent as the E-B-1,\"2, while being 37% slower (Figure 1). The CV model can be scaled\"\n\"experiment. This reduction is a Hivemind-specific anomaly, as it\",\"more easily due to its initially high granularity, which makes the very\"\n\"uses a singl",
+    "type": "table"
+  },
+  {
+    "rank": 4,
+    "score": 4.003707094656505,
+    "content": "is case, we study the throughput of experiments\nwith resources in the us-west andeu-central regions (B-2,4,6,8).\nThe B-2 experiment has one VM in the US and one in the EU,\nachieving a virtually identical throughput of 68.4 (US-EU) versus 70.1\n(US) at CV (Figure 8a). Our maximum peak egress rate of 250 Mb/s\ndoes not affect the CV experiments, while the US experiments peaked\nat 1.1 Gb/s. The reducti",
+    "type": "text"
+  },
+  {
+    "rank": 5,
+    "score": 4.003707094656505,
+    "content": "e our band-\"\n\"does not affect the CV experiments, while the US experiments peaked\",width measurements were 210 and 130 Mb/s from the US to the EU\n\"at 1.1 Gb/s. The reduction in bandwidth penalizes NLP harder, where\",\"and ASIA, respectively (Table 3), this suggests that the averaging\"\nwe are 16% slower with 177.3 SPS (US-EU) compared to the intra-zone,was done over the US node and not an N-to-N all",
+    "type": "table"
+  },
+  {
+    "rank": 6,
+    "score": 3.932027487488362,
+    "content": "more peers. Let us\ncompare the granularity of the experiments for E-B (Figure 13b),\nwhich uses T4 GPUs in the US as an additional cloud resource. Both\nthe computation and communication time decrease with the number\nof GPUs, even increasing the granularity from 1.98 at E-B-2 to 2.15\nat E-B-4. This is surprising since, usually, with more peers, the com-\nmunication time should increase, and the US-EU",
+    "type": "text"
+  },
+  {
+    "rank": 7,
+    "score": 0.0,
+    "content": "How Can We Train Deep Learning Models Across\nClouds and Continents? An Experimental Study\nAlexander Erben\nTechnical University of Munich\nalex.erben@tum.deRuben Mayer\nUniversity of Bayreuth\nruben.mayer@uni-bayreuth.deHans-Arno Jacobsen\nUniversity of Toronto\njacobsen@eecg.toronto.edu\nABSTRACT\nThis paper aims to answer the question: Can deep learning models\nbe cost-efficiently trained on a global mar",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "e compare the scalability potential for hybrid-cloud scenarios by\nadding cloud resources to on-premise hardware to improve training\nthroughput. Finally, we show how leveraging spot instance pricing\nenables a new cost-efficient way to train models with multiple cheap\nVMs, trumping both more centralized and powerful hardware and\neven on-demand cloud offerings at competitive prices.\nPVLDB Reference F",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "whether to invest in on-premise hardware or move to the\ncloud for deep learning (DL) is not easy. Wanting to scale existing\ninfrastructure means paying upfront, as combining cloud and on-\npremise is not an option with popular DL frameworks due to needing\na dedicated high-bandwidth interconnect. To enabled model- and\ndata-parallelism, current state-of-the-art accelerators have band-\nwidths of 900 G",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "educed rate, typically at\na 40-90% discount (Section 1), but with the drawback that the VM\ncan be terminated at any time if another customer is willing to pay\nthe on-demand price [ 33]. Unfortunately, popular DL frameworks\nhave not been developed with failure semantics in mind and cannot\nadequately deal with peers that fail [ 12]. While services like Amazon\nSagemaker [ 14] and projects like Skypil",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "4.0/ to view a copy of\nthis license. For any use beyond those covered by this license, obtain permission by\nemailing info@vldb.org. Copyright is held by the owner/author(s). Publication rights\nlicensed to the VLDB Endowment.\nProceedings of the VLDB Endowment, Vol. 17, No. 6 ISSN 2150-8097.\ndoi:10.14778/3648160.3648165Table 1: Average us-west cloud pricing in April ’23.\nTypeCloudGC AWS Azure\nT4 Spo",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "fic (inter-region) OCE 0.08 $/GB 0.01 $/GB 0.08 $/GB\nTraffic ANY-OCE 0.15 $/GB 0.02 $/GB 0.08 $/GB\nTraffic (between continents) 0.08 $/GB 0.02 $/GB 0.02 $/GB\n2\n4\n6\n8\n10\nCost in $ per 1M Samples\n0\n500Samples per Second\nDGX-2 DGX-2\n8xT4 8xT4\n1xT4 1xT48xA10\n1xA10DDP 4xT4 DDP 4xT4Instance Type\nSpot\nOn-Demand\nFigure1:CosttothroughputtradeoffforConvNextLargeatdif-\nferent instance types. Our training set",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "aining, Hivemind [ 39], which inherently deals with peers\nthat can stop running at any time. While there is research on how\nHivemind can be used for training on spot VMs [ 17,37,38], it does not\ncompare the cost-throughput tradeoff for different cloud offerings or\nperform ablation studies on geographic distribution or model sizes.\nTo motivate this new possibility, we trained the ConvNextLarge\nmode",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "setup. The single node (1xT4,\n1xA10, DGX-2) experiments show the current state-of-the-art cost-\nthroughput ratio for training on GC and LambdaLabs. The DGX-2\nnode is the fastest, with a throughput of 413 SPS, but it also costs\n$6.30/h ($4.24/1M samples), shown by the horizontal and vertical\nlines. The single-accelerator experiments (1xT4, 1xA10) have a better\ncost-throughput ratio ($0.62/1M sample",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "2306.03163v4  [cs.LG]  2 Jun 2024\n\n(8xT4, 262 SPS, $1.77/1M samples) than using the DGX-2. Every\ncloud provider deals differently with how they price spot instances\nand network traffic (cf. Section 1) and has varying interruption rates\nfor different accelerators [ 23]. Being able to choose the best option\nwas not possible before, and having the option to combine older,\nmore available GPUs is a net",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "istributed spot training\nbecomes viable, what hardware can be used for it, and what the\nminimum bandwidth and latency are. We close this research gap by\nperforming a comprehensive analysis of multiple DL tasks from CV\nand NLP, breaking down how time is spent in each epoch, and com-\nparing them to non-distributed runs to quantify the advantages and\ndisadvantages of distributed spot training. We det",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "through training on up to four continents. For comparison\nof the models’ scalability and to show which of them can be trained\nin a distributed fashion, we introduce the granularity metric , the ratio\nof calculation to communication time, and show how it can be used\nfor predicting performance with different hardware setups. Finally,\nwe summarize our lessons on how to design geo-distributed spot\ntra",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "While we find perfor-\nmance penalties due to remote versus on-premise compute\nresources, the throughput still scales with increased comput-\ning power. By leveraging multiple spot instances with one\nT4 GPU each, we can be more cost-efficient than a DGX-2\nnode or the very competitively priced A10 offerings from\nLambdaLabs.\n(2)We investigate the suitability of geo-distributed train-\ning for various C",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "or effective training. This enables,\nfor the first time, distributed training of smaller million-\nparameter models (12M-560M) over <1 Gb/s bandwidth and\n>150ms latency networks.\n(3)We evaluate two different hybrid-cloud experimental\nsetups with consumer- and server-grade on-premise\nhardware and try to improve the throughput with a band-\nwidth of, at worst, 50 Mb/s to the cloud resources. While we\n",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "c to compare model suitability for distributed\nspot training and estimate training performance with ad-\nditional spot VMs. This provides guidance on the trade-off\nbetween performance and cost when using geo-distributed\nspot instances. To apply our findings, we perform a case-\nstudy on a state-of-the-art model from the ASR domain and\nachieve speedups on low-end hardware.\n2 DEEP LEARNING ON SPOT INS",
+    "type": "text"
+  }
+]

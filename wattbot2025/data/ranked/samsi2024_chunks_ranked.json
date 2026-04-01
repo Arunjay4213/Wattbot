@@ -1,0 +1,122 @@
+[
+  {
+    "rank": 1,
+    "score": 5.761047993181931,
+    "content": "f 250W. For\na 30% reduction in power from 250W to 175W, the inference\ntime increases by an average of 6.7% for a corresponding aver-\nage reduction in total energy by 23.21%. However, a reduction\nin power cap to 150W results in a much more significant\n(19.49%) increase in average inference time. These results\nshow that power capping as an energy savings intervention\ncan be effective when applied ap",
+    "type": "text"
+  },
+  {
+    "rank": 2,
+    "score": 4.9241076879065035,
+    "content": "model performance\n\"Table III shows the relative change in total\ninference time,\",\n,\"at 250W to stay consistent with the settings in the rest of\nthe\"\n\"energy and token rate under power\ncap conditions. Results\",\n,experiments described here.\nshown here are calculated relative to a power cap of 250W. For,\n\"a 30% reduction in power from 250W to 175W,\nthe inference\",\ntime increases by an average of 6.7%",
+    "type": "table"
+  },
+  {
+    "rank": 3,
+    "score": 4.577956452864955,
+    "content": "laws [2], [3]\nto safety concerns arising from the fact that these models are\ncapable of hallucinating or fabricating information, concerns\nabout these models in the educational and medical domain [4],\n[5], their carbon footprint, and many more.\nIn this paper, we focus primarily on understanding the\nsignificant amount of resources—time, computation, and\nenergy—required for using and deploying some ",
+    "type": "text"
+  },
+  {
+    "rank": 4,
+    "score": 3.3209927267222894,
+    "content": "ecially the compute and energy costs required for\",\"cal concerns ranging from violations of copyright laws [2], [3]\"\n\"inference.\nInference\nenergy costs already receive\nless attention\",\"to safety concerns arising from the fact\nthat\nthese models are\"\nthan the energy costs of training LLMs—despite how often these,\n,\"capable of hallucinating or\nfabricating information, concerns\"\n\"large models are call",
+    "type": "table"
+  },
+  {
+    "rank": 5,
+    "score": 3.240130965964572,
+    "content": "amically partition GPU resources. This opens up the\npotential to optimally partition high-end GPUs such as the\nA100s or H100s to co-locate multiple LLMs for inference—\nwith the potential of only minimal degradation to computa-\ntional performance.\nFinally, as AI compute requirements have increased, there\nis an increasing focus on approaches to reduce the carbon\nand energy footprints of datacenters ",
+    "type": "text"
+  },
+  {
+    "rank": 6,
+    "score": 3.1756943506822815,
+    "content": "inference\nenergy\ncosts\nof\ndifferent\nsizes\nof\",\nLLaMA—a recent state-of-the-art LLM—developed by Meta AI,\"discuss the carbon footprint of language models such as BERT,\"\n\"on two generations of popular GPUs\n(NVIDIA V100 & A100)\",\"ELMo,\nand precursors\nto larger models\nsuch as GPT-3 and\"\n\"and two datasets\n(Alpaca\nand GSM8K)\nto\nreflect\nthe diverse\",\n,GPT-4 that power some of the popular AI chatbots toda",
+    "type": "table"
+  },
+  {
+    "rank": 7,
+    "score": 3.1525023355970014,
+    "content": "ngly important\nconcern. In prior work, we have shown [25] that power capping\nGPUs during training of language models such as BERT [26]\nis an effective way of reducing the energy consumed training\nthese models. While the work in [25] focused on model\ntraining, in this paper, we focus on inference. In order to study\nthe effect of power capping on inference using large language\nmodels, we ran a limit",
+    "type": "text"
+  },
+  {
+    "rank": 8,
+    "score": 0.0,
+    "content": "From Words to Watts: Benchmarking the Energy\nCosts of Large Language Model Inference\nSiddharth Samsi∗§, Dan Zhao†, Joseph McDonald∗, Baolin Li‡, Adam Michaleas∗,\nMichael Jones∗, William Bergeron∗, Jeremy Kepner∗, Devesh Tiwari‡, Vijay Gadepally∗\n∗MIT,†NYU,‡Northeastern University\nAbstract —Large language models (LLMs) have exploded in\npopularity due to their new generative capabilities that go far",
+    "type": "text"
+  },
+  {
+    "rank": 9,
+    "score": 0.0,
+    "content": "receive less attention\nthan the energy costs of training LLMs—despite how often these\nlarge models are called on to conduct inference in reality (e.g.,\nChatGPT). As these state-of-the-art LLMs see increasing usage\nand deployment in various domains, a better understanding\nof their resource utilization is crucial for cost-savings, scaling\nperformance, efficient hardware usage, and optimal inference\n",
+    "type": "text"
+  },
+  {
+    "rank": 10,
+    "score": 0.0,
+    "content": "eloped by Meta AI\non two generations of popular GPUs (NVIDIA V100 & A100)\nand two datasets (Alpaca and GSM8K) to reflect the diverse\nset of tasks/benchmarks for LLMs in research and practice.\nWe present the results of multi-node, multi-GPU inference using\nmodel sharding across up to 32 GPUs. To our knowledge, our\nwork is the one of the first to study LLM inference performance\nfrom the perspective ",
+    "type": "text"
+  },
+  {
+    "rank": 11,
+    "score": 0.0,
+    "content": "ng text, images, and audio from which it’s\ntrained on. While GenAI is not entirely new, the recent\napplication and broad availability of this technology via tools\nsuch as Stable Diffusion [1], OpenAI’s ChatGPT, Google’s\nBard and integration into the Microsoft Bing search engine\nhas captured the imagination of the world and led to a massive\nsurge in interest in deploying these types of models acros",
+    "type": "text"
+  },
+  {
+    "rank": 12,
+    "score": 0.0,
+    "content": "tive Agreement Number FA8750-19-2-1000. Any opinions, findings,\nconclusions or recommendations expressed in this material are those of the\nauthor(s) and do not necessarily reflect the views of the Assistant Secretary\nof Defense for Research and Engineering, or the United States Air Force.\nThe U.S. Government is authorized to reproduce and distribute reprints for\nGovernment purposes notwithstanding",
+    "type": "text"
+  },
+  {
+    "rank": 13,
+    "score": 0.0,
+    "content": "3 and\nGPT-4 that power some of the popular AI chatbots today. Oth-\ners have also looked to larger language models; for instance,\nthe largest NVIDIA Megatron-LM model required 3,072 A100\nGPUs [7]–[9] for its training. While the complete details (time\nand resources used) of compute required for training GPT-\n3/4 are not available, several estimates for training [10], [11]\nand inference are publicly ",
+    "type": "text"
+  },
+  {
+    "rank": 14,
+    "score": 0.0,
+    "content": "re of energy costs and their likely larger impact\non the environment [13]—especially since model inference\ncalls can occur more frequently than training/fine-tuning for\nreal-world deployments and applications.\nWe present the results of our inference experiments on\nLLaMA [14]: an open sourced pre-trained large language\nmodels by Meta AI. The LLaMA model is available in a\nnumber of sizes but, in mos",
+    "type": "text"
+  },
+  {
+    "rank": 15,
+    "score": 0.0,
+    "content": "ngle node instances using smaller\nvariants of the model as a baseline comparison. We hope our\nwork will help illustrate some of the compute performance\nand energy utilization characteristics of LLM inference. We\nalso hope that our experiments, analysis, and data on real-arXiv:2310.03003v1  [cs.CL]  4 Oct 2023\n\nworld hardware will spur further analysis, benchmarking,\nand more open dissemination of ",
+    "type": "text"
+  },
+  {
+    "rank": 16,
+    "score": 0.0,
+    "content": "wth in both\nthe speed of development as well as complexity of ever larger\nmodels. Over the past several years, competition has been\nfierce and the pace un-relenting as AI research groups across\nprivate companies and academic institutions have developed\nnew models whose performance continues to improve on a\nwide suite of natural language benchmarks but still requires\nsignificant amounts of compute ",
+    "type": "text"
+  },
+  {
+    "rank": 17,
+    "score": 0.0,
+    "content": "te encoder-\ntype language models, green indicates encoder-decoder hybrid\nmodels, and the dark grey indicates decoder-style models. The\nbar-plot on the bottom right tallies the number of open/closed\nsource models developed by different companies/institutions.\nWe study LLaMA (outlined by the red arrow and red circle in\nthe diagram above) as an example of one of the more recent,\nmodern, and state-of-",
+    "type": "text"
+  },
+  {
+    "rank": 18,
+    "score": 0.0,
+    "content": "h their own respective training setup,\narchitectural modifications, purposes or use-cases, etc. Large\nlanguage models and foundation models are best known for\ntheir sheer size, resource intensity (i.e., the amount of com-\nputational resources required for training/inference), and theirimpressive capabilities in tasks that include, but may not be\nlimited to, natural language.\nTypically, LLMs refer ",
+    "type": "text"
+  },
+  {
+    "rank": 19,
+    "score": 0.0,
+    "content": "er-decoder architecture. Large language\nmodels can be considered a subset of large foundation models;\nwhereas LLMs focus almost exclusively on language data\nfor their inputs and outputs, large foundation models include\nmodels that allow for multiple modalities such as image and\ntext (e.g., GPT-4) or other modalities such as image generation\n(e.g., Stable Diffusion) or video generation (e.g., MidJo",
+    "type": "text"
+  },
+  {
+    "rank": 20,
+    "score": 0.0,
+    "content": "e originally introduced in [16]. Most notably, the\nperformance of LLaMA rivaled or exceeded that of GPT-3 on\nmany NLP benchmarks and remains competitive with other\nstate-of-the-art LLMs [14]. Like other LLMs, LLaMA was\npre-trained on a large collection of data including but not\nlimited to CommonCrawl, Github, Wikipedia, etc. As of spring\n2023, alongside other recently timed releases of state-of-th",
+    "type": "text"
+  }
+]
