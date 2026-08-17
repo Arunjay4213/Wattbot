@@ -1,0 +1,462 @@
+[
+  {
+    "type": "text",
+    "content": "Mélange: Cost Efficient Large Language Model\nServing by Exploiting GPU Heterogeneity\nTylerGriggs∗ XiaoxuanLiu∗ JiaxiangYu DoyoungKim\nUCBerkeley UCBerkeley NationalUniversityofSingapore UCBerkeley\nWei-LinChiang AlvinCheung IonStoica\nUCBerkeley UCBerkeley UCBerkeley\nAbstract\nLargelanguagemodels(LLMs)areincreasinglyintegratedintomanyonlineser-\nvices,yettheyremaincost-prohibitivetodeployduetotherequirementofexpensive\nGPUinstances. PriorworkhasaddressedthehighcostofLLMservingbyimprov-\ningtheinferenceengine,butlessattentionhasbeengiventoselectingthemost\ncost-efficientGPUtype(s)foraspecificLLMservice. Thereisalargeandgrowing\nlandscapeofGPUtypesand, withintheseoptions, highercostdoesnotalways\nleadtoincreasedperformance. Instead,throughacomprehensiveinvestigation,we",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": ", highercostdoesnotalways\nleadtoincreasedperformance. Instead,throughacomprehensiveinvestigation,we\nfindthatthreekeyLLMservicecharacteristics(requestsize,requestrate,SLO)\nstrongly influence GPU cost efficiency, and differing GPU types are most cost\nefficientfordifferingLLMservicesettings. Asaresult, themostcost-efficient\nallocationforagivenserviceistypicallyamixofheterogeneousGPUtypes. Based\nonthisanalysis,weintroduceMélange,aGPUallocationframeworkthatnavigates\nthesediverseLLMservicecharacteristicsandheterogeneousGPUoptionspaceto\nautomaticallyandefficientlyderivetheminimal-costGPUallocationforagiven\nLLMservice. WeformulatetheGPUallocationtaskasacost-awarebinpacking\nproblemwhereGPUsarebinsanditemsareslicesoftheserviceworkload. Our",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "cationtaskasacost-awarebinpacking\nproblemwhereGPUsarebinsanditemsareslicesoftheserviceworkload. Our\nformulation’sconstraintsaccountforaservice’suniquecharacteristics,allowing\nMélangetobeflexibletosupportdiverseservicesettingsandheterogeneity-aware\ntoadapttheGPUallocationtoaspecificservice. Comparedtousingonlyasingle\nGPU type, Mélange reduces deployment costs by up to 77% in conversational\nsettings,33%indocument-basedsettings,and51%inamixedsetting.\n1 Introduction\nLargelanguagemodels(LLMs)[35,43,44]areincreasinglyintegratedintomanyonlineservices,\nincludingsearchengines[37,24],chatbots[34],andvirtualassistants[28,47,48]. Theseservicesare\noftenhostedbydeployingmodelsoncloudresources. However,deployingLLMsisexpensive. The",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "heseservicesare\noftenhostedbydeployingmodelsoncloudresources. However,deployingLLMsisexpensive. The\nsubstantialsizeandcomputationaldemandsofLLMsrequiretheuseofcostlyhardwareaccelerators,\ntypicallyGPUs2Forexample,servingLlama2-70batBF16precisionrequires2NVIDIAA100-80GB\nGPUs,whichcostsover$5,200permonthinon-demandrentalcostsonmajorcloudplatforms.\nPrior work [8, 16, 54, 57, 60] addresses the high cost of LLM serving by focusing on inference\nthroughput,butlessattentionhasbeengiventoselectingthemostcost-efficientGPUtype(s)fora\nspecificLLMservice. Thelargeandgrowinglandscapeofhardwareaccelerators—rangingfrom\nNVIDIAGPUs[33]andAMDGPUs[45]toGoogleTPUs[17],CPUs[23],andothers[4]—offers\n∗Equalcontribution\n2Forbrevity,weuse“accelerator”and“GPU”interchangeablyinthiswork.\nPreprint.Underreview.\n4202\nluJ",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ion\n2Forbrevity,weuse“accelerator”and“GPU”interchangeablyinthiswork.\nPreprint.Underreview.\n4202\nluJ\n22\n]CD.sc[\n4v72541.4042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "awidearrayofchoiceswithvaryingperformancespecificationsandon-demandcloudcosts. Within\nthesehardwareoptions,highercostdoesnotalwaysleadtoincreasedperformance. Toinvestigatethis\nphenomenonfurther,weexamineGPUcostefficiency,definedbasedoncommonpricingmodels[34]\nasthenumberofinputandoutputtokensprocessedperdollarcost(T/$)ofon-demandcloudGPUs.\nWefindthatGPUcostefficiencyisdeterminedbythreekeyLLMservicecharacteristics:\n1. RequestSize: AnLLMrequest’ssizeismadeupofitsinputandoutputtokenlengths. Forsmall\nrequestsizes,lower-endGPUsgenerallyproducegreaterT/$thanhigh-endGPUs.\n2. RequestRate: Tomaximizeutilization,provisionedGPUcapacityshouldalignwithrequest\nvolume. Atlowrequestrates,servicescanreducecostsbyright-sizingfromexpensivehigh-end\nGPUstocheaplow-endGPUs.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Atlowrequestrates,servicescanreducecostsbyright-sizingfromexpensivehigh-end\nGPUstocheaplow-endGPUs. Further,leveragingamixofGPUtypesfacilitatesfiner-grained\nresourcescalingtobettermatchrequestvolume.\n3. Service-level Objective: Services typically establish latency SLOs to ensure service quality.\nBecauselow-endGPUsgenerallyincurhigherlatencythanhigh-endGPUs,high-endGPUsare\nrequiredforstringentSLOswhilelow-endGPUscanreducecostsinloose-SLOsettings.\nConsideraGPUallocationstrategythatintegrateseachofthethreeobservationsabove: high-cost\nA100 GPUs handle large requests and meet stringent SLOs, but lower-cost A10G GPUs serve\nsmallerrequests(1)andlooserSLOs(3)athigherT/$. Then,duringperiodsoflowserviceactivity,\ntheserviceright-sizestotheeven-cheaperL4GPUtomaintainserviceavailabilityatlowestcost",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "rviceactivity,\ntheserviceright-sizestotheeven-cheaperL4GPUtomaintainserviceavailabilityatlowestcost\n(2). Consequently,wefindthatGPUheterogeneitypresentsopportunitiesforincreasingGPUcost\nefficiency, but such opportunities are highly dependent on LLM service characteristics. The key\nchallenge, then, is creating a GPU allocation framework that can navigate the diversity of LLM\nservices(requestsizes,requestrates,latencySLOs)andGPUtypestofindtheoptimalGPUallocation.\nFigure1: Mélangeframework.\nWe present Mélange3 (Fig. 1), a GPU allocation framework that derives the minimal-cost GPU\nallocationforagivenLLMservice. InMélange,eachGPUtype(1a)passesthroughaone-time\nofflineprofilingstep(2)tomeasureGPUperformanceacrossrequestsizesandrates. Then,given",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "roughaone-time\nofflineprofilingstep(2)tomeasureGPUperformanceacrossrequestsizesandrates. Then,given\ntheprofilingresultsandanLLMservicedefinition(1b),Mélange’sobjectiveistochooseaGPU\nallocation for the service workload that minimizes cost. This task is a natural application of the\ncost-awarebinpackingproblem, wherebinsareGPUsanditemsareslicesoftheworkload. We\nformulatetheproblemasanintegerlinearprogram(ILP)andefficientlysolvewithanoff-the-shelf\nsolver(3). Uponsolution,MélangeproducestheGPUallocationthatcanservetheLLMserviceat\nminimalcostwhileadheringtotheserviceSLO(4).\nMélange’sstrengthstemsfromtwokeyproperties. First,itisheterogeneity-aware. Ouranalysis\nshowsthatrequestsize,requestrate,andSLOsjointlyimpactcostefficiency,buttheirimpactsdiffer\nforeachGPUtype.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "thatrequestsize,requestrate,andSLOsjointlyimpactcostefficiency,buttheirimpactsdiffer\nforeachGPUtype. Mélange’sprofilingandILPformulationaccountforeachofthesedimensions,\nenabling efficient navigation of heterogeneous GPU types given a service specification. Second,\nMélangeisflexible. Theinputs(1a, 1b)canbeflexiblymodifiedtoincludenewgenerationsof\nGPUsoralternativedefinitionsofSLO,ensuringMélangeiseffectivefordiverseservices. Further,to\nthebestofourknowledge,MélangeisthefirstGPUallocationframeworkthatutilizesmultipleGPU\ntypesforLLMserving. Insummary,thispapermakesthefollowingcontributions:\n• We analyze three key LLM service characteristics and their influence on GPU cost efficiency:\nrequestsize,requestrate,andlatencySLO(§4).\n3MélangeisFrenchfor“mixture”\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "e,requestrate,andlatencySLO(§4).\n3MélangeisFrenchfor“mixture”\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "• WeintroduceMélange,anallocationframeworkthatautomaticallyderivestheminimal-costGPU\nallocationforagivenLLMservicewhilesatisfyinganSLOrequirement(§5).\n• WeevaluateMélangeacrossfourGPUtypes—NVIDIAL4,A10G,A100,andH100. Mélange\nreducescostsby9-77%forshort-contexttasks(interactivechats),2-33%forlong-contexttasks\n(document-based),and4-51%inmixed-contextworkloads(§6).\n2 RelatedWork\n2.1 LLMInferenceOptimization\nAsignificantbodyofresearchhasfocusedonoptimizingLLMinferenceefficiency. Onestream\nconcentratesonmemoryoptimization,particularlythroughimprovedkey-valuecachereuse[56]and\nmanagementstrategies[19]. Anotheravenueseekstominimizelatency,suchasschedulingoptimiza-\ntion[51,1,46],speculativedecoding[20,18],kerneloptimization[8,40]andearlyexiting[41,59].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "goptimiza-\ntion[51,1,46],speculativedecoding[20,18],kerneloptimization[8,40]andearlyexiting[41,59].\nAdditionaloptimizationsincludequantization[10,21,49,50]andsparsification[9,52]. Insteadof\nalteringinferencelogic,ourworkassumesafixedinferenceengineconfigurationandconcentrateson\nreducingLLMdeploymentcostsbychoosingcost-effectiveGPUinstancetypes.\n2.2 MachineLearningwithCloudResources\nRecentstudieshaveexploredvariousstrategiesforreducingthecostofmachinelearning(ML)infer-\nenceortraining. Severalfocusonutilizingspotinstances[42,12,53,11],whichiscomplementaryto\nourwork. Otherworktargetsdeploymentonheterogeneousresources[5,6,30,26,27],butfocuses\nprimarilyonmodeltrainingratherthanserving. Also,lveragingserverlessinstancesforinference\ncostreductionhasbeenexaminedin[2].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "gratherthanserving. Also,lveragingserverlessinstancesforinference\ncostreductionhasbeenexaminedin[2]. Nonetheless,thesepriorworkpredominantlyconcentrate\nonmachinelearningpriortotheadventofLLMs,whichweshowtohaveuniquecharacteristicsthat\nsignificantlyimpactcostefficiency. Morerecentstudies,suchas [25,15],focusonLLMs,butthey\nproposestrategiesforreducingcostsviaoptimalmigrationplansandparallelismwithheterogeneous\nresources. They do not identify key LLM service characteristics that impact cost efficiency and\nconsider them in GPU deployment, which our work highlights. Another line of work [58, 36]\nexploressplittingLLMinferenceintoitstwophases(prefillanddecode)andperformingthetwo\nphasesonseparatenodes,perhapswithdifferentGPUtypes. Ourworkshowsthat,evenwithina",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ndperformingthetwo\nphasesonseparatenodes,perhapswithdifferentGPUtypes. Ourworkshowsthat,evenwithina\nphase,thebestGPUtypecanchangebasedonLLMservicespecifications.\n3 Background\n3.1 LLMRequestSizeVariance\n85X\n(a)LLaMA-7B (b)LLaMA-70B\nFigure2: Requestlatencyofdifferentinput/outputlengthsonA100-80G.\nUnliketraditionalmachinelearningworkloads,LLMtasksexhibitsignificantvarianceinrequest\nsizes,definedbyinputandoutputlengths. Forexample,ResNet[13]requiresafixed-dimensioninput\n(imagesize)andgeneratesafixed-dimensionoutput(classificationsize). Conversely,transformer-\nbasedlanguagemodelsareflexibletosupportvariable-lengthpromptsandproducevariable-length\ngenerationsequences. Forinstance,Figure10illustratestherequestsizedistributionsofChatbot",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ble-length\ngenerationsequences. Forinstance,Figure10illustratestherequestsizedistributionsofChatbot\nArena,demonstratingtheextensivediversityofrequestsizesinpracticalscenarios. Asaresult,high\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "(a)Equivalentinputandoutputlengths (b)Inputandoutputlengthsvaryindependently\nFigure3: Figure(a)depictsA10GandA100’srelativeT/$acrossrequestsizes. Figure(b)expands\n(a)intoseparateinputandoutputlengthdimensions. TilecolorsindicatewhichGPUachieveshigher\nT/$,andvaluesrepresentthepercentincreaseofT/$relativetothelesscostefficientGPU.\nvarianceinrequestsizesintroducessignificantvariationinrequestlatency. AsillustratedinFigure2,\nrequestlatencycanincreaseby110×whentheinput/outputlengthexpandsfrom25tokensto2000\ntokensfortheLlama2-7BmodelservedonanA100GPU.Consequently,itiscrucialtorecognize\nthatLLMrequests,unlikenon-autoregressivemodels,imposevariedloadsonGPUresources.\n4 GPUCostEfficiencyAnalysis\nInthissection,weanalyzeGPUcostefficiencyforLLMservicesbyservingLlama2-7bonNVIDIA",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "EfficiencyAnalysis\nInthissection,weanalyzeGPUcostefficiencyforLLMservicesbyservingLlama2-7bonNVIDIA\nA100[32]andA10G[31]asarepresentativeexample.WeshowthatGPUcostefficiencyisinfluenced\nbythreekeyLLMservicecharacteristics: requestsize(§4.2),latencySLO(§4.3),andrequestrate\n(§4.4). Foreachcharacteristic,wedemonstrateopportunitiestoexploittheheterogeneityofGPU\ntypestoincreasecostefficiencyandreducedeploymentcost. Eachplotistaggedwiththerequest\nsize,requestrate,andSLOusedtogeneratetheplot. WeusevLLM-0.2.7astheservingengine[19].\n4.1 Definitions\nService-level Objective (SLO). SLOs are performance targets that define the acceptable quality\nof service, and a specific SLO varies according to the service’s interactivity needs. As in prior\nwork[19,58,51],weusetheaverageTimePerOutputToken(TPOT)asourSLO.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "e’s interactivity needs. As in prior\nwork[19,58,51],weusetheaverageTimePerOutputToken(TPOT)asourSLO.TPOTisdetermined\nbydividingrequestlatencybythenumberofgeneratedtokens. SLOsareapplicationdependent:\nin-linecodeeditors(e.g.,GitHubCopilot[28])requiretightlatencydeadlinestosuggestreal-time\ncodeadditions,whereassummarizationservicesmaypermitadditionalprocessingtime. Thereare\nothercommondefinitionsofSLO,suchastimetofirsttokenandrequestlatency,andMélangeis\nflexibletosupporttheseandotheralternativedefinitionsofSLO.\nCostEfficiencyMetric. Weusetokensperdollar(T/$)tomeasureGPUcostefficiency,calculated\nby summing input and output tokens and dividing the total by the GPU’s on-demand rental cost\nfor a given time period. Cost models are orthogonal to Mélange; we chose this cost model for",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "l cost\nfor a given time period. Cost models are orthogonal to Mélange; we chose this cost model for\nitssimplicity,butcostefficiencycanbecomputedwithalternativeformulationswithoutaffecting\nMélange’sefficacy. Ingeneral,wederiveT/$byfindingtheinputandoutputtokenrateswhileatthe\nhighestGPUsaturationforwhichTPOTstillmeetsaspecifiedSLO.\n4.2 RequestSizeandCostEfficiency\nUnlike many traditional DNNs, LLMs exhibit significant variance in model request sizes (input\nandoutputlengths)[36]. Inthissection,weshowthatrequestsizevarianceinfluencesGPUcost\nefficiencyandcanevendeterminewhichGPUismostcostefficient.\nExperiment: We serve Llama2-7b on A10G and A100 GPUs, and derive each GPU’s T/$ at\nmaximumGPUsaturationacrossarangeofrequestsizes(Fig.3a). Interestingly,nosingleGPU",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "each GPU’s T/$ at\nmaximumGPUsaturationacrossarangeofrequestsizes(Fig.3a). Interestingly,nosingleGPU\nconsistentlydeliversthehighesttokensperdollar(T/$)acrossallrequestsizes. Instead,bothGPUs\naremostcostefficientinseparateregionsoftherequestsizespectrum. Forsmallerrequestsizes,\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "(a)Absolutebatchsizes (b)Dollar-normalizedbatchsizes\nFigure4: (a)depictstheabsolutebatchsizesofA10GandA100servingLlama2-7batmaximum\nsaturation,(b)reportsthesamebatchsizesdividedbyGPUcost,plottingwithrespecttoA10G.\n(a)BestGPUrelativetosecondbestGPU (b)BestGPUrelativetoworstGPU\nFigure5: ComparisonofL4,A10G,A100,andH100. TilecolorsindicatestheGPUwithgreatest\nT/$. (a)tilevaluesaretheT/$%-increaseofthebestGPUcomparedtothesecondbestforthattile.\n(b)comparesthebestGPUtotheworstGPU.Inblackboxes,onlyA100andH100arecompared.\n.\nA10Gexhibitsupto2.6×greaterT/$thanA100. Conversely,forlargerrequestsizes,A100achieves\nupto1.5×thecostefficiencyofA10G.\nWeextendthisexplorationtoshowtheseparateimpactsofinputandoutputlengthsonT/$(Fig.3b).",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "iciencyofA10G.\nWeextendthisexplorationtoshowtheseparateimpactsofinputandoutputlengthsonT/$(Fig.3b).\nEachdimensioninfluences costefficiencysimilarly: smaller sizesarebestserved onA10G,and\nlargersizesarebestservedonA100. Notethatthedifferencecanbesignificant,asusingasingle\nGPUtypetoserverequestsacrosstheentirerequestsizespacemissesopportunitiestoproduceupto\n72%moreoutputtokensforthesamecost. ThisrevealstheopportunitytouseamixofGPUtypesto\nserverequestsforwhichtheyaremostcosteffective.\nSourceofCostEfficiencyGains: Toisolatehowrequestsizeinfluencesrelativecostefficiency,we\nexaminerequestsize’seffectsonbatchsize,whichservesasaproxyforthroughput. Fig.4depicts\nabsolutebatchsizesandbatchsizesnormalizedbyinstancecostofeachGPUatmaximumsaturation.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ". Fig.4depicts\nabsolutebatchsizesandbatchsizesnormalizedbyinstancecostofeachGPUatmaximumsaturation.\nA10G and A100 have similar cost-normalized batch sizes at 250 input/output tokens, but as the\nrequestsizeincreasesto2Kinput/outputtokens,A10G’sabsolutebatchsizedecreasesby9×whereas\nA100’sonlydecreasesby6×duetoitssuperiormemorysizeandbandwidth. Asaresult,A100’s\ncostefficiencyadvantageoverA10Gincreaseswiththeincreaseinrequestsize. Incontrast,reducing\nthesizefrom250to25input/outputtokensexpandsA10G’sbatchsizeby15.2×,whereasA100’s\ngrowthis5.89×.BecauseA100’sbatchsizesarelarger,A100ismoresignificantlyconstrainedby\nper-requestlatencyoverheads(e.g.,duetointerferenceofprefillanddecode[14])Asaresult,A10G’s\ncost-normalizedbatchsizeexceedsA100’satshortrequestlengths,leadingtogreateroverallT/$.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "esult,A10G’s\ncost-normalizedbatchsizeexceedsA100’satshortrequestlengths,leadingtogreateroverallT/$.\nOtherHardwareandModelSizeWeextendouranalysistomoreGPUtypesandalargermodel\nvariant(Llama2-70b). Fig.5depictstherelativecostefficiencyacrossfourGPUtypes. Onceagain,\nasrequestsizesincrease,weobserveaprogressionofthemostcostefficientGPUfromlower-end\nto higher-end GPUs, matching our observations above. Similar trends are observed in the larger\nLlama2-70BmodelwhencomparingH100andA100GPUs,asdetailedin Fig.8.\nKeyTakeaways:Thereisnouniversallymostcost-efficientGPUforagivenLLM.Instead,GPUcost\nefficiencyishighlydependentonrequestsizes. Lower-endGPUsaremorecost-effectiveforsmall\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "requestsizeswhereashigher-endGPUsarebestforlargerequestsizes. Thesefindingsgeneralizeto\nsettingswithmoreGPUtypesandlargermodelsizes.\n4.3 SLOandCostEfficiency\nFigure6: T/$comparisonbetweenA10G\nand A100 across a range of TPOT SLO\nparameters. Figure7:RelativeincreaseinT/$whencombining\nSLOandrequestsize.\nInthissection,weexaminetheimpactofTPOTSLOsonGPUcostefficiencyandhighlightthejoint\neffectsofSLOandrequestsize.\nExperiment: WeserveLlama2-7bonA10GandA100andmeasureT/$bymaximallysaturating\neachGPUwhilekeepingTPOTbelowSLO,repeatingthisacrossseveralTPOTdeadlines(Fig.6).\nUnder tight SLO constraints (<60ms), A100 demonstrates significantly greater T/$ than A10G\n(2×). A10G’shigherprocessinglatencyrestrictsthethroughputitcanachievewithinatightTPOT",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "T/$ than A10G\n(2×). A10G’shigherprocessinglatencyrestrictsthethroughputitcanachievewithinatightTPOT\ndeadline,whileA100maintainsmuchhigherthroughputevenatlowlatency. However,astheSLO\ngraduallyloosens(60-160ms),A10G’shigherlatencyislessproblematic,dramaticallyincreasingits\nT/$andsurpassingthatofA100(by>40%). Importantly,thisexampleusesasmallrequestsize(64\ninput/outputtokens),whichwasshownin§4.2tobebestservedonA10G.However,atightSLO\ndegradesA10G’scostefficiencymuchmoreseverelythanA100’sandpushestheadvantagetoA100,\nexemplifyingthetightinterplaybetweenSLOandrequestsizeexploredfurtherbelow.\nSLOandRequestSizeInterplay: Fig.7presentsrelativecostefficiencybetweenA10GandA100\nfor a broad range of TPOT SLOs and request sizes. At tight SLOs (40-60ms), A100 always has\nhigherT/$(upto2×).",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ad range of TPOT SLOs and request sizes. At tight SLOs (40-60ms), A100 always has\nhigherT/$(upto2×). At80ms,A10GbeginsshowingmodestbenefitoverA100forsmallrequest\nsizes. Finally,at100-160ms,A10GdemonstratesmuchgreaterT/$advantageoverA100forthe\nsame request sizes (up to 1.5×), yet A100 is always more cost efficient for larger requests. As\ndemonstrated,amodificationtoTPOTSLOshiftstheboundarywithintherequestsizespacebetween\nwhichdifferentGPUtypesaremostcosteffectiveandsignificantlyinfluencesthemagnitudeofcost\nefficiencydifferencesbetweenGPUs. Asaresult,bothrequestsizeandSLOmustbeconsideredin\ntandemwhendeterminingcostefficiency.\nKeyTakeaways: TomeetstrictSLOs,expensiveGPUsarenecessaryduetothehigherlatencyof\ncheaperGPUs. However,asSLOisloosened,lower-endGPUscanbeusedtocutdeploymentcosts.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "thehigherlatencyof\ncheaperGPUs. However,asSLOisloosened,lower-endGPUscanbeusedtocutdeploymentcosts.\nFigure8: T/$comparisonbetweenH100x2and Figure9:GPUon-demandcostforthreeGPU\nA100x2servingLlama2-70b. provisioningstrategies.\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "4.4 RequestRateandCostEfficiency\nInthissection,weinvestigatetherelationshipbetweenrequestrateandGPUcostefficiency.\nExperiment: Fig.9illustratesthecostofservingLlama2-7batarangeofrequestratesusingthree\nstrategies: A10G-only, A100-only, or a mix of both. The y-axis is absolute cost instead of T/$\nbecauseeachprovisioningstrategyservesthesamerequestratesandthusthesamenumberoftokens;\nonlythecostvariesacrossstrategies.\nAsrequestrateincreases,A100-onlyisincreasinglymorecosteffectivethanA10G-only. Thisis\nbecausetherequestsareofsize[1000intokens,250outtokens],which§4.2showsismorecost\neffectiveonA100.However,A10G-onlystillpresentsbenefitsatlowrequestrates(0-1req/s).Periods\nofidlenessorlowactivityarecommoninreal-worldservices[38],andtheserviceshouldright-size",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "q/s).Periods\nofidlenessorlowactivityarecommoninreal-worldservices[38],andtheserviceshouldright-size\ntoacheaperGPU(here,A10G)whenahigher-endGPU(here,A100)isdrasticallyunderutilized.\nMixingGPUTypes: ThehybridapproachofservingthemodelonbothA10GandA100GPUs\nconsistentlyyieldsthelowestdeploymentcost. BecauseA100shavesuchlargecapacity,scaling\nwithonlyA100siscoarse-grainedandoftenleadstounderutilizedresources. Instead,A10Gsand\nA100scanbemixedsuchthatA100ssatisfythebulkoftheservicedemands,whileA10Gshandle\ntheremainingloadatreducedcost. Fig.9highlightsacasewhereusing2A100sand1A10Gresults\nina24%costsavingoverA100-onlyand31%overA10G-only.\nKeyTakeaways: Duringlowactivityperiods,LLMservicesshouldright-sizetocheaperlow-end\nGPUs.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "rA10G-only.\nKeyTakeaways: Duringlowactivityperiods,LLMservicesshouldright-sizetocheaperlow-end\nGPUs. ProvisioningamixofGPUtypesenablesfiner-grainedresourcescaling,whichbetteraligns\nthe allocated GPU capacity with request load. This increases GPU utilization and consistently\nachieveslowestservingcost.\n5 Mélange: AutomatingCost-EfficientGPUSelection\nBuildingontheobservationsin§4thatrequestsize, requestrate, andSLOalljointlydetermine\nGPUcostefficiency,wepresentMélange,anallocationframeworkthatconsiderseachofthesethree\ndimensionsin-tandemtoderivetheminimal-costGPUallocationthatmeetsanLLMservice’srequest\nloadwhileadheringtoSLOconstraints. Fig.1depictstheMélangeframework. Mélangeflexibly\nsupportsanyGPUtype(1a)andLLMservicedefinition(1b),usesaone-timeofflineprofilingstep",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Mélangeflexibly\nsupportsanyGPUtype(1a)andLLMservicedefinition(1b),usesaone-timeofflineprofilingstep\ntomeasureGPUperformance(2),formulatesthetaskofGPUallocationasabinpackingproblem\n(3),thencomputestheminimal-costGPUallocation(4).\n5.1 ProblemFormulation\nWebeginbydefiningthekeytermsutilizedinourproblemformulationandsolution.AnLLMservice\nworkloadischaracterizedbyitsoverallrequestratealongwithadistributionofinputandoutput\nsizes. Adistributionofrequestsizesisusedratherthanfixedvaluesduetotheinherentvariabilityof\nLLMrequestsizes. Specifically,aworkloadisahistogramwhereeachbucketcorrespondstoarange\nofrequestsizesandabucket’svalueistherequestrateofrequestswithinthebucket’ssizerange.\nTheservicecostiscomputedbysummingthehourlyon-demandcloudrenatlratesforeachofthe\nselectedGPUs.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "range.\nTheservicecostiscomputedbysummingthehourlyon-demandcloudrenatlratesforeachofthe\nselectedGPUs. WedefineSLObasedonaverageTPOT,however,Mélangecanbeextendedtoother\ndefinitionsofSLOsuchastimetofirsttoken(TTFT).\nProblem Definition: Given a workload, GPU costs, and SLO requirements, our objective is to\nprovisionGPUsthatcanminimizedeploymentcostwhileadheringtolatencySLOconstraints.\n5.2 Inputs\nMélangetakesasinputthesetofavailableGPUtypes(1a)andtheLLMservicedefinition(1b)\nmadeupoftheworkloadprofileandSLO.Eachoftheseinputscanbemodified,suchasaddinga\nnewhardwareacceleratororredefiningSLObasedonend-to-endrequestlatency,andMélange’s\ndownstream components still derive the minimal-cost allocation. Due to the large diversity of",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "nge’s\ndownstream components still derive the minimal-cost allocation. Due to the large diversity of\nhardwareacceleratorsandLLMservices,Mélange’sextensibilityiscriticalforusability.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "5.3 OfflineProfiling\nAone-timeofflineprofilingstep(2)isrequiredtomeasuretheperformanceofeachGPU.Foreach\nrequestsizebucketintheworkloadhistogram,wegraduallyincreasetherequestrateuntiltheGPUis\nsaturated. Werecordper-requestTTFTandTPOTastherequestrateisincreased,whicharesufficient\nmetricstocapturethetimingbehaviorofarequestend-to-end[22]. Then,givenanSLO,Mélange\ncanquicklyfindthemaximumthroughputeachGPUachievesacrossrequestsizeswhileadheringto\ntheSLO.Empirically,theone-timeprofilingisnottime-consuming(<1hr).\n5.4 AllocationAlgorithm\nTheallocationalgorithm’s(3)objectiveistomaptheworkloadtoaminimal-costsetofGPUsthat\nareconstrainedbyadheringtoSLO.Ourinsightisthatthistaskcanbeformulatedasacost-aware\nvariant of the bin packing problem. Mélange partitions workload buckets into smaller slices for",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "are\nvariant of the bin packing problem. Mélange partitions workload buckets into smaller slices for\nfine-grainedpacking,thenassignstheslices(items)toGPUs(bins). Wefirstdefineaslice(§5.4.1),\ncomputetheloadofaslice(§5.4.2),thencreatetheILPformulation(§5.4.3).\n5.4.1 RequestBucketsandSlices\nA workload histogram has two dimensions, input length and output length, and each histogram\nbucket’svalueistheaggregaterequestrateforrequestswithinthebucket’ssizerange. Wefurther\nbreakeachbucketdownintoslicesforfiner-grainedbinpacking. Aparameter,slicefactor,indicates\nthenumberofslicesthateachbucketisdividedinto. Inasettingwithaslicefactorof8andabucket\nwitharequestrateof4,thebucketwouldbesegmentedinto8sliceseachcorrespondingtoarequest\nrateof0.5requests/s.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "arequestrateof4,thebucketwouldbesegmentedinto8sliceseachcorrespondingtoarequest\nrateof0.5requests/s. Theslicefactorcanbetunedtoreachthedesiredbalancebetweengranularity\nandsolutioncomplexity,butwehavenotfoundoverallperformancetobesensitivetoslicefactor.\n5.4.2 Load\nThesolverrequiresanestimateoftheloadofeachslicetoensurethataGPU’scapacityisnotexceeded\nandSLOisnotviolated. TheloadofaslicewithrequestsizesandrateronGPUGiscalculated\nas r ,whereMaxTput(G,s,SLO)isthemaximumrequest/sGcanachievefor\nMaxTput(G,s,SLO)\nrequestsofsizeswhileadheringtoSLO. Forinstance,ifMaxTput(G,s,SLO)=10reqs/sand\nr =1,theloadiscalculatedas1/10=0.1. EachGPU’smaximumcapacityisdefinedas1. This\napproximationallowsustocalculatetheaggregateloadofsliceswithdifferingsizesandrates. Based",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "as1. This\napproximationallowsustocalculatetheaggregateloadofsliceswithdifferingsizesandrates. Based\nonofflineprofiling,wecomputeMaxTput(G,s,SLO)foreachbucketintheworkloadhistogram.\n5.4.3 ILPFormulation\nWeformulatetheILPwithtwodecisionvariables. First,letAbeamatrix{0,1}N×M,whereN is\nthenumberofslices,andM isthenumberofGPUtypes. A = 1ifsliceiisassignedtoGPU\ni,j\ntypej,and0otherwise. Theseconddecisionvariable,B,isavectorZM ofnon-negativeintegers,\n≥0\nwhereB specifiesthenumberofGPUsoftypejtobeallocated. LisamatrixofsizeN ×M where\nj\nL ∈ [0,1]isthefractionalloadofsliceionGPUtypej. Liscomputedofflinebytheprocess\ni,j\ndescribedin§5.4.2. c denotesthecostofGPUtypej.\nj\nOur objective is to minimize the total GPU\nallocationcost: (cid:88) M\nargmin( B ·c ) (1)\nj j\nB\nTheILPconstraintsareasfollows.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ize the total GPU\nallocationcost: (cid:88) M\nargmin( B ·c ) (1)\nj j\nB\nTheILPconstraintsareasfollows. First,each j=1\nM\ntasksliceisassignedtoexactlyoneGPUtype: (cid:88)\n∀i∈{1,...,N}, A =1 (2)\ni,j\nSecond, for each GPU type, the number of j=1\nN\n(cid:88)\nGPUsdesignatedinvectorBmustsatisfythe ∀j ∈{1,...,M}, A ·L ≤B (3)\ni,j i,j j\ncumulativeloadprescribedtoitinmatrixA:\ni=1\n∀i,∀j, A ∈{0,1} (4)\ni,j\nLastly,elementsofmatrixAarebinary,and\n∀j ∈{1,...,M}, B ≥0 (5)\nelementsofvectorBarenon-negative: j\nThesolutioniscomputedusinganoff-the-shelfsolver[29]. Uponsolution,thedecisionvariableB\nholdstheminimal-costGPUallocation(4)thatmeetstheworkloaddemandandadherestoSLO.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "6 Evaluation\nWeassessMélange’sperformanceacrossdiversehardware,requestsizes,rates,andSLOs. Mélange\nconsistentlyachievessignificantcostsavings(upto77%)comparedtosingle-GPU-typestrategies,\nandtheselectedallocationssuccessfullyattainTPOTSLOforover99.5%ofrequests.\n6.1 ExperimentSetup\nEnvironment.WeusefourNVIDIAGPUtypesthatcaptureabroadrangeofpricesandspecifications,\nwith details in Tab. 1. In increasing price order, we use L4, A10G, A100-80G, and H100. To\ndeterminetheGPUcost,weselecttheloweston-demandpriceavailablefrommajorcloudproviders\n(AWS,Azure,andGCP).Sinceon-demandH100isnotofferedbythesemajorproviders,wedeferto\nthepricingfromRunPod[39]duetoitspopularityandavailability. Toensurefaircostcomparisons,\nwe normalize RunPod’s H100 pricing to match the pricing structures of major platforms. We",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "parisons,\nwe normalize RunPod’s H100 pricing to match the pricing structures of major platforms. We\ncalculatethisbycomparingRunPod’sH100cost($4.69)toRunPod’sA100-80Gcost($2.29),then\nadjustingrelativetotheA100’spriceonmajorclouds($3.67),resultinginanormalizedpriceof\n(4.69/2.29)×3.67=$7.516forH100. Ineachexperiment,weserveLlama2-7b[44]withvLLM\n0.2.7[19].\nType L4 A10G(PCIe) A100-80G(SXM) H100(SXM)\nOn-demandPrice($/h) 0.7 1.01 3.67 7.5164\nInstanceProvider GCP AWS Azure RunPod\nInstanceName g2-standard-4 g5.xlarge NC24ads_A100_v4/N.A. N.A.\nMemory(GB) 24 24 80 80\nMemoryBandwidth(GB/s) 300 600 1935 3350\nFP16(TFLOPS) 242 125 312 1979\nTable1: SpecificationsoffourNVIDIAGPUs: L4,A10G,A100,andH100.\nDatasetsandSLOs. Weevaluateacrossthreedatasetstocoverawiderangeofapplicationscenarios.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "100,andH100.\nDatasetsandSLOs. Weevaluateacrossthreedatasetstocoverawiderangeofapplicationscenarios.\nForshort-contexttasks(interactivechats)weusetheChatbotArenadataset[55],forlong-context\ntasks(documentsummarization)weusethePubMeddataset[7], andforamixed-context-length\nsettingwecreateasyntheticdatasetbysampling80%fromChatbotArenaand20%fromPubMed.\nTheinputandoutputlengthdistributionsareshownin Fig.10. WefollowstandardLLMinference\nbenchmarks [3] to set reasonable TPOT SLOs, and use 40ms to simulate services where swift\nresponsesareessential,and120mswherelongerresponsetimesareacceptable. BothselectedSLOs\nsurpasstheaveragehumanreadingspeed,ensuringtheSLOssatisfypracticaluserexperience.\n0.6\n0.5\n0.4\n0.3\n0.2\n0.1\n0.0\n0 2500 5000 7500 10000 12500\nInput Length (tokens)\nnoitcarF\nDataset\n0.125",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "6\n0.5\n0.4\n0.3\n0.2\n0.1\n0.0\n0 2500 5000 7500 10000 12500\nInput Length (tokens)\nnoitcarF\nDataset\n0.125\nMixed (mean=1278.04)\nArena (mean=329.43) 0.100\nPubmed (mean=4174.13)\n0.075\n0.050\n0.025\n0.000\n0 250 500 750 1000\nOutput Length (tokens)\n(a)Inputlengthdistributions.\nnoitcarF\nDataset\nMixed (mean=219.87)\nArena (mean=195.66)\nPubmed (mean=314.1)\n(b)Outputlengthdistributions.\nFigure10: Datasetinputandoutputlengthdistributions.\nMélangeConfiguration. BucketsizerangescorrespondtoFigure 5,comprisingof10inputlength\nranges and 6 output length ranges (60 total buckets). The slice factor is set to 8 for a total of\n60·8=480slices.\nBaselines. We compare Mélange to allocations that use a single GPU type. To derive baseline\nallocations,weuseMélange’sILPformulation(§5.4.3)butrestrictthesolvertoasingleGPUtype.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "rive baseline\nallocations,weuseMélange’sILPformulation(§5.4.3)butrestrictthesolvertoasingleGPUtype.\n9",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n0.6\nDataset\n0.5 Mixed (mean=1278.04)\nArena (mean=329.43)\n0.4 noitcarF Pubmed (mean=4174.13)\n0.3\n0.2\n0.1\n0.0\n0 2500 5000 7500 10000 12500\nInput Length (tokens) | Dataset\n0.125\nMixed (mean=219.87)\n0.100 Arena (mean=195.66)\nnoitcarF Pubmed (mean=314.1)\n0.075\n0.050\n0.025\n0.000\n0 250 500 750 1000\nOutput Length (tokens)",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  |  |  |  |  | \n |  |  | D\nMixed ( | ataset\nmean=1 | 278.04) |  | \n |  |  | Arena ( | mean=3 | 29.43) |  | \n |  |  |  |  |  |  | \n |  |  | Pubmed | (mean | =4174.1 | 3) | \n |  |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  | .87) | \n | Data\nMixed (m | set\nean=219 | .87) | \n | Arena (m | ean=195 | .66) | \n | Pubmed | (mean=3 | 14.1) | \n |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "6.2 CostSavingsAnalysis\nWecomparethedeploymentcostsofMélangetothesingle-GPU-typebaselinesacrossdatasetsand\nSLOs. Fig.11displayscostsnormalizedagainstthecostofMélange(purpledottedlines),andthe\ndetailedGPUallocationsandcostsavingsareincludedin App.C. TheA10G-onlyandL4-only\nbaselinesareonlyincludedfortheArenadatasetbecausethePubMedandMixeddatasetscontain\nlargerequeststhatexceedA10GandL4’sGPUmemorycapacity. L4andA10Gareincludedin\nMélange’sallocationbutarelimitedtoservingrequestssmallerthan12,000tokens. Wenowdiscuss\neachdatasetindetail:\nH100 A100 A10G L4 Mélange\n4\n2\n0\n1 2 4 8 16 32\nRequest Rate (req/s)\n)egnaléM\nt.r.w(\ntsoC\n1.5\n1.0\n0.5\n0.0\n1 2 4 8 16 32\nRequest Rate (req/s)\n(a)Arena,SLO=120ms.\n)egnaléM\nt.r.w(\ntsoC\n2\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s)\n(b)PubMed,SLO=120ms.\n)egnaléM\nt.r.w(",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": ")egnaléM\nt.r.w(\ntsoC\n2\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s)\n(b)PubMed,SLO=120ms.\n)egnaléM\nt.r.w(\ntsoC\n(c)Mixed,SLO=120ms.\n3\n2\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s)\n)egnaléM\nt.r.w(\ntsoC\n1.0\n0.5\n0.0\n1 2 4 8 16 32\nRequest Rate (req/s)\n(d)Arena,SLO=40ms.\n)egnaléM\nt.r.w(\ntsoC\n2\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s)\n(e)PubMed,SLO=40ms.\n)egnaléM\nt.r.w(\ntsoC\n(f)Mixed,SLO=40ms.\nFigure11: DeploymentcostacrossdifferentdatasetsandSLOs.\n• Short-contextDataset(Arena). InFigs. 11aand11d,Mélangeachieves15-77%costreduction\n(120msSLO)and9-68%reduction(40msSLO).ForbothSLOs,L4/A10Garemorecostefficient\nthanA100/H100atlowrequestratesbecausetheyachievegreaterutilization. Forexample, at\n1-2req/s, H100issignificantlyunderutilizedandincursexorbitantcosts. However, astherate",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rexample, at\n1-2req/s, H100issignificantlyunderutilizedandincursexorbitantcosts. However, astherate\nincreases,L4/A10G’scostadvantagereducesasA100/H100arebetterutilized. Further,witha\n120msSLO,L4/A10GremaincompetitivewithA100evenathigherrequestratesduetotheirT/$\nadvantageforsmallerrequestsizes(whichtheArenadatasetisskewedtowards). Conversely,with\na40msSLO,A10G/L4showmuchhigherrelativecostsduetotheirincreasedlatency,requiring\nmoreinstancestomeetthetightdeadline. MélangeadaptsbyallocatingmoreL4/A10Gat120ms\nSLOandmoreA100at40msSLO,consistentlyreducingoverallcost.\n• Long-contextDataset(PubMed). InFigs. 11band11e,Mélangeachieves15-33%costreduction\n(120ms SLO) and 2-22% reduction (40ms SLO). A100 generally achieves higher T/$ for the",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ostreduction\n(120ms SLO) and 2-22% reduction (40ms SLO). A100 generally achieves higher T/$ for the\nrequestsizesinPubMed,evidencedbythe120mssettingwhereA100-onlyisconsistentlycheaper\nthanH100-only. However,whenSLOtightensto40ms,H100istheclearwinnerduetoH100’s\nlowerinferencelatency. Again,Mélangeadaptstothesedynamicsbyallocatingagreatershareof\nA100satalooserSLO,andmoreH100sastheSLOistightened.\n• Mixed-contextDataset. InFigs. 11cand11f,Mélangeachieves13-51%costreduction(120ms\nSLO)and4-51%reduction(40msSLO).ComparedtothePubMedworkload,A100-onlyhasmuch\ngreatercostefficiencyintheMixedworkloadthanH100duetoagreaterportionofshort-context\nrequests, forwhichA100achievesgreaterT/$. MélangecapitalizesbyusingmoreA100than\nH100,butitalsousesL4/A10Gsforsmallrequests,enablingevenfurthercostreduction.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "zesbyusingmoreA100than\nH100,butitalsousesL4/A10Gsforsmallrequests,enablingevenfurthercostreduction.\nTakeaways. Theseresultsexemplifythecoreobservationsfrom§4,whichshowthatrequestsize,\nSLO,andrequestratealljointlydeterminecostefficiency.AsanyoftheseLLMservicecharacteristics\nvary,MélangeflexiblyadjustsitsGPUallocationandmixesGPUtypestoexploittheirheterogeneity.\nThisconsistentlydeliversthemostcostefficientallocationacrosseachevaluateddatasetwithboth\nstrict(40ms)andloose(120ms)SLOs,achievinguptoa77%costreduction.\n10",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\negnaléM\n4\n2 t.r.w(\ntsoC\n0\n1 2 4 8 16 32\nRequest Rate (req/s) |  |  |  |  |  |  |  | gnaléM\n1.0\nt.r.w(\n0.5\ntsoC\n0.0\n1 2 4 8 16 3\nRequest Rate (req/s) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n2 M\nt.r.w(\n1\ntsoC\n0\n1 2 4 8 16 32\nRequest Rate (req/s) |  |  |  |  |  |  | éM\nt.r.w(\n0.5\ntsoC\n0.0\n1 2 4 8 16 3\nRequest Rate (req/s) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n1\n0\n1 2 4 8 16 32\nRequest Rate (req/s) |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "6.3 SLOSatisfaction\nNext, we assess Mélange adherence to TPOT\nSLOs. WeprovisioncloudGPUinstancesbased\nonMélange’sallocationforeachdatasetandSLO\nat a rate of 4 req/s. We deploy Llama-2-7b on\neachGPUandsamplerequestsrandomlyfrom\nthechosendatasettoserve2Ktotalrequests. We\nrecordtheaverageTPOTforeachrequest.\nLoadBalancer. Aloadbalancer(LB)isrequired\ntobalancerequestsacrossGPUs. OurLBdesign\nisdetailedinAppendixA.2.Inshort,theLBuses\nFigure12: MélangeTPOTCDFs.\npreviously-servedrequeststoestimatetheoutput\nlengthofanewrequest,whichisthenroutedto\na GPU based on a weighted random selection.\nWeightsarecomputedbasedoneachGPU’sperformancefortherequest’sestimatedsize.\nResults. Fig.12presentsCDFsoftheobservedper-requestaverageTPOTsacrossexperiments.\nWithanSLOof120ms,over99.95%ofrequestsmetSLO.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "softheobservedper-requestaverageTPOTsacrossexperiments.\nWithanSLOof120ms,over99.95%ofrequestsmetSLO.WhentheSLOwastightenedto40ms,\n99.5%ofrequestsmetSLO.TheseresultsvalidateMélange’sabilitytochooseGPUallocationsthat\nmeetworkloaddemand,however,werecognizethatservicesmayrequireevenhigherSLOadherence,\nsoweinvestigatedthesourceofSLOviolationsinourexperiment.\nSLOViolationInvestigation. 84%ofourexperiment’sSLOviolationswereduetoa)requestrate\nburstsorb)co-locationwithlargerequests.WesendrequestsbyaPoissonprocess,whichoccasionally\ncreatesshort-livedburststhatoverloadGPUcapacity.Further,werandomlysamplerequestsizesfrom\nthechosendataset. Occasionally,aseriesoflargerequestsarechoseninsequenceandtemporarily\nexceedservicecapacity. Inanonlineproductionenvironment,resourceover-provisioningisusedto",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "emporarily\nexceedservicecapacity. Inanonlineproductionenvironment,resourceover-provisioningisusedto\nabsorbsuchburstsandotherloadvariations. InMélange,adesiredover-provisioningrate(e.g.,10%)\ncanbeachievedbyincreasingtherequestrateinputtothesolverbythesameproportion.\n6.4 SolverTime\nWe detail the solver execution time in Tab. 2. Across all datasets and request rates, the solver’s\nexecutiontimeremainsunder1.2seconds, whichisnegligiblecomparedtoservicelifetime. We\nobserveamodestincreaseinsolvertimewithhigherrequestvolumesduetogreatercomplexityin\nsliceassignment. However,thisincreaseisempiricallysub-linearrelativetotheincreaseinrequest\nrate,andthesolver’sexecutiontimeremainspractical.\n7 LimitationsandConclusion\nLimitations.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "einrequest\nrate,andthesolver’sexecutiontimeremainspractical.\n7 LimitationsandConclusion\nLimitations. Mélange derives the optimal GPU allocation for a fixed workload distribution and\nrequestrate,butdoesnotaddressotherdeploymentchallengessuchasGPUunavailabilityorauto-\nscalingfordynamicrequestratesandsizedistributions. Mélangeisonlyintendedtomakeallocation\ndecisions,akeycomponenttobepluggedintoabroaderservingsystemthathandlesthesedeployment\nchallenges.GiventhevastnumberofLLMdeploymentconfigurations(quantizationandcompression,\ndisaggregatedprefill,speculativedecoding),wehavenotexhaustivelyevaluatedeachsetting. We\nexpect,however,thatMélange’sframeworkisflexibletosupporteachofthesesettings.\nConclusion. WeintroduceMélange,aframeworkforderivingtheminimal-costGPUallocationfora\ngivenLLMservice.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "onclusion. WeintroduceMélange,aframeworkforderivingtheminimal-costGPUallocationfora\ngivenLLMservice. MélangeisbasedonouranalysisofGPUcostefficiency,whichidentifiesthree\nkeyservicecharacteristics(requestsizes,requestrates,andSLOs)assignificantinfluencesoncost\nefficiency. WeformulatetheGPUallocationtaskasacost-awarebinpackingproblemthataccounts\nforeachservicecharacteristic,enablingflexibilityandheterogeneity-awareness. Inevaluationsona\nrangeofGPUs,requestsizes,requestrates,andlatencySLOs,Mélangeconsistentlydemonstrates\nsignificantreductionsindeploymentcosts(upto77%)whileprovidinghighSLOattainment.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "References\n[1] AmeyAgrawal,AshishPanwar,JayashreeMohan,NipunKwatra,BhargavSGulavani,and\nRamachandranRamjee. Sarathi: Efficientllminferencebypiggybackingdecodeswithchunked\nprefills. arXivpreprintarXiv:2308.16369,2023.\n[2] AhsanAli,RiccardoPinciroli,FengYan,andEvgeniaSmirni. Optimizinginferenceservingon\nserverlessplatforms. ProceedingsoftheVLDBEndowment,15(10),2022.\n[3] AnyScale. Anyscale: Llmperf leaderboard. https://github.com/ray-project/\nllmperf-leaderboard,2024. [Accessed13-03-2024].\n[4] AWS. Ai accelerator-aws trainium. https://aws.amazon.com/machine-learning/\ntrainium/,2020. [Accessed14-03-2024].\n[5] AlexanderBorzunov,DmitryBaranchuk,TimDettmers,MaxRyabinin,YounesBelkada,Artem\nChumachenko,PavelSamygin,andColinRaffel.Petals:Collaborativeinferenceandfine-tuning\noflargemodels.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "m\nChumachenko,PavelSamygin,andColinRaffel.Petals:Collaborativeinferenceandfine-tuning\noflargemodels. arXivpreprintarXiv:2209.01188,2022.\n[6] ShubhamChaudhary,RamachandranRamjee,MuthianSivathanu,NipunKwatra,andSrinidhi\nViswanatha. Balancingefficiencyandfairnessinheterogeneousgpuclustersfordeeplearning.\nInProceedingsoftheFifteenthEuropeanConferenceonComputerSystems,pages1–16,2020.\n[7] ArmanCohan,FranckDernoncourt,DooSoonKim,TrungBui,SeokhwanKim,WalterChang,\nand Nazli Goharian. A discourse-aware attention model for abstractive summarization of\nlongdocuments. Proceedingsofthe2018ConferenceoftheNorthAmericanChapterofthe\nAssociationforComputationalLinguistics: HumanLanguageTechnologies,Volume2(Short\nPapers),2018.\n[8] TriDao,DanFu,StefanoErmon,AtriRudra,andChristopherRé. Flashattention: Fastand",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ort\nPapers),2018.\n[8] TriDao,DanFu,StefanoErmon,AtriRudra,andChristopherRé. Flashattention: Fastand\nmemory-efficientexactattentionwithio-awareness.AdvancesinNeuralInformationProcessing\nSystems,35:16344–16359,2022.\n[9] EliasFrantarandDanAlistarh. Sparsegpt: Massivelanguagemodelscanbeaccuratelypruned\ninone-shot,2023.\n[10] EliasFrantar,SalehAshkboos,TorstenHoefler,andDanAlistarh. Gptq: Accuratepost-training\nquantizationforgenerativepre-trainedtransformers. arXivpreprintarXiv:2210.17323,2022.\n[11] Jashwant Raj Gunasekaran, Cyan Subhra Mishra, Prashanth Thinakaran, Bikash Sharma,\nMahmut Taylan Kandemir, and Chita R Das. Cocktail: A multidimensional optimization\nformodelservingincloud. In19thUSENIXSymposiumonNetworkedSystemsDesignand\nImplementation(NSDI22),pages1041–1057,2022.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "cloud. In19thUSENIXSymposiumonNetworkedSystemsDesignand\nImplementation(NSDI22),pages1041–1057,2022.\n[12] AaronHarlap,AndrewChung,AlexeyTumanov,GregoryRGanger,andPhillipBGibbons.\nTributary: spot-dancingforelasticserviceswithlatency{SLOs}. In2018USENIXAnnual\nTechnicalConference(USENIXATC18),pages1–14,2018.\n[13] KaimingHe,XiangyuZhang,ShaoqingRen,andJianSun. Deepresiduallearningforimage\nrecognition,2015.\n[14] CunchenHu,HeyangHuang,LiangliangXu,XushengChen,JiangXu,ShuangChen,Hao\nFeng,ChenxiWang,SaWang,YungangBao,etal.Inferencewithoutinterference:Disaggregate\nllminferenceformixeddownstreamworkloads. arXivpreprintarXiv:2401.11181,2024.\n[15] Youhe Jiang, Ran Yan, Xiaozhe Yao, Beidi Chen, and Binhang Yuan. Hexgen: Generative\ninferenceoffoundationmodeloverheterogeneousdecentralizedenvironment.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "inhang Yuan. Hexgen: Generative\ninferenceoffoundationmodeloverheterogeneousdecentralizedenvironment. arXivpreprint\narXiv:2311.11514,2023.\n[16] YunhoJin,Chun-FengWu,DavidBrooks,andGu-YeonWei. S3: Increasinggpuutilization\nduringgenerativeinferenceforhigherthroughput. AdvancesinNeuralInformationProcessing\nSystems,36,2024.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "[17] NormanPJouppi, CliffYoung, NishantPatil, DavidPatterson, GauravAgrawal, Raminder\nBajwa,SarahBates,SureshBhatia,NanBoden,AlBorchers,etal. In-datacenterperformance\nanalysisofatensorprocessingunit. InProceedingsofthe44thannualinternationalsymposium\noncomputerarchitecture,pages1–12,2017.\n[18] SehoonKim,KarttikeyaMangalam,SuhongMoon,JitendraMalik,MichaelWMahoney,Amir\nGholami,andKurtKeutzer. Speculativedecodingwithbiglittledecoder. AdvancesinNeural\nInformationProcessingSystems,36,2024.\n[19] WoosukKwon,ZhuohanLi,SiyuanZhuang,YingSheng,LianminZheng,CodyHaoYu,Joseph\nGonzalez,HaoZhang,andIonStoica. Efficientmemorymanagementforlargelanguagemodel\nserving with pagedattention. In Proceedings of the 29th Symposium on Operating Systems\nPrinciples,pages611–626,2023.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "dattention. In Proceedings of the 29th Symposium on Operating Systems\nPrinciples,pages611–626,2023.\n[20] Yaniv Leviathan, Matan Kalman, and Yossi Matias. Fast inference from transformers via\nspeculativedecoding. InInternationalConferenceonMachineLearning,pages19274–19286.\nPMLR,2023.\n[21] Ji Lin, Jiaming Tang, Haotian Tang, Shang Yang, Xingyu Dang, and Song Han. Awq:\nActivation-awareweightquantizationforllmcompressionandacceleration. arXivpreprint\narXiv:2306.00978,2023.\n[22] JiachenLiu,ZhiyuWu,Jae-WonChung,FanLai,MyungjinLee,andMosharafChowdhury.\nAndes: Defining and enhancing quality-of-experience in llm-based text streaming services.\narXivpreprintarXiv:2404.16283,2024.\n[23] LiangLuo,PeterWest,PratyushPatel,ArvindKrishnamurthy,andLuisCeze. Srifty: Swiftand",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "16283,2024.\n[23] LiangLuo,PeterWest,PratyushPatel,ArvindKrishnamurthy,andLuisCeze. Srifty: Swiftand\nthriftydistributedneuralnetworktrainingonthecloud. ProceedingsofMachineLearningand\nSystems,4:833–847,2022.\n[24] YusufMehdi. Reinventingsearchwithanewai-poweredmicrosoftbingandedge,yourcopilot\nfortheweb,2023. Accessed: 2024-02-21.\n[25] Xupeng Miao, Chunan Shi, Jiangfei Duan, Xiaoli Xi, Dahua Lin, Bin Cui, and Zhihao Jia.\nSpotserve: Servinggenerativelargelanguagemodelsonpreemptibleinstances. arXivpreprint\narXiv:2311.15566,2023.\n[26] XupengMiao,YiningShi,ZhiYang,BinCui,andZhihaoJia. Sdpipe: Asemi-decentralized\nframeworkforheterogeneity-awarepipeline-paralleltraining. ProceedingsoftheVLDBEndow-\nment,16(9):2354–2363,2023.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "heterogeneity-awarepipeline-paralleltraining. ProceedingsoftheVLDBEndow-\nment,16(9):2354–2363,2023.\n[27] XupengMiao,YujieWang,YouheJiang,ChunanShi,XiaonanNie,HailinZhang,andBinCui.\nGalvatron: Efficienttransformertrainingovermultiplegpususingautomaticparallelism. arXiv\npreprintarXiv:2211.13878,2022.\n[28] Microsoft. Copilot,2023. Accessed: 2024-02-21.\n[29] Stuart Mitchell. PuLP: A linear programming toolkit for python. https://github.com/\ncoin-or/pulp,2023. Accessed: 2024-02-25.\n[30] DeepakNarayanan,KeshavSanthanam,FiodarKazhamiaka,AmarPhanishayee,andMatei\nZaharia. {Heterogeneity-Aware}clusterschedulingpoliciesfordeeplearningworkloads. In\n14thUSENIXSymposiumonOperatingSystemsDesignandImplementation(OSDI20),pages\n481–498,2020.\n[31] Nvidia. A10gpuspec,2024. Accessed: 2024-03-10.\n[32] Nvidia.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ntation(OSDI20),pages\n481–498,2020.\n[31] Nvidia. A10gpuspec,2024. Accessed: 2024-03-10.\n[32] Nvidia. A100gpuspec,2024. Accessed: 2024-03-10.\n[33] Nvidia. Gpus,2024. Accessed: 2024-03-10.\n[34] OpenAI. Chatgpt,2022. Accessed: 2024-02-21.\n[35] OpenAI. Gpt-4technicalreport. arXiv,pages2303–08774,2023.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "[36] PratyushPatel,EshaChoukse,ChaojieZhang,ÍñigoGoiri,AashakaShah,SaeedMaleki,and\nRicardoBianchini. Splitwise: Efficientgenerativellminferenceusingphasesplitting. arXiv\npreprintarXiv:2311.18677,2023.\n[37] ElizabethReid. Superchargingsearchwithgenerativeai,2023. Accessed: 2024-02-21.\n[38] FranciscoRomero,QianLi,NeerajaJYadwadkar,andChristosKozyrakis. {INFaaS}: Auto-\nmatedmodel-lessinferenceserving. In2021USENIXAnnualTechnicalConference(USENIX\nATC21),pages397–411,2021.\n[39] RunPod. Runpod,2024. Accessed: 2024-02-24.\n[40] FlashInferteam. Acceleratingself-attentionsforllmservingwithflashinfer,2024. Accessed:\n2024-02-24.\n[41] SuratTeerapittayanon,BradleyMcDanel,andHsiang-TsungKung. Branchynet: Fastinference\nviaearlyexitingfromdeepneuralnetworks. In201623rdinternationalconferenceonpattern",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "et: Fastinference\nviaearlyexitingfromdeepneuralnetworks. In201623rdinternationalconferenceonpattern\nrecognition(ICPR),pages2464–2469.IEEE,2016.\n[42] John Thorpe, Pengzhan Zhao, Jonathan Eyolfson, Yifan Qiao, Zhihao Jia, Minjia Zhang,\nRaviNetravali,andGuoqingHarryXu. Bamboo: Makingpreemptibleinstancesresilientfor\naffordable training of large {DNNs}. In 20th USENIX Symposium on Networked Systems\nDesignandImplementation(NSDI23),pages497–513,2023.\n[43] HugoTouvron,ThibautLavril,GautierIzacard,XavierMartinet,Marie-AnneLachaux,Timo-\nthéeLacroix,BaptisteRozière,NamanGoyal,EricHambro,FaisalAzhar,etal. Llama: Open\nandefficientfoundationlanguagemodels. arXivpreprintarXiv:2302.13971,2023.\n[44] HugoTouvron,LouisMartin,KevinStone,PeterAlbert,AmjadAlmahairi,YasmineBabaei,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": ":2302.13971,2023.\n[44] HugoTouvron,LouisMartin,KevinStone,PeterAlbert,AmjadAlmahairi,YasmineBabaei,\nNikolayBashlykov,SoumyaBatra,PrajjwalBhargava,ShrutiBhosale,etal. Llama2: Open\nfoundationandfine-tunedchatmodels. arXivpreprintarXiv:2307.09288,2023.\n[45] Abhi Venigalla. Databricks: Training llms at scale with amd mi250 gpus. https://www.\ndatabricks.com/blog/training-llms-scale-amd-mi250-gpus,2023. [Accessed14-\n03-2024].\n[46] Bingyang Wu, Yinmin Zhong, Zili Zhang, Gang Huang, Xuanzhe Liu, and Xin Jin. Fast\ndistributed inference serving for large language models. arXiv preprint arXiv:2305.05920,\n2023.\n[47] QingyunWu,GaganBansal,JieyuZhang,YiranWu,BeibinLi,ErkangZhu,LiJiang,Xiaoyun\nZhang,ShaokunZhang,JialeLiu,AhmedHassanAwadallah,RyenWWhite,DougBurger,and\nChiWang.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": ",LiJiang,Xiaoyun\nZhang,ShaokunZhang,JialeLiu,AhmedHassanAwadallah,RyenWWhite,DougBurger,and\nChiWang. Autogen: Enablingnext-genllmapplicationsviamulti-agentconversation,2023.\n[48] YiranWu,FeiranJia,ShaokunZhang,HangyuLi,ErkangZhu,YueWang,YinTatLee,Richard\nPeng,QingyunWu,andChiWang. Anempiricalstudyonchallengingmathproblemsolving\nwithgpt-4. InArXivpreprintarXiv:2306.01337,2023.\n[49] Guangxuan Xiao, Ji Lin, Mickael Seznec, Hao Wu, Julien Demouth, and Song Han.\nSmoothquant: Accurate and efficient post-training quantization for large language models.\nInInternationalConferenceonMachineLearning,pages38087–38099.PMLR,2023.\n[50] ZheweiYao,RezaYazdaniAminabadi,MinjiaZhang,XiaoxiaWu,ConglongLi,andYuxiong\nHe. Zeroquant: Efficientandaffordablepost-trainingquantizationforlarge-scaletransformers.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ndYuxiong\nHe. Zeroquant: Efficientandaffordablepost-trainingquantizationforlarge-scaletransformers.\nAdvancesinNeuralInformationProcessingSystems,35:27168–27183,2022.\n[51] Gyeong-InYu,JooSeongJeong,Geon-WooKim,SoojeongKim,andByung-GonChun. Orca:\nAdistributedservingsystemfor{Transformer-Based}generativemodels. In16thUSENIX\nSymposiumonOperatingSystemsDesignandImplementation(OSDI22),pages521–538,2022.\n[52] ManzilZaheer,GuruGuruganesh,KumarAvinavaDubey,JoshuaAinslie,ChrisAlberti,Santi-\nagoOntanon,PhilipPham,AnirudhRavula,QifanWang,LiYang,etal. Bigbird:Transformers\nforlongersequences. Advancesinneuralinformationprocessingsystems,33:17283–17297,\n2020.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "[53] ChengliangZhang,MinchenYu,WeiWang,andFengYan. {MArk}: Exploitingcloudservices\nfor {Cost-Effective},{SLO-Aware} machine learning inference serving. In 2019 USENIX\nAnnualTechnicalConference(USENIXATC19),pages1049–1062,2019.\n[54] ZhenyuZhang,YingSheng,TianyiZhou,TianlongChen,LianminZheng,RuisiCai,Zhao\nSong,YuandongTian,ChristopherRé,ClarkBarrett,etal.H2o:Heavy-hitteroracleforefficient\ngenerativeinferenceoflargelanguagemodels. AdvancesinNeuralInformationProcessing\nSystems,36,2024.\n[55] LianminZheng,Wei-LinChiang,YingSheng,SiyuanZhuang,ZhanghaoWu,YonghaoZhuang,\nZiLin,ZhuohanLi,DachengLi,Eric.PXing,HaoZhang,JosephE.Gonzalez,andIonStoica.\nJudgingllm-as-a-judgewithmt-benchandchatbotarena,2023.\n[56] LianminZheng,LiangshengYin,ZhiqiangXie,JeffHuang,ChuyueSun,CodyHaoYu,Shiyi",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "dchatbotarena,2023.\n[56] LianminZheng,LiangshengYin,ZhiqiangXie,JeffHuang,ChuyueSun,CodyHaoYu,Shiyi\nCao,ChristosKozyrakis,IonStoica,JosephEGonzalez,etal. Efficientlyprogramminglarge\nlanguagemodelsusingsglang. arXivpreprintarXiv:2312.07104,2023.\n[57] ZangweiZheng,XiaozheRen,FuzhaoXue,YangLuo,XinJiang,andYangYou. Response\nlengthperceptionandsequencescheduling: Anllm-empoweredllminferencepipeline. Ad-\nvancesinNeuralInformationProcessingSystems,36,2024.\n[58] YinminZhong,ShengyuLiu,JundaChen,JianboHu,YiboZhu,XuanzheLiu,XinJin,andHao\nZhang. Distserve: Disaggregatingprefillanddecodingforgoodput-optimizedlargelanguage\nmodelserving. arXivpreprintarXiv:2401.09670,2024.\n[59] WangchunshuZhou,CanwenXu,TaoGe,JulianMcAuley,KeXu,andFuruWei. Bertloses\npatience: Fastandrobustinferencewithearlyexit.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "nwenXu,TaoGe,JulianMcAuley,KeXu,andFuruWei. Bertloses\npatience: Fastandrobustinferencewithearlyexit. AdvancesinNeuralInformationProcessing\nSystems,33:18330–18341,2020.\n[60] BanghuaZhu,YingSheng,LianminZheng,ClarkBarrett,MichaelJordan,andJiantaoJiao.\nTowardsoptimalcachingandmodelselectionforlargemodelinference. AdvancesinNeural\nInformationProcessingSystems,36,2024.\nA ExperimentSetup\nA.1 Dataset\nWetestMélange’sperformanceonthreedifferentdatasetslistedbelow:\n• Shortcontext: Thisscenariosimulatesreal-timeconversationaldynamicsbyemployingthe\nChatbotArenadataset(lmsys/lmsys-chat-1m)[55],whichisderivedfromreal-world\nchatbot conversations. The dataset is skewed towards shorter context (< 2000 tokens)\nbecausemuchofthedatawasgeneratedinconversationwithmodelsthatdidnotyethavea\nlargercontextwindow.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ns)\nbecausemuchofthedatawasgeneratedinconversationwithmodelsthatdidnotyethavea\nlargercontextwindow.\n• Long context: This scenario represents tasks with extensive input, such as summariza-\ntion. We utilize the PubMed dataset (ccdv/pubmed-summarization) [7], comprising\n133 thousand scientific papers from PubMed.com, a popular dataset for large-scale text\nsummarizationstudies.\n• Mixedlong/shortcontext: Thisscenariocapturessettingswithacombinationoflongand\nshortcontext,suchasanassistantthatengagesinsuccinctdialogueandrespondstolarge\ndocument-basedqueries. Tomodelthis,wecreateasyntheticdatasetbysampling80%of\nrequestsfromtheArenadatasetand20%ofrequestsfromthePubMeddataset.\nA.2 LoadBalancer\nTheloadbalancer(LB)policyusedinourevaluationsin§6.3isasfollows. Foreachinputlength\nbucketrange(§5.4.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "Theloadbalancer(LB)policyusedinourevaluationsin§6.3isasfollows. Foreachinputlength\nbucketrange(§5.4.1),theLBtrackstheaverageofallpreviously-seenoutputlengths.Uponreceiving\nanewrequest,theLBusesthisaverageasanestimateforthenewrequest’soutputlength,allowingthe\nLBtoidentifythespecificrequestsizebuckettherequestbelongsin. TheLBthenmakesaweighted\nrandomselectionofaGPUbackendtoforwardtherequestto. AGPU’sweightsarecomputedbased\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ontheproportionoftheGPU’smaximumthroughputforrequestsizesofthenewrequest’sbucketto\ntheaggregatethroughputofallGPUs. Thisisasimplepolicyweusetodemonstratetheefficacyof\nMélange,andleaveitasfutureworktodeveloploadbalancersforservingLLMsonheterogeneous\nGPUs.\nB SolverTime\nWepresentthesolverexecutiontimefromeachexperimentinTable2.\nRequestRate Arena,SLO=120ms Arena,SLO=40ms PubMed,SLO=120ms PubMed,SLO=40ms Mix,SLO=120ms Mix,SLO=40ms\n1 0.137 0.177 0.232 0.295 0.168 0.336\n2 0.194 0.265 0.234 0.334 0.253 0.381\n4 0.192 0.346 0.287 0.381 0.297 0.459\n8 0.248 0.433 0.269 0.384 0.321 0.545\n16 0.299 0.448 0.389 0.509 0.439 0.537\n32 0.316 0.494 0.791 0.96 0.912 1.14\nTable2: Solverexecutiontime.\nC InstanceAllocations\nWepresenttheinstanceallocationsforeachexperimentinthetablesbelow.\n16",
+    "page": 16
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 16):\nArena,SLO=120ms | Arena,SLO=40ms | PubMed,SLO=120ms | PubMed,SLO=40ms | Mix,SLO=120ms\n0.137\n0.194\n0.192\n0.248\n0.299\n0.316 | 0.177\n0.265\n0.346\n0.433\n0.448\n0.494 | 0.232\n0.234\n0.287\n0.269\n0.389\n0.791 | 0.295\n0.334\n0.381\n0.384\n0.509\n0.96 | 0.168\n0.253\n0.297\n0.321\n0.439\n0.912",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Norm. Cost\nRate(req/s) Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 1 1 1.71 N/A\nH100-only 1 7.516 77.25%\nA100-only 1 3.67 53.41%\nA10G-only 2 2.02 15.35%\nL4-only 3 2.1 18.57%\n2 Mélange 2 1 2.41 N/A\nH100-only 1 7.516 67.94%\nA100-only 1 3.67 34.33%\nA10G-only 3 3.03 20.46%\nL4-only 5 3.5 31.14%\n4 Mélange 1 1 4.37 N/A\nH100-only 1 7.516 41.86%\nA100-only 2 7.34 40.46%\nA10G-only 6 6.06 27.89%\nL4-only 9 6.3 30.63%\n8 Mélange 1 3 1 7.4 N/A\nH100-only 2 15.032 50.77%\nA100-only 3 11.01 32.79%\nA10G-only 11 11.1 33.39%\nL4-only 17 11.9 37.82%\n16 Mélange 2 2 3 14.43 N/A\nH100-only 4 30.064 52.00%\nA100-only 6 22.02 34.47%\nA10G-only 20 20.2 28.56%\nL4-only 33 23.1 37.53%\n32 Mélange 2 6 5 25.81 N/A\nH100-only 8 60.128 57.07%\nA100-only 9 33.03 21.86%\nA10G-only 39 39.39 34.48%\nL4-only 65 45.5 43.27%",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "H100-only 8 60.128 57.07%\nA100-only 9 33.03 21.86%\nA10G-only 39 39.39 34.48%\nL4-only 65 45.5 43.27%\nTable3: Instanceallocationsfortheshort-contextArenadataset,SLO=120ms.\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Norm. Cost\nRate(req/s) Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 1 1 11.186 N/A\nH100-only 2 15.032 25.59%\nA100-Only 4 14.68 23.80%\n2 Mélange 3 1 2 21.732 N/A\nH100-only 4 30.064 27.71%\nA100-Only 7 25.69 15.41%\n4 Mélange 3 4 3 40.258 N/A\nH100-only 8 60.128 33.05%\nA100-Only 14 51.38 21.65%\n8 Mélange 7 7 78.302 N/A\nH100-only 14 105.224 25.59%\nA100-Only 27 99.09 20.98%\n16 Mélange 12 15 156.78 N/A\nH100-only 28 210.448 25.50%\nA100-Only 53 194.51 19.40%\n32 Mélange 1 1 20 32 315.622 N/A\nH100-only 55 413.38 23.65%\nA100-Only 106 389.02 18.87%\nTable4: Instanceallocationsforthelong-contextPubMeddataset,SLO=120ms.\nNorm. Cost\nRate(req/s) Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 1 3.67 N/A\nH100-only 1 7.516 51.17%\nA100-Only 1 3.67 0%\n2 Mélange 1 1 4.37 N/A\nH100-only 1 7.516 41.86%",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "67 N/A\nH100-only 1 7.516 51.17%\nA100-Only 1 3.67 0%\n2 Mélange 1 1 4.37 N/A\nH100-only 1 7.516 41.86%\nA100-Only 2 7.34 40.46%\n4 Mélange 2 1 9.536 N/A\nH100-only 2 15.032 36.56%\nA100-Only 3 11.01 13.39%\n8 Mélange 1 2 1 1 13.906 N/A\nH100-only 3 22.548 38.33%\nA100-Only 5 18.35 24.22%\n16 Mélange 1 2 3 2 28.762 N/A\nH100-only 6 45.096 36.22%\nA100-Only 10 36.7 21.63%\n32 Mélange 1 5 6 4 57.834 N/A\nH100-only 12 90.192 35.88%\nA100-Only 20 73.4 21.21%\nTable5: Instanceallocationsforthemixedcontextdataset,SLO=120ms.\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "Norm. Cost\nRate Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 2 1 2.41 N/A\nH100-only 1 7.516 67.94%\nA100-only 1 3.67 34.33%\nA10G-only 3 3.03 20.46%\nL4-only 5 3.5 31.14%\n2 Mélange 1 3.67 N/A\nH100-only 1 7.516 51.17%\nA100-only 1 3.67 0.00%\nA10G-only 5 5.05 27.33%\nL4-only 9 6.3 41.75%\n4 Mélange 1 1 1 5.38 N/A\nH100-only 1 7.516 28.42%\nA100-only 2 7.34 26.70%\nA10G-only 10 10.1 46.73%\nL4-only 17 11.9 54.79%\n8 Mélange 1 1 2 9.05 N/A\nH100-only 3 15.032 39.80%\nA100-only 3 11.01 17.80%\nA10G-only 16 16.16 44.00%\nL4-only 34 23.8 61.97%\n16 Mélange 6 3 17.07 N/A\nH100-only 4 30.064 43.22%\nA100-only 6 22.02 22.48%\nA10G-only 40 40.4 57.75%\nL4-only 68 47.6 64.14%\n32 Mélange 8 6 30.1 N/A\nH100-only 7 52.612 42.79%\nA100-only 9 33.03 8.87%\nA10G-only 80 80.8 62.75%\nL4-only 135 94.5 68.15%",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "H100-only 7 52.612 42.79%\nA100-only 9 33.03 8.87%\nA10G-only 80 80.8 62.75%\nL4-only 135 94.5 68.15%\nTable6: Instanceallocationsfortheshort-contextArenadataset,SLO=40ms.\n19",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "Norm. Cost\nRate(req/s) Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 4 14.68 N/A\nH100-only 2 15.032 2.34%\nA100-Only 4 14.68 0.00%\n2 Mélange 1 3 26.218 N/A\nH100-only 4 30.064 12.79%\nA100-Only 9 33.03 20.62%\n4 Mélange 3 5 48.59 N/A\nH100-only 7 52.612 7.64%\nA100-Only 17 62.39 22.12%\n8 Mélange 3 12 101.202 N/A\nH100-only 14 105.224 3.82%\nA100-Only 34 124.78 18.90%\n16 Mélange 11 21 198.206 N/A\nH100-only 28 210.448 5.82%\nA100-Only 67 245.89 19.39%\n32 Mélange 24 40 388.72 N/A\nH100-only 56 420.896 7.64%\nA100-Only 133 488.11 20.36%\nTable7: Instanceallocationsforthelong-contextPubMeddataset,SLO=40ms.\nNorm. Cost\nRate(req/s) Solver L4 A10G A100 H100 Savings\n($/hr)\n1 Mélange 1 3.67 N/A\nH100-only 1 7.516 51.17%\nA100-only 1 3.67 0.00%\n2 Mélange 1 1 1 5.38 N/A\nH100-only 1 7.516 28.42%\nA100-only 2 7.",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "7.516 51.17%\nA100-only 1 3.67 0.00%\n2 Mélange 1 1 1 5.38 N/A\nH100-only 1 7.516 28.42%\nA100-only 2 7.34 26.70%\n4 Mélange 3 1 10.546 N/A\nH100-only 2 15.032 29.84%\nA100-only 3 11.01 4.21%\n8 Mélange 1 3 2 1 18.586 N/A\nH100-only 4 30.064 38.18%\nA100-only 6 22.02 15.59%\n16 Mélange 2 7 2 3 38.358 N/A\nH100-only 7 52.612 27.09%\nA100-only 12 44.04 12.90%\n32 Mélange 15 6 5 74.75 N/A\nH100-only 13 97.708 23.50%\nA100-only 24 88.08 15.13%\nTable8: Instanceallocationsforthemixedlong/shortcontextdataset,SLO=40ms.\n20",
+    "page": 20
+  }
+]

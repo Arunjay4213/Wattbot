@@ -1,0 +1,402 @@
+[
+  {
+    "type": "text",
+    "content": "FLM-101B: An Open LLM and How to Train It with $100K Budget\nXiangLi1†,YiqunYao1†,XinJiang1†,XuezhiFang1†,XuyingMeng2,\nSiqiFan3,PengHan3,JingLi4,LiDu1,BowenQin1,ZhengZhang1,\nAixinSun5,YequanWang1∗\n1BeijingAcademyofArtificialIntelligence,Beijing,China\n2InstituteofComputingTechnology,ChineseAcademyofSciences,Beijing,China\n3UniversityofElectronicScienceandTechnologyofChina,Chengdu,China\n4HarbinInstituteofTechnology,Shenzhen,China\n5SchoolofComputerScienceandEngineering,NanyangTechnologicalUniversity,Singapore\nAbstract Non-Growth vs. three Growth Strategies\nLargelanguagemodels(LLMs)areconsideredimportantap-\nproachestowardsfoundationalmachineintelligence,achiev-\ningremarkablesuccessinNaturalLanguageProcessingand\nmultimodaltasks,amongothers.However,thecarbonfoot-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "gremarkablesuccessinNaturalLanguageProcessingand\nmultimodaltasks,amongothers.However,thecarbonfoot-\nprintsandfinancialcostsoriginatingfromheavypre-training\ncomputation is a non-negligible issue. Progressive training\nmethods, inspired by the neurogenesis process that grows\nneural structures, have shown potential to accelerate LLM\npre-training.However,thealgorithms,implementation,and tokens (Trillion)\npracticesforprogressivelytrainingLLMsbeyond100Bpa- (a) Without growth\nrametersremainunderexplored.Inthispaper,weshowthat\nourmodel,namelyFLM-101B,trainedwithourgrowthstrat-\negyunderabudgetof$100K,reaches80%ofthebaselines’\nperformanceswithonly10%oftheirfloating-pointoperations.\nWebelievethatfurtherstudiesonprogressivetrainingwillben-\nefitthecommunitybycuttingdownthecostsandpromoting\ngreenAI.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rtherstudiesonprogressivetrainingwillben-\nefitthecommunitybycuttingdownthecostsandpromoting\ngreenAI.ThecheckpointofFLM-101Bispubliclyavailable.\n1 Introduction\nLargelanguagemodels(LLMs)(Radfordetal.2018;Tou-\nvronetal.2023a;Devlinetal.2019;Raffeletal.2020)have\nconsistentlydemonstratedtheirefficacyacrossaspectrumof\napplications,especiallyinlanguageprocessing (Wangetal.\n2022b,a; Fan et al. 2022; Liu et al. 2022) and multimodal\ntasks(Zhaoetal.2023;Mengetal.2023).Despitevariations\nin architectural designs, a universal challenge confronting\nall LLMs is the escalating cost associated with their train-\ning. Recent trends indicate a shift towards utilizing larger\namountsofdata(e.g.,1.4TtokensforLlama-1(Touvronetal.\n2023a),2TtokensforLlama-2(Touvronetal.2023b),and\n15TtokensforLlama-3(Meta2024)).",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lama-1(Touvronetal.\n2023a),2TtokensforLlama-2(Touvronetal.2023b),and\n15TtokensforLlama-3(Meta2024)).Meanwhile,thesizes\nofopen-sourcedmodelscontinuetoincrease(Penedoetal.\n2023;Bietal.2024;Mistral2024).Consequently,amajor\nfocuswithinLLMresearchisthedevelopmentofinnovative\nmethodologies that effectively mitigate training expenses,\naligningwiththebroaderobjectivesofGreenAI(Schwartz\netal.2020).\nInthispaper,wepresentourexplorationtotrainanLLM\natthe100B-parameterscaleusingagrowthstrategyinspired\nby previous research on progressive learning (Gong et al.\n2019; Gu et al. 2021; Yao et al. 2024) and neurogenesis\n)noilliB(\nsretemarap\nThe shaded area in the graph represents the training cost\n100\n80\n60\n40\n20\n0\n0.00 0.25 0.50 0.75 1.00\n(b) Linear growth strategy cost saving = 50",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "raining cost\n100\n80\n60\n40\n20\n0\n0.00 0.25 0.50 0.75 1.00\n(b) Linear growth strategy cost saving = 50\n(c) Superlinear growth strategy cost saving > 50%\n(d) Sublinear growth strategy cost saving < 50%\n)noilliB(\nsretemarap\n100\n80\n60 Sublinear Linear\n40 Superlinear\n20\n0\n0.00 0.25 0.50 0.75 1.00\ntokens (Trillion)\nFigure1:Anoverviewofdifferentgrowthstrategies.(a):\nabaselinewithconstantnumberofparameters.(b):astraight-\nforward linear growth strategy, cost-saving being exactly\n50%;(c):asuperlinearstrategywith>50%costsaving;(d):\nsublinearstrategysavingthecostbylessthan50%.\n(Erikssonetal.1998).“Growth”meansdynamicexpansionof\ntheparameternumbercount,fromsmalltolarge,throughthe\ntrainingprogresses.Figure1illustratesthreetypicalgrowth\nstrategies:linear,sublinear,andsuperlinear.AstheFLOPs",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ogresses.Figure1illustratesthreetypicalgrowth\nstrategies:linear,sublinear,andsuperlinear.AstheFLOPs\nof LLMs are approximately proportional to their number\nof parameters (Hoffmann et al. 2022), the area under the\nparametercurverepresentsthecomputationalcostoftraining.\nWhile existing studies on scaling laws (Hoffmann et al.\n2022)suggestthattrainingasmallermodelwithmoredata\nmay potentially result in higher scores on some tasks un-\nderafixedFLOPsbudget,theymainlyconsiderthescenar-\nios where model sizes are fixed through training. We be-\nlievethatverifyingthefeasibilityofagrowthstrategy(Gu\net al. 2021; Shen et al. 2022; Chen et al. 2022; Yao et al.\n2024) for extremely large models would be an important\ncompletiontoscalinglaws.Tomaximizecomputationaleffi-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "r extremely large models would be an important\ncompletiontoscalinglaws.Tomaximizecomputationaleffi-\nciency,westrategicallyfocusonimplementinganaggressive\ngrowthstrategy(Figure1(c))forsanitycheck.Weadaptthe\nMSG(Yaoetal.2024)growthoperatorstotrainamodelat\n100B+scale.Wefixourbudgettobe$100Kwith192A800\nGPUs.\nAtthe100Bscale,itisimpracticaltoconductstricthead-\n5202\nnaJ\n41\n]LC.sc[\n3v25830.9032:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "to-headcomparisonwiththesamemodeltrainedwithfixed abilitybyintroducinganexponentialdecayintotherotation\nsize from scratch. Instead, we compare our grown model, matrix.\nnamelyFLM-101B,withtheexistingfirst-generation100B+\nModelSizes.Benefitingfromourgrowthstrategy,thewe\nlanguagemodels(Brownetal.2020;Zengetal.2023).Our\nproducethreemodelswith16B,51B,and101B(i.e.,FLM-\nmodel is trained with around 300 billion English and Chi-\n101B)parametersinasingletraining.Thetrainingprocessis\nnese tokens, aligning it with these predecessors in terms\ncarriedoutinaprogressivemannerbygrowinga16Bmodel\nof data scale. We first evaluate on the knowledge-oriented\nto51B,andthen101B.\nbenchmarks (i.e., MMLU (Hendrycks et al. 2021) and C-\nEval(Huangetal.2023)).Nevertheless,suchevaluationmay\n2.2 Pre-TrainingSetup",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ycks et al. 2021) and C-\nEval(Huangetal.2023)).Nevertheless,suchevaluationmay\n2.2 Pre-TrainingSetup\nnotcomprehensivelyreflectthemodels’capability:itisdiffi-\nculttodistinguishwhetherthemodelsrecallapieceofknowl- FLM-101B.Bydesign,FLM-101BisanEnglish-Chinese\nedgeorpossessthecapacityforreasoningand/orinference. bilingualmodel.ItmixesEnglishandChinesecorporaata\nBorrowingsomeideasfromIntelligenceQuotient(IQ)tests ratioofapproximately53.5%:46.5%.Inspiredbythefind-\n(i.e.,PerceptualReasoningandWorkingMemory(Watkins\ningthatinstructiondatacanaugmentLLMs’comprehension\net al. 1995)), we consolidate another range of evaluation, capabilities (Ouyang et al. 2022), we integrate multi-task\nincludingsymbolicmapping(Weietal.2023),ruleunder-\ninstructionallyprompteddata:OIG(OpenInstructionGen-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "cludingsymbolicmapping(Weietal.2023),ruleunder-\ninstructionallyprompteddata:OIG(OpenInstructionGen-\nstanding,patternmining,andanti-interferenceevaluations. eralist)1andCOIG(ChineseOpenInstructionGeneralist)2,\nWebelievethesetasksarelesslikelytobeaffectedbydata inthepre-trainingstage.\nleakageormemorization,offeringamorenuancedinsight\neFLM-16B.Toanalysetheeffectofdomain-specificknowl-\nintothemodel’scognitiveabilitiesbeyondmereknowledge\nedgedata(Section4.2),weapplytheFreeLMteachersignals\nretrieval.\n(Lietal.2023)toenhancefactualcapability.Duetocomputa-\nTosummarize,thepaperhasmadethefollowingcontri-\ntionalcost,weincorporatethesesignalsonlyinthesmallest\nbutions.First,tothebestofourknowledge,thisisthefirst\n16Bmodel.ThisenhancedmodelisnamedeFLM-16B.\nattempttouseagrowthstrategytotrainanLLMwith100B+",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "hefirst\n16Bmodel.ThisenhancedmodelisnamedeFLM-16B.\nattempttouseagrowthstrategytotrainanLLMwith100B+\nparametersfromscratch.Thetrainingcostsonly100,000 Specifically,weemploytwoemojis: 😈 (U+1F621)and\nUSdollars.Second,wedemonstratedetailsforaddressing 😡\n(U+1F608)3,fromthevocabularytoreplacetheoriginal\nbinaryclassificationlabels(Lietal.2023).Fortheteacher\ntheinstabilityissuesviaimprovingtrainingobjectives,hyper-\nsignal,wesuperviseonlyontheemojitokens,unifyingthe\nparametersearch,andfunction-preservinggrowth.Third,we\nobjectivewithlanguagemodeling.Moreover,wediscardthe\nconductextensiveevaluations,includingboththecommonly\noriginalmulti-taskalternatingapproachandcompletelymix\nusedknowledge-orientedbenchmarksandthenewrangeof\nthesamplesfrombothsidesineverybatch.Thisstrategycan",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "sedknowledge-orientedbenchmarksandthenewrangeof\nthesamplesfrombothsidesineverybatch.Thisstrategycan\nevaluationsinspiredbyIQtests.Experimentalresultsshow\nenhancetheconsistencyofdatasamplingdistributionaswell\nthat,despiteitslowtrainingcost,FLM-101Biscompetitive\nasimprovetrainingstability.\nand robust. Lastly, we will release the model checkpoints,\naswellassomerelatedcodeandtools,topromoterelated\nTable1:Partialconfigurationsfordifferentgrowthstages.\nresearch.RelatedliteratureisreviewedinAppendixB.\n2 DesignOverviewofFLM-101B Params Learning Warmup BatchTokens Time Tokens\n(billion) Rate (samples) (million) (day) (billion)\nInthissection,weprovideanoutlineofFLM-101B,detail-\n16 4e−4 4,608,000 4.72 9.63 245.37\ningitsarchitecture,pre-trainingmethods,andconfiguration\n51 3.4e−4 230,400 4.72 5.37 39.64",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "63 245.37\ningitsarchitecture,pre-trainingmethods,andconfiguration\n51 3.4e−4 230,400 4.72 5.37 39.64\nspecifics. 101 2e−4 230,400 4.31 6.54 26.54\n2.1 Architecture\n2.3 GrowthStrategy\nBackbone.Amongthemanyexistingmodelarchitectures,\nwe adopt FreeLM (Li et al. 2023) as the backbone for TheessenceofthelowcostinscalingupFLM-101Bisthe\nour models, with modifications. FreeLM is based on GPT growth strategy. Specifically, we train three models, with\n(Radford et al. 2019), a transformer-like architecture with 16B,51B,and101Bparameters,respectively,inasequential\nadecoder-onlyconfiguration.DifferentfromGPT,FreeLM manner.Eachmodelinheritsknowledgefromitspredecessor.\nfeaturestwopre-trainingobjectives:thelanguageobjective This is contrary to the common practice that the models",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "pre-trainingobjectives:thelanguageobjective This is contrary to the common practice that the models\nandtheteacherobjective(Section2.2).WepreservetheGPT- of different sizes are trained independently (Touvron et al.\n3-styletransformerblockdesignswithoutincorporatingthe 2023a,b).\nlatermodificationsfromLlamaseries.Weemploythetok-\nFunction-preservingGrowth.Functionpreservationmeans\nenizer derived from GPT-4, characterized by a vocabulary\nthatbeforeandaftergrowth,themodelsyieldconsistentout-\nsizeof100,256.\nputsgiventhesamearbitraryinputs.Thispropertyhasproven\nxPosIntegration.Toenhancelongsequencemodeling,we\nintegratetheExtrapolatablePositionEmbedding(xPos)(Sun 1https://huggingface.co/datasets/laion/OIG\netal.2023).ThisinnovationdrawsinspirationfromRoPE(Su 2https://huggingface.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ace.co/datasets/laion/OIG\netal.2023).ThisinnovationdrawsinspirationfromRoPE(Su 2https://huggingface.co/datasets/BAAI/COIG\netal.2021),whichaimstoimprovethelengthextrapolation 3https://apps.timwhitlock.info/emoji/tables/unicode",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Table2:Parallelstrategiesandthroughputfordifferentgrowthstages.ForNVIDIAA800GPUs,thepeaktheoretical\nFLOPspersecondis312teraFLOPs/sec.Gradientaccumulationisappliedforthelargeglobalbatchsize.\nParams Tensor Pipeline Data Number Batch teraFLOP/s FLOPs\n(billion) ParallelSize ParallelSize ParallelSize ofGPUs Size perGPU Utilization\n16 2 1 96 192 2304 162 51.90%\n51 4 2 24 192 2304 160 51.30%\n101 4 4 12 192 2160 165 52.88%\nbeneficialforbothknowledgeinheritance(Chen,Goodfel-\nlow, and Shlens 2016; Chen et al. 2022; Shen et al. 2022) 16B stage\nand training stability (Yao et al. 2024). The growth oper-\n51B stage\nators used in FLM-101B training originate from Masked\nStructuralGrowth(MSG)(Yaoetal.2024),withadaptation.\n101B stage\nSpecifically,toadapttheseoperatorstothemulti-node3D",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "h(MSG)(Yaoetal.2024),withadaptation.\n101B stage\nSpecifically,toadapttheseoperatorstothemulti-node3D\nparallel framework, we implement them by extending the\nmodelstructuresofflineandreloadingthecheckpointwhen\nthenextstagestarts.\nSchedulesandCost-Effectiveness.Modelgrowthschedul-\nProcessed Tokens (Billions)\ning is a trade-off between the pros and cons inherent to\nmodelsofdifferentsizes(Yaoetal.2024):asmallermodel\nisfasterincomputation,enablingmorerapidconsumption\noftrainingdataforbroadercommonsenseknowledge;con-\nversely,alargermodelisbetterinthereductionoflossper\nstep,indicatingadeeperunderstandingofthenuancedlin-\nguistic patterns. Based on the speed test results and total\nbudget, we train the 16B model with 245.37B tokens, the\n51Bmodelwith39.64Btokens,andthe101Bmodelwith\n26.54Btokens.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "in the 16B model with 245.37B tokens, the\n51Bmodelwith39.64Btokens,andthe101Bmodelwith\n26.54Btokens.Thebilliontokensperdayofdifferentsizes\narelistedinTable1.Underthisgrowthschedule,thetotal\ntime cost for training FLM-101B is 21.54 days, which is\n72%time-saving(ora3.56xspeedup)comparedtotraining\na101Bmodelfromscratch(76.74daysestimated).Thisis\nconsistentwithourmotivationsdepictedinFigure1.\n2.4 TheParallelismSetupandModel\nConfigurations\nThe Parallel Strategies. FLM-101B is trained on a clus-\nterof24DGX-A800GPU(8×80G)servers.Weemploya\n3D parallel strategy for optimal throughput, including the\nstandarddataparallelism(Valiant1990),tensormodelpar-\nallelism (Shoeybi et al. 2019), and pipeline model paral-\nlelism (Narayanan et al. 2021). Moreover, by employing\nsequenceparallelism(Korthikantietal.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "l paral-\nlelism (Narayanan et al. 2021). Moreover, by employing\nsequenceparallelism(Korthikantietal.2022),weslicethe\ninputs to the Transformer core’s LayerNorm and Dropout\nlayersalongthesequencelengthdimension,leadingtoaddi-\ntionalsavingsinGPUcomputationalresourcesandmemory\nutilization. We also utilize the Megetron-LM 4 implemen-\ntationofthedistributedoptimizer(Rajbhandarietal.2019)\ntofurtherreduceGPUmemoryconsumption,whichevenly\ndistributestheoptimizerstatesacrossdataparallelranks.\nTable 2 shows the parallelism configurations and train-\ning throughput in each stage of FLM-101B training. In\ndifferent stages, we configure different Tensor Parallel ×\n4https://github.com/NVIDIA/Megatron-LM\nssoL\ngniniarT\nFigure2:TraininglossforFLM-101Bmodels.\nPipelineParallelsizestoachievehigherefficiency.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ssoL\ngniniarT\nFigure2:TraininglossforFLM-101Bmodels.\nPipelineParallelsizestoachievehigherefficiency.Thesingle-\nGPUthroughputforallthreetrainingstagesconsistentlyex-\nceeds 160 teraFLOPs/sec with a utilization rate of at least\n51.3%.Forcomparison,GLM-130Bachieves135teraFLOP-\ns/sec(Zengetal.2023)witha42.27%utilizationrate.We\ncanalsofindthatFLM-101BhasahigherFLOPutilization\nrate than Megatron-LM (Korthikanti et al. 2022) under a\nsimilarmodelsize.\nFLM-101BConfigurations.TheFLM-101Bmodelisstruc-\nturedwithahiddenstatedimensionof10,240,alayernum-\nber of 80, a context window of 2,048 tokens, 80 attention\nheads,andavocabularysizeof100,256.FLM-101Buses\nthe AdamW optimizer (Loshchilov and Hutter 2017) with\nβ =0.9andβ =0.95.Acosinelearningratescheduleis\n1 2\nemployed,leadingtoafinallearningrateof6e−6.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "with\nβ =0.9andβ =0.95.Acosinelearningratescheduleis\n1 2\nemployed,leadingtoafinallearningrateof6e−6.Weusea\nweightdecayof0.1andgradientclippingof1.0.\nTable1presentspartofthehyperparametersusedindiffer-\nentgrowthstages.Ineachgrowthstage,weapproximately\ninherit the previous learning rate and adhere to the same\nschedule.Thelearningrateatthebeginningofeachstageis\nreportedinthetable.Inthe16Bstage,4,608ksamplesare\nusedforlearningratewarmup,whileinlatergrowthstages,\nweusefewersamplesof230.4k.Notethatwedonotapply\nbatchsizewarmupbecauseweaddressthestabilityissuein\nadifferentmanner,detailedinSection3.\n3 TrainingStabilityofFLM-101B\nModels beyond 100B parameters (Scao et al. 2022; Zeng\netal.2023)usuallysufferfromabunchofnotoriousstability\nissuesincludinglossdivergence,gradientexplosion,andnu-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": ")usuallysufferfromabunchofnotoriousstability\nissuesincludinglossdivergence,gradientexplosion,andnu-\nmericaloverflow/underflow.Thisnotonlyinflatesthecostof\nsearchingforfeasiblehyperparameterslikeoptimallearning",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Table 3: Carbon emissions of our proposed model, FLM-101B, and other well-known LLMs. For details, please see the\ncorrespondingreferences.ThedefinitionsofTDP,nettCO e,andtheirformulasarethesameas(Pattersonetal.2021).\n2\nGPT-3 Gopher PaLM GLM-130B Llama-2\nModel FLM-101B\n(Brownetal.2020)(Raeetal.2021)(Aniletal.2023)(Zengetal.2023)(Touvronetal.2023b)\nParams 175B 280B 540B 130B 70B 101B\nGPUHours 3.55e6 3.77e6 8.40e6 1.11e6 1.72e6 1.01e5\nChipPower/TDP 330 283 378.5 400 400 400\nEnergy(MkWh) 1171 1066 3179 444 688 40\nnettCO e 552 380 271 257 291 26\n2\nrates,butalsointensifiesongoingmaintenanceduringtrain- pleproxywidthsatthesamesteps.Mixed-precisiontraining\ning, such as babysitting, issue resolution, data adjustment, isappliedtosaverun-timememoryandreducetimecosts.\nandrebooting.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "g, issue resolution, data adjustment, isappliedtosaverun-timememoryandreducetimecosts.\nandrebooting.Moreover,thismakesthebudgetofthewhole Specifically,wechooseBfloat16insteadofFP16duetoitssu-\nprojectunpredictable.Inthissection,weintroducedetailsfor periorprecisionforvaluesapproachingzero,makingitmore\nmitigatingtheseissues. suitableforµP.Asaresult,wedonotencountertheFP16\nunderflow issue reported by (Yang et al. 2021). Moreover,\nPredictableScaling.TheTensorProgramstheories(Yang\nBfloat16negatestheneedforlossscaleadjustments,making\nandHu2021;LittwinandYang2023)unveiltheuniversal\nourtrainingproceduremorepromisingandreproducible.\nrelationsofthetrainingdynamicswiththemodelwidthtend-\nThefulltraininglosscurveispresentedinFigure2.We\ningtoinfinite.Thisresultsinaparameterizedmappingfor",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ThefulltraininglosscurveispresentedinFigure2.We\ningtoinfinite.Thisresultsinaparameterizedmappingfor\nobservethatthelosscurvebecomessteeperaftereachgrowth.\ncertainclassesofhyperparametersbetweenasmallmodel\nItmatchestheintuitionthatalargermodelisbetterinloss\nanditslargercounterparts,whichistermedµP(Yangetal.\nreductionperstep.Thewholetrainingprocedureisrobust\n2021).Twoimportantinsightsare:(i)Thewider,thebetter:\nandpredictable:eventhoughthe51Bstageisshortwithonly\ntheoretically,underµPtransfer,awidermodelwillalways\n40Btokens,the101Btrainingremainsstable.Thissupports\nyieldlowerlossthanitsnarrowercounterpartswhenexposed\ntheeffectivenessofthegrowthstrategy.\ntoidenticaldata(Yangetal.2021).Asadirectcorollary,ifa\nnarrowmodelconverges,itswidercounterpartswillalways\n4 BenchmarkEvaluation\nconverge.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ectcorollary,ifa\nnarrowmodelconverges,itswidercounterpartswillalways\n4 BenchmarkEvaluation\nconverge.(ii)Lossprediction:thelossvalueofalargemodel\nispredictableusingthelossofitssmallercounterparts(Ope- Manyexistingbenchmarks (e.g.,OpenLLM5)focusonas-\nnAI2023).µScaling(YaoandWang2023)open-sourcesa sessingtheknowledgeabilityofLLMs.Inthissection,we\nmethodologythroughwhichlosspredictioncanbeachieved discuss the results of FLM on these benchmarks. We be-\nbycombiningµP(Yangetal.2021)and(amodified)scaling lievethatknowledgealonemightnotcomprehensivelyreflect\nlaw (Kaplan et al. 2020; Henighan et al. 2020; Hoffmann LLM’scapability(seeSection4.2formoredetails).Thus,in\netal.2022). additiontothecommonbenchmarkevaluation,weborrow",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ty(seeSection4.2formoredetails).Thus,in\netal.2022). additiontothecommonbenchmarkevaluation,weborrow\nBasedonthesefindings,ourmethodtosolvetrainingsta- theconceptofIQtestsandevaluateLLMswithsomespecific\nbilityisasfollows:wefirstdeterminethedatadistribution cognitivetasksinSection5.\nbeforetheFLM-16Btrainingstarts.Next,weperformagrid\nCostEstimationMethod.Duetotheconsiderablecomputa-\nsearchonthreehyperparametersincludingthelearningrate,\ntionalexpenseofLLMs,wealsoemphasizetheirassociated\ninitializationstandarddeviation,andthesoftmaxtemperature\ncosts in our experimental results. However, it is difficult\nintheoutputlayer.Thisgridsearchisperformedwithasmall\nto directly compare the actual cost of LLMs due to their\nproxymodel(lessthan100M)withahiddenstatedimension\ndifferentinfrastructuresandprices.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Ms due to their\nproxymodel(lessthan100M)withahiddenstatedimension\ndifferentinfrastructuresandprices.Toobjectivelycompare\n(“modelwidth”)of256andaheadnumberof2.Alltheother\ntraining costs, we use the FLOPs for training as the cost\nstructural configurations and training data are identical to\nestimation index, which is estimated from the model’s hy-\nthose of FLM-16B. A single run of grid search takes 24.6\nperparameters,configuration,andtrainingdata(Narayanan\nhourswithdataparallelismon6nodes,whichisequivalentto\netal.2021).Sincemostmodelsdonotreleasethecomplete\n6hoursperrungivenour24-nodeinfrastructure.Finally,we\ntrainingconfiguration,weestimateFLOPswithinarange6.\nfindagroupofwell-performinghyperparameters:learning\nFormonolingualEnglishLLMs,thecomputationalcostof",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "indagroupofwell-performinghyperparameters:learning\nFormonolingualEnglishLLMs,thecomputationalcostof\nrate = 4e−4, standard deviation = 1.6e−2, and softmax\nGPT-3 is calculated as 376.41 (±53.77) zettaFLOPs, and\ntemperature=2.0.Transferringthesehyperparameterstothe\nLlama-2 (13B) as 210.37 (±28.77) zettaFLOPs. For bilin-\n16BmodelviaµP(Yangetal.2021)ledtoaseamlesstrain-\ngualormultilingualmodels,itisnecessarytoestimatethe\ningexperiencedevoidofinstabilities.CombinedwithMSG\ncostforeachlanguage.ThetotalcostofGLM-130Biscom-\n(Yaoetal.2024),wealsowitnessnopost-growthdivergence\nputed as 421.60 zettaFLOPs. As the data ratio of English\ninFLM-51BandFLM-101B.\nOur implementations of µP are largely consistent with 5https://huggingface.co/spaces/HuggingFaceH4/",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Our implementations of µP are largely consistent with 5https://huggingface.co/spaces/HuggingFaceH4/\nthoseinµScaling(YaoandWang2023),withmodifications open llm leaderboard.\nto handle the rotary embedding. Thus, the value range of 6This range originates from the use of checkpoint activation.\nFLM-16Blossisalsopredictablewiththeresultsfrommulti- Pleasecheck(Narayananetal.2021)formoredetails.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Table4:PerformanceofFLM-101BandbaselinesincludingLlamaseriesandGLM-130B.Welisttheestimatedfloating-\npointoperations(zetta=1021)ofthetrainingprocessforreference.\nModel Cost(zettaFLOPs) Average ARC HellaSwag MMLU TruthfulQA\nLlama-2(13B) 201.37 (±28.77) 58.66 59.39 82.13 55.77 37.38\nLlama-2(7B) 106.60 (±15.23) 54.32 53.07 78.59 46.87 38.76\nLlama(13B) 94.81 (±13.54) 56.08 56.23 80.93 47.67 39.48\nLlama(7B) 49.54 (±7.08) 49.72 51.02 77.82 35.71 34.33\nGLM-130B 210.80 48.11 42.15 67.91 42.59 39.80\nFLM-101B 28.22 43.94 39.76 66.23 28.30∗ 41.47\n∗44.50foraknowledge-enhancedeFLM-16B(Section2.2,4.2).\nTable5:PerformanceofeFLM-16BandbaselinesonC-eval.Inthistable,eFLM-16Breferstotheprofessional-knowledge-\nenhancedFLM-16B.NotethatC-Evalleaderboardonlykeepsonedecimalplacefortheevaluationresults.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nowledge-\nenhancedFLM-16B.NotethatC-Evalleaderboardonlykeepsonedecimalplacefortheevaluationresults.\nModel Average Average(Hard) STEM SocialScience Humanities Others\nGPT-4 68.7 54.9 67.1 77.6 64.5 67.8\nChatGPT 54.4 41.4 52.9 61.8 50.9 53.6\nGLM-130B 44.0 30.7 36.7 55.8 47.7 43.0\neFLM-16B 46.1 28.9 38.3 53.7 46.8 52.6\nand Chinese is reported to be 1:1, the cost of GLM-130B Results.Onaverage,FLM-101Bachievesascoreof43.94,\nforEnglishis210.80zettaFLOPs,andthesameforChinese. reachingover90%oftheperformanceofGLM-130B,which\nThedataratioofFLM-101Bis53.5% : 46.5%forEnglish has 7 times more FLOPs. Both model underperform the\nand Chinese. The total cost of FLM-101B is computed as Llamaseries,potentiallyduetothefirst-generationmodel\n52.76zettaFLOPs(28.22zettaFLOPsforEnglishand24.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Llamaseries,potentiallyduetothefirst-generationmodel\n52.76zettaFLOPs(28.22zettaFLOPsforEnglishand24.54 architecturesandlesswell-refinedtrainingdata.Notethatthe\nforChinese). FLOPsofFLM-101Bisevenlowerthana7BLlamamodel.\nGoingdeeperintothenatureofthesetasks,wefurtherhave\nCarbonFootprintAnalysis.Animportantmeasurementof\nthefollowingobservations:\namodel’senvironmentalimpact(Schwartzetal.2020)isthe\n(i)MMLUtypicallyrequiresdomainknowledgetosolve.\ncarbon footprints originated from the pre-training process.\nInourtraining,noEnglishtextbookorexamdataisintention-\nWeestimatecarbonemissionwiththemethodsprovidedin\nallyused.Nevertheless,oureFLM-16B(Section2.2)variant,\n(Pattersonetal.2021).Wesummarizethecarbonfootprint\nincorporatedwiththeseknowledgeviaFreeLMobjectives,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "attersonetal.2021).Wesummarizethecarbonfootprint\nincorporatedwiththeseknowledgeviaFreeLMobjectives,\nstatistics of FLM-101B and well-known LLMs in Table 3.\noutperformsGLM-130Bwithonly16Bparameters.\nOurmodelyieldsonly1/10pre-trainingcarbonfootprintofa\n(ii)Asaforementioned,TruthfulQA,ARC,andHellaSwag\ntypicalLLM.\nemphasize more on common sense and Wiki-level knowl-\n4.1 OpenLLMEvaluation edge;theirperformancesimprovewiththeincreasedamount\nofdataandthereductionoftrainingloss.Withlessthan0.16T\nOpenLLMLeaderboardisanopen-sourceprojecttoeval-\nEnglish data (about 1/10 of Llama-2), FLM-101B already\nuate the open-sourced LLMs and chatbots. By the time\nachievesthebestaccuracyof41.47amongallthebaselines\nFLM-101Bistrained,OpenLLMcontainsfourtasks:ARC-\nonTruthfulQA.OnARCandHellaSwag,FLM-101Biscom-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "lines\nFLM-101Bistrained,OpenLLMcontainsfourtasks:ARC-\nonTruthfulQA.OnARCandHellaSwag,FLM-101Biscom-\nChallenge(ARCforshort)(Clarketal.2018),HellaSwag\nparabletoGLM-130BwithasimilaramountofEnglishdata\n(Zellersetal.2019),MMLU(Hendrycksetal.2021),and\n(approximately0.2T).Also,thetrainingdataofGLM-130B\nTruthfulQA(Lin,Hilton,andEvans2022).TheOpenLLM\nincludesARCandHellaSwag,asexpresslyclaimedin(Zeng\nLeaderboardappliestheaveragescoreasametric.Allthe\netal.2023).Inourunderstanding,forFLM-101B,improve-\nfour tasks require intense knowledge to solve: ARC, Hel-\nmentcanbeexpectedonthesethreetasksifexposedtomore\nlaSwag, and TruthfulQA depend on commonsense knowl-\ntrainingdata.\nedgeandWikipedia,whileMMLUcontainssomequestions\n(i.e.,STEM)thatrequiredomain-specificprofessionalknowl-\n4.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "dWikipedia,whileMMLUcontainssomequestions\n(i.e.,STEM)thatrequiredomain-specificprofessionalknowl-\n4.2 EvaluationontheProfessional\nedgeandintricatereasoning.\nKnowledge-EnhancedModel\nTable4detailstheperformanceofFLM-101Bandstrong\nbaselines,includingLlamaseriesandGLM-130B7.GLM- We conduct experiments on a knowledge-enhanced ver-\nsion(eFLM-16B,detailedinSection2.2)oftheFLMtovali-\n130B results are achieved by our run on an open-sourced\ndatetheeffectofdomain-specificknowledgedataonbench-\ncheckpoint.\nmark results. We continue to train the smallest FLM-16B\n7WeexcludeGPT-3becauseitisclosed-source.Probabilityval- withteachersignals(Lietal.2023)fromacombinationof(i)\nuesareunavailableforfaircomparison. partoftheauxiliarytrainingdataofMMLU(Hendrycksetal.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "partoftheauxiliarytrainingdataofMMLU(Hendrycksetal.",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n201.37 (±28.77)\n106.60 (±15.23)\n94.81 (±13.54)\n49.54 (±7.08)\n210.80\n28.22",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Table6:PerformanceofthethreestagesofFLMonOpenLLM.Toreducethecomputationalcostduringevaluation,we\nsample20%and30%itemsforHellaSwagandMMLUtasks,respectively.\nParameters TrainingData Average ARC Hellaswag MMLU TruthfulQA\n16B 245.37B 39.19 32.25 58.57 27.02 38.92\n51B 39.64B 41.79 35.32 64.04 27.66 40.12\n101B 26.54B 44.41 39.76 67.88 28.54 41.47\n2021),(ii)examquestionsinsimilardomainsandformatsto 5 EvaluationInspiredbyIQTests\nC-Eval(Huangetal.2023)8,and(iii)otherdomainknowl-\nSection 4 presents the evaluation of existing benchmarks,\nedgedata.NotethateFLM-16Bisnotatypicalfine-tuning focusingonknowledge.AswediscussedinSection1and\nwithinstructdatawhichmayaffectthelanguagemodeling 4.2,knowledgecouldnotfullyreflecttheIntelligenceQuo-\ncapabilityofLLM.Wepreservebothlanguageandteacher tient(IQ)ofLLMs.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "notfullyreflecttheIntelligenceQuo-\ncapabilityofLLM.Wepreservebothlanguageandteacher tient(IQ)ofLLMs.Asasupplement,weconductaseries\nsignalswiththecorrespondingdatainthiscontinue-training. ofIQ-testtaskevaluationinthissection.ForIQevaluation,\nTheMMLUresultisinthefootnoteofTable4.Table5lists wemakenecessarymodificationstoexistingdatasets(Wei\ntheresultofeFLM-16BandbaselinesonC-Eval. etal.2023;Westonetal.2015;Srivastavaetal.2023)orgen-\nResults.Enhancedwithprofessionalknowledge,significant eratenewsyntheticdatasets.Specifically,theIQtestmainly\nimprovementsareobserved.OnMMLUtasks,theincorpo- considersfouraspects:symbolicmapping,ruleunderstand-\nrationofprofessionalknowledgedataresultsinascoreof ing,patternmining,andanti-interference.Acommonkey\n44.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "onofprofessionalknowledgedataresultsinascoreof ing,patternmining,andanti-interference.Acommonkey\n44.50foreFLM-16B(seeTable4),whichsurpassesGLM- propertyofthesetasksisthattheyaredependentonthein-\n130B(42.59),amodelthatalsoincorporatedmulti-taskdata ferenceandgeneralizationinanewcontext,insteadofthe\nin the related domain (Zeng et al. 2023). For comparison, previously-learnedknowledge.\nthe MMLU score is 27.02 for the un-enhanced FLM-16B. Compared Methods. Borrowing psychological ideas that\nOn C-Eval tasks 9, we observe that eFLM-16B performs the measurement of IQ is dependent on age 10, we mainly\nbetterthanGLM-130Bbyabout2points.Forcomparison, considerexistingmodelstrainedwithsimilaramountsofdata\nthe average C-Eval score of the vanilla FLM-16B is 27.0, toFLM-101B.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "trainedwithsimilaramountsofdata\nthe average C-Eval score of the vanilla FLM-16B is 27.0, toFLM-101B.AsamilestoneofLLMdevelopment,GPT-\nwhichunderperformsGLM-130B.Theseresultssuggestthat 3(175B)(Brownetal.2020)proposedin-contextlearning\nevaluationwithprofessionalknowledgemaynotfullyreflect forthefirsttime.GLM-130B(Zengetal.2023)isthefirst\nthecapabilityofLLMs,particularlywhendifferentLLMs openEnglish-ChinesebilingualLLM.Hence,weselectthem\naretrainedwithdifferentdatacollections,andsomemaynot asbaselinemodels.Bothmodelsaretrainedwith300˜400\ncomewithaclearlist. billion tokens, which are in the same range as ours. GPT-\n3 focuses on English, and is not included in the Chinese-\n4.3 EvaluationoftheGrowthStrategy\nrelated evaluation (i.e., CLUE-IQ). The results of GPT-3",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Chinese-\n4.3 EvaluationoftheGrowthStrategy\nrelated evaluation (i.e., CLUE-IQ). The results of GPT-3\nOur core method for reducing computational cost is the areachievedbyAPI.GLM-130Bisevaluatedwithitsopen-\ngrowthstrategy.Wewouldliketoanswerthequestionsof sourcedcheckpoint.\nwhether our growth strategy is effective in knowledge in-\nTasks,Data,andResults.Wecurateevaluationbenchmarks\nheritance, and how model capabilities grow with size. We\nregardingfourcognitivecapabilities.Wesummarizethedata\nevaluatetheperformanceofFLMonallthestages:16B,51B,\nandresultsinthissection.Fordetailsintaskdefinitionand\nand101B.Table6showstheperformanceofFLMmodelsat\ndatacollectionprocess,pleaseseeAppendixA.1toA.4.\neachstage.\nSymbolic Mapping. An existing study (Wei et al. 2023)\nResults.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "pleaseseeAppendixA.1toA.4.\neachstage.\nSymbolic Mapping. An existing study (Wei et al. 2023)\nResults. As expected, the performance of FLM improves points out that textual classification tasks (e.g., sentiment\nwith the increase in model size. FLM-101B achieves the classification)oftenlackgeneralization.Consideringthis,we\nbest performance on almost all tasks. This means that our useasymbolicmappingmethodtoreplacetheoriginalcate-\nmodelinheritsknowledgefromthepreviousstageaftereach goricallabelswithsymbolsthatareunlikelytobeseeninany\ngrowth.Wealsoobservethatthe101Bmodelimprovesthe trainingdata.Hence,wecanevaluatetheLLMs’language\nperformancescoresmoresignificantlythanthe51Bmodel, understandingabilityaswellasthegeneralizationabilities\nwithlessdata.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "resignificantlythanthe51Bmodel, understandingabilityaswellasthegeneralizationabilities\nwithlessdata.Thisindicatesthatthemodelsaresuccessfully toanewcontext.Weformourevaluationtaskasin-context\nincorporatingnewweightsintrainingaftergrowth,andtak- learning with few-shot examples for each label. We con-\ningadvantageoflargerparametercounts.Theperformance structtwosymbolicmappingdatasets,namelySuperGLUE-\nonARCandHellaSwagincreasessteadilyandsignificantly, IQandCLUE-IQ,builtonSuperGLUE(Wangetal.2019)\nwhich corresponds well to the decline of the model loss. andCLUE(Xuetal.2020),respectively.Examplesareillus-\nAgain,asweexpectedinSection4.1,asmoretrainingdata tratedintheAppendix(Figure1).\nisprocessed,FLM’sperformanceonOpenLLMimproves. ResultsonSuperGLUE-IQandCLUE-IQarepresentedin",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ure1).\nisprocessed,FLM’sperformanceonOpenLLMimproves. ResultsonSuperGLUE-IQandCLUE-IQarepresentedin\nTable 7 and Table 8, respectively. With less computation\n8C-EvalcanbeconsideredasaChineseversionofMMLU.\n9Thescoresareachievedonthetestsetbysubmittingtothe 10https://ocw.mit.edu/ans7870/9/9.00SC/MIT9 00SCF11 text.\nC-Evalplatform. pdf,page367.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "by one magnitude, FLM-101B achieves comparable per- Table10:PerformanceofFLM-101B,GPT-3,andGLM-\nformancewithGPT-3onSuperGLUE-IQandoutperforms 130Bonpatternminingtasks.\nGLM-130BonCLUE-IQ.\nModel Average Head&Tail FullRepeating HeadSlicing\nTable7:PerformanceonSuperGLUE-IQofGPT-3,GLM- GPT-3 70.00 61.00 92.00 57.00\n130B,andFLM-101B.CostiscomputedinzettaFLOPs. GLM-130B 53.00 38.00 70.00 51.00\nFLM-101B 64.67 52.00 79.00 63.00\nModel Cost Average BoolQ WiC RTE WSC\nGPT-3 376.41(±53.77) 47.60 50.84 53.33 48.38 37.86\nGLM-130B 210.80 48.19 40.13 48.67 47.65 56.31 Anti-interference. Anti-interference capability is critical\nFLM-101B 28.22 46.76 49.50 50.33 48.38 38.83 forfindingandutilizinginformationthatistrulyrelatedtoa\nspecificgoal,inanunseenandnoisycontext(AppendixFig-\nure3).",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "utilizinginformationthatistrulyrelatedtoa\nspecificgoal,inanunseenandnoisycontext(AppendixFig-\nure3).Assuggestedbythecocktailpartyprobleminspeech\nTable8:PerformanceonCLUE-IQforGLM-130Band recognition(Qianetal.2018),weconsideranti-interference\nFLM-101B.CostiscomputedinzettaFLOPs. ability to be important for intelligent agents. We conduct\nanti-interferenceevaluationinthreetasktypes:MultipleKey\nCLUE Retrieval, Single Supporting Fact Tracking, and Two Sup-\nModel Cost Average AFQMC CSL OCNLI WSC porting Facts Tracking, as exemplified in Figure 3 in the\n2020\nAppendix.\nGLM-130B 210.80 39.96 33.33 53.85 34.0 38.67\nFLM-101B 24.54 42.07 38.33 55.29 27.33 47.33\nTable11:PerformanceofFLM-101B,GPT-3,andGLM-\n130Bonanti-interferenceevaluation.\nRuleUnderstanding.Weconsidertheunderstandingand",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "1B,GPT-3,andGLM-\n130Bonanti-interferenceevaluation.\nRuleUnderstanding.Weconsidertheunderstandingand\nexecutionofrulesbeingastrongindicationofreasoningca-\npability.Tothisend,wedesignruleunderstandingevaluation. Multiple Single Two\nNotethatthistestisdifferentfromreasoningbasedonthe Model Average Key Supporting Supporting\nRetrieval Fact Facts\nchainofthought.DetaileddiscussionisprovidedinAppendix\nA.2. GPT-3 70.11 92.67 78.33 39.33\nWe curate data for two subtasks: Counting (0-shot) and GLM-130B 53.56 77.67 56.33 26.67\nFLM-101B 60.11 89.00 59.00 32.33\nStringreplacement(4-shots).\nTable9:PerformanceofFLM-101B,GPT-3,andGLM- Table11showstheevaluationresultsonanti-interference.\n130Bonruleunderstandingtasks. FLM-101Bachievesthesecond-bestpassingrateswithan\nadvantageofaround7%comparedtoGLM-130B.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ndingtasks. FLM-101Bachievesthesecond-bestpassingrateswithan\nadvantageofaround7%comparedtoGLM-130B.\nReplace Replace\nModel Average Counting IQTestConclusion.Onourfouradditionalevaluationsin-\nLowercase Word\nspiredbytheIQtests,FLM-101BoutperformsGLM-130B\nGPT-3 86.03 82.43 80.67 95.00\nandobtainscompetitiveresultscomparedtoGPT-3insome\nGLM-130B 71.49 60.81 69.67 84.00\ntaskswithmuchlowercosts.Exceptfortheimpactsoftrain-\nFLM-101B 76.42 69.59 64.00 95.67\ningdata,thesuperioritymaybeowedtoastorythatinthe\ngrowthstrategy,thesmallermodelsinearlystagesrefinea\nTable9showstheperformanceofourproposedFLM-101B\nmore efficient searching space, which keeps taking effect\nagainstGPT-3andGLM-130Bonruleunderstandingtasks.\nwhenthemodelgrowslargerwithincreasedgeneralization\nForCounting,FLM-101Bachieves69.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "derstandingtasks.\nwhenthemodelgrowslargerwithincreasedgeneralization\nForCounting,FLM-101Bachieves69.59%,about9points\nability.\nbetterthanGLM-130B.GPT-3winsthefirstplaceincounting\nandReplace-Lowercase,andsecondplaceinReplace-Word.\n6 Conclusions,Limitations,andFutureWork\nThisispotentiallybecauseGPT-3isthelargestmodel.\nPatternMining.PatternMiningevaluationiscommonin In this paper, we introduce FLM-101B, an open-sourced\nIQ tests. In detail, it is the induction and deduction of the LLM that is successfully trained from scratch within a\npatternsemerginginanewcontext. $100,000budget.Thekeyideaofreducingthetrainingcost\nWebuildabenchmarkwiththreetasks(i.e.,Head&Tail, ofFLM-101Bistobreakthroughthefixednumberofmodel\nFullRepeating,andHeadSlicing)forevaluation.Figure2 parameters via a growth strategy.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ednumberofmodel\nFullRepeating,andHeadSlicing)forevaluation.Figure2 parameters via a growth strategy. Experimental results on\nintheAppendixshowsexamplesofthesetasks.Eachtaskis knowledeg-oriented and IQ-related benchmarks show that\n5-shotandcontains100instances. FLM-101B is comparable to strong baseline models with\nTable10liststheexperimentalresultsofourFLM-101B lesscomputationalcost.Notethatharmfulcontentsmaybe\nagainst the baselines on pattern mining tasks. On all three induced from the open-sourced checkpoint, which do not\ntasks,FLM-101BoutperformsGLM-130Bbyalargemargin. representtheopinionsoftheauthors.\nFortheHead&TailandFullRepeatingtasks,FLM-101B Duetoresourceissues,thelimitationsofourworkinclude",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "s.\nFortheHead&TailandFullRepeatingtasks,FLM-101B Duetoresourceissues,thelimitationsofourworkinclude\nisafewpointsbehindGPT-3,butoutperformsthelatteron inadequateexplorationandcomparisonfordifferentgrowth\ntheHeadSlicingtask.Consideringthecomputationalcost, schedules,growthoperators,andamountofdata.Forfuture\nFLM-101Bexhibitsnoticeableabilities. work,webelievethatourexplorationonthegrowthstrategy",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nCost\n210.80\n24.54",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nAverage\n86.03\n71.49\n76.42",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "aswellastrainingstabilitywouldpotentiallybebeneficial Fan, S.; Wang, Y.; Li, J.; Zhang, Z.; Shang, S.; and Han,\nforfutureattemptsoffurtherscalingupLLMs,e.g.,beyond P. 2022. Interactive Information Extraction by Semantic\n1Tparameters. Information Graph. In Raedt, L. D., ed., Proceedings of\ntheThirty-FirstInternationalJointConferenceonArtificial\nReferences Intelligence,IJCAI2022,Vienna,Austria,23-29July2022,\n4100–4106.ijcai.org.\nAnil,R.;Dai,A.M.;Firat,O.;Johnson,M.;Lepikhin,D.;\nGong, L.; He, D.; Li, Z.; Qin, T.; Wang, L.; and Liu, T.\nPassos,A.;Shakeri,S.;Taropa,E.;Bailey,P.;Chen,Z.;Chu,\n2019. Efficienttrainingofbertbyprogressivelystacking. In\nE.;Clark,J.H.;Shafey,L.E.;Huang,Y.;Meier-Hellstern,\nInternationalconferenceonmachinelearning,2337–2346.\nK.;Mishra,G.;Moreira,E.;Omernick,M.;Robinson,K.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Internationalconferenceonmachinelearning,2337–2346.\nK.;Mishra,G.;Moreira,E.;Omernick,M.;Robinson,K.;\nPMLR.\nRuder,S.;Tay,Y.;Xiao,K.;Xu,Y.;Zhang,Y.;A´brego,G.H.;\nGu,X.;Liu,L.;Yu,H.;Li,J.;Chen,C.;andHan,J.2021.On\nAhn, J.; Austin, J.; Barham, P.; Botha, J. A.; Bradbury, J.;\ntheTransformerGrowthforProgressiveBERTTraining. In\nBrahma,S.;Brooks,K.;Catasta,M.;Cheng,Y.;Cherry,C.;\nProceedingsofthe2021ConferenceoftheNorthAmerican\nChoquette-Choo,C.A.;Chowdhery,A.;Crepy,C.;Dave,S.;\nChapter of the Association for Computational Linguistics:\nDehghani,M.;Dev,S.;Devlin,J.;D´ıaz,M.;Du,N.;Dyer,\nHumanLanguageTechnologies,5174–5180.\nE.;Feinberg,V.;Feng,F.;Fienber,V.;Freitag,M.;Garcia,\nX.;Gehrmann,S.;Gonzalez,L.;andetal.2023. PaLM2 Hendrycks,D.;Burns,C.;Basart,S.;Zou,A.;Mazeika,M.;\nTechnicalReport.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ";Gonzalez,L.;andetal.2023. PaLM2 Hendrycks,D.;Burns,C.;Basart,S.;Zou,A.;Mazeika,M.;\nTechnicalReport. CoRR,abs/2305.10403. Song,D.;andSteinhardt,J.2021. MeasuringMassiveMulti-\ntaskLanguageUnderstanding. In9thInternationalConfer-\nBi, X.; Chen, D.; Chen, G.; Chen, S.; Dai, D.; Deng, C.;\nenceonLearningRepresentations,ICLR2021,VirtualEvent,\nDing,H.;Dong,K.;Du,Q.;Fu,Z.;etal.2024. Deepseek\nAustria,May3-7,2021.OpenReview.net.\nllm:Scalingopen-sourcelanguagemodelswithlongtermism.\narXivpreprintarXiv:2401.02954. Henighan, T.; Kaplan, J.; Katz, M.; Chen, M.; Hesse, C.;\nJackson, J.; Jun, H.; Brown, T. B.; Dhariwal, P.; Gray, S.;\nBrown,T.;Mann,B.;Ryder,N.;Subbiah,M.;Kaplan,J.D.;\nHallacy,C.;Mann,B.;Radford,A.;Ramesh,A.;Ryder,N.;\nDhariwal,P.;Neelakantan,A.;Shyam,P.;Sastry,G.;Askell,\nZiegler,D.M.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "B.;Radford,A.;Ramesh,A.;Ryder,N.;\nDhariwal,P.;Neelakantan,A.;Shyam,P.;Sastry,G.;Askell,\nZiegler,D.M.;Schulman,J.;Amodei,D.;andMcCandlish,S.\nA.; et al. 2020. Language models are few-shot learners.\n2020. ScalingLawsforAutoregressiveGenerativeModeling.\nAdvancesinneuralinformationprocessingsystems,33:1877–\nCoRR,abs/2010.14701.\n1901.\nHoffmann,J.;Borgeaud,S.;Mensch,A.;Buchatskaya,E.;\nChen,C.;Yin,Y.;Shang,L.;Jiang,X.;Qin,Y.;Wang,F.; Cai,T.;Rutherford,E.;deLasCasas,D.;Hendricks,L.A.;\nWang,Z.;Chen,X.;Liu,Z.;andLiu,Q.2022. bert2BERT: Welbl,J.;Clark,A.;Hennigan,T.;Noland,E.;Millican,K.;\nTowardsReusablePretrainedLanguageModels. InMure- van den Driessche, G.; Damoc, B.; Guy, A.; Osindero, S.;\nsan,S.;Nakov,P.;andVillavicencio,A.,eds.,Proceedings Simonyan,K.;Elsen,E.;Vinyals,O.;Rae,J.W.;andSifre,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "S.;Nakov,P.;andVillavicencio,A.,eds.,Proceedings Simonyan,K.;Elsen,E.;Vinyals,O.;Rae,J.W.;andSifre,\nofthe60thAnnualMeetingoftheAssociationforCompu- L. 2022. An empirical analysis of compute-optimal large\ntational Linguistics (Volume 1: Long Papers), ACL 2022, languagemodeltraining. InNeurIPS.\nDublin,Ireland,May22-27,2022,2134–2148.Association\nHuang,Y.;Bai,Y.;Zhu,Z.;Zhang,J.;Zhang,J.;Su,T.;Liu,\nforComputationalLinguistics.\nJ.;Lv,C.;Zhang,Y.;Lei,J.;Fu,Y.;Sun,M.;andHe,J.2023.\nChen,T.;Goodfellow,I.J.;andShlens,J.2016. Net2Net: C-Eval:AMulti-LevelMulti-DisciplineChineseEvaluation\nAcceleratingLearningviaKnowledgeTransfer. InBengio, SuiteforFoundationModels. CoRR,abs/2305.08322.\nY.; and LeCun, Y., eds., 4th International Conference on Kaplan, J.; McCandlish, S.; Henighan, T.; Brown, T. B.;",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ", Y., eds., 4th International Conference on Kaplan, J.; McCandlish, S.; Henighan, T.; Brown, T. B.;\nLearningRepresentations,ICLR2016,SanJuan,PuertoRico,\nChess, B.; Child, R.; Gray, S.; Radford, A.; Wu, J.; and\nMay2-4,2016,ConferenceTrackProceedings.\nAmodei,D.2020. ScalingLawsforNeuralLanguageMod-\nClark,P.;Cowhey,I.;Etzioni,O.;Khot,T.;Sabharwal,A.; els. CoRR,abs/2001.08361.\nSchoenick,C.;andTafjord,O.2018. ThinkyouhaveSolved Korthikanti, V.; Casper, J.; Lym, S.; McAfee, L.; Ander-\nQuestion Answering? Try ARC, the AI2 Reasoning Chal- sch, M.; Shoeybi, M.; and Catanzaro, B. 2022. Reducing\nlenge. CoRR,abs/1803.05457. Activation Recomputation in Large Transformer Models.\nDevlin, J.; Chang, M.; Lee, K.; and Toutanova, K. 2019. arXiv:2205.05198.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Large Transformer Models.\nDevlin, J.; Chang, M.; Lee, K.; and Toutanova, K. 2019. arXiv:2205.05198.\nBERT:Pre-trainingofDeepBidirectionalTransformersfor Li, X.; Jiang, X.; Meng, X.; Sun, A.; and Wang, Y.\nLanguage Understanding. In Burstein, J.; Doran, C.; and 2023. FreeLM:Fine-Tuning-FreeLanguageModel. CoRR,\nSolorio,T.,eds.,Proceedingsofthe2019Conferenceofthe abs/2305.01616.\nNorth American Chapter of the Association for Computa- Lin,S.;Hilton,J.;andEvans,O.2022. TruthfulQA:Measur-\ntionalLinguistics:HumanLanguageTechnologies,NAACL- ingHowModelsMimicHumanFalsehoods. InMuresan,S.;\nHLT2019,Minneapolis,MN,USA,June2-7,2019,Volume1 Nakov,P.;andVillavicencio,A.,eds.,Proceedingsofthe60th\n(LongandShortPapers),4171–4186.AssociationforCom- AnnualMeetingoftheAssociationforComputationalLin-",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "(LongandShortPapers),4171–4186.AssociationforCom- AnnualMeetingoftheAssociationforComputationalLin-\nputationalLinguistics. guistics(Volume1:LongPapers),ACL2022,Dublin,Ireland,\nEriksson,P.S.;Perfilieva,E.;Bjo¨rk-Eriksson,T.;Alborn,A.- May22-27,2022,3214–3252.AssociationforComputational\nM.;Nordborg,C.;Peterson,D.A.;andGage,F.H.1998.Neu- Linguistics.\nrogenesisintheadulthumanhippocampus. Naturemedicine, Littwin,E.;andYang,G.2023. AdaptiveOptimizationinthe\n4(11):1313–1317. ∞-WidthLimit. InTheEleventhInternationalConference",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "onLearningRepresentations,ICLR2023,Kigali,Rwanda, Uesato,J.;Mellor,J.;Higgins,I.;Creswell,A.;McAleese,\nMay1-5,2023.OpenReview.net. N.;Wu,A.;Elsen,E.;Jayakumar,S.M.;Buchatskaya,E.;\nLiu,Y.;Wang,Y.;Sun,A.;Meng,X.;Li,J.;andGuo,J.2022. Budden, D.; Sutherland, E.; Simonyan, K.; Paganini, M.;\nA Dual-Channel Framework for Sarcasm Recognition by Sifre,L.;Martens,L.;Li,X.L.;Kuncoro,A.;Nematzadeh,\nDetectingSentimentConflict. InCarpuat,M.;deMarneffe, A.; Gribovskaya, E.; Donato, D.; Lazaridou, A.; Mensch,\nM.; and Ru´ız, I. V. M., eds., Findings of the Association A.; Lespiau, J.; Tsimpoukelli, M.; Grigorev, N.; Fritz, D.;\nfor Computational Linguistics: NAACL 2022, Seattle, WA, Sottiaux, T.; Pajarskas, M.; Pohlen, T.; Gong, Z.; Toyama,\nUnitedStates,July10-15,2022,1670–1680.Associationfor D.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Pajarskas, M.; Pohlen, T.; Gong, Z.; Toyama,\nUnitedStates,July10-15,2022,1670–1680.Associationfor D.;deMassond’Autume,C.;Li,Y.;Terzi,T.;Mikulik,V.;\nComputationalLinguistics. Babuschkin,I.;Clark,A.;deLasCasas,D.;Guy,A.;Jones,\nC.;Bradbury,J.;Johnson,M.J.;Hechtman,B.A.;Weidinger,\nLoshchilov, I.; and Hutter, F. 2017. Fixing Weight Decay\nL.;Gabriel,I.;Isaac,W.;Lockhart,E.;Osindero,S.;Rimell,\nRegularizationinAdam. CoRR,abs/1711.05101.\nL.;Dyer,C.;Vinyals,O.;Ayoub,K.;Stanway,J.;Bennett,L.;\nMeng, X.; Lin, C.; Wang, Y.; and Zhang, Y. 2023. Net-\nHassabis,D.;Kavukcuoglu,K.;andIrving,G.2021. Scal-\nGPT:GenerativePretrainedTransformerforNetworkTraffic.\ningLanguageModels:Methods,Analysis&Insightsfrom\nCoRR,abs/2304.09513.\nTrainingGopher. CoRR,abs/2112.11446.\nMeta.2024. IntroducingMetaLlama3:Themostcapable",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "bs/2304.09513.\nTrainingGopher. CoRR,abs/2112.11446.\nMeta.2024. IntroducingMetaLlama3:Themostcapable\nRaffel, C.; Shazeer, N.; Roberts, A.; Lee, K.; Narang, S.;\nopenlyavailableLLMtodate.https://ai.meta.com/blog/meta-\nMatena,M.;Zhou,Y.;Li,W.;andLiu,P.J.2020. Exploring\nllama-3/.\ntheLimitsofTransferLearningwithaUnifiedText-to-Text\nMistral.2024.Mistral8x22B.https://mistral.ai/news/mixtral- Transformer. J.Mach.Learn.Res.,21:140:1–140:67.\n8x22b/.\nRajbhandari, S.; Rasley, J.; Ruwase, O.; and He, Y. 2019.\nNarayanan,D.;Shoeybi,M.;Casper,J.;LeGresley,P.;Pat- ZeRO:MemoryOptimizationTowardsTrainingATrillion\nwary, M.; Korthikanti, V.; Vainbrand, D.; Kashinkunti, P.; ParameterModels. CoRR,abs/1910.02054.\nBernauer,J.;Catanzaro,B.;Phanishayee,A.;andZaharia,\nScao,T.L.;Fan,A.;Akiki,C.;Pavlick,E.;Ilic,S.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "54.\nBernauer,J.;Catanzaro,B.;Phanishayee,A.;andZaharia,\nScao,T.L.;Fan,A.;Akiki,C.;Pavlick,E.;Ilic,S.;Hesslow,\nM.2021. EfficientLarge-ScaleLanguageModelTrainingon\nD.;Castagne´,R.;Luccioni,A.S.;Yvon,F.;Galle´,M.;Tow,\nGPUClusters. CoRR,abs/2104.04473.\nJ.;Rush,A.M.;Biderman,S.;Webson,A.;Ammanamanchi,\nOpenAI. 2023. GPT-4 Technical Report. CoRR, P.S.;Wang,T.;Sagot,B.;Muennighoff,N.;delMoral,A.V.;\nabs/2303.08774. Ruwase,O.;Bawden,R.;Bekman,S.;McMillan-Major,A.;\nOuyang, L.; Wu, J.; Jiang, X.; Almeida, D.; Wainwright, Beltagy,I.;Nguyen,H.;Saulnier,L.;Tan,S.;Suarez,P.O.;\nC.L.;Mishkin,P.;Zhang,C.;Agarwal,S.;Slama,K.;Ray, Sanh,V.;Laurenc¸on,H.;Jernite,Y.;Launay,J.;Mitchell,M.;\nA.;Schulman,J.;Hilton,J.;Kelton,F.;Miller,L.;Simens,M.; Raffel,C.;Gokaslan,A.;Simhi,A.;Soroa,A.;Aji,A.F.;Al-\nAskell,A.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ton,J.;Kelton,F.;Miller,L.;Simens,M.; Raffel,C.;Gokaslan,A.;Simhi,A.;Soroa,A.;Aji,A.F.;Al-\nAskell,A.;Welinder,P.;Christiano,P.F.;Leike,J.;andLowe, fassy,A.;Rogers,A.;Nitzav,A.K.;Xu,C.;Mou,C.;Emezue,\nR. 2022. Training language models to follow instructions C.;Klamm,C.;Leong,C.;vanStrien,D.;Adelani,D.I.;and\nwithhumanfeedback. InNeurIPS. etal.2022. BLOOM:A176B-ParameterOpen-AccessMul-\ntilingualLanguageModel. CoRR,abs/2211.05100.\nPatterson,D.;Gonzalez,J.;Le,Q.;Liang,C.;Munguia,L.-\nM.; Rothchild, D.; So, D.; Texier, M.; and Dean, J. 2021. Schwartz,R.;Dodge,J.;Smith,N.A.;andEtzioni,O.2020.\nCarbonemissionsandlargeneuralnetworktraining. arXiv Greenai. CommunicationsoftheACM,63(12):54–63.\npreprintarXiv:2104.10350. Shen,S.;Walsh,P.;Keutzer,K.;Dodge,J.;Peters,M.E.;and\nPenedo, G.; Malartic, Q.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "printarXiv:2104.10350. Shen,S.;Walsh,P.;Keutzer,K.;Dodge,J.;Peters,M.E.;and\nPenedo, G.; Malartic, Q.; Hesslow, D.; Cojocaru, R.; Cap- Beltagy,I.2022. StagedTrainingforTransformerLanguage\npelli, A.; Alobeidli, H.; Pannier, B.; Almazrouei, E.; and Models. InChaudhuri,K.;Jegelka,S.;Song,L.;Szepesva´ri,\nLaunay,J.2023. TheRefinedWebdatasetforFalconLLM: C.;Niu,G.;andSabato,S.,eds.,InternationalConferenceon\noutperformingcuratedcorporawithwebdata,andwebdata MachineLearning,ICML2022,17-23July2022,Baltimore,\nonly. arXivpreprintarXiv:2306.01116. Maryland, USA, volume 162 of Proceedings of Machine\nLearningResearch,19893–19908.PMLR.\nQian,Y.;Weng,C.;Chang,X.;Wang,S.;andYu,D.2018.\nPastreview,currentprogress,andchallengesaheadonthe Shoeybi, M.; Patwary, M.; Puri, R.; LeGresley, P.; Casper,",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": ",currentprogress,andchallengesaheadonthe Shoeybi, M.; Patwary, M.; Puri, R.; LeGresley, P.; Casper,\ncocktailpartyproblem.FrontiersInf.Technol.Electron.Eng., J.;andCatanzaro,B.2019. Megatron-LM:TrainingMulti-\n19(1):40–63. Billion Parameter Language Models Using Model Paral-\nlelism. CoRR,abs/1909.08053.\nRadford, A.; Narasimhan, K.; Salimans, T.; Sutskever, I.;\netal.2018. Improvinglanguageunderstandingbygenerative Srivastava,A.;Rastogi,A.;Rao,A.;Shoeb,A.A.M.;Abid,\npre-training. A.;Fisch,A.;Brown,A.R.;Santoro,A.;Gupta,A.;Garriga-\nRadford,A.;Wu,J.;Child,R.;Luan,D.;Amodei,D.;and Alonso,A.;etal.2023. BeyondtheImitationGame:Quanti-\nSutskever,I.2019. LanguageModelsareUnsupervisedMul- fyingandextrapolatingthecapabilitiesoflanguagemodels.\ntitaskLearners.\nTransactionsonMachineLearningResearch.\nRae,J.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "latingthecapabilitiesoflanguagemodels.\ntitaskLearners.\nTransactionsonMachineLearningResearch.\nRae,J.W.;Borgeaud,S.;Cai,T.;Millican,K.;Hoffmann,J.; Su, J.; Lu, Y.; Pan, S.; Wen, B.; and Liu, Y. 2021. Ro-\nSong,H.F.;Aslanides,J.;Henderson,S.;Ring,R.;Young, Former: Enhanced Transformer with Rotary Position Em-\nS.; Rutherford, E.; Hennigan, T.; Menick, J.; Cassirer, A.; bedding. CoRR,abs/2104.09864.\nPowell,R.;vandenDriessche,G.;Hendricks,L.A.;Rauh, Sun, Y.; Dong, L.; Patra, B.; Ma, S.; Huang, S.; Benhaim,\nM.;Huang,P.;Glaese,A.;Welbl,J.;Dathathri,S.;Huang,S.; A.;Chaudhary,V.;Song,X.;andWei,F.2023. ALength-",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Extrapolatable Transformer. In Rogers, A.; Boyd-Graber, sessmentbyclinicalpsychologists. Professionalpsychology:\nJ.L.;andOkazaki,N.,eds.,Proceedingsofthe61stAnnual Researchandpractice,26(1):54.\nMeeting of the Association for Computational Linguistics\nWei, J. W.; Hou, L.; Lampinen, A. K.; Chen, X.; Huang,\n(Volume1:LongPapers),ACL2023,Toronto,Canada,July\nD.; Tay, Y.; Chen, X.; Lu, Y.; Zhou, D.; Ma, T.; and Le,\n9-14, 2023, 14590–14604. Association for Computational\nQ.V.2023. Symboltuningimprovesin-contextlearningin\nLinguistics.\nlanguagemodels. CoRR,abs/2305.08298.\nTouvron,H.;Lavril,T.;Izacard,G.;Martinet,X.;Lachaux,\nWeston, J.; Bordes, A.; Chopra, S.; Rush, A. M.;\nM.;Lacroix,T.;Rozie`re,B.;Goyal,N.;Hambro,E.;Azhar,\nVanMerrie¨nboer,B.;Joulin,A.;andMikolov,T.2015. To-\nF.; Rodriguez, A.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "e,B.;Goyal,N.;Hambro,E.;Azhar,\nVanMerrie¨nboer,B.;Joulin,A.;andMikolov,T.2015. To-\nF.; Rodriguez, A.; Joulin, A.; Grave, E.; and Lample, G.\nwardsai-completequestionanswering:Asetofprerequisite\n2023a. LLaMA:OpenandEfficientFoundationLanguage\ntoytasks. arXivpreprintarXiv:1502.05698.\nModels. CoRR,abs/2302.13971.\nXu, L.; Hu, H.; Zhang, X.; Li, L.; Cao, C.; Li, Y.; Xu, Y.;\nTouvron,H.;Martin,L.;Stone,K.;Albert,P.;Almahairi,A.;\nSun, K.; Yu, D.; Yu, C.; Tian, Y.; Dong, Q.; Liu, W.; Shi,\nBabaei,Y.;Bashlykov,N.;Batra,S.;Bhargava,P.;Bhosale,\nB.;Cui,Y.;Li,J.;Zeng,J.;Wang,R.;Xie,W.;Li,Y.;Pat-\nS.;Bikel,D.;Blecher,L.;Canton-Ferrer,C.;Chen,M.;Cu-\nterson,Y.;Tian,Z.;Zhang,Y.;Zhou,H.;Liu,S.;Zhao,Z.;\ncurull,G.;Esiobu,D.;Fernandes,J.;Fu,J.;Fu,W.;Fuller,\nZhao,Q.;Yue,C.;Zhang,X.;Yang,Z.;Richardson,K.;and\nB.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "l,G.;Esiobu,D.;Fernandes,J.;Fu,J.;Fu,W.;Fuller,\nZhao,Q.;Yue,C.;Zhang,X.;Yang,Z.;Richardson,K.;and\nB.; Gao, C.; Goswami, V.; Goyal, N.; Hartshorn, A.; Hos-\nLan,Z.2020. CLUE:AChineseLanguageUnderstanding\nseini,S.;Hou,R.;Inan,H.;Kardas,M.;Kerkez,V.;Khabsa,\nEvaluationBenchmark. InScott,D.;Bel,N.;andZong,C.,\nM.;Kloumann,I.;Korenev,A.;Koura,P.S.;Lachaux,M.;\neds.,Proceedingsofthe28thInternationalConferenceon\nLavril,T.;Lee,J.;Liskovich,D.;Lu,Y.;Mao,Y.;Martinet,\nComputationalLinguistics,COLING2020,Barcelona,Spain\nX.;Mihaylov,T.;Mishra,P.;Molybog,I.;Nie,Y.;Poulton,\n(Online), December 8-13, 2020, 4762–4772. International\nA.;Reizenstein,J.;Rungta,R.;Saladi,K.;Schelten,A.;Silva,\nCommitteeonComputationalLinguistics.\nR.;Smith,E.M.;Subramanian,R.;Tan,X.E.;Tang,B.;Tay-\nlor,R.;Williams,A.;Kuan,J.X.;Xu,P.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "alLinguistics.\nR.;Smith,E.M.;Subramanian,R.;Tan,X.E.;Tang,B.;Tay-\nlor,R.;Williams,A.;Kuan,J.X.;Xu,P.;Yan,Z.;Zarov,I.; Yang,G.;andHu,E.J.2021. TensorProgramsIV:Feature\nZhang,Y.;Fan,A.;Kambadur,M.;Narang,S.;Rodriguez, LearninginInfinite-WidthNeuralNetworks. InMeila,M.;\nA.;Stojnic,R.;Edunov,S.;andScialom,T.2023b. Llama andZhang,T.,eds.,Proceedingsofthe38thInternational\n2:OpenFoundationandFine-TunedChatModels. CoRR, ConferenceonMachineLearning,ICML2021,18-24July\nabs/2307.09288. 2021,VirtualEvent,volume139ofProceedingsofMachine\nLearningResearch,11727–11737.PMLR.\nValiant,L.G.1990. ABridgingModelforParallelComputa-\ntion. Commun.ACM,33(8):103–111. Yang,G.;Hu,E.J.;Babuschkin,I.;Sidor,S.;Liu,X.;Farhi,\nD.;Ryder,N.;Pachocki,J.;Chen,W.;andGao,J.2021. Tun-\nWang,A.;Pruksachatkun,Y.;Nangia,N.;Singh,A.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "rhi,\nD.;Ryder,N.;Pachocki,J.;Chen,W.;andGao,J.2021. Tun-\nWang,A.;Pruksachatkun,Y.;Nangia,N.;Singh,A.;Michael,\ningLargeNeuralNetworksviaZero-ShotHyperparameter\nJ.;Hill,F.;Levy,O.;andBowman,S.R.2019. SuperGLUE:\nTransfer. InRanzato,M.;Beygelzimer,A.;Dauphin,Y.N.;\nA Stickier Benchmark for General-Purpose Language Un-\nLiang,P.;andVaughan,J.W.,eds.,AdvancesinNeuralIn-\nderstanding Systems. In Wallach, H. M.; Larochelle, H.;\nformation Processing Systems 34: Annual Conference on\nBeygelzimer,A.;d’Alche´-Buc,F.;Fox,E.B.;andGarnett,\nNeuralInformationProcessingSystems2021,NeurIPS2021,\nR.,eds.,AdvancesinNeuralInformationProcessingSystems\nDecember6-14,2021,virtual,17084–17097.\n32: Annual Conference on Neural Information Processing\nSystems2019,NeurIPS2019,December8-14,2019,Vancou- Yao,Y.;andWang,Y.2023.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ural Information Processing\nSystems2019,NeurIPS2019,December8-14,2019,Vancou- Yao,Y.;andWang,Y.2023. ResearchwithoutRe-search:\nver,BC,Canada,3261–3275. MaximalUpdateParametrizationYieldsAccurateLossPre-\ndictionacrossScales. CoRR,abs/2304.06875.\nWang,Y.;Li,X.;Sun,A.;Meng,X.;Liao,H.;andGuo,J.\n2022a.CofeNet:ContextandFormer-LabelEnhancedNetfor Yao,Y.;Zhang,Z.;Li,J.;andWang,Y.2024. MaskedStruc-\nComplicatedQuotationExtraction. InCalzolari,N.;Huang, turalGrowthfor2xFasterLanguageModelPre-training. In\nC.;Kim,H.;Pustejovsky,J.;Wanner,L.;Choi,K.;Ryu,P.; TheTwelfthInternationalConferenceonLearningRepresen-\nChen,H.;Donatelli,L.;Ji,H.;Kurohashi,S.;Paggio,P.;Xue, tations.\nN.;Kim,S.;Hahm,Y.;He,Z.;Lee,T.K.;Santus,E.;Bond,\nZellers,R.;Holtzman,A.;Bisk,Y.;Farhadi,A.;andChoi,\nF.; and Na, S., eds.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": ",Z.;Lee,T.K.;Santus,E.;Bond,\nZellers,R.;Holtzman,A.;Bisk,Y.;Farhadi,A.;andChoi,\nF.; and Na, S., eds., Proceedings of the 29th International\nY. 2019. HellaSwag: Can a Machine Really Finish Your\nConference on Computational Linguistics, COLING 2022,\nSentence? InKorhonen,A.;Traum,D.R.;andMa`rquez,L.,\nGyeongju,RepublicofKorea,October12-17,2022,2438–\neds.,Proceedingsofthe57thConferenceoftheAssociation\n2449.InternationalCommitteeonComputationalLinguistics. for Computational Linguistics, ACL 2019, Florence, Italy,\nWang,Y.;Zhang,H.;Sun,A.;andMeng,X.2022b. CORT: July28-August2,2019,Volume1:LongPapers,4791–4800.\nANewBaselineforComparativeOpinionClassificationby AssociationforComputationalLinguistics.\nDual Prompts. In Goldberg, Y.; Kozareva, Z.; and Zhang,\nZeng, A.; Liu, X.; Du, Z.; Wang, Z.; Lai, H.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Dual Prompts. In Goldberg, Y.; Kozareva, Z.; and Zhang,\nZeng, A.; Liu, X.; Du, Z.; Wang, Z.; Lai, H.; Ding, M.;\nY.,eds.,FindingsoftheAssociationforComputationalLin-\nYang,Z.;Xu,Y.;Zheng,W.;Xia,X.;Tam,W.L.;Ma,Z.;\nguistics:EMNLP2022,AbuDhabi,UnitedArabEmirates,\nXue, Y.; Zhai, J.; Chen, W.; Liu, Z.; Zhang, P.; Dong, Y.;\nDecember7-11,2022,7064–7075.AssociationforComputa-\nand Tang, J. 2023. GLM-130B: An Open Bilingual Pre-\ntionalLinguistics.\ntrainedModel. InTheEleventhInternationalConferenceon\nWatkins,C.E.;Campbell,V.L.;Nieberding,R.;andHall- LearningRepresentations,ICLR2023,Kigali,Rwanda,May\nmark,R.1995. Contemporarypracticeofpsychologicalas- 1-5,2023.OpenReview.net.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Zhao,W.X.;Zhou,K.;Li,J.;Tang,T.;Wang,X.;Hou,Y.;\nMin,Y.;Zhang,B.;Zhang,J.;Dong,Z.;Du,Y.;Yang,C.;\nChen,Y.;Chen,Z.;Jiang,J.;Ren,R.;Li,Y.;Tang,X.;Liu,\nZ.; Liu, P.; Nie, J.; and Wen, J. 2023. A Survey of Large\nLanguageModels. CoRR,abs/2303.18223.",
+    "page": 11
+  }
+]

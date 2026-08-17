@@ -1,0 +1,597 @@
+[
+  {
+    "type": "text",
+    "content": "AI, Climate, and Regulation: From Data Centers to the AI Act\nKaiEbert∗ NicolasAlder∗\nkebert@europa-uni.de HassoPlattnerInstitute\nEuropeanUniversityViadrina Potsdam,Germany\nFrankfurt(Oder),Germany nicolas.alder@hpi.de\nRalfHerbrich PhilippHacker\nHassoPlattnerInstitute EuropeanUniversityViadrina\nPotsdam,Germany Frankfurt(Oder),Germany\nralf.herbrich@hpi.de hacker@europa-uni.de\nAbstract 1 Introduction\nWeliveinaworldthatisexperiencinganunprecedentedboomof Theenvironmentalconsequencesofartificialintelligence(AI)are\nAIapplicationsthatincreasinglypenetrateallsectorsofprivate becoming ever more apparent as large models are increasingly\nandpubliclife,fromeducation,media,medicine,andmobilityto trainedanddeployedacrosssociety.Thisinherentlyintertwines\ntheindustrialandprofessionalworkspace.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "yto trainedanddeployedacrosssociety.Thisinherentlyintertwines\ntheindustrialandprofessionalworkspace.Asthisworldissimul- thedigitaltransformationwithquestionsofclimatechange,partic-\ntaneouslygrapplingwithclimatechange,theclimateeffectsand ularlyconcerningtheenergyandwaterconsumptionofAImodels.\nenvironmentalimplicationsofthedevelopmentanduseofAIhave Thesefeaturesareattractingattentionfromboththepublicand\nbecomeanimportantsubjectofpublicandacademicdebate.Inthis academia(seebelow,2.).Concernsaregrowingthatthesupply\npaper,weaimtoprovideguidanceontheclimate-relatedregulation ofrenewableenergymaynotkeepupwiththeirincreasingde-\nfordatacentersandAIspecifically,anddiscusshowtooperational- mandtriggeredbytheAIscalingrace[4]inwhichtheEUispoised\nizetheserequirements.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "iscusshowtooperational- mandtriggeredbytheAIscalingrace[4]inwhichtheEUispoised\nizetheserequirements.Wealsohighlightchallengesandroomfor to join the U.S. and China under the EU Commission’s new AI\nimprovement,andmakeanumberofpolicyproposalstothisend.In ContinentActionPlan[25].Scholarsandactivists,inturn,arein-\nparticular,weproposeaspecificinterpretationoftheAIActtobring creasinglycritiquingandsituatingdigitaltechnologywithinthe\nreportingonthepreviouslyunaddressedenergyconsumptionfrom frameworkofenvironmentaljustice[28,40,67,72,81].Workinpo-\nAIinferencesbackintothescope.WealsofindthattheAIActfails liticaleconomyhasshedalightontheextractivenatureofAI-based\ntoaddressindirectgreenhousegasemissionsfromAIapplications. socio-technicalsystems,extractingand,attimes,exploiting,both",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "enhousegasemissionsfromAIapplications. socio-technicalsystems,extractingand,attimes,exploiting,both\nFurthermore,forthepurposeofenergyconsumptionreporting,we naturalandhumanresources[18,24,39,42,58],oftenparticularly\ncomparelevelsofmeasurementwithindatacentersandrecommend frommarginalizedcommunities[61,65]andregions[50,80].Both\nmeasurementatthecumulativeserverlevel.Wealsoargueforan thequestforperformanceandthefundinglogicbehindAIforce\ninterpretationoftheAIActthatincludesenvironmentalconcerns providerstoscalethemtoapointwherethistrajectorymaypush\ninthemandatoryriskassessments(sustainabilityriskassessment, againstplanetarylimits[8–10,18].\nSIA),andprovideguidanceonitsoperationalization.TheEUdata Regulatory frameworks are beginning to address these chal-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "uidanceonitsoperationalization.TheEUdata Regulatory frameworks are beginning to address these chal-\ncenterregulationprovestobeagoodfirststepbutrequiresfurther lenges,too.WhilethenewU.S.administrationscrapsenvironmen-\ndevelopmentbyincludingbindingrenewableenergyandefficiency talrulesandgenerallyderegulates,theEUArtificialIntelligence\ntargetsfordatacenters.Overall,wemaketwelveconcretepolicy Act(AIAct)becomesapplicableastheworld’smostcomprehensive\nproposals,infourmainareas:EnergyandEnvironmentalReporting attemptatdirectAIregulation.Itfeaturesenvironmentalprotection\nObligations;LegalandRegulatoryClarifications;Transparencyand asoneofitscoregoalsandcontainsdedicatedsustainabilityrules,",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "egulatoryClarifications;Transparencyand asoneofitscoregoalsandcontainsdedicatedsustainabilityrules,\nAccountabilityMechanisms;andFutureFar-ReachingMeasures whichalsoapplytoUSandothernon-EUprovidersofferingmodels\nbeyondTransparency. intheEU.Similarly,theDigitalServicesAct(DSA)compelsVery\nLargeOnlinePlatformsandVeryLargeOnlineSearchEnginesto\nACMReferenceFormat:\nthoroughlyassessandmitigatesystemicrisks,whichisofparticu-\nKaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker.2025.AI,Cli-\nlarrelevanceforhybridplatformsincreasinglyintegratingAI.As\nmate,andRegulation:FromDataCenterstotheAIAct.In.ACM,NewYork,\nNY,USA,14pages.https://doi.org/10.1145/nnnnnnn.nnnnnnn scholarshavepointedout,thisincludesclimateandsustainabil-\nityrisks[11],andintersectspartiallywithobligationsunderthe",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "edout,thisincludesclimateandsustainabil-\nityrisks[11],andintersectspartiallywithobligationsunderthe\n∗Bothauthorscontributedequallytothisresearch. AIAct[32,36].Inparallel,theEnergyEfficiencyDirective(EU)\n2023/1791introducestransparencyobligationsfordatacenters,a\nPermissiontomakedigitalorhardcopiesofallorpartofthisworkforpersonalor criticalinfrastructuresupportingAI.However,theseregulatoryin-\nclassroomuseisgrantedwithoutfeeprovidedthatcopiesarenotmadeordistributed\nforprofitorcommercialadvantageandthatcopiesbearthisnoticeandthefullcitation strumentsweredevelopedindependently,leadingtofragmentation\nonthefirstpage.Copyrightsforcomponentsofthisworkownedbyothersthanthe andgaps.TheAIActoriginallypursuedclimate-relatedobjectives\nauthor(s)mustbehonored.Abstractingwithcreditispermitted.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "toriginallypursuedclimate-relatedobjectives\nauthor(s)mustbehonored.Abstractingwithcreditispermitted.Tocopyotherwise,or\nespeciallyintheEuropeanParliament’spositionofJune2023,but\nrepublish,topostonserversortoredistributetolists,requirespriorspecificpermission\nand/orafee.Requestpermissionsfrompermissions@acm.org. oversuccessivedraftsandthetriloguenegotiations,itsenviron-\nConference’17,Washington,DC,USA mentalprovisionswerediluted,particularlywithregardtoenergy\n©2025Copyrightheldbytheowner/author(s).PublicationrightslicensedtoACM.\nconsumptionfromAIinferenceandriskassessments.Meanwhile,\nACMISBN978-x-xxxx-xxxx-x/YYYY/MM\nhttps://doi.org/10.1145/nnnnnnn.nnnnnnn\n5202\nyaM\n52\n]YC.sc[\n2v18660.0142:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\ntheEU’sdatacenterregulationremainsincomplete,lackingbind- perspectives[6].Numerouscontributionsalsoanalyzeandevaluate\ningefficiencyandrenewableenergytargets.Theseshortcomings thevariousmeansinwhichAImaybeusedtomitigate,andadaptto,\nthreatentounderminethemostpromisinglegislativeavenuesfor climatechange[13,17,34,41,47,68,69,75],asalsoacknowledgedin\ntackling AI’s climate effects. The EU’s recent push for massive theAIAct(Recitals4and142). However,fromalegalperspective,\ninvestmentsincomputinginfrastructureundertheAIContinent the problem of sustainable AI remains underexplored. Existing\nActionPlan,includingtheestablishmentofAIGigafactories[25], contributionsdatefrombeforetheAIAct’sfinalversion[63],which",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "gtheestablishmentofAIGigafactories[25], contributionsdatefrombeforetheAIAct’sfinalversion[63],which\nisalatebutnecessaryimpetusfortechnologicalandstrategicau- differssignificantlyfrompreviousproposals(seebelow,5.2.)ordo\ntonomybutmustnotendangertheUnion’sclimategoalsunderthe notengagewithitsprovisionsindetail[33].Other,complimentary\nGreenNewDeal. workfocusesuniquelyontheDSA[11]ordatacenterregulation\nAgainstthisbackground,thispapermakesthreekeycontribu- [16].\ntions.First,weofferthefirstthoroughanalysisoftheAIAct’sfinal\nversionfromanenvironmentalperspective.Unlikepriorscholar-\nship,whichhasexaminedtheseareasseparately,wealsoscrutinize\n3 TechnicalBackground\ntheinterplaybetweendatacenterregulationanddirectAIregula-\nFromatechnicalperspective,itisimportanttodistinguishbetween\ntion.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "centerregulationanddirectAIregula-\nFromatechnicalperspective,itisimportanttodistinguishbetween\ntion.AIsustainabilityisnotgovernedbyasinglelegalinstrument\n(pre-)training,fine-tuning,andinference.Trainingreferstothe\nbutratheremergesfromtheinteractionofmultipleframeworks\nprocessofinitiallyadjustingamodel’sparametersorweightsto\nand actors. This fragmented approach creates legal uncertainty\nfitthedata.Thisprocessishighlycompute-intensiveandtypically\nandregulatoryloopholes—notablytheomissionofAIinference\nrequiresasignificantamountofenergy[37,53,55,79].LLMperfor-\nfromreportingobligationsandthefailuretomandateSustainability\nmancestronglydependsonthemodelscale(numberofparameters),\nImpactAssessments(SIA).Wethenproposeanovelinterpretation\nwhichinturnrequiresmoretrainingdata[38,66],andhencemore",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ents(SIA).Wethenproposeanovelinterpretation\nwhichinturnrequiresmoretrainingdata[38,66],andhencemore\noftheAIActtoincludeAIinferencesinthereportingobligations\nresources.Suchscalingcanevenbeexpectedwithalgorithmically\nofgeneral-purposeAIproviders,andtoincorporatesustainability\nadvancedmodels,suchasDeepSeekR1[3].\nconsiderationsintothemandatoryriskassessmentframeworkto\nFine-tuningaimsatadjustingapretrainedmodeltofitmore\neffectuatethegoalofenvironmentalprotectionenshrinedinArt.1\nspecificdatainordertoperformbetteratspecifictasks.Itinvolves\nandRecitals1,2and8.\nasignificantlysmalleramountoftrainingdataandcomputebudget.\nSecond,weexaminethepracticalchallengesofimplementing\nThespecificprocedureforsuccessfulfine-tuningisverymodel-,\nAI-relatedenvironmentalobligationsandprovidetechnicalrecom-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "reforsuccessfulfine-tuningisverymodel-,\nAI-relatedenvironmentalobligationsandprovidetechnicalrecom-\ndata-,andtask-specific,andratherempirical.Therefore,thecom-\nmendations.Thecruxhereistooperationalizeexistingrulesand\nputationalandenergy-intensitycanvarysignificantlyforthisstep.\nmakeclimatereportingworkbydevelopingmetricsthatareboth\nForexample,ashighlightedbyLuccionietal.[55],theenergyusage\nmeaningfulandworkableinpractice.\nforfine-tuningtheBloomz-7Brequired7,571kWhcomparedto\nThird,weidentifyareaswheretheAIActandrelatedregulatory\n51,686kWhfortheentiretrainingprocess,addinganother15%to\nframeworksrequirefutureamendments.Inlightofupcomingeval-\ntheinitialconsumption.Inference,inturn,referstotheprocedure\nuationrounds,weadvocateforclosingloopholesandreinstating",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tion.Inference,inturn,referstotheprocedure\nuationrounds,weadvocateforclosingloopholesandreinstating\nofgeneratingapredictionfromatrainedmodel.Typically,anindi-\nenvironmentalobligationsthatwereweakenedduringthelegisla-\nvidualinferenceconsumeslittleenergycomparedtotraining;but\ntiveprocess.Whilethecurrentpoliticalmomentumseemstofavor\ntherearemanymoreinferencethantrainingevents.\nderegulation,theclimateemergencypersists.Therefore,itiscru-\nMostofthesetraining,fine-tuningandinferencecomputations\ncialtoimprovethebestlegaltoolsstillavailable,andtoadvocate\nareconductedindatacenters.Thepowerusageeffectiveness(PUE)\nforanuancedlegalframeworktobringthetwintransitionsofAI\nmetricreflectstheenergyefficiencyofadatacenter.Itindicates\nandclimatetogether.Ourtwelvepolicyproposalsaddressfourkey",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "energyefficiencyofadatacenter.Itindicates\nandclimatetogether.Ourtwelvepolicyproposalsaddressfourkey\ntheratioofthetotalenergyneededbyadatacenter,including\nareas:EnergyandEnvironmentalReportingObligations;Legaland\ncomponentssuchascooling,totheenergyusedsolelybycomputa-\nRegulatoryClarifications;TransparencyandAccountabilityMech-\ntionaldevices.APUEof1.0wouldimplyidealefficiency,meaning\nanisms;andFutureFar-ReachingMeasuresbeyondTransparency.\nthatthedatacenterusesonlytheenergynecessarytopowerthe\ncomputationaldevices.TheaveragedatacenterPUEin2023was\n1.58globally[74]and1.6intheEU[26].\n2 RelatedWork\nDuetotheinterdisciplinarynatureofsustainableAI,relatedworks\noriginatefromthreemainfields—computerscience;humanitiesand\npolicy;andlegalresearch.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "eAI,relatedworks\noriginatefromthreemainfields—computerscience;humanitiesand\npolicy;andlegalresearch.Inrecentyears,thecomputerscienceand 4 RegulationofDataCenters\nAIcommunityhasbecomeincreasinglyawareoftheenvironmental Datacentersrunallkindsofoperations,suchascloudcomputing,\neffectsofAI,whichledtobothpolicy-oriented[8,14,29,37,44, cryptocurrenciesandtheInternetatlarge.Recently,AItraining\n45,52,54,56,70,76]andtechnicalcontributions,particularlyon andinferencehaveexperiencedmassivegrowth.Broaddatacenter\ntheenvironmentaleffectsofdatacentersoperationsandAI-related regulation,therefore,indirectlygovernstheenvironmentaleffects\ncomputing[2,30,62],studiesfortracking[1,19,23,51,53,55,64,79, ofAIandconstitutesthebackdropagainstwhichspecificAIregu-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "studiesfortracking[1,19,23,51,53,55,64,79, ofAIandconstitutesthebackdropagainstwhichspecificAIregu-\n82]andtechniquesforreducingtheemissionsofdatacentersandAI lationmustbeviewed.Takingalookattherequirementsfordata\nmodels[7,31,43,46,57].ThewaterconsumptionofAItraininghas centerscanhelptofindacoherentandeffectiveinterpretationof\nalsobeenaconcern[49,83].Broaderscholarshipandpolicywork therequirementsintheAIActasitbuildsonalreadyavailabledata\nincludesethical[15,27],informational[20,54,63,75],andsocial andestablishedmethodology.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\n4.1 EUDataCollectionandReporting upcertainminimumcriteriaforenergyaudits(AnnexVIEED)and\nObligationsforDataCenters referstotherelevantinternationalorEuropeanstandards(Recital\n80EED).Thelegalminimumcriteria,however,donotdictatehow\nIntheEU,datacollectionandreportingobligationsfordatacenters\nenergyconsumptionshouldbemeasured.\nwere established by two recent legal acts, Art. 12 of the recast\nEnergyEfficiencyDirectiveEU/2023/1791ofSeptember13,2023\n(\"EED\"),andtheCommissionDelegatedRegulationEU/2024/1364\n4.3 German2023EnergyEfficiencyAct\nofMarch14,2024(\"DelegatedRegulation\").Thenewrulesapply\nInGermany,theEnergyEfficiencyActof8Nov2023implements\ntoalldatacentersintheEUwithapowerdemandoftheinstalled",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ny,theEnergyEfficiencyActof8Nov2023implements\ntoalldatacentersintheEUwithapowerdemandoftheinstalled\ntheEEDandestablishesanationalreportingschemeandadditional\ninformationtechnology(IT)ofatleast500kW,whichincludessmall-\nrequirements,includingspecificefficiencyandrenewableenergy\nsizeddatacenters.Datacenteroperatorsarerequiredtocollect,\ntargetsfordatacenters.TheActbroadensthescopeofthereport-\nmakepubliclyavailableandreporttoaEUdatabaseinformation\ningobligationtoincludeevensmallerdatacenters,upwardsof300\nthatisdeemedrelevantforthesustainabilityassessmentofthedata\nkW(Sec.13).Italsoexpandsthedutytosetupanenergymanage-\ncentersandtheindustryasawhole.Thereportingismandatedon\nmentsystemtodatacentersandoperatorsofICT—i.e.,customers\nanannualbasis.\nofcolocationdatacenters—ofmorethan50kW(Sec.12).Mostim-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "operatorsofICT—i.e.,customers\nanannualbasis.\nofcolocationdatacenters—ofmorethan50kW(Sec.12).Mostim-\nTherequireddataincludesenergyconsumption,powerutiliza-\nportantly,itsetstargetsonenergyefficiencyandrenewableenergy\ntion,temperaturesetpoints,wasteheatutilisation,waterusage\nuse,requiringdatacenterstoreachaPUEfactorbetween1.5and\nanduseofrenewableenergy(EED,AnnexVII(c)).Notably,while\n1.2andanERFof10%to20%dependingontheirage(Sec.11),and\ntheEEDfocusesonenergyandpower,thereportingofwaterusage\ntorunon50%renewableenergy,increasingthatfactorto100%by1\nisasignificantstepforwardasbothenergyandwaterconsumption\nJan2027(Sec.11).Lastly,itrequiresdatacenteroperatorstoinform\nhaveraisedconcernsinAIsettings[49,55].Inaddition,theWater\ntheircustomersonanannualbasisontheenergyconsumption",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "concernsinAIsettings[49,55].Inaddition,theWater\ntheircustomersonanannualbasisontheenergyconsumption\nFrameworkDirectivecanbeharnessedtolimittheoverallamount\ndirectlyattributabletothem(Sec.15).\nwateradatacentermayconsume,andalsocontrolforanypotential\nlossofwaterquality[33].\nTheDelegatedRegulationprovidesspecifickeyperformance\n4.4 RegulationOutsidetheEU\nindicatorsandmethodology.Mostnotableistherequirementto\nOutsidetheEU,anumberofcountriesistakingtheleadbyim-\nmeasureandreporttheenergyconsumptionoftheinstalledinfor-\nplementingconcretePUEgoals,suchasSingapore,Japan,China,\nmationtechnology.Followingthestandard-methodologyforthe\nandAustralia,whiletheU.S.asoneofthemaincontributorsin\ncalculationofPUE,1theenergyconsumptionmustbemeasuredat\ntheAIraceshowsanuancedpicture.However,itshouldbenoted",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "onofPUE,1theenergyconsumptionmustbemeasuredat\ntheAIraceshowsanuancedpicture.However,itshouldbenoted\ntheuninterruptiblepowersystem(UPS)or,ifnotexistent,atthe\nthatsomeofthesemeasuresarelimitedtoprocurementpoliciesor\npowerdistributionunit(PDU)oratanotherpointspecifiedbythe\nmerepoliticalcommitmentswhereitisuncleariftherewillbeany\ndatacenter(seeDelegatedRegulation,AnnexII(1)(e);seealsothe\npenalty-enabledenforcementlikeintheGermanEnergyEfficiency\nappendix,Figure1asCategories1-3.\nAct.AdirectcomparisonofPUEtargetvaluesshould,therefore,be\nThe data centers must report to the EU database directly or\nmadewiththiscaveatinmind.\nviaanationalreportingscheme,ifsuchaschemeisimplemented\nUnderthe2024GreenDataCenterRoadmap,Singaporeaims\nby the Member State. From the reported data the Commission\ntoreachaPUEof1.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "nterRoadmap,Singaporeaims\nby the Member State. From the reported data the Commission\ntoreachaPUEof1.3orlesswithin10years[71].Japan,withits\ncalculatesthedatacentersustainabilityindicatorswhicharemade\n2022EnergyConservationAct,requiresdatacenteroperatorsto\npubliclyavailableonanaggregatelevel.Theyincludethepower\ntakeefficiencymeasurestoreachatargetPUEof1.4by2030[12].\nusageeffectiveness(PUE),thewaterusageeffectiveness(WUE)2,\nMeanwhile,inChina,accordingtoLietal.,policiesissuedfrom\ntheenergyreusefactor(ERF)3,andtherenewableenergyfactor\n2013onwardintroducedefficiencytargets,graduallydecreasing\n(REF)4.\ntherequiredPUEfrom1.5in2013to1.3in2021[48].However,the\nauthorsalsoadmitthatmostrecentdatastillshowsasignificant\n4.2 EnergyManagementSystemsandEnergy",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "r,the\nauthorsalsoadmitthatmostrecentdatastillshowsasignificant\n4.2 EnergyManagementSystemsandEnergy\nimplementationgapwiththeactualPUEofmostdatacentersrang-\nAudits\ningbetween1.4and2.0.AspartofAustralia’s2023NetZeroin\nThe EED also requires that Member States mandate companies GovernmentOperationsStrategy,datacenterservicesprocuredby\nwithanaverageannualenergyconsumptionofmorethan10TJto thegovernmentmustdemonstrateafive-starenergyratingunder\nconductanenergyauditatleasteveryfouryearsandthosewitha thenationalNABERSscheme,includingaPUEof1.4orlower.This\nconsumptionofmorethan85TJtoimplementanenergymanage- requirementappliestoprocurementfrommembersofthedistin-\nmentsystemincludingregularenergyaudits(Art.11EED).This guishedDataCentrePanel,andfrom1July2025,itwillextendto",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "includingregularenergyaudits(Art.11EED).This guishedDataCentrePanel,andfrom1July2025,itwillextendto\nwouldalsoapplytooperatorsofdatacenters.TheDirectivesets othercompaniesandstate-operateddatacenters[21].\nIntheU.S.,intheabsenceoffederalefficiencyrequirements,the\n1TheDelegatedRegulationreferstotheEuropeanstandardCEN/CENELECEN50600- onlydirectregulationfordatacenterefficiencyistheCalifornia\n4-2.\nGreenBuildingActionPlan2015implementingExecutiveOrderB-\n2WUEmeasurestheamountofwaterusedinthedatacenter’scoolingandother\noperationsrelativetotheenergyconsumedbytheITstack. 18-12.DatacentersthatexceedaPUEof1.5arerequiredtoreduce\n3ERFrepresentsthepercentageofenergythatisreusedfromadatacenter’swaste theirPUEbyaminimumof10percentperyearuntiltheyachieve\nenergy,showingtheefficiencyofenergyrecovery.\na1.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "heirPUEbyaminimumof10percentperyearuntiltheyachieve\nenergy,showingtheefficiencyofenergyrecovery.\na1.5orlowerPUE.However,similartotheAustralianaction,this\n4REFindicatestheproportionofadatacenter’senergythatcomesfromrenewable\nsources. planisonlylimitedtostatedatacenters[22,73].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nAnothernoteworthystrainofregulationistheclimatereporting States,potentiallyleadingtoafragmentedregulatoryenvironment\nsetforthintheSECclimatedisclosurerules,and,onastatelevel,the acrosstheEU.\nCaliforniaClimateCorporateDataAccountabilityAct,alsoknown Incontrast,thesituationoutsidetheEUshowsaverydiverse\nasSB253.WhiletheCaliforniaActgoesfurtherinincludingprivate landscape,rangingfromgovernmentprocurementtoindustrywide\ncompaniesandscope3indirectemissions,itislimitedtocompanies politicalcommitmentsandconcretelegalrequirementswithvary-\nwithUSD1Binannualrevenue.FortheSECrulesaswellasSB ingimplementationsuccess.\n253thefocusisonthecompanies’totalemissions,thereforedirect",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ulesaswellasSB ingimplementationsuccess.\n253thefocusisonthecompanies’totalemissions,thereforedirect\nattributiontoAIorcomputingenergyconsumptionwillbedifficult.\n5 AIAct:GapsandInterpretationChallenges\nRelatingtoAImorespecifically,althoughnotlimitedtodata\ncenters,isabillforanAIEnvironmentalImpactsActthatwas TheAIActappliesfurtherdowninthevaluechain,targetingenti-\nintroduced in the U.S. Senate by Senator Edward J. Markey (D- tiesthatdevelopanddeployAIsystems.Afterintroducingthekey\nMA)on1Feb2024[78].ThebillwasreferredtotheCommittee terminologyusedbytheAct,wediscussthemajorclimate-related\nonCommerce,ScienceandTransportation,andhasnotyetbeen obligationscontainedinit,withaparticularfocusontransparency,\nvotedupon.Underthenewadministration,itisunlikelythatthe riskassessmentandmitigation.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ontransparency,\nvotedupon.Underthenewadministration,itisunlikelythatthe riskassessmentandmitigation.Asouranalysisshows,theAct\nbill will pass Congress. However, even if enacted, it would not makesstepsintherightdirection,butfallsshortofacomprehen-\ncontainanysignificanthardregulation.Thebillprimarilymandates siveregimefortacklingclimate-relatedrisksofAImodels.\nstudies,stakeholderconsultations,andvoluntaryreportingonAI’s\nenvironmentalimpactswithoutimposingsignificantregulatory\n5.1 TerminologyoftheAIAct:AI,Providers,\nobligations.\nandDeployers\nTheAIActonlyappliesifanAImodelorAIsystemisusedbya\n4.5 DiscussionandInterimConclusiononData\nspecificallydesignatedentity,suchasaproviderordeployer.The\nCenterRegulation activity also needs to relate to the EU, typically either because",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "erordeployer.The\nCenterRegulation activity also needs to relate to the EU, typically either because\nTheregulationofdatacentersinthecontextofAI’senvironmen- thesystemisofferedtopersonsintheEUorbecauseitsoutput\ntalimpact,particularlyregardingenergyandwaterconsumption, isusedintheEU(Art.2(1)andRecital22AIAct).AnAIsystem\npresentsbothadvantagesandshortcomings.Theincreasinggrowth isdefinedasamachine-basedsystem’designedtooperatewith\nofAI-relatedactivities,suchastrainingandinference,placessig- varyinglevelsofautonomyandthatmayexhibitadaptivenessafter\nnificantpressureontheenvironmentalfootprintofdatacenters. deployment,andthat,forexplicitorimplicitobjectives,infers,from\nWhiletheEUhasimplementedgenericdatacenterregulations, theinputitreceives,howtogenerateoutputssuchaspredictions,",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "simplementedgenericdatacenterregulations, theinputitreceives,howtogenerateoutputssuchaspredictions,\nsuchasthoseoutlinedintheEnergyEfficiencyDirectiveandthe content,recommendations,ordecisionsthatcaninfluencephysical\nDelegatedRegulation,theserulesalsoindirectlygoverntheenvi- orvirtualenvironments’(Art.3(1)).\nronmentalimpactofAIbyimposingreportinganddatacollection KeyactorsintheAIvaluechainincludeprovidersanddeployers.\nrequirements.Notably,theseregulationsrequirethereportingof ProvidersdevelopormarketAImodelsorsystems(Art.3(3))while\nbothenergyandwaterconsumption,acriticalaspectgiventhe deployersuseexistingAIsystemsinaprofessionalcapacity(Art.\nrisingconcernsoverresourceuseinAIapplications. 3(4)).Notethatotheroperationallyrelevantactors,suchascloud",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "concernsoverresourceuseinAIapplications. 3(4)).Notethatotheroperationallyrelevantactors,suchascloud\nOneofthekeystrengthsoftheEU’sapproachistheestablish- serviceproviders,dataproviders,datacenteroperators,orother\nmentofspecificreportingobligations.Datacenteroperatorsmust intermediaries,arenotdirectlysubjecttoAIActrules.\ncollectandpubliclyreportenergyconsumption,powerutilization, TheActpaysspecificattentiontogeneral-purposeAI(GPAI)\nwaterusage,wasteheatutilization,andtheuseofrenewableenergy. models,e.g.,largelanguagemodels(LLMs)likeGPT-4,thatare\nThesemeasureshelpcreatetransparencyandprovideafoundation definedbythewiderangeofpossibleuses.Thosewiththemost\nforfutureefficiencyimprovements.Additionally,theGermanim- advancedcapabilities,andthereforehigherriskofnegativeeffects,",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "mprovements.Additionally,theGermanim- advancedcapabilities,andthereforehigherriskofnegativeeffects,\nplementationoftheEEDgoesbeyondmerereportingbysetting arelabeledGPAImodelswithsystemicrisk(Art.3(63)-(65)).AnAI\nspecifictargetsforenergyefficiencyandrenewableenergyuse systemthatintegratesaGPAImodelisageneral-purposeAIsystem\nindatacenters,aswellasrequiringsmallerdatacenterstocom- (Art. 3(66)), e.g., ChatGPT. AI systems used in specific settings\nply.Germany’sapproachmightserveasapotentialblueprintfor subjecttoproductsafetyregulation,e.g.,medicaldevices,andareas\nbroaderEUregulation,particularlymandatingdatacenteropera- particularlysensitiveforpublicsafetyorfundamentalrights,e.g.,\ntorstoinformcustomersabouttheirdirectenergyconsumption, lawenforcement,education,employment,orcreditscoring,are",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "customersabouttheirdirectenergyconsumption, lawenforcement,education,employment,orcreditscoring,are\nanessentialfactorforoptimizingAI-relatedenergyuse. calledhigh-riskAI(HRAI)systems.Thesesystemsaresubjectto\nHowever, the regulations also present several shortcomings. otherrules,concerningtrainingdata,documentation,humaninthe\nWhiledatacollectionandreportingobligationsareuseful,theab- loop,andperformance,interalia(Art.9-16).WhenGPAIsystems\nsenceofbindingefficiencyandrenewableenergytargetsattheEU areusedinhigh-riskapplications,rulesmayapplycumulatively\nlevelisamajorlimitation.AlthoughtheCommissionisexpected (Recital85,97).\ntoproposefurtherlegislativemeasuresby2025,thecurrentlackof TheAIActcontainsenergy-andclimate-relatedtransparency",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "herlegislativemeasuresby2025,thecurrentlackof TheAIActcontainsenergy-andclimate-relatedtransparency\nenforceablestandardsmeansthatdatacenterscouldcontinueto and risk management obligations, primarily for providers of AI\nconsumevastamountsofenergyandwaterwithoutsignificantre- systems or models. Under certain conditions (e.g., fine-tuning),\nductionsintheirenvironmentalimpact.Moreover,whileGermany however,deployersbecomeproviders,whichtriggersmuchmore\nhasintroducedstrictertargets,thesedonotextendtoallMember onerousduties,alsowithrespecttoclimateimpacts(Art. 25(1),",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\nRecital109).Hence,thereisapalpableincentiveforcompaniesto principle;explicitSIAs).However,simultaneously,theimpactof\navoidproviderstatus. fundamentalrightswasstrengthened,andenvironmentalprotec-\nConcerningHRAIsystems,pursuanttoArt.25(1),deployerscan tionlistedasonesuchrightthatmustbeconsideredinarangeof\nbecomeprovidersiftheymarketanexistingHRAIsystemunder provisions[33,63].Thisissupportedbythementionofenviron-\ntheirnameortrademark,substantiallymodifyanHRAIsystem,or mentalprotectionasakeypolicygoaloftheAIActinArticle1\nchangetheintendedpurposeofanon-high-riskAIsystemsuch andRecitals1,2and8.\nthatitfallsunderoneofthehigh-risksectors(e.g.,employment;\nlife-orhealthinsurance;education).",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ",2and8.\nthatitfallsunderoneofthehigh-risksectors(e.g.,employment;\nlife-orhealthinsurance;education).Specifically,ifadeployeruses\naGPAIsystem,suchasChatGPT,inahigh-risksetting,forexample, 5.3 Transparency\nbyharnessingitforresumescreeninginhiring,theyautomatically Thefirstclimate-relatedobligationintheAIActconcernstrans-\nassumetheresponsibilitiesofaproviderofanHRAIsystem(Art. parencyandreporting,howevernotwithrespecttodatacenters,\n25(1)(c)). butconcerningprovidersofhigh-riskandGPAImodels[4].Yet,\nAnexistingHRAIsystemcanbealtered.Ifthemodificationis therulescomewithsignificantambiguitiesandloopholes.Inthe\nsubstantial,themodifyingentitybecomesanewprovider(Article following,wedetailthesixmostimportantones.\n25(1)(b)).",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ",themodifyingentitybecomesanewprovider(Article following,wedetailthesixmostimportantones.\n25(1)(b)).Itisunclear,however,whatpreciselyconstitutesa\"sub- 1)Forhigh-riskAIsystems,pursuanttoArticle11(1)providers\nstantialmodification\"thatwouldtriggerproviderstatusforthe mustdocumentthecomputationalresourcesutilizedduringthe\nmodifyingentity.Aformalinterpretationsuggeststhatanychange development,training,testing,andvalidationstages,asoutlinedin\ntothemodelcouldbedeemedsubstantial,basedonArt.3(23),which AnnexIV(2)whichdoes,however,notincludetheenergyconsump-\ndefinessubstantialmodificationasanyunplannedchangeaffect- tiondirectly[4].Thisomissionhindersthecapacitytoevaluateand\ningcomplianceorintendedpurpose.Ontheotherhand,a—more comparetheenvironmentalimpactofsuchsystemsaccurately.As",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "anceorintendedpurpose.Ontheotherhand,a—more comparetheenvironmentalimpactofsuchsystemsaccurately.As\nconvincing—materialinterpretationwouldclaimthatprovidersta- aresult,theenvironmentalfootprintmustbeestimatedindirectly\ntusshouldonlyapplyifthemodificationincreasesthemodel’s basedontherecordedcomputationalresources.\nriskinanonnegligibleway.ThisalignswiththeAIAct’sfocuson 2)TheAIActrequiresprovidersofgeneral-purposeAImodels\nriskmitigationandalsothelanguageinArticle3(23)accordingto tomeettransparencyobligations.Article53(1)(a)mandatesthat\nwhichanysignificantmodificationmustaffectcompliancewiththe providersmaintainup-to-datetechnicaldocumentation,including\nhigh-riskrulesoftheAct(orchangethepurpose). thedetailsoutlinedinAnnexXI.Thisannexrequiresthereporting",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "gh-riskrulesoftheAct(orchangethepurpose). thedetailsoutlinedinAnnexXI.Thisannexrequiresthereporting\nFor GPAI models, Recitals 97, 109, and 111 suggest that any ofenergyconsumption,whetherknownorestimated,whileesti-\nentityperformingevenminimalfine-tuningofaGPAImodelis matesmaybebasedonthecomputationalresourcesused.However,\nautomaticallyclassifiedastheproviderofanewmodel,including thisrequirementexhibitsasignificantgapasitonlycoversthe\nallassociatedresponsibilities[4].Forminormodificationsthisis energyusedduringthemodel’sdevelopmentphase,butleavesout\ndisproportionate, even if Recital 109 states that obligations are theinferencephase[4].Recentresearchhasshownthatenergycon-\nlimitedtothefine-tuningitself[4].Asolutioncouldbeananalogy sumptionduringinferenceoftenexceedsthatofthedevelopment",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "e-tuningitself[4].Asolutioncouldbeananalogy sumptionduringinferenceoftenexceedsthatofthedevelopment\nwithArticle25(1)(b)sothatproviderstatuswouldonlybetriggered phaseverysignificantlyovertime[55,79].\nbyasubstantialmodificationmadethroughfine-tuning,ratherthan To bridge this gap, we propose an alternative interpretation,\nanyminorchanges[4]. basedontheinformationprovidedtodownstreamactors(seealso\nThisisparticularlyimportantforSMEsusingpowerfulmod- [4]).AsaresultoftheAIAct,providersmustsupplydownstream\nels(GPAImodelswithsystemicrisk):iftheybecomeproviders, developersandrelevantauthoritieswithtechnicalinformationon\ntheyneedtocomplywiththemuchmorestringentobligationsin howtoincorporateGPAImodelsintoAIsystems(Articles53(1)(a)",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "omplywiththemuchmorestringentobligationsin howtoincorporateGPAImodelsintoAIsystems(Articles53(1)(a)\nArticle55concerningevaluationandriskmanagement,including and(b),togetherwithAnnexXIandAnnexXII).Whileenergy\nenvironmentalrisk. consumptionisnotexplicitlyreferencedintheseprovisions,they\ncouldreasonablybeunderstoodtoincludedetailsaboutthecom-\nputationalresourcesrequiredforinferencebecausedownstream\n5.2 LegislativeHistoryandIntent providersneedthisinformationtoproperlyallocateresources,e.g.,\nIntheoriginalCommissionproposalofApril2021,theAIActonly purchasingcomputingpowerforoperatingthemodel.Asaside-\nincludedminimalreferencestoenvironmentaleffects,mostlyasa effect,thisinformationcouldbeusedtocalculateenergyconsump-\npotentialbenefittoclimatechangemitigation(seeabove,2.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nformationcouldbeusedtocalculateenergyconsump-\npotentialbenefittoclimatechangemitigation(seeabove,2.),and tionforindividualinferences.However,tocalculatetheoverall\ninthesectiononvoluntarycommitments[63].TheGeneralAp- energyconsumptionforinferences,thetotalnumberofinferences\nproachadoptedbytheCouncilinDecember2022continuedthis wouldneedtobeavailableaswell.Whilethetypicalenergycostsof\nnarrowframing.However,themomentumchanged,particularly inferencesshouldthereforebemandatorilydisclosedbyproviders,\nwiththepositionoftheEuropeanParliament(EP),publishedin deployersshouldbecompelledtodivulgeinformationonthenum-\nJune2023.ThesuggestedEPsustainabilityamendmentstotheAI berofinferences,aswell,e.g.,onanaggregatemonthlylevel.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "hesuggestedEPsustainabilityamendmentstotheAI berofinferences,aswell,e.g.,onanaggregatemonthlylevel.\nActintroduceenvironmentalprinciplesforAIdevelopment,prefer- 3) Open-source (OS) GPAI models are largely excluded from\nentialfundingforeco-friendlyAI,mandatoryenergyandresource transparency requirements unless they present a systemic risk,\nconsumptionreporting,sustainabilityriskassessments(SIAs)for as outlined in Articles 2(12) and 53(2) [4]. The idea is that OS\nfoundationmodels,andCommission-ledguidanceonenvironmen- models,bydefinition,alreadydisclosecertaintypesofinforma-\ntalimpactmeasurementandreview[33].Duringthefinaltrilogue tion.Hence,Recital102listsinformationonparameters,including\nnegotiations,severaloftheseamendmentsweredropped(e.g.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "cital102listsinformationonparameters,including\nnegotiations,severaloftheseamendmentsweredropped(e.g.,the weights,modelarchitecture,andmodelusageasaprerequisitefor",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nsystemstobeconsideredOS.However,itdoesnotmandatethe Instead,themoreconvincinginterpretationisthat,forthepurposes\ndisclosureofenergyconsumption.Thisresultsinanunwarrented oftheAIAct,thelegislatormeantfortheseprinciplestobeincluded\nlackofvisibilityconcerningtheenvironmentalimpactandenergy whenevertheActreferstofundamentalrights.Itis,besides,not\nusageofthesemodels. uncommonforalegaltermtohavedifferentmeaningsindifferent\n4)WheretheActdoesmandatethedisclosureofenergycon- legalsettings.\nsumption,thisinformationisrestrictedtoauthoritiesandisnot Thus,itshouldnotbedispositivethattheexplicitSIAcontained\naccessibletodownstreamproviders(unlesstheproposedinterpreta- intheEPposition(see5.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "licitSIAcontained\naccessibletodownstreamproviders(unlesstheproposedinterpreta- intheEPposition(see5.2)wasnotincludedinthefinalversion.\ntionfrom2)isapplied)orthegeneralpublic,duetoconfidentiality Rather,theprovisionsonriskassessmentandmitigationformacen-\nclausesinArticles21(3),53(7),and78(1)[4].Thelimitedavailability terpieceoftheprotectivemeasuresincludedintheAIAct.Without\nofthisdatasignificantlyreducestransparencyandaccountability, includingenvironmentalrisksintheriskassessmentandmitigation,\ntherybyweakeningthepotentialforpublicoversightandmarket ineffect,notmuchconsiderationforenvironmentalriskswould\nresponses. remainandcertainlynotthe\"highlevelofprotection\"thatArt.1(1)\n5)TheAIActfailstoaddressthegreenhousegas(GHG)emis- mandates.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "the\"highlevelofprotection\"thatArt.1(1)\n5)TheAIActfailstoaddressthegreenhousegas(GHG)emis- mandates.\nsions generated by AI applications, for instance in sectors like Asacaveat,itshouldbenotedthat,whiletheAIActrequires\noil and gas exploration [4, 37]. For example, a recent investiga- climateriskassessmentandmitigation,nodetailedreportingis\ntionhasrevealedMicrosoft’saggressivepitchofitsAImodelsto mandated.ForHRAIsystemsthedocumentationmustcomprise\nExxonMobiletooptimizefossilfuelexploration[35].Leavingsuch adetaileddescriptionoftheriskmanagementsystem,butnotthe\napplicationswithsignificantclimateeffectsoutofscopecreatesa riskassessmentoritsresults(AnnexIV(5)).ProvidersofGPAImod-\nnotablereportinggap. elswithsystemicriskmayrelyoncodesofpracticeorEuropean",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "(5)).ProvidersofGPAImod-\nnotablereportinggap. elswithsystemicriskmayrelyoncodesofpracticeorEuropean\n6)TheActalsoneglectstoaddressthesubstantialwatercon- harmonizedstandards,bothofwhicharenotyetavailable,oralter-\nsumption,akeyconcernindatacenteroperations[4].Whilethe nativemeansofcomplianceforassessmentbytheCommission(Art.\nEnergyEfficiencyDirectivemandatesreportingofwaterconsump- 55(2)).Ifthesewillentailadetailedreportingoftheriskassessment,\ntionfordatacenters,theAIActrequiresnosuchreportingspecifi- andtowhom,isyettobedetermined.\ncallyforAI—asitdoesforenergyuse—nordoesitcoveroperations\noutsidetheEU.\n5.5 DiscussionandInterimConclusiononthe\nAIAct\n5.4 EnvironmentalRiskAssessmentand Overall,whiletheAIActintroducesvaluablestepstowardaddress-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "AIAct\n5.4 EnvironmentalRiskAssessmentand Overall,whiletheAIActintroducesvaluablestepstowardaddress-\nMitigation ingclimate-relatedconcernsinAIdevelopmentanddeployment,\nIntacklingtheclimateeffectsofAIandICTmoregenerally,itis itfallsshortofestablishingacomprehensiveframeworkformit-\narguablycrucialtomovebeyondmeretransparencyprovisions igatingtheenvironmentalrisksposedbyAIsystems.Keyprovi-\ntowardsmoresubstantivegoalsandobligations.Indeed,theAIAct sionsontransparencyandriskmanagementforhigh-riskAIand\ndoescontainsomelanguagetothiseffect.ForprovidersofGPAI general-purposeAIsystemsmakesomeprogressinrequiringdoc-\nmodelswithsystemicriskandprovidersofHRAIsystems,theAct umentationofcomputationalresourcesandenergyconsumption,\nmandatesriskassessmentandmitigation(Art.55(1)(b)andArt.9).",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "mputationalresourcesandenergyconsumption,\nmandatesriskassessmentandmitigation(Art.55(1)(b)andArt.9). butsignificantgapsremain.Forexample,theActdoesnotmandate\nWearguethatthesemeasuresshouldalsoconsiderenvironmental thedisclosureofenergyconsumptionduringtheinferencephase,\nrisks,inkeepingwiththenormativegoalsoftheAIActlistedin acrucialomissiongiventhelong-termenvironmentalimpactof\nArticle1andRecitals1,2and8. AIapplications.Moreover,transparencymeasuresarerestrictedto\nCrucially,bothprovisionsrelatetorisksoftheAImodelorsys- authorities,limitingbroaderaccountabilityandpublicscrutiny.\ntemforfundamentalrightswhich,withintheAIAct,mustbeinter- Additionally,whiletheActimposesriskassessmentandmitiga-\npretedasincludingenvironmentalrisks[5].InArt.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "dditionally,whiletheActimposesriskassessmentandmitiga-\npretedasincludingenvironmentalrisks[5].InArt.1(1)andRecital tionobligationsonprovidersofHRAIsystemsandGPAImodels\n1,thepurposeoftheAIActisdefinedasprotectinghealth,safety, withsystemicrisk,theseprovisionslacksufficientemphasison\nfundamentalrightsenshrinedintheCharter,includingdemocracy, environmentalfactors.Althoughenvironmentalprotectionisin-\ntheruleoflawandenvironmentalprotection.However,inthedoc- cludedintheAct’sobjectives,itspracticalintegrationintorisk\ntrineoftheCharterofFundamentalRightsoftheEuropeanUnion managementremainsunclearandnodetailedreportingonmitiga-\n(theCharter),environmentalprotection(Art.37oftheCharta)is tioneffortsconcerningenvironmentalrisksiscurrentlyrequired.\nmerelyanobjectiverule,notafundamentalright[60].",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ortsconcerningenvironmentalrisksiscurrentlyrequired.\nmerelyanobjectiverule,notafundamentalright[60].Democracy Withoutstrongerenforcementandclearerguidance,particularly\nandtheruleoflawarenotenshrinedinaparticularArticleofthe ontheinclusionofenergyconsumptionandotherenvironmen-\nCharterbutserveasguidingprinciplesthatpermeatetheCharter talimpactsinriskassessments,theAct’spotentialtoaddressthe\nandallofthefundamentalrights.Accordingly,they(only)finda growingclimate-relatedrisksofAIsystemswillremainlimited.\nmentioninthepreambleoftheCharter.\nInourview,theEuropeanlegislatordidnoterronthedoctri- 6 OperationalizingtheRequirements\nnalclassificationofdemocracy,theruleoflawandenvironmental\n6.1 ModelProvidersandtheirAccessto\nprotectionintheCharterbyincludingtheseprinciples.Whileitis",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ental\n6.1 ModelProvidersandtheirAccessto\nprotectionintheCharterbyincludingtheseprinciples.Whileitis\nconceivablethatalegislativeerrormayhaveoccurredinmiscate- Infrastructure\ngorisingtheobjectiveruleinArt.37oftheCharta,thatseemsvery Leadingmodelprovidersleverageextensivesupercomputernet-\nunlikelyforthebasicprinciplesmerelyexpressedinthepreamble. worksequippedwithhigh-performanceGPUs.Thisgroupismost",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\nimpactedbyenergyconsumptionreporting.Weassumethatthey providers.ThegoalistoincludeallICT-relatedpowerconsumption\npossessprivilegedaccessorconsiderableinfluenceovertheutilized butexcludedatacenterspecificefficiencyproperties.\ninfrastructuregiventheirfinancialpowerorstrategicvalue.One Theupsideofthismethodisitshighaccuracy,highlycorrelating\ncandistinguishbetweencompaniesthatdevelopclosedmodels(e.g., withmodelsizeandstructure,dataquantity,andhardware-aware\nOpenAI)andthosethatcreateopen-sourcemodels(e.g.,Meta). softwareimplementation.Itiswidelyrecognizedintheindustry\nStartupsandsmallercompaniesareexpectedtoeitherdirectly forassessingpowerconsumptionindatacenters.Accordingtoa",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "dsmallercompaniesareexpectedtoeitherdirectly forassessingpowerconsumptionindatacenters.Accordingtoa\ndeploysuchmodels,useavailableAPIservicesofleadingmodel 2023GreenGridindustrysurvey[77],66%ofdatacenterscantrack\nproviders,orfine-tuneexistingmodels.Althoughthesecompanies powerdemandatleastonrack-level.Roughlyonethirdofover-\ndonottypicallytrainlargemodelsthemselves,theymustreport alldatacentersarealreadyabletocollectaverageutilizationand\nenergyconsumptionforfine-tuning.Underourproposedinter- powerdemanddataforindividualserversandstorageequipment\npretation,however,onlyifthefine-tuningofamodelleadstoa andmatchthisdatatotheirITequipmentinventory.Weassume\nsubstantialmodification. that the data centers that are used for training by large model",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "y.Weassume\nsubstantialmodification. that the data centers that are used for training by large model\nprovidersarealreadyabletotrackthisinformationgivenitshigh\n6.2 LevelsforMeasuringandEstimatingEnergy costrelevance.However,asignificantnumberofdatacentersdonot\ntrackpowerdemandyet.Thesurveyeddatacenterprofessionals\nConsumption\nestimatetorequirebetween3-6months(Europe:15%,Global:19%),\nThereareseverallevelswithinadatacenterbasedonwhichenergy\n1year(Europe:29%,Global:28%),2years(Europe:12%,Global:\nconsumptionmaybemeasuredorestimated[4].Theseinclude(1)\n10%),3years(Europe:4%,Global:4%)ormorethan4years(Europe:\nthedatacenterlevel,(2)thecumulativeserverlevel,(3)theGPU-\n11%,Global:8%)toimplementadequatepowercollectionabilities.\nLevelandotherhardwarewithinaserverand(4)variousother",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "%)toimplementadequatepowercollectionabilities.\nLevelandotherhardwarewithinaserverand(4)variousother\nForEuropeandatacentersthesenumbersstandin(surprising)con-\nlevels.Inthissection,weoutlineeachlevelalongwiththeirbene-\ntrasttotheobligationundertheEEDandDelegatedRegulationto\nfits,drawbacks,andestimationmethodsforwhenmeasurementis\nprovideenergyconsumptiondatabySep15,2024(Art.3(1)and\nunavailable.\nAnnexII(1)(e)DelegatedRegulation).Eitherasubstantialnumber\noftheparticipantswasunawareoftheobligations;ortherebyac-\n6.2.1 DataCenterLevel. Onthedatacenterlevel,thepowerre-\nknowledgedtheirinabilitytocomplyintime;orthequestionwas\nquiredtooperatetheentiredatacenterismeasured,includingboth\ntoonarrow,beingpointedatindividualservers,whiletheEEDalso\nthedirectpowerconsumptionofcomputingequipmentandthe",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "beingpointedatindividualservers,whiletheEEDalso\nthedirectpowerconsumptionofcomputingequipmentandthe\nallowsmeasurementatthehigher-levelUPS.\nadditionaloverheadforcoolingandmaintainingthedatacenter.\nAnestimationispossiblewhenGPUhoursandthehardware\nThisapproachprovidesthemostextensiveandcompletefigures\nusedareknown.BymultiplyingaGPU-hourwiththepeakutiliza-\nsinceitrepresentstheactualenergyusage,butalsoassumesthata\ntionpowerconsumptionspecifiedbythemanufacturer,onecan\ndatacenterisexclusivelyutilizedforthepre-trainingbythemodel\nestimatetheupperlimitofenergyconsumptionattheserverlevel.\nprovider.Itencouragestheselectionofanefficientdatacenter.Ad-\nThisupperboundistypicallyhigherthantheactualconsumption,\nditionally,datacentershaveaveragePUEvaluesof1.58,sothis",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "distypicallyhigherthantheactualconsumption,\nditionally,datacentershaveaveragePUEvaluesof1.58,sothis\nasGPUutilizationrarelyreachesitstheoreticalpeakduetoother\noverheadmakesupasignificantportionoftheenergyconsump-\nresourceconstraints.HigherGPUefficiencymeansthatthesame\ntion.Ontheotherhand,thepowerusageresultingsolelyfromthe\noperationsarecompletedinlesstime,reducingtheoverheadfrom\nmodel’sarchitecture,thequantityoftrainingdata,theefficiencyof\nnon-utilization-dependenthardwarepowerconsumption.\ntheimplementation,andexperimentalsettingsisveryimportant\nbutissomewhatskewedbytheefficiencyofthedatacenter.\n6.2.3 GPU-Level and other hardware within a server. The mea-\nIfdata-centerlevelpowerconsumptionmeasurementisnotavail-\nsurementmaybebasedontheenergyusageofparticularcompo-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "terlevelpowerconsumptionmeasurementisnotavail-\nsurementmaybebasedontheenergyusageofparticularcompo-\nable,usingthePUEfactorforestimationisdeemedappropriate.To\nnentsasdeterminedbyon-chipsensors.NvidiaGPUsandcertain\ncalculatetotalenergyusage,thePUEfactorismultipliedbytheraw\nCPUsalreadyprovidestraightforwardpowerconsumptionmoni-\ncomputationalpowerconsumptionmeasuredorestimatedatthecu-\ntoring,thereforeestimationsareusuallynotnecessary.However,\nmulativeserverorracklevel(seebelow).Thismightbereasonable,\ndespiteGPUpowerconsumptionbeingasignificantfactorandits\nifonlypartsofadatacenterareutilizedandonlymeasurements\nusagecorrelatingwiththetotalpowerusage,itsubstantiallyunder-\nclosertotheICTequipmentareavailable.\nrepresentstheactualenergyconsumptionsinceitmeasuresjusta\nsinglecomponent.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eICTequipmentareavailable.\nrepresentstheactualenergyconsumptionsinceitmeasuresjusta\nsinglecomponent.CPUpowerusageisarelativelyminorfactorin\n6.2.2 CumulativeServerLevel. Alarge-scalemodelistrainedacross\nconsumption.Mostotherservercomponentscannotbemeasured.\nmanyserversinadistributedmanner.EachserverincludesGPUs\nWeadvocateagainstusingGPU-levelorothercomponent-based\nresponsiblefortheprimarycomputation.Toaccuratelymonitor\npowerconsumptiontrackingforoverallenergymeasurements.\nthepowerconsumptionovertime,alocalpowerdistributionunit\n(PDU),capableofmeasuringtheprovidedpower,isattachedtoeach\n6.2.4 Otherlevels. Othermeasurementlevels,suchasWorkload,\nserver.Aggregatingthesemeasurementsyieldsahighlyprecise\nCloudInstance,orVirtualMachine,involvehighcomplexityand",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "gatingthesemeasurementsyieldsahighlyprecise\nCloudInstance,orVirtualMachine,involvehighcomplexityand\nfigureofthetotalenergyconsumptionattributabletothemodel’s\nnumerousassumptions,resultinginalackofstandardizedmea-\ncomputations.InsteadofaggregatinglocalPDUs,theusageofpri-\nsurementorestimationmethodswithconsiderableuncertainty.We\nmaryPDUsoruninterruptiblepowersupply(UPS)systemsalready\nadviseagainstusingtheselevelsforpowerconsumptiontracking.\nmeasuringattheracklevelorevenmanyracksisalsosuitable\n(SeealsoAppendix,Figure1),aslongasthemeasurementspre- 6.2.5 InterimConclusionontheLevelofMeasurement. Inouranal-\nciselymatchfullytheutilizedhardwareresourcesbythemodel ysis,wearguethatenergyconsumptionshouldbemeasuredand",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "uldbemeasuredand",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nreportedatthecumulativeserverlevel(seealso[4]).Thisapproach energyconsumptiondatatotheirclients.ComplementingArt.25(2)\ncapturesthetotalcomputation-relatedpowerusageandisbetter AIAct,theobligationestablishedinSec.15oftheGermanEnergy\nsuitedtohelpprovidersoptimizetheirAImodelsandalgorithmsfor EfficiencyAct,requiringdatacenterstoinformcustomersontheir\nenergyefficiency.Additionally,thePUEfactorofeachdatacenter, attributableannualenergyconsumption,couldserveasablueprint.\nwhichisreportedandpublishedbythedatacenteroperatorunder Notably,suchalawcouldalsoapplytocloudserviceproviders\ntheEnergyEfficiencyDirective(EU)2023/1791andDelegatedReg- basedoutsidetheEU,withthecaveat,however,thatsuchanex-",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "iciencyDirective(EU)2023/1791andDelegatedReg- basedoutsidetheEU,withthecaveat,however,thatsuchanex-\nulation(EU)2024/1364,providesausefulestimateofoverallenergy traterritorialapplicationoftentimeslacksenforcementcapabilities.\nconsumption[4].Withthesetwofigures,itispossibletodistinguish\nbetweenmodel-specificpowerusage(server-levelcomputation)\nandthedatacenter’sefficiency,offeringaclearerpictureofthe\ntotalenergyinvestment[4].AlthoughtheEEDmandatesthatPUE\nfactorsmustbeavailablefordatacenterssituatedwithintheEU,\ntheresponsibilityofreportingthesefactorsshouldalsofallonthe\nmodelprovider.Specifically,modelprovidersutilizingdatacenter 6.4 SustainabilityImpactAssessments\nfacilitiesoutsidetheEUshouldnotbegrantedanexemption. Theoperationalizationofsustainabilityimpactassessments(SIAs)",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "idetheEUshouldnotbegrantedanexemption. Theoperationalizationofsustainabilityimpactassessments(SIAs)\nEstimatesofserver-levelpowerconsumptionshouldbebased withintheriskassessmentsrequiredundertheAIActinvolves\nonpeakutilizationfiguresprovidedbythehardwaremanufacturer integrating environmental considerations into the existing risk\n(e.g.,Nvidia)[4].Still,itisimportanttoconsideradvancementsin managementframeworksthathigh-riskAImodelprovidersand\nresearch.Interpretationofthelegalrequirementscouldaccommo- GPAIprovidersmustfollow.Muchlikedataprotectionoralgo-\ndatejustifiablealternativeassumptionsthatmaynotrequirepeak rithmicimpactassessments,SIAswouldserveasapracticaltool\nutilizationfigures.Forinstance,trackingGPUutilizationthrough forembeddingclimateconsiderationsintothedevelopmentand",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "es.Forinstance,trackingGPUutilizationthrough forembeddingclimateconsiderationsintothedevelopmentand\ninterfaceslikethoseprovidedbyNvidiaandreferencinghardware deploymentofAIsystems.Importantly,theseassessmentsshould\nbenchmarksbasedonspecificGPUutilizationratescouldserveas notbelimitedtohigh-riskAImodelsbutshouldalsoapplytoallAI\nabasisforsuchassumptions. systems,regardlessoftheassociatedrisktohealthorsafety.This\nisbecausethecarbonfootprintofAImodelsisoftenunrelatedto\ntheirclassificationashighorlowriskundertheAct.Therefore,an\n6.3 MeasurementorEstimation SIAcouldensurethatenvironmentalimpactsareconsideredacross\nAlthoughactualmeasurementismoreonerous,italsoyieldsmore theentireAIlandscape.\nprecise results for energy consumption reporting.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "moreonerous,italsoyieldsmore theentireAIlandscape.\nprecise results for energy consumption reporting. Major model TheSIAshouldinvolveevaluatingvariousmodelsanddesign\nprovidersarelikelytoalreadymeasurepowerconsumptionasit choicesduringthedevelopmentprocess,comparingthemnotonly\nisaprimarycostfactorandhighlylinkedtocomputationalpower. ontheirperformancebutalsoontheirestimatedenvironmental\nDespite the availability of power consumption data, companies impact.Forinstance,developerswouldneedtoassesswhethera\nmaybetemptedtouseestimatedvaluestoprotectsensitiveinfor- simplermodel,likelinearregressionorevenanon-AImodel,could\nmation.Thispracticeshouldberestrictedbylegallyprioritizing achievesimilarresultswithasmallercarbonfootprintcompared\nmeasurementsoverestimationsinAnnexXISection1(2)(e).",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "imilarresultswithasmallercarbonfootprintcompared\nmeasurementsoverestimationsinAnnexXISection1(2)(e). tomorecomplexmodelslikedeeplearning[33,37].Similarly,the\nThesamereasoningappliestosmallerentitiesrelyingoncloud decisiontouselarge,pre-trainedmodelsortrainingnew,narrow\ncomputingservicesforfine-tuning,forexamplesuchofferedby models(almost)fromscratchshouldfactorinthepotentialclimate\nAmazonWebServicesorMicrosoftAzure.Fine-tuningiscrucial benefits.ByusingexistingtoolstomeasurethecarbonimpactofAI\nforemployingfoundationalmodelsintask-specificapplications models,developerswouldberequiredtooptforthemoreenviron-\nand tailoring them to specific datasets. The higher the expense mentallysustainableoptionwhenperformanceiscomparable.To",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "o specific datasets. The higher the expense mentallysustainableoptionwhenperformanceiscomparable.To\nofinitialmodeltrainings,thestrongertheincentivetoperform effectivelyimplementsustainabilityimpactassessments,providers\nfine-tuningratherthanretrainingthemodel.Therefore,thisisthe wouldneedtoestablishstandardizedmethodologiesformeasuring\ntypeofadaptationthatmostbusinesseswillfocusontoeffectively theenvironmentaleffectsofAImodels,particularlyenergyand\nintegratelargeAImodelsintopracticalproducts. waterusageduringtrainingandinferencephases.\nCloudplatformsstilllackclient-orientedpowerconsumption Takingonestepback,theconceptof\"dataprotectionbydesign\"\nreporting as part of their products. It is essential that ordinary shouldbeexpandedtoinclude“sustainabilitybydesign,”under",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "eir products. It is essential that ordinary shouldbeexpandedtoinclude“sustainabilitybydesign,”under\ncompanieswithlimitedresourcesdonotfaceobstaclesinfulfill- whichdevelopersshouldactivelyseektoreducethecontribution\ningtheirreportingobligationsonlybecausetheircloudcomputing ofICT,includingAI,toclimatechange[33].Atboththetechnical\nprovidersdonotofferthisdata.TheaccessrightsenshrinedinArt. andorganizationallevels,thiswouldinvolveadoptingallfeasible\n25(2)AIActcanhelpifthedeployingentitybecomesaprovider— measurestolimitenvironmentalimpact,ashiftthathasalready\nbutprovidersmayinvoketradesecretsandIPrightstodilutethis beenappliedinotherindustriesthroughconsumptionpractices\nobligation(Art.25(5)AIAct).Inourview,theinterestsofdown- andproductdesign.Theseapproachesarealsogainingtractionin",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ".25(5)AIAct).Inourview,theinterestsofdown- andproductdesign.Theseapproachesarealsogainingtractionin\nstreamactorsinreportingcorrectfiguresshouldgenerallytrump supplychainmanagementandothersectorsinpursuitofcorpo-\nthesecrecyinterestsofupstreamproviders,inthiscase.Underthe rateEnvironmental,Social,andGovernance(ESG)objectives.By\ncurrentsetup,companiescouldalwaysresorttocomputation-based drawingontheseexistingpractices,sustainabilitybydesigncould\nestimationsfortheirreporting.However,inordertogainthemost becomeacoreprincipleguidingtheregulationoftheICTandAI\naccuratedata,cloudplatformsshouldbeincentivizedtoprovide sectors.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\n7 PolicyProposals • Clarifying Provider Status for Model Modifications:\nAlthoughtheAIActattemptstoaddressclimateconcernsthrough Thecurrentdefinitionofproviderstatusneedstofocuson\nvariousreportingobligations,thesemeasureslargelylackconsis- substantialmodificationstoAImodels,specificallythosethat\ntencyandclarity.Weidentifytwelvepolicyrecommendationsthat involvechangingthemodel’sweights.Reportingobligations\nshouldbeintegratedintotheevaluationreportdueinAugust2028 andthechange-of-providerthresholdshouldbetiedtocom-\n(Article111(6)),aswellasanyinterpretiveguidelinesfromtheAI putationalcostsincurredduringsignificantmodifications,",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "),aswellasanyinterpretiveguidelinesfromtheAI putationalcostsincurredduringsignificantmodifications,\nOffice and other agencies, and in reviews and potential textual withaminimumcomputationalcostthresholdensuringthat\nrevisionspriortothatdate(seealso[4]).Thesemeasurescanbe onlyenergy-intensivechangestriggeradditionalreporting\ngroupedinfourcategories:EnergyandEnvironmentalReporting [4].\nObligations;LegalandRegulatoryClarifications;Transparencyand • EliminationoftheOpen-SourceExemption:Theopen-\nAccountabilityMechanisms;andFutureFar-ReachingMeasures sourceexemptionfromreportingobligationsshouldbere-\nbeyondTransparency. moved,asmakingpartsofamodelpublicdoesnotjustifyex-\nclusionfromenvironmentalaccountability[4].Open-source\nmodelscanhavesignificantenergyimplicationsandshould\n7.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "romenvironmentalaccountability[4].Open-source\nmodelscanhavesignificantenergyimplicationsandshould\n7.1 EnergyandEnvironmentalReporting\nadheretothesamereportingstandardsasproprietarymod-\nObligations\nels.\nThecurrentAIActoverlookskeyenvironmentalfactorsrelatedto • EnergyEfficiencyandRenewableEnergyTargetsfor\nAIsystems[56].Thefollowingproposalsaimtoensurecomprehen- DataCenters:TheEEDandDelegatedRegulationshould\nsiveenergyandenvironmentalaccountabilityforAIsystems,both beamendedinthreeregards,followingtheGermanEnergy\nfordevelopmentandinferencephases. Efficiency Act: they should set binding efficiency targets\n(PUE)andrenewableenergytargetsfordatacenters;and\n• InclusionofEnergyConsumptionFromInferences:We\nincludeaninformationobligationfordatacenteroperators",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "InclusionofEnergyConsumptionFromInferences:We\nincludeaninformationobligationfordatacenteroperators\nproposeaninterpretationthatwouldatleastbringenergy\nandcloudserviceprovidersvis-à-vistheircustomersregard-\nconsumptionforsingleinferencesbackintothescope(see\ningtheattributableenergyconsumption.Thesemeasures\nalso[4]).Adoptionofthisinterpretationbycourts,author-\nshouldbeincludedinthe2025evaluationreport.Thiswould\nitiesandindustry,however,isuncertain.Therefore,both\nbothincreasetransparencyandfacilitatemoresustainable\nsingleandoverallinferencesshouldbeincludedasareport-\ndecisionsbymarketparticipants.\ningcategoryinAnnexXIandAnnexXII(vis-à-visauthorities\nanddownstreamproviders)throughdelegatedactsfromthe\nCommission(Articles53(5)and(6))andfuturerecommenda- 7.3 TransparencyandAccountability",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "edactsfromthe\nCommission(Articles53(5)and(6))andfuturerecommenda- 7.3 TransparencyandAccountability\ntionsfromtheAIOffice. Mechanisms\n• IndirectEmissionsandWaterConsumptionReporting: TopromotepublictrustandaccountabilityinAI’senvironmental\nTheActcurrentlyomitsindirectemissionsfromAIapplica- impact,thefollowingmeasuresarerecommended:\ntions(e.g.,thoseusedforoilandgasexploration[37])and\n• PublicAccesstoClimate-RelatedDisclosures:Allclimate-\nwaterconsumption[49].Reportingshouldinclude:Providers\nrelateddisclosures,includingenergyconsumption,should\nreportingwaterusage,anddeployersreportingapplication-\nbemadeaccessibletothegeneralpublic[4].Ifonlyaggregate\nrelatedemissions,allowingforestimateswhereprecisemea-\ndataareshared,tradesecretscanbeprotectedwhileallowing",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "missions,allowingforestimateswhereprecisemea-\ndataareshared,tradesecretscanbeprotectedwhileallowing\nsurementsareimpossible,particularlywhendealingwith\nforpublicscrutinybyanalysts,academics,andNGOs.Pub-\nfuturescenarios.\nlictransparencywoulddrivemarketpressure,reputational\n• EnergyReportingattheCumulativeServerLevel:En- incentives,andpublicaccountability;itwould,arguably,en-\nergy consumption should be reported at the cumulative\ncouragecompaniestoreducetheirenvironmentalimpact.\nserverlevel(seealso[4]).Inthisendeavor,estimationsmay\n• EnergyReportingforHigh-RiskAI(HRAI):ForHigh-\nbe used only when direct measurements are unavailable.\nRiskAI(HRAI)systems,theActshouldrequirethedisclosure\nTheseprinciplesshouldguidethedevelopmentoftechnical\nofenergyconsumptionratherthancomputationalresources",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "eprinciplesshouldguidethedevelopmentoftechnical\nofenergyconsumptionratherthancomputationalresources\nstandardsunderArticle40oftheAIAct,aswellasthepo-\ntoeliminateinaccuraciesandenhancecomparability.\ntentialimplementationoftheGlobalDigitalCompactona\n• EnvironmentalRiskAssessments:Providersshouldbe\nglobalscale.\nrequiredtoincludeenvironmentalrisksintheirriskassess-\nments.ThelanguageinArt.1(1)andRecital1,aswellasArt.\n7.2 LegalandRegulatoryClarificationsonAI 9and55AIActshouldbeclarifiedtoreflectthis.Thiswill\nModelsandProviders ensurethatenvironmentalimpactsaresystematicallyeval-\nuatedalongsideotherrisksduringAIsystemdevelopment\nAmbiguitiesintheAIActregardingproviderresponsibilitiesfor\nanddeployment.\nAImodelsneedtobeclarifiedtoensurethatentitiesknowwhen\nandwhattocomplywith.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ilitiesfor\nanddeployment.\nAImodelsneedtobeclarifiedtoensurethatentitiesknowwhen\nandwhattocomplywith.Thefollowingproposalsseekensurethat\ncompaniesunderstandtheirobligations,thatopen-sourcemodels 7.4 BeyondTransparency\nareonparwithclosedmodels,andthattheregulatoryframework Inadditiontotheexistingproposals,morefar-reachingmeasures\nsetseffectiveincentivesatthesource(datacenters)tomitigatethe thatgobeyondreportingandtransparencymayneedtobecon-\nenvironmentalimpactofAImodeldevelopmentanddeployment. sideredinthefuture,particularlyasAI’senergydemandsgrow.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nThefollowingproposalsfocusonreducingAI’sstrainonenergy mechanismsforenergyefficiency-offerflexiblecompliancepath-\nresourcesandfosteringmoresustainableenergypractices: waysthatmaybemorepoliticallyacceptableinaderegulatory\nglobalenvironment.\n• RestrictionsonAITrainingandInferenceDuringPeak\nThird,theAIindustry,particularlylarge-scaleAIprovidersand\nHours:OnefuturemeasurecouldinvolvelimitingAItrain-\ndatacenteroperators,mayresistadditionalregulatoryobligations,\ningandcertaininferencetasks(e.g.,thoseforrecreation-\ncitingeconomicandtechnologicalconstraints.Thereisalsoconcern\nrelatedpurposes)tonon-peakenergydemandhours[33].\nthatlackofenforcementmechanismscouldrendersomeobligations",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "purposes)tonon-peakenergydemandhours[33].\nthatlackofenforcementmechanismscouldrendersomeobligations\nThiswouldreducethestrainonenergygridsduringpeak\nineffective.Hence,ourproposalsemphasizepracticalenforcement\ntimesandmakeAIenergyusagemoremanageableandsus-\nstrategies,includinggradualimplementation,industryincentives,\ntainable.\nandtransparency-drivenaccountability.Forexample:publicaccess\n• ObligationsforDataCentersandAICompaniestoCre-\ntoclimate-relateddisclosurescancreatereputationalincentives\nateRenewableEnergySources:AIcompaniesanddata\nforcompliance,evenintheabsenceofstrictenforcement;energy\ncentersshouldberequiredtocreatenewrenewableenergy\nefficiencytargetsfordatacenterscanbephasedinovertimefora\nsourcestooffsetanyexcessenergydemandcausedbytheir",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ncytargetsfordatacenterscanbephasedinovertimefora\nsourcestooffsetanyexcessenergydemandcausedbytheir\nrealistictransitionwithoutabruptregulatoryshocks;clarifications\noperations.Thismeasurecouldhelpensurethatrenewable\nonproviderstatusandreportingobligationsofferlegalcertaintyto\nenergy,whichisafiniteresource,isnotmonopolizedbyAI\ncompanies.Fourth,someofourmoreambitiousproposals-suchas\nanddatacenters,leavingenoughcleanenergyfortherestof\ntradableenergybudgetsforAIorrestrictionsonAItrainingduring\ntheindustry.Cleardefinitionsandguidelineswouldneedto\npeakhours-maybeviewedasfar-reachingordifficulttoimplement\nbeestablishedtodefinewhichtypesofenergyconsumption\ninthenearterm.Whilewerecognizethatnotallproposalswill\nwouldbecoveredbythis’newsourcerequirement’.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "n\ninthenearterm.Whilewerecognizethatnotallproposalswill\nwouldbecoveredbythis’newsourcerequirement’.\nbeimmediatelyadopted,itiscrucialtoarticulateambitiouspolicy\n• TradableEnergyBudgetsforAI:Anotherpossiblelong-\noptionsatthisjuncture.TheAIregulatorylandscapeisevolving,\ntermmeasurecouldinvolveimplementingtradableenergy\nandincrementalstepstowardlong-termmeasurescanbeintegrated\nbudgets for AI, similar to the EU Emissions Trading Sys-\nintofutureevaluationroundsoftheAIAct,theEED,andrelated\ntem(EUETS)[33].Companiesthatconsumeparticularly\nframeworks.AswiththeEUEmissionsTradingSystem(ETS),ini-\nlargeamountsofenergywouldhaveacappedenergybudget\ntialskepticismtowardmarket-basedenvironmentalregulationscan\nforAIoperationsandcouldtradethesecredits.Thiswould",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ismtowardmarket-basedenvironmentalregulationscan\nforAIoperationsandcouldtradethesecredits.Thiswould\ngivewaytogradualacceptanceasregulatorymechanismsmature.\ncreateamarket-basedapproachtomanagingandreducing\nGiventhecurrentpoliticalmomentumandupcomingAIActeval-\nAI-relatedenergyconsumption.Itwould,arguably,encour-\nuationrounds,thereisanarrowbutcriticalwindowtoinfluence\nagecompaniestooptimizetheirenergyusageandinvestin\nenvironmentalAIgovernance.Whilenotallrecommendationswill\nenergyefficiency.\nbeimmediatelyadopted,presentingastructured,well-arguedpol-\nicypackageensuresthatsustainabilityconcernsremaincentralto\n8 ObjectionsandSolutions AIregulationintheEUandbeyond-ratherthanbeingsidelinedin\nImplementingtheproposedpolicyrecommendationspresentsboth thefaceofderegulation.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "hanbeingsidelinedin\nImplementingtheproposedpolicyrecommendationspresentsboth thefaceofderegulation.\npracticalandpoliticalchallenges,particularlygiventheEU’sbroader\nregulatorylandscapeandtheevolvinginternationalcontext.This 9 Conclusion\nsectionoutlinesfourkeyobjectionstoourproposalsandsketches AIsystems,manyofthemcontainingenergy-intensivegenerative\nsolutions.First,acentralpriorityofthenewEuropeanCommis- AIcomponents,areincreasinglyintegratedintoeconomicandsoci-\nsionisthesimplificationofthedigitalacquis(‘fitnesscheck’)[59]. etalprocesses.Importantly,asAIintersectswithrobotics,writing\nThereisconcernthataddingfurtherreportingrequirementsand code and steering devices, it is poised to merge decisively into",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ingfurtherreportingrequirementsand code and steering devices, it is poised to merge decisively into\nregulatory obligations could create administrative burdens that industrialprocesses,proliferatingitsdeployment,butalsoitscli-\ncounteractthisgoal.However,severalofourproposals,particularly mateeffects.Currently,thisintersectionbetweentheAIandthe\nstandardizedenergyreportingmetricsandclearerenvironmental greentransitionsitsataregulatoryblindspot,inadequatelyad-\nriskassessments,alignwiththeEU’spushforregulatoryclarity dressedincurrentregulation.Inthispaper,wetakeacloserlookat\nandstreamlining.Ratherthanaddingcomplexity,thesemeasures sustainability-relateddatacenterregulationandthesustainability\nwould,arguably,makecompliancemorepredictableandfeasible. provisionsintheAIAct.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nandthesustainability\nwould,arguably,makecompliancemorepredictableandfeasible. provisionsintheAIAct.Whiletheypresentagoodfirststep,they\nSecond,theshiftinginternationalAIgovernancelandscapecre- toooftenlackambition,clarityandconsistency,orpresentsignifi-\natesuncertaintyregardingthefeasibilityofambitiousenvironmen- cantchallengesinimplementation.Tocountertheseshortcomings,\ntalrules.ThereisconcernthatEUregulatoryeffortsmightface weprovideinterpretationsoftheAIActinlinewithitspurposeof\nresistancefrominternationalAIprovidersorriskcompetitivedis- environmentalprotection,provideguidanceonoperationalizingthe\nadvantages.Whileacknowledgingatrendtowardderegulationin requirements,andmaketwelveconcreteproposals,groupedinto",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "hileacknowledgingatrendtowardderegulationin requirements,andmaketwelveconcreteproposals,groupedinto\nsomecornersoftheworld,wearguethatthisreinforcestheneed fourareas:EnergyandEnvironmentalReportingObligations;Legal\nforrobustEUpolicyleadership.TheAIAct’sextraterritorialscope andRegulatoryClarifications;TransparencyandAccountability;\nalreadycompelsglobalAIproviderstocomplywithEUregula- andFutureFar-ReachingMeasuresbeyondTransparency.\ntionswhenoperatingintheEuropeanmarket.Byintroducingclear,\nenforceableenvironmentalobligations,theEUcansetaglobalreg-\nReferences\nulatoryprecedent,andshapeinternationalnormsdespiteexternal\n[1] NicolasAlderandRalfHerbrich.2024. Energy-efficientGaussianprocesses\npressures.Moreover,someofourproposals-suchasmarket-based usinglow-precisionarithmetic.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "sianprocesses\npressures.Moreover,someofourproposals-suchasmarket-based usinglow-precisionarithmetic.InForty-firstInternationalConferenceonMachine",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\nLearning. [28] MozillaFoundation.2024. Open-SourceAIforEnvironmentalJustice. https:\n[2] JordanAljbour,TomWilson,andPoorviPatel.2024. PoweringIntelligence: //foundation.mozilla.org/en/blog/open-source-AI-for-environmental-justice/\nAnalyzingArtificialIntelligenceandDataCenterEnergyConsumption.EPRI [29] CharlotteFreitag,MikeBerners-Lee,KellyWiddicks,BranKnowles,GordonS\nWhitePaperno.3002028905(2024). Blair,andAdrianFriday.2021. Therealclimateandtransformativeimpactof\n[3] DarioAmodei.2025.OnDeepSeekandExportControls. https://darioamodei. ICT:Acritiqueofestimates,trends,andregulations.Patterns2,9(2021).",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ortControls. https://darioamodei. ICT:Acritiqueofestimates,trends,andregulations.Patterns2,9(2021).\ncom/on-deepseek-and-export-controls [30] GianlucaGuidi,FrancescaDominici,JonathanGilmour,KevinButler,EricBell,\n[4] Anonymous.2024. AnonymizedReference. (2024). Thisreferencehasbeen ScottDelaney,andFalcoJBargagli-Stoffi.2024. EnvironmentalBurdenof\nanonymizedforblindreview.. UnitedStatesDataCentersintheArtificialIntelligenceEra. arXivpreprint\n[5] Anonymous.2024.AnonymizedReference.Thisreferencehasbeenanonymized arXiv:2411.09786(2024).\nforblindreview.. [31] BaşakGülerandAylinYener.2021. Aframeworkforsustainablefederated\n[6] PedramBakhtiarifard,PınarTözün,ChristianIgel,andRaghavendraSelvan.2025. learning.In202119thInternationalSymposiumonModelingandOptimizationin",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "gel,andRaghavendraSelvan.2025. learning.In202119thInternationalSymposiumonModelingandOptimizationin\nClimateAndResourceAwarenessisImperativetoAchievingSustainableAI(and Mobile,Adhoc,andWirelessNetworks(WiOpt).IEEE,1–8.\nPreventingaGlobalAIArmsRace).arXivpreprintarXiv:2502.20016(2025). [32] PhilippHacker.2024.TheAIActbetweenDigitalandSectoralRegulations.Ber-\n[7] AntonBeloglazov,RajkumarBuyya,YoungChoonLee,etal.2011.ATaxonomy telsmannStiftung,Gütersloh,Germany.doi:10.11586/2024188\nandSurveyofEnergy-EfficientDataCentersandCloudComputingSystems. [33] PhilippHacker.2024.SustainableAIregulation.CommonMarketLawReview61\nAdvancesinComputers82(2011),47–111. (2024),345–386.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "SustainableAIregulation.CommonMarketLawReview61\nAdvancesinComputers82(2011),47–111. (2024),345–386.\n[8] EmilyMBender,TimnitGebru,AngelinaMcMillan-Major,andShmargaret [34] AbdullahHamdan,KenechiIIbekwe,VictorIIlojianya,SamuelSonko,Em-\nShmitchell.2021. Onthedangersofstochasticparrots:Canlanguagemodels manuelAEtukudoh,etal.2024.AIinrenewableenergy:Areviewofpredictive\nbetoobig?.InProceedingsofthe2021ACMconferenceonfairness,accountability, maintenanceandenergyoptimization.InternationalJournalofScienceandRe-\nandtransparency.610–623. searchArchive11,1(2024),718–729.\n[9] BenedettaBrevini.2021.IsAIGoodforthePlanet? PolityPress,Cambridge,UK. [35] KarenHao.2024. Microsoft’sHypocrisyonAI. https://www.theatlantic.com/\n[10] Benedetta Brevini. 2024.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "KarenHao.2024. Microsoft’sHypocrisyonAI. https://www.theatlantic.com/\n[10] Benedetta Brevini. 2024. An eco-political economy of AI to understand technology/archive/2024/09/microsoft-ai-oil-contracts/679804/Accessed:2025-\nthe complexities of its environmental costs. CEPR VoxEU Column (June 03-18.\n2024). https://cepr.org/voxeu/columns/eco-political-economy-ai-understand- [36] NataliHelbergerandNicholasDiakopoulos.2023. ChatGPTandtheAIAct.\ncomplexities-its-environmental-costs InternetPolicyReview12,1(2023).doi:10.14763/2023.1.1682\n[11] IlariaBuriandRachelGriffin.2024.PlatformRegulationinTimesofEnviron- [37] LynnHKaack,PriyaLDonti,EmmaStrubell,GeorgeKamiya,FelixCreutzig,\nmentalCollapse:TheDigitalServicesActandtheClimateEmergency.Available andDavidRolnick.2022.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Creutzig,\nmentalCollapse:TheDigitalServicesActandtheClimateEmergency.Available andDavidRolnick.2022. Aligningartificialintelligencewithclimatechange\natSSRN4867333(2024). mitigation.NatureClimateChange12,6(2022),518–527.\n[12] BusinessNetworkEditors.2024. EffortsTowardDecarbonizingDataCenters [38] JaredKaplan,SamMcCandlish,TomHenighan,TomBBrown,BenjaminChess,\nAccelerate.https://businessnetwork.jp/article/17962/. https://businessnetwork. RewonChild,ScottGray,AlecRadford,JeffreyWu,andDarioAmodei.2020.\njp/article/17962/AccessedApril22,2025. Scalinglawsforneurallanguagemodels.arXivpreprintarXiv:2001.08361(2020).\n[13] LinChen,ZhonghaoChen,YubingZhang,YunfeiLiu,AhmedIOsman,Mohamed [39] MaximilianKasy.2024.ThePoliticalEconomyofAI:TowardsDemocraticControl",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "eiLiu,AhmedIOsman,Mohamed [39] MaximilianKasy.2024.ThePoliticalEconomyofAI:TowardsDemocraticControl\nFarghali,JianminHua,AhmedAl-Fatesh,IkkoIhara,DavidWRooney,etal.2023. oftheMeansofPrediction.IZADiscussionPaperNo.16948.InstituteofLabor\nArtificialintelligence-basedsolutionsforclimatechange:areview.Environmental Economics(IZA). https://www.econstor.eu/bitstream/10419/295971/1/dp16948.\nChemistryLetters21,5(2023),2525–2557. pdf\n[14] AndrewAChien.2021.Good,better,best:Howsustainableshouldcomputing [40] BeckyKazansky,MalavikaKarak,ThiagoPerosa,QuartzTsui,SolanaBaker,\nbe?Commun.ACM64,12(2021),6–7. andTheEngineRoom.2022.AttheConfluenceofDigitalRightsandClimate&\n[15] MarkCoeckelbergh.2021.AIforclimate:freedom,justice,andotherethicaland EnvironmentalJustice:ALandscapeReview.TechnicalReport.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "forclimate:freedom,justice,andotherethicaland EnvironmentalJustice:ALandscapeReview.TechnicalReport.TheEngineRoom.\npoliticalchallenges.AIandEthics1,1(2021),67–72. https://engn.it/climatejusticedigitalrights\n[16] JessicaComminsandKristinaIrion.2025.TowardsPlanetProofComputing:Law [41] BenjaminKelly.2022. EthicalAIandtheEnvironment. TheiJournal:Student\nandPolicyofDataCentreSustainabilityintheEuropeanUnion.Technologyand JournaloftheFacultyofInformation7,2(2022),5–11.\nRegulation2025(2025). https://techreg.org/article/view/2025-1-Commins-Irion [42] TugrulKeskinandRyanDavidKiggins(Eds.).2021. TowardsanInternational\n[17] Josh Cowls, Andreas Tsamados, Mariarosaria Taddeo, and Luciano Floridi. PoliticalEconomyofArtificialIntelligence.PalgraveMacmillan.\n2023.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "saria Taddeo, and Luciano Floridi. PoliticalEconomyofArtificialIntelligence.PalgraveMacmillan.\n2023. The AI gambit: leveraging artificial intelligence to combat climate [43] TamaraKneeseandMegYoung.2024. Carbonemissionsinthetailpipeof\nchange—opportunities,challenges,andrecommendations.Ai&Society(2023), GenerativeAI.HarvardDataScienceReview5(2024).\n1–25. [44] BranKnowles.2021.ACMTechBrief:Computingandclimatechange.\n[18] KateCrawford.2021. AtlasofAI:Power,Politics,andthePlanetaryCostsof [45] BranKnowles,KellyWiddicks,GordonBlair,MikeBerners-Lee,andAdrian\nArtificialIntelligence.YaleUniversityPress,NewHaven,CT. https://yalebooks. Friday.2022. Ourhouseisonfire:Theclimateemergencyandcomputing’s\nyale.edu/book/9780300209570/atlas-of-ai responsibility.Commun.ACM65,6(2022),38–40.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "cyandcomputing’s\nyale.edu/book/9780300209570/atlas-of-ai responsibility.Commun.ACM65,6(2022),38–40.\n[19] MiyuruDayarathna,YonggangWen,andRuiFan.2015. Datacenterenergy [46] JonathanKoomeyandEricMasanet.2021.Doesnotcompute:Avoidingpitfalls\nconsumptionmodeling:Asurvey.IEEECommunicationssurveys&tutorials18,1 assessingtheInternet’senergyandcarbonimpacts.Joule5,7(2021),1625–1628.\n(2015),732–794. [47] NeetaKumariandSoumyaPandey.2023.Applicationofartificialintelligencein\n[20] AlexDeVries.2023.Thegrowingenergyfootprintofartificialintelligence.Joule environmentalsustainabilityandclimatechange.InVisualizationtechniquesfor\n7,10(2023),2191–2194. climatechangewithmachinelearningandartificialintelligence.Elsevier,293–316.\n[21] Department of Finance, Australian Government. 2023.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "andartificialintelligence.Elsevier,293–316.\n[21] Department of Finance, Australian Government. 2023. Net Zero in [48] GuozhuLi,ZixuanSun,QingqinWang,ShuaiWang,KailiangHuang,NainiZhao,\nGovernment Operations Strategy. Technical Report. Department of Fi- YanqiangDi,XudongZhao,andZishangZhu.2023.China’sgreendatacenter\nnance. https://www.finance.gov.au/sites/default/files/2023-11/Net_Zero_ development:Policiesandcarbonreductiontechnologypath. Environmental\nGovernment_Operations_Strategy.pdf Research231(2023),116248. doi:10.1016/j.envres.2023.116248\n[22] DepartmentofGeneralServices.2014.ManagementMemoMM14-09:Energy [49] PengfeiLi,JianyiYang,MohammadAIslam,andShaoleiRen.2023.Makingai\nEfficiencyinDataCentersandServerRooms.https://www.dgs.ca.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "MohammadAIslam,andShaoleiRen.2023.Makingai\nEfficiencyinDataCentersandServerRooms.https://www.dgs.ca.gov/Resources/ less\"thirsty\":Uncoveringandaddressingthesecretwaterfootprintofaimodels.\nManagementMemos. AccessedApril22,2025. arXivpreprintarXiv:2304.03271(2023).\n[23] JesseDodge,TaylorPrewitt,RemiTachetdesCombes,ErikaOdmark,Roy [50] PengfeiLi,JianyiYang,AdamWierman,andShaoleiRen.2023. TowardsEn-\nSchwartz,EmmaStrubell,AlexandraSashaLuccioni,NoahASmith,Nicole vironmentallyEquitableAIviaGeographicalLoadBalancing. arXivpreprint\nDeCario,andWillBuchanan.2022.Measuringthecarbonintensityofaiincloud arXiv:2307.05494(2023). https://arxiv.org/abs/2307.05494\ninstances.InProceedingsofthe2022ACMconferenceonfairness,accountability, [51] AlexandraSashaLuccioniandAlexHernandez-Garcia.2023.Countingcarbon:",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "eonfairness,accountability, [51] AlexandraSashaLuccioniandAlexHernandez-Garcia.2023.Countingcarbon:\nandtransparency.1877–1894. Asurveyoffactorsinfluencingtheemissionsofmachinelearning.arXivpreprint\n[24] HamidR.EkbiaandBonnieA.Nardi.2017.Heteromation,andOtherStoriesof arXiv:2302.08476(2023).\nComputingandCapitalism. MITPress,Cambridge,MA. https://mitpress.mit. [52] AlexandraSashaLuccioni,EmmaStrubell,andKateCrawford.2025. From\nedu/books/heteromation-and-other-stories-computing-and-capitalism EfficiencyGainstoReboundEffects:TheProblemofJevons’ParadoxinAI’s\n[25] EuropeanCommission.2025.AIContinentActionPlan.https://digital-strategy. PolarizedEnvironmentalDebate.arXivpreprintarXiv:2501.16548(2025).\nec.europa.eu/en/library/ai-continent-action-plan. COM(2025)165final.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "preprintarXiv:2501.16548(2025).\nec.europa.eu/en/library/ai-continent-action-plan. COM(2025)165final. [53] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.2023.Esti-\n[26] EuropeanCommissionJointResearchCentre.2023. EUCodeofConductfor matingthecarbonfootprintofbloom,a176bparameterlanguagemodel.Journal\nDataCentres:TowardsMoreInnovative,Sustainable,andSecureDataCentre ofMachineLearningResearch24,253(2023),1–15.\nFacilities. https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/eu- [54] Sasha Luccioni, Boris Gamazaychikov, Sara Hooker, Régis Pierrard, Emma\ncode-conduct-data-centres-towards-more-innovative-sustainable-and-secure- Strubell,YacineJernite,andCarole-JeanWu.2024. Lightbulbshaveenergy\ndata-centre-facilities-2023-09-05_enAccessed:2025-03-18.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "andCarole-JeanWu.2024. Lightbulbshaveenergy\ndata-centre-facilities-2023-09-05_enAccessed:2025-03-18. ratings—sowhycan’tAIchatbots?Nature632,8026(2024),736–738.\n[27] LucianoFloridi.2021. TheEuropeanlegislationonAI:abriefanalysisofits [55] SashaLuccioni,YacineJernite,andEmmaStrubell.2024.Powerhungryprocess-\nphilosophicalapproach.Philosophy&Technology34,2(2021),215–222. ing:WattsdrivingthecostofAIdeployment?.InThe2024ACMConferenceon",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nFairness,Accountability,andTransparency.85–99. [79] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,\n[56] SashaLuccioni,BrunaTrevelin,andMargaretMitchell.2024.TheEnvironmental KiwanMaeng,GloriaChang,FionaAga,JinshiHuang,CharlesBai,etal.2022.\nImpactsofAI–Primer.HuggingFaceBlog(2024). https://huggingface.co/blog/ Sustainableai:Environmentalimplications,challengesandopportunities.Pro-\nsasha/ai-environment-primerAccessed:2024-10-08. ceedingsofMachineLearningandSystems4(2022),795–813.\n[57] KasperGroesAlbinLudvigsen.2022. HowtoEstimateandReducetheCarbon [80] David Yang. 2021. AI-tocracy: The Political Economy of AI. https:\nFootprintofMachineLearningModels. https://towardsdatascience.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "y: The Political Economy of AI. https:\nFootprintofMachineLearningModels. https://towardsdatascience.com/how- //www.hks.harvard.edu/centers/mrcbg/programs/growthpolicy/ai-tocracy-\nto-estimate-and-reduce-the-carbon-footprint-of-machine-learning-models- political-economy-ai-david-yang\n49f24510880/Accessed:2025-03-18. [81] SenmiaoYang,XiaohuiHe,QingzheJiang,andJiandaWang.2025. Pathto\n[58] StuartMills.2024.Algorithms,Bytes,andChips:TheEmergingPoliticalEconomy environmentaljustice:Howdoesthedigitaleconomynarrowenvironmental\nofFoundationModels. SSRNElectronicJournal(May2024). doi:10.2139/ssrn. inequality?Energy(2025),135598.\n4834417 [82] XiyouZhou,ZhiyuChen,XiaoyongJin,andWilliamYangWang.2020.HULK:\n[59] MLex.2025.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "),135598.\n4834417 [82] XiyouZhou,ZhiyuChen,XiaoyongJin,andWilliamYangWang.2020.HULK:\n[59] MLex.2025.EUAIActtobereviewedbutnomajorchangesexpected,AIOfficeboss Anenergyefficiencybenchmarkplatformforresponsiblenaturallanguagepro-\nsays. https://www.mlex.com/mlex/articles/2300091/eu-ai-act-to-be-reviewed- cessing.arXivpreprintarXiv:2002.05829(2020).\nbut-no-major-changes-expected-ai-office-boss-saysAccessed:2025-03-17. [83] GuidoZuccon,HarrisenScells,andShengyaoZhuang.2023.BeyondCO2emis-\n[60] ElisaMorgeraandGraciaMarínDurán.2022.Article37–EnvironmentalProtec- sions:Theoverlookedimpactofwaterconsumptionofinformationretrieval\ntion.InTheEUCharterofFundamentalRights(2ed.),TamaraHerveyetal.(Eds.). models.InProceedingsofthe2023ACMSIGIRInternationalConferenceonTheory\nHart/Nomos,Baden-Baden.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "(Eds.). models.InProceedingsofthe2023ACMSIGIRInternationalConferenceonTheory\nHart/Nomos,Baden-Baden. ofInformationRetrieval.283–289.\n[61] SafiyaUmojaNoble.2018.AlgorithmsofOppression:HowSearchEnginesRein-\nforceRacism.NewYorkUniversityPress,NewYork,NY. https://nyupress.org/\n9781479837243/algorithms-of-oppression/\n[62] OECD.2022. MeasuringtheEnvironmentalImpactsofArtificialIntelligence\nCompute and Applications. https://www.oecd.org/content/dam/oecd/en/\npublications/reports/2022/11/measuring-the-environmental-impacts-of-\nartificial-intelligence-compute-and-applications_3dddded5/7babf571-en.pdf\nAccessed:2025-03-18.\n[63] UgoPagallo,JacopoCianiSciolla,andMassimoDurante.2022.Theenvironmental\nchallengesofAIinEUlaw:lessonslearnedfromtheArtificialIntelligenceAct\n(AIA)withitsdrawbacks.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "onmental\nchallengesofAIinEUlaw:lessonslearnedfromtheArtificialIntelligenceAct\n(AIA)withitsdrawbacks.TransformingGovernment:People,ProcessandPolicy\n16,3(2022),359–376.\n[64] DavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,\nDanielRothchild,DavidSo,MaudTexier,andJeffDean.2021.Carbonemissions\nandlargeneuralnetworktraining.arXivpreprintarXiv:2104.10350(2021).\n[65] BillyPerrigo.2023.Exclusive:OpenAIUsedKenyanWorkersonLessThan$2\nPerHourtoMakeChatGPTLessToxic.Time(2023). https://time.com/6247678/\nopenai-chatgpt-kenya-workers/\n[66] JackWRae,SebastianBorgeaud,TrevorCai,KatieMillican,JordanHoffmann,\nFrancisSong,JohnAslanides,SarahHenderson,RomanRing,SusannahYoung,\netal.2021.Scalinglanguagemodels:Methods,analysis&insightsfromtraining\ngopher.arXivpreprintarXiv:2112.11446(2021).",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "inglanguagemodels:Methods,analysis&insightsfromtraining\ngopher.arXivpreprintarXiv:2112.11446(2021).\n[67] Bogdana Rakova and Roel Dobbe. 2023. Algorithms as Social-Ecological-\nTechnologicalSystems:AnEnvironmentalJusticeLensonAlgorithmicAudits.\narXivpreprintarXiv:2305.05733(2023). https://arxiv.org/abs/2305.05733\n[68] DavidRolnick,PriyaLDonti,LynnHKaack,KellyKochanski,AlexandreLacoste,\nKrisSankaran,AndrewSlavinRoss,NikolaMilojevic-Dupont,NatashaJaques,\nAnnaWaldman-Brown,etal.2022. Tacklingclimatechangewithmachine\nlearning.ACMComputingSurveys(CSUR)55,2(2022),1–96.\n[69] TaherehSaheb,MohamadDehghani,andTayebehSaheb.2022.Artificialintelli-\ngenceforsustainableenergy:Acontextualtopicmodelingandcontentanalysis.\nSustainableComputing:InformaticsandSystems35(2022),100699.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ntextualtopicmodelingandcontentanalysis.\nSustainableComputing:InformaticsandSystems35(2022),100699.\n[70] RoySchwartz,JesseDodge,NoahASmith,andOrenEtzioni.2020. Greenai.\nCommun.ACM63,12(2020),54–63.\n[71] SingaporeInfocommMediaDevelopmentAuthority.2024.GreenDataCentre\nRoadmap.https://www.imda.gov.sg/-/media/imda/files/how-we-can-help/green-\ndc-roadmap/green-dc-roadmap.pdf. https://www.imda.gov.sg/-/media/imda/\nfiles/how-we-can-help/green-dc-roadmap/green-dc-roadmap.pdf Accessed\nApril22,2025.\n[72] MarisaSotolongo.2023.Definingenvironmentaljusticecommunities:Evaluating\ndigitalinfrastructureinSoutheasternstatesforJustice40benefitsallocation.\nAppliedGeography158(2023),103057.\n[73] StateofCalifornia.2012.GreenBuildingActionPlan–ForImplementationof\nExecutiveOrderB-18-12. https://archive.gov.ca.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "rnia.2012.GreenBuildingActionPlan–ForImplementationof\nExecutiveOrderB-18-12. https://archive.gov.ca.gov/archive/gov39/wp-content/\nuploads/2017/09/Green_Building_Action_Plan_B.18.12.pdf Accessed:2025-04-\n22.\n[74] Statista.2025.AverageAnnualPowerUsageEffectiveness(PUE)ofDataCenters\nWorldwide. https://www.statista.com/statistics/1229367/data-center-average-\nannual-pue-worldwide/Accessed:2025-03-18.\n[75] AmyLStein.2020.Artificialintelligenceandclimatechange.YaleJ.onReg.37\n(2020),890.\n[76] MariarosariaTaddeo,AndreasTsamados,JoshCowls,andLucianoFloridi.2021.\nArtificialintelligenceandtheclimateemergency:opportunities,challenges,and\nrecommendations.OneEarth4,6(2021),776–779.\n[77] The Green Grid. 2023. IT & Power Efficiency Survey Results (for\nEUC). https://www.thegreengrid.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "[77] The Green Grid. 2023. IT & Power Efficiency Survey Results (for\nEUC). https://www.thegreengrid.org/en/resources/library-and-tools/572-IT-\n%26-Power-Efficiency-Survey-Results-%28for-EUC%29Accessed:2025-03-18.\n[78] U.S.Congress.2024.S.3732-ArtificialIntelligenceEnvironmentalImpactsActof\n2024. https://www.congress.gov/bill/118th-congress/senate-bill/3732/Accessed:\n2025-03-18.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "AI,Climate,andRegulation:FromDataCenterstotheAIAct Conference’17,July2017,Washington,DC,USA\nA MeasuringPointsforITEquipmentinData\nCenters\nFigure 1: Measuring points for IT equipment energy con-\nsumption, from Annex II of the Delegated Regulation\nEU/2024/1364ofMarch14,2024",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "Conference’17,July2017,Washington,DC,USA KaiEbert,NicolasAlder,RalfHerbrich,andPhilippHacker\nB PolicyProposalsOverview\nTable1:SummaryofPolicyProposalsforAIandEnviron-\nmentalImpact\nArea PolicyProposalandDescription\nEnergyandEnvironmental Energyconsumptionfrominferences:Includeenergyconsumptionfrom\nReporting bothsingleandcumulativeinferencesinreporting.\nIndirectemissionsandwaterconsumption:Mandatereportingofindirect\nemissionsandwateruseinAIapplications.\nCumulativeserverenergyreporting:Requireenergyconsumptiontobe\nmeasuredandreportedatthecumulativeserverlevel.\nLegalandRegulatoryClari- ClarifyingproviderstatusforAImodifications:Limitproviderstatusto\nfications substantialAImodelmodifications.\nEliminationofopen-sourceexemption:Removetheexemptionthatallows",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ons substantialAImodelmodifications.\nEliminationofopen-sourceexemption:Removetheexemptionthatallows\nopen-sourcemodelstobypassreportingobligations.\nRenewableenergyandefficiencytargetsfordatacenters:Introducebind-\ningenergyefficiencyandrenewableenergytargetsfordatacenters.\nTransparencyandAccount- Publicaccesstoclimate-relateddisclosures:Ensurethatclimate-related\nability disclosuresareaccessibletothepublic,notjustauthorities.\nEnergyreportingforHigh-RiskAI:Replacecomputationalresourcereport-\ningwithdirectenergyconsumptiondisclosuresforHigh-RiskAIsystems.\nInclusionofenvironmentalrisksinassessments:Clarifythatenvironmen-\ntalrisksmustbepartofriskassessmentsforAIproviders.\nFuture Far-Reaching Mea- Restrictionsduringpeakenergyhours:LimitAItrainingandnon-essential",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "oviders.\nFuture Far-Reaching Mea- Restrictionsduringpeakenergyhours:LimitAItrainingandnon-essential\nsures inferencetaskstonon-peakenergydemandperiods.\nObligationtocreaterenewableenergysources:RequireAIcompaniesand\ndatacenterstodeveloprenewableenergysourcestooffsetexcessenergyuse.\nTradable energy budgets for AI: Introduce a market-based system with\ntradableenergybudgetsforAIoperations,similartotheEUETS.",
+    "page": 14
+  }
+]

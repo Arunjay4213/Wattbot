@@ -1,0 +1,347 @@
+[
+  {
+    "type": "text",
+    "content": "5202\nnuJ\n81\n]YC.sc[\n1v27551.6052:viXra\nMisinformation by Omission:\nThe Need for More Environmental Transparency in AI\nSasha Luccioni1,*, Boris Gamazaychikov2, Theo Alves da Costa3, and Emma Strubell4\n1HuggingFace,Montreal,Canada\n2Salesforce,Paris,France\n3Ekimetrics,Paris,France\n4CarnegieMellonUniversity,SchoolofComputerScience,Pittsburgh,USA\n*sasha.luccioni@huggingface.co\nABSTRACT\nInrecentyears,ArtificialIntelligence(AI)modelshavegrowninsizeandcomplexity,drivinggreaterdemandforcomputational\npower and natural resources. In parallel to this trend, transparency around the costs and impacts of these models has\ndecreased, meaning that the users of these technologies have little to no information about their resource demands and\nsubsequentimpactsontheenvironment.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "es have little to no information about their resource demands and\nsubsequentimpactsontheenvironment. Despitethisdearthofadequatedata,escalatingdemandforfiguresquantifying\nAI’senvironmentalimpactshasledtonumerousinstancesofmisinformationevolvingfrominaccurateorde-contextualized\nbest-effortestimatesofgreenhousegasemissions. Inthisarticle,weexplorepervasivemythsandmisconceptionsshaping\npublic understanding of AI’s environmental impacts, tracing their origins and their spread in both the media and scientific\npublications. Wediscusstheimportanceofdatatransparencyinclarifyingmisconceptionsandmitigatingtheseharms,and\nconcludewithasetofrecommendationsforhowAIdevelopersandpolicymakerscanleveragethisinformationtomitigate\nnegativeimpactsinthefuture.\nIntroduction",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "elopersandpolicymakerscanleveragethisinformationtomitigate\nnegativeimpactsinthefuture.\nIntroduction\nAI-poweredtoolsandsystemsarebecomingincreasinglyubiquitous,reshapinghumanbehaviorwithcorrespondingimpacts\ntooursocioeconomicsystems. WhilethecompaniesthatdevelopanddeployAI-driventechnologystronglyemphasizeAI’s\npositiveimpacts(realandspeculative)1–3, thenegativeimpactsaretypicallyleftunspoken. Theseareoftenuncoveredby\nresearchersoraconcernedpublicwhoauditAIsystems,drivenbythedesiretounderstandtheimpactsofthesesystemson\nsocietyandtheplanet. Amongthemanyimpactsthathavebeenanalyzedinrecentyearsare: algorithmicdiscriminationand\nbias4,5,theuseofAIinmilitaryapplications6,thethreatofAItodemocracy7,8,andenvironmentalimpacts9,10.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "bias4,5,theuseofAIinmilitaryapplications6,thethreatofAItodemocracy7,8,andenvironmentalimpacts9,10.\nHoninginonthelatter,researchersandactivistsalikehavebeensoundingthealarmontheincreasinglyunsustainable\ntrendsinenergyandnaturalresourceconsumptionarisingfromthedatacentersanddevicesusedtotrainanddeployAImodels\nwhicharegrowinginsizeandcomplexity11–15. Theseresourcesrangefromtherareearthmineralsnecessarytomanufacture\ncomputinghardware,theenergyneededtopowertheverytangible“cloud”computationthatunderpinsAIsystems,thewater\nneededforcoolingandhardwaremanufacturing, andthegreenhousegases(GHGs)emittedateverystageofthisprocess.\nDespitetheserisingcosts,thereexistsminimalandoftennodataquantifyingtheseimpacts. Whendatadoesexist,itoften",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "theserisingcosts,thereexistsminimalandoftennodataquantifyingtheseimpacts. Whendatadoesexist,itoften\nlackssufficientaccessibility,detailandscopetoenableeffectivedecision-makingoranalysis,impedingimpactassessment,\nmitigation,forecasting,andevenbasicunderstandingbythepublicatlarge.\nAsaresult,researchers,investors,companiesandpolicymakersarelefttoattemptbest-effortapproximationsgivenlimited\ndataavailability. Insomecases,theseestimatescanbewildlyflawedduetolackofcriticalprerequisitedata,understandingor\nexpertise. Inothercases,estimatesmaybetakenoutofthecareful,qualifiedcontextsinwhichtheywereoriginallypresented,\nleadingtomisinterpretationandinsomecasesseverelyinaccurategeneralizations. Theincreasinglyhighstakespoliticaland",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "nterpretationandinsomecasesseverelyinaccurategeneralizations. Theincreasinglyhighstakespoliticaland\neconomic contexts surrounding climate change and AI severely compound this challenge; mistakes and misinterpretation\ndevolve into misinformation as estimates are repeatedly shared and transformed through subsequent analyses, adopted as\naccuratemeasuresandspreadastrendingpoststhroughsocialmediaandthenews,finallyarrivingonthedesksofdecision-\nmakers. The resulting misconceptions harm all stakeholders: policymakers and the public are unable to make informed\ndecisions,andAItechnologydeveloperssufferfromnegativeperceptionsarisingfromoverestimatesoftheirsocialharms,\nfurther exacerbating their lack of disclosure. In this paper, we aim to elucidate some common myths surrounding AI’s",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ing their lack of disclosure. In this paper, we aim to elucidate some common myths surrounding AI’s\nenvironmental impacts, explore the pitfalls that led to the emergence of those myths, and propose recommendations for\nremedyingthischallengeinthefuture.\n1",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Related Work\nApproachestocalculatingtheenvironmentalimpactsofAIsystemshaveevolvedsignificantlyoverthelastseveralyears,as\nthesesystemshavegrownmoreimpactfulandwidelydeployedinuser-facingapplications. Initialstudies,suchasthatof\nStrubelletal.,underscoredtheenvironmentalcostoftrainingTransformer-basedlanguagemodels12. Researchdoneinthe\nfollowingyearsextendedthisanalysis,forinstancebycalculatingtheenergyuseandGHGfootprintforseveralnotableAI\nmodelsincludingGPT-3,T5,Meena,andSwitchTransformer,providingnewestimates16andexpandingthescopeofanalysis\nbeyondmodeltrainingtoaccountforoperationalandembodiedemissions17,improvingmethodologyforsoftwareenergy\nmeasurement18,andalifecycleapproachtoassessingemissionsfrommodeltraininganddeployment11. Wuetal. further",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "rement18,andalifecycleapproachtoassessingemissionsfrommodeltraininganddeployment11. Wuetal. further\nadvancedthisanalysisbyexplicitlymappingtheenvironmentalimpactsacrosstheentireAIdevelopmentpipeline,19. Most\nrecently,Luccioni,Jernite,andStrubell20pioneeredtheAIinferenceimpactmethodology,revealinggenerativearchitecturesas\nparticularlyenergy-intensivecomparedtotask-specificmodelsandunderscoringthecriticalimportanceofaddressinginference\nimpacts. ThesemethodologieswerethenadaptedintotheAIEnergyScore21,aprojectaimingtoestablishaunifiedapproach\nforcomparingtheinferenceefficiencyofAImodels22.\nAboveandbeyondenergyconsiderations,Lietal.23 expandedthescopeofAIenvironmentalimpactmeasurementby\nestimatingthewaterfootprintofGPT-3basedonpubliclyavailableinformation,whereasHanetal.24 assessedthepublic",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tingthewaterfootprintofGPT-3basedonpubliclyavailableinformation,whereasHanetal.24 assessedthepublic\nhealthtollofAItraining’sairpollution,findingthattraininganAImodeloftheLLaMa3.1scalecanproduceairpollutants\nequivalenttomorethan10,000roundtripsbycarbetweenLosAngelesandNewYorkCity. Inanothersignificantadvancement,\nGoogle’srecentTPUlifecycleassessment25 offeredthemostcomprehensivecradle-to-graveenvironmentalanalysisofAI\nhardwaretodate,integratingembodiedcarbondataassociatedwithmanufacturingAIacceleratorsanddatacenterinfrastructure,\nsignificantly extending existing environmental impact models. Building on many of these approaches, Morrison et al.26\nperformedaholisticevaluationoftheenergy,carbon,andwaterimpactsofAIhardwaremanufacturing,modeldevelopment,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "medaholisticevaluationoftheenergy,carbon,andwaterimpactsofAIhardwaremanufacturing,modeldevelopment,\nandtraining,enhancingtheaccuracyofthesemetricsthroughtheuseofgranularunderlyingdata.\nThebreadthanddiversityoftheanalysesdescribedinthissectionillustratethemultitudeoffactorsinvolvedinestimating\nAI’s environmental impacts, and the many different perspectives that exist in this space. Whereas several standardized\napproacheshavebeenproposedtomeasuredifferentaspectsofAI’srequirementsintermsofenergyandwater,aswellas\ntheemissionsassociatedwithmodeltrainingandinference,thefieldisstillcurrentlylackingacomprehensivemethodology\nandstandardsthatcoveralldimensions. Inthenextsection,weexaminehowthistranslatesintodecreasedenvironmental\ntransparencyintheAIindustryviaanempiricalanalysisofAImodelsovertime.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "atesintodecreasedenvironmental\ntransparencyintheAIindustryviaanempiricalanalysisofAImodelsovertime.\nEnvironmental Transparency Trends\nWhiletherehasbeenprogressindevelopingmorerobustmethodologiesformeasuringAI’senvironmentalimpacts,thebroader\nAIindustryhasparadoxicallybeentrendingintheoppositedirection,disclosinglessinformationovertime. Inordertoquantify\nthistrend,weanalyzeEpochAI’sNotableAIModelsdataset27,whichtracksinformationon“modelsthatwerestateofthe\nart,highlycited,orotherwisehistoricallynotable”,withrespecttotransparencyabouttheenvironmentalimpactsofthose\nmodels. WeexaminethelevelofenvironmentalimpacttransparencyforeachmodelbasedonkeyinformationfromtheEpoch\nAIdataset(e.g.,modelaccessibility,trainingcomputeestimationmethod)aswellasfromindividualmodelreleasecontent\n(e.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": ".,modelaccessibility,trainingcomputeestimationmethod)aswellasfromindividualmodelreleasecontent\n(e.g.,paper,modelcard,announcement). Weselectthetimeperiodstartingin2010asthisisthebeginningofthemodern\n“deeplearningera”(asdefinedbyEpochAI),whichisrepresentativeofthetypesofAImodelscurrentlytrainedanddeployed,\nincludingall754modelsfrom2010tothefirstquarterof2025. Ouranalysis,showninFigure1,revealssubstantialvariation\ninenvironmentalimpacttransparency: somemodelsdisclosesufficientdetailstoenableimpactestimation,whereasothers\nprovidenoinformationatallregardingtheirapproach.\nOverall,wefindthatmodelsexhibitthreetransparencycategories:\n• DirectDisclosure: DevelopersexplicitlyreportedenergyorGHGemissions. Notethatthiscategoryincludesmethodolo-\ngiesrangingfromestimation(e.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "yreportedenergyorGHGemissions. Notethatthiscategoryincludesmethodolo-\ngiesrangingfromestimation(e.g.,usinghardwareTDP,countryaveragecarbonintensity)tomeasurements(i.e.,using\ntoolslikeCodeCarbon).\n• Indirect Disclosure: Developers provided training compute data or released their model weights, allowing external\nestimatesoftrainingorinferenceimpacts.\n• NoDisclosure: Environmentalimpactdatawasnotpubliclyreleasedandestimationapproaches(asnotedinIndirect\nDisclosure)werenotpossible.\nFrom2010to2018,only17%ofthemodelsshareddatathatcouldbeusedtoindirectlyestimateenvironmentalimpact\nofmodeltraining(rangingfrom0to33%eachyear);nodirectenvironmentalimpactdatawasreleasedduringthisperiod.\nThisisexpected,giventhatAImodelsofthaterarequiredsignificantlylesscomputeandresourceusagetransparencywasnot\n2/12",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "venthatAImodelsofthaterarequiredsignificantlylesscomputeandresourceusagetransparencywasnot\n2/12",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Figure1. EnvironmentalImpactTransparencyofNotableAIModelsbyReleaseYear27\nyetcommonpractice,althoughmanyarticlesaccompanyingpapersdidproviderelatedinformationabout,e.g. theamountof\ntrainingdatausedornumberofepochstrained. From2019to2022,transparencyimprovedasawarenessofimpactsgrewand\nopen-weightsmodelreleasesbecamemorecommon. ThisperiodincludesthetheworkofStrubelletal.12,Luccioni11 and\nothers. Thedirectreleaseofenvironmentalinformationpeakedin2022,with10%ofnotablemodelsthatyearreleasingsome\ndegreeofinformation. However,theintroductionofincreasinglycommercialandproprietarymodelsafter2022,potentially\ncatalyzedbythepopularlaunchofChatGPT,whichprovidedverylimitedinformationaboutthetrainingapproachusedand",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "lyzedbythepopularlaunchofChatGPT,whichprovidedverylimitedinformationaboutthetrainingapproachusedand\neventhefinalsizeoftheunderlyingmodel,triggeredanotablereversalinthistrend,dramaticallyreducingdirectenvironmental\ndisclosures. Bythefirstquarterof2025,themajorityofnotableAImodelsagainfellunderthe“nodisclosure”category,asthe\nlinebetweenresearchandcommercialdeploymentbecameincreasinglyblurred.\nFigure2. EnvironmentalImpactTransparencyofLLMUsage–OpenRouter28(May2025)\nBeyondthelongtermtrend,zoomingintoexaminerecentAImodelusagedatahelpsillustratetoday’senvironmental\nimpacttransparencyconditions. OpenRouter28,awidely-usedAPIplatformforLLMs,publiclysharesdataonmodeltraffic\nincludingtop20modelsbymonth,andthenumberoftokensrunningthrougheverymodel. May2025data(Figure2)indicates",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "udingtop20modelsbymonth,andthenumberoftokensrunningthrougheverymodel. May2025data(Figure2)indicates\nthatofthetop20usedmodels,onlyone(MetaLlama3.370B)directlyreleasedenvironmentaldataandthree(DeepSeekR1,\nDeepSeekV3,MistralNemo)releaseitindirectly(bysharingcomputedatalikeGPUtypeandtraininglength,aswellasby\nreleasingtheirmodelweightstoenableefficiencyanalysis). Intermsoftokenusage,84%ofLLMusageisthroughmodels\nwithnodisclosure,14%forindirectlydisclosedmodels,andonly2%formodelswithdirectdisclosure. Thisindicatesthatthe\nmajorityofuserswhointeractwithLLMshavenoinformationabouttheirenvironmentalimpacts,andcannotmakeinformed\ndecisionsbasedonmodelefficiencyorcarbonintensity.\nFromthelimiteddatathatispubliclyavailable,wecanobservesignificantdisparitiesinenergyuseandemissionsacross\nmodels.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ddatathatispubliclyavailable,wecanobservesignificantdisparitiesinenergyuseandemissionsacross\nmodels. In fact, the energy required to pre-train an LLM spans from as little as 0.8 MWh (OLMo 20M) to 3,500 MWh\n(LLaMa4Scout),withassociatedGHGemissionsvaryingevenmoresignificantly(duetovariationinthecarbonintensityof\nelectricityacrosstraininglocations). Inferenceworkloadsalsoshowwidevariationdependingonmodelsize,architectureand\n3/12",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tasktype,withGPUenergyusagefor1,000queriesspanningfromjust0.06Wh(bert-tiny)toover3,426Wh(Command-R\nPlus),dependingonmodelsize,architecture,andtaskcomplexity(seeTables1and2intheAppendixformoreinformation).\nTheserangeshighlightnotonlythescaleofpotentialimpacts,butalsothepressingneedformorestandardizedandtransparent\nreportingtoenablemeaningfulcomparisons.\nInvestigating the Urban Legends of AI’s Environmental Impacts\nMakingsustainably-mindeddecisionswhenusingAIsystemsrequireshavingthenecessaryinformationaboutdifferentaspects\noftheirdevelopmentanddeployment. WhilethereareempiricalstudiesfocusingonAI’senvironmentalimpacts,suchasthose\ncitedinprevioussections,thesenumbershaveoftenbeentakenoutofcontextorusedasproxiesforconditions(e.g.,modelsize,",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ioussections,thesenumbershaveoftenbeentakenoutofcontextorusedasproxiesforconditions(e.g.,modelsize,\narchitecture,optimizations,hardware,location,setup,system)thattheyarenotrepresentativeof. Thisfuelsmisinformation,\nunderminesscientificresearch,andcanresultindecisionsthatarenotgroundedinfacts29. Intheparagraphsbelow,weaddress\nsomeofthecommonestimatesfortheenvironmentalimpactsofAI,inanefforttocontextualizetheirprovenanceandtoexplore\ntheirpotentialforspreadingenvironmentalmisinformation.\nTraininganAImodelemitsasmuchCO asfivecarsintheirlifetimes\n2\nAmongthefirsteffortstoquantifytheenvironmentalimpactsofAIwasthe2019studybyStrubelletal.,12whichestimated\nthemonetarycosts,energyuse,andGHGemissionsrequiredtotrainavarietyoftypicalnaturallanguageprocessing(NLP)",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "netarycosts,energyuse,andGHGemissionsrequiredtotrainavarietyoftypicalnaturallanguageprocessing(NLP)\nmodels of that era, including the first generation of large language models. This analysis included both the costs to train\nseveralindividualmodels,includingthetwooriginal“base”(65M)and“big”(213Mparameter)variantsoftheTransformer\nneuralnetworkarchitecture30thatformsthebasisofLLMstothisday,aswellasthecosttoperformmodeldevelopment,i.e.\nidentifyingthebestmodelarchitecturewithrespecttosomeoptimizationobjective. Theauthorsquantifiedthecostsofmodel\ndevelopmentthroughbothacasestudyoftheenergyrequiredforthemtodevelopamodelpublishedinthepreviousyear,and\nbyestimatingtheenergyrequiredtoautomatethatprocessusinganapproachcalledneuralarchitecturesearch(NAS)based",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "matingtheenergyrequiredtoautomatethatprocessusinganapproachcalledneuralarchitecturesearch(NAS)based\nonfiguresreportedinarecentGooglestudyusingNAStoidentifyanoptimizedvariantoftheTransformerarchitecture.31\nInthecaseofthelatter,theyestimatedthattheNASapproach,assumingUnitedStatesaverageelectricityGHGemissions\nintensityandtypicalAIhardwarerunninginanaverage-efficiencydatacenter,couldyield626,155pounds(284metrictons)\nCO -equivalentGHGemissions(CO e),oraboutfivetimestheemissionsofacarduringitslifetime,includingfuel.\n2 2\nTheresearcharticlewaswrittenforaspecializedaudienceofAIandNLPresearchers,whowouldhavethebackground\nknowledge to understand the appropriate scoping for the estimate. However, an author’s tweet publicizing the paper and",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "tand the appropriate scoping for the estimate. However, an author’s tweet publicizing the paper and\nfeaturingatablecontainingthe“fivecars”estimatewaswidelysharedonsocialmedia,leadingtothepublicationbeingpicked\nupbynumerousmediaoutlets(includingMITTechnologyReview32andForbes33). The“fivecars”numberhassincebeen\nmisinterpretedasaproxyforthecarbonfootprintoftrainingAImodelsatlarge,whichismisleadinggiventhediversityof\narchitectures,trainingapproachesandelectricitysourcesusedforpoweringAImodeltraining;theoriginalarticlereportsAI\ntrainingworkloadsemittingaslittleas26pounds(11.8kg)CO e(assumingU.S.averageenergycarbonemissionsintensity),\n2\nandAImodeltrainingmorebroadlyoftenrequiresevenlessenergyandcorrespondingemissions.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "onsintensity),\n2\nandAImodeltrainingmorebroadlyoftenrequiresevenlessenergyandcorrespondingemissions.\nFurther,theNAStrainingworkloadrepresentsalarge-scaleprocedurethatismeanttobeandisinpracticeperformedmuch\nlessfrequentlythantheaverageAImodeltrainingworkload. Thisisbothbecausetheresultisintendedtobere-usedasabasis\ntoreducetheemissionsofsubsequenttrainingworkloads,andbecausethescaleofresources(financialand/orcomputational)\nsignificantlylimitswhocanperformsuchlarge-scaletrainingruns. Inthisway,theNAStrainingworkloadissimilartotoday’s\ngenerativeAIpretrainingworkloads,whicharesimilarlyperformedlessfrequentlythantheaverageAItraining. However,\nwhilethe“fivecars”estimatefromStrubelletal. isnotanaccuraterepresentationoftheemissionsarisingfromeveryAI",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "he“fivecars”estimatefromStrubelletal. isnotanaccuraterepresentationoftheemissionsarisingfromeveryAI\ntrainingworkload,recentfirst-handreportsoftheestimatedGHGemissionsarisingfromlanguagemodelpretrainingtypically\nexceedthe“fivecars”estimate: GooglereportsthattrainingtheiropensourceGemmafamilyoflanguagemodelsemitted\n1247.61tonsCO e,34over4xtheestimatethatformsthebasisforthe“fivecars”number,andMetareportsthattheirLlama3\n2\nfamilyofmodelsemitted11,390tonsCO e35orover40xthe“fivecars”estimate.\n2\nArequesttoChatGPTconsumestentimesmoreenergythanaGooglesearch\nAnotheroftencitedandmisrepresentedmetricistheestimatethatasinglerequesttoChatGPTusesapproximately3watt-hours\n(Wh)ofenergy,whichis\"tentimesmorethanaGooglesearch\". Thisfigureisoftenquotedinthepress36,37andinindustry\nreports38.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ichis\"tentimesmorethanaGooglesearch\". Thisfigureisoftenquotedinthepress36,37andinindustry\nreports38. Tracingtheoriginsofthismetricleadstoseveralassumptions: aninitialremarkfromAlphabet’sChairmanJohn\nHennessyduringa2023interviewwithReuters,inwhichhesaidthat“havinganexchangewithAIknownasalargelanguage\nmodel likely cost 10 times more than a standard keyword search”39. This remark was used was the basis of an estimate\npublishedinOctober2023of“approximately3WhperLLMinteraction”40,withtheGooglesearchnumbertakenfroma\n2009blogpostfromGooglethatstatedthat“Queriesvaryindegreeofdifficulty,butfortheaveragequery[...] thisamounts\nto0.0003kWhofenergypersearch”41. Thisnumberismisleadingforseveralreasons. First,Hennessyhasnorelationto\n4/12",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "rst,Hennessyhasnorelationto\n4/12",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "OpenAIorMicrosoft(whichprovidesthecomputeforOpenAI’sservices),sothecommenthemadewasbasedonsecondhand\ninformation. Second,evenifHennessy’scomparisonwereaccurate,basingthesearchestimateonafigurethatis16years\nold—atatimewhenWebsearchwasdoneusingbag-of-wordsorvector-basedsearchtechniquesasopposedtothecurrent\nTransformer-basedmodels—isalsoboundtoamplifytheinaccuracyoftheestimate.\nTounderstandtheimpactofthepropagationofthisestimate, weanalyzed100newsarticlespublishedasofApril11,\n2025,thatappearwhensearchingfor“ChatGPTenergyconsumption”onGoogleNews. Foreacharticle,wenotedwhether\nit mentioned the 3 Wh estimate, if it referenced others, or if it called for transparency or caution regarding figures by\nacknowledginguncertaintyorsuggestingthatsuchstatisticsshouldbeviewedcritically.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "regarding figures by\nacknowledginguncertaintyorsuggestingthatsuchstatisticsshouldbeviewedcritically. Ourresults,showninFigure3,reveal\nthat75%ofmediaarticlesrelayedenergyestimatesforaChatGPTquerywithoutmentioninguncertaintiesorevencitingthe\nsourcesforthesefigures: 53%ofarticlescitethefigureof3WhperChatGPTqueryorclaimitconsumes10timesmoreenergy\nthanaGooglesearch42,22%mentionotherpreciseenergynumbersforChatGPTqueries,comparingthemtothenumber\nofAmericanhouseholdsorLEDlightbulbs43 (likelyusingthesame3Whfigure),11%prefertoprovideglobalfigureson\ntheenergyimpactofdatacenters44,8%discussothertopics,particularlyDeepSeek45andoptimizationswithternaryneural\nnetworkarchitecturestoimproveenergyefficiency46andonly5%explicitlycallfortransparencyornecessarycautionwhen",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rchitecturestoimproveenergyefficiency46andonly5%explicitlycallfortransparencyornecessarycautionwhen\naddressingthissubject47,statingthatthetruefiguresremainunknown. Itisalsonoteworthythatamongthesearticles,9%also\nrelaytheclaimthattrainingaLLMproducesemissionsequivalentto5carsintheirlifetime.\nFigure3. AnalysisofmediaarticlesdiscussingChatGPTenergyconsumption.\nAIcanreduce10%ofglobalemissions\nWhilethenumbersaroundAI’snegativeenvironmentalimpactscanbemisinterpretedandtakenoutofcontext,so,too,canthe\npotentialofAItoreduceemissions,especiallybycorporateactorsthatdevelopanddeployAIsystemsonaglobalscale. One\nrecurringnumberstatesthatAIcanhelpreduceglobalGHGemissions(upto)10%. Thisnumbercanbetracedbacktoa2021",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "curringnumberstatesthatAIcanhelpreduceglobalGHGemissions(upto)10%. Thisnumbercanbetracedbacktoa2021\nBostonConsultingGroup(BCG)reportwhichstatesthat“Researchshowsthatbyscalingcurrentlyprovenapplicationsand\ntechnology,AIcouldmitigate5to10%ofglobalgreenhousegasemissionsby2030–theequivalentofthetotalannualemissions\noftheEuropeanUnion”48. ThesamenumberappearsinamorerecentBCGreportfrom2023,whichwascommissionedby\nGoogleandpublishedaheadofCOP2649. Thereasoningbehindthe5-10%reductionestimateisunclearandtheunderlying\ncalculationsarenotdetailedbeyondtheexplanationthattheyarebasedonBCG’sexperienceindealingwiththeirclientsand\nusingAItooptimizeandimproveexistingprocesses. Thesecond,Google-commissionedBCGstudyprovidesslightlymore",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "gAItooptimizeandimproveexistingprocesses. Thesecond,Google-commissionedBCGstudyprovidesslightlymore\ndetailintermsofthekindsofprojectsAIcanbeusedfor,butdoesnotofferspecificcalculationstranslatingindividualproject\nnumberstoaglobalscale.\nApplyingobservationsmadefromindividualprojectstotheentireplanet’sGHGemissionslacksanyscientificgrounding—\ninfact,manyoftheemissionsreductionsonaglobalscalerequireindividual,societalandpoliticalshifts. Moreover,rigorous\ncalculationofavoidedemissionsrequiresdefiningcounterfactualreferencescenarios,conductingsystematicconsequence\nanalysis,andaccountingforreboundeffects—methodologicalrequirementsoutlinedinestablishedrecentstandardslikeITU-T\nL.148050orWBCSDguidanceonavoidedemissions51. Andyet,thesenumberswerepickedupinresearch52andthemedia,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ".148050orWBCSDguidanceonavoidedemissions51. Andyet,thesenumberswerepickedupinresearch52andthemedia,\nusedasevidencethatthepotentialofAItostopclimatechangeisoverwhelminglypositive53,54. WhileAIundoubtedlyhas\npotentialpositiveapplicationsinsectorsrangingfromtransportationtoagriculturetoenergy55,theseglobalgeneralizationscan\nbemisleadingbecausetheyoverlookthemyriadofproblemsthattechnologyalonecannotsolve,whilegivingcredibilitytothe\nbeliefsthatthebenefitsofAIwilloutweighitscosts56.\n5/12",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ThelackoftransparencyaroundAI’senvironmentalimpactscanhavefar-reachingconsequences,rangingfromspecific\nestimatestakenoutofcontextandblownoutofproportion,toproxiesbecomingadoptedbypressandpolicymakersinthe\nabsenceofmorereliablefigures. Inthenextsection,wediscussapotentialsolutiontothissituationbyproposingasetof\nmetricsthatdifferentstakeholderscanmeasureandreporttobringmoreclaritytotheextentofAI’senvironmentalimpacts.\nHow to improve environmental impact disclosures in AI\nOpacity in AI environmental reporting creates multiple interconnected challenges: organizations cannot make informed\nprocurementorinnovationdecisionswithoutaccesstoreliableenvironmentalperformancedataonAI,whilepolicymakerslack\ntheinformationnecessarytodevelopevidence-basedregulations.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "performancedataonAI,whilepolicymakerslack\ntheinformationnecessarytodevelopevidence-basedregulations. Thisopacityalsogeneratescascadingeffectsthroughout\nvaluechains,asAIadoptioncreatesunmeasuredemissionsthatunderminecorporatenetzerocommitments. Furthermore,\ntheabsenceofstandardizedmetricspreventsmeaningfulcomparisonbetweenAIsystems,limitingmarketmechanismsthat\ncoulddriveefficiencyimprovements. Perhapsmostcritically,thislackoftransparencyunderminesaccountabilitymechanisms,\nmakingitimpossibletoholdAIdevelopersanddeployersresponsiblefortheirenvironmentalperformanceortotrackprogress\ntowardsustainabilitygoals.\nThissectionexploreshowcomprehensiveenvironmentaltransparencycanaddressthesechallengesthroughfourintercon-\nnectedpathways:\n1.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "mprehensiveenvironmentaltransparencycanaddressthesechallengesthroughfourintercon-\nnectedpathways:\n1. CarryingoutcomprehensivemeasurementanddisclosurebyAIdevelopersateachstageofmodeldevelopmentand\ndeployment;\n2. IntegratingcomprehensiveAIenvironmentalimpactsintosustainabilityaccountingframeworksandcorporatesustain-\nabilitydisclosuresbyorganizationsacrosstheentireAIvaluechain,frommodelprovidersandhyperscalerstoend-user\nenterprises;\n3. Developingstandardizedverificationandassuranceframeworkstoensuredatareliabilityandenablemeaningfulcompar-\nisons;and\n4. Implementingclearregulatoryrequirementsbypolicymakerstoensureconsistent,verifiablereportingacrosstheindustry.\nMeasurementandDisclosure AsthestartingpointofAIdevelopment,AIresearchersanddevelopersareabletogather",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "easurementandDisclosure AsthestartingpointofAIdevelopment,AIresearchersanddevelopersareabletogather\nempiricalmeasurementsfromthesystemstheycreateatdifferentstepsofthemodellifecycle. Whendevelopingmodelsfrom\nscratch, energy consumption and GHG emissions from training and inference can be estimated using programmatic tools\nlikeCodeCarbon57 orno-codetoolslikeGreenAlgorithms58. Whenusingoradaptingexistingmodels,performanceand\nefficiencytestingcansignificantlyreduceemissionsbyenablingthedeploymentofmoreenergy-efficientmodelsinproduction.\nFor instance, the AI Energy Score project21 provides a standardized methodology for comparing models across different\ntasks,whichcanalsobeadaptedforspecificcontextsanddatasets. Thesemetricsshouldbereportedinmodelcards59 and",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "whichcanalsobeadaptedforspecificcontextsanddatasets. Thesemetricsshouldbereportedinmodelcards59 and\nscientificpublicationswithcompletemethodologicaltransparency,includinghardwarespecifications,geographiclocations,\nelectricitysources,measurementuncertainties,andallocationmethodologies. Thisempiricalfoundationenablesdownstream\norganizational GHG accounting while contributing to the broader scientific understanding of AI environmental impacts\nthroughpeer-reviewedpublicationofmethodologiesandresults. AIprovidersacrosstheentirevaluechain,includingcloud\ninfrastructureproviders,modelhostingplatforms,andAPIserviceproviders,mustimplementcomprehensivetransparency\nwithgranularenvironmentaldatadisclosure,enablingdownstreamorganizationstoaccuratelyaccountfortheirAI-related\nenvironmentalimpacts.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "isclosure,enablingdownstreamorganizationstoaccuratelyaccountfortheirAI-related\nenvironmentalimpacts. GovernmentandpublicsectororganizationsshouldmandatetransparencyinallAIprocurements,\nrequireopendataforpubliclyfundedresearch,andalignAIdeploymentswithexistingnetzerocommitments.\nOrganizationalImplementationandProcesses AsAIadoptionaccelerates,organizationsshouldimplementcomprehensive\nframeworkstoassess,measure,andintegrateAI’senvironmentalimpactsintoexistingsustainabilitymanagementsystemsusing\nstructuredapproachestailoredtotheirspecificcontextsandriskprofiles. Thematerialityassessmentframeworkshouldaimto\nestablishquantitativethresholdsacrossenvironmentalintensityandusagescaledimensions–forexamplecreatingdistinct\ntiersofanalysisintensity.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ssenvironmentalintensityandusagescaledimensions–forexamplecreatingdistinct\ntiersofanalysisintensity. OrganizationsdevelopingAIsystemsutilizingopen-sourcemodelsontheirinfrastructureshould\nimplementcomprehensivemeasurementprotocolsatmultiplelevelsofgranularity:model-specific,serviceorprocess-level,and\norganization-wideaggregations. Similarly,entitiesutilizingthird-partyAIservices(e.g.,API-basedintegrationsofcommercial\nmodelsorsubscription-basedaccessforinternalteamslikeChatGPT,CopilotorClaude)shoulddemandtransparencyby\nincorporatingenvironmentaldisclosurerequirementsintoprocurementprocessesandcontractualagreements60. Specifically,\norganizationsshouldrequestaccesstostandardizedmetrics(suchastheAIEnergyScoreoranequivalent)forallAIservices\nunderconsideration.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ccesstostandardizedmetrics(suchastheAIEnergyScoreoranequivalent)forallAIservices\nunderconsideration. Theseenvironmentalmetricsshouldbesystematicallyintegratedintoorganizations’GHGaccounting\nframeworks and non-financial performance disclosures, with explicit documentation of methodological assumptions and\nunmodeledfactors.\n6/12",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Standards,VerificationandAssurance EnvironmentalAIdisclosuresrequirerobustverificationframeworkstoensure\naccuracyandpreventgreenwashing,necessitatingnewassurancestandardsadaptedtoAI’srapidevolution,distributedcompute,\nandcomplexvaluechains. WhilenounifiedstandardyetexistsforassessingAIsustainability,paralleleffortsareunderway\nacrossorganizationssuchastheGreenSoftwareFoundation,ISO(InternationalOrganizationforStandardization),andOECD\n(Organization for Economic Cooperation and Development). These bodies are well-positioned to develop standardized\napproaches for stakeholders ranging from developers to governments. Given AI’s transnational nature, coordination and\nharmonization of these efforts is essential. Without alignment, implementation may diverge across jurisdictions, creating",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "efforts is essential. Without alignment, implementation may diverge across jurisdictions, creating\nfurtherconfusioninthemarket. However,asformalstandardsmaytakeyearstomaterialize,interimadhocmethods(suchas\nthoseoutlinedabove)canprovidevaluableinsightsandhelpshapetheeventualdevelopmentofformalmethodologies. These\nAIenvironmentaldisclosureframeworksmustalsostrengthenadherencetorobustGHGaccountingprinciples,particularly\nregarding the GHG Protocol’s treatment of electricity emissions measurement. The current allowance for market-based\naccounting enables companies to significantly under-report their actual AI-related emissions through renewable energy\ncertificates,creatingthesameproblematicdisconnectfromrealitythathasunderminedcarbonoffsettingcredibility56. ForAI",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "reatingthesameproblematicdisconnectfromrealitythathasunderminedcarbonoffsettingcredibility56. ForAI\nservicesconsumingsubstantialelectricityacrossdistributeddatacenters,mandatorylocation-basedaccountingwouldensure\nenvironmentaltransparencyframeworkscapturethetruesystemicclimateimpactsratherthanallowingthemtobeobscured\nthroughmarketmechanisms.\nPolicyFrameworksandReporting Environmentaltransparencydocumentationisalreadycommonplaceforprivateorga-\nnizationsinexistinglegislationsuchastheCorporateSustainabilityReportingDirective(CSRD)intheEU,SECclimate\ndisclosurerequirementsintheUS,orlocalandstate-levelclimatedisclosurelaws. However,policymakersshouldincorporate\nadditionalreportingrequirementsspecificallyaddressingAIsystemutilizationunderstandardssuchasEuropeanSustainability",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "tingrequirementsspecificallyaddressingAIsystemutilizationunderstandardssuchasEuropeanSustainability\nReportingStandardsE1(ClimateChange)whichmandatesthedisclosureofScope1,2,and3GHGemissions,energyusage,\nandatransitionplanalignedwiththeParisAgreement61,particularlyasthisalignswithexistingprovisionsintheEUAIAct.\nNon-governmentalsustainabilityratingagenciessuchasCDPandEcoVadisshouldsimilarlyexpandtheirassessmentcriteria\ntoincorporateAI-specificenvironmentalimpactmetrics,creatingmarketincentivesforimproveddisclosurepractices. For\norganizationsdirectlyparticipatingintheAIvaluechain(serviceproviders,datacenteroperators,developers,ITintegrators,\nsemiconductorandGPUmanufacturers)policymakersshouldimplementmorestringenttransparencyrequirements. These",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "onductorandGPUmanufacturers)policymakersshouldimplementmorestringenttransparencyrequirements. These\ncouldincludemandatorydetailedenvironmentalreportingdisaggregatedbymodel,usagepatterns,andphysicalinfrastructure.\nEnforcementmechanismsmightincludeannualcomprehensiveenvironmentalreportsorconditioningaccesstopublicmarkets\nandfundingoncompliancewithdisclosurestandards.\nConclusion\nThecurrenttrendtowardreducedtransparencyaroundAI’senvironmentalimpactcontributestomisinformationandhinders\ninformeddecision-makingacrossalllevels,fromindividualresearchersanddeveloperstoorganizationsandpolicymakers. This\ndecliningtransparencyisparticularlytroublinggivenAI’sescalatingenvironmentalimpactsamidglobalclimateconcernsand\nloomingplanetaryboundaries.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "blinggivenAI’sescalatingenvironmentalimpactsamidglobalclimateconcernsand\nloomingplanetaryboundaries. Whilecompetitionisfrequentlycitedtojustifyopacity,othercompetitiveindustries,suchas\nfood(withingredientlabeling)andhealthcare(withside-effectandpricingtransparency),demonstratethatabalancebetween\ntransparencyandcompetitionisachievable. ReversingthetrendtowardopacityinAIenvironmentalreportingisessentialfor\ninformeddecision-making,accountability,andsustainabletechnologyadvancement,particularlyasnewmodelparadigms\nemergethatmayaltertheseimpacts. AsmembersoftheAIcommunitycommittedtoaddressingtheclimatecrisis,weaimto\nensurethesustainabilityofourfieldasitcontinuestoexpand–recognizingthatincreasedtransparencyisfundamentaltothis\ngoal.\n7/12",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "nsparencyisfundamentaltothis\ngoal.\n7/12",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "References\n1. Luers,A.etal. Willaiaccelerateordelaytheracetonet-zeroemissions? Nature628,718–720(2024).\n2. Kshirsagar,M.etal. BecominggoodatAIforgood. InProceedingsofthe2021AAAI/ACMConferenceonAI,Ethics,and\nSociety,664–673(2021).\n3. DeepMind. Usingaitofightclimatechange(2009).\n4. Angwin, J., Larson, J., Mattu, S. & Kirchner, L. Machine bias. In Ethics of data and analytics, 254–264 (Auerbach\nPublications,2022).\n5. Buolamwini,J.&Gebru,T. Gendershades: Intersectionalaccuracydisparitiesincommercialgenderclassification. In\nConferenceonfairness,accountabilityandtransparency,77–91(PMLR,2018).\n6. Rivera,J.-P.etal. Escalationrisksfromlanguagemodelsinmilitaryanddiplomaticdecision-making. InProceedingsof\nthe2024ACMConferenceonFairness,Accountability,andTransparency,836–898(2024).\n7. Manheim,K.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "eedingsof\nthe2024ACMConferenceonFairness,Accountability,andTransparency,836–898(2024).\n7. Manheim,K.&Kaplan,L. Artificialintelligence: Riskstoprivacyanddemocracy. YaleJL&Tech.21,106(2019).\n8. Summerfield,C.etal. Howwilladvancedaisystemsimpactdemocracy? arXivpreprintarXiv:2409.06729(2024).\n9. Crawford,K. TheatlasofAI:Power,politics,andtheplanetarycostsofartificialintelligence(YaleUniversityPress,\n2021).\n10. Bender,E.M.,Gebru,T.,McMillan-Major,A.&Shmitchell,S. Onthedangersofstochasticparrots: Canlanguagemodels\nbetoobig? InProceedingsofthe2021ACMconferenceonfairness,accountability,andtransparency,610–623(2021).\n11. Luccioni,A.S.,Viguier,S.&Ligozat,A.-L. EstimatingthecarbonfootprintofBLOOM,a176bparameterlanguage\nmodel. arXivpreprintarXiv:2211.02001(2022).\n12. Strubell,E.,Ganesh,A.&McCallum,A.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "bparameterlanguage\nmodel. arXivpreprintarXiv:2211.02001(2022).\n12. Strubell,E.,Ganesh,A.&McCallum,A. EnergyandpolicyconsiderationsfordeeplearninginNLP. arXivpreprint\narXiv:1906.02243(2019).\n13. Luccioni, A.S.&Hernandez-Garcia, A. Countingcarbon: Asurveyoffactorsinfluencingtheemissionsofmachine\nlearning. arXivpreprintarXiv:2302.08476(2023).\n14. Dodge,J.etal. MeasuringthecarbonintensityofAIincloudinstances. InProceedingsofthe2022ACMConferenceon\nFairness,Accountability,andTransparency,1877–1894(2022).\n15. Ligozat,A.-L.,Lefèvre,J.,Bugeau,A.&Combaz,J. UnravelingthehiddenenvironmentalimpactsofAIsolutionsfor\nenvironment. arXivpreprintarXiv:2110.11822(2021).\n16. Patterson,D.etal. Carbonemissionsandlargeneuralnetworktraining. arXivpreprintarXiv:2104.10350(2021).\n17. Gupta, U. et al.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "bonemissionsandlargeneuralnetworktraining. arXivpreprintarXiv:2104.10350(2021).\n17. Gupta, U. et al. Chasing Carbon: The Elusive Environmental Footprint of Computing. In 2021 IEEE International\nSymposiumonHigh-PerformanceComputerArchitecture(HPCA),854–867(IEEE,2021).\n18. Cao,Q.,Lal,Y.K.,Trivedi,H.,Balasubramanian,A.&Balasubramanian,N. IrEne: Interpretableenergypredictionfor\ntransformers. InZong,C.,Xia,F.,Li,W.&Navigli,R.(eds.)Proceedingsofthe59thAnnualMeetingoftheAssociation\nforComputationalLinguisticsandthe11thInternationalJointConferenceonNaturalLanguageProcessing(Volume\n1: LongPapers),2145–2157,DOI:10.18653/v1/2021.acl-long.167(AssociationforComputationalLinguistics,Online,\n2021).\n19. Wu, C.-J. et al. Sustainable AI: Environmental Implications, Challenges and Opportunities.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "021).\n19. Wu, C.-J. et al. Sustainable AI: Environmental Implications, Challenges and Opportunities. arXiv preprint\narXiv:2111.00364(2021).\n20. Luccioni,S.,Jernite,Y.&Strubell,E. Powerhungryprocessing: Wattsdrivingthecostofaideployment? InThe2024\nACMConferenceonFairness,Accountability,andTransparency,FAccT’24,85–99,DOI:10.1145/3630106.3658542\n(ACM,2024).\n21. Luccioni, S. & Gamazaychikov, B. AI Energy Score Leaderboard. https://huggingface.co/spaces/AIEnergyScore/\nLeaderboard(2025). HuggingFaceSpaces.\n22. Luccioni,S.etal. Lightbulbshaveenergyratings—sowhycan’taichatbots? Nature632,736–738(2024).\n23. Li,P.,Yang,J.,Islam,M.A.&Ren,S. Makingailess\"thirsty\": Uncoveringandaddressingthesecretwaterfootprintofai\nmodels. arXivpreprintarXiv:2304.03271(2023).\n24. Han,Y.,Wu,Z.,Li,P.,Wierman,A.&Ren,S.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "rfootprintofai\nmodels. arXivpreprintarXiv:2304.03271(2023).\n24. Han,Y.,Wu,Z.,Li,P.,Wierman,A.&Ren,S. Theunpaidtoll: Quantifyingthepublichealthimpactofai. arXivpreprint\narXiv:2412.06288(2024).\n8/12",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "25. Schneider, I. et al. Life-cycle emissions of ai hardware: A cradle-to-grave approach and generational trends (2025).\n2502.01671.\n26. Morrison, J. et al. Holistically evaluating the environmental impact of creating language models. arXiv preprint\narXiv:2503.05804(2025).\n27. EpochAI. Dataonnotableaimodels(2024). Accessed: 2025-04-06.\n28. OpenRouter. Openrouterleaderboardrankings. https://openrouter.ai/rankings?view=month(2025). Accessed: 2025-06-03.\n29. Lovins,A.B. Artificialintelligencemeetsnaturalstupidity: Managingtherisks(2025).\n30. Vaswani,A.etal. Attentionisallyouneed. Adv.neuralinformationprocessingsystems30(2017).\n31. So,D.,Le,Q.&Liang,C. Theevolvedtransformer. InChaudhuri,K.&Salakhutdinov,R.(eds.)Proceedingsofthe\n36thInternationalConferenceonMachineLearning,vol.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "haudhuri,K.&Salakhutdinov,R.(eds.)Proceedingsofthe\n36thInternationalConferenceonMachineLearning,vol.97ofProceedingsofMachineLearningResearch,5877–5886\n(PMLR,2019).\n32. Hao,K. Trainingasingleaimodelcanemitasmuchcarbonasfivecarsintheirlifetimes. MITtechnologyRev.75,103\n(2019).\n33. Toews,R. Deeplearning’scarbonemissionsproblem. Forbes(2020).\n34. GemmaTeametal. Gemma2: Improvingopenlanguagemodelsatapracticalsize(2024). 2408.00118.\n35. Meta. Llama3.1ModelCard. https://huggingface.co/meta-llama/Llama-3.1-8B(2024). HuggingFaceModelCard.\n36. Kerr,D.&NPR. AIbringssoaringemissionsforGoogleandMicrosoft,amajorcontributortoclimatechange. NPR,July\n(2024).\n37. Chen,S. Howmuchenergywillaireallyconsume? thegood,thebadandtheunknown. Nature639,22–24(2025).\n38. Aljbour, J., Wilson, T. & Patel, P.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "consume? thegood,thebadandtheunknown. Nature639,22–24(2025).\n38. Aljbour, J., Wilson, T. & Patel, P. Powering intelligence: Analyzing artificial intelligence and data center energy\nconsumption. EPRIWhitePap.no.3002028905(2024).\n39. Dastin,J.&Nellis,S. Focus: Fortechgiants,ailikebingandbardposesbillion-dollarsearchproblem. Reuters(2023).\n40. DeVries,A. Thegrowingenergyfootprintofartificialintelligence. Joule7,2191–2194(2023).\n41. Hölzle,U. Poweringagooglesearch(2009).\n42. Inês Trindade Pereira. ChatGPT, Deepseek & Co: How much energy do AI-powered chatbots consume? Euronews\n(online). Accessed: 2025-06-01.\n43. HamishvanderVen. AIisbadfortheenvironment,andtheproblemisbiggerthanenergyconsumption. TheConversation\n(online). Accessed: 2025-06-01.\n44. SpencerKimball.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "emisbiggerthanenergyconsumption. TheConversation\n(online). Accessed: 2025-06-01.\n44. SpencerKimball. Datacenterspoweringartificialintelligencecouldusemoreelectricitythanentirecities. CNBC(online).\nAccessed: 2025-06-01.\n45. JamesO’Donnell.DeepSeekmightnotbesuchgoodnewsforenergyafterall.MITTechnologyReview(online).Accessed:\n2025-06-01.\n46. BerryZwets. ResearchersclaimtocutenergyconsumptionAI95percent. Techzine(online). Accessed: 2025-06-01.\n47. AdamClarkEstes. ShouldyoufeelguiltyaboutusingAI? Vox(online). Accessed: 2025-06-01.\n48. Degot,C.,Duranton,S.,Frédeau,M.&Hutchinson,R. Reducecarbonandcostswiththepowerofai. BostonConsult.\nGroup26(2021).\n49. Dannouni,A.etal. Acceleratingclimateactionwithai. BostonConsult.GroupSpecialRep.Google(2023).\n50. ITU.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "nnouni,A.etal. Acceleratingclimateactionwithai. BostonConsult.GroupSpecialRep.Google(2023).\n50. ITU. EnablingtheNetZerotransition: Assessinghowtheuseofinformationandcommunicationtechnologysolutions\nimpactgreenhousegasemissionsofothersectors. Tech.Rep.ITU-TL.1480,ITU(2022). Accessed: 2025-06-01.\n51. WBCSD. GuidanceonAvoidedEmissions. Tech.Rep.,WBCSD(2023). Accessed: 2025-06-01.\n52. Das,K.P.&Chandra,J. Asurveyonartificialintelligenceforreducingtheclimatefootprintinhealthcare. EnergyNexus\n9,100167(2023).\n53. TheEnvironment. Artificialintelligencecanreduce5to10percentghgemission: Study(2022).\n54. Kakkad,R. GooglesaysAIcouldmitigate5to10%ofglobalemissions(2023).\n55. Rolnick,D.etal. Tacklingclimatechangewithmachinelearning. ACMComput.Surv.(CSUR)55,1–96(2022).\n9/12",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "echangewithmachinelearning. ACMComput.Surv.(CSUR)55,1–96(2022).\n9/12",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "56. Ambrose,J.&Hern,A. Aiwillbehelpratherthanhindranceinhittingclimatetargets,billgatessays(2024).\n57. Schmidt,V.etal. Codecarbon: Estimateandtrackcarbonemissionsfrommachinelearningcomputing(2021).\n58. Lannelongue,L.,Grealey,J.&Inouye,M. Greenalgorithms: Quantifyingthecarbonfootprintofcomputation. Adv.Sci.\n2100707(2021).\n59. Mitchell,M.etal. Modelcardsformodelreporting. InProceedingsoftheconferenceonfairness,accountability,and\ntransparency,220–229(2019).\n60. Luccioni,S.&Gamazaychikov,B. AIModelsHidingTheirEnergyFootprint? Here’sWhatYouCanDo(2025).\n61. LealFilho,W.etal. Europeansustainabilityreportingstandards: Anassessmentofrequirementsandpreparednessofeu\ncompanies. J.environmentalmanagement380,125008(2025).\n62. Gamazaychikov,B.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ementsandpreparednessofeu\ncompanies. J.environmentalmanagement380,125008(2025).\n62. Gamazaychikov,B. Unveilingsalesforce’sblueprintforsustainableai: Whereresponsibilitymeetsinnovation(2023).\n63. Touvron,H.etal. Llama: Openandefficientfoundationlanguagemodels(2023). 2302.13971.\n64. Mesnard,T.etal. Gemma: Openmodelsbasedongeminiresearchandtechnology(2024). 2403.08295.\n65. Meta. Llama4ModelCard. https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct(2025). Hugging\nFaceModelCard.\n66. Meta. Llama 3 Model Card. https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md (2024). GitHub\nRepository.\nAuthor contributions statement\nB.G.conductedtheenvironmentalimpacttransparencyanalysis,T.A.d.Ccarriedoutthemediaanalysis. Allauthorswrote,\neditedandreviewedthemanuscript.\n10/12",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "T.A.d.Ccarriedoutthemediaanalysis. Allauthorswrote,\neditedandreviewedthemanuscript.\n10/12",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Appendix\nTable1. RangeofPre-TrainingEnvironmentalImpacts(RepresentativeModelsDisplayed)\nModel Organization EnergyConsumption(MWh) GHGEmissions(tCO2e)\nOLMo20M26 Ai2 0.8 0.3\nCodeGen350M62 Salesforce 71 6\nLlama7B63 Meta 356 14\nBLOOM11 BigScience 520 30\nT516 Google 85.7 47\nOLMo213B26 Ai2 157 101\nGemma2B+9B64 Google ? 131\nGPT-316 OpenAI 1,287 552\nLlama4Scout65 Meta 3,500 1,354\nLlama370B66 Meta ? 1,900\nLlama3.1405B35 Meta ? 8,930\nMax/MinVariance: 4,375 29,767\n11/12",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\nModel | Organization | EnergyConsumption(MWh) | GHGEmissions(tCO2e)\nOLMo20M26 | Ai2 | 0.8 | 0.3\nCodeGen350M62 | Salesforce | 71 | 6\nLlama7B63 | Meta | 356 | 14\nBLOOM11 | BigScience | 520 | 30\nT516 | Google | 85.7 | 47\nOLMo213B26 | Ai2 | 157 | 101\nGemma2B+9B64 | Google | ? | 131\nGPT-316 | OpenAI | 1,287 | 552\nLlama4Scout65 | Meta | 3,500 | 1,354\nLlama370B66 | Meta | ? | 1,900\nLlama3.1405B35 | Meta | ? | 8,930",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Table2. RangeofInferenceEnergyUse21(RepresentativeModelsDisplayed)\nModel Organization GPUEnergyfor1kQueries(Wh) Task\nbert-tiny-finetuned-squadv2 mrm8488 0.06 ExtractiveQA\nGIST-all-MiniLM-L6-v2 avsolatorio 0.11 SentenceSimilarity\ndynamic_tinybert Intel 0.21 ExtractiveQA\ndistilbert-imdb lvwerra 0.22 TextClassification\nquestion_answering_v2 Falconsai 0.23 ExtractiveQA\nResnet18 Microsoft 0.30 ImageClassification\nyolos-tiny hustvl 1.00 ObjectDetection\nVisionPerceiverConv Google 2.64 ImageClassification\nSFR-Embedding-Mistral Salesforce 5.22 SentenceSimilarity\nyolos-base hustvl 7.98 ObjectDetection\nGemma7B Google 18.90 TextGeneration\nT511b Google 27.79 TextClassification\nphi-4 Microsoft 28.74 TextGeneration\nT511b Google 178.13 ExtractiveQA\nMitsuaDiffusionOne Mitsua 186.81 ImageGeneration",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "74 TextGeneration\nT511b Google 178.13 ExtractiveQA\nMitsuaDiffusionOne Mitsua 186.81 ImageGeneration\nMixtral8x7B Mistral 615.39 TextGeneration\nStableDiffusionXLBase StabilityAI 1,639.85 ImageGeneration\nLlama370B Meta 1,719.66 TextGeneration\nQwen2.572B Qwen 1,869.55 TextGeneration\nCommand-RPlus Cohere 3,426.38 TextGeneration\nMax/MinVariance: 57,106\n12/12",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\nModel | Organization | GPUEnergyfor1kQueries(Wh) | Task\nbert-tiny-finetuned-squadv2 | mrm8488 | 0.06 | ExtractiveQA\nGIST-all-MiniLM-L6-v2 | avsolatorio | 0.11 | SentenceSimilarity\ndynamic_tinybert | Intel | 0.21 | ExtractiveQA\ndistilbert-imdb | lvwerra | 0.22 | TextClassification\nquestion_answering_v2 | Falconsai | 0.23 | ExtractiveQA\nResnet18 | Microsoft | 0.30 | ImageClassification\nyolos-tiny | hustvl | 1.00 | ObjectDetection\nVisionPerceiverConv | Google | 2.64 | ImageClassification\nSFR-Embedding-Mistral | Salesforce | 5.22 | SentenceSimilarity\nyolos-base | hustvl | 7.98 | ObjectDetection\nGemma7B | Google | 18.90 | TextGeneration\nT511b | Google | 27.79 | TextClassification\nphi-4 | Microsoft | 28.74 | TextGeneration\nT511b | Google | 178.13 | ExtractiveQA\nMitsuaDiffusionOne | Mitsua | 186.81 | ImageGeneration\nMixtral8x7B | Mistral | 615.39 | TextGeneration\nStableDiffusionXLBase | StabilityAI | 1,639.85 | ImageGeneration\nLlama370B | Meta | 1,719.66 | TextGeneration\nQwen2.572B | Qwen | 1,869.55 | TextGeneration\nCommand-RPlus | Cohere | 3,426.38 | TextGeneration",
+    "page": 12
+  }
+]

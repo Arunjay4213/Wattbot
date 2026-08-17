@@ -1,0 +1,297 @@
+[
+  {
+    "type": "text",
+    "content": "Optimizing Large Language Models: Metrics,\nEnergy Efficiency, and Case Study Insights\nTahniat Khan Soroor Motie Sedef Akinli Kocak\nIndustry Innovation, Vector Institute Vector Institute, University of Ottawa Industry Innovation, Vector Institute\nToronto, Canada Ottawa, Canada Toronto, Canada\ntahniat.khan@vectorinstitute.ai smoti088@uottawa.ca sedef.kocak@vectorinstitute.ai\nShaina Raza\nAI Engineering, Vector Institute\nToronto, Canada\nshaina.raza@vectorinstitute.ai\nAbstract—The rapid adoption of large language models bothenergyandwaterusagerisingalongsidetherapidgrowth\n(LLMs) has led to significant energy consumption and carbon ofglobaldatavolumes.Moreover,hyperscalecloudproviders,\nemissions, posing a critical challenge to the sustainability of",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": ".Moreover,hyperscalecloudproviders,\nemissions, posing a critical challenge to the sustainability of\nincludingAmazonAWS,GoogleCloud,andMicrosoftAzure,\ngenerative AI technologies. This paper explores the integration\ncommonly use power-intensive GPUs for hosting generative\nof energy-efficient optimization techniques in the deployment\nof LLMs to address these environmental concerns. We present AI models; these GPUs can consume 10–15 times the energy\na case study and framework that demonstrate how strategic of traditional CPUs, significantly enlarging the technology’s\nquantization and local inference techniques can substantially carbon footprint [2]. Understanding the full lifecycle of emis-\nlowerthecarbonfootprintsofLLMswithoutcompromisingtheir",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "]. Understanding the full lifecycle of emis-\nlowerthecarbonfootprintsofLLMswithoutcompromisingtheir\nsions for machine learning models is therefore essential for\noperational effectiveness. Experimental results reveal that these\ntackling these environmental challenges [2]. Strategies aimed\nmethods can reduce energy consumption and carbon emissions\nby up to 45% post quantization, making them particularly at lowering energy demands across this lifecycle—ranging\nsuitable for resource-constrained environments. The findings from pre-training to inference—represent a critical step in\nprovideactionableinsightsforachievingsustainabilityinAIwhile achieving sustainable generative AI solutions [2].\nmaintaining high levels of accuracy and responsiveness.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ing sustainable generative AI solutions [2].\nmaintaining high levels of accuracy and responsiveness. a) Motivation: Motivated by the environmental impact\nIndexTerms—LargeLanguageModels(LLMs),Quantization,\nof LLMs, this study seeks to quantify the carbon emissions\nGreen AI, Carbon Emissions, Energy Efficiency\nassociatedwithtrainingandinferenceforthesemodels.While\nI. INTRODUCTION there is growing recognition of the need for more energy-\nThe increasing computational demands of advanced artifi- efficient LLMs, the research gap lies in the lack of awareness\ncialintelligence(AI),particularlygenerativemodelsincluding and practical demonstrations showing similar results can be\nlarge language models (LLMs), have motivated significant achievedwithlowerenergyconsumption.Addressingthisgap",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "uage models (LLMs), have motivated significant achievedwithlowerenergyconsumption.Addressingthisgap\nresearch and development in Green AI. It highlights the requires not only quantifying the environmental footprint of\nimportance of adopting sustainable practices to mitigate the generativeAImodelsbutalsoexploringeffectiveoptimization\nrising environmental impact of generative AI technologies strategies.Moreover,analyzingaspecificusecasecanprovide\n[4]. However, despite these advances, many generative AI valuableinsightsintothepracticalbenefitsofadoptingenergy-\napplications continue to consume substantial computational efficient methods while maintaining model performance.\nb) Objectives: In this work, we examine the metrics and\nresources, leading to increased energy consumption and el-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "In this work, we examine the metrics and\nresources, leading to increased energy consumption and el-\nunitscurrentlyused tomeasurethe environmentalfootprintof\nevated carbon emissions [27]. As these generative AI models\npopular generative AI models and evaluate how these metrics\nand applications scale in both size and complexity, they\nchange when implementing optimization strategies. We then\ndemandfrequentdataandmodelupdates,creatingapotentially\npresentacasestudydemonstratinghowtargetedoptimizations\nunendingcycleofenergy-intensiveprocessesthatcouldhinder\ncan make generative AI models more energy efficient without\noverall progress in sustainable AI [27].\nGenerative AI tools such as ChatGPT, GPT-3, Claude, and compromising their performance in a real-world context.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "I tools such as ChatGPT, GPT-3, Claude, and compromising their performance in a real-world context.\nThe primary objectives of this study are threefold:\nLlamademonstrateremarkablecapabilitiesbutcomewithsig-\nnificantecologicalcostsassociatedwiththeirdevelopmentand • ToenhanceenergyefficiencyofLLMsbymeasuringand\ninfrastructure [4]. Data centers, which support the underlying minimizing energy consumption during inference.\ncomputationalneedsofthesetools,areestimatedtocontribute • To reduce carbon emissions by assessing and mitigating\napproximately2–31.ofglobalgreenhousegasemissions,with the carbon footprint generated in the deployment phase\nof LLMs.\n1https://dl.acm.org/doi/pdf/10.1145/3483410\n• Todevelopamethodologyprioritizesperformancepreser-\n©2025IEEE.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "//dl.acm.org/doi/pdf/10.1145/3483410\n• Todevelopamethodologyprioritizesperformancepreser-\n©2025IEEE.AcceptedtoIEEECAI2025,toappearinIEEEXplore. vation, ensuring that accuracy and responsiveness remain\n5202\nrpA\n7\n]GL.sc[\n1v70360.4052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "athighlevelsevenasweadoptenergy-savingtechniques. actionable insights and a roadmap for advancing Green AI,\nc) Contributions: This study offers several contributions addressing immediate environmental concerns, and fostering\nto the growing field of Green AI. Primarily, it presents a a sustainable future for AI technologies.\ncomprehensive analysis of carbon emissions generated during\nA. Carbon Emission Metrics\nboththetrainingandinferencephasesofLLMs,acriticalarea\noftenoverlookedinperformanceevaluations.Furthermore,the Measuring carbon emissions is essential for understand-\nstudy critically evaluates widely adopted emissions metrics, ing and reducing the environmental impact of AI systems.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "valuates widely adopted emissions metrics, ing and reducing the environmental impact of AI systems.\nexploring their dynamic behavior under different optimization Various metrics have been developed to assess emissions\nstrategies. Additional contribution lies in the implementation acrossdifferentscopes,intensities,andstages.Thissubsection\nof a practical optimization framework designed to minimize outlineswidelyusedmetrics,suchasCarbonDioxideEquiva-\nenergy consumption across the model lifecycle. Finally, a lent (CO 2 e), Carbon Intensity, and Global Warming Potential\ndetailed case study provides empirical evidence of measur- (GWP)andhighlightstheirroleinpromotingtransparencyand\nable reductions in carbon footprint and energy consumption sustainability (Table I).",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ransparencyand\nable reductions in carbon footprint and energy consumption sustainability (Table I).\nachieved without compromising model performance, offering\npractical guidance for sustainable AI development. TABLEI\nCOMMONCARBONEMISSIONMETRICSINGREENAI\nII. RELATEDWORK\nMetric Unit Definition Reference\nIn recent years, the convergence of environmental sus- Carbon Dioxide Metric A measure of green- IPCC,GHG\ntainability and AI has led to the emergence of “in Green Equivalent(CO2e) tons housegasesexpressedas Protocol\nAI”, focusing on reducing the carbon footprint of large-scale\n(tCO2e) CO2 equivalent\nCarbonIntensity gCO2/ CO2 emissions per unit International\nmodels through optimization techniques. This section reviews kWh ofelectricityconsumed Energy",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ional\nmodels through optimization techniques. This section reviews kWh ofelectricityconsumed Energy\nkeystudiesthathavecontributedtothisfield,highlightingtheir Agency\ncontributions to sustainable AI practices.\nScope1Emissions tCO2e Direct emissions from GHGProto-\ncontrolledsources col\nEfforts to mitigate the environmental impact of LLMs have Scope2Emissions tCO2e Indirect emissions from GHGProto-\nfocused on understanding and reducing their carbon footprint. purchasedelectricity col\nStudies have quantified the CO emissions associated with Scope3Emissions tCO2e Indirect emissions GHGProto-\n2 acrossvaluechains col\nlarge-scale models [2], [4], highlighting significant environ-\nNet Zero tCO2e Balancewhenemissions UNFCCC",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "scale models [2], [4], highlighting significant environ-\nNet Zero tCO2e Balancewhenemissions UNFCCC\nmentalchallengesposedbytheirextensiveparametersizesand Emissions equalremovals\ncomputationaldemands[15].LiuandYin(2024),inparticular, Energy Consump- MWh Totalenergyconsumed IEA,EIA\ntion\nemphasizesthecriticalroleofhardwarechoicesinsustainable\nGlobal Warming Ratio Heat trapped by a gas IPCC\nAI practices and proposes training methods without compro- Potential(GWP) comparedtoCO2\nmising performance to reduce carbon emissions [15]. These CarbonOffsets tCO2e Creditsforemissionsre- VCS, Gold\nductionorremoval Standard\nfoundational insights underscore the urgency of addressing\nCarbon Capture tCO2 CO2removedandstored IEA,IPCC\nsustainability in LLM development and deployment.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "g\nCarbon Capture tCO2 CO2removedandstored IEA,IPCC\nsustainability in LLM development and deployment. andStorage(CCS) captured topreventrelease\nBuilding on this foundation, several tools and frameworks\nhave been proposed. For example, GreenTrainer [12] has\nB. Quantization Techniques in LLMs\nbeen introduced as a fine-tuning approach that dynamically\nevaluatesbackpropagationcostsandcontributionstomodelac- Quantization[11]hasemergedasatransformativeapproach\ncuracy. By reducing floating-point operations (FLOPs) during in optimizing LLMs, addressing the dual challenges of com-\nfine-tuning by up to 64%, GreenTrainer achieves significant putationalefficiencyandenvironmentalsustainability.Itworks",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "o 64%, GreenTrainer achieves significant putationalefficiencyandenvironmentalsustainability.Itworks\nenergy savings without compromising model performance by converting model parameters from high-precision formats\n[12]. Likewise, Avatar focuses on creating compact, energy- (e.g.,32-bitfloating-point)tolower-precisionformats(e.g.,8-\nefficient models optimized for deployment on individual de- bit or even 4-bit), thereby reducing memory requirements and\nvices [23]. By reducing inference latency and model size, accelerating computation. This technique aligns closely with\nthis method significantly decreases the carbon footprint of the goals of Green AI, as it minimizes resource usage while\nLLM usage while maintaining competitive performance [20], maintaining acceptable accuracy.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ge while\nLLM usage while maintaining competitive performance [20], maintaining acceptable accuracy.\nillustrating the potential of targeted optimizations [17]. Research efforts have showcased the potential of quanti-\nIn addition to specific optimization techniques, broader zation as a key technique for enhancing energy efficiency\nframeworks for sustainable AI have been proposed. These in AI systems. For instance, GPTQ (Accurate Post-Training\nframeworks advocate for the integration of energy-efficient Quantization for Generative Pre-trained Transformers) [9] in-\nalgorithms and the alignment of AI practices with global troduces a method for post-training quantization that retains\nsustainability goals [25].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "with global troduces a method for post-training quantization that retains\nsustainability goals [25]. For instance, intersection of sustain- high model performance despite significant reductions in pa-\nability and software engineering is well established research rameter precision. This method enables efficient deployment\narea[3],[7],[26]suchasexploringstrategiesforcreatingeco- ofLLMsonedgedevicesandotherconstrainedenvironments,\nfriendly solutions that maintain functionality while reducing directly addressing the environmental concerns highlighted in\nenergy consumption [24]. Collectively, these studies provide studies like GreenTrainer [12]. Another notable approach is",
+    "page": 2
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 2):\nMetric | Unit | Definition | Reference\nCarbon Dioxide\nEquivalent(CO2e) | Metric\ntons\n(tCO2e) | A measure of green-\nhousegasesexpressedas\nCO2 equivalent | IPCC,GHG\nProtocol\nCarbonIntensity | gCO2/\nkWh | CO2 emissions per unit\nofelectricityconsumed | International\nEnergy\nAgency\nScope1Emissions | tCO2e | Direct emissions from\ncontrolledsources | GHGProto-\ncol\nScope2Emissions | tCO2e | Indirect emissions from\npurchasedelectricity | GHGProto-\ncol\nScope3Emissions | tCO2e | Indirect emissions\nacrossvaluechains | GHGProto-\ncol\nNet Zero\nEmissions | tCO2e | Balancewhenemissions\nequalremovals | UNFCCC\nEnergy Consump-\ntion | MWh | Totalenergyconsumed | IEA,EIA\nGlobal Warming\nPotential(GWP) | Ratio | Heat trapped by a gas\ncomparedtoCO2 | IPCC\nCarbonOffsets | tCO2e | Creditsforemissionsre-\nductionorremoval | VCS, Gold\nStandard\nCarbon Capture\nandStorage(CCS) | tCO2\ncaptured | CO2removedandstored\ntopreventrelease | IEA,IPCC",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "LLM-QAT (Quantization-Aware Training for Large Language B. Framework Overview\nModels)[16],whichintegratesquantizationduringthetraining\nThe proposed framework (Figure. 1) tackles energy effi-\nphaseratherthanapplyingitpost-training.Thismethodfurther\nciencyinLLMdeploymentthroughthreeinterconnectedcom-\nimproves the trade-off between model size and performance,\nponents: local inference optimization, the selection of energy-\nmakingLLMsmoreadaptabletoenergy-efficientdeployments.\nefficientLLMs,andacomprehensiveevaluationmethodology.\nAdditionally,SmoothQuant[16]employslayer-wisequantiza-\nThese components function synergistically to reduce energy\ntion to balance computation and accuracy, achieving state-of-\nconsumptionwithoutsacrificingpredictiveaccuracyorrespon-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "putation and accuracy, achieving state-of-\nconsumptionwithoutsacrificingpredictiveaccuracyorrespon-\nthe-art results in reducing energy use during inference.\nsiveness.\nC. Trade-Offs Between Accuracy and Optimization\nThe interplay between accuracy and optimization in ma-\nchine learning models, particularly LLMs, underscores the\nchallenges in balancing performance with resource efficiency.\nTechniques like FrugalGPT, described by Chen et al. (2023)\n[5], illustrate how cascading models and leveraging prompt\nadaptationcanreducecostsbyupto98%withoutcompromis-\ningaccuracy.Similarly,FrugalMLshowshowselectivelyrout-\ning queries to different APIs can maintain performance while\ncuttingcostsbyupto90%[5],[6].However,theeffectiveness\nof these strategies varies across tasks. For example, reducing",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "o90%[5],[6].However,theeffectiveness\nof these strategies varies across tasks. For example, reducing\ntoken lengths or approximating model outputs might preserve\ngeneral quality but risks performance drops in nuanced appli-\ncations like sentiment analysis or summarization [22]. These\nfindingsreveal thatwhilecostand carbonfootprintreductions\nareachievable,ensuringminimaltrade-offsinprecision,recall,\nFig.1. DetailedOverviewoftheProposedOptimizationFramework\nor F1 score remains a complex optimization problem, often\n1) Local Inference Optimization: Unlike traditional cloud-\nrequiring task-specific calibrations [5], [22].\nbased methods that rely on centralized data centers, local\ninference allows models to run directly on user devices while\nIII. CASESTUDY:SUSTAINABLEDEPLOYMENTOFLARGE",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "nce allows models to run directly on user devices while\nIII. CASESTUDY:SUSTAINABLEDEPLOYMENTOFLARGE\nmaintaining data privacy. By minimizing data transmission\nLANGUAGEMODELS\nbetween clients and remote servers, this method significantly\nA. Problem Definition reduces both network overhead and carbon footprint [10]. To\nachieve efficient local inference, the framework employs a\nLLMs have become integral to various natural language quantization process [9], which lowers the numerical preci-\nprocessing applications, yet their soaring computational de- sion of model parameters. Specifically, we define a uniform\nmandsposesignificantsustainabilitychallenges.Theseinclude quantizationfunctionQ (·)thatmaps32-bitweighttensorsto\nb",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "icantsustainabilitychallenges.Theseinclude quantizationfunctionQ (·)thatmaps32-bitweighttensorsto\nb\nhigh energy consumption, carbon emissions, and escalating a b-bit representation:\noperational costs, particularly when using cloud-based infras-\n(cid:16)w−min(w)(cid:17)\ntructures [4]. To address these concerns, this study proposes Q (w)=round , (3)\nb ∆\na framework for LLM deployment that emphasizes local\ninference, aiming to mitigate environmental impact while where ∆ is a scaling factor determined by the range\npreserving model performance and user experience. (max(w)−min(w)) of the weights. In this work, we use a 4-\nFormally, consider a classification problem with input data bit quantization strategy (b = 4), which substantially reduces",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "assification problem with input data bit quantization strategy (b = 4), which substantially reduces\ncomputationalandmemoryrequirementswithoutsignificantly\ncompromising model performance. We apply quantization\nX ={x ,x ,...,x }, (1)\n1 2 N through Ollama [19], an open-source platform known for\nits support of edge computing principles and privacy-centric\nand corresponding ground-truth labels\ndeployments.\n2) Selection of Energy-Efficient Pre-trained LLMs: In ad-\nY ={y ,y ,...,y }, y ∈{1,2,...,K}, (2) dition to local inference optimization, the framework includes\n1 2 N i\na careful selection of pre-trained LLMs that are specifically\nAn LLM-based classifier f (·) predicts yˆ = f (x ). We designed for low computational overhead. These models, in-\nθ i θ i",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "r f (·) predicts yˆ = f (x ). We designed for low computational overhead. These models, in-\nθ i θ i\nseek to minimize energy consumption and carbon emissions cluding Llama3.2 [1], Phi3.2 [21], Mistral [13], Qwen [8],\nwhile maintaining high predictive accuracy, where accuracy and Llava [14], stand out for their smaller parameter counts,\ncan be quantified using standard metrics such as precision, streamlined architectures, and selective attention mechanisms.\nrecall, and F1-score. Such features align well with edge-oriented design principles,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "making the models easier to run on devices with limited • Phi-3-mini-128k-Instruct: An instruction-tuned multi-\nhardware resources. modal model designed for text and vision integration tasks.\n3) Evaluation Methodology: The central problem tackled • Qwen2-7B-Instruct: A transformer-based language model\nhere is a classification task for which we use standard evalu- tuned for general-purpose tasks.\nation metrics, including precision, recall, and F1-score. We • Mistral-7B-Instruct-v0.3: An instruction-tuned model op-\nmeasure these metrics both before and after applying our timized for efficient NLP tasks.\nquantization approach to understand any performance trade- • LLaVA-Llama3-Instruct: A fine-tuned version of Llama-3\noffs.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "to understand any performance trade- • LLaVA-Llama3-Instruct: A fine-tuned version of Llama-3\noffs. Furthermore, we track energy usage and estimate carbon Instruct with improvements in multiple benchmarks.\nfootprints by monitoring power consumption and utilizing\nB. Data\nemission factor data. Let E denote the total energy consumed\n(inkWh),andletαbetheemissionfactor(kgCO perkWh). Ourdataset,FinancialSentimentAnalysis[18],comprises\n2\nWe define the carbon footprint CF as: 5,842entriesorganizedintotwocolumns:”text”and”label”.\nThe”text”columncontainsthetextualdataforanalysis,while\nCF =E×α., (4)\nthe”label”columnindicatesthesentimentclassification(e.g.,\npositive, negative, or neutral). The dataset is well-structured\nC. Expected Outcomes",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "fication(e.g.,\npositive, negative, or neutral). The dataset is well-structured\nC. Expected Outcomes\nand contains no missing values, making it highly suitable for\nTheproposedframeworkisexpectedtosignificantlyreduce sentimentanalysistasksinmachinelearningstudiesFigure.2.\nenergy consumption and carbon emissions during LLM infer-\nence, while maintaining accuracy and responsiveness compa-\nSentiment Assessment Instructions\nrabletostandardcloud-basedmethods.Thesefindingssupport\nthe goals of Green AI, showing that sustainable solutions Instructions: Assess the sentiment of the given text by\ncan deliver high performance without burdening users or identifying the presence of sentiment indicators such as\ncompromising model quality. emotional language, positive or negative expressions, and",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ators such as\ncompromising model quality. emotional language, positive or negative expressions, and\ntone shifts. Mark the sentiment as positive, negative, or\nneutral and provide reasoning.\nIV. EXPERIMENTALSETUP\nText: content\nA. Hardware and Software Setting Sentiment Indicators Checklist:\nThehardwareusedincludesan11thGenIntel(R)Core(TM) • Emotional Language: Words that convey strong feel-\nings (e.g., joy, anger, sadness, excitement).\ni7-1165G7 processor operating at 2.80 GHz (1.69 GHz base\n• Positive Expressions: Words or phrases that promote\nfrequency), supported by 16.0 GB of installed memory (15.7 positive feelings or optimism.\nGBusable).Thesystemtypeisa64-bitoperatingsystemwith • Negative Expressions: Words or phrases that express\nan x64-based processor, running on Windows 11 Pro.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "gative Expressions: Words or phrases that express\nan x64-based processor, running on Windows 11 Pro. criticism or negativity.\nWe use Ollama [19] for local AI model deployment, which • ToneShifts:Noticeablechangesintonethataffecthow\nthe content is perceived.\nensures data privacy by processing entirely on-device, ideal • Balanced or Neutral Tone: The absence of strong\nfor sensitive applications. It supports a variety of pre-trained emotional language, implying neutrality.\nand fine-tuned models, offering flexibility across use cases. Response Format:\nIts lightweight design makes it suitable for both individuals Positive/Negative/Neutral [Reasoning]\nand organizations seeking efficient, secure, and localized AI Positive/Negative/Neutral [Reasoning]\nsolutions.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "zations seeking efficient, secure, and localized AI Positive/Negative/Neutral [Reasoning]\nsolutions. Positive/Negative/Neutral [Reasoning]\nBaselines\nFig.2. SentimentAssessmentInstructionsandIndicatorsChecklist.\nWeusedthefollowinginstruction-tunedmodelsinTable.II\nfor inference, each configured with specific hyperparameters V. RESULTS\ntailored to their architecture and target tasks. A. Accuracy vs Memory Usage\nTable III shows significant reductions in carbon emissions\nTABLEII\nacross all models, with some achieving up to 45% after\nBASELINEMODELSANDINFERENCEHYPERPARAMETERS\noptimization. These results demonstrate the effectiveness of\nModel Batch Max Temp. Top-p Top-k Beam quantization and local inference in lowering energy use and\nName Size Tokens Size\nLlama-3.2-1B 8 512 0.7 0.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ation and local inference in lowering energy use and\nName Size Tokens Size\nLlama-3.2-1B 8 512 0.7 0.9 50 4 computational overhead, while maintaining model perfor-\nPhi-3-mini 8 512 0.7 0.9 50 4 mance. Such improvements make these methods well-suited\nQwen2-7B 8 512 0.8 0.85 40 4\nfor deployment on edge devices and in resource-constrained\nMistral-7B 16 256 0.9 0.95 30 2\nLLaVA-Llama3 8 512 0.7 0.9 50 4 environments.\nHowever, the impact on performance metrics such as accu-\nThe models used are as follows: racy,F1score,recall,andprecisionvaries.Whilethereduction\n• Llama-3.2-1B-Instruct: An instruction-tuned large lan- incarbonfootprintisconsistent,performancetrade-offsareev-\nguage model for general-purpose tasks. ident,withsomemetricsexperiencingmarginalimprovements",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "purpose tasks. ident,withsomemetricsexperiencingmarginalimprovements",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\nSentiment Assessment Instructions\nInstructions: Assess the sentiment of the given text by\nidentifying the presence of sentiment indicators such as\nemotional language, positive or negative expressions, and\ntone shifts. Mark the sentiment as positive, negative, or\nneutral and provide reasoning.\nText: content\nSentiment Indicators Checklist:\n• Emotional Language: Words that convey strong feel-\nings (e.g., joy, anger, sadness, excitement).\n• Positive Expressions: Words or phrases that promote\npositive feelings or optimism.\n• Negative Expressions: Words or phrases that express\ncriticism or negativity.\n• ToneShifts:Noticeablechangesintonethataffecthow\nthe content is perceived.\n• Balanced or Neutral Tone: The absence of strong\nemotional language, implying neutrality.\nResponse Format:\nPositive/Negative/Neutral [Reasoning]\nPositive/Negative/Neutral [Reasoning]\nPositive/Negative/Neutral [Reasoning]",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\nModel\nName | Batch\nSize | Max\nTokens | Temp. | Top-p | Top-k | Beam\nSize\nLlama-3.2-1B | 8 | 512 | 0.7 | 0.9 | 50 | 4\nPhi-3-mini | 8 | 512 | 0.7 | 0.9 | 50 | 4\nQwen2-7B | 8 | 512 | 0.8 | 0.85 | 40 | 4\nMistral-7B | 16 | 256 | 0.9 | 0.95 | 30 | 2\nLLaVA-Llama3 | 8 | 512 | 0.7 | 0.9 | 50 | 4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "and others showing slight declines. For instance, precision solutions, reduce reliance on cloud computing, and improve\nand recall generally exhibit minor increases in specific cases, real-time processing capabilities, all while contributing to\nsuggesting that optimization can enhance certain aspects of broader sustainability initiatives.\nthemodels’abilitytocorrectlyidentifyrelevantpatternsinthe\nB. Limitations\ndata.Ontheotherhand,metricslikeaccuracyandF1scoreare\nslightly lower after optimization, indicating a potential trade- While the demonstrated optimization techniques such as\noff between energy efficiency and overall predictive perfor- quantization and local inference offer significant reductions in\nmance.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "d overall predictive perfor- quantization and local inference offer significant reductions in\nmance.Thisunderscorestheimportanceofcarefullybalancing carbonemissionsandcomputationaloverhead,moreworkwill\nsustainability and performance when applying optimization be needed in incorporating additional optimization techniques\ntechniques, as the ideal solution will depend on the specific and evaluating performance across diverse datasets for further\nuse case and application requirements. investigation, also they are not without limitations. A notable\ntrade-off is the potential loss of accuracy and predictive\nTABLEIII performance. Metrics such as F1 score and overall accuracy\nCOMPARISONOFPERFORMANCEMETRICSANDCARBONEMISSIONSFOR maydeclineslightlypost-optimization,whichcouldbecritical",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "NOFPERFORMANCEMETRICSANDCARBONEMISSIONSFOR maydeclineslightlypost-optimization,whichcouldbecritical\nFIVELLMSBEFOREANDAFTEROPTIMIZATION.CARBONEMISSIONSARE\nfor applications requiring high precision, such as medical\nCALCULATEDPERINFERENCETASK.\ndiagnostics or financial modeling. This degradation can limit\nModelName Precision Recall F1 Accuracy CO2 the applicability of optimized models to tasks where even\n(kg) minor errors have significant consequences.\nBefore Baselinemetricsforcomparison Furthermore, the reliance on local inference can lead to\nOptimization slower performance if the underlying hardware is not suffi-\nLlama3.2 0.55 0.45 0.44 0.45 0.012 ciently powerful. Devices with limited processing capabilities\nPhi3.2 0.97 0.82 0.88 0.82 0.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "5 0.012 ciently powerful. Devices with limited processing capabilities\nPhi3.2 0.97 0.82 0.88 0.82 0.012 may experience delays in real-time applications, undermining\nQwen 0.77 0.79 0.76 0.79 0.009\nthe efficiency gains achieved through optimization. Addition-\nMistral-small 0.70 0.67 0.65 0.67 0.020\nLlava-Llama3 0.58 0.50 0.48 0.50 0.014 ally, while quantization reduces the size of models, it may\nintroduce numerical instability or rounding errors that could\nAfter Metrics following quantization and local\nOptimization inferencetechniques affecttherobustnessofthepredictions,particularlyincomplex\nLlama3.2 0.57 0.48 0.47 0.48 0.005 or highly dynamic environments. These limitations highlight\nPhi3.2 1.00 0.84 0.91 0.84 0.007 the need for careful evaluation of optimization techniques\nQwen 0.80 0.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": ".2 1.00 0.84 0.91 0.84 0.007 the need for careful evaluation of optimization techniques\nQwen 0.80 0.81 0.80 0.81 0.004\nagainstthespecificrequirementsofagivenusecasetoensure\nMistral-small 0.73 0.70 0.69 0.70 0.015\nLlava-Llama3 0.61 0.54 0.51 0.54 0.006 thatthetrade-offsareacceptable.Futureworkwillalsoexplore\nablationstudiestoisolateconfoundingfactorssuchassystem-\nlevel effects like caching, dataset characteristics, and model\nB. Post-Quantization Performance Evaluation\narchitecture.\nThe goal of this evaluation is to ensure that, after op-\ntimization, predictions remain consistent with ground truth VII. CONCLUSION\nlabels and reasoning aligns with the predicted labels. Two\nThis paper highlights the critical need for sustainable AI\nsubject matter experts assessed predictions based on con-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ghts the critical need for sustainable AI\nsubject matter experts assessed predictions based on con-\npractices, particularly in the deployment of LLMs. By inte-\nsistency (alignment with ground truth), clarity (logical and\ngratingoptimizationtechniquessuchasquantizationandlocal\ninterpretable reasoning), and alignment (agreement between\ninference,wesuccessfullydemonstratedsignificantreductions\npredictedsentimentandreasoning).Ourresultsshowthatmost\nin carbon emissions and energy consumption. The proposed\nlabelsand reasoning alignwell withthe model’sexpectations.\nframework provides a practical roadmap for industries and re-\nBelow, we present key examples in Figure. 3 .\nsearchers seeking to balance sustainability with effectiveness.\nFutureresearchshouldexploreadaptiveoptimizationstrategies\nVI.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nce sustainability with effectiveness.\nFutureresearchshouldexploreadaptiveoptimizationstrategies\nVI. DISCUSSION\nto minimize trade-offs and develop new metrics balancing\nA. Practical impact\nsustainability with predictive performance. Additionally, ex-\nThe demonstrated reduction in carbon emissions through panding the framework to address challenges such as numer-\noptimization techniques such as quantization and local infer- ical instability and task-specific performance degradation will\nence holds significant value for industries aiming to enhance enhance applicability across diverse domains.\nsustainability. With models achieving up to 45% reductions\nin energy consumption, this work directly aligns with corpo-\nACKNOWLEDGMENT",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ng up to 45% reductions\nin energy consumption, this work directly aligns with corpo-\nACKNOWLEDGMENT\nrate environmental, social, and governance (ESG) goals by The authors extend their gratitude to the Province of On-\nlowering operational costs and carbon footprints. These tech- tario, the Government of Canada through CIFAR, and the\nniques enable the deployment of AI models on edge devices corporate sponsors of the Vector Institute for their gener-\nand in resource-constrained environments, expanding their ous support and provision of resources essential for this\napplicability to sectors like IoT, healthcare, and autonomous research. Further details on our sponsors can be found at\nsystems. Industries can leverage this work to build greener AI www.vectorinstitute.ai/# partners.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "stries can leverage this work to build greener AI www.vectorinstitute.ai/# partners.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Sentiment Evaluation usemlpredictionapismoreaccuratelyandcheaply.Advancesinneural\ninformationprocessingsystems,33:10685–10696,2020.\nText: $AAPL afternoon selloff as usual will be brutal. Get [7] LeticiaDuboc,StefanieBetz,BirgitPenzenstadler,SedefAkinliKocak,\nRuzannaChitchyan,OlaLeifler,JariPorras,NorbertSeyff,andColinC\nready to lose a ton of money.\nVenters. Do we really know what we are building? raising awareness\nLabel: Negative Predicted: Negative\nof potential sustainability effects of software systems in requirements\nReasoning: “afternoon selloff as usual will be brutal”, “get\nengineering. In2019IEEE27thinternationalrequirementsengineering\nready to lose a ton of money” strongly negative sentiment. conference(RE),pages6–16.IEEE,2019.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ring\nready to lose a ton of money” strongly negative sentiment. conference(RE),pages6–16.IEEE,2019.\nEvaluation: Consistent and correct; matches Negative sen- [8] JinzeBaietal. Qwentechnicalreport,2023. Accessed:2024-09-25.\ntiment with reasoning (e.g., “brutal” and financial loss). [9] Elias Frantar, Saleh Ashkboos, Torsten Hoefler, and Dan Alistarh.\nGptq: Accurate post-training quantization for generative pre-trained\ntransformers. arXivpreprintarXiv:2210.17323,2022.\nSentiment Evaluation [10] RobinGeens,ManShi,ArneSymons,ChaoFang,andMarianVerhelst.\nEnergycostmodellingforoptimizinglargelanguagemodelinferenceon\nText: Dealers said the share was hit by investor disappoint- hardwareaccelerators.In2024IEEE37thInternationalSystem-on-Chip\nment over a refining margin of 9.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "nt- hardwareaccelerators.In2024IEEE37thInternationalSystem-on-Chip\nment over a refining margin of 9.48 USD per barrel and Conference(SOCC),pages1–6.IEEE,2024.\n[11] Song Han, Huizi Mao, and William J Dally. Deep compression:\nshipping performance decline.\nCompressing deep neural networks with pruning, trained quantization\nLabel: Negative Predicted: Neutral\nandhuffmancoding. arXivpreprintarXiv:1510.00149,2015.\nReasoning:Negative:“disappointment”anddecliningEBIT\n[12] Kai Huang, Hanyun Yin, Heng Huang, and Wei Gao. Towards green\nsuggest negativity; Neutral: data tone is factual. ai in fine-tuning large language models via adaptive backpropagation.\nEvaluation: Inconsistent prediction; factual tone doesn’t arXivpreprintarXiv:2309.13192,2023.\nnegate“disappointment”andnegativefinancialperformance.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "e doesn’t arXivpreprintarXiv:2309.13192,2023.\nnegate“disappointment”andnegativefinancialperformance. [13] AlbertQ.Jiang,AlexandreSablayrolles,ArthurMensch,ChrisBamford,\nDevendraSinghChaplot,DiegodelasCasas,FlorianBressand,Gianna\nLengyel, Guillaume Lample, Lucile Saulnier, Le´lio Renard Lavaud,\nSentiment Evaluation Marie-Anne Lachaux, Pierre Stock, Teven Le Scao, Thibaut Lavril,\nThomas Wang, Timothe´e Lacroix, and William El Sayed. Mistral 7b,\nText:RecentdeliveriesincluderefinerytechnologytoAnrak 2023. Accessed:2024-09-25.\nAluminium and sintering plants to Bhushan Steel. [14] Haotian Liu, Chunyuan Li, Qingyang Wu, and Yong Jae Lee. Visual\nLabel: Neutral Predicted: Neutral instructiontuning,2023. Accessed:2024-09-25.\n[15] Vivian Liu and Yiqiao Yin. Green ai: exploring carbon footprints,",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "g,2023. Accessed:2024-09-25.\n[15] Vivian Liu and Yiqiao Yin. Green ai: exploring carbon footprints,\nReasoning: Purely factual information, no emotive or eval-\nmitigation strategies, and trade offs in large language model training.\nuative language.\nDiscoverArtificialIntelligence,4(1):49,2024.\nEvaluation: Consistent and correct; neutral tone matches\n[16] ZechunLiu,BarlasOguz,ChangshengZhao,ErnieChang,PierreStock,\nfactual details. YasharMehdad,YangyangShi,RaghuramanKrishnamoorthi,andVikas\nChandra. Llm-qat: Data-free quantization aware training for large\nlanguagemodels. arXivpreprintarXiv:2305.17888,2023.\nSentiment Evaluation\n[17] Alexandra Sasha Luccioni, Sylvain Viguier, and Anne-Laure Ligozat.\nEstimating the carbon footprint of bloom, a 176b parameter language",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "iguier, and Anne-Laure Ligozat.\nEstimating the carbon footprint of bloom, a 176b parameter language\nText: Cinema Series concludes with a profile of Finnish model. JournalofMachineLearningResearch,24(253):1–15,2023.\ninventor Olavi Linden, whose work has led to dozens of [18] PekkaMalo,AnkurSinha,PekkaKorhonen,JyrkiWallenius,andPyry\ndesign awards. Takala. Good debt or bad debt: Detecting semantic orientations in\nLabel: Neutral Predicted: Positive economictexts. JournaloftheAssociationforInformationScienceand\nReasoning: Positive: “dozens of design awards” implies Technology,65(4):782–796,2014.\nachievement; Neutral: factual and descriptive tone; “con- [19] OllamaTechnologies.Ollama:Ai-poweredinsightsforlanguagemodels,\n2023. Accessed:[AccessDate].\ncludes” is neutral.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "logies.Ollama:Ai-poweredinsightsforlanguagemodels,\n2023. Accessed:[AccessDate].\ncludes” is neutral.\n[20] Shaina Raza, Oluwanifemi Bamgbose, Shardul Ghuge, Fatemeh\nEvaluation: Inconsistent; factual tone suggests Neutral, de-\nTavakoli, and Deepak John Reji. Developing safe and responsible\nspite positive implications of “awards.”\nlarge language models–a comprehensive framework. arXiv preprint\narXiv:2404.01399,2024.\n[21] Microsoft AI Research. Phi-3 technical report: A highly capable\nFig.3. KeyExamplesofSentimentAnalysisExperiments languagemodellocallyonyourphone,2024. Accessed:2024-09-25.\n[22] ShivanshuShekhar,TanishqDubey,KoyelMukherjee,ApoorvSaxena,\nAtharvTyagi,andNishanthKotla. Towardsoptimizingthecostsofllm\nusage. arXivpreprintarXiv:2402.01742,2024.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "rvTyagi,andNishanthKotla. Towardsoptimizingthecostsofllm\nusage. arXivpreprintarXiv:2402.01742,2024.\nREFERENCES [23] Jieke Shi, Zhou Yang, Hong Jin Kang, Bowen Xu, Junda He, and\nDavidLo. Greeninglargelanguagemodelsofcode. InProceedingsof\nthe 46th International Conference on Software Engineering: Software\n[1] MetaAI. Llama3.2modelcard,2024. Accessed:2024-09-25. EngineeringinSociety,pages142–153,2024.\n[2] EnricoBarbieratoandAliceGatti. Towardsgreenai.amethodological [24] JiekeShi,ZhouYang,andDavidLo.Efficientandgreenlargelanguage\nsurveyofthescientificliterature. IEEEAccess,2024. models for software engineering: Vision and the road ahead. ACM\n[3] StefanieBetz,BirgitPenzenstadler,LeticiaDuboc,RuzannaChitchyan, TransactionsonSoftwareEngineeringandMethodology,2024.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "tPenzenstadler,LeticiaDuboc,RuzannaChitchyan, TransactionsonSoftwareEngineeringandMethodology,2024.\nSedef Akinli Kocak, Ian Brooks, Shola Oyedeji, Jari Porras, Norbert [25] AbdulazizTabbakh,LisanAlAmin,MahbubulIslam,GMIqbalMah-\nSeyff, and Colin C Venters. Lessons learned from developing a sus- mud,ImranulKabirChowdhury,andMdSaddamHossainMukta. To-\ntainabilityawarenessframeworkforsoftwareengineeringusingdesign wardssustainableai:acomprehensiveframeworkforgreenai.Discover\nscience. ACMTransactionsonSoftwareEngineeringandMethodology, Sustainability,5(1):408,2024.\n33(5):1–39,2024. [26] Colin C Venters, Sedef Akinli Kocak, Stefanie Betz, Ian Brooks,\n[4] Vero´nica Bolo´n-Canedo, Laura Mora´n-Ferna´ndez, Brais Cancela, and Rafael Capilla, Ruzanna Chitchyan, Let´ıcia Duboc, Rogardt Heldal,",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "n-Ferna´ndez, Brais Cancela, and Rafael Capilla, Ruzanna Chitchyan, Let´ıcia Duboc, Rogardt Heldal,\nAmparo Alonso-Betanzos. A review of green artificial intelligence: AnaMoreira,SholaOyedeji,etal. Softwaresustainability:beyondthe\nTowardsamoresustainablefuture.Neurocomputing,page128096,2024. towerofbabel. In2021IEEE/ACMInternationalWorkshoponBodyof\n[5] LingjiaoChen,MateiZaharia,andJamesZou. Frugalgpt:Howtouse KnowledgeforSoftwareSustainability(BoKSS),pages3–4.IEEE,2021.\nlargelanguagemodelswhilereducingcostandimprovingperformance. [27] RobertoVerdecchia,JuneSallou,andLu´ısCruz.Asystematicreviewof\narXivpreprintarXiv:2305.05176,2023. greenai. WileyInterdisciplinaryReviews:DataMiningandKnowledge\n[6] Lingjiao Chen, Matei Zaharia, and James Y Zou. Frugalml: How to\nDiscovery,13(4):e1507,2023.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "[6] Lingjiao Chen, Matei Zaharia, and James Y Zou. Frugalml: How to\nDiscovery,13(4):e1507,2023.",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nSentiment Evaluation\nText: $AAPL afternoon selloff as usual will be brutal. Get\nready to lose a ton of money.\nLabel: Negative Predicted: Negative\nReasoning: “afternoon selloff as usual will be brutal”, “get\nready to lose a ton of money” strongly negative sentiment.\nEvaluation: Consistent and correct; matches Negative sen-\ntiment with reasoning (e.g., “brutal” and financial loss).",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nSentiment Evaluation\nText: Dealers said the share was hit by investor disappoint-\nment over a refining margin of 9.48 USD per barrel and\nshipping performance decline.\nLabel: Negative Predicted: Neutral\nReasoning:Negative:“disappointment”anddecliningEBIT\nsuggest negativity; Neutral: data tone is factual.\nEvaluation: Inconsistent prediction; factual tone doesn’t\nnegate“disappointment”andnegativefinancialperformance.",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nSentiment Evaluation\nText:RecentdeliveriesincluderefinerytechnologytoAnrak\nAluminium and sintering plants to Bhushan Steel.\nLabel: Neutral Predicted: Neutral\nReasoning: Purely factual information, no emotive or eval-\nuative language.\nEvaluation: Consistent and correct; neutral tone matches\nfactual details.",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nSentiment Evaluation\nText: Cinema Series concludes with a profile of Finnish\ninventor Olavi Linden, whose work has led to dozens of\ndesign awards.\nLabel: Neutral Predicted: Positive\nReasoning: Positive: “dozens of design awards” implies\nachievement; Neutral: factual and descriptive tone; “con-\ncludes” is neutral.\nEvaluation: Inconsistent; factual tone suggests Neutral, de-\nspite positive implications of “awards.”",
+    "page": 6
+  }
+]

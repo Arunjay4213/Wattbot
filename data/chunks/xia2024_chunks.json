@@ -1,0 +1,577 @@
+[
+  {
+    "type": "text",
+    "content": "Understanding the Performance and Estimating the\nCost of LLM Fine-Tuning\nYuchen Xia1 Jiho Kim2 Yuhan Chen1 Haojie Ye1 Souvik Kundu3\nCong (Callie) Hao2 Nishil Talati1\n1University of Michigan 2Georgia Institute of Technology 3Intel Labs\nAbstract—Duetothecost-prohibitivenatureoftrainingLarge modeltoestimatethecostoffine-tuningonthecloud.Given\nLanguageModels(LLMs),fine-tuninghasemergedasanattrac- our focus on cost-efficient LLM fine-tuning, we concen-\ntive alternative for specializing LLMs for specific tasks using\ntrate on fine-tuning sparse Mixture-of-Expert (MoE) models.\nlimited compute resources in a cost-effective manner. In this\nSpecifically,weemployanattention-basedMoEmodel,Mix-\npaper, we characterize sparse Mixture of Experts (MoE) based",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "weemployanattention-basedMoEmodel,Mix-\npaper, we characterize sparse Mixture of Experts (MoE) based\nLLM fine-tuning to understand their accuracy and runtime tral[4],andastate-spaceMoEmodel,BlackMamba[8].Us-\nperformance on a single GPU. Our evaluation provides unique ing these models and two domain-specific datasets for math-\ninsightsintothetrainingefficacyofsparseanddenseversionsof ematics and common-sense question-answering, we conduct\nMoEmodels,aswellastheirruntimecharacteristics,including\nan in-depth profiling study to understand their performance\nmaximum batch size, execution time breakdown, end-to-end\ncharacteristics with a single GPU. We compare the dense\nthroughput, GPU hardware utilization, and load distribution.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ith a single GPU. We compare the dense\nthroughput, GPU hardware utilization, and load distribution.\nOurstudyidentifiestheoptimizationoftheMoElayerascrucial and sparse counterparts of the investigated MoE models to\nfor further improving the performance of LLM fine-tuning. evaluate their learning rates and runtime performance. Our\nUsing our profiling results, we also develop and validate an investigation covers memory consumption, maximum batch\nanalytical model to estimate the cost of LLM fine-tuning on\nsize supported within a single GPU memory budget, exe-\nthe cloud. This model, based on parameters of the model and\ncution time breakdown and bottlenecks, overall throughput,\nGPU architecture, estimates LLM throughput and the cost",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "akdown and bottlenecks, overall throughput,\nGPU architecture, estimates LLM throughput and the cost\nof training, aiding practitioners in industry and academia to microarchitectural performance counters, and runtime load\nbudget the cost of fine-tuning a specific model. distribution. The insights gained from our study are used to\ndevelopandvalidateananalyticalmodeltoestimatethecost.\nI. INTRODUCTION Our characterization uncovers the following unique in-\nLarge Language Models (LLMs) are widely utilized in sights.(1)Fine-tuningcanbeachievedinlessthan10epochs,\nNatural Language Processing (NLP) [1]. Modern LLMs and sparse MoE model that activates a subset of experts\ntypically possess billions to trillions of parameters, neces- can learn as well as its dense counterparts. (2) MoE layer",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lions to trillions of parameters, neces- can learn as well as its dense counterparts. (2) MoE layer\nsitating extensive time and resources for training. For in- consumes the highest fraction of execution time in LLM\nstance,theestimatedcostoftrainingOpenAI’sGPT-4model fine-tuning; optimizing MoE layer performance is key to\nexceeds $100 million, rendering it financially prohibitive improving the overall cost of LLM fine-tuning. (3) Sparse\nfor most small-to-medium size enterprises and the academic MoE model improves end-to-end throughput by supporting\ncommunity [2]. Given the open-sourcing of numerous pre- a larger batch size. Given similar learning abilities of sparse\ntrained LLMs (e.g., LLAMA [3] and Mixtral [4]), fine- and dense models, it is desired to use a sparse MoE model",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "(e.g., LLAMA [3] and Mixtral [4]), fine- and dense models, it is desired to use a sparse MoE model\ntuning has emerged as an attractive alternative for further for cost-effective fine-tuning. (4) The workload becomes\nspecializing these models in a cost-effective manner [5]. computeboundbyincreasingbatchsize;improvingcompute\nGiventhelearningabilityofpre-trainedmodels,itisfeasible resources will increase performance. (5) Fine-tuning sparse\nto use a domain-specific dataset to align the desired behav- model leads to more load imbalance.\niors of LLMs through supervised fine-tuning on instruction- Based on these insights, we create an analytical model\nfollowing tasks [6]. Unlike pre-training, fine-tuning can be to estimate the cost of LLM fine-tuning based on model",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "[6]. Unlike pre-training, fine-tuning can be to estimate the cost of LLM fine-tuning based on model\nconducted in a resource-constrained environment, typically size, dataset size, and GPU architecture. First, we estimate\nusingoneorafewGPUs.Consequently,fine-tuningpresents the maximum batch size for a given GPU memory, then\na compelling case for applications such as specialized ques- compute fine-tuning throughput. We validate this throughput\ntion answering within enterprises, legal document analysis with experimental results, showing an RMSE of less than\nand drafting, healthcare/medical research, technical and IT 0.55. Using the estimated throughput, our model calculates\nsupport, among others [7]. the fine-tuning cost for different cloud providers.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "our model calculates\nsupport, among others [7]. the fine-tuning cost for different cloud providers.\nThis paper characterizes LLM fine-tuning with two pri- The contributions of this paper are as follows.\nmary objectives: (1) understanding the performance charac- • Make a case for LLM fine-tuning for specializing pre-\nteristicsofLLMfine-tuning,and(2)developingananalytical trained models in a cost-effective manner.\n4202\nguA\n8\n]LC.sc[\n1v39640.8042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "TABLEI\nLLMMODELS\n#params Memconsump. #layers #MoElayer\nMixtral 47B 23.35GB 32 8\nBlackMamba 2.8B 5.6GB 18 8\nTABLEII\nDATASETS\n#queries m.seqlen type\nCommonsense 15K(CS) 15K 79 CommonSense\nMath 14K(MATH) 14K 174 Math\nHellaswag(HE) 10K 272 CommonSense\nFig.1. LLMmodeloverview.Weevaluateaccuracy,throughput,runtime, GSM8K(GS) 1.3K 148 Math\nand GPU characterization for different models, input datasets, and fine-\ntuning sparsity. The different colored expert boxes in MoE layer means\ndifferentsetsofexpertsareactivatedaccordingtotheinputtoken.\namountoftime[6].Thisworkusescasestudyofmathematics\nand common-sense question-answer datasets to demonstrate\n• A detailed accuracy and runtime performance analysis the fine-tuning process of LLMs.\nto understand the LLM fine-tuning workload behavior.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ance analysis the fine-tuning process of LLMs.\nto understand the LLM fine-tuning workload behavior.\n• Designandvalidationofananalyticalmodeltoestimate B. LoRA\nthe cost of LLM fine-tuning in the cloud.\nLow-Rank Adaption (LoRA) is a technique that freezes\nthe pre-trained model weights and injects trainable rank de-\nII. BACKGROUND\ncomposition into layers of the transformer architecture [14].\nA. LLM and Finetuning\nLoRA significantly reduces the number of parameters,\nThe decoder-only Transformer is designed to handle tasks thereby decreasing the GPU memory footprint. LoRA can\nwhere the output generation depends solely on the preceding be used independently of the aforementioned fine-tuning\ntokens,makingitparticularlysuitedforauto-regressivetasks techniques.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "the aforementioned fine-tuning\ntokens,makingitparticularlysuitedforauto-regressivetasks techniques. In this work, we apply QLoRA [15] to the\nsuch as language modeling and text generation [9]. In the Mixtral-8x7B model [4]; more details are provided in §III.\nclassic decoder-only Transformer design, multiple decoder\nC. Mixture of Experts (MoE)\nlayersareconnectedinsequence.Eachdecoderlayerconsists\nof a self-attention block followed by a feed-forward network ThequalityofanLLMishighlyrelatedtoitsscale.Given\n(FFN). Fig. 1 presents an overview of the decoder-only a fixed computation budget, it is often desirable to train\nTransformermodelwithaMixture-of-Experts(MoE)design. a model with more parameters to achieve higher accuracy.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ermodelwithaMixture-of-Experts(MoE)design. a model with more parameters to achieve higher accuracy.\nInthismodel,theFFNlayersaredividedintoseveralsmaller Mixture-of-Experts (MoE) is a technique that, instead of\nFFNs, referred to as experts, which are sparsely activated using one large model for all tasks, combines multiple\nby a gating mechanism. The self-attention block can also expert sub-networks into a single, large model. As shown\nbe replaced with a Mamba layer to improve performance in in Fig. 1, with MoE, different sets of experts are selectively\nsequence modeling (a model known as state-space model). activatedfordifferenttokens.Thisapproachcansignificantly\nLLMs like GPT [10], [11], LLaMA [3], Claude [12], Mis- reduce the amount of computation required for both training",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "10], [11], LLaMA [3], Claude [12], Mis- reduce the amount of computation required for both training\ntral [13] have demonstrated their ability to excel in many and inference, enabling the scaling up of model size and\nnatural language processing (NLP) tasks Training an LLM achieving better model accuracy [16].\nmodel from scratch requires a large amount of hardware\nresources and budget.\nIII. EXPERIMENTALSETUP\nFine-tuning LLMs allows organizations to harness the full Models. We fine-tune two pre-trained MoE models,\npotentialofadvancedAIsystemsbytailoringthemtospecific Mixtral-8x7B (Mixtral for short) [4] and BlackMamba-\ntasks and domains. This customization involves training the 630M/2.8B (BlackMamba for short) [8]. The details of these",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "This customization involves training the 630M/2.8B (BlackMamba for short) [8]. The details of these\nmodel on domain-specific data, enabling it to understand models are shown in Table I. Both models incorporate eight\nand generate content that aligns closely with the unique expertsintheirMoElayers.Fordensefine-tuning,allexperts\nneeds of the users. For instance, in the healthcare sector, areactivated,whereasforsparsefine-tuning,onlythetoptwo\na fine-tuned LLM can assist in diagnosing conditions by experts are selected for each token.\ninterpreting patient data and medical literature with high Thesemodelsdiffersignificantlyintheirtransformerarchi-\nprecision. Another attractive feature of fine-tuning LLMs is tecturesandsizes.MixtralisaconventionalMoEtransformer",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "her attractive feature of fine-tuning LLMs is tecturesandsizes.MixtralisaconventionalMoEtransformer\nthat it can be achieved at a cost-efficient manner. While pre- model with a total of 47 billion parameters. In contrast,\ntraining LLMs require thousands of GPU hours, fine-tuning BlackMamba is a state-space model that replaces all at-\ncanbeachievedusingahandfulofGPUsinarelativelyshort tention layers with mamba layers and has only 2.8 billion",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "parameters. We fine-tune the full BlackMamba model (i.e., 500CS Median=79\noriginal weight matrices), whereas employed QLoRA [15] 400\n300\nfor parameter-efficient fine-tuning (PEFT) on Mixtral due to\n200\nGPU memory capacity budget. For QLoRA, we target the 100\nMoE layers, including the routers, and set the rank of the 0 0 50 100 150 200 250 300 350 400\nLoRAmodulesto16.WeenableFlashAttention2[17]during 120MATH Median=174\n100\nMixtralfine-tuningforenhancedefficiency.Moreover,weuse 80\n60\ngradient checkpointing [18] to save memory usage. 40\n20\nDatasets. Our fine-tuning process is implemented in Py-\n0\n0 50 100 150 200 250 300 350 400\nTorch using the LLaMA-Factory framework [19], with a\nlearning rate of 5e-5 and 10 epochs. Both models were fine-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "he LLaMA-Factory framework [19], with a\nlearning rate of 5e-5 and 10 epochs. Both models were fine-\ntuned on two datasets focused on different tasks: common-\nsense 15k(CS)andMath 14k(MATH),whichaddresscom-\nmonsense reasoning and arithmetic reasoning respectively\n(provided by LLM-adapters [20]). The details of datasets\nare used in Table II. For evaluation, we tested the models\non GSM8K [21] for arithmetic reasoning and HE [22] for\ncommonsense reasoning. Each dataset consists of thousands\nof queries. We define a query as the concatenation of a\nprompt and its ground-truth answer, which is feed to LLMs\nfor fine-tuning.\nProfiling experiments. We evaluate the fine-tuning pro-\ncess from both software and hardware perspectives. The\nsoftware evaluation includes an end-to-end assessment of",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "th software and hardware perspectives. The\nsoftware evaluation includes an end-to-end assessment of\nthe fine-tuning process and measures the performance of\nthe two models on various tasks post-fine-tuning. Using\nPyTorch, we provide essential algorithm-level information\nsuch as test accuracy, training throughput, and layer-level\nlatencybreakdown.Thehardwareevaluationoffersadetailed\nanalysis of GPU performance. Utilizing NVIDIA Nsight\nCompute [23], we gather kernel-level information, including\nSMutilization,memoryutilization,andkernellatency.These\nmetrics collectively offer a comprehensive overview of the\nmodels’ performance, capturing both high-level algorithmic\nefficiency and detailed hardware utilization. Software evalu-\nation is dataset-dependent, and we will show the test accu-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "d hardware utilization. Software evalu-\nation is dataset-dependent, and we will show the test accu-\nracy and fine-tuning throughput by utilizing both datasets.\nIn contrast, hardware evaluation is dataset-independent as\nthese workload characteristics do not depend on runtime\ndata. Because profiling is time-consuming (approximately\n10,000×costliercomparedtoanativerunwithouttheprofiler\nenabled),wemanuallysetthebatchsizeandsequencelength\nto facilitate a more direct and efficient profiling process.\nWepresentthesequencelengthdistributionfortheCSand\nMATH datasets in Fig. 2. The median sequence length is 79\nfor CS and 174 for MATH. Therefore, we select a sequence\nlength of 128 for the hardware evaluation section to achieve\nan approximate profiling effect. We also show a sensitivity",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "hardware evaluation section to achieve\nan approximate profiling effect. We also show a sensitivity\nstudy by varying sequence length to demonstrate its effect\non performance.\nGPUplatform.Ourstudyisfocusedoncharacterizingthe\nLLM fine-tuning process on a resource-constrained environ-\nment. Therefore, we focus on fine-tuning these models on a\nsingle GPU. Specifically, we conduct our experiments using\nycneuqerF\nSequence Length\nFig.2. Sequencelengthdistributionforevaluateddatasets.\nMixtral-dense-HE Mixtral-dense-GS\nMixtral-sparse-HE Mixtral-sparse-GS\n1.0\n0.8\n0.6\n0.4\n0.2\n0\n0 2 4 6 8 10\nBlackmamba -dense-HE Blackmamba -dense-GS\nBlackmamba -sparse-HE Blackmamba -sparse-GS\n0.5\n0.4\n0.3\n0.2\n0.1\n0\n0 2 4 6 8 10\nEpoch\nycaruccA\nFig. 3. Testing accuracy of Mixtral and BlackMamba. Both models are",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "1\n0\n0 2 4 6 8 10\nEpoch\nycaruccA\nFig. 3. Testing accuracy of Mixtral and BlackMamba. Both models are\nevaluatedontwodatasetsHellaswag(HE)andGSM8K(GS),usingdense\nandsparsefine-tuning.\nNVIDIA A40 GPU with Ampere architecture. The GPU has\n48GB memory. While our profiling study is based on this\nparticular GPU, we show the versatility of our analytical\nmodel by validating our model against three other GPU\nwith different sizes of compute and memory resources: (1)\nA100 GPU with 40GB memory, (2) A100 GPU with 80GB\nmemory, and (3) H100 GPU with 80GB memory. We use\nPython v3.8.10, PyTorch v2.1.0, and CUDA v11.8.\nIV. CHARACTERIZATIONSTUDY\nUsing the experimental setup discussed above, next, we\nconduct an in-depth characterization of LLM fine-tuning to\nunderstand both accuracy and runtime behaviors.\nA.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "n in-depth characterization of LLM fine-tuning to\nunderstand both accuracy and runtime behaviors.\nA. Analysis of Model Trainability\nWe first evaluate if fine-tuning sparse LLM models can\nachievethedesiredaccuracylevels.Pre-trainedmodelsshow\nlow accuracy: HE and GS have under 25% on Mixtral and",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "under 10% on BlackMamba. We assess accuracy improve- TABLEIII\nments post-fine-tuning and compare the learning capabilities MAXIMUMBATCHSIZESUPPORTEDBYLLMFINE-TUNING;D:DENSE\nANDS:SPARSE.\nof dense and sparse versions of both models.\nFig. 3 shows the testing accuracy of Mixtral and Black- Mixtral-D Mixtral-S BlackMamba-D BlackMamba-S\nMamba on two datasets Hellaswag (HE) and GSM8K (GS). CS 2 8 6 20\nMATH 1 3 2 8\nWe fine-tune both models using the sparse and dense setups\ndescribed in §III for 10 epochs, and test the accuracy of\nthe fine-tuned model at each epoch. We make the following\nForward Backward Optimizer\nobservations in Fig. 3. (1) Fine-tuning converges relatively 8.0\nquickly.Typically,10epochsareenoughforfine-tunemodels 6.0\nto stabilize at or close to their peak accuracy. On GS, both 4.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "pochsareenoughforfine-tunemodels 6.0\nto stabilize at or close to their peak accuracy. On GS, both 4.0\nmodels are close to their peak accuracy at the first epoch. 2.0\n0.0 (2) The smaller model BlackMamba takes relatively more Dense(bsz=1) Dense(bsz=10) Sparse(bsz=1)Sparse(bsz=10)Sparse(bsz=32)\n2.0 epochs to reach its peak accuracy, as it took BlackMamba 5\n1.5\nepochs to converge on HE. (3) The larger model Mixtral has\n1.0\nbetter accuracy compared to BlackMamba on both datasets.\n0.5\n(4) Both models perform better on the CS dataset HE than\n0.0\nDense(bsz=1) Dense(bsz=30) Sparse(bsz=1)Sparse(bsz=30)Sparse(bsz=84)\non the GS dataset GS. This is because math is harder for\nsmaller LLMs to learn [24]. The BlackMamba model is\ninadequate for fine-tuning GS. This is likely attributed to",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "to learn [24]. The BlackMamba model is\ninadequate for fine-tuning GS. This is likely attributed to\nthe complexity of mathematical tasks and the smaller model\nsize of BlackMamba. Additionally, Mamba is specifically\nengineered for long sequence modeling, potentially resulting\nin unsatisfactory arithmetic reasoning ability [25]. Thus, in\nourcharacterizationstudyinlatersections,wewillnotshow\nthe results for BlackMamba fine-tuned on MATH. (5) The\nperformance of sparse fine-tuning is close to that of dense\nfine-tuning, with the exception of Mixtral on HE. However,\neven for this outlier, sparse fine-tuning achieves similar peak\naccuracy compared to dense; we see a drop of accuracy\nbetweentheepoch4and5,andindicatessparsefine-tuningis\nmorevulnerabletoover-fitting,especiallyforeasytasks[26].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "epoch4and5,andindicatessparsefine-tuningis\nmorevulnerabletoover-fitting,especiallyforeasytasks[26].\nFollowing the above insights, the key take-away of this\nanalysis can be summarized as follows.\nTakeaway 1. Sparse model can be trained as well\nas its dense counterpart.\nTakeaway 2. Fine-tuning generally takes less ten\nepochs to reach peak accuracy.\nB. Analysis of Runtime Performance\nAfter confirming that both Mixtral and BlackMamba can\nbe fine-tuned to achieve acceptable accuracy, we examine\ntheir performance in a resource-constrained environment us-\ningasingleGPU.Thissetuphighlightsuniqueruntimechar-\nacteristics such as execution time breakdown, throughput,\nmaximum batch size, compute and memory utilization, load\nimbalance, and sensitivity analysis. We also compare sparse\nanddensemodels.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "memory utilization, load\nimbalance, and sensitivity analysis. We also compare sparse\nanddensemodels.Insightsfromthisstudywillhelpdevelop\na robust analytical model for estimating fine-tuning costs.\n1) Maximum Batch Size Support: The maximum batch\nsize in fine-tuning is determined by GPU memory size,\nmodel size, sequence length, and MoE sparsity. The LLM\nemiT\nnoitucexE\n)sdnoces(\nnwodkaerB\nMixtral\nMamba\nFig.4. Executiontimebreakdown.\noccupies a certain amount of GPU memory, with the re-\nmainder available for intermediate data during fine-tuning.\nLongersequencelengthsconsumemorememory,anddenser\nMoE configurations require additional memory space. We\ndiscusstheheuristicfordeterminingthemaximumbatchsize\nin §V. Based on our experimental study on NVIDIA A40",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "stheheuristicfordeterminingthemaximumbatchsize\nin §V. Based on our experimental study on NVIDIA A40\nGPU with 48GB memory, we empirically find and report\nthe maximum batch size supported by different model and\ndataset combinations in Table III.\n2) Execution Time Breakdown: We first analyze the high-\nlevel execution time breakdown for Mixtral and Black-\nMamba. The purpose of this study is to understand where\ndoes this workload spend most of its time. As discussed in\n§III, we conduct this study using a sequence length of 128.\nAt a high-level, the fine-tuning workload can be divided\ninto three stages: (1) forward, (2) backward, and (3) opti-\nmizer. We use a batch size of 1 and the maximum batch size\nsupportedbyamodel-datasetcombinationtoshowworkload\ncharacteristics. Fig.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "and the maximum batch size\nsupportedbyamodel-datasetcombinationtoshowworkload\ncharacteristics. Fig. 4 illustrates the following insights. (1)\nThe optimizer stage in BlackMamba fine-tuning takes a\nconsiderable portion of the running time (up to 53% when\nconducting sparse fine-tuning with batch size = 1), while\nthe execution time share of the optimizer stage in Mixtral\nfine-tuning is negligible. The running time of the optimizer\nstage depends only on the number of parameters that need\ntobeupdatedduringfine-tuning.Thisdifferenceisprimarily\nduetothedifferentfine-tuningstrategiesappliedtothesetwo\nmodels:onlytheparametersintheLoRAmoduleareupdated\nforMixtralfine-tuning,whereasBlackMambaundergoesfull\nfine-tuning. (2) The runtime of the forward and backward",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "fine-tuning,whereasBlackMambaundergoesfull\nfine-tuning. (2) The runtime of the forward and backward\nstages increases with sparsity and batch size due to the\nincreased amount of computation. (3) The backward stage\ntypically takes more time than the forward stage. In Black-\nMamba,thebackwardstagedemandsmorecomputationthan",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\nMixtral |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\nMamba |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  | ",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Input normalization Attention Post attention norm. MoE\n5.0\n4.0\n3.0\n2.0\n1.0\n0.0\nDense(bsz=1) Dense(bsz=10) Sparse(bsz=1) Sparse(bsz=10) Sparse(bsz=32)\nRMS layernorm Mamba MoE\n1.5\n1.0\n0.5\n0.0\nDense(bsz=1) Dense(bsz=30) Sparse(bsz=1) Sparse(bsz=30) Sparse(bsz=84)\nemiT\nnoitucexE\n)sdnoces(\nnwodkaerB\nMixtral\nMamba\nFig.5. Executiontimebreakdownintermsofdifferentmodellayers.\nmatmul(w2) w3_dequant softmax matmul(router)\nw2_dequant matmul(w1) topk router_dequant\nmatmul(w3) w1_dequant\n6000\n4000\n2000\n0\nDense(bsz=1) Dense(bsz=10) Sparse(bsz=1) Sparse(bsz=10) Sparse(bsz=32)\nmatmul(w1) matmul(w2) top_k matmul(router)\ngelu elementwise_mult sigmoid 2000\n1600\n1200\n800\n400\n0\nDense(bsz=1) Dense(bsz=30) Sparse(bsz=1) Sparse(bsz=30) Sparse(bsz=84)\n)sμ(\nnwodkaerB\nemiT\nnoitucexE\nMixtral\nFig.7.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nse(bsz=30) Sparse(bsz=1) Sparse(bsz=30) Sparse(bsz=84)\n)sμ(\nnwodkaerB\nemiT\nnoitucexE\nMixtral\nFig.7. ExpertarchitecturesforMixtral(top)andBlackMamba(bottom).\nmatrix (W3) in parallel with W1.\nFig. 6 shows the kernel-level MoE time breakdown. The Mamba\nfigure clearly shows that matrix multiplication (W1, W2,\nand W3) is the largest component of the MoE layer for\nboth BlackMamba and Mixtral. As batch size and sparsity\nincrease, so does computational demand, prolonging matrix\nFig.6. ExecutionbreakdownoftheMoElayerfordifferentkernels. multiplicationlatency.Thede-quantizationoperationinMix-\ntral fine-tuning also becomes significant, especially with low\nthe forward stage due to the need for gradient calculation sparsity and small batch sizes. While quantization reduces",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "due to the need for gradient calculation sparsity and small batch sizes. While quantization reduces\nand propagation, resulting in two matrix multiplication op- modelsizeandmemoryfootprint,itcanincreasecomputation\nerations. In Mixtral fine-tuning, gradient calculation adds time due to de-quantization. This highlights the need to\nminimal computation as only a small portion of parameters evaluatetrade-offsbetweenmemorysavingsandcomputation\nneed it. However, gradient checkpointing in Mixtral saves time, particularly in scenarios with small batch sizes and\nmemory but increases the backward stage runtime due to the sequence lengths.\nre-computation of intermediate values.\nWe further investigate the execution breakdown based\nTakeaway3.Matrixmultiplicationoperationsinthe",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "We further investigate the execution breakdown based\nTakeaway3.Matrixmultiplicationoperationsinthe\non various layers in two LLM models. For Mixtral, these\nMoE layer contribute significantly to the end-to-end\nlayers include input normalization, attention, post-attention\nexecution time, making the MoE layer the costliest\nnormalization,andMoE.Incontrast,BlackMambacomprises\ncomponent in LLM fine-tuning.\nthe Mamba layer, Root Mean Squared (RMS) layer nor-\nmalization, and MoE. As shown in Fig. 5, the MoE layer\nis the most time-consuming, accounting for 85% of the 3) Fine-Tuning Throughput: Next, we present the fine-\noverall execution time on average. The execution time for tuningthroughputofMixtralandBlackMambaontheMATH",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "l execution time on average. The execution time for tuningthroughputofMixtralandBlackMambaontheMATH\nthe MoE layer encompasses both the forward and backward and CS datasets separately in Fig. 8. We use a throughput\npasses during fine-tuning. Consequently, MoE is the costliest metricofqueries/secondprocessed,whereaqueryincludesa\nlayer and a prime target for optimization to enhance the prompt and a ground-truth answer for fine-tuning. To obtain\nperformance of LLM fine-tuning. these results, we extract 1000 examples from each dataset\nTo concretely understand the opportunity for improving and fine-tuned Mixtral and BlackMamba on them using the\nMoElayerperformance,wealsoperformakernel-levelanal- smallestbatchsize(batchsize=1)andthelargestbatchsize\nysis within the MoE layer. Fig.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rnel-levelanal- smallestbatchsize(batchsize=1)andthelargestbatchsize\nysis within the MoE layer. Fig. 7 illustrates the architecture that would fill the GPU memory.\nof the MoE layer in both Mixtral and BlackMamba models. As illustrated in Fig. 8, sparse fine-tuning achieves higher\nEach expert in BlackMamba consists of a standard Feed- throughputthandensefine-tuning.Thisisbecausethesparse\nForward Network (FFN) layer with two serially connected fine-tuning baseline consumes less memory to store interme-\nweight matrices (W1 and W2) and a Gelu activation layer diate values, which allows for higher batch sizes compared\nbetween. In contrast, experts in Mixtral are FFN layers with to its dense counterpart. Additionally, with the same batch",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "experts in Mixtral are FFN layers with to its dense counterpart. Additionally, with the same batch\nSwish-Gated Linear Units, involving an additional weight size, sparse fine-tuning achieves higher throughput because",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nInput normalization Attention Post attention norm. MoE\n5.0 Mixtral\n4.0\n3.0\n)sdnoces(\n2.0\n1.0 emiT\n0.0\nDense(bsz=1) Dense(bsz=10) Sparse(bsz=1) Sparse(bsz=10) Sparse(bsz=32) noitucexE\nRMS layernorm Mamba MoE nwodkaerB\n1.5\nMamba\n1.0\n0.5\n0.0\nDense(bsz=1) Dense(bsz=30) Sparse(bsz=1) Sparse(bsz=30) Sparse(bsz=84) | Input normalization Attention Post attention norm. MoE |  |  |  |  |  |  |  |  |  | \n | ixtral |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n | RMS layernorm |  | Mamba |  | MoE",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\namba |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | \n |  |  |  |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nmatmul(w2) w3_dequant softmax matmul(router)\nw2_dequant matmul(w1) topk router_dequant\nmatmul(w3) w1_dequant )sμ(\n6000 nwodkaerB Mixtral\n4000\n2000\n0\nDense(bsz=1) Dense(bsz=10) Sparse(bsz=1) Sparse(bsz=10) Sparse(bsz=32)\nemiT\nmatmul(w1) matmul(w2) top_k matmul(router)\ngelu elementwise_mult sigmoid\n2000 noitucexE Mamba\n1600\n1200\n800\n400\n0\nDense(bsz=1) Dense(bsz=30) Sparse(bsz=1) Sparse(bsz=30) Sparse(bsz=84) | matmul(w2) w3_dequant softmax matmul(router)\nw2_dequant matmul(w1) topk router_dequant\nmatmul(w3) w1_dequant\nxtral",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nmatmul(w1) matmul(w2) top_k matmul(router)\ngelu elementwise_mult sigmoid |  |  |  | \namba |  |  |  | \n |  |  |  | \n |  |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Dense(bsz=1) Sparse(bsz=2)\nDense(bsz=2) Sparse(bsz=8) Dense(bsz=1) Sparse(bsz=3)\nSparse(bsz=1) Sparse(bsz=1)\n2.0 1.7 2.0\n1.5 1.5\n1.0\n1.0 0.5 0.7 1.0\n0.5 0.3 0.3 0.5 0.3 0.3\n0.0 0.0\nMixtral-CS Mixtral-MATH\nDense(bsz=1) Sparse(bsz=6) Dense(bsz=1) Sparse(bsz=2)\nDense(bsz=6) Sparse(bsz=20) Dense(bsz=2) Sparse(bsz=8)\nSparse(bsz=1) Sparse(bsz=1)\n20 20\n14.9\n15 10.5 15 11.6\n10 7.9 10 5.3 6.5\n5 2.3 2.4 5 2.2 2.2\n0 0\nBlackmamba-CS Blackmamba-MATH\n)dnoces/seiruq(\ntuphguorhT\nFig.8. QuerythroughputofMixtralandBlackMamba.\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=32)\nDense(bsz=10) Sparse(bsz=10)\nMixtral\n100\n75\n50\n25\n0\nmatmul(w2\nw\n) 2_dequan\nm\nt atmul(w3\nw\n) 3_dequan\nm\nt atmul(w1\nw\n) 1_dequant softmax topk matmul(rou\nr\nt\no\ne\nu\nr\nt\n) er_dequan\nt\nt ime_weighted\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=84)",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "opk matmul(rou\nr\nt\no\ne\nu\nr\nt\n) er_dequan\nt\nt ime_weighted\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=84)\nDense(bsz=30) Sparse(bsz=30)\nMamba\n100\n75\n50\n25\n0\nmatmul(w1) gelu matmul(w2) elementwise_mult top_k sigmoid matmul_(router) time_weighted\n)%(\nnoitazilitU\nMS\nFig.9. GPUSMutilizationofdifferentkernelsintheMoElayerfordifferentbatchsizes.\nit involves fewer computational demands, resulting in lower\nTakeaway 4. Sparse model significantly improves\nlatency. This is evident when comparing the throughput of\nthroughput, reducing end-to-end cost of fine-tuning.\nbatch size of 2 in Mixtral-CS for dense (0.5 qps) vs. sparse\n(0.7 qps) models.\n4) Hardware characterization: As shown in Fig. 4, the\nFig.8alsoshowsthatthroughputdoesnotincreaselinearly executiontimeofLLMfine-tuningisdominatedbytheMoE",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ig.8alsoshowsthatthroughputdoesnotincreaselinearly executiontimeofLLMfine-tuningisdominatedbytheMoE\nwith batch size. For instance, sparse fine-tuning of Mixtral- layer. To offer further insights, we use detailed microarchi-\nCS improves throughput by 1.9× when increasing the batch tecture hardware metrics on the GPU to further understand\nsize from 1 to 2, but only by 4.8× when increasing from execution bottlenecks in the MoE layer. The goal of this\n1 to 8. With smaller batch sizes, the SM utilization rate studyistoidentifywhethervariouskernelsintheMoElayers\nis lower, providing enough computational resources to feed are bound by compute or memory resources, and how future\nmore operations in parallel. However, as the batch size con- GPU designs can further scale performance.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "operations in parallel. However, as the batch size con- GPU designs can further scale performance.\ntinuestoincrease,theSMsbecomesaturated(moredetailsin Compute resource utilization study. Fig. 9 shows the\n§IV-B4),andwecannolongerhidelatencybybetterutilizing kernel-level breakdown of GPU Streaming Multi-processor\ncomputational resources. (SM) utilization for the MoE layer. This utilization is",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n1.7 |  |  |  |  |  | \n |  |  |  |  |  | \n0.5 0.7\n0.3 0.3 |  |  |  |  |  | \n |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  | \n1.0 |  | \n0.3 |  | \n0.3 |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n14.9 |  |  |  |  |  | \n10.5 |  |  |  |  |  | \n7.9 |  |  |  |  |  | \n2.3 |  | 2.4 |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  |  |  | \n11.6 |  |  |  |  |  | \n5.3 6.5 |  |  |  |  |  | \n2.2 |  | 2.2 |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nMixtral |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=84)\nDense(bsz=30) Sparse(bsz=30)",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nMamba |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Dense(bsz=1) Sparse(bsz=1) Sparse(bsz=32)\nDense(bsz=10) Sparse(bsz=10)\nMixtral\n100\n75\n50\n25\n0\nmatmul(w2\nw\n) 2_dequan\nm\nt atmul(w3\nw\n) 3_dequan\nm\nt atmul(w1\nw\n) 1_dequant softmax topk matmul(rou\nr\nt\no\ne\nu\nr\nt\n) er_dequan\nt\nt ime_weighted\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=84)\nDense(bsz=30) Sparse(bsz=30)\nMamba\n100\n75\n50\n25\n0\nmatmul(w1) gelu matmul(w2) elementwise_mult top_k sigmoid matmul_(router) time_weighted\n)%(\nnoitazilitU\nhtdiwdnaB\nMARD\nFig.10. GPUDRAMbandwidthutilizationofdifferentkernelsintheMoElayerfordifferentbatchsizes.\nweighted by the amount of time each kernel takes. We Expert 0 Expert 2 Expert 4 Expert 6\nExpert 1 Expert 3 Expert 5 Expert 7\nuse a sequence length of 128 (§III). Sequence length will\ninfluence the choice of batch size, and we discuss the effects 100\n75",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "(§III). Sequence length will\ninfluence the choice of batch size, and we discuss the effects 100\n75\nof sequence length on runtime, throughput, SM utilization,\n50\nand memory utilization in §IV-B6. For dense fine-tuning, we 25\nshow the SM utilization of batch size 1 and the maximum 0\nHE HE_tuned GS GS_tuned\nbatch size that fits into memory; for sparse fine-tuning,\nwe use the two batch sizes for dense fine-tuning, and the 100\nmaximum batch size that fits into memory. 75\n50\nFig. 9 shows the SM utilization of different kernels in the 25\nMoE layer, which offers the following insights. (1) For both 0\nHE HE_tuned GS GS_tuned\nsparse and dense fine-tuning, SM utilization increases with\nbatch size due to higher parallelism and GPU activity. (2)",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ne-tuning, SM utilization increases with\nbatch size due to higher parallelism and GPU activity. (2)\nSparse fine-tuning has lower SM utilization than dense fine-\ntuning at the same batch size because it activates only 2\nout of 8 experts, reducing parallelism. Consequently, sparse\nfine-tuning supports a higher maximum batch size. Both\nachieve similar maximum SM utilization at their peak batch\nsizes. (3) The de-quantization kernel maintains high SM\nutilization regardless of batch size. (4) Matrix multiplication\nkernelsachievehigherSMutilizationwithlargerbatchsizes,\nleveraging the GPU’s parallel processing capabilities.\nMemory resource utilization study. Fig. 10 shows the\nkernel-level breakdown of GPU memory bandwidth utiliza-\ntion. We use the same experimental setup as in the evalua-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eakdown of GPU memory bandwidth utiliza-\ntion. We use the same experimental setup as in the evalua-\ntion of SM utilization, and find the following insights. (1)\nFor both sparse and dense fine-tuning, the time-weighted\nmemory utilization decreases with increasing batch size.\nThis is because the model parameters are loaded once and\nshared by all queries in a batch. However, a larger batch\nincreases the execution time (as discussed in §IV-B6),\nleading to a lower average memory bandwidth utilization.\nyreuQ\nreP\nnekoT\nfo\n.muN\ngvA\nMixtral var=79.2 var=21.2\nvar=112.3 var=55.5\nMamba\nvar=186.5 var=187.9\nvar=150.7 var=93.3\nFig.11. Tokendistributiontodifferentexperts.\n(2) For the same batch size, sparse fine-tuning achieves\nhigher memory bandwidth utilization than dense fine-tuning",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "batch size, sparse fine-tuning achieves\nhigher memory bandwidth utilization than dense fine-tuning\ndue to shorter execution times. (3) Dequant layers’ memory\nutilization is batch-size-independent, while matmul layers’\nutilization decreases with larger batch sizes. To maximize\nGPUmemoryusage,asufficientlylargebatchsizeshouldbe\nused. With large batch sizes, fine-tuning becomes compute-\nbound, indicating a need for improved compute resources in\nfuture hardware to better utilize memory bandwidth.\nTakeaway 5. As the batch size increases, LLM\nfine-tuningtransitionsfrombeingmemory-boundto\ncompute-bound.\n5) Effect of Load Imbalance Due to Fine-Tuning: Recent\ntrends in deploying expert parallelism in MoE models have\nhighlighted load-imbalanced computation among experts as",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ying expert parallelism in MoE models have\nhighlighted load-imbalanced computation among experts as\na significant issue impacting inference and training effi-",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nMixtral |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n\nDense(bsz=1) Sparse(bsz=1) Sparse(bsz=84)\nDense(bsz=30) Sparse(bsz=30)",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nMamba |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nExpert 0 Expert 2 Expert 4 Expert 6\nExpert 1 Expert 3 Expert 5 Expert 7\n100 yreuQ Mixtral var=79.2 var=21.2\n75 var=112.3 var=55.5\n50 reP\n25\nnekoT\n0\nHE HE_tuned GS GS_tuned\nfo Mamba\n100 .muN var=186.5 var=187.9\n75 var=150.7 var=93.3\n50\n25 gvA\n0\nHE HE_tuned GS GS_tuned\nFig.11. Tokendistributiontodifferentexperts.\n(2) For the same batch size, sparse fine-tuning achieves |  |  |  | Expert 0 |  | Expert 2 |  |  |  |  |  | Expert 4 |  |  |  |  |  |  |  |  | Expert | 6 |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 7 |  |  |  | \n | Mixtral var=79.2 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | var=21.2\nvar=112.3\nvar=55.5 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\nMamba\nvar=187.9 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \nvar=186.5\nvar=150.7 var=93.3 |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Takeaway 6. The effect of fine-tuning on expert\nloadimbalanceintheMoElayerisLLMmodeland\ndataset dependent.\n6) Sensitivity Study on Sequence Length: To further ana-\nFig.12. PseudocodeforMoElayers.\nlyzetheeffectofsequencelengthonthefine-tuningprocess,\nwe chose the batch size that would maximize the memory\nciency [27]. During the training process of MoE models, for each sequence length (64, 128, 256, 512, and 1024) and\neachtokenisdynamicallyassignedtothetop-kexpertsbased compared the latency, SM utilization, and DRAM utiliza-\non routing scores. This strategy often leads to most tokens tion. Our evaluation (the figure is omitted from the paper\nbeingassignedtoasmallnumberofexperts,resultinginload due to page limitation) shows that the latency for Mixtral\nimbalance and slower training.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "tinginload due to page limitation) shows that the latency for Mixtral\nimbalance and slower training. Additionally, some experts remains almost constant across different sequence lengths,\nreceive insufficient training, which degrades overall model while BlackMamba fine-tuning exhibited a slight reduction\nperformance[28].Ana¨ıveapproachtoaddressthisimbalance in latency as sequence length increased, with approximately\nis to use token dropping and padding to ensure that the 19% and 25% decreases for sparse and dense fine-tuning,\nnumber of tokens assigned to each expert is equal [29]. respectively.Thisisduetothevaryingmaximumbatchsizes\nHowever, this method sacrifices model quality or leads to supported by each sequence length, resulting in a similar\nwasted computation.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "el quality or leads to supported by each sequence length, resulting in a similar\nwasted computation. In this section, we analyze how fine- number of tokens in each batch. Because latency remains\ntuning influences the token distribution among experts. We consistent with increasing sequence length and we can use\ncompare the token distribution of Mixtral and BlackMamba largerbatchsizes,throughputishigherforshortersequences.\nbefore and after fine-tuning to understand the impact of this\nV. ANALYTICALMODELTOESTIMATETHECOSTOF\nprocess.\nFINE-TUNINGLLMS\nWe extract 1,000 examples from both the CS and MATH While training LLMs from scratch is a cost-prohibitive\ndatasets to test the original models without tuning and the process, fine-tuning LLMs offers an attractive solution to",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "e original models without tuning and the process, fine-tuning LLMs offers an attractive solution to\nmodels after 10 epochs of tuning on these datasets. Fig. 12 align LLMs to desired behaviors. One such example is fine-\nprovides the pseudo code for MoE layers with top-k gating. tuning LLMs to a domain-specific use-cases, for example, to\nIn this process, the hidden states are first sent to the router answer math questions. §IV-A shows that it is possible to\nof the MoE layer, which generates router logits. These logits fine-tune pre-trained LLMs on domain-specific tasks to sig-\ndeterminethepriorityofeachexpertforeachtoken.Basedon nificant improve accuracy. While this is a desired approach,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "iorityofeachexpertforeachtoken.Basedon nificant improve accuracy. While this is a desired approach,\nthe router score for each token, tokens are grouped together currently, no model exists that can predict the cost of fine-\nandsenttotheirassignedexperts.Thistop-kroutingstrategy tuning LLMs.\ncan lead to load imbalance if the model has not been pre- Fine-tuning LLMs is complex, influenced by factors like\ntrained for balance. modelsize,GPUmemory,datasetsequencelength,andMoE\nsparsity, all affecting batch size and throughput. By integrat-\nFig. 11 evidently shows that fine-tuning causes load im- ing these factors with GPU costs, we can identify the most\nbalance in Mixtral for both datasets. Comparing variance cost-efficientGPUforpre-tuningtasks.Thissectionpresents\nbefore and after fine-tuning (e.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ng variance cost-efficientGPUforpre-tuningtasks.Thissectionpresents\nbefore and after fine-tuning (e.g., HE vs. HE tuned), the an analytical model based on previous characterization.\ntoken assignment variance increased from 55 to 112 for This model estimates cloud-based fine-tuning costs for a\nCS and from 21 to 79 for GS. Expert 3 became the given dataset and LLM. Developed from previous sections,\nmost frequently used and important expert post fine-tuning. it can be adapted for other LLMs by adjusting parameters. It\nConversely, there is a decrease in the variance of token assumes using the maximum batch size supported by GPU\ndistribution for BlackMamba on the CS dataset, dropping memory to optimize cost. We first estimate this batch size,\nfrom 150 to 93.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "the CS dataset, dropping memory to optimize cost. We first estimate this batch size,\nfrom 150 to 93. For the GS dataset, the token distribution then use it to evaluate throughput and fine-tuning costs.\nvariance for BlackMamba remains almost unchanged after\nA. Estimating Maximum Batch Size\nfine-tuning. This suggests that load-imbalance has a less\ndisruptive impact on fine-tuning for BlackMamba compared The maximum batch size is the maximum number of\nto Mixtral. From Fig. 11, we can also observe that Mixtral queries that can fit in GPU memory at once. Our analytical\ndemonstrates better load balance in both tasks compared to model for maximum batch size is shown in (1).\nBlackMamba,despitetheincreasedloadimbalanceafterfine- GPU mem−model mem\nMax BSZ =⌊C ∗ ⌋\ntuning.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "(1).\nBlackMamba,despitetheincreasedloadimbalanceafterfine- GPU mem−model mem\nMax BSZ =⌊C ∗ ⌋\ntuning. The increased level of imbalance after fine-tuning 0 seq len∗((1−C )+C ∗sparsity)\n1 1\nsuggests GPU load balancing techniques can be helpful. (1)\nBoth single GPU load balancing [30] and multi-GPU load Intuitively, larger GPU memory allows for higher batch\nbalancing [31] have been proposed to address this issue. sizes.Inthemeantime,theLLMmodelwilltakeupacertain",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Ground Truth Projection\n40\nbsz=35\n35\n30 A100-80GB bsz=28\nH100\n25\n20\n15 A40\n10 A100-40GB\n5\nProjected GPU capacity\n0\n0 20 40 60 80 100 120\nezis\nhctab\nxaM\nTABLEIV\nESTIMATEDCOSTOFFINE-TUNINGMIXTRALONGSWITHSPARSEMOE\nBASEDONOURANALYTICALMODEL\nGPU Mem MBS Throughput Cost($/hr) Cost($)\nA40 48GB 4 1.01 0.79 32.7\nA100 80GB 17 2.74 1.67 25.4\nH100 80GB 17 4.90 2.1 17.9\nB. Estimating Throughput\nGPU DRAM capacity Asdiscussedin§IV-B4,whenthebatchsizeincreases,the\nLLM fine-tuning gradually switches from memory bound to\nFig.13. ProjectedmaximumbatchsizeofMixtralfordifferentGPUs.\ncompute bound. When the compute resources are abundant,\nthe throughput increases almost linearly with batch size.\namount of GPU memory, and need to be subtracted in the\nHowever, when compute resources become constrained, the",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "PU memory, and need to be subtracted in the\nHowever, when compute resources become constrained, the\nanalytical model. Fig. 8 supports this by showing that on the\nthroughput improvement gradually saturates. We model this\nsamedataset,BlackMambacansupportlargerbatchsizethan\nbehavior using a logarithmic relation between batch size and\nMixtral because of its smaller model size.\nthroughput. Our analytical model for maximum batch size is\nMoreover, the sequence length and sparsity also affect the shown in (2).\nmaximum batch size. Because the sparsity only affects the batch size\nMoE part of the LLM, we multiply its influence by C 1 , Throughput=C 2 ∗log( sparsity∗C3 )+C 4 (2)\nwhichwecallMoEcoefficient.Weapplythesequencelength",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "C 1 , Throughput=C 2 ∗log( sparsity∗C3 )+C 4 (2)\nwhichwecallMoEcoefficient.Weapplythesequencelength\nand the sparsity in the denominator as they are inversely In the equation, in addition to the basic logarithmic part, we\nrelated to batch size. Then, we multiply the result by C 0 , have three coefficients C 2 , C 3 , and C 4 . C 2 is the scaling\nthe scaling coefficient, which scales the batch size by a coefficient, which depends on the LLM model, GPU archi-\nconstant. The scaling coefficient is different across LLM tecture, and the dataset. The higher the compute capability a\nmodels, because different models have different architecture GPU can provide, and the lower the LLM model and dataset\n(§III), and generate different amounts of intermediate data",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "and the lower the LLM model and dataset\n(§III), and generate different amounts of intermediate data\ncomputerequirementis,thehigherthescalingcoefficientwill\nfor each query. The scaling coefficient for BlackMamba is be. C 3 is the MoE attenuation coefficient, which tunes how\nhigher than that of Mixtral because it is a smaller model. much the MoE sparsity affects the throughput. MoE sparsity\nFinally, we use floor to round it to the maximum integer. only affects the MoE part in LLM model, and thus should\nbe attenuated to avoid over compensation. This coefficient is\nThe MoE coefficient and scaling coefficient vary across\nonlyLLMmodeldependent,becauseoncethemodelisfixed,\nmodels. These coefficients are independent of GPU microar-\nthe influence of sparsity is determined. C4 is the intercept,",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ients are independent of GPU microar-\nthe influence of sparsity is determined. C4 is the intercept,\nchitectural parameters. We find the maximum batch size for\nconceptually it equals to the throughput when batch size\nboth LLM models on NVIDIA A40 (48GB), A100 (40GB),\nequals one, because the logarithmic part in (2) is zero when\nA100 (80GB), and H100 (80GB), and apply our model to\nbatch size is one. Using scipy [32] to fit the model and\nfind the optimal coefficients. For Mixtral, C = 82 and\n0 generate four sets (C ,C ,C ), for each model and dataset\n2 3 4\nC = 0.95, and for BlackMamba, C = 83 and C = 0.88.\n1 0 1 combination.\nWhile we showcase these parameters for the models eval-\nTo estimate the accuracy of this model, we correlate the\nuated, §V-D discusses how to generalize this approach for",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "accuracy of this model, we correlate the\nuated, §V-D discusses how to generalize this approach for\nmodel output with experimental data from our study. Fig. 14\nother models.\nshowsthiscorrelationstudy,wherediscretedatapoints(dots)\nUsingouranalyticalmodel,wedemonstratethemaximum represent experimental values, and the line represents output\nbatch sizes for fine-tuning on four different NVIDIA GPUs: of our analytical model. We use both dense and sparse\nA40, A100-40GB, A100-80GB and H100 with memory MixtralandBlackMambaforbothdatasetsusedinourstudy.\ncapacities of 48GB, 40GB, 80GB, and 80GB, respectively. The figure clearly shows that our model accurately predicts\nFig. 13 shows our projected maximum batch size and corre- LLMfine-tuningthroughputwithaRootMeanSquaredError",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "shows our projected maximum batch size and corre- LLMfine-tuningthroughputwithaRootMeanSquaredError\nlate it with experimented ground truth. While the maximum (RMSE)oflessthan0.8.Fig.15showsthecorrelationstudy\nmemorycapacityavailableinNVIDIAGPUstodayis80GB, of the analytical model of three other GPUs, A100 (40GB),\nwe use our analytical model to project the maximum batch A100 (80GB), and H100. The RMSE is less than 0.6, close\nsize that future GPUs might support. For GPU memory to that of A40.\ncapacities of 100GB and 120GB, our model predicts that\nC. Estimating the Total Fine-Tuning Cost\nthe maximum batch sizes supported for fine-tuning Mixtral\nwill be 28 and 35, respectively. Due to space limitations, we Using the throughput estimation, we calculate the cost",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": ", respectively. Due to space limitations, we Using the throughput estimation, we calculate the cost\nonly show the projection of Mixtral model. of fine-tuning LLMs for different GPUs. The cost of GPU",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n |  |  | TABLEIV\njection\nESTIMATEDCOSTOFFINE-TUNINGMIXTRALONGSWITHSPARSEMOE\nbsz=35 BASEDONOURANALYTICALMODEL\nbsz=28\nGPU Mem MBS Throughput Cost($/hr) Cost($)\nA40 48GB 4 1.01 0.79 32.7\nA100 80GB 17 2.74 1.67 25.4\nH100 80GB 17 4.90 2.1 17.9\nProjected GPU capacity |  |  | \nGround Truth Projection\n40\nbsz=35\n35\n30 A100-80GB bsz=28 ezis\nH100\n25 hctab\n20\n15 A40 xaM\n10 A100-40GB\n5\nProjected GPU capacity\n0\n0 20 40 60 80 100 120\nGPU DRAM capacity |  | Ground Truth Pro | jection |  |  | \n | A100-80GB\nH100\nA40\nA100-40GB |  | bsz=35\nbsz=28 |  |  | \n |  |  | Projected |  | GPU capa | city",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Dense Sparse\nMixtral-CS Mixtral-MATH\n1.2 1.75 RMSE=0.05 RMSE=0.02\n1.50 1.0\n1.25 0.8\n1.00 0.6\n0.75\n0.4\n0.50\n0.25 0.2\n0.00 0.0 0 2 4 6 8 10 0 1 2 3 4 5\nMamba-CS\n1 1 4 6 RMSE=0.79 12 RMSE=0.42\n12 10\n10 8\n8 6\n6 4\n4\n2 2\n0 0 0 5 10 15 20 0 2 4 6 8 10 12\n)ces/seireuq(\ntuphguorhT\nMamba-MATH\nBatch size\nFig. 14. Estimation and validation of LLM fine-tuning throughput for\ndifferent models, datasets for A40 GPU. Dots represent ground truth and\nlinespresenttheestimation.\nDense Sparse\nMixtral-CS-A100-40GB Mixtral-CS-A100-80GB Mixtral-CS-H100\n1.6 RMSE=0.03 3.0 RMSE=0.09 5 RMSE=0.55 1.4\n2.5\n1.2 4\n1.0 2.0\n3 0.8 1.5\n0.6 1.0 2\n0.4\n0.2 0.5 1\n0.0 0.0 0 0 1 2 3 4 5 0 5 10 15 20 0 5 10 15 20\n)ces/seireuq(\ntuphguorhT\nneeded per batch. In throughput estimation, based on the",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "5 20 0 5 10 15 20\n)ces/seireuq(\ntuphguorhT\nneeded per batch. In throughput estimation, based on the\nobservationwemade(§IV-B4Takeaway5),GPUshiftsfrom\nmemory-bound to compute-bound as batch size increases.\nThis characteristic generally applies to all GPUs due to the\nresourceconstraint,sothelogarithmicrelationbetweenbatch\nsize and throughput persists. The sparsity in (2) is model\ndependent, the influence of GPU, LLM model, and dataset\nare embedded in the coefficients C , C , and C in (2). 2 3 4\nThe coefficients in (1) and (2) are dependent on GPU,\nLLM model, and dataset; however, the underlying models\nare generalizable to unseen GPU, LLM model, and datasets.\nAlthoughittakessomeefforttosweepbatchsizesandcollect\nthroughput data points to fit our models, the benefits greatly\noutweigh the cost.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "tchsizesandcollect\nthroughput data points to fit our models, the benefits greatly\noutweigh the cost. Once the models are fit, our model can\nhelpchoosethemostcost-efficientGPUforfine-tuningLLM\nmodels, greatly saving resources and money.\nVI. RELATEDWORKS\nParameter-Efficient Fine-Tuning (PEFT) has been widely\nadopted to fine-tune LLM model for specialized tasks [15],\n[38]–[43]. MoE additioally train specialized experts for dif-\nferent areas and the dynamic selection of experts makes\nit possible to scale the fine-tuning workload to different\nexperts in parallel. [44]–[47] show that MoE models can\nimprove the ability to process knowledge for specific tasks,\nwhile maintaining the world knowledge in LLM. Kim et\nal. [48] construct an analytical model to estimate GPU",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "intaining the world knowledge in LLM. Kim et\nal. [48] construct an analytical model to estimate GPU\nmemory consumption for distributed fine-tuning. The model\nBatch size\nalsoprovidesinsightsintooptimizingmemoryusagethrough\nFig.15. Estimationandvalidationoffine-tuningthroughputforMixtralGS tensor, model, and pipeline parallelism.\nfordifferentGPUs:A100andH100.\nVII. CONCLUSIONS\nresource renting per hour is calculated based on CUDO Fine-tuning LLMs is an attractive technique for tailoring\ncompute [33], as other popular cloud providers do not offer modernlanguagemodelsusingdomain-specificknowledgein\ncost/hour rates for the NVIDIA A40 GPU. However, one acost-effectivemanner.Thispaperdelvedintounderstanding",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "r rates for the NVIDIA A40 GPU. However, one acost-effectivemanner.Thispaperdelvedintounderstanding\ncan easily adjust the GPU renting cost per hour to estimate theperformanceoffine-tuningMoELLMmodelsonasingle\nthe cost on other clouds such as Amazon AWS [34] or GPU. Our profiling demonstrated that sparse MoE layers\nLambda [35]. Table IV estimates the cost for fine-tuning offer the best bang-for-buck trade-off. Using our profiling\nMixtral on the MATH dataset with a sparse setup, using results, we developed and validated an accurate analytical\n10 epochs on different GPUs for a realistic cost estimate. model to estimate the cost of LLM fine-tuning. Using this\nEnterprises may use larger datasets for fine-tuning, such as, model, we showed the dollar amount that needs to be",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "y use larger datasets for fine-tuning, such as, model, we showed the dollar amount that needs to be\nOpenOrca [36] and LaMini-instruction [37] containing more budgeted for fine-tuning LLMs, which is much lower than\nthan 2M queries. For OpenOrca, by scaling the cost by pre-training. For example, our model predicted that fine-\nnumber of queries, our model predicts that the most cost- tuning a sparse Mixtral model using a realistic data size of\neffective option to rent GPU resources on CUDO compute 2MqueriescanbedonewithNVIDIAH100GPUwithacost\nis NVIDIA H100 with a net cost of $3460. of $3460. A way to further reduce cost based on our study\nis to add compute resources to accelerate the MoE layers.\nD. Generalization of the Analytical Model\nWhile we showcase our study on fine-tuning LLMs using a",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": ".\nD. Generalization of the Analytical Model\nWhile we showcase our study on fine-tuning LLMs using a\nThe analytical models for estimating maximum batch size\nsingle GPU, extending this model to multi-GPU systems is\nand throughput can be generalized to various LLM models\nleft for future exploration.\nand datasets. These models consider the characteristics of\nthe LLM, dataset, and GPU. Specifically, the maximum ACKNOWLEDGMENTS\nbatch size model combines GPU memory and LLM model This work was supported in part by Semiconductor Re-\nsize to determine available memory for input data, while search Corporation (SRC). We thank all the anonymous\ndataset sequence length and LLM sparsity determine space reviewers for their valuable comments and suggestions.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "iewers for their valuable comments and suggestions.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "REFERENCES Training verifiers to solve math word problems. arXiv preprint\narXiv:2110.14168,2021.\n[1] Jason Wei, Yi Tay, Rishi Bommasani, Colin Raffel, Barret Zoph,\n[22] Rowan Zellers, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin\nSebastian Borgeaud, Dani Yogatama, Maarten Bosma, Denny Zhou,\nChoi. Hellaswag: Can a machine really finish your sentence? In\nDonaldMetzler,EdH.Chi,TatsunoriHashimoto,OriolVinyals,Percy\nProceedingsofthe57thAnnualMeetingoftheAssociationforCom-\nLiang, Jeff Dean, and William Fedus. Emergent abilities of large\nputationalLinguistics,2019.\nlanguagemodels,2022.\n[23] Nvidiansightcompute. https://developer.nvidia.com/nsight-compute.\n[2] LongtengZhang,XiangLiu,ZeyuLi,XinglinPan,PeijieDong,Ruibo",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "/developer.nvidia.com/nsight-compute.\n[2] LongtengZhang,XiangLiu,ZeyuLi,XinglinPan,PeijieDong,Ruibo\nFan, Rui Guo, Xin Wang, Qiong Luo, Shaohuai Shi, and Xiaowen [24] Janice Ahn, Rishu Verma, Renze Lou, Di Liu, Rui Zhang, and\nChu. Dissectingtheruntimeperformanceofthetraining,fine-tuning, Wenpeng Yin. Large language models for mathematical reasoning:\nandinferenceoflargelanguagemodels,2023. Progressesandchallenges,2024.\n[3] Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, [25] AlbertGuandTriDao. Mamba:Linear-timesequencemodelingwith\nMarie-Anne Lachaux, Timothe´e Lacroix, Baptiste Rozie`re, Naman selectivestatespaces,2024.\nGoyal, Eric Hambro, Faisal Azhar, Aurelien Rodriguez, Armand [26] FuzhaoXue,XiaoxinHe,XiaozheRen,YuxuanLou,andYangYou.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Faisal Azhar, Aurelien Rodriguez, Armand [26] FuzhaoXue,XiaoxinHe,XiaozheRen,YuxuanLou,andYangYou.\nJoulin, Edouard Grave, and Guillaume Lample. Llama: Open and Onestudentknowsallexpertsknow:Fromsparsetodense,2022.\nefficientfoundationlanguagemodels,2023. [27] ChanghoHwang,WeiCui,YifanXiong,ZiyueYang,ZeLiu,HanHu,\n[4] AlbertQ.Jiang,AlexandreSablayrolles,AntoineRoux,ArthurMen- ZilongWang,RafaelSalas,JithinJose,PrabhatRam,JoeChau,Peng\nsch,BlancheSavary,ChrisBamford,DevendraSinghChaplot,Diego Cheng,FanYang,MaoYang,andYongqiangXiong. Tutel:Adaptive\nde las Casas, Emma Bou Hanna, Florian Bressand, Gianna Lengyel, mixture-of-expertsatscale. CoRR,abs/2206.03382,June2022.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "u Hanna, Florian Bressand, Gianna Lengyel, mixture-of-expertsatscale. CoRR,abs/2206.03382,June2022.\nGuillaume Bour, Guillaume Lample, Le´lio Renard Lavaud, Lucile [28] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis,\nSaulnier, Marie-Anne Lachaux, Pierre Stock, Sandeep Subramanian, QuocLe,GeoffreyHinton,andJeffDean. Outrageouslylargeneural\nSophia Yang, Szymon Antoniak, Teven Le Scao, The´ophile Gervet, networks:Thesparsely-gatedmixture-of-expertslayer,2017.\nThibaut Lavril, Thomas Wang, Timothe´e Lacroix, and William El\n[29] Dmitry Lepikhin, HyoukJoong Lee, Yuanzhong Xu, Dehao Chen,\nSayed. Mixtralofexperts,2024.\nOrhan Firat, Yanping Huang, Maxim Krikun, Noam Shazeer, and\n[5] Hyung Won Chung, Le Hou, Shayne Longpre, Barret Zoph, Yi Tay,\nZhifengChen.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "un, Noam Shazeer, and\n[5] Hyung Won Chung, Le Hou, Shayne Longpre, Barret Zoph, Yi Tay,\nZhifengChen. Gshard:Scalinggiantmodelswithconditionalcompu-\nWilliam Fedus, Yunxuan Li, Xuezhi Wang, Mostafa Dehghani, Sid-\ntationandautomaticsharding,2020.\ndhartha Brahma, Albert Webson, Shixiang Shane Gu, Zhuyun Dai,\n[30] LongChen,OresteVilla,SriramKrishnamoorthy,andGuangR.Gao.\nMirac Suzgun, Xinyun Chen, Aakanksha Chowdhery, Alex Castro-\nDynamic load balancing on single- and multi-gpu systems. In 2010\nRos, Marie Pellat, Kevin Robinson, Dasha Valter, Sharan Narang,\nIEEE International Symposium on Parallel & Distributed Processing\nGaurav Mishra, Adams Yu, Vincent Zhao, Yanping Huang, Andrew\n(IPDPS),pages1–12,2010.\nDai, Hongkun Yu, Slav Petrov, Ed H. Chi, Jeff Dean, Jacob Devlin,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "g, Andrew\n(IPDPS),pages1–12,2010.\nDai, Hongkun Yu, Slav Petrov, Ed H. Chi, Jeff Dean, Jacob Devlin,\nAdam Roberts, Denny Zhou, Quoc V. Le, and Jason Wei. Scaling [31] Mohamed Wahib, Muhammet Abdullah Soytu¨rk, and Didem Unat.\ninstruction-finetunedlanguagemodels,2022. ElasticloadbalancingfordynamicLLMs,2024.\n[6] Vladislav Lialin, Vijeta Deshpande, and Anna Rumshisky. Scaling [32] Pauli Virtanen, Ralf Gommers, Travis E. Oliphant, Matt Haberland,\ndowntoscaleup:Aguidetoparameter-efficientfine-tuning,2023. Tyler Reddy, David Cournapeau, Evgeni Burovski, Pearu Peterson,\n[7] JiaaoChen,AstonZhang,XingjianShi,MuLi,AlexSmola,andDiyi WarrenWeckesser,JonathanBright,Ste´fanJ.vanderWalt,Matthew\nYang. Parameter-efficientfine-tuningdesignspaces,2023. Brett, Joshua Wilson, K.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "J.vanderWalt,Matthew\nYang. Parameter-efficientfine-tuningdesignspaces,2023. Brett, Joshua Wilson, K. Jarrod Millman, Nikolay Mayorov, Andrew\n[8] QuentinAnthony,YuryTokpanov,PaoloGlorioso,andBerenMillidge.\nR.J.Nelson,EricJones,RobertKern,EricLarson,CJCarey,˙Ilhan\nBlackmamba:Mixtureofexpertsforstate-spacemodels,2024. Polat, Yu Feng, Eric W. Moore, Jake VanderPlas, Denis Laxalde,\n[9] AlecRadford,KarthikNarasimhan,TimSalimans,IlyaSutskever,etal. Josef Perktold, Robert Cimrman, Ian Henriksen, E. A. Quintero,\nImprovinglanguageunderstandingbygenerativepre-training. 2018. Charles R. Harris, Anne M. Archibald, Antoˆnio H. Ribeiro, Fabian\n[10] Introducingchatgpt. https://openai.com/index/chatgpt. Pedregosa,PaulvanMulbregt,andSciPy1.0Contributors. SciPy1.0:\n[11] JoshAchiamet.al.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "om/index/chatgpt. Pedregosa,PaulvanMulbregt,andSciPy1.0Contributors. SciPy1.0:\n[11] JoshAchiamet.al. Gpt-4technicalreport,2024. FundamentalAlgorithmsforScientificComputinginPython. Nature\n[12] Introducingthenextgenerationofclaude. https://www.anthropic.com/ Methods,17:261–272,2020.\nnews/claude-3-family. [33] CUDOcompute:https://www.cudocompute.com.\n[13] AlbertQ.Jiang,AlexandreSablayrolles,ArthurMensch,ChrisBam- [34] AmazonAWS:https://aws.amazon.com.\nford,DevendraSinghChaplot,DiegodelasCasas,FlorianBressand, [35] Lambda:https://www.gpus.com.\nGianna Lengyel, Guillaume Lample, Lucile Saulnier, Le´lio Renard\n[36] SubhabrataMukherjee,ArindamMitra,GaneshJawahar,SahajAgar-\nLavaud, Marie-Anne Lachaux, Pierre Stock, Teven Le Scao, Thibaut\nwal,HamidPalangi,andAhmedAwadallah.Orca:Progressivelearning",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "x, Pierre Stock, Teven Le Scao, Thibaut\nwal,HamidPalangi,andAhmedAwadallah.Orca:Progressivelearning\nLavril, Thomas Wang, Timothe´e Lacroix, and William El Sayed.\nfromcomplexexplanationtracesofgpt-4,2023.\nMistral7b,2023.\n[37] Minghao Wu, Abdul Waheed, Chiyu Zhang, Muhammad Abdul-\n[14] EdwardJ.Hu,YelongShen,PhillipWallis,ZeyuanAllen-Zhu,Yuanzhi\nMageed,andAlhamFikriAji. Lamini-lm:Adiverseherdofdistilled\nLi, Shean Wang, Lu Wang, and Weizhu Chen. Lora: Low-rank\nmodelsfromlarge-scaleinstructions,2024.\nadaptationoflargelanguagemodels,2021.\n[38] EdwardJHu,YelongShen,PhillipWallis,ZeyuanAllen-Zhu,Yuanzhi\n[15] TimDettmers,ArtidoroPagnoni,AriHoltzman,andLukeZettlemoyer.\nLi, Shean Wang, Lu Wang, and Weizhu Chen. Lora: Low-rank\nQlora:Efficientfinetuningofquantizedllms,2023.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Shean Wang, Lu Wang, and Weizhu Chen. Lora: Low-rank\nQlora:Efficientfinetuningofquantizedllms,2023.\nadaptationoflargelanguagemodels.arXivpreprintarXiv:2106.09685,\n[16] Amin Vahdat. Societal infrastructure in the age of artificial general\n2021.\nintelligence. ASPLOS2024Keynote,2024.\n[17] TriDao. Flashattention-2:Fasterattentionwithbetterparallelismand [39] NeilHoulsby,AndreiGiurgiu,StanislawJastrzebski,BrunaMorrone,\nworkpartitioning,2023. Quentin De Laroussilhe, Andrea Gesmundo, Mona Attariyan, and\n[18] TianqiChen,BingXu,ChiyuanZhang,andCarlosGuestrin. Training Sylvain Gelly. Parameter-efficient transfer learning for nlp. In Inter-\ndeepnetswithsublinearmemorycost,2016. national conference on machine learning, pages 2790–2799. PMLR,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "epnetswithsublinearmemorycost,2016. national conference on machine learning, pages 2790–2799. PMLR,\n[19] Yaowei Zheng, Richong Zhang, Junhao Zhang, Yanhan Ye, Zheyan 2019.\nLuo, and Yongqiang Ma. Llamafactory: Unified efficient fine-tuning [40] Shwai He, Liang Ding, Daize Dong, Jeremy Zhang, and Dacheng\nof100+languagemodels. arXivpreprintarXiv:2403.13372,2024. Tao. SparseAdapter:Aneasyapproachforimprovingtheparameter-\n[20] ZhiqiangHu,LeiWang,YihuaiLan,WanyuXu,Ee-PengLim,Lidong efficiency of adapters. In Yoav Goldberg, Zornitsa Kozareva, and\nBing,XingXu,SoujanyaPoria,andRoyKa-WeiLee. Llm-adapters: Yue Zhang, editors, Findings of the Association for Computational\nAnadapterfamilyforparameter-efficientfine-tuningoflargelanguage Linguistics:EMNLP2022,pages2184–2190,AbuDhabi,UnitedArab",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ameter-efficientfine-tuningoflargelanguage Linguistics:EMNLP2022,pages2184–2190,AbuDhabi,UnitedArab\nmodels,2023. Emirates,December2022.AssociationforComputationalLinguistics.\n[21] Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, [41] Shih-Yang Liu, Chien-Yi Wang, Hongxu Yin, Pavlo Molchanov, Yu-\nHeewoo Jun, Lukasz Kaiser, Matthias Plappert, Jerry Tworek, Jacob ChiangFrankWang,Kwang-TingCheng,andMin-HungChen. Dora:\nHilton, Reiichiro Nakano, Christopher Hesse, and John Schulman. Weight-decomposedlow-rankadaptation,2024.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "[42] Jiawei Zhao, Zhenyu Zhang, Beidi Chen, Zhangyang Wang, Anima\nAnandkumar, and Yuandong Tian. Galore: Memory-efficient llm\ntrainingbygradientlow-rankprojection,2024.\n[43] Ting Jiang, Shaohan Huang, Shengyue Luo, Zihan Zhang, Haizhen\nHuang,FuruWei,WeiweiDeng,FengSun,QiZhang,DeqingWang,\nandFuzhenZhuang.Mora:High-rankupdatingforparameter-efficient\nfine-tuning,2024.\n[44] Bowen Pan, Yikang Shen, Haokun Liu, Mayank Mishra, Gaoyuan\nZhang, Aude Oliva, Colin Raffel, and Rameswar Panda. Dense\ntraining, sparse inference: Rethinking training of mixture-of-experts\nlanguagemodels. arXivpreprintarXiv:2404.05567,2024.\n[45] ShihanDou,EnyuZhou,YanLiu,SongyangGao,JunZhao,WeiShen,\nYuhaoZhou,ZhihengXi,XiaoWang,XiaoranFan,ShiliangPu,Jiang\nZhu,RuiZheng,TaoGui,QiZhang,andXuanjingHuang. Loramoe:",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ihengXi,XiaoWang,XiaoranFan,ShiliangPu,Jiang\nZhu,RuiZheng,TaoGui,QiZhang,andXuanjingHuang. Loramoe:\nAlleviate world knowledge forgetting in large language models via\nmoe-styleplugin,2024.\n[46] YanqiZhou,TaoLei,HanxiaoLiu,NanDu,YanpingHuang,Vincent\nZhao, Andrew Dai, Zhifeng Chen, Quoc Le, and James Laudon.\nMixture-of-expertswithexpertchoicerouting,2022.\n[47] DamaiDai,ChengqiDeng,ChenggangZhao,R.X.Xu,HuazuoGao,\nDeli Chen, Jiashi Li, Wangding Zeng, Xingkai Yu, Y. Wu, Zhenda\nXie,Y.K.Li,PanpanHuang,FuliLuo,ChongRuan,ZhifangSui,and\nWenfengLiang. Deepseekmoe:Towardsultimateexpertspecialization\ninmixture-of-expertslanguagemodels,2024.\n[48] Taeho Kim, Yanming Wang, Vatshank Chaturvedi, Lokesh Gupta,\nSeyeonKim,YonginKwon,andSangtaeHa. Llmem:Estimatinggpu",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ing Wang, Vatshank Chaturvedi, Lokesh Gupta,\nSeyeonKim,YonginKwon,andSangtaeHa. Llmem:Estimatinggpu\nmemoryusageforfine-tuningpre-trainedllms,2024.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "APPENDIX #create a new conda environment\nconda create --name=ft python=3.8\nA. Abstract\nconda activate ft\nThis artifact reproduces the results presented in the Char-\nacterization Study. It includes a detailed three-level runtime\n#install pytorch2.1.0+cu118\nbreakdown, analysis of SM and MEM utilization, and a\nconda install pytorch==2.1.0 \\\ncomprehensive study of throughput.\ntorchvision==0.16.0 torchaudio==2.1.0 \\\nB. Artifact check-list (meta-information) pytorch-cuda=11.8 -c pytorch -c nvidia\n• Compilation: PyTorch\n#download the source code\n• Model: Mixtral-8x7B and BlackMamba-630M/2.8B\n• Data set: Hellaswag, GSM8k, MATH 14k and common- git clone https://github.com/stsxxx\nsense 15k (provided in GitHub reopsitory) /finetune.git\n• Run-time environment: Ubuntu 20.04.6 cd finetune",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "5k (provided in GitHub reopsitory) /finetune.git\n• Run-time environment: Ubuntu 20.04.6 cd finetune\n• Hardware: NVIDIA A40 (48GB) GPU\n• Output: Nsight Compute\n#install all other dependencies\n• Experiments: Fine-tune both models using different batch\nsizes and conduct a GPU characterization study pip install -r requirements.txt\n• How much disk space required (approximately)?: 100GB\n• How much time is needed to prepare workflow (approxi- E. Experiment workflow\nmately)?: 1 hour\nFirst make sure the working directory is the LLaMA-\n• How much time is needed to complete experiments (ap-\nproximately)?: Throughput and Runtime Breakdown experi- Factory directory:\nmentscanbecompletedwithin2hours,whileNsightCompute cd LLaMA-Factory\nprofilingforSMandMEMutilizationwilltakeapproximately\n80 hours",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "s,whileNsightCompute cd LLaMA-Factory\nprofilingforSMandMEMutilizationwilltakeapproximately\n80 hours\nBefore running experiments, you should download both\n• Publicly available?: Yes\n• Workflow framework used?: LLaMA-Factory two models from Huggingface:\n#Add Blackmamba directory to your pythonpath\nC. Description\nexport PYTHONPATH=$PYTHONPATH:../BlackMamba\n1) How to access: Our source code can be found at\nhttps://github.com/stsxxx/finetune #specify where you want to store models\n2) Hardware dependencies: export HF_HOME=\"path\"\n• Weconductedallexperimentsonaserverequippedwith\nan Intel® Xeon® Platinum 8380 CPU @ 2.30GHz and #download models, huggingface access token\nan NVIDIA A40 (48GB) GPU should be entered in the terminal",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ownload models, huggingface access token\nan NVIDIA A40 (48GB) GPU should be entered in the terminal\n• Supported GPUs should have at least 48GB of memory python3 model_download.py\nand feature an Ampere architecture or newer\n3) Software dependencies: Make sure you change the transformers library path and\n• A recent Linux release model config file path before running each experiment bash\n• Python 3.8.10 script, you can find an example in the README file:\n• CUDA 11.8 # change it to your transformers library path\n• PyTorch 2.1.0 compatible with CUDA 11.8 transformers_path=\"xxxxx\"\n• CUDA toolkit 11.8\n4) Data sets: Hellaswag, GSM8k, MATH 14k and com- # change it to your model config path\nconfig_file_path=\"xxxxx\"\nmonsense 15k.Weprovidealloftheminour GitHubrepos-\nitory.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "model config path\nconfig_file_path=\"xxxxx\"\nmonsense 15k.Weprovidealloftheminour GitHubrepos-\nitory.\n5) Models: Mixtral-8x7B and BlackMamba- To reproduce the fine-tuning throughput results shown in\n630M/2.8B. We provide the python script to download Fig. 8, you can run the following scripts:\nthem from Huggingface. Mixtral-8x7B is a gated ./mixtral_tp.sh\nmodel, access request should be submitted here python3 throughput.py ./profile_data/mixtral\nhttps://huggingface.co/mistralai/Mixtral-8x7B-v0.1. /throughput > mixtral_throughput.txt\nD. Installation\n./mamba_tp.sh\nFor the Python environment, simply clone our repository python3 throughput.py ./profile_data\nand use conda to set up a new environment by running the /blackmamba/throughput > mamba_throughput.txt\nfollowing command:",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "by running the /blackmamba/throughput > mamba_throughput.txt\nfollowing command:",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "High-level and layer-level latency breakdown results\nshown in Fig. 4 and 5 can be obtained by running:\n./mixtral_lt.sh\npython3 mixtral_latency.py ./profile_data\n/mixtral/latency > mixtral_latency_breakdown.txt\n./mamba_lt.sh\npython3 mamba_latency.py ./profile_data\n/blackmamba/latency > mamba_latency_breakdown.txt\nYou can also use Nsight Compute to profile and generate\nkernel-level latency breakdown, SM and MEM utilization\nresults shown in Fig. 6, 9 and 10 by running:\n./mixtral_pf.sh\npython3 sm_mixtral.py ./profile_data/mixtral\n/ncu > mixtral_sm.txt\npython3 mem_mixtral.py ./profile_data/mixtral\n/ncu > mixtral_mem.txt\n./mamba_pf.sh\npython3 sm_mamba.py ./profile_data/blackmamba\n/ncu > mamba_sm.txt\npython3 mem_mamba.py ./profile_data/blackmamba\n/ncu > mamba_mem.txt\npython3 sm_mamba_back.py .",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "m.txt\npython3 mem_mamba.py ./profile_data/blackmamba\n/ncu > mamba_mem.txt\npython3 sm_mamba_back.py ./profile_data\n/blackmamba/ncu_back > mamba_sm_backward.txt\npython3 mem_mamba_back.py ./profile_data\n/blackmamba/ncu_back > mamba_mem_backward.txt\nF. Evaluation and expected results\nThe generated results are stored in specific text files as\nindicatedinthecommandsabove,suchasmixtral sm.txtfor\nSM utilization data of the Mixtral model.\nG. Experiment customization\nCustomized experiments can be conducted with varying\nbatch sizes and query sequence lengths, both of which can\nbe adjusted in each bash script.\nH. Methodology\nSubmission, reviewing and badging methodology:\n• https://www.acm.org/publications/policies/\nartifact-review-and-badging-current\n• https://cTuning.org/ae",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ns/policies/\nartifact-review-and-badging-current\n• https://cTuning.org/ae",
+    "page": 14
+  }
+]

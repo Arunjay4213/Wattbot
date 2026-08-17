@@ -1,0 +1,427 @@
+[
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachine\nLearning\nALEXANDRASASHALUCCIONI,HuggingFace,Montreal,Canada\nALEXHERNANDEZ-GARCIA,Mila,UniversitédeMontréal,Montreal,Canada\nMachinelearning(ML)requiresusingenergytocarryoutcomputationsduringthemodeltrainingprocess.Thegenerationofthis\nenergycomeswithanenvironmentalcostintermsofgreenhousegasemissions,dependingonquantityusedandtheenergysource.\nExistingresearchontheenvironmentalimpactsofMLhasbeenlimitedtoanalysescoveringasmallnumberofmodelsanddoesnot\nadequatelyrepresentthediversityofMLmodelsandtasks.Inthecurrentstudy,wepresentasurveyofthecarbonemissionsof95\nMLmodelsacrosstimeanddifferenttasksinnaturallanguageprocessingandcomputervision.Weanalyzethemintermsofthe",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "lsacrosstimeanddifferenttasksinnaturallanguageprocessingandcomputervision.Weanalyzethemintermsofthe\nenergysourcesused,theamountofCO2emissionsproduced,howtheseemissionsevolveacrosstimeandhowtheyrelatetomodel\nperformance.Weconcludewithadiscussionregardingthecarbonfootprintofourfieldandproposethecreationofacentralized\nrepositoryforreportingandtrackingtheseemissions.\n1 INTRODUCTION\nInrecentyears,machinelearning(ML)modelshaveachievedhighperformanceinamultitudeoftaskssuchas\nimageclassification,machinetranslation,andobjectdetection.However,thisprogressalsocomeswithacostinterms\nofenergy,sincedevelopinganddeployingMLmodelsrequiresaccesstocomputationalresourcessuchasGraphical\nProcessingUnits(GPUs)andthereforeenergytopowerthem.Inturn,producingthisenergycomeswithacosttothe",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "al\nProcessingUnits(GPUs)andthereforeenergytopowerthem.Inturn,producingthisenergycomeswithacosttothe\nenvironment,giventhatenergygenerationoftenentailstheemissionofgreenhousegases(GHG)suchascarbondioxide\n(CO2)[40].Onaglobalscale,electricitygenerationrepresentsoveraquarteroftheglobalGHGemissions,addingupto\n33.1gigatonnesofCO2in2019[24].Recentestimatesputthecontributionoftheinformationandcommunications\ntechnology(ICT)sector–whichincludesthedatacenters,devicesandnetworksusedfortraininganddeployingML\nmodels–at2–6%ofglobalGHGemissions,althoughtheexactnumberisstilldebated[25,32,36].Infact,thereis\nlimitedinformationabouttheoverallenergyconsumptionandcarbonfootprintofourfield,howitisevolving,and\nhowitcorrelateswithperformanceondifferenttasks.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ionandcarbonfootprintofourfield,howitisevolving,and\nhowitcorrelateswithperformanceondifferenttasks.\nThegoalofthecurrentpaperistoanalyzethemainfactorsinfluencingthecarbonemissionsofourfield,tostudy\ntheevolutionacrosstime,andtocontributetowardsabetterunderstandingofthecarbonemissionsgeneratedbyML\nmodelstrainedondifferenttasksandasafunctionoftheirperformance.Assuch,ourresearchaimstoanswerthe\nfollowingresearchquestions:\n(1) WhatarethemainsourcesofenergyusedfortrainingMLmodels?\n(2) WhatistheorderofmagnitudeofCO2emissionsproducedbytrainingMLmodels?\n(3) HowdotheCO2emissionsproducedbytrainingMLmodelsevolveovertime?\n(4) DoesmoreenergyandCO2leadtobettermodelperformance?\nAuthors’addresses:AlexandraSashaLuccioni,HuggingFace,Montreal,Canada,sasha.luccioni@huggingface.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ce?\nAuthors’addresses:AlexandraSashaLuccioni,HuggingFace,Montreal,Canada,sasha.luccioni@huggingface.co;AlexHernandez-Garcia,Mila,Université\ndeMontréal,Montreal,Canada,alex.hernandez-garcia@mila.quebec.\n2023.Manuscriptpendingreview\n1\n3202\nbeF\n61\n]GL.sc[\n1v67480.2032:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "2 AlexandraSashaLuccioniandAlexHernandez-Garcia\nWestartourarticlewithasurveyofrelatedworkinSection2,followedbyapresentationofourmethodology\ninSection3.InSection4wepresentouranalysis,andweconcludewithourproposalsforfuturework,includinga\ncentralizedhubforreportingthecarbonfootprintofmachinelearning..\n2 RELATEDWORK\nMeasuringtheenvironmentalimpactofMLmodelsisarelativelynewundertaking,butonethathasbeengathering\nmomentuminrecentyears.Inthecurrentsection,wepresentseveraldirectionspursuedinthisdomain,fromempirical\nstudiesofspecificmodelstothedevelopmentofefficientalgorithmsandhardware.\nEmpiricalstudiesoncarbonemissions. Alargeproportionofresearchhasfocusedonestimatingthecarbonemissions\nofspecificmodelarchitecturesand/orcomparingthecarbonemissionsoftwoormoremodelsandapproaches.The",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ons\nofspecificmodelarchitecturesand/orcomparingthecarbonemissionsoftwoormoremodelsandapproaches.The\nfirstpapertodosowaswrittenbyStrubelletal.,whichestimatedthattheemissionsoftrainingandfine-tuningalarge\nTransformermodelwithNeuralArchitectureSearch(NAS)produced284,019kg(626,155lbs)ofCO2,similartothe\nlifetimeemissionsoffiveUScars.[48].Thisperspectivehassincebeenexploredfurtherviaanalysesofthecarbon\nfootprintofdifferentneuralnetworkarchitectures[31,37,38]andtherelativeefficiencyofdifferentmethods[35,56].\nTheseempiricalstudiesareveryrecent(post-2019),remainrelativelysparseandbiasedtowardscertainresearch\nareas(i.e.NaturalLanguageProcessing),andtherearemanyaspectsoftheemissionsofmodeltrainingthatremain\nunexplored.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "NaturalLanguageProcessing),andtherearemanyaspectsoftheemissionsofmodeltrainingthatremain\nunexplored.Insum,thereisaneedforamorebroadandmulti-facetedanalysisinordertobetterunderstandthescale\nandvariationofcarbonemissionsinourcommunity.\nToolsandapproachesformeasuringcarbonemissions. Developingstandardizedapproachesforestimatingthecarbon\nemissionsofmodeltraininghasalsobeenthefocusofmuchwork[5,20,26,27,30,45,51].Asaresult,thereareseveral\ntoolsthatexistforthispurpose,suchasCodeCarbonandtheExperimentImpactTracker,whichcanbeusedduringthe\nmodeltrainingprocess,ortheMLCO2Calculator,whichcanbeusedaftertraining,allofwhichprovideanestimate\noftheamountofcarbonemitted.However,arecentstudyondifferentcarbonestimationtoolsconcludedthatthe",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ate\noftheamountofcarbonemitted.However,arecentstudyondifferentcarbonestimationtoolsconcludedthatthe\nestimatesproducedbydifferenttoolsvarysignificantlyandconsistentlyunder-reportemissions[7].Todate,there\nisnosingle,acceptedapproachforestimatingthecarbonemissionsofthefield,makingstandardizedreportingand\ncomparisonsdifficult[31].\nBroaderimpactsofMLmodels. Severalpapershavebeenwritteninrecentyearsregardingthebroadersocietalimpacts\nofMLmodels,whichincludestheirenvironmentalfootprint.Thisspansresearchonhowthesizeandcomputational\ndemandsofMLmodelsingeneral[50]andlargelanguagemodelsinparticular[8,11]havegrowninrecentyears.Many\nstrategiesanddirectionsforwardhavebeenproposed,rangingfromadvocatingformoreenvironmentally-conscious\npracticeofAI[46]toadoptingasustainabilitymindsetforthecommunity[54].",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ormoreenvironmentally-conscious\npracticeofAI[46]toadoptingasustainabilitymindsetforthecommunity[54].However,whilethedocumentation\nofaspectssuchasbiasandsafetyhasbeguntobedescribedinreportsandarticlesaccompanyingcertainrecentML\nmodels(e.g.[12,22]),environmentalimpactshaveyettobeconsistentlytrackedandreported.Notableexceptions\nincluderecentlanguagemodelssuchasOPT[57],T0[43]andBLOOM[31].\nEfficientalgorithmsandhardware. Arelatedandcomplementarydirectionofresearchisthedevelopmentofmore\nefficientmodelarchitecturesandapproaches.Forinstance,approachessuchasEyeriss[13]andDistilBERT[42]have\nmadesignificantprogressintermsofcomputingefficiency,enablingfastertrainingandinference,whichresultsinless\nenergyusageand,indirectly,lesscarbonemissions,duringmodeltraining.Thisresearchisgatheringattentionwithin",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "yusageand,indirectly,lesscarbonemissions,duringmodeltraining.Thisresearchisgatheringattentionwithin\nthecommunity,withworkshopssuchasSustaiNLPandEMC2growinginscopeandpopularity,althoughefficiency\nManuscriptpendingreview",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 3\nhasyettobeacentralconsiderationwhenitcomestoevaluatingandcomparingmodels.However,energy-efficient\nbenchmarkssuchasHULK[58]havealsobeenproposed,whichtakecomputationalrequirementsandenvironmental\nimpactsintoaccountduringmodelevaluation,allowingacomparisonofmodelsbasedonmultiplecriteria.\nOtheraspectsofthecarbonimpactofML. Finally,effortshavebeenmadetoquantifyotherfactorsthathavean\ninfluenceontheoverallcarbonfootprintofthefieldofML,includingin-personversusvirtualconferenceattendance[47],\nthemanufacturingofcomputinghardware[19],lifecycleanalysisoftheentireMLdevelopmentanddeployment\ncycle[28],aswellassomeinitialstudiesregardingthecarbonfootprintofmodeldeploymentinproductionsettings[31].",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "28],aswellassomeinitialstudiesregardingthecarbonfootprintofmodeldeploymentinproductionsettings[31].\nTherelativecontributionofeachofthesefactorsisstillunclear,whichsuggeststhatfurtherresearchisneededinorder\ntofurtherdisentanglethesefactors.\n3 METHODOLOGY\nAsstatedinSection1,thegoalofthispaperisdescriptive–toobservetheevolutionofthecarbonemissionsofour\nfieldofMLacrosstimeandtoanalyzethedifferentaspectsofthecarbonemissionsproducedbytrainingMLmodels.In\nthissection,wepresentthedifferentaspectsanddetailsofourmethodology.\n3.1 Datacollection\nInordertogatherdatafromadiversesetofMLmodelsfromavarietyofdomainsandtasks,weleveragedthedataset\ncollectedbyThompsonetal.[50]inthescopeofarecentstudyonthecomputationalrequirementsofML.Fromthis",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "set\ncollectedbyThompsonetal.[50]inthescopeofarecentstudyonthecomputationalrequirementsofML.Fromthis\ndataset,weequallysampled500paperspublishedfrom2012to2021spanning5tasks:ImageClassification,Object\nDetection,MachineTranslation,QuestionAnsweringandNamedEntityRecognition.Wethencontactedthefirstauthor\nofeachofthepapersandaskedthemtoprovidemissingtrainingdetailsregardingtheirmodel(SeeSupplementary\nMaterialsA.1fortheemailtext).Wewereabletocollectinformationforatotalof95modelsfrom77papers(since\nsomeofthepaperstrainedmorethanonemodel),whichrepresentsanauthorresponserateof15.4%.\nTable1. Summaryofthemodelsanalyzedinourstudy\nTask Dataset NumberofModels Publicationdates\nImageClassification ImageNet[14] 35 2012-2021\nMachineTranslation WMT2014[10] 30 2016-2021",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "tiondates\nImageClassification ImageNet[14] 35 2012-2021\nMachineTranslation WMT2014[10] 30 2016-2021\nNamedEntityRecognition CoNLL2003[41] 11 2015-2021\nQuestionAnswering SQuAD1.1[39] 10 2016-2021\nObjectDetection MSCOCO[29] 9 2019-2021\nThemodelsinoursamplecoveradiversityoftasksspanningnineyearsofresearchinthefieldandavarietyof\nconferencesandjournals.Theyallrepresentnovelarchitecturesatthetimeofpublication,achievinghighperformance\nintheirrespectivetasks:onaverage,themodelsarewithin8%ofSOTAperformanceaccordingtoPapersWithCode\nleaderboardsatthetimeoftheirpublication.Thissamplerepresentsthelargestamountofinformationregarding\nthecarbonfootprintofMLmodeltrainingtodate,andprovidesuswithopportunitiestoanalyzeitfromavarietyof\nangles,whichwepresentinSection4.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "iningtodate,andprovidesuswithopportunitiestoanalyzeitfromavarietyof\nangles,whichwepresentinSection4.Intheremainingofthissection,wedescribeourmethodforestimatingcarbon\nemissions.\nManuscriptpendingreview",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "4 AlexandraSashaLuccioniandAlexHernandez-Garcia\n3.2 Estimatingcarbonemissions\nTheunitofmeasurementtypicallyusedforquantifyingandcomparingcarbonemissionsisCO2equivalents.Thisunit\nallowsustocomparedifferentsourcesofgreenhouse(GHG)emissionsusingacommondenominator,thatofgramsof\nCO2emittedperkilowatthourofelectricitygenerated(gCO2eq/kWh)1.\nTheamountofCO2eq(𝐶)emittedduringmodeltrainingcanbedecomposedintothreerelevantfactors:thepower\nconsumption of the hardware used (𝑃), the training time (𝑇) and the carbon intensity of the energy grid (𝐼); or\nequivalently,theenergyconsumed(𝐸)andthecarbonintensity:\n𝐶 =𝑃×𝑇 ×𝐼 =𝐸×𝐼. (1)\nForinstance,amodeltrainedonasingleGPUconsuming300Wfor100hoursonagridthatemits500gCO2eq/kWhwill\nemit0.3kW×100h×500g/kWh=15000g=15kgofCO2eq.Thesamemodeltrainedonalesscarbon-intensive",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "CO2eq/kWhwill\nemit0.3kW×100h×500g/kWh=15000g=15kgofCO2eq.Thesamemodeltrainedonalesscarbon-intensive\nenergygrid,emittingonly100gCO2eq/kWh,willonlyemit0.3×100×100=3000g=3kgofCO2eq,i.e.fivetimes\nlessoverall.Inouremailtoauthors,weaskedthemtoprovidethedetailsweneededtocarryoutthiscalculation,i.ethe\nlocationofthecomputerorserverwheretheirmodelwastrained(eithercloudorlocal),thehardwareused,andthe\ntotalmodeltrainingtime.Wedescribehowweestimateeachoftherelevantfactorsintheparagraphsbelow:\nCarbonIntensity. Basedonthetraininglocationprovidedbyauthors,wewereabletoestimatethecarbonintensity\noftheenergygridthatwasutilized,basedonpublicly-availablesourcessuchastheInternationalEnergyAgencyand\ntheEnergyInformationAdministration.Thegranularityofinformationavailablerangeswidelydependingonthe",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "d\ntheEnergyInformationAdministration.Thegranularityofinformationavailablerangeswidelydependingonthe\nlocation–whereasincountriessuchastheUnitedStates,itisavailableatasub-state(sometimesevenatasub-zip\ncode)level,inotherssuchasChina,onlycountry-levelinformationisavailable.Thecarbonintensityfiguresthatwe\nuseareyearlyaveragesfortheyearthemodelwastrained,giventhatthesecanevolveovertime.Incaseswhenthe\nauthorsindicatedthattheyusedacomputinginfrastructureinternaltoacompany,weconsultedcompanyreportsand\npublications(e.g.[16,38])toobtainmorepreciseinformationregardingthecarbonintensity,includingtheusageof\nlocalrenewableenergysources.Incaseswhenmodelsweretrainedoncommercialcloudcomputingplatformssuch\nasGoogleCloudorAmazonWebServices(AWS),weusedtheinformationprovidedbythecompaniesthemselvesto",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "mssuch\nasGoogleCloudorAmazonWebServices(AWS),weusedtheinformationprovidedbythecompaniesthemselvesto\nestimateemissionfactors[4,18].\nHardwarepower. Inordertocalculatethepowerconsumptionofthehardwareusedformodeltraining,wereferto\nitsThermalDesignPower,orTDP,whichindicatestheenergyitneedsunderthemaximumtheoreticalload.Thatis,\nthehighertheTDP,themorepowerisconsumed.WhileinpracticeGPUsarenotalwaysfullyutilizedduringallparts\nofthetrainingprocess,gatheringmorepreciseinformationregardingreal-timepowerconsumptionisonlypossibleby\nusingatoollikeCodeCarbonduringthetrainingprocess[45].Nonetheless,theTDP-basedapproachisoftenusedin\npracticewhenestimatingthecarbonemissionsofAImodeltraining[38]anditremainsafairapproximationofthe\nactualenergyconsumptionofmanyhardwaremodels.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "fAImodeltraining[38]anditremainsafairapproximationofthe\nactualenergyconsumptionofmanyhardwaremodels.WeprovidemoreinformationaboutTDPandthehardwareused\nfortrainingthemodelsinoursampleinSectionA.2oftheAppendix.\nTrainingTime. Trainingtimewascomputedasthetotalnumberofhardwarehours,whichisdifferentfromthe\n\"walltime\"ofMLmodeltraining,sincemostmodelsweretrainedonmultipleunitsatonce.Forinstance,iftraininga\n1Forinstance,methaneis28timesmorepotentthanCO2basedonits100-yearglobalwarmingpotential,soenergygenerationemitting1gramof\nmethaneperkWhwillemit28gramsofCO2eqperkWh.\nManuscriptpendingreview",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 5\nmodelused16GPUsfor24hours,thisequalsatrainingtimeof384GPUhours;amodelusing8GPUsfor48hourswill\nthereforehaveanequivalenttrainingtime.\n4 DATAANALYSIS\nInthesectionsbelow,wepresentseveralaspectsregardingthecarbonfootprintoftrainingMLmodels,examiningthe\nmainsourcesofenergyusedfortraining(§4.1),theorderofmagnitudeofCO2emissionsproduced(§4.2),theevolution\noftheseemissionsovertime(§4.3)andtherelationshipbetweencarbonemissionsandmodelperformance(§4.4)2.\n4.1 WhatarethemainsourcesofenergyusedfortrainingMLmodels?\nTheprimaryenergysourceusedforpoweringanelectricitygridisthesinglebiggestinfluenceonthecarbonintensity\nof that grid, in the face of the large differences between energy sources. For instance, renewable energy sources",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "in the face of the large differences between energy sources. For instance, renewable energy sources\nlikehydroelectricity,solarandwindhavelowcarbonintensity(rangingfrom11to147gCO2eq/kWh),whereasnon-\nrenewableenergysourceslikecoal,naturalgasandoilaregenerallyordersofmagnitudemorecarbon-intensive\n(rangingfrom360to680gCO2eq/kWh)[24,44].Thatmeansthattheenergysourcethatpowersthehardwaretotrain\nMLmodelscanresultindifferencesofupto60timesmoreCO2eqintermsoftotalemissions.\nTable2. MainEnergySourcesforthemodelsanalyzedandtheircarbonintensities[24,52]\nAverageCarbonIntensity\nMainenergysource NumberofModels Low-Carbon?\n(gCO2eq/kWh)\nCoal 38 No 512.3\nNaturalGas 23 No 350.5\nHydroelectricity 19 Yes 100.6\nOil 12 No 453.6\nNuclear 3 Yes 147.2",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "8 No 512.3\nNaturalGas 23 No 350.5\nHydroelectricity 19 Yes 100.6\nOil 12 No 453.6\nNuclear 3 Yes 147.2\nInTable2,weshowtheprincipalenergysourceusedbythemodelsfromoursample,aswellasitsaveragecarbon\nintensity.Wefoundthatthemajorityofmodels(61)fromoursampleusedhigh-carbonenergysourcessuchascoaland\nnaturalgasastheirprimaryenergysource.whereaslessthanaquarterofthemodels(34)usedlow-carbonenergy\nsourceslikehydroelectricityandnuclearenergy3.Whiletheaveragecarbonintensityusedfortrainingthemodels\nfromoursample(372gCO2eq/kWh)islowerthantheaverageglobalcarbonintensity(475gCO2eq/kWh),thisstill\nleavesmuchtoimproveintermsofcarbonemissionsofourfieldbyswitchingtorenewableenergysources(wediscuss\nthisfurtherinSection5).",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rmsofcarbonemissionsofourfieldbyswitchingtorenewableenergysources(wediscuss\nthisfurtherinSection5).\nInFigure1,weshowthemodeltraininglocationsreportedbyauthorsonacountry-level,withthemediancarbon\nintensityofeachcountryindicatedbelow.Intermsofthemodeltraininglocationsreportedbyauthors,wefounda\nveryimbalanceddistribution,withthevastmajorityofmodelsbeingtrainedinasmallnumberofcountries–halfof\nthemodelsinoursampleweretrainedintheUnitedStates(48),followedbyChina(18),withtherestofthemodels\ndistributedacross9othercountries,withonlyafewpapersineach.Regardingtheprimaryenergysources,basedon\nthiscountry-levelanalysisofenergygridsusedfortrainingthemodelsinoursample,wefoundthatmostcommon\n2WehavemadethedatausedforouranalysisavailableinaGitHubrepository.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "inoursample,wefoundthatmostcommon\n2WehavemadethedatausedforouranalysisavailableinaGitHubrepository.\n3Althoughthesustainabilityofnuclearenergyisdebated,itisoneoftheleastcarbon-intensivesourcesofelectricitythatcurrentlyexists.More\ninformationaboutnuclearenergyanditslong-termimpactsontheenvironmentcanbefoundin[6]and[49].\nManuscriptpendingreview",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "6 AlexandraSashaLuccioniandAlexHernandez-Garcia\ncountrieswheremodeltrainingwascarriedout(e.g.theUSandChina),areonthehighendofthecarbonspectrum,\nwithemissionsof350gCO2eq/kWhandabove.Ontheotherend,thecountrieswiththelowestcarbonintensityinour\nsampleareCanada(whichrangesbetween1.30and52.89gCO2eq/kWh,dependingontheprovince)andSpain(which\nhasasinglenationalenergygridwithamediancarbonintensityof220.26gCO2eq/kWh),buttheyonlyrepresentsa\ntotalof7modelsfromoursample.Thisissimilartopatternsinemissionsworldwide,whereasmallnumberofhighly\nindustrializedcountriesproducethemajorityoftheworld’sgreenhousegases[17].\nFig.1. Mapwiththecountrieswherethemodelsinthedataweretrained,asreportedbytheauthors.Thecolorscodethemedian\ncarbonintensityoftheenergyusedbythemodelstrainedineachcountry.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "edbytheauthors.Thecolorscodethemedian\ncarbonintensityoftheenergyusedbythemodelstrainedineachcountry.Thelegendindicatesthenumberofmodelstrainedin\neachcountry,aswellasacoloredpatchmarkingthemainenergysource–seebottomofthelegendforthevalues.\nAnotherobservationthatcanbemadebasedonourdataisthatnoneofthemodelsfromoursampleweretrainedin\neitherAfricanorSouthAmerica–infact,themajorityofthemodelsfromoursample(76)weretrainedincountries\nrepresentingtheGlobalNorth.Thisisconsistentwithpreviousworkexaminingthe‘digitaldivide’inMLandobserving\nthecentralizationofpowerinthefield,whichhindersresearchersfromunderrepresentedlocationsandgroupsfrom\ncontributingtothefield,giventheattributionofcomputingresources[2,3,9].Generallyspeaking,emissions,matters",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "butingtothefield,giventheattributionofcomputingresources[2,3,9].Generallyspeaking,emissions,matters\nofequityandaccessibilityarecloselyconnectedtothosearoundclimatechange,andthecentralizationofresources\nremainsamajorproblem[33,34].\n4.2 WhatistheorderofmagnitudeofCO2emissionsproducedbytrainingMLmodels?\nAsexplainedinSection3,thereisalinearrelationshipbetweentheenergyconsumedandthecarbonemissions\nproduced,withtheenergysource(discussedintheSectionabove)influencingthemagnitudeofthisrelationship.In\nFigure2,weplottheenergyconsumed(Xaxis,logarithmicscale)andtheCO2emitted(Yaxis,logarithmicscale)of\neverymodelinourdataset,color-codedwiththemainenergysource,whicharethesameasthosepresentedinTable2.\nFirst,wecanobservedifferencesofseveralordersofmagnitudeintheenergyusedbymodelsinoursample,ranging",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": ".\nFirst,wecanobservedifferencesofseveralordersofmagnitudeintheenergyusedbymodelsinoursample,ranging\nfromjustabout10kWhtomorethan10,000kWh,whichresultsinsimilardifferencesinthetotalquantityofCO2\nemitted.Asexpected,therelationshipbetweenenergyconsumedandcarbonemittedislargelylinear.However,Figure2\nManuscriptpendingreview",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 7\nalsoshowsthatmodelstrainedwithcleanerenergysources,suchhydroelectricity,largelydeviatefromthemaintrend,\nwithordersofmagnitudelesscarbonemissionscomparedtomodelstrainedusingcoalandgas.Inotherwords,models\ntrainedwithlowcarbon-intensiveenergysources,resultinmuchlesscarbonemissions,ceterisparibus.\nFig.2. Estimatedenergyconsumed(kWh)andCO2(kg)byeachmodelinthedataset,plottedinalog-logscale.Colorsindicatethe\nprincipalenergysource,andthesizeofthedotcarbonintensity.Whiletherelationshipbetweenenergyandcarbonemissionsis\nmostlylinear,thedatashowthatmodelstrainedwithlesscarbon-intensiveenergy(e.g.hydroelectric)emitordersofmagnitudeless\ncarbonthanthosetrainedusingmorecarbon-intensiveenergy(e.g.coal).",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "electric)emitordersofmagnitudeless\ncarbonthanthosetrainedusingmorecarbon-intensiveenergy(e.g.coal).\nForinstance,honinginonthecentralbottomportionofFigure2,itcanbeseenthatthemodelstrainedusing\nhydroelectricity(thebluedots)areabouttwoordersofmagnitudelowerintermsofcarbonemissionsthanmodelsthat\nconsumedsimilaramountsofenergyfrommorecarbon-intensivesourcessuchascoal(inbrown)andgas(inorange),\ngiventhattheYaxisisonalogarithmicscale.Furthermore,thesizeofthedotsvariesasafunctionofthecarbon\nintensityoftheelectricitygridused,illustratingtwoparallelgroupsofmodels,bothexhibitingalargelylineartrend,\nwiththemorecarbonintensivemodelspositionedhigherthanthelowercarbonmodelsforsimilaramountsofenergy\nconsumed.ThisfurthersupportstheanalysiscarriedoutinSection4.1,suggestingthattheprimaryenergysourceused",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "sumed.ThisfurthersupportstheanalysiscarriedoutinSection4.1,suggestingthattheprimaryenergysourceused\nfortrainingMLmodelshasastrongimpactontheoverallresultingemissionsfrommodeltraining,andthatchoosinga\nlow-carbonenergygridcanplayasignificantroletowardsreducingthecarbonemissionsofMLmodeltraining.\nBesidestheprimaryenergysource,carbonemissionsareafunctionofpowerconsumedbythehardwareusedand\nthetrainingtime.Thechoiceofhardwarehasarelativelysmallinfluenceonthelargevariationofcarbonemissions\nthatweobserveinoursample,giventhattheTDPrangesfrom180Wto300W,whilethecarbonemissionsspan\nfrom105 kgCO2eqtoevenlessthan10kgCO2eq(seeSectionA.2oftheappendixforfurtherdetails).Whileusing\nrenewableenergycanreduceupto1,000thecarbonemissionsforthesameamountofenergyused,theremaining",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "eusing\nrenewableenergycanreduceupto1,000thecarbonemissionsforthesameamountofenergyused,theremaining\nfactorresponsibleforthelargevariationinbothenergyandcarbonemissionsinoursampleisthereforethetraining\ntime.\nManuscriptpendingreview",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "8 AlexandraSashaLuccioniandAlexHernandez-Garcia\n4.3 HowdotheCO2emissionsproducedbytrainingMLmodelsevolveovertime?\nSomerecentanalyseshavepredictedthatthecarbonemissionsofourfieldwillincreaseinthefuture,estimatingthat\nachievingfurtherprogressonbenchmarkssuchasImageNetwillrequireemittingthousandsoftonsofCO2[50],whereas\nothershavepredictedaplateauinfutureemissionsduetoincreasedhardwareefficiencyandcarbonoffsetting[37].\nTherefore,oneofthegoalsofourstudywastoobservetheevolutionofcarbonemissionsovertimeandstudywhether\ntherearecleartrends.Giventhatthepapersfromourstudyspanfrom2012tothepresenttime,weaimedtospecifically\ncomparewhethernewgenerationsofMLmodelsfromoursampleconsistentlyusedmoreenergyandemittedmore\ncarbonthanpreviousones.\nFig.3.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ationsofMLmodelsfromoursampleconsistentlyusedmoreenergyandemittedmore\ncarbonthanpreviousones.\nFig.3. CO2emitted(inkg)bytheallmodelsincludedinthedataset,onalogarithmicscale.Eachsmallmarkercorrespondstoa\nmodelandthelargemarkersindicatethe99%trimmedmeanwithineachtaskandyear(s)ofpublication.Theerrorlinescoverthe\nbootstrapped99%confidenceintervals.Thegraylinecorrespondstotheaverageoveralltasks.\nInFigure3,weshowthecarbonemissionsemittedbyeverymodelfromoursample,disaggregatedbytaskandby\nyear.Whilewecannotclaimthatthemodelsandpapersinourdatasetarefullyrepresentativeofthewholemachine\nlearningfield,asampleof95modelsspanning9yearscanofferinterestinginsights.Thefirstobservation,relatedtothe\nconclusionsfromthesectionsabove,isthatthereisalargevariabilityinthecarbonemissionsfromMLmodels.Second,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "clusionsfromthesectionsabove,isthatthereisalargevariabilityinthecarbonemissionsfromMLmodels.Second,\nwedonotobserveaconsistenttrendbywhichcarbonemissionshavesystematicallyincreasedforeachindividualtask.\nThisisthecase,forinstance,ofimageclassificationmodels(inblue)andquestionansweringmodels(inyellow)from\noursample.However,thecarbonemissionsofmachinetranslationmodelshavepeakedin2019andhassincedecreased.\nIfwelookattheaggregateddatafromalltasks(grandaveragecurve,inlightgray),wecanobservethatoverall,the\ncarbonemissionspermodelhaveincreasedbyafactorofabout100(twoordersofmagnitude)from2012torecent\nyears,withslightfluctuations,asin2020.ItisimportanttonotethattheverticalaxisofFigure3isonalogarithmic\nscale,inordertoreflectthenon-linearityintroducedbythemuchlargermodelsfromrecentyears,eventhoughthey",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "scale,inordertoreflectthenon-linearityintroducedbythemuchlargermodelsfromrecentyears,eventhoughthey\ndonotrepresentamajorityinthesample.Infact,thelastthreeyearsofoursample(2019-2021),haveseenmodels\nthathaveemittedordersofmagnitudemorecarbonthanbefore:e.g.thereareseveralverticaloutliersintaskssuchas\nImageClassification(showninblue)andQuestionAnswering(inyellow)thathavesetnewrecordsintermsofthe\nManuscriptpendingreview",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 9\ntotalamountofemissionsproducedbymodeltraining,responsibleforabout104and105kilogramsofCO2eq.There\nareseveralpossibleexplanationsforthis,rangingfromthewidespreadadoptionofTransformers,whichareusing\nincreasingamountsofbothlabeledandunlabeleddata[53],aswellascomputationally-expensivetechniquessuchas\nNAS[59],whichresultinmorecarbonemissions[48].Itishardtodisentangletheinfluenceofdifferentfactorson\ntheoverallcarbonemissionsofMLmodels,aswellastherelativecontributionsofdifferentpartsofthepre-training\nandfine-tuningprocess–thisrequiresfurtherwork,whichwediscussinSection5.3–however,itisworthnotingthe\nevolutionofemissionsinrecentyears,amongthepapersofoursample.\n4.4 DoesmoreenergyandCO2leadtobettermodelperformance?",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "sionsinrecentyears,amongthepapersofoursample.\n4.4 DoesmoreenergyandCO2leadtobettermodelperformance?\nAfinalperspectivefromwhichweanalyzethecarbonemissionsofMLmodelsisbycomparingtheamountof\ncarbonemittedbymodelstotheirperformanceonbenchmarktaskssuchasimageclassification,machinetranslation\nandquestionanswering.Wecomparetheemissionsofthemodelsfromoursampleandtheirperformanceonfour\ntasks:imagerecognitiononImageNet[14](35models),machinetranslationforEnglish-FrenchandEnglish-German\nonthe2014WMTTranslationtasks[10](30models),questionansweringontheSQuAD1.1dataset[39](10models),\nandnamedentityrecognitionontheCoNLL2003dataset[41](11models)4.Ourgoalwiththisanalysisistovalidate\nwhether,generallyspeaking,themorecarbon-intensivemodelsfromoursampleachievedbetterperformanceon",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ate\nwhether,generallyspeaking,themorecarbon-intensivemodelsfromoursampleachievedbetterperformanceon\ncommonbenchmarkscomparedtothemodelswithlessincurredemissions.\nFigure4showstheperformanceofthemodelsinthesefourtasksandtheassociatedcarbonemissions;wealso\nrepresentthetheoreticalParetofrontgiventhedata,whichcorrespondstothesetofPareto-efficientsolutionsbased\nonourdata.WecanthinkoftheParetofrontofourmetrics,theblacklineinthefigures,asthecurveconnectingthe\nmodelsthatachievedthebestaccuracyforagivenamountofCO2eqemissions.Inotherwords,allthedatapoints\nundertheParetolinescorrespondtomodelsthatobtainedloweraccuracythanothermodelsinthesampledespite\nproducingthesameormorecarbonemissions.\nBasedonthecomparisonbetweencarbonemissionsandperformance,wecanobservethattheonlytaskinwhich",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ssions.\nBasedonthecomparisonbetweencarbonemissionsandperformance,wecanobservethattheonlytaskinwhich\nbetterperformanceaccuracyhassystematicallyyieldedmoreCO2isimageclassificationonImageNet,seenonthetop\nrightsubplotofFigure4.Still,therelationshipisfarfrombeinghighlycorrelated(especiallygiventhatthatthex-axis\ninonalogarithmicscale).Forexample,outofthe35modelsanalyzed,thetoptwomodelsintermsofperformanceare\nalsothemostcarbon-emitting.However,thethirdmostcarbon-intensivemodelisonthelowerendoftheperformance\n(achieving76%accuracy),andwealsoseelow-emittingmodelsonthehigherendofperformance.\nForothertasks,thetrendisevenlessclear–forinstance,forthe30modelsevaluatedontheWMTtranslationtask\n(topleftplotofFigure4),thereisnoclearlinkbetweenCO2emissionsandBLEUscore,forneitherEnglish-Frenchor",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "(topleftplotofFigure4),thereisnoclearlinkbetweenCO2emissionsandBLEUscore,forneitherEnglish-Frenchor\nEnglish-German–althoughtheWMTEnglish-FrenchtaskseemstoincurmorecarbonemissionsthantheEnglish-\nGermanone,whichcanbeexplainedinpartbythefactthattheWMTEnglish-Frenchdatasetisalmost4timeslarger\nthantheEnglish-Germanone,whichcanrequirealongertrainingtimeandthusahigherenergyconsumption.Forthe\nfinaltwoNLPtasks,questionansweringandnamedentityrecognition,wehavelessdatapoints(10fortheformerand\n11forthelatter),andtheconnectionbetweencarbonemissionsandaccuracyisveryunclear.Forbothtasks,many\nmodelsfromboththehighandlowendsoftherangeofCO2emissionsachievecomparableperformanceontheSQuAD\ndataset(bottom-leftplot)aswellastheCoNLLdataset(bottom-rightplot).",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ecomparableperformanceontheSQuAD\ndataset(bottom-leftplot)aswellastheCoNLLdataset(bottom-rightplot).\n4Wealsohaddatafromafifthtask,objectdetection,whichisrepresentedinTable1andFigure3,butwedidnothaveenoughdistinctdatapointsto\nenableameaningfulcomparison.\nManuscriptpendingreview",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "10 AlexandraSashaLuccioniandAlexHernandez-Garcia\nFig.4. ComparisonoftheaccuracyachievedbyeachmodeltrainedonMachineTranslation(topleft,evaluatedusingBLEUscore\nontheEnglish-FrenchandEnglish-GermanWMTdatasets),ImageClassification(topright,measuredusingTop-1accuracyon\nImageNet),QuestionAnswering(bottomleft,evaluatedusingF1scoreonSQuADv.1)andNamedEntityRecognition(bottom\nright,evaluatedusingF1scoreontheCoNLLdataset)andtheCO2emittedfortrainingmodels.Theblackcurvescorrespondtothe\nParetofrontsgiventhedata,thatisdatapointsunderthelinearesub-optimalintermsofperformanceandCO2emitted.Notethat\nthexaxisisinlogarithmicscale.\nDespitethelackofclearcorrelationbetweencarbonintensityandmodelperformance,therearesomeinteresting\nobservationstobemadebasedonFigure4.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "etweencarbonintensityandmodelperformance,therearesomeinteresting\nobservationstobemadebasedonFigure4.Whilewedidnotexpecttoseeastronglinkbetweenthesetwofactors,we\nfinditworthnotingthatneitherconsumingmoreenergynoremittingmorecarbonseemstonecessarilycorrelatewith\nahigheraccuracy,evenintaskssuchasMachineTranslation,whereTransformermodelsarelargelyseentodobetter\ncomparedtoothermodels5.\n5 DISCUSSIONANDFUTUREWORK\nInthecurrentsection,wediscussthesignificanceandthecontextofouranalysis,itslimitations,aswellaspromising\ndirectionsforfutureworktoimprovethetransparencyofcarbonemissionsreportinginourfield.\n5Wefindasimilarpatternbetweenaccuracyandenergyconsumption,whichcanbeseeninFigure5intheSupplementaryMaterials.\nManuscriptpendingreview",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "terials.\nManuscriptpendingreview",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 11\n5.1 DiscussionofResults\nWhilethetotalcarbonfootprintofthefieldofMLisuncleardueitsdistributednatureandthelackofsystematic\nreportingofemissionsindifferentsettings,inthefaceoftheclimatecrisis,itisimportantfortheMLcommunity\ntoacquireabetterunderstandingofitsenvironmentalfootprintandhowtoreduceit[28,38].Ourstudyisthefirst\nanalysisofthecarbonemissionsofamultitudeofMLmodelsfromdifferentperspectivesrangingfromenergysource\ntoperformance.WhileoursampleisonlyasmallportionoftheentireMachineLearningfield,thecarbonemissions\nassociatedtothemodelsinourdatasetissignificant:thetotalcarbonemissionsofthemodelsanalyzedinourstudyis\nabout253tonsofCO2eq,whichisequivalenttoabout100flightsfromLondontoSanFranciscoorfromNairobito\nBeijing.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "out253tonsofCO2eq,whichisequivalenttoabout100flightsfromLondontoSanFranciscoorfromNairobito\nBeijing.Whilethismaynotseemlikealargeamount,theincreaseinemissionsinrecentyears–fromanaverageof\n487tonsofCO2eqformodelsfrom2015-2016toanaverageof2020tonsformodelstrainedin2020-2022–aswellas\nothertrendsthatweobservedinSection4.3,indicatethattheoverallemissionsduetoMLmodelarerising.\nInSection4,wehavediscussedthatthemainsourcesofvarianceintheamountofemissionsassociatedtotraining\nmachinelearningmodelsisduetothecarbonintensityoftheprimaryenergysourceandthetrainingtime,withthe\npowerconsumptionofthehardwarehavingasmallerinfluence.Intermsoftrainingtime,themodelsinoursample\nrangefromjustabout15minutes(totalGPU/TPUtime)uptomorethan400,000hours,withamedianof72hours,\npointingagaintolargevarianceinoursample.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "lGPU/TPUtime)uptomorethan400,000hours,withamedianof72hours,\npointingagaintolargevarianceinoursample.Whilethemaximumofof400,000GPUhours(equivalenttoabout170\ndayswith100GPUs)inoursampleseemsverylarge,notethatthetotaltrainingtimeofGPT-3wasestimatedtobe\nover3.5millionhours(14.8dayswith10,000GPUs)[38].Obviously,suchlongtrainingtimesresultinlargeamountsof\ncarbonemissions,evenwithlowercarbonintensityenergysources.Bywayofillustration,themodelwiththelongest\ntrainingtimeinoursamplewouldhavereducedbyabout30timesthecarbonemissionshaditusedthegridwiththe\nlowestcarbonintensityinoursample,butitwouldhavestillresultedinover1tonofCO2eq.Also,generallyspeaking,\nwecanseethatthemodelsatthehigherendoftheemissionsspectrumtendtobeTransformer-basedmodelwithmore",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ng,\nwecanseethatthemodelsatthehigherendoftheemissionsspectrumtendtobeTransformer-basedmodelwithmore\nlayers(aswellasusingtechniquessuchasNeuralArchitectureSearchtofindoptimalcombinationsofparameters),\nwhereassimplerandshallowermodelssuchasconvolutionalneuralnetworkstendtobeonthelowerendofthe\nemissionsspectrum.GiventhatTransformerarchitecturesareincreasinginpopularity–especiallyinNLPbutalsofor\nseveralComputerVisiontasks–havingabetterideaoftheirenergyconsumption,carbonemissions,andthefactors\nthatinfluencethemisalsocrucialpartofanalyzingthecurrentandfuturestateofourfield.\nAnimportantobservationfromouranalysisisthatbetterperformanceisnotgenerallyachievedbyusingmore\nenergy.Inotherwords,goodperformancecanbeachievedwithlimitedcarbonemissionsbecausetheprogressinrecent",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "nergy.Inotherwords,goodperformancecanbeachievedwithlimitedcarbonemissionsbecausetheprogressinrecent\nyearshasbroughtthepossibilitytotrainmachinelearningmodelsefficiently.ImageClassificationisthetaskinour\nsampleinwhichweobservedthestrongestcorrelationbetweenperformanceandemissions.However,eveninthis\ntaskwealsoobservedthatsmallincrementsincarbonemissionsleadtolargeincrementsintop-1accuracy(seethe\nleft-hand-sideofFigure4).Thishighlightstheavailabilityofefficientapproachesandarchitectures.\n5.2 Limitations\nTheanalysesthatwehavecarriedoutandtheinsightsthattheyhaveprovidedusareusefultowardsabetterunder-\nstandingoftheoverallcarbonemissionsofMLmodeltraining.Wearealsoawareofthelimitationsofourstudy:for\none,werecognizethatoursampleisnotfullyrepresentativeofthefieldasawhole,giventhediversityofmodels",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "or\none,werecognizethatoursampleisnotfullyrepresentativeofthefieldasawhole,giventhediversityofmodels\nandarchitecturesthatexistandthespeedatwhichourfieldisevolving.AswediscussedinSection3,despiteour\nbesteffortsandseveralreminders,only15%ofauthorsfromourinitialsampleof500werewillingtosharerelevant\nManuscriptpendingreview",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "12 AlexandraSashaLuccioniandAlexHernandez-Garcia\ninformationwithus.Wealsorecognizethatthereareseveralfactorsthatwearemissinginordertobemoreprecisein\nourestimationthecarbonfootprintofMLmodels:forinstance,wedonothavethenecessaryinformationregardingthe\nPowerUsageEffectiveness(PUE)ofthedatacentersusedformodeltraining(i.e.theoverheadusedforheating,cooling,\nInternetetc.),aswellasthereal-timeenergyconsumptionofthehardwareusedfortraining.Wealsodonotaccount\nforcarbonoffsetsandpowerpurchaseagreements,whichintendtobringcomputingcentersclosertocarbonneutrality\nandwhichareoftentakenintoaccountbyprovidersofcloudcomputeintheircarbonaccounting[18].Despitethis,the\napples-to-applescarbonanalysisthatwecarriedoutinthecurrentstudyprovidesusefulinsightsaboutthecurrent",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "pples-to-applescarbonanalysisthatwecarriedoutinthecurrentstudyprovidesusefulinsightsaboutthecurrent\nstateofcarbonemissionsinourfield,aswellashowthishasevolvedovertimeinthelast9years.\nFurthermore,whilethisstudyandmuchoftherelatedworkinthisfieldhasfocusedonestimatingthecarbon\nemissionsofmodeltraining,therearemanypiecesofotheroverallcarbonfootprintofourfieldwhicharestillmissing:\nforinstance,thecarbonemissionsoftaskssuchasdataprocessing,datatransfer,anddatastorage[28],aswellasthe\ncarbonfootprintofmanufacturingandmaintainingthehardwareusedfortrainingMLmodels[19],Wearealsolacking\ninformationregardingthecarbonimpactofmodeldevelopmentandinference–giventhatamodelthatistraineda\nsingletimecanbedeployedon-demandformillionsofqueries,thiscanultimatelyadduptomoreemissionsthanthose",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "singletimecanbedeployedon-demandformillionsofqueries,thiscanultimatelyadduptomoreemissionsthanthose\nproducedbytheinitialmodeltraining[31].Thesearealldirectionsforfutureresearch,whichwediscussinmoredetail\nbelow.\n5.3 FutureWork\nThereismuchinterestingandexcitingworktobedonethatwouldhelpusbetterunderstandthecarbonemissionsand\nbroaderenvironmentalimplicationsofML.Thisincludes:\nAdditionalempiricalstudies. Thereisstillalotofuncertaintyaround,forinstance,therelativecontributionofadded\nparametersofMLtotheirenergyconsumptionandcarbonfootprint,aswellastheproportionofenergyusedfor\npre-trainingversusfine-tuningMLmodelsfordifferenttasksandarchitectures.Furtheringthisresearchcanbenefitthe\nfieldbothfromtheperspectiveofsustainabilityandoverallefficiency.\nWideningthescopeofMLlife-cycleemissions.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "bothfromtheperspectiveofsustainabilityandoverallefficiency.\nWideningthescopeofMLlife-cycleemissions. TheoverwhelmingmajorityofworkincarbonaccountingforML\nmodelshasbeenlimitedtomodeltraining.However,boththeupstreamemissions(i.e.thoseincurredbymanufacturing\nandtransportingtherequiredcomputingequipment)aswellasthedownstreamones(i.e.theemissionsofmodel\ndeployment)warrantfurtherexplorationandbetterunderstanding.\nIncreasedstandardizationandtransparencyincarbonemissionsreporting. AsstatedinSection5.2,weputinsignificant\neffortsincontactingauthorsandgatheringdatatocarryoutourstudy,andwerestilllackingmuchofthenecessary\ninformationthatwewouldhavelikedtohave.WhilecertainconferencessuchasNeurIPSarestartingtoinclude",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "sary\ninformationthatwewouldhavelikedtohave.WhilecertainconferencessuchasNeurIPSarestartingtoinclude\ncomputeinformationinsubmissionsinsubmissionchecklists,thereisstillalotofvariabilityincarbonreporting,and\nfigurescanvarywidelydependingonwhatfactorsareincluded.Havingamorestandardizedapproach,suchasISO\nstandards,toreportingthecarbonemissionsofMLcanhelpbetterunderstandtheirevolution.\nConsideringthetrade-offbetweensustainabilityandfairness. TheenvironmentalimpactsofMLalsocomewith\nconsequencesintermsoffairness,giventheinterplaybetweenfairnessandsustainability,mostrecentlydiscussed\nbyHessenthaleretal.[21].Thisincludes,forinstance,theconsiderationoftheenvironmentalimpactsofMLapproaches\nwhenbenchmarkingmodels[58],butalso,conversely,consideringtheimpactonrobustnessandbiasofmodeldistilla-",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "enbenchmarkingmodels[58],butalso,conversely,consideringtheimpactonrobustnessandbiasofmodeldistilla-\ntiontechniquesthatimprovemodelefficiency[23,55].Generallyspeaking,giventhatmanyadvancesinMLfromlast\nManuscriptpendingreview",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 13\nyearscanbeattributedtotrainingincreasinglydeepandcomputationallyexpensivemodels,especiallyinfieldssuchas\nnaturallanguageprocessing,itisimportanttobecognizantofthebroadersocietalimpactsofthesemodels,beitfrom\ntheperspectiveoftheirenergyconsumption[8,15],theattributionofcomputingresources[2,3]ortheinfluenceof\ncorporateinterestsonresearchdirections[1,9].\nWhilediscussionsregardingthecarbonfootprintofourdailyliveshasstartedtobecomemorecommoninmany\ncommunities,alongsideincreasedawarenessofhowourlifestylechoices(suchasthewaywetravelandthefoodweeat)\ncontributetocarbonemissions,wearelackingmuchofthenecessaryinformationnecessarytoregardingtheimpacts\nofthemodelswetrain.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "missions,wearelackingmuchofthenecessaryinformationnecessarytoregardingtheimpacts\nofthemodelswetrain.Wehopethatourworkencouragesbetterpracticesandmoretransparencyinreportingthe\ncomputationalneedsofthemodelsanddetailsoftheenergyused,andthatourstudywillbeameaningfulcontribution\ntowardsabetterunderstandingofourimpactasMLresearchersandpractitioners.\nManuscriptpendingreview",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "14 AlexandraSashaLuccioniandAlexHernandez-Garcia\nREFERENCES\n[1] MohamedAbdallaandMoustafaAbdalla.2021.TheGreyHoodieProject:Bigtobacco,bigtech,andthethreatonacademicintegrity.InProceedings\nofthe2021AAAI/ACMConferenceonAI,Ethics,andSociety.287–297.\n[2] OrevaogheneAhia,JuliaKreutzer,andSaraHooker.2021. TheLow-ResourceDoubleBind:AnEmpiricalStudyofPruningforLow-Resource\nMachineTranslation.arXivpreprintarXiv:2110.03036(2021).\n[3] NurAhmedandMuntasirWahed.2020.Thede-democratizationofAI:DeeplearningandthecomputedivideinArtificialIntelligenceresearch.\narXivpreprintarXiv:2010.15581(2020).\n[4] AmazonWebServices.2021.DeliveringProgressEveryDay:Amazon’s2021SustainabilityReport. https://sustainability.aboutamazon.com/2021-\nsustainability-report.pdf\n[5] LasseF.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ainabilityReport. https://sustainability.aboutamazon.com/2021-\nsustainability-report.pdf\n[5] LasseF.WolffAnthony,BenjaminKanding,andRaghavendraSelvan.2020. Carbontracker:TrackingandPredictingtheCarbonFootprintof\nTrainingDeepLearningModels. arXiv:2007.03051[cs.CY]\n[6] NicholasApergis,JamesEPayne,KojoMenyah,andYemaneWolde-Rufael.2010.Onthecausaldynamicsbetweenemissions,nuclearenergy,\nrenewableenergy,andeconomicgrowth.EcologicalEconomics69,11(2010),2255–2260.\n[7] NesrineBannour,SaharGhannay,AurélieNévéol,andAnne-LaureLigozat.2021.EvaluatingthecarbonfootprintofNLPmethods:asurveyand\nanalysisofexistingtools.InEMNLP,WorkshopSustaiNLP.\n[8] EmilyMBender,TimnitGebru,AngelinaMcMillan-Major,andShmargaretShmitchell.2021.OntheDangersofStochasticParrots:CanLanguage\nModelsBeTooBig? .",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "lan-Major,andShmargaretShmitchell.2021.OntheDangersofStochasticParrots:CanLanguage\nModelsBeTooBig? .InProceedingsofthe2021ACMConferenceonFairness,Accountability,andTransparency.610–623.\n[9] AbebaBirhane,PratyushaKalluri,DallasCard,WilliamAgnew,RavitDotan,andMichelleBao.2021.TheValuesEncodedinMachineLearning\nResearch. arXiv:2106.15590[cs.LG]\n[10] OndřejBojar,ChristianBuck,ChristianFedermann,BarryHaddow,PhilippKoehn,JohannesLeveling,ChristofMonz,PavelPecina,MattPost,\nHerveSaint-Amand,etal.2014.Findingsofthe2014workshoponstatisticalmachinetranslation.InProceedingsoftheninthworkshoponstatistical\nmachinetranslation.12–58.\n[11] RishiBommasani,DrewAHudson,EhsanAdeli,RussAltman,SimranArora,SydneyvonArx,MichaelSBernstein,JeannetteBohg,Antoine\nBosselut,EmmaBrunskill,etal.2021.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "n,SimranArora,SydneyvonArx,MichaelSBernstein,JeannetteBohg,Antoine\nBosselut,EmmaBrunskill,etal.2021.Ontheopportunitiesandrisksoffoundationmodels.arXivpreprintarXiv:2108.07258(2021).\n[12] TomBBrown,BenjaminMann,NickRyder,MelanieSubbiah,JaredKaplan,PrafullaDhariwal,ArvindNeelakantan,PranavShyam,GirishSastry,\nAmandaAskell,etal.2020.Languagemodelsarefew-shotlearners.arXivpreprintarXiv:2005.14165(2020).\n[13] Yu-HsinChen,Tien-JuYang,JoelEmer,andVivienneSze.2019.Eyerissv2:Aflexibleacceleratorforemergingdeepneuralnetworksonmobile\ndevices.IEEEJournalonEmergingandSelectedTopicsinCircuitsandSystems9,2(2019),292–308.\n[14] JiaDeng,WeiDong,RichardSocher,Li-JiaLi,KaiLi,andLiFei-Fei.2009. ImageNet:Alarge-scalehierarchicalimagedatabase.In2009IEEE\nconferenceoncomputervisionandpatternrecognition.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "et:Alarge-scalehierarchicalimagedatabase.In2009IEEE\nconferenceoncomputervisionandpatternrecognition.Ieee,248–255.\n[15] JesseDodge,TaylorPrewitt,RemiTachetdesCombes,ErikaOdmark,RoySchwartz,EmmaStrubell,AlexandraSashaLuccioni,NoahASmith,\nNicoleDeCario,andWillBuchanan.2022.Measuringthecarbonintensityofaiincloudinstances.In2022ACMConferenceonFairness,Accountability,\nandTransparency.1877–1894.\n[16] Facebook.2020.Facebook2020SustainabilityReport. https://sustainability.fb.com/wp-content/uploads/2021/06/2020_FB_Sustainability-Report.pdf\n[17] JohannesFriedrich,MengpinGe,andAndrewPickens.2020.Thisinteractivechartshowschangesintheworld’stop10emitters.(2020).\n[18] Google.2022.CarbonfreeenergyforGoogleCloudregions. https://cloud.google.com/sustainability/region-carbon",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "e.2022.CarbonfreeenergyforGoogleCloudregions. https://cloud.google.com/sustainability/region-carbon\n[19] UditGupta,YoungGeunKim,SylviaLee,JordanTse,Hsien-HsinSLee,Gu-YeonWei,DavidBrooks,andCarole-JeanWu.2021.ChasingCarbon:\nTheElusiveEnvironmentalFootprintofComputing.In2021IEEEInternationalSymposiumonHigh-PerformanceComputerArchitecture(HPCA).\nIEEE,854–867.\n[20] PeterHenderson,JieruHu,JoshuaRomoff,EmmaBrunskill,DanJurafsky,andJoellePineau.2020.Towardsthesystematicreportingoftheenergy\nandcarbonfootprintsofmachinelearning.JournalofMachineLearningResearch21,248(2020),1–43.\n[21] MariusHessenthaler,EmmaStrubell,DirkHovy,andAnneLauscher.2022.BridgingFairnessandEnvironmentalSustainabilityinNaturalLanguage\nProcessing.arXivpreprintarXiv:2211.04256(2022).",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "nessandEnvironmentalSustainabilityinNaturalLanguage\nProcessing.arXivpreprintarXiv:2211.04256(2022).\n[22] JordanHoffmann,SebastianBorgeaud,ArthurMensch,ElenaBuchatskaya,TrevorCai,ElizaRutherford,DiegodeLasCasas,LisaAnneHendricks,\nJohannesWelbl,AidanClark,TomHennigan,EricNoland,KatieMillican,GeorgevandenDriessche,BogdanDamoc,AureliaGuy,Simon\nOsindero,KarenSimonyan,ErichElsen,JackW.Rae,OriolVinyals,andLaurentSifre.2022.TrainingCompute-OptimalLargeLanguageModels.\nhttps://doi.org/10.48550/ARXIV.2203.15556\n[23] SaraHooker,NyallengMoorosi,GregoryClark,SamyBengio,andEmilyDenton.2020.Characterisingbiasincompressedmodels.arXivpreprint\narXiv:2010.03058(2020).\n[24] IEA.2019.GlobalEnergy&CO2StatusReport2019.IEA(InternationalEnergyAgency):Paris,France(2019). https://www.iea.org/reports/global-",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "usReport2019.IEA(InternationalEnergyAgency):Paris,France(2019). https://www.iea.org/reports/global-\nenergy-co2-status-report-2019\n[25] InternationalTelecommunicationUnion.2020.Greenhousegasemissionstrajectoriesfortheinformationandcommunicationtechnologysector\ncompatiblewiththeUNFCCCParisagreement:L.1470. http://handle.itu.int/11.1002/1000/14084\n[26] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres.2019.Quantifyingthecarbonemissionsofmachinelearning.arXiv\npreprintarXiv:1910.09700(2019).\nManuscriptpendingreview",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 15\n[27] LoïcLannelongue,JasonGrealey,andMichaelInouye.2021.Greenalgorithms:Quantifyingthecarbonfootprintofcomputation.AdvancedScience\n(2021),2100707.\n[28] Anne-LaureLigozat,JulienLefèvre,AurélieBugeau,andJacquesCombaz.2021.UnravelingthehiddenenvironmentalimpactsofAIsolutionsfor\nenvironment.arXivpreprintarXiv:2110.11822(2021).\n[29] Tsung-YiLin,MichaelMaire,SergeBelongie,JamesHays,PietroPerona,DevaRamanan,PiotrDollár,andCLawrenceZitnick.2014.Microsoft\nCOCO:Commonobjectsincontext.InEuropeanconferenceoncomputervision.Springer,740–755.\n[30] KadanLottick,SilviaSusai,SorelleAFriedler,andJonathanPWilson.2019.EnergyUsageReports:Environmentalawarenessaspartofalgorithmic\naccountability.arXivpreprintarXiv:1911.08354(2019).",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ports:Environmentalawarenessaspartofalgorithmic\naccountability.arXivpreprintarXiv:1911.08354(2019).\n[31] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.2022.EstimatingtheCarbonFootprintofBLOOM,a176BParameterLanguage\nModel.arXivpreprintarXiv:2211.02001(2022).\n[32] JensMalmodinandDagLundén.2018.TheenergyandcarbonfootprintoftheglobalICTandE&Msectors2010–2015.Sustainability10,9(2018),\n3027.\n[33] AadityaMattooandArvindSubramanian.2012.Equityinclimatechange:ananalyticalreview.WorldDevelopment40,6(2012),1083–1097.\n[34] JenniferMorganandDavidWaskow.2014.AnewlookatclimateequityintheUNFCCC.ClimatePolicy14,1(2014),17–22.\n[35] RakshitNaidu,HarshitaDiddee,AjinkyaMulay,AletiVardhan,KrithikaRamesh,andAhmedZamzam.2021.TowardsQuantifyingtheCarbon\nEmissionsofDifferentiallyPrivateMachineLearning.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "esh,andAhmedZamzam.2021.TowardsQuantifyingtheCarbon\nEmissionsofDifferentiallyPrivateMachineLearning.arXivpreprintarXiv:2107.06946(2021).\n[36] CopenhagenCentreonEnergyEfficiency.2020. GreenhousegasemissionsintheICTsector:Trendsandmethodologies[Internet]. https:\n//c2e2.unepdtu.org/wp-content/uploads/sites/3/2020/03/greenhouse-gas-emissions-in-the-ict-sector.pdf\n[37] DavidPatterson,JosephGonzalez,UrsHölzle,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.\n2022.TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink.arXivpreprintarXiv:2204.05149(2022).\n[38] DavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.2021.\nCarbonemissionsandlargeneuralnetworktraining.arXivpreprintarXiv:2104.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "o,MaudTexier,andJeffDean.2021.\nCarbonemissionsandlargeneuralnetworktraining.arXivpreprintarXiv:2104.10350(2021).\n[39] PranavRajpurkar,JianZhang,KonstantinLopyrev,andPercyLiang.2016.SQuAD:100,000+questionsformachinecomprehensionoftext.arXiv\npreprintarXiv:1606.05250(2016).\n[40] HenningRodhe.1990.Acomparisonofthecontributionofvariousgasestothegreenhouseeffect.Science248,4960(1990),1217–1219.\n[41] ErikFSangandFienDeMeulder.2003. IntroductiontotheCoNLL-2003sharedtask:Language-independentnamedentityrecognition. arXiv\npreprintcs/0306050(2003).\n[42] VictorSanh,LysandreDebut,JulienChaumond,andThomasWolf.2019.DistilBERT,adistilledversionofBERT:smaller,faster,cheaperandlighter.\narXivpreprintarXiv:1910.01108(2019).\n[43] VictorSanh,AlbertWebson,ColinRaffel,StephenH.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "randlighter.\narXivpreprintarXiv:1910.01108(2019).\n[43] VictorSanh,AlbertWebson,ColinRaffel,StephenH.Bach,LintangSutawika,ZaidAlyafeai,AntoineChaffin,ArnaudStiegler,TevenLeScao,\nArunRaja,MananDey,MSaifulBari,CanwenXu,UrmishThakker,ShanyaSharmaSharma,ElizaSzczechla,TaewoonKim,GunjanChhablani,\nNihalNayak,DebajyotiDatta,JonathanChang,MikeTian-JianJiang,HanWang,MatteoManica,ShengShen,ZhengXinYong,HarshitPandey,\nRachelBawden,ThomasWang,TrishalaNeeraj,JosRozen,AbheeshtSharma,AndreaSantilli,ThibaultFevry,JasonAlanFries,RyanTeehan,Tali\nBers,StellaBiderman,LeoGao,ThomasWolf,andAlexanderM.Rush.2021.MultitaskPromptedTrainingEnablesZero-ShotTaskGeneralization.\nhttps://doi.org/10.48550/ARXIV.2110.08207",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "titaskPromptedTrainingEnablesZero-ShotTaskGeneralization.\nhttps://doi.org/10.48550/ARXIV.2110.08207\n[44] SteffenSchlömer,ThomasBruckner,LewFulton,EdgarHertwich,AlanMcKinnon,DanielPerczyk,JoyashreeRoy,RobertoSchaeffer,RalphSims,\nPeteSmith,etal.2014.AnnexIII:Technology-specificcostandperformanceparameters.InClimateChange2014:MitigationofClimateChange:\nContributionofWorkingGroupIIItotheFifthAssessmentReportoftheIntergovernmentalPanelonClimateChange.CambridgeUniversityPress,\n1329–1356.\n[45] VictorSchmidt,KamalGoyal,AdityaJoshi,BorisFeld,LiamConell,NikolasLaskaris,DougBlank,JonathanWilson,SorelleFriedler,andSasha\nLuccioni.2021.CodeCarbon:EstimateandTrackCarbonEmissionsfromMachineLearningComputing.\n[46] RoySchwartz,JesseDodge,NoahASmith,andOrenEtzioni.2020.GreenAI.Commun.ACM63,12(2020),54–63.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ng.\n[46] RoySchwartz,JesseDodge,NoahASmith,andOrenEtzioni.2020.GreenAI.Commun.ACM63,12(2020),54–63.\n[47] MatthewSkiles,EuijinYang,OradReshef,DiegoRobalinoMuñoz,DianaCintron,MaryLauraLind,AlexanderRush,PatriciaPerezCalleja,Robert\nNerenberg,AndreaArmani,KaseyM.Faust,andManishKumar.2021.Conferencedemographicsandfootprintchangedbyvirtualplatforms.Nature\nSustainability2398-9629(2021).\n[48] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019. EnergyandpolicyconsiderationsfordeeplearninginNLP. arXivpreprint\narXiv:1906.02243(2019).\n[49] SiddharthSuman.2018.Hybridnuclear-renewableenergysystems:Areview.JournalofCleanerProduction181(2018),166–177.\n[50] NeilCThompson,KristjanGreenewald,KeeheonLee,andGabrielFManso.2020. Thecomputationallimitsofdeeplearning. arXivpreprint\narXiv:2007.05558(2020).",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": ",andGabrielFManso.2020. Thecomputationallimitsofdeeplearning. arXivpreprint\narXiv:2007.05558(2020).\n[51] TristanTrébaol.2020.CUMULATOR—atooltoquantifyandreportthecarbonfootprintofmachinelearningcomputationsandcommunicationin\nacademiaandhealthcare.TechnicalReport.\n[52] UnitedStatesEnergyInformationAdministration.2012-2021.DetailedStateData. https://www.eia.gov/electricity/data/state/\n[53] AshishVaswani,NoamShazeer,NikiParmar,JakobUszkoreit,LlionJones,AidanNGomez,ŁukaszKaiser,andIlliaPolosukhin.2017.Attentionis\nallyouneed.InAdvancesinneuralinformationprocessingsystems.5998–6008.\nManuscriptpendingreview",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "16 AlexandraSashaLuccioniandAlexHernandez-Garcia\n[54] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.SustainableAI:EnvironmentalImplications,ChallengesandOpportunities.arXivpreprintarXiv:2111.00364(2021).\n[55] GuangxuanXuandQingyuanHu.2022.CanmodelcompressionimproveNLPfairness.arXivpreprintarXiv:2201.08542(2022).\n[56] MirzaYusuf,PraatibhSurana,GauriGupta,andKrithikaRamesh.2021.CurbYourCarbonEmissions:BenchmarkingCarbonEmissionsinMachine\nTranslation.arXivpreprintarXiv:2109.12584(2021).\n[57] SusanZhang,StephenRoller,NamanGoyal,MikelArtetxe,MoyaChen,ShuohuiChen,ChristopherDewan,MonaDiab,XianLi,XiVictoriaLin,",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Roller,NamanGoyal,MikelArtetxe,MoyaChen,ShuohuiChen,ChristopherDewan,MonaDiab,XianLi,XiVictoriaLin,\nTodorMihaylov,MyleOtt,SamShleifer,KurtShuster,DanielSimig,PunitSinghKoura,AnjaliSridhar,TianluWang,andLukeZettlemoyer.2022.\nOPT:OpenPre-trainedTransformerLanguageModels. https://doi.org/10.48550/ARXIV.2205.01068\n[58] XiyouZhou,ZhiyuChen,XiaoyongJin,andWilliamYangWang.2020.Hulk:Anenergyefficiencybenchmarkplatformforresponsiblenatural\nlanguageprocessing.arXivpreprintarXiv:2002.05829(2020).\n[59] BarretZophandQuocVLe.2016.Neuralarchitecturesearchwithreinforcementlearning.arXivpreprintarXiv:1611.01578(2016).\nManuscriptpendingreview",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 17\nA SUPPLEMENTARYMATERIALS\nA.1 Emailssenttoauthors\nSubject: Information Request: Computing Infrastructure Used in your Paper\nHello,\nMy name is XXXX and I am a researcher working on the environmental impact of Machine Learning.\nI am trying to gather data regarding the carbon footprint of recent state-of-the-art research\npapers. This will help the ML community get a better idea of how much CO2 we are emitting when\ntraining models.\nIn order to help me on my mission, I was hoping you could give me more information about your\npaper entitled YYYY.\nMore specifically, could you tell me:\n- Where it was trained? If it was on a local computing cluster, could you tell me the location",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "me:\n- Where it was trained? If it was on a local computing cluster, could you tell me the location\nof the cluster? And if it was trained on the cloud, could you indicate the provider and server\nregion (e.g. \"Microsoft Azure, us-east1\")?\n- What hardware you used\n- The total training time of your models?\nThank you very much for this information,\nXXXX\nA.2 Informationregardingtraininghardware\nTable3. Thetop5GPUs/TPUsused,thenumberofmodelsthatusedthemfortraining,therangeofquantitiesthatwereused,and\ntheirThermalDesignPower(TDP).\nModel Numberofmodels TDP Quantityused\nTeslaV100 30 300W 1-128\nTPUv3 9 450W 1-1024\nRTX2080Ti 8 250W 4-16\nTeslaM40 5 250W 8\nGTX1080 4 180W 1-8\nInTable3,werepresentthe5mostpopularGPUandTPUmodelsusedinthepapersweanalysed,accompaniedby",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "180W 1-8\nInTable3,werepresentthe5mostpopularGPUandTPUmodelsusedinthepapersweanalysed,accompaniedby\nthenumberofpapersthatusedthem,therangeofquantitiesused,andtheirTDP.TheTeslaV100wasbyfarthemost\npopularpieceofhardware,representingalmostathirdofthepapers,followedbytheTPUv3.TheTDPofthehardware\nusedinourpapersamplealsovariessignificantly,from180WformodelssuchastheGTX1080to450WfortheTPU\nv3model,meaningthatTPUs,onaverage,consumemoreenergyduringusage.LookingatthenumberofGPUsand\nTPUsusedforMLtraininginthepapersthatwesurveyed,wecanseethatthereisalargerangeinthequantityof\nGPUs/TPUsusedformodeltraining,withsomemodelsleveragingupto1024TPUv3sfortraining,whileothersutilize\nasingleGTX1080GPUforvaryingamountsoftime,whichmakesthetotalenergyconsumptionvarysignificantly.We",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ze\nasingleGTX1080GPUforvaryingamountsoftime,whichmakesthetotalenergyconsumptionvarysignificantly.We\nanalyzetheconnectionbetweenenergyusageandperformanceondifferentMLtasksin§4.4,inordertodetermine\nwhetherhigherenergyconsumptionhelpsachievebetterperformanceindifferentMLtasks.\nManuscriptpendingreview",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "18 AlexandraSashaLuccioniandAlexHernandez-Garcia\nA.3 EnergyConsumptionbyTask\nIn Figure 5 below, we plot the same four tasks as in Figure 3, representing the energy consumed instead of the\nCO2emitted.WefindlargelysimilartrendsastheoneswedescribeinSection4.4,withbetterperformanceontasks\nlikemachinetranslationandimageclassificationnotnecessarilybeingcontingentonhigherenergyconsumption.\nFig.5. ComparisonoftheperformanceachievedbyeachmodeltrainedonMachineTranslationtasks(BLEUscore)andImage\nClassification(top-1accuracy),andtheenergyconsumed.\nManuscriptpendingreview",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "CountingCarbon:ASurveyofFactorsInfluencingtheEmissionsofMachineLearning 19\nA.4 Carbonintensityovertime\nInFigure6,weplottheevolutionovertheyearsofthecarbonintensityoftheenergygridforeachmodel,aswellasthe\nnumberofmodelstrainedwitheachenergysource.Weobservethat,despitetheneedtoaddresstheclimatecrisisby\nusingcleanerenergysources,therehasnotbeenadecreaseinneithertheaveragecarbonintensitynorthenumberof\nmodelstrainedwithcleanerenergy.Onthecontrary,wedoobserveastarkincreaseofmodelstrainedwithcoal.\n(a)Carbonintensityofthemodelsperyearandenergysource.\n(b)Numberofmodelstrainedwitheachenergysourceperyear.\nFig.6. Carbonintensityandenergysourcesovertheyears.\nManuscriptpendingreview",
+    "page": 19
+  }
+]

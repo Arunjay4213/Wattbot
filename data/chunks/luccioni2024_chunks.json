@@ -1,0 +1,522 @@
+[
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing: Watts DrivingtheCostofAIDeployment?\nALEXANDRASASHALUCCIONIandYACINEJERNITE,HuggingFace,Canada/USA\nEMMASTRUBELL,CarnegieMellonUniversity,AllenInstituteforAI,USA\nFig.1. Thetasksexaminedinourstudyandtheaveragequantityofcarbonemissionstheyproduced(ingof𝐶𝑂2𝑒𝑞)for1,000queries.\nN.B.Theyaxisisinlogarithmicscale.\nRecentyearshaveseenasurgeinthepopularityofcommercialAIproductsbasedongenerative,multi-purposeAIsystemspromising\naunifiedapproachtobuildingmachinelearning(ML)modelsintotechnology.However,thisambitionof“generality”comesatasteep\ncosttotheenvironment,giventheamountofenergythesesystemsrequireandtheamountofcarbonthattheyemit.Inthiswork,we\nproposethefirstsystematiccomparisonoftheongoinginferencecostofvariouscategoriesofMLsystems,coveringbothtask-specific\n(i.e.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ticcomparisonoftheongoinginferencecostofvariouscategoriesofMLsystems,coveringbothtask-specific\n(i.e.finetunedmodelsthatcarryoutasingletask)and‘general-purpose’models,(i.e.thosetrainedformultipletasks).Wemeasure\ndeploymentcostastheamountofenergyandcarbonrequiredtoperform1,000inferencesonrepresentativebenchmarkdatasetusing\nthesemodels.Wefindthatmulti-purpose,generativearchitecturesareordersofmagnitudemoreexpensivethantask-specificsystems\nforavarietyoftasks,evenwhencontrollingforthenumberofmodelparameters.Weconcludewithadiscussionaroundthecurrent\ntrendofdeployingmulti-purposegenerativeMLsystems,andcautionthattheirutilityshouldbemoreintentionallyweighedagainst\nincreasedcostsintermsofenergyandemissions.Allthedatafromourstudycanbeaccessedviaaninteractivedemotocarryout",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "dcostsintermsofenergyandemissions.Allthedatafromourstudycanbeaccessedviaaninteractivedemotocarryout\nfurtherexplorationandanalysis.\nCCSConcepts:•Computingmethodologies→Machinelearning;Neuralnetworks;•Hardware→Impactontheenviron-\nment;Powerestimationandoptimization.\nACMReferenceFormat:\nAlexandraSashaLuccioni,YacineJernite,andEmmaStrubell.2024.PowerHungryProcessing: Watts DrivingtheCostofAI\nDeployment?.InACMConferenceonFairness,Accountability,andTransparency(ACMFAccT’24),June3–6,2024,RiodeJaneiro,Brazil.\nACM,NewYork,NY,USA,21pages.https://doi.org/10.1145/3630106.3658542\nPermissiontomakedigitalorhardcopiesofpartorallofthisworkforpersonalorclassroomuseisgrantedwithoutfeeprovidedthatcopiesarenot",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "hardcopiesofpartorallofthisworkforpersonalorclassroomuseisgrantedwithoutfeeprovidedthatcopiesarenot\nmadeordistributedforprofitorcommercialadvantageandthatcopiesbearthisnoticeandthefullcitationonthefirstpage.Copyrightsforthird-party\ncomponentsofthisworkmustbehonored.Forallotheruses,contacttheowner/author(s).\n©2024Copyrightheldbytheowner/author(s).\nManuscriptsubmittedtoACM\n1\n4202\ntcO\n51\n]GL.sc[\n3v36861.1132:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\n1 INTRODUCTION\nUnderstandingtheenvironmentalimpactsofdifferentindustriesisanimportantfirststeptowardsdevelopingeffective\nstrategiestomitigatethoseimpacts.Fornewerindustriessuchasinformationandcommunicationtechnologies(ICT)\nofwhichArtificialIntelligence(AI)andMachineLearning(ML)areconsideredtobeapartof,moreworkisneededto\nunderstandtheextentoftheirenvironmentalimpactsandthefactorsthatinfluenceit.Between2017and2021,the\nelectricityusedbyMeta,Amazon,Microsoft,andGoogle,themainprovidersofcommercially-availablecloudcompute,\nmorethandoubled[22].Accordingtothemostrecentfiguresavailable,globaldatacentreelectricityconsumption\nhasgrownby20-40%annuallyinrecentyears,reaching1-1.3%ofglobalelectricitydemandandcontributing1%of",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "on\nhasgrownby20-40%annuallyinrecentyears,reaching1-1.3%ofglobalelectricitydemandandcontributing1%of\nenergy-relatedgreenhousegasemissionsin2022[21].HoweverthecontributionoftheAIsectorspecificallytowards\nthesefiguresisunclear.\nRecentworkdocumentingtheenvironmentalimpactsofMLhasfocusedlargelyonquantifyingtheoperational\nenergyandcarbonrequiredtoperformthetrainingphaseoftheMLmodellifecycle[12,30,41,49]duetotherelative\neaseofmeasuringper-modelenergyuseforthatphaseandtheimpressivequantityofenergyrequiredtoperform\nasingletrainingrun[41,49].Yet,otherphasesoftheMLmodellifecycle,suchasinference,standtoimpactthe\nenvironmentjustasmuch,ormore,thantrainingduetothecomputationalresourcesrequiredtodeploymodern\nmodelsatscale.Whileinferenceonasingleexamplerequiresmuchlesscomputationthanthatrequiredtotrainthe",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "n\nmodelsatscale.Whileinferenceonasingleexamplerequiresmuchlesscomputationthanthatrequiredtotrainthe\nsamemodel,inferencehappensfarmorefrequentlythanmodeltraining—asmanyasbillionsoftimesadayfora\nmodelpoweringapopularuser-facingproductsuchasGoogleTranslate.1Yet,in-depthworkquantifyingthecostsof\nmodelinferenceanddeploymentislimitedandtheirenvironmentalimpacts,intermsofenergyandcarbonaswellas\nwaterandminingofrareearthminerals,haveyettobeestimated.AccordingtoAWS,thelargestglobalcloudprovider,\ninferenceisestimatedtomakeup80to90%oftotalMLcloudcomputingdemand[2,28],whereasa2021publicationby\nMetaattributedapproximatelyone-thirdoftheirinternalend-to-endMLcarbonfootprinttomodelinference,withthe\nremainderproducedbydatamanagement,storage,andtraining[57];similarly,a2022studyfromGoogleattributed",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "remainderproducedbydatamanagement,storage,andtraining[57];similarly,a2022studyfromGoogleattributed\n60%ofitsMLenergyusetoinference,comparedto40%fortraining[40].GiventheincreasingubiquityofAImodel\ndeployment,itiscrucialtogobeyondthesehigh-levelstatisticstogetabetterideaoftheenergyrequirementsand\ncarbonemissionsofmodelinferencefordifferentmodelsandtasks.Inparticular,lookingatinferenceratherthan\ntrainingleadstodrasticallydifferentconclusionswhenconsideringthemulti-purpose(or“general-purpose”)aspect\nspecifically.Trainingasinglemodelformultipletaskscanindeedbemoreenergy-efficientwhenconsideringtraining\ncostsonly,butthesegainscaneasilybelostandevenreversedoverthecourseofthemodel’slifetime,givenhowmuch\ninferenceiscarriedoutwhenthesemodelsaredeployedinuser-facingapplicationslikechatandwebsearch.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "wmuch\ninferenceiscarriedoutwhenthesemodelsaredeployedinuser-facingapplicationslikechatandwebsearch.\nTohelpshedlightonthisissue,weperformanextensivestudymeasuringtheamountofenergyrequiredtodeploy\nvariousMLmodelsandarchitectures,includinglargelanguagemodels(LLMs)-assuch,ourstudyis,toourknowledge,\nthefirsttofocussolelyontheinferencephaseoftheMLmodellifecycle.Westudy88modelsacross10tasksand30\ndatasets,spanningapplicationsinnaturallanguageandcomputervision,analyzingtheimpactofendtask,modality,\nmodelsize,architecture,andlearningparadigm(i.e.task-specificormulti-task/multi-purpose)onenergyefficiency.We\nidentifyorders-of-magnitudedifferencesintheamountofenergyrequiredperinferenceacrossmodels,modalitiesand",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tifyorders-of-magnitudedifferencesintheamountofenergyrequiredperinferenceacrossmodels,modalitiesand\ntasksandshinelightonanimportanttrade-offbetweenthebenefitofmulti-purposesystems,theirenergycost,and\nensuingcarbonemissions.BypaintingamoredetailedpictureofwidelyvaryingenergyrequirementsforMLmodel\n1Googlereportedtranslatingmorethan100billionwordsperdayin2016,assuminganaveragequerylengthof100wordsyieldsanestimateof1billion\nqueriestothemodelperday.Source:https://blog.google/products/translate/ten-years-of-google-translate/\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\ninference,wehopethisstudycanbeusefulforpractitionerstobetterunderstandaccuracy-efficiencytrade-offsacross\ntasksandmodels,aswellasenablingbetterestimates,andprojectionsandpolicydecisionsatthesectorlevel.\n2 PREVIOUSWORK\nEstimatingtheenergyandemissionsofMLmodelshasremainsarelativelyunder-exploredtopic,albeitonethat\nhasbeengatheringtractionsinceStrubelletal’sseminalarticlequantifyingtheenergyandcarbonemissionsofa\nvarietyofthen-largeNLPmodels[2019].Sincethen,moststudieshavefocusedonestimatingtheenergyconsumedand\ncarbonemittedduringthetrainingphaseofneuralnetworks–thisincludesstudiesbyPattersonetal.[2022,2021],\nwhocompareddifferentmodelsandanalyzedfactorsinfluencingtheiremissions.Therehavealsobeenstudiesof",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "],\nwhocompareddifferentmodelsandanalyzedfactorsinfluencingtheiremissions.Therehavealsobeenstudiesof\nspecificmodelarchitectures,e.g.BLOOM[31]andNour[27],whichcarriedoutin-depthanalysesofthedifferent\nstepsinthemodels’lifecycleandtheirrelativecontributiontowardsthefinalquantityofcarbonemissions.Giventhe\nincreasingdeploymentofMLmodelsinthecloud,severalstudieshavethereforelookedatcloud-specificwaystoreduce\ntheemissionsofMLmodelssuchasdelayedscheduling,workloadelasticityandchoosingtheleastcarbon-intensive\nelectricityavailableChienetal.[6],Dodgeetal.[12],Hanafyetal.[19].\nDespitetheseempiricalstudies,thereiscurrentlyalackofstandardizedmethodologyforquantifyingandcomparing\ntheenergyconsumptionandcarbonemissionsofMLmodels.Thereareseveraltoolsthatexist,suchasCodeCarbon[47],",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "heenergyconsumptionandcarbonemissionsofMLmodels.Thereareseveraltoolsthatexist,suchasCodeCarbon[47],\nMLCO2[26]andLLMCarbon[13],allofwhichadoptdifferentapproachesandoutputdifferentresults(see[1]for\nadetailedcomparison).Itisthereforedifficulttosystematicallycomparethecarbonfootprintsofdifferentmodels.\nExistingtoolsandstudieshavealsolargelyfocusedonthedynamicpowerconsumption(i.e.theelectricitynecessaryfor\npoweringhardware)anditsresultingemissions.However,therehavebeenseveralproposalstoalsotakeintoaccount\ntheembodiedemissionsofMLmodels(i.e.theemissionsthatcanbeattributedtothemanufacturingofcomputing\nequipment)intocarbonemissionsestimates.Thishasbeenimpededbyalackoftransparencyfromthedesigners\nofcommoncomputinghardwaresuchasGPUs,althoughrecentestimateshaverevealedthattheembodiedcarbon",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "igners\nofcommoncomputinghardwaresuchasGPUs,althoughrecentestimateshaverevealedthattheembodiedcarbon\nfootprintofanLLMtrainedanddeployedonMeta’scomputeclusterconstitutesupto50%ofitscarbonfootprint[57].\nWhilethemajorityofexistingworkhasbeenfocusedonMLmodeltraininggiventhatitisamoretractablepartof\nthemodellifecycle(i.e.itismostoftencarriedoutoverasetperiodoftimeonaspecificcomputeinstance),model\ninferencehasstartedtoalsobecomethesubjectofscholarship[6,11].Luccionietal.’sstudyofBLOOMwasthefirst\nofitskindtolookatthespecificenergycostsrelatedtodeployinganLLM[31]andfoundthat,overtime,thiscan\nrepresentasignificantportionofamodel’soverallcarbonfootprint.\nThecurrentstudyfurtherpursuesthislineofwork,delvingdeeperintotheinferencestageofMLmodels,theenergy\nitconsumesandthecarbonitemits.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "thislineofwork,delvingdeeperintotheinferencestageofMLmodels,theenergy\nitconsumesandthecarbonitemits.Bytestingavarietyofarchitecturesondifferenttasksanddatasets,weaimtogain\nabetterunderstandingofthedegreeofvariancethatcanbeobservedandhowseeminglysmalluserchoicescanresult\ninlargedifferencesinmodel’senvironmentalimpacts.\n3 METHODOLOGY\nAsstatedabove,ourstudyfocusesontheinference(i.e.deployment)stageinthemodellifecycle,aimingtoaddressthe\nknowledgegapsthatcurrentlyexistwithregardstoitsenergyconsumptionandensuingemissions.Wedescribehow\nwechosethetasks,datasetsandmodelsinthesectionsbelow,andpresenttheresultsofouranalysisinSection4.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\n3.1 Taskanddatasetselection\nAsthestartingpointofourstudy,wechose10MLtasksfrom5differentmodalities:Text-to-category(textclassifica-\ntion,tokenclassification,extractivequestionanswering),Text-to-text(maskedlanguagemodeling,textgeneration,\nsummarization),Image-to-category(imageclassification,objectdetection),Image-to-text(imagecaptioning)and\nText-to-image(imagegeneration).ThesetaskswerechosenbecausetheyarecommoninbothNaturalLanguage\nProcessingandComputerVision,allowingustoexploremultiplemodalities,andincludeseveralmultimodaltasks(i.e.\nimagecaptioningandimagegeneration),allowingustoexplorethenexusbetweenseveralmodalitiesaswell.Totest\neachofthetaskslistedabove,wechosethreeofthemostdownloadeddatasetsfromtheHuggingFaceHub.Wepresent",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "st\neachofthetaskslistedabove,wechosethreeofthemostdownloadeddatasetsfromtheHuggingFaceHub.Wepresent\nthetasksandtheircorrespondingdatasetsinTable1.\nTask Datasets Task Datasets\nCIFAR10[25] SQuAD[44]\nimage question\nCIFAR100[25] SQuADv2[43]\nclassification answering\nImageNet1K[45] SciQ[23]\nVisualGenome[24] SAMSum[15]\nimage\nRedCaps[10] summarization CNN-DailyMail[20]\ncaptioning\nCOCO[29] XSum[35]\nDiffusionDB[54] IMDB[32]\nimage text\nImageReward[58] RottenTomatoes[39]\ngeneration classification\nSDPrompts[46] SST2[48]\nmasked BookCorpus[59] WikiText[33]\ntext\nlanguage C4[42] BookCorpus[59]\ngeneration\nmodeling OSCAR[37] OSCAR[37]\nVisualGenome[24] ReCoRD[53]\nobject token\nCPPE-5[9] WikiANN[38]\ndetection classification\nCOCO[29] CoNLL2003[50]\nTable1. Alistofthetasksanddatasetsusedinourstudy.\n3.2 Models",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "classification\nCOCO[29] CoNLL2003[50]\nTable1. Alistofthetasksanddatasetsusedinourstudy.\n3.2 Models\nToberepresentativeofabroaddiversityofdeploymentusecases,wesampled88models,someofwhichweretrained\nor finetunedspecifically forthe tasks thatweselected, whereas othersweredesigned tobe usedas zero-shot or\nmulti-taskmodels,toallowcomparisonsbothfordifferentarchitecturesonagiventaskandbetweentasksforthesame\narchitecture.\nTask-specificModels. Forallofthetaskslistedabove,weselectedthe8mostpopularmodelsfromtheHuggingFace\nHub(bynumberofdownloads)2-wepresentthefulllistofmodelidentifiersinTable6intheSupplementaryMaterials.\nForeachmodel,weran1,000inferencesforeachofthe3datasetsfromthetaskitwastrainedfor(listedinTable1),\nusingtheTransformers[55]library.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "cesforeachofthe3datasetsfromthetaskitwastrainedfor(listedinTable1),\nusingtheTransformers[55]library.Weraneachsetofinferences10timestoensurestatisticalsignificanceofour\nmeasurements.Wesetuptheinferencessequentially–i.e.,withoutbatching–inordertoreflectthevariabilityof\nmodeldeploymentinsitu,whichcanmakeitdifficulttobatchmodelinputs.\n2Wewereobligedtodiscardsomemodels,e.g.iftheyweretrainedonanotherlanguageorifthespecifictasktheywerefine-tunedforwasnotcompatible\nwithanyofthedatasetsselected.\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nMulti-PurposeModels. Inadditiontothetask-specificmodelslistedabove,wealsoselected8multi-purposemodels\ntoanalyzeondifferenttasks–modelsthatwerespecificallytrainedtoperformwellinvariousdifferentapplication\nsettings.Wechose4sequence-to-sequencemodelsofdifferentsizesfromtheFlan-T5family[8](base,large,xland\nxxl)and4decoder-onlymodelsfromtheBLOOMzfamily[34]:BLOOMz-560M,BLOOMz-1B,BLOOMz-3BandBLOOMz-7B.\nWetestedtheseonasubsetofthetaskstoallowacomparisonofmulti-purposegenerativemodelswithindividual\ntask-specificsystemsintermsoftheirenergyconsumptionandemissions:questionanswering,textclassificationand\nsummarization.Weselectedthesethreetasksbecausewewereabletofindasetofmodelsthatwerecapableofcarrying",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "summarization.Weselectedthesethreetasksbecausewewereabletofindasetofmodelsthatwerecapableofcarrying\nthemoutwithaunifiedmodelarchitecture(whichwasn’tpossibleforalltasks,especiallyonesthatinvolvedmultiple\nmodalities.)Wepromptedthese8modelsinazero-shotsettingthatwasconstantacrossmodels,e.g.\"Summarizethe\nfollowingtext:[text].Summary:\"onthesame1,000samplesasthefine-tunedmodels,alsorepeatingeachexperiment\ntentimestomeasurethesignificanceofresults.\nWeranallofourexperimentsonanodeof8NVIDIAA100-SXM4-80GBGPUshostedonAmazonWebServices,and\nusedtheCodeCarbonpackage[47]tomeasureboththeenergyconsumedandthecarbonemittedduringinference3.\nGiventhatallofourexperimentswereruninthesamecomputeregion(AWS’sus-west-2),whichisbasedinOregon\nandhasanaveragecarbonintensityof297.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "eruninthesamecomputeregion(AWS’sus-west-2),whichisbasedinOregon\nandhasanaveragecarbonintensityof297.6gramsof𝐶𝑂2𝑒𝑞perkWh4,thismeansthatboththeenergyconsumed\nduringinferenceandthecarbonemittedarecorrelated;wewillthereforeplotoneortheotherdependingonwhich\naspectofourresultswearediscussing.Whiletheenergyconsumedduringinferencewillremainsimilarformodels\ndeployedonA100GPUsinothercomputeregions,thecarbonemissionswillvarydependingonthesourceofenergy\nused in the region – it is therefore helpful to report both energy and carbon separately to allow for meaningful\ncomparisonsacrossregionsandhardware.WeprovideallthecodeusedforourexperimentsinourGitHubrepository,\nalongsidethelogsproducedbyCodeCarbon,whichnotonlyprovidesthetotalenergyconsumedbutalsoamore",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "sitory,\nalongsidethelogsproducedbyCodeCarbon,whichnotonlyprovidesthetotalenergyconsumedbutalsoamore\nfine-grainedbreakdownbyhardwarecomponent(GPU,CPUandRAM),whichcanbeusedtocarryoutfurtheranalyses.\nIntotal,forallofmodelexperimentationandevaluation,weusedatotalof754.66kWhofenergyandemitted178.97kg\nof𝐶𝑂2𝑒𝑞.\n4 RESULTS\nWepresentourresultsinthesubsectionsbelow:inSection4.1,weanalyzetherangeofenergyusedandcarbonemitted\nforeachtaskfortask-specificmodels.InSection4.2,weshiftourfocustomulti-purpose(i.e.‘zero-shot‘models),looking\natthevariationbetweendifferentsizesandarchitecturesofmulti-purposemodelsandthedifferenceintheenergy\nconsumptionandemissionsbetweentask-specificandmulti-purposemodels.InSection4.3,wecarryoutacomparison",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "onsumptionandemissionsbetweentask-specificandmulti-purposemodels.InSection4.3,wecarryoutacomparison\nbetweenmodeltrainingandinferencecostsformodelsofdifferentsizes,calculatingwhenparityisreached.\n4.1 Task-specificmodelanalysis\nWestartbyanalyzingthedegreeofvariabilityintermsoftheenergycostofMLmodelsspecificallytrainedforavariety\noftasks.Table2showseachofthetentasksthatweanalyzedaswellasthemeanenergyusedacrossallmodelsfor\n1,000inferencesanditsstandarddeviation.Wecanseethatclassificationtasksforbothimagesandtextareonthe\nlowerendofthespectrumintermsofemissions(rangingbetween0.002and0.007kWhfor1,000inferences),whereas\n3WhileallofourexperimentswererunonasingleGPU,theidlepowerusageoftheotherGPUsisalsoreflectedinthenumbersthatwereportinour\nresults.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "unonasingleGPU,theidlepowerusageoftheotherGPUsisalsoreflectedinthenumbersthatwereportinour\nresults.\n4Thecarbonintensityofanenergygridismeasuredin𝐶𝑂2𝑒𝑞,andnotin𝐶𝑂2specifically,becausethedifferentgreenhousegasesthataregenerated\nduringelectricitygenerationarereducedtoacommondenominator,thatofcarbondioxide,or𝐶𝑂2.Foramorein-depthdiscussionofhowthisisdone,\nseeLuccioniandHernandez-Garcia[2023].\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\ngenerativetaskssuchastextgenerationandsummarizationuse,onaverage,over10timesmoreenergyforthesame\nnumberofinferences(around0.05kWhfor1,000inferences),andmultimodaltaskssuchasimagecaptioningandimage\ngenerationareonthehighestendofthespectrum(0.06-2.9kWhfor1,000inferences).Text-basedtasksare,allthings\nconsidered,moreenergy-efficientthanimage-basedtasks,withimageclassificationrequiringlessenergy(median\nof0.0068kWhfor1,000inferences)thanimagegeneration(1.35kWh)and,conversely,textgeneration(0.042KwH)\nrequiringmorethantextclassification(0.0023kWh).Forcomparison,chargingtheaveragesmartphonerequires0.022\nkWhofenergy[51],whichmeansthatthemostefficienttextgenerationmodelusesasmuchenergyas9%ofafull",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "s0.022\nkWhofenergy[51],whichmeansthatthemostefficienttextgenerationmodelusesasmuchenergyas9%ofafull\nsmartphonechargefor1,000inferences,whereastheleastefficientimagegenerationmodelusesasmuchenergyas\n522smartphonecharges(11.49kWh),oraroundhalfachargeperimagegeneration5,althoughthereisalsoalarge\nvariationbetweenimagegenerationmodels,dependingonthesizeofimagethattheygenerate.\ninferenceenergy(kWh)\ntask mean std\ntextclassification 0.002 0.001\nextractiveQA 0.003 0.001\nmaskedlanguagemodeling 0.003 0.001\ntokenclassification 0.004 0.002\nimageclassification 0.007 0.001\nobjectdetection 0.038 0.02\ntextgeneration 0.047 0.03\nsummarization 0.049 0.01\nimagecaptioning 0.063 0.02\nimagegeneration 2.907 3.31\nTable2. Meanandstandarddeviationofenergyper1,000queriesforthetentasksexaminedinouranalysis.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "07 3.31\nTable2. Meanandstandarddeviationofenergyper1,000queriesforthetentasksexaminedinouranalysis.\nWecanalsoobservethatthereisalargevariationintheamountofenergyused,fromtheleastenergy-intensive\ntask,textclassification,withmeanconsumptionof0.002KwHper1,000inferences,tothemostenergy-intensiveone,\nimagegeneration,whosemeanconsumptionis2.9kWh.Thismeansthatthedifferentmodelsexaminedinourstudy\ncanvarybyafactorofover1450intermsoftheenergyrequiredtoperformthesamenumberofinferences.Intuitively,\nthisiscoherentgiventhedecisionspacethatdifferenttypesofmodelshave-fromabinaryclassificationtasksuchas\nsentimentanalysis(whichcanonlyoutput,forinstance,a0fornegativesentimentanda1forpositive)toanentire\nvocabularyfortextgenerationandsummarizationmodels.Thelengthoftextgeneratedalsoimpactsenergyusage:on",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "vocabularyfortextgenerationandsummarizationmodels.Thelengthoftextgeneratedalsoimpactsenergyusage:on\naverage,textgenerationuses15timesmoreenergythanmaskedlanguagemodeling,whichmakessensegiventhatthe\nmaskedlanguagemodelingtaskonlygeneratesasingletoken,whereasinoursetupthetextgenerationtaskgenerates\n10newtokensforeachinputtext,withthelengthoftheinputtextrisingasnewtokensaregenerated,sinceeach\nsequenceoftokensgetsfedbackintothemodeltogeneratesubsequenttokens.Finally,forimage-basedtasks,thelevel\nofabstractionislowerandthedecisionspaceislargergiventhattheygeneraterawpixelsasopposedtotokensfortext,\nmakingimage-basedtasksmoreenergyintensivethantextbasedones,e.g.imageclassificationusesover3timesmore\nenergythantextclassification(0.007vs.0.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ethantextbasedones,e.g.imageclassificationusesover3timesmore\nenergythantextclassification(0.007vs.0.002kWh)andimagegenerationuses,onaverage,over60timesmoreenergy\nthantextgeneration(0.047vs.2.9kWh).\n5BeforeJanuary2024,theEPAwebsiteestimatedasmartphonechargetoconsume0.012kWhofenergy,whichwasthenumberusedforcomparisonsin\nanearlierversionofthisstudy.\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nFig.2. The5modalitiesexaminedinourstudy,withthenumberofparametersofeachmodelonthexaxisandtheaverageamount\nofcarbonemittedfor1000inferencesontheyaxis.NB:Bothaxesareinlogarithmicscale.\nNext,weexaminetherespectiveinfluencesofmodelsizeandtaskstructureonmodelemissions.Figure2showsthe\nrelationshipbetweenmodelemissions(ingramsof𝐶𝑂2𝑒𝑞per1,000inferences)andsizes(intermsofthenumberof\nparameters)acrossthetaskcategorieslistedinSection3.1.Wedoobservearelationshipbetweenmodelsizeandquantity\nofemissionsproducedduringinference,withdifferingprogressionsforeachmodality–however,thetaskstructureac-\ncountsformoreofthevariationthanthemodelsizedoes.Wecanobserveonceagainthattext-to-imageisbyfarthemost",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ountsformoreofthevariationthanthemodelsizedoes.Wecanobserveonceagainthattext-to-imageisbyfarthemost\ncarbon-andenergy-intensivetask,withsmallerimagegenerationmodelssuchassegmind/tiny-sdthathavearound\n500Mparametersproducingmagnitudesmorecarbonthantext-to-categorymodels(100gvs.0.6gof𝐶𝑂2𝑒𝑞per1,000\ninferences).Withinthetext-to-texttasks,weseetwoseparatesetsofmodels:themaskedlanguagemodelingtaskfollow-\ningalowertrend,producingemissionsakintotext-to-categorymodels,comparedtotextgenerationandsummarization\ntasks,whichproducesimilaramountsofcarbontotheimagecaptioningmodelswithasimilarnumberofparameters.\nForcontext,themostcarbon-intensiveimagegenerationmodel(stable-diffusion-xl-base-1.0)generates1,594\ngramsof𝐶𝑂2𝑒𝑞for1,000inferences,whichisroughlytheequivalentto4.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "-diffusion-xl-base-1.0)generates1,594\ngramsof𝐶𝑂2𝑒𝑞for1,000inferences,whichisroughlytheequivalentto4.1milesdrivenbyanaveragegasoline-powered\npassengervehicle[51],whereastheleastcarbon-intensivetextgenerationmodel(distilbert-base-uncased)gener-\natesasmuchcarbonas0.0006milesdrivenbyasimilarvehicle,i.e.6,833timesless.Thiscanaddupquicklywhen\nimagegenerationmodelssuchasDall·EandMidJourneyaredeployedinuser-facingapplicationsandusedbymillions\nofusersglobally(wediscussthispointfurtherinSection5).\nThe(high-level)takeawayofthisanalysisisthatevenformodelsspecificallytrainedtocarryoutasingletask,\nthereisalargelevelofvariationbothwithineachtaskandanevenlargeronebetweentasksfromdifferentmodalities.\nInessence,tasksthatmapbothimageandtextinputstocategoricaloutputsarelessenergy-andcarbon-intensive",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": ".\nInessence,tasksthatmapbothimageandtextinputstocategoricaloutputsarelessenergy-andcarbon-intensive\nthanthosethatgeneratetextorimages.Makingthesedistinctionscanhelpinformpoliciesseekingtomitigatethe\nenvironmentalimpactsofAI,giventhatitisimportanttobeawareofthisvariation,whichcansometimesreachseveral\nordersofmagnitude.Inthenextsection,wedelvedeeperintomulti-purposesystems,whicharemeanttocarryout\nseveraltasksconcurrently,tobetterunderstandtheirenvironmentalimpactsandhowtheycomparetotask-specific\nmodels.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\n4.2 Theenvironmentalcostofmulti-purposesystems\nThesecondpartofouranalysisexaminesmulti-taskmodelsoftwotypes:decoderonly,fromtheBLOOMzfamily,\nandsequence-to-sequencemodelsfromtheFLAN-T5family,withthegoalofcomparingenergyintensityandcarbon\nemissionsofmodelswithdifferingnumbersofparameterswhenappliedtodifferenttasks.Toaddressthisquestion,\nweselectedasubsetof3tasks–textclassification,extractivequestionanswering,andsummarization–giventheir\ndiversityandbroadapplicabilityinavarietyofsettings,andcomparethe8zero-shotmodelsofdifferentsizes,basedon\nthesame3datasetspertaskasdescribedinTable1.\n4.2.1 Emissionsoftask-specificandmulti-taskarchitectures.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "esame3datasetspertaskasdescribedinTable1.\n4.2.1 Emissionsoftask-specificandmulti-taskarchitectures.\nTostartouranalysis,weexaminedhowthechoiceofmodelandarchitecturetypeimpactsemissionsgivenaspecific\ntaskanddataset.Forthisanalysis,wetookthesame8task-specificmodelsdescribedinSection3.2andcomparedtheir\nemissionstothe8multi-purposemodelsdescribedabove.\nFig.3. Modelemissions(measureding𝐶𝑂2𝑒𝑞)andarchitecturetypeforeachofthedatasetsfromouranalysis.Theyaxisisin\nlogarithmicscale,dotsizeisproportionaltomodelsize.\nInFigure3,weplotthemeanqueryemissionsforeachmodelonadataset-by-datasetbasis.Wecanseethatfor\nthetwodiscriminativetasks,sentimentanalysis(whichincludesSST2,RottenTomatoesandIMDBdatasets)and\nquestionanswering(whichencompassesSciQ,SQuADandSQuADv2)thereisacleardistinctionbetweentask-specific",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "questionanswering(whichencompassesSciQ,SQuADandSQuADv2)thereisacleardistinctionbetweentask-specific\ndiscriminativemodels(inblue),whichhavelessemissionsthanbothmulti-purposesequence-to-sequence(inyellow)\nanddecoder-onlygenerativemodels(ingreen).GiventhattheyaxisinFigure3isinlogarithmicscale,thisindicatesthat\nthedifferenceisseveralordersofmagnitude-e.g.withthemostefficienttask-specificmodelsemit0.3gof𝐶𝑂2𝑒𝑞per\n1,000inferencesforextractivequestionansweringonadatasetlikeSciQ,multi-purposemodelsemit10gforthesame\ntask.Thisresultfollowsintuitionsderivedfromthemodelstructures:whileatask-specificmodeltrainedonbinarytext\nclassificationwillcarryoutasoftmaxonatwo-categoryvectortopredictaclass,amulti-purposemodelwillgenerate",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ssificationwillcarryoutasoftmaxonatwo-categoryvectortopredictaclass,amulti-purposemodelwillgenerate\n‘positive’or‘negative’,whichlogicallyrequiresmoreenergybecausethepredictionisbasedonthemodel’sentire\nvocabulary.Forthegenerativetask,summarization(representedbytheSAMsum,XSumandCNN-DailyMaildatasets),\nthetask-specificandmulti-purposemodelsarecloserintermsofemissions:task-specificsequence-to-sequencemodels\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\ngenerate4-10gof𝐶𝑂2𝑒𝑞for1,000inferences,whilemulti-purposemodelsemit20-30gforthesametask.Thedifference\nappearstomostlycomefrommodelsize–allofthetask-specificsummarizationmodelswelookedatwere600million\nparametersatmost,comparedtothelargermulti-purposearchitectures,whichattainedthe11billionparameters.\nWealsocarryoutanevaluationofboththetask-specificandmulti-purposemodelsexaminedinourstudyto\nensurethattheyhavecomparableperformance.Fortask-specificmodels,weusedtheevaluatelibrary[52]andthe\nLMEvaluationHarness[14]forzero-shotmodels.Fundamentallyspeaking,itishardtocomparetask-specificand\nmulti-purposemodelsusingthesamemetrics,giventhattask-specificmodelshaveamuchmoreconstraineddecision\nspace(e.g.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "osemodelsusingthesamemetrics,giventhattask-specificmodelshaveamuchmoreconstraineddecision\nspace(e.g.twoclassesinthecaseofbinarytextclassification),whereasmulti-purposemodelshavealargeoutput\nvocabularytochoosefrom,andaredependentuponthepromptschemaandpromptingstrategyused.However,by\nutilizingtwostandardizedpackages(evaluateandlm-evaluation-harness)andkeepingthepromptingapproach\nstableacrosszero-shotmodels,weendeavortostandardizeourevaluationapproachasmuchaspossible.\nFig.4. Modelsize,measuredinnumberofparameters(xaxis,logarithmicscale)andtextclassificationaccuracy(yaxis),withdotsize\nindicatingthequantityofemissions(logarithmicscale).\nWehoneinononespecifictask,textclassification,inFigure4,whichillustratestherelationshipbetweenmodel",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Wehoneinononespecifictask,textclassification,inFigure4,whichillustratestherelationshipbetweenmodel\nsize(xaxis,inlogarithmicscale),accuracy(yaxis)andemissions(dotsize,inlogarithmicscale).Amongtask-specific\nencodermodels,weobservethataccuracyvariesmorewidely,i.e.thereareseveralsmallermodelsofsimilarsizeand\ncomparablysmallamountsofcarbonemissions,withwidelyvaryinglevelsofaccuracy.Themulti-purposemodels\nvarylessintermsofaccuracy,havinghigheraverageaccuracyoverall.Bothsequence-to-sequenceanddecoder-only\nmodelsproducecomparableamountsofemissions(severalordersofmagnitudemorethantask-specificmodels).Wecan\nseethatmid-sizemulti-purposemodels(inthe3Bparameterrange)mayhaveslightlybetteraccuracycomparedto\nbothlargerandsmallermodels.However,giventhemanycaveatsandspecificitiesinvolvedinmulti-purposeLLM",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "to\nbothlargerandsmallermodels.However,giventhemanycaveatsandspecificitiesinvolvedinmulti-purposeLLM\nevaluation,thisdifferencemaynotbesignificant.Wepresentthefullresultsofourevaluation,whichincludetheother\n2tasks,inSectionBintheSupplementaryMaterials.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\n4.2.2 Differenceswithinmulti-purposearchitectures.\nBeyond the differences between task-specific and multi-purpose models generally, we also observed variation\nwithinthemulti-purposemodelsthatweexamined.WepresentourresultsinTable3;init,wecanobservethat\nonaper-architecturebasis(i.e.withinthefamilyofdecoder-onlymodelsandthefamilyofsequence-to-sequence\nmodels),sizeandemissionsarecorrelated,withsmallermodelsemittinglesscarbonandusinglessenergy.However,\nsequence-to-sequencemodelsaremoreefficientthantheirdecoder-onlycounterpartswhenmodelsofthesamesize\narecompared:forinstance,Flan-T5-XLandBLOOMz-3Barebothofasimilarsize(around3Bparameters),butthe\nformergenerates,onaverage,2gramsofemissionslessfor1,000inferencesthanthelatter.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "3Bparameters),butthe\nformergenerates,onaverage,2gramsofemissionslessfor1,000inferencesthanthelatter.Thisdifferenceholdswhen\ncomparingFlan-T5-XXL,whichisthebiggestmodelintermsofparametercountinthemulti-purposemodelsthatwe\ntested(11billion),yetithasloweremissions(11.48gonaverage)comparedtothesmallerBLOOMz-7B.Comparingthe\nmodelsonaper-taskbasisinFigure5,wecanseethesamepatternforzero-shotmodelsasfortask-specificones,with\ntextclassificationalesscarbon-intensivetaskcomparedtoquestionanswering,andsummarizationthemostintensive\noneofthethree.Thespreadbetweenthetasksissmallerforsequence-to-sequencemodels(indicatedwithdotsin\nFigure5),whereasfordecoder-onlymodels(indicatedwithcrosses),thedifferencebetweenthedifferenttasksismore\nsignificant.\nseq2seqmodels decoder-onlymodels",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "hcrosses),thedifferencebetweenthedifferenttasksismore\nsignificant.\nseq2seqmodels decoder-onlymodels\nmodel numberof emissions energy model numberof emissions energy\nname parameters (g𝐶𝑂2𝑒𝑞) (kWh) name parameters (g𝐶𝑂2𝑒𝑞) (kWh)\nFlan-T5-base 222M 3.67 0.026 BLOOMz-560M 559M 7.5 0.054\nFlan-T5-large 750M 7.68 0.055 BLOOMz-1B 1.7B 8.66 0.062\nFlan-T5-xl 2.8B 8.08 0.058 BLOOMz-3B 3B 10.17 0.073\nFlan-T5-xxl 11B 11.48 0.083 BLOOMz-7B 7B 14.46 0.104\nTable3. Zero-shotmodelsinouranalysiswiththeirarchitecturetype,modelsize(innumberofparameters),averagequantityof\nemissions(ingof𝐶𝑂2𝑒𝑞)andaverageenergyusage(inkWh)for1,000inferences.\nWecananalysetherelationshipbetweensequence-to-sequenceanddecoder-onlymodelsnotedinTable3:whereas",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "s.\nWecananalysetherelationshipbetweensequence-to-sequenceanddecoder-onlymodelsnotedinTable3:whereas\nfortaskssuchassummarization,decodermodelsdogeneratemoreemissionsthansequence-to-sequencemodelsof\nasimilarsize,forquestionansweringandtextclassification,thetwoarchitectureshavesimilaremissions.Thiscan\nagainbeexplainedbythedifferencesinthemodelstructures,specificallytheattentionmechanism:whilesequence-to-\nsequencemodelsonlyattendtothelastlayeroftheinputwhenproducingtheiranswers,decoder-onlyarchitectures\nattendtoalllayersforthefullsequence–leadingtoastrongerdependencyontheoutputlengthforthenumberof\noperations,resultinginmoreemissionsfortaskswithlongeroutputs.\nWefurtherverifythisintuitioninTable4andFigure6:whilethereissomevariationbetweenmodelsanddatasetsin",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "WefurtherverifythisintuitioninTable4andFigure6:whilethereissomevariationbetweenmodelsanddatasetsin\nTable4,thedistributionofoutputlengthsisconsistentwithourexpectationsforthedifferenttaskcategories:taskswith\nlongeroutputsresultinmoreemissions,especiallyfordecoder-onlymodels.Figure6delvesfurtherintotherelationship\nbetweenaverageoutputlength,carbonemissions,andmodelstructuresforthedifferentsummarizationdatasets.It\nshowsaclearcorrelationbetweenoutputlengthandmeasuredemissions,withahigherslopeforthedecoder-only\narchitectures(theBLOOMzfamilyofmodels)thanforthesequence-to-sequencearchitectures(theFlan-T5family).\nAswehaveobservedinthecurrentsection,thereisno‘one-size-fits-all’patternformulti-purposemodelseither–",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "swehaveobservedinthecurrentsection,thereisno‘one-size-fits-all’patternformulti-purposemodelseither–\ntheytooexhibitvariationintermsoftheiremissionsandenergyusage,whichcanbeattributedtodifferentfactors,\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nFig.5. Aplotofthetotalemissions(ingramsof𝐶𝑂2𝑒𝑞)for1,000inferencesforallmulti-purposemodels.\nBLOOMz BLOOMz BLOOMz BLOOMz Flan-T5 Flan-T5 Flan-T5 Flan-T5\n560M 1B 3B 7B base large xl xxl\ndataset input output output output output output output output output\nIMDB 58.73 1.64 2.61 1.72 1.53 1.00 1.00 1.00 1.00\nRotten\n30.08 1.00 0.99 1.03 1.00 1.00 1.00 1.00 1.00\nTomatoes\nSST2 28.35 0.98 0.99 1.01 1.02 1.00 1.00 1.00 1.00\nSciQ 113.12 1.28 1.25 1.10 1.10 2.03 5.41 3.12 2.42\nSQuAD 134.00 1.93 1.96 2.02 1.95 2.01 2.15 2.16 2.13\nSQuAD2 115.85 2.33 2.54 2.58 2.41 2.28 2.74 2.71 2.58\nCNN 54.00 12.05 11.91 11.73 10.34 8.52 11.34 11.34 10.68\nSamSUM 47.82 9.54 9.41 9.75 9.85 10.56 11.05 10.18 10.57\nXSum 53.85 11.53 12.22 11.94 11.92 12.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "0.68\nSamSUM 47.82 9.54 9.41 9.75 9.85 10.56 11.05 10.18 10.57\nXSum 53.85 11.53 12.22 11.94 11.92 12.95 13.62 13.49 13.09\nTable4. Averageinputandoutputlength(innumberoftokens)forthe8zero-shotmodelsand9tasksexaminedaspartofourstudy.\nThedarkerthecell,themorecarbonwasoutputbythemodelforthetask.\nFig.6. Aplotoftheoutputlength(Xaxis)andcarbonemissions(Yaxis)forthesummarizationtask.Thesymbolreferstothetypeof\narchitecture(BLOOMzvsFlan-T5),symbolsizereferencestherelativemodelsize(intermsofthenumberofparameters),andcolor\ntheinputlength.\nincludingmodelsizeandoutputlength.Thiswouldindicatethatmorecarefulconsiderationisneededwhenmaking\n11",
+    "page": 11
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 11):\ninput | output | output | output | output | output | output | output | \n58.73 | 1.64 | 2.61 | 1.72 | 1.53 | 1.00 | 1.00 | 1.00 | 1.00\n30.08 | 1.00 | 0.99 | 1.03 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00\n28.35 | 0.98 | 0.99 | 1.01 | 1.02 | 1.00 | 1.00 | 1.00 | 1.00\n113.12 | 1.28 | 1.25 | 1.10 | 1.10 | 2.03 | 5.41 | 3.12 | 2.42\n134.00 | 1.93 | 1.96 | 2.02 | 1.95 | 2.01 | 2.15 | 2.16 | 2.13\n115.85 | 2.33 | 2.54 | 2.58 | 2.41 | 2.28 | 2.74 | 2.71 | 2.58\n54.00 | 12.05 | 11.91 | 11.73 | 10.34 | 8.52 | 11.34 | 11.34 | 10.68\n47.82 | 9.54 | 9.41 | 9.75 | 9.85 | 10.56 | 11.05 | 10.18 | 10.57\n | 11.53 | 12.22 | 11.94 | 11.92 | 12.95 | 13.62 | 13.49 | 13.09",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\nchoicestodeploythesemodelsfordifferenttasksandapplyingthemindifferentscenarios.Wefurtherdiscussour\nresultsandfurtheravenuesofresearchinthenextandfinalsection.\n4.3 Comparingmodeltrainingandinferencecosts\nAnimportanttrade-offformanyAIpractitionersandpolicy-makersisdeterminingwhenexactlymodelinferencecosts\nreachparitywithmodeltraining(andfine-tuning)-i.e.whendoesthedeploymentofmodelsuseasmuchenergyas\ntheirinitialtraining?Thiscomparisonisoftenhardtomakebecauseitrequiresthetotalenergycostofallstepsofthe\nMLmodellifecycle,whichisveryrarelyavailable.Ofthemodelsthatweexaminedinourstudy,neithertheBLOOMz\nnortheFlan-T5familiesofmodelsreportedthetotalenergyusednorcarbonemittedduringtheirtraininginthepapers\ndescribingthemodels.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "fmodelsreportedthetotalenergyusednorcarbonemittedduringtheirtraininginthepapers\ndescribingthemodels.However,giventhattheBLOOMzmodelsarefine-tunedversionsoftheoriginalBLOOMfamily\nofmodels[56],wecanbaseourselvesonthelogsprovidedbytheauthorsoftheBLOOMcarbonfootprintestimation\npaper[31].Wecanaddtothesenumberstheenergycostoffine-tuningeachmodel,whichwewereabletoestimate\nbasedonthetraininglogsprovidedbytheauthorsoftheBLOOMzpaper[34],althoughwewerelackingthenecessary\ninformationtoinferthecarbonfootprint6.Wepresentthesenumbers,alongsidetheaverageenergyconsumption\nperinference,inTable5.Wecanseethattheamountofenergyrequiredperinferencevariesfrom5.4×10−5forthe\nsmallestmodel,BLOOMz-560Mto1.0×10−4kWhforthebiggestone,BLOOMz-7B.Thisiscoherenttothenumbers\nreportedbyLuccionietal.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "LOOMz-560Mto1.0×10−4kWhforthebiggestone,BLOOMz-7B.Thisiscoherenttothenumbers\nreportedbyLuccionietal.forBLOOM-176B,whichrequired,onaverage,0.004kWhofenergyperquery,or40times\nmorethanBLOOMz-7B,beingroughly25timesbigger[31]-althoughthisincludedAPIdeploymentofthemodel,\nwhichisnotthecaseforthemodelsinourstudy.\nBLOOMz-7B BLOOMz-3B BLOOMz-1B BLOOMz-560M\nTrainingenergy(kWh) 51,686 25,634 17,052 10,505\nFinetuningenergy(kWh) 7,571 3,242 1,081 543\nInferenceenergy(kWh)\n1.0×10−4 7.3×10−5 6.2×10−5 5.4×10−5\nCostparity(#inferences) 592,570,000 395,602,740 292,467,741 204,592,592\nTable5. TheBLOOMzmodelsfromourstudywiththeirtrainingenergycost(from[31]),finetuningenergycost(from[34]),inference\ncost(fromthepresentstudy),andcostparity,asthenumberofinferencesrequiredtosumtothetrainingcost.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ence\ncost(fromthepresentstudy),andcostparity,asthenumberofinferencesrequiredtosumtothetrainingcost.\nIfwecomparetheamountofenergyusedperinferenceforeachofthemodelswiththetotalamountofenergy\nusedforbothtrainingandfine-tuningthem,wecanestimatehowmanyinferenceswouldbeneededtobecarried\noutwithagivenmodelinorderforthecostofinferencetoreachthecostoftraining.AscanbeseeninTable5,this\nvariesdependingonmodelsize:fromaround200millioninferencesforthesmallestmodel,BLOOMz-560M,toover\n590millioninferencesforthebiggestmodel,BLOOMz-7B.Thismayseemlikealotifasingleinstanceofamodelis\ndeployed,butcanaddupquicklyiftherearemultipleinstancesofmodelsdeployedinparallel.Forinstance,ithasbeen\nestimatedthat,atitspeak,ChatGPThadupwardof10millionusersperday[36];themostrecentstatisticsindicatethat",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "imatedthat,atitspeak,ChatGPThadupwardof10millionusersperday[36];themostrecentstatisticsindicatethat\ntheChatGPTloginpagereceived1.7BvisitsinOctober20237.Evenassumingasinglequeryperuser,whichisrarely\nthecase,theenergycostsofdeployingitwouldsurpassitstrainingcostsafterafewweeksormonthsofdeployment.\nWhiletheBLOOMzmodelsarenotdeployedinreal-timeinthesamemannerasChatGPT,theyhavebeendownloaded\nhundredsofthousandsoftimesfromtheHuggingFaceHub,whichwouldindicatethattheyhavebeenextensivelyused\n6TheenergyconsumptioncanbebasedontheThermalDesignPower(TDP)oftheGPUsused–whileitassumes100%GPUutilization,itisthemost\naccurateestimatepossiblewithoutenergyusagetrackingduringtraining.\n7AccordingtoSimilarWeb:https://www.similarweb.com/website/chat.openai.com/.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "://www.similarweb.com/website/chat.openai.com/.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nbytheopen-sourcecommunity:atthetimeofwritingthisarticle(November2023),BLOOMz-7Bhasbeendownloaded\n606,096times,BLOOMz-3Bhasbeendownloaded357,368times,BLOOMz-1Bhasbeendownloaded61,757timesand\nBLOOMz-560mhasbeendownloaded498,601times.Theyhavealsobeenfinetunedforanumberofdownstream\ntasks,suchaschat,anddeployedinHuggingFaceSpaces,interactiveinterfacesformodelinteraction.Whilethis\nanalysisrepresentsarelativelysmallsampleofmodels,analysessuchasthisarevitalforestimatingtherelativeenergy\nconsumption(andensuingemissions)ofdifferentstagesoftheMLtraininganddeploymentcycle,understanding\ntrade-offsbetweentrainingandinferenceemissionspatterns,andcharacterizingthelifetimeemissionsofMLmodels,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "e-offsbetweentrainingandinferenceemissionspatterns,andcharacterizingthelifetimeemissionsofMLmodels,\nandwehopethatotherswillbepossibleinthefuture,whichwouldrequiremoretransparencyfrommodelcreators\nregardingboththeupfront(i.e.training)anddownstream(i.e.inference)costsofMLmodels.Wediscusstheimportance\noftransparencyandotherimportantactionsthatmembersofthecommunitycantakeinthenext,andfinal,section.\n5 DISCUSSION\nTherehavebeenlimitedstudiesregardingtheenergyconsumptionandcarbonemissionsofLLMinference,largelydue\ntoitsdistributednature—comparedtotherelativelytime-andlocation-constrainednatureoftraining—makingit\ndifficulttomakemeaningfulcomparisonsbetweendifferentmodelsandtasks.Inthiswork,wehaveendeavoredto",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "it\ndifficulttomakemeaningfulcomparisonsbetweendifferentmodelsandtasks.Inthiswork,wehaveendeavoredto\nkeepasmanyparametersstableaspossible,includingthecode,hardware,datasets,batchsizeandPythonlibrary.We\nprovideallofthecodethatweusedforouranalysisaswellasaninteractivetooltoallowuserstomoredeeplyexplore\ntheresultswepresenthere.Wealsohighlightthemainhigh-leveltakeawaysofourstudybelow:\nGenerativetasksaremoreenergy-andcarbon-intensivecomparedtodiscriminativetasks. AsshowninFigure1,the\nmostenergy-andcarbon-intensivetasksarethosethatgeneratenewcontent:textgeneration,summarization,image\ncaptioning,andimagegeneration.\nTasksinvolvingimagesaremoreenergy-andcarbon-intensivecomparedtothoseinvolvingtextalone. Morespecifically,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "nvolvingimagesaremoreenergy-andcarbon-intensivecomparedtothoseinvolvingtextalone. Morespecifically,\ntasksinvolvingpredictingcategories(text-to-category,image-to-category)arelessenergy-intensivethanthoseinvolving\ngeneratingimages(e.g.text-to-image),withthoseinvolvingtextbetweenthetwo(seeFigure2).\nDecoder-onlymodelsareslightlymoreenergy-andcarbon-intensivethansequence-to-sequencemodelsformodelsofa\nsimilarsizeandappliedtothesametasks. ThefindingswepresentinTable3,Figure3,andFigure6wouldindicatethat\nmorecomputation(i.e.energy)isrequiredfordecoder-onlytasks,andthatthisphenomenonisparticularlymarkedfor\ntaskswithlongeroutputs.Thisobservationisworthverifyingforotherarchitecturesfrombothcategories,andwellas\nothertasksanddatasets.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "observationisworthverifyingforotherarchitecturesfrombothcategories,andwellas\nothertasksanddatasets.\nTrainingremainsordersofmagnitudemoreenergy-andcarbon-intensivethaninference. Wehaveprovidedinitial\nnumbersforcomparingtherelativeenergycostsofmodeltraining,finetuningandinferencefordifferentsizesof\nmodelsfromtheBLOOMzfamily,andfoundthattheparitybetweentraining/finetuningandinferencegrowswith\nmodelsize.Whiletheratioishundredsofmillionsofinferencesforasingletraining,giventheubiquityofMLmodel\ndeployment,thisparitycanbereachedquicklyformanypopularmodels.\nUsingmulti-purposemodelsfordiscriminativetasksismoreenergy-intensivecomparedtotask-specificmodelsforthese\nsametasks. Thisisespeciallythecasefortextclassification(onIMDB,SST2andRottenTomatoes)andquestion",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "se\nsametasks. Thisisespeciallythecasefortextclassification(onIMDB,SST2andRottenTomatoes)andquestion\nanswering(onSciQ,SQuADv1andv2),wherethegapbetweentask-specificandzero-shotmodelsisparticularlylarge,\nandlesssoforsummarization(forCNN-DailyMail,SamSUMandXSum).AscanbeseeninTable4,thedifference\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\nbetweenmulti-purposemodelsandtask-specificmodelsisamplifiedasthelengthofoutputgetslonger.\nWefindthislastpointtobethemostcompellingtakeawayofourstudy,giventhecurrentparadigmshiftaway\nfromsmallermodelsfinetunedforaspecifictasktowardsmodelsthataremeanttocarryoutamultitudeoftasks\nat once, deployed to respond to a barrage of user queries in real time. This transition has been happening both\ninMLresearchsincetheadventofGPT-3[5],whichillustratedthepotentialforfew-andzero-shotlearningwith\nlanguagemodels,aswellasinconsumersettings,withLLMssuchasGPT-4andPaLMbeingdeployedinuser-facing\nproductssuchaswebsearch[4,18],email,andnavigation[17],wheresmaller,task-specificversionsofmodelssuch\nas BERT were previously used [3, 16].",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "dnavigation[17],wheresmaller,task-specificversionsofmodelssuch\nas BERT were previously used [3, 16]. While it is hard to quantify the environmental impacts of this transition\ngiven the lack of transparency of technology companies regarding both the number of parameters, architecture\nand carbon emissions of their products, we can make a comparison based on the experiments carried out in the\npresentstudy.Forinstance,theaverageemissionsofaBERT-basedmodelfine-tunedforextractivequestionanswering\n(bert-large-uncased-whole-word-masking-finetuned-squad),ataskakintoextractivewebsearch,is0.70g𝐶𝑂2𝑒𝑞\nper1,000queries,whichislessthan3timesthatofthemulti-purposemodels(2.36gforFlan-T5 baseand2.34gfor\nBLOOMz-560M).ThedifferenceismuchmoredrasticifcomparingBERT-basedmodelsfortaskssuchastextclassification",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "OMz-560M).ThedifferenceismuchmoredrasticifcomparingBERT-basedmodelsfortaskssuchastextclassification\nwiththelargermulti-purposemodels:forinstancebert-base-multilingual-uncased-sentimentemitsjust0.32gof\n𝐶𝑂2𝑒𝑞per1,000queries,comparedto2.66gforFlan-T5-XLand4.67gforBLOOMz-7B.Forcomparison,thefirstPaLM\nmodel,releasedin2022,has540billionparameters[7],whereasGPT-3has175billionparameters[5]8.Whilewesee\nthebenefitofdeployinggenerativezero-shotmodelsgiventheirabilitytocarryoutmultipletasks,wedonotsee\nconvincingevidenceforthenecessityoftheirdeploymentincontextswheretasksarewell-defined,forinstanceweb\nsearchandnavigation,giventhesemodels’energyrequirements.\nFinally,theintentofourstudyistosetthestageforbetterunderstandingoftheenergyrequirementsandcarbon",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "s.\nFinally,theintentofourstudyistosetthestageforbetterunderstandingoftheenergyrequirementsandcarbon\nemissionsofthefinal,oftenoverlooked,stepintheMLmodellifecycle:modeldeployment.Thecomparisonbetween\ntraining, finetuning and inference energy requirements carried out in Section 4.3 is, to our knowledge, the first\ncomparisonofitskind,andpavesthewaytoabetterunderstandingofhowthedifferentstagesofanMLmodel’s\nlifecycleaddupintermsofenergyuse.TheseareimportantdatapointsthatcanhelpinformbothourfellowAI\nresearchers and practitioners, as well as policy-makers who are working towards estimating and regulating the\nenvironmentalimpactsofAImodelsandICTingeneral.Werecognizethatourstudyisnotrepresentativeofall",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "g the\nenvironmentalimpactsofAImodelsandICTingeneral.Werecognizethatourstudyisnotrepresentativeofall\ndeploymentcontextsandconstraints–ourintentistoestablishasetofinitialdatapointsandtosetthestagefortesting\nandcomparingothermodels.Infact,ourstudyhighlightsmanypotentialavenuesforfutureresearchaimedtowardsa\nbetterunderstandingofthemyriadfactorsthatinfluencetheefficiencyofinference,includingthechoiceofarchitecture,\ntheusageoftechniquessuchasdistillation,thenumberofparameters,thechoiceofhardwareandthenumerical(i.e.\nfloatingpoint)precisionofmodelparameters.Whileweencouragecontinuedworkanalysingopen-sourcemodels,\nwenotethatthegrowinglackoftransparencyinmodelarchitectureandtrainingdetailsmakesthislineofwork,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "ls,\nwenotethatthegrowinglackoftransparencyinmodelarchitectureandtrainingdetailsmakesthislineofwork,\nalongsidemanybranchesrelatingtofairnessandaccountabilityinmachinelearning,increasinglydifficulttocarry\nout.Givenourfindingsandtheincreaseddeploymentofgenerative,multi-purposeAImodels,wehopethatbothML\nresearchersandpractitionerswillpracticetransparencyregardingthenatureandimpactsoftheirmodels,toenable\nbetterunderstandingoftheirenvironmentalimpacts.\n8TheexactnumberofparametersofGPT-4andPaLM2havenotbeenpubliclyshared.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nETHICALCONSIDERATIONSSTATEMENT\nThemainethicalconcernsthatwefacedinourexperimentationisthesheeramountofenergyneededandcarbon\nemissionsgeneratedbyourstudy,giventhatweraneachofthe88modelson3datasets10timestoensurestatistical\nsignificanceofourmeasurements.Intotal,forallofmodelexperimentationandevaluation,weusedatotalof754.66\nkWhofenergyandemitted178.97kgof𝐶𝑂2𝑒𝑞.Inordertoreduceourimpactsasmuchaspossible,wedidallup-front\nexperimentationsonsmallerportionsofthedataset(toreducewastedresources).\nRESEARCHERPOSITIONALITYSTATEMENT\nTheauthorsofthispaperhavebackgroundsintheoreticalandappliedmachinelearningandworkininstitutions\nbasedinNorthAmerica.Wethereforerecognizethatourwayofplanningandrunningexperimentsisnotnecessarily",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "s\nbasedinNorthAmerica.Wethereforerecognizethatourwayofplanningandrunningexperimentsisnotnecessarily\nreflectiveofotherinstitutionsfromotherregions,ortheconstraintsfacedbyresearchersfrominstitutionswithmore\nlimitedaccesstocompute.\nADVERSEIMPACTSSTATEMENT\nWerecognizethatourworkcanbeperceivedasacritiqueofMLdeploymentingeneral,giventheanalysisthatwe\nprovideofitsenvironmentalimpacts.ThiscouldbeusedasanargumenttostoppursuingMLresearchanddevelopment,\norasawayoftargetingspecificcompaniesororganizations.Ourintention,however,istoshedadditionallightonthe\nenvironmentalimpactsofML,inordertohelpmodeldevelopersandresearchersmakemoreinformedchoicesasa\nfunctionoftheirenvironmentalfootprintorenergyusage.\nACKNOWLEDGMENTS",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "chersmakemoreinformedchoicesasa\nfunctionoftheirenvironmentalfootprintorenergyusage.\nACKNOWLEDGMENTS\nWethankWillAlpine,NimaBoscarino,PriyaDonti,RégisPierrard,DavidRolnick,RoySchwartzandRajivShahfor\ntheirusefulfeedbackandsuggestions.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\nREFERENCES\n[1] NesrineBannour,SaharGhannay,AurélieNévéol,andAnne-LaureLigozat.2021.EvaluatingthecarbonfootprintofNLPmethods:asurveyand\nanalysisofexistingtools.InEMNLP,WorkshopSustaiNLP.\n[2] JeffBarr.2019.Amazonec2update–inf1instanceswithAWSinferentiachipsforhighperformancecost-effectiveinferencing. https://aws.amazon.\ncom/blogs/aws/amazon-ec2-update-inf1-instances-with-aws-inferentia-chips-for-high-performance-cost-effective-inferencing/\n[3] Bing.2019.BingdeliversitslargestimprovementinsearchexperienceusingAzureGPUs. https://azure.microsoft.com/en-us/blog/bing-delivers-\nits-largest-improvement-in-search-experience-using-azure-gpus/\n[4] Bing.2023.Confirmed:thenewBingrunsonOpenAI’sGPT-4. https://blogs.bing.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "erience-using-azure-gpus/\n[4] Bing.2023.Confirmed:thenewBingrunsonOpenAI’sGPT-4. https://blogs.bing.com/search/march_2023/Confirmed-the-new-Bing-runs-on-\nOpenAI%E2%80%99s-GPT-4\n[5] TomBrown,BenjaminMann,NickRyder,MelanieSubbiah,JaredDKaplan,PrafullaDhariwal,ArvindNeelakantan,PranavShyam,GirishSastry,\nAmandaAskell,etal.2020.Languagemodelsarefew-shotlearners.Advancesinneuralinformationprocessingsystems33(2020),1877–1901.\n[6] AndrewAChien,LiuzixuanLin,HaiNguyen,VarshaRao,TristanSharma,andRajiniWijayawardana.2023. ReducingtheCarbonImpactof\nGenerativeAIInference(todayandin2035).InProceedingsofthe2ndWorkshoponSustainableComputerSystems.1–7.\n[7] AakankshaChowdhery,SharanNarang,JacobDevlin,MaartenBosma,GauravMishra,AdamRoberts,PaulBarham,HyungWonChung,Charles\nSutton,SebastianGehrmann,etal.2022.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "nBosma,GauravMishra,AdamRoberts,PaulBarham,HyungWonChung,Charles\nSutton,SebastianGehrmann,etal.2022.Palm:Scalinglanguagemodelingwithpathways.arXivpreprintarXiv:2204.02311(2022).\n[8] HyungWonChung,LeHou,ShayneLongpre,BarretZoph,YiTay,WilliamFedus,EricLi,XuezhiWang,MostafaDehghani,SiddharthaBrahma,\nAlbertWebson,ShixiangShaneGu,ZhuyunDai,MiracSuzgun,XinyunChen,AakankshaChowdhery,SharanNarang,GauravMishra,AdamsYu,\nVincentZhao,YanpingHuang,AndrewDai,HongkunYu,SlavPetrov,EdH.Chi,JeffDean,JacobDevlin,AdamRoberts,DennyZhou,QuocV.Le,\nandJasonWei.2022.ScalingInstruction-FinetunedLanguageModels. https://doi.org/10.48550/ARXIV.2210.11416\n[9] RishitDagliandAliMustufaShaikh.2021.CPPE-5:MedicalPersonalProtectiveEquipmentDataset. arXiv:2112.09569[cs.CV]",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "iandAliMustufaShaikh.2021.CPPE-5:MedicalPersonalProtectiveEquipmentDataset. arXiv:2112.09569[cs.CV]\n[10] KaranDesai,GauravKaul,ZubinAysola,andJustinJohnson.2021.RedCaps:web-curatedimage-textdatacreatedbythepeople,forthepeople.\narXiv:2111.11431[cs.CV]\n[11] RadosvetDesislavov,FernandoMartínez-Plumed,andJoséHernández-Orallo.2021.Computeandenergyconsumptiontrendsindeeplearning\ninference.arXivpreprintarXiv:2109.05472(2021).\n[12] JesseDodge,TaylorPrewitt,RemiTachetdesCombes,ErikaOdmark,RoySchwartz,EmmaStrubell,AlexandraSashaLuccioni,NoahASmith,\nNicoleDeCario,andWillBuchanan.2022.MeasuringthecarbonintensityofAIincloudinstances.InProceedingsofthe2022ACMConferenceon\nFairness,Accountability,andTransparency.1877–1894.\n[13] AhmadFaiz,SotaroKaneda,RuhanWang,RitaOsi,ParteekSharma,FanChen,andLeiJiang.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "sparency.1877–1894.\n[13] AhmadFaiz,SotaroKaneda,RuhanWang,RitaOsi,ParteekSharma,FanChen,andLeiJiang.2023.LLMCarbon:Modelingtheend-to-endCarbon\nFootprintofLargeLanguageModels.arXivpreprintarXiv:2309.14393(2023).\n[14] LeoGao,JonathanTow,StellaBiderman,SidBlack,AnthonyDiPofi,CharlesFoster,LaurenceGolding,JeffreyHsu,KyleMcDonell,Niklas\nMuennighoff,JasonPhang,LariaReynolds,EricTang,AnishThite,BenWang,KevinWang,andAndyZou.2021.Aframeworkforfew-shotlanguage\nmodelevaluation. https://doi.org/10.5281/zenodo.5371628\n[15] BogdanGliwa,IwonaMochol,MaciejBiesek,andAleksanderWawer.2019.SAMSumCorpus:AHuman-annotatedDialogueDatasetforAbstractive\nSummarization.InProceedingsofthe2ndWorkshoponNewFrontiersinSummarization.AssociationforComputationalLinguistics,HongKong,\nChina,70–79. https://doi.org/10.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ersinSummarization.AssociationforComputationalLinguistics,HongKong,\nChina,70–79. https://doi.org/10.18653/v1/D19-5409\n[16] Google.2019.Understandingsearchesbetterthaneverbefore. https://blog.google/products/search/search-language-understanding-bert/\n[17] Google.2023.BardcannowconnecttoyourGoogleappsandservices. https://blog.google/products/bard/google-bard-new-features-update-sept-\n2023/\n[18] Google.2023.AnimportantnextsteponourAIjourney. https://blog.google/technology/ai/bard-google-ai-search-updates/\n[19] WalidAHanafy,QianlinLiang,NomanBashir,DavidIrwin,andPrashantShenoy.2023.CarbonScaler:LeveragingCloudWorkloadElasticityfor\nOptimizingCarbon-Efficiency.arXivpreprintarXiv:2302.08681(2023).",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "veragingCloudWorkloadElasticityfor\nOptimizingCarbon-Efficiency.arXivpreprintarXiv:2302.08681(2023).\n[20] KarlMoritzHermann,TomásKociský,EdwardGrefenstette,LasseEspeholt,WillKay,MustafaSuleyman,andPhilBlunsom.2015. Teaching\nMachinestoReadandComprehend.InNeurIPS.1693–1701. http://papers.nips.cc/paper/5945-teaching-machines-to-read-and-comprehend\n[21] RalphHintemannandSimonHinterholzer.2022.Cloudcomputingdrivesthegrowthofthedatacenterindustryanditsenergyconsumption.Data\ncenters2022.ResearchGate(2022).\n[22] InternationalEnergyAuthority.2023.DataCentresandDataTransmissionNetworks. https://www.iea.org/energy-system/buildings/data-centres-\nand-data-transmission-networks\n[23] MattGardnerJohannesWelbl,NelsonF.Liu.2017.CrowdsourcingMultipleChoiceScienceQuestions.arXiv:1707.06209v1.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "rdnerJohannesWelbl,NelsonF.Liu.2017.CrowdsourcingMultipleChoiceScienceQuestions.arXiv:1707.06209v1.\n[24] RanjayKrishna,YukeZhu,OliverGroth,JustinJohnson,KenjiHata,JoshuaKravitz,StephanieChen,YannisKalantidis,Li-JiaLi,DavidA.Shamma,\nMichaelS.Bernstein,andLiFei-Fei.2017. VisualGenome:ConnectingLanguageandVisionUsingCrowdsourcedDenseImageAnnotations.\nInternationalJournalofComputerVision123(2017),32–73. https://doi.org/10.1007/s11263-016-0981-7\n[25] AlexKrizhevsky.2009.Learningmultiplelayersoffeaturesfromtinyimages.TechnicalReport.\n[26] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres.2019.Quantifyingthecarbonemissionsofmachinelearning.arXiv\npreprintarXiv:1910.09700(2019).\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\n[27] ImadLakim,EbtesamAlmazrouei,IbrahimAbualhaol,MerouaneDebbah,andJulienLaunay.2022.AHolisticAssessmentoftheCarbonFootprint\nofNoor,aVeryLargeArabicLanguageModel.InProceedingsofBigScienceEpisode#5–WorkshoponChallenges&PerspectivesinCreatingLarge\nLanguageModels.AssociationforComputationalLinguistics,virtual+Dublin,84–94. https://doi.org/10.18653/v1/2022.bigscience-1.8\n[28] GeorgeLeopold.2019.AWStoOfferNVIDIA’sT4GPUsforAIInferencing. www.hpcwire.com/2019/03/19/aws-upgrades-its-gpu-backed-ai-\ninference-platform/\n[29] Tsung-YiLin,MichaelMaire,SergeBelongie,JamesHays,PietroPerona,DevaRamanan,PiotrDoll’ar,andCLawrenceZitnick.2014.Microsoft\nCOCO:Commonobjectsincontext.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ietroPerona,DevaRamanan,PiotrDoll’ar,andCLawrenceZitnick.2014.Microsoft\nCOCO:Commonobjectsincontext.InComputerVision–ECCV2014:13thEuropeanConference,Zurich,Switzerland,September6-12,2014,Proceedings,\nPartV13.Springer,740–755.\n[30] AlexandraSashaLuccioniandAlexHernandez-Garcia.2023.Countingcarbon:Asurveyoffactorsinfluencingtheemissionsofmachinelearning.\narXivpreprintarXiv:2302.08476(2023).\n[31] AlexandraSashaLuccioni,SylvainViguier,andAnne-LaureLigozat.2022.EstimatingthecarbonfootprintofBLOOM,a176Bparameterlanguage\nmodel.arXivpreprintarXiv:2211.02001(2022).\n[32] AndrewL.Maas,RaymondE.Daly,PeterT.Pham,DanHuang,AndrewY.Ng,andChristopherPotts.2011.LearningWordVectorsforSentiment\nAnalysis.InProceedingsofthe49thAnnualMeetingoftheAssociationforComputationalLinguistics:HumanLanguageTechnologies.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ceedingsofthe49thAnnualMeetingoftheAssociationforComputationalLinguistics:HumanLanguageTechnologies.Associationfor\nComputationalLinguistics,Portland,Oregon,USA,142–150. http://www.aclweb.org/anthology/P11-1015\n[33] StephenMerity,CaimingXiong,JamesBradbury,andRichardSocher.2016.PointerSentinelMixtureModels. arXiv:1609.07843[cs.CL]\n[34] NiklasMuennighoff,ThomasWang,LintangSutawika,AdamRoberts,StellaBiderman,TevenLeScao,MSaifulBari,ShengShen,Zheng-XinYong,\nHaileySchoelkopf,etal.2022.Crosslingualgeneralizationthroughmultitaskfinetuning.arXivpreprintarXiv:2211.01786(2022).\n[35] ShashiNarayan,ShayB.Cohen,andMirellaLapata.2018. Don’tGiveMetheDetails,JusttheSummary!Topic-AwareConvolutionalNeural\nNetworksforExtremeSummarization.ArXivabs/1808.08745(2018).\n[36] WillOremus.2023.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ConvolutionalNeural\nNetworksforExtremeSummarization.ArXivabs/1808.08745(2018).\n[36] WillOremus.2023.AIchatbotslosemoneyeverytimeyouusethem.Thatisaproblem.WashingtonPost(2023). https://www.washingtonpost.com/\ntechnology/2023/06/05/chatgpt-hidden-cost-gpu-compute/\n[37] PedroJavierOrtizSu’arez,BenoitSagot,andLaurentRomary.2019.Asynchronouspipelinesforprocessinghugecorporaonmediumtolowresource\ninfrastructures(ProceedingsoftheWorkshoponChallengesintheManagementofLargeCorpora(CMLC-7)2019.Cardiff,22ndJuly2019),PiotrBański,\nAdrienBarbaresi,HannoBiber,EvelynBreiteneder,SimonClematide,MarcKupietz,HaraldL\"ungen,andCarolineIliadi(Eds.).Leibniz-Institutf\"ur\nDeutscheSprache,Mannheim,9–16. https://doi.org/10.14618/ids-pub-9021\n[38] XiaomanPan,BoliangZhang,JonathanMay,JoelNothman,KevinKnight,andHengJi.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "rg/10.14618/ids-pub-9021\n[38] XiaomanPan,BoliangZhang,JonathanMay,JoelNothman,KevinKnight,andHengJi.2017.Cross-lingualNameTaggingandLinkingfor282\nLanguages.InProceedingsofthe55thAnnualMeetingoftheAssociationforComputationalLinguistics(Volume1:LongPapers).Associationfor\nComputationalLinguistics,Vancouver,Canada,1946–1958. https://doi.org/10.18653/v1/P17-1178\n[39] BoPangandLillianLee.2005.Seeingstars:Exploitingclassrelationshipsforsentimentcategorizationwithrespecttoratingscales.InProceedingsof\ntheACL.\n[40] DavidPatterson,JosephGonzalez,UrsHölzle,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.\n2022.TheCarbonFootprintofMachineLearningTrainingWillPlateau,ThenShrink. https://doi.org/10.48550/ARXIV.2204.05149",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "FootprintofMachineLearningTrainingWillPlateau,ThenShrink. https://doi.org/10.48550/ARXIV.2204.05149\n[41] DavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,MaudTexier,andJeffDean.2021.\nCarbonemissionsandlargeneuralnetworktraining.arXivpreprintarXiv:2104.10350(2021).\n[42] ColinRaffel,NoamShazeer,AdamRoberts,KatherineLee,SharanNarang,MichaelMatena,YanqiZhou,WeiLi,andPeterJ.Liu.2019.Exploringthe\nLimitsofTransferLearningwithaUnifiedText-to-TextTransformer.arXive-prints(2019).arXiv:1910.10683\n[43] PranavRajpurkar,RobinJia,andPercyLiang.2018.KnowWhatYouDon’tKnow:UnanswerableQuestionsforSQuAD. arXiv:1806.03822[cs.CL]\n[44] PranavRajpurkar,JianZhang,KonstantinLopyrev,andPercyLiang.2016. SQuAD:100,000+QuestionsforMachineComprehensionofText.\narXiv:1606.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "stantinLopyrev,andPercyLiang.2016. SQuAD:100,000+QuestionsforMachineComprehensionofText.\narXiv:1606.05250(2016).arXiv:1606.05250\n[45] OlgaRussakovsky,JiaDeng,HaoSu,JonathanKrause,SanjeevSatheesh,SeanMa,ZhihengHuang,AndrejKarpathy,AdityaKhosla,Michael\nBernstein,AlexanderC.Berg,andLiFei-Fei.2015.ImageNetLargeScaleVisualRecognitionChallenge.InternationalJournalofComputerVision\n(IJCV)115,3(2015),211–252. https://doi.org/10.1007/s11263-015-0816-y\n[46] GustavoSantana.2023.StableDiffusionPrompts. https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts\n[47] VictorSchmidt,KamalGoyal,AdityaJoshi,BorisFeld,LiamConell,NikolasLaskaris,DougBlank,JonathanWilson,SorelleFriedler,andSasha\nLuccioni.2021.CodeCarbon:EstimateandTrackCarbonEmissionsfromMachineLearningComputing.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "dler,andSasha\nLuccioni.2021.CodeCarbon:EstimateandTrackCarbonEmissionsfromMachineLearningComputing.\n[48] RichardSocher,AlexPerelygin,JeanWu,JasonChuang,ChristopherD.Manning,AndrewNg,andChristopherPotts.2013. RecursiveDeep\nModelsforSemanticCompositionalityOveraSentimentTreebank.InProceedingsofthe2013ConferenceonEmpiricalMethodsinNaturalLanguage\nProcessing.AssociationforComputationalLinguistics,Seattle,Washington,USA,1631–1642. https://www.aclweb.org/anthology/D13-1170\n[49] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum.2019. EnergyandpolicyconsiderationsfordeeplearninginNLP. arXivpreprint\narXiv:1906.02243(2019).\n[50] ErikF.TjongKimSangandFienDeMeulder.2003.IntroductiontotheCoNLL-2003SharedTask:Language-IndependentNamedEntityRecognition.",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ienDeMeulder.2003.IntroductiontotheCoNLL-2003SharedTask:Language-IndependentNamedEntityRecognition.\nInProceedingsoftheSeventhConferenceonNaturalLanguageLearningatHLT-NAACL2003.142–147. https://www.aclweb.org/anthology/W03-0419\n[51] USEnvironmentalProtectionAgencyy.2024.GreenhouseGasesEquivalenciesCalculator-CalculationsandReferences. https://www.epa.gov/\nenergy/greenhouse-gases-equivalencies-calculator-calculations-and-references\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\n[52] LeandroVonWerra,LewisTunstall,AbhishekThakur,AlexandraSashaLuccioni,TristanThrush,AleksandraPiktus,FelixMarty,NazneenRajani,\nVictorMustar,HelenNgo,etal.2022.Evaluate&EvaluationontheHub:BetterBestPracticesforDataandModelMeasurement.arXivpreprint\narXiv:2210.01970(2022).\n[53] AlexWang,YadaPruksachatkun,NikitaNangia,AmanpreetSingh,JulianMichael,FelixHill,OmerLevy,andSamuelRBowman.2019.SuperGLUE:\nAStickierBenchmarkforGeneral-PurposeLanguageUnderstandingSystems.arXivpreprintarXiv:1905.00537(2019).\n[54] ZijieJ.Wang,EvanMontoya,DavidMunechika,HaoyangYang,BenjaminHoover,andDuenHorngChau.2022.DiffusionDB:ALarge-ScalePrompt\nGalleryDatasetforText-to-ImageGenerativeModels.arXiv:2210.14896[cs](2022). https://arxiv.org/abs/2210.14896",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "atasetforText-to-ImageGenerativeModels.arXiv:2210.14896[cs](2022). https://arxiv.org/abs/2210.14896\n[55] ThomasWolf,LysandreDebut,VictorSanh,JulienChaumond,ClementDelangue,AnthonyMoi,PierricCistac,TimRault,RémiLouf,Morgan\nFuntowicz,etal.2019.Huggingface’stransformers:State-of-the-artnaturallanguageprocessing.arXivpreprintarXiv:1910.03771(2019).\n[56] BigScienceWorkshop,TevenLeScao,AngelaFan,ChristopherAkiki,ElliePavlick,SuzanaIlić,DanielHesslow,RomanCastagné,AlexandraSasha\nLuccioni,FrançoisYvon,etal.2022.BLOOM:A176B-parameteropen-accessmultilinguallanguagemodel.arXivpreprintarXiv:2211.05100(2022).\n[57] Carole-JeanWu,RamyaRaghavendra,UditGupta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "pta,BilgeAcun,NewshaArdalani,KiwanMaeng,GloriaChang,FionaAgaBehram,JamesHuang,\nCharlesBai,etal.2021.SustainableAI:EnvironmentalImplications,ChallengesandOpportunities.arXivpreprintarXiv:2111.00364(2021).\n[58] JiazhengXu,XiaoLiu,YuchenWu,YuxuanTong,QinkaiLi,MingDing,JieTang,andYuxiaoDong.2023.ImageReward:LearningandEvaluating\nHumanPreferencesforText-to-ImageGeneration. arXiv:2304.05977[cs.CV]\n[59] YukunZhu,RyanKiros,RichZemel,RuslanSalakhutdinov,RaquelUrtasun,AntonioTorralba,andSanjaFidler.2015.AligningBooksandMovies:\nTowardsStory-LikeVisualExplanationsbyWatchingMoviesandReadingBooks.InTheIEEEInternationalConferenceonComputerVision(ICCV).\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nA FULLLISTOFTASK-SPECIFICMODELSTESTED\nTask Models Task Models\nmicrosoft/resnet-50 distilbert-base-uncased-distilled-squad\nmicrosoft/beit-base-patch16-224 distilbert-base-cased-distilled-squad\ngoogle/vit-base-patch16-384 deepset/roberta-base-squad2\nimage facebook/convnextv2-tiny-22k-384 question bert-large-uncased-whole-word-masking-finetuned-squad\nclassification microsoft/resnet-18 answering timpal0l/mdeberta-v3-base-squad2\ngoogle/mobilenet_v1_0.75_192 deepset/tinyroberta-squad2\nfacebook/convnextv2-tiny-1k-224 deepset/electra-base-squad2\ngoogle/vit-base-patch16-224 deepset/bert-large-uncased-whole-word-masking-squad2\nnlpconnect/vit-gpt2-image-captioning sshleifer/distilbart-xsum-12-6",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "cased-whole-word-masking-squad2\nnlpconnect/vit-gpt2-image-captioning sshleifer/distilbart-xsum-12-6\nSalesforce/blip-image-captioning-large sshleifer/distilbart-cnn-12-6\nSalesforce/blip-image-captioning-base pszemraj/led-large-book-summary\nimage microsoft/git-large-coco google/pegasus-xsum\nsummarization\ncaptioning Salesforce/blip2-flan-t5-xl google/pegasus-large\nSalesforce/blip2-opt-2.7b google/pegasus-multi_news\nydshieh/vit-gpt2-coco-en facebook/bart-large-cnn\nmicrosoft/git-base ainize/bart-base-cnn\nrunwayml/stable-diffusion-v1-5 distilbert-base-uncased-finetuned-sst-2-english\nstabilityai/stable-diffusion-2-1 nlptown/bert-base-multilingual-uncased-sentiment\nstabilityai/stable-diffusion-xl-base-1.0 twitter-roberta-base-sentiment-latest",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "al-uncased-sentiment\nstabilityai/stable-diffusion-xl-base-1.0 twitter-roberta-base-sentiment-latest\nimage CompVis/stable-diffusion-v1-4 text cardiffnlp/twitter-xlm-roberta-base-sentiment\ngeneration prompthero/openjourney classification lvwerra/distilbert-imdb\ndreamlike-art/dreamlike-photoreal-2.0 siebert/sentiment-roberta-large-english\nnota-ai/bk-sdm-tiny finiteautomata/bertweet-base-sentiment-analysis\nsegmind/tiny-sd sbcBI/sentiment_analysis_mode\nbert-base-uncased gpt2\nxlm-roberta-base bigscience/bloom-560m\ndistilbert-base-uncased distilgpt2\nmasked\nroberta-base text facebook/opt-6.7b\nlanguage\nalbert-base-v2 generation EleutherAI/gpt-neo-125m\nmodeling\nbert-base-cased gpt2-medium\nmicrosoft/deberta-base facebook/opt-1.3b\nbert-base-multilingual-cased gpt2-xl",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "ase-cased gpt2-medium\nmicrosoft/deberta-base facebook/opt-1.3b\nbert-base-multilingual-cased gpt2-xl\nfacebook/detr-resnet-50 QCRI/bert-base-multilingual-cased-pos-english\nhustvl/yolos-tiny dslim/bert-base-NER\njozhang97/deta-swin-large dslim/bert-large-NER\nobject facebook/detr-resnet-101 token Jean-Baptiste/roberta-large-ner-english\ndetection hustvl/yolos-small classification oliverguhr/fullstop-punctuation-multilang-large\nSenseTime/deformable-detr Babelscape/wikineural-multilingual-ner\npolejowska/detr-r50-cd45rb-8ah-6l ml6team/keyphrase-extraction-distilbert-inspec\npolejowska/detr-r50-cd45rb-1ah-6l obi/deid_roberta_i2b2\nTable6. Thefulllistofthe80finetunedmodelsthatweretestedforthetentasksweanalyzed.\n19",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "alyzed.\n19",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 19):\nModels | Task | Models\nmicrosoft/resnet-50\nmicrosoft/beit-base-patch16-224\ngoogle/vit-base-patch16-384\nfacebook/convnextv2-tiny-22k-384\nmicrosoft/resnet-18\ngoogle/mobilenet_v1_0.75_192\nfacebook/convnextv2-tiny-1k-224\ngoogle/vit-base-patch16-224 | question\nanswering | \nnlpconnect/vit-gpt2-image-captioning\nSalesforce/blip-image-captioning-large\nSalesforce/blip-image-captioning-base\nmicrosoft/git-large-coco\nSalesforce/blip2-flan-t5-xl\nSalesforce/blip2-opt-2.7b\nydshieh/vit-gpt2-coco-en\nmicrosoft/git-base | summarization | \nrunwayml/stable-diffusion-v1-5\nstabilityai/stable-diffusion-2-1\nstabilityai/stable-diffusion-xl-base-1.0\nCompVis/stable-diffusion-v1-4\nprompthero/openjourney\ndreamlike-art/dreamlike-photoreal-2.0\nnota-ai/bk-sdm-tiny\nsegmind/tiny-sd | text\nclassification |",
+    "page": 19
+  },
+  {
+    "type": "table",
+    "content": "dreamlike-art/dreamlike-photoreal-2.0\nnota-ai/bk-sdm-tiny\nsegmind/tiny-sd | text\nclassification | \nbert-base-uncased\nxlm-roberta-base\ndistilbert-base-uncased\nroberta-base\nalbert-base-v2\nbert-base-cased\nmicrosoft/deberta-base\nbert-base-multilingual-cased | text\ngeneration | \nfacebook/detr-resnet-50\nhustvl/yolos-tiny\njozhang97/deta-swin-large\nfacebook/detr-resnet-101\nhustvl/yolos-small\nSenseTime/deformable-detr\npolejowska/detr-r50-cd45rb-8ah-6l\npolejowska/detr-r50-cd45rb-1ah-6l | token\nclassification |",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil Luccionietal\nB MODELEVALUATION\nFig.7. Aplotofmodelsize,measuredinnumberofparameters(xaxis,inlogarithmicscale)andsummarizationaccuracy(yaxis),\nwithdotsizeindicatingthequantityofemissions.\nFig.8. Aplotofmodelsize,measuredinnumberofparameters(xaxis,inlogarithmicscale)andquestionansweringaccuracy(yaxis),\nwithdotsizeindicatingthequantityofemissions.\n20",
+    "page": 20
+  },
+  {
+    "type": "text",
+    "content": "PowerHungryProcessing ACMFAccT’24,June3–6,2024,RiodeJaneiro,Brazil\nRotten SQuADv2\nSST2 IMDB SciQ SQuAD SamSUM XSum CNN\nmodel Tomatoes (F1,has\n(acc) (acc) (acc) (F1) (ROUGE) (ROUGE) (ROUGE)\n(acc) answer)\nbloomz-560m 0.92 0.94 0.85 0.92 0.43 0.21 0.23 0.15 0.10\nbloomz-1b7 0.94 0.97 0.93 0.96 0.50 0.25 0.26 0.16 0.18\nbloomz-3b 0.95 0.98 0.95 0.97 0.53 0.26 0.28 0.17 0.21\nbloomz-7b1 0.94 0.98 0.95 0.97 0.54 0.27 0.32 0.21 0.09\nflan-t5-xxl 0.96 0.97 0.92 0.72 0.98 0.49 0.30 0.37 0.23\nflan-t5-xl 0.96 0.97 0.93 0.66 0.97 0.49 0.49 0.38 0.24\nflan-t5-large 0.94 0.96 0.92 0.53 0.97 0.50 0.45 0.30 0.24\nflan-t5-base 0.93 0.95 0.88 0.61 0.95 0.48 0.46 0.32 0.23\ndistilbert-base-uncased\n0.44 0.87 0.86\n-distilled-squad\ndistilbert-base-cased-\n0.46 0.87 0.87\ndistilled-squad\ndeepset/roberta-base-squad2 0.",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "distilled-squad\ndistilbert-base-cased-\n0.46 0.87 0.87\ndistilled-squad\ndeepset/roberta-base-squad2 0.48 0.93 0.83\nbert-large-uncased-whole-\n0.48 0.93 0.84\nword-masking-finetuned-squad\ntimpal0l/mdeberta-v3-\n0.46 0.91 0.90\nbase-squad2\ndeepset/tinyroberta-squad2 0.45 0.98 0.91\ndeepset/electra-base-squad2 0.48 0.89 0.82\ndeepset/bert-large-uncased-\n0.46 0.92 0.92\nwhole-word-masking-squad2\nsshleifer/distilbart-xsum-12-6 0.20 0.45 0.23\nsshleifer/distilbart-cnn-12-6 0.29 0.21 0.44\npszemraj/led-large-\n0.33 0.16 0.33\nbook-summary\npegasus-xsum 0.22 0.22 0.22\npegasus-large 0.27 0.17 0.34\npegasus-multi_news 0.12 0.16 0.29\nfacebook/bart-large-cnn 0.32 0.21 0.44\nainize/bart-base-cnn 0.27 0.16 0.26\ndistilbert-base-uncased-\n0.99 0.88 0.90\nfinetuned-sst-2-english\nnlptown/bert-base-\n0.75 0.85 0.73",
+    "page": 21
+  },
+  {
+    "type": "text",
+    "content": "6\ndistilbert-base-uncased-\n0.99 0.88 0.90\nfinetuned-sst-2-english\nnlptown/bert-base-\n0.75 0.85 0.73\nmultilingual-uncased-sentiment\ntwitter-roberta-base-\n0.82 0.80 0.77\nsentiment-latest\ncardiffnlp/twitter-xlm-roberta-\n0.79 0.71 0.74\nbase-sentiment\nlvwerra/distilbert-imdb 0.88 0.93 0.82\nsiebert/sentiment-roberta-\n0.92 0.92 0.92\nlarge-english\nfiniteautomata/bertweet-\n0.82 0.72 0.77\nbase-sentiment-analysis\nsbcBI/sentiment_analysis_model 0.81 0.75 0.76\nTable7. Fullperformancemetricsforthe32models(24finetuned,8multi-purpose)thatweevaluatedaspartofourstudy.\n21",
+    "page": 21
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 21):\n0.92 | 0.94 | 0.85 | 0.92 | 0.43 | 0.21 | 0.23 | 0.15\n0.94 | 0.97 | 0.93 | 0.96 | 0.50 | 0.25 | 0.26 | 0.16\n0.95 | 0.98 | 0.95 | 0.97 | 0.53 | 0.26 | 0.28 | 0.17\n0.94 | 0.98 | 0.95 | 0.97 | 0.54 | 0.27 | 0.32 | 0.21\n0.96 | 0.97 | 0.92 | 0.72 | 0.98 | 0.49 | 0.30 | 0.37\n0.96 | 0.97 | 0.93 | 0.66 | 0.97 | 0.49 | 0.49 | 0.38\n0.94 | 0.96 | 0.92 | 0.53 | 0.97 | 0.50 | 0.45 | 0.30\n0.93 | 0.95 | 0.88 | 0.61 | 0.95 | 0.48 | 0.46 | 0.32\n |  |  | 0.44 | 0.87 | 0.86 |  | \n |  |  | 0.46 | 0.87 | 0.87 |  | \n |  |  | 0.48 | 0.93 | 0.83 |  | \n |  |  | 0.48 | 0.93 | 0.84 |  | \n |  |  | 0.46 | 0.91 | 0.90 |  | \n |  |  | 0.45 | 0.98 | 0.91 |  | \n |  |  | 0.48 | 0.89 | 0.82 |  | \n |  |  | 0.46 | 0.92 | 0.92 |  | \n |  |  |  |  |  | 0.20 | 0.45\n |  |  |  |  |  | 0.29 | 0.21\n |  |  |  |  |  | 0.33 | 0.16\n |  |  |  |  |  | 0.22 | 0.22\n |  |  |  |  |  | 0.27 | 0.17\n |  |  |  |  |  | 0.12 | 0.16\n |  |  |  |  |  | 0.32 | 0.21\n |  |  |  |  |  | 0.27 | 0.16\n0.99 | 0.88 | 0.90 |  |  |  |  | \n0.75 | 0.85 | 0.73 |  |  |  |  | \n0.82 | 0.80 | 0.77 |  |  |  |  | \n0.79 | 0.71 | 0.74 |  |  |  |  | \n0.88 | 0.93 | 0.82 |  |  |  |  | \n0.92 | 0.92 | 0.92 |  |  |  |  | \n0.82 | 0.72 | 0.77 |  |  |  |  | ",
+    "page": 21
+  }
+]

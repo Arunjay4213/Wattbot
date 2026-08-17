@@ -1,0 +1,352 @@
+[
+  {
+    "type": "text",
+    "content": "JetMoE\nJetMoE: Reaching Llama2 Performance with 0.1M Dollars\nYikangShen∗ ZhenGuo∗\nMIT-IBMWatsonAILab MITEECS\nyikang.shn@gmail.com zguo0525@mit.edu\nTianleCai ZengyiQin\nPrincetonUniversity MyShell.ai&MIT\ntianle.cai@princeton.edu qinzy@mit.edu\nAbstract\nLarge Language Models (LLMs) have achieved remarkable results, but\ntheirincreasingresourcedemandhasbecomeamajorobstacletothedevel-\nopmentofpowerfulandaccessiblesuper-humanintelligence. Thisreport\nintroducesJetMoE-8B,anewLLMtrainedwithlessthan$0.1million,using\n1.25Ttokensfromcarefullymixedopen-sourcecorporaand30,000H100\nGPUhours. Despiteitslowcost,theJetMoE-8Bdemonstratesimpressive\nperformance, with JetMoE-8B outperforming the Llama2-7B model and\nJetMoE-8B-Chat surpassing the Llama2-13B-Chat model. These results",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rforming the Llama2-7B model and\nJetMoE-8B-Chat surpassing the Llama2-13B-Chat model. These results\nsuggest that LLM training can be much more cost-effective than gener-\nallythought. JetMoE-8BisbasedonanefficientSparsely-gatedMixture-\nof-Experts(SMoE)architecture, composedofattentionandfeedforward\nexperts. Both layers are sparsely activated, allowing JetMoE-8B to have\n8B parameters while only activating 2B for each input token, reducing\ninferencecomputationbyabout70%comparedtoLlama2-7B.Moreover,\nJetMoE-8Bishighlyopenandacademia-friendly,usingonlypublicdatasets\nandtrainingcode. Alltrainingparametersanddatamixtureshavebeen\ndetailedinthisreporttofacilitatefutureeffortsinthedevelopmentofopen\nfoundationmodels. Thistransparencyaimstoencouragecollaborationand",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "tureeffortsinthedevelopmentofopen\nfoundationmodels. Thistransparencyaimstoencouragecollaborationand\nfurtheradvancementsinthefieldofaccessibleandefficientLLMs.Themod-\nelsarepubliclyavailableathttps://github.com/myshell-ai/JetMoE.\n1 Introduction\nLarge Language Models (LLMs) have achieved remarkable results, but their increasing\nresourcedemandhasbecomeamajorobstacletodevelopingpowerfulandaccessibleAI.\nAlthoughmodernLLMshavesurpassedhumanperformanceonsometasks,theyremain\ninefficientandinflexible. MostLLMs(e.g.,Llama,Touvronetal.2023;Pythia,Biderman\netal.2023;GPT-3,Brownetal.2020;Mistral,Jiangetal.2023)usealloftheirparameters\nduring inference and training, which are referred to as dense models. Considering the\nsubstantialcosts, theMixture-of-Experts(MoE)architecture(Yukseletal.,2012;Shazeer",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": ". Considering the\nsubstantialcosts, theMixture-of-Experts(MoE)architecture(Yukseletal.,2012;Shazeer\netal.,2017;Duetal.,2022;Panetal.,2024)hasemergedasapopularsolution,enabling\nparameterscalingwhilekeepingcomputationalcostsmodest. RecentapplicationsofMoE\narchitectures in Transformers (Vaswani et al., 2017) have yielded successful attempts at\nscalinglanguagemodelstoasubstantialsize,accompaniedbyremarkableperformance,\nsuchasDeepseekMoE(Daietal.,2024),Mixtral8x7B(Jiangetal.,2024),Grok-1(xai-org,\n2024),andDBRX(Databricks,2024). However,eventhoughthesemodelsachieveexcellent\nperformance,theyarenottrulyopen-sourcedasthetrainingrecipesarenotpublishedand\nmaycontainproprietarydatasetsinaccessibleoutsideoflargecorporations.Theopen-source\ncommunityhasalsoattemptedtotrainMoEmodels,suchasOpenMoE(Xueetal.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "eoflargecorporations.Theopen-source\ncommunityhasalsoattemptedtotrainMoEmodels,suchasOpenMoE(Xueetal.,2024),but\nitsperformanceisonlyonparwithweakdensemodelswithsimilaractivationparameters,\nsuchasOpenLLaMA(Geng&Liu,2023)andTinyLLaMA(Zhangetal.,2024a).\n∗Equalcontribution.\n1\n4202\nrpA\n11\n]LC.sc[\n1v31470.4042:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nFigure1: JetMoEarchitecture\nTofacilitatefutureeffortsonopenfoundationmodels,particularlyMoEmodels,weintro-\nduceJetMoE-8B,aninnovativeMoEarchitectureinspiredbyModuleFormer(Shenetal.,\n2023)thatextendstheconceptofsparseactivationtoboththeattentionandfeed-forward\nlayers. Unlike prior works that only apply sparse activation to the feed-forward layer,\nJetMoE-8Bleveragessparseactivationinbothcomponentstofurtherreducecomputational\ncostswhilemaintainingperformance.\nImpressively,JetMoE-8Bistrainedwithalimited$100kbudget,using1.25Ttokensfrom\nmixedopen-sourcedatasetsand30,000H100GPUhours. Despiteitslowcost,JetMoE-8B\noutperformstheLlama2-7Bmodel,andJetMoE-8B-ChatoutperformstheLlama2-13B-Chat\nmodel,demonstratingthatLLMtrainingcanbemuchmorecost-effectivethangenerally\nthought.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "eLlama2-13B-Chat\nmodel,demonstratingthatLLMtrainingcanbemuchmorecost-effectivethangenerally\nthought. Inaddition,JetMoE-8Bhas8Bparameterswhileonlyactivating2Bforeachinput\ntoken,reducinginferencecomputationbyabout70%comparedtoLlama2-7B.\nThekeyadvantagesofJetMoE-8Binclude:\n• Opennessandacademia-friendly:JetMoE-8Bistrainedusingonlypublicdatasetsand\nopen-sourcetrainingcode,makingitaccessibletomanyacademiaresearchsettings.\nThemodelcanalsobefinetunedwithlimitedcomputebudgets(e.g.,consumer-grade\nGPUs).\n• Sparse activation on both attention and feed-forward layers, which significantly\nreducestrainingandinferencecosts. Wealsoproposetosharethekvprojectionin\nattentionexpertstoimprovetrainingstability.\n• Comprehensiveopen-sourcedatamixture,whichensureshigh-qualitytrainingusing\nonlyopen-sourcedatasets.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Comprehensiveopen-sourcedatamixture,whichensureshigh-qualitytrainingusing\nonlyopen-sourcedatasets.\nTheseinnovationsinJetMoE-8BpavethewayformoreaccessibleandefficientLLMs,bene-\nfitingthebroaderAIresearchcommunity. Tofostercollaborationandfurtheradvancements,\nwehavedetailedallthetrainingparametersanddatamixtureinthisreport.\n2 ModelArchitecture\n2.1 MixtureofExperts\nAMixtureofExperts(MoE)layercomprises N modules f ,..., f andarouter g(e | x).\n1 N\nGivenaninputxtotheMoElayer,therouterpredictsaprobabilitydistributionovertheN\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nmodules. Ofthese,weselectthetopkexperts. Whenk < N,weareusingaSparseMixture\nofExperts(SMoE,Shazeeretal.2017). InthisJetMoE,weusealinearlayertomodelthe\nrouter\ns = W x, (1)\nrtr\n(cid:26)\nsoftmax(Topk(s)) , s ∈Topk(s)\ng(e | x) = i i (2)\n0, s ∈/ Topk(s)\ni\nwhereW istheexpertembeddingmatrixofshape(N,D ),Topkistheoperatorthat\nrtr emb\nselectthetopklogitsfroms. ThefinaloutputoftheSMoEisthengivenby\nN\n∑\ny = g(e | x)· f (x) (3)\ne\ne=1\nWhen g(e | x) = 0, f (x) willnotneedtobeevaluated, thusreducingcomputationcost\ne\nduringtrainingandinference.\nFollowing the design in ModuleFormer (Shen et al., 2023), JetMoE replaces both self-\nattention and Feed-forward layers (FFD) with SMoE layer. This is different from most\nopensourceMoEmodels(Daietal.,2024;Xueetal.,2024),thatonlyreplaceFFDlayers.\n2.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "is different from most\nopensourceMoEmodels(Daietal.,2024;Xueetal.,2024),thatonlyreplaceFFDlayers.\n2.2 FeedFowardExpert\nEachFFDexpertisastandard2-layerMLPwithhiddenstatesizeD :\nffd\nf (x) = W σ(W x) (4)\nmlp out in\nWhereW istheoutputprojectionmatrixofshape(D ,D ),W intheinputprojection\nout emb ffd in\nmatrixofshape(2D ,D ),σistheSwiGLUactivationfunction.\nffd emb\n2.3 AttentionExpert\nZhangetal.(2022)proposetheMixtureofAttentionheads(MoA),whichextendsSMOEsto\nattentionmechanisms.WeadaptMoAforourpurposes,generalizingittoallowformultiple\nheadsperexpertandintroducingRoPErelativepositioningintotheattentioncomputation.\nInJetMoE,eachattentionexperteiscomposedoffourRDemb ×Datt matrix: We\nq\n,W\nk\n,W\nv\n,We\no\n,\nwhereD = H×D , Histhenumberofattentionheadinsideeachattentionexperts,\natt head",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "q\n,W\nk\n,W\nv\n,We\no\n,\nwhereD = H×D , Histhenumberofattentionheadinsideeachattentionexperts,\natt head\nD is the dimension of each attention head. Among these matrices, We and We are\nhead q o\nownedbyeachexpert,butW andW aresharedacrossexpertstoimprovethetraining\nk v\nandinferenceefficiency.\nGivenaninputvectorsequencex,wefirstprojectedittokeyvectorskandvaluevectorsv\nusingthesharedkeyandvalueprojectionmatrices:\nk = W x (5)\nk\nv = W x (6)\nv\nInsideexperte,weprojectxintothequeryvectorsq ,applystandardmulti-headattention\ne\nwithRoPE(Suetal.,2024),andprojecttheattentionoutputbacktotheinputspace:\nq = Wex (7)\ne q\na =MHA(q ,k,v) (8)\ne e\no = Wea (9)\ne o\nByintroducingtheMoA,wecanscaleuptheattentionlayerwithmoreattentionexperts\nwhilemaintainingthesameamountofcomputation. Suchthattheattentionlayerwillnot",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "thmoreattentionexperts\nwhilemaintainingthesameamountofcomputation. Suchthattheattentionlayerwillnot\nbecomeaperformancebottleneck,whilewescaleuptheMLPlayers.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n2.4 LoadBalancingduringPretraining\nToavoidtheSMoErepeatedlyusingthesamemoduleandwastingtheextracapacityin\nthe other modules, it requires various load balancing losses to regulate the training of\ntherouter(Shazeeretal.,2017;Fedusetal.,2021). InthetrainingofJetMoE,weusethe\nfrequency-basedauxiliarylossintroducedinFedusetal.(2021)\nN\n∑\nloss = N f P (10)\nb i i\ni=1\nwhereNisthenumberofexperts, f isthefractionoftokensdispatchedtoexperti,andP is\ni i\nthefractionoftherouterprobabilityallocatedforexperti. Toimprovethetrainingstability,\nwealsousetherouterz-lossintroducedinZophetal.(2022):\n(cid:32) (cid:33)2\nloss = 1 ∑ B log ∑ N exp(xi) (11)\nz B j\ni=1 j=1\nwhereBisthenumberoftokens,xisthelogitsgivenbyrouter. Thefinaltraininglosswill\nbetheweightedsumofthreelosses:\nloss = loss +αloss +βloss (12)",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "venbyrouter. Thefinaltraininglosswill\nbetheweightedsumofthreelosses:\nloss = loss +αloss +βloss (12)\nlm b z\nwhereαistheweightforloadbalancinglossandβistheweightforz-loss.\n3 PretrainingDatasets\n3.1 Real-worldDatasets\nRefinedWebisahigh-qualitywebdataset,whichcontains5trilliontokensextractedfrom\nCommonCrawl1usingtheMacroDataRefinement(MDR)pipelinetoimprovedataqual-\nity (Penedo et al., 2023). We use the 600 billion token extract of RefinedWeb publicly\navailable.\nStarCodertrainingdataissourcedfromTheStackv1.2withcodefromGitHubspanning\n86 programming languages (Li et al., 2023b). The data is preprocessed through visual\ninspection,filtering,deduplication,andreweightinglow-datalanguages. Anewversionof\nthedatasethasbeenrecentlyreleased(Lozhkovetal.,2024).",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ndreweightinglow-datalanguages. Anewversionof\nthedatasethasbeenrecentlyreleased(Lozhkovetal.,2024).\nDolmaisalarge,open,diverseEnglishtextcorpuscontains3trilliontokenssampledfrom\n7sources,includingwebpagesfromCommonCrawl,codefromTheStack,curatedweb\ndatafromC4(Raffeletal.,2020),socialmediaconversationsfromReddit,academicpapers\nfromPeS2o,publicdomainbooksfromProjectGutenberg,andencyclopediccontentfrom\nWikipediaandWikibooks(Soldainietal.,2024).\nThePileisan825GBopen-sourceEnglishtextcorpusfortraininglargelanguagemod-\nels(Gaoetal.,2020). Itincludes22diverse,publiclyavailabledatasetssuchasWikipedia,\nNIH exPORTER, ArXiv, Books3, BookCorpus2, OpenSubtitles, YTSubtitles, and Enron\nEmails.\n3.1.1 Miscellaneous\n◦ Proof-Pile-2 is a 55 billion token dataset of mathematical and scientific docu-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "1.1 Miscellaneous\n◦ Proof-Pile-2 is a 55 billion token dataset of mathematical and scientific docu-\nments (Azerbayev et al., 2023). We use the algebraic-stack (11B tokens) subset in-\ncludingnumericalcomputing,computeralgebra,andformalmathematics.\n◦ OpenWebMathisalarge,high-quality,opendatasetcontaining14.7billiontokensof\nEnglishmathematicalwebtext(Pasteretal.,2023).\n1http://commoncrawl.org/\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n◦ StackMathQAisameticulouslycuratedcollectionof2millionmathematicalquestions\nandanswers,sourcedfromvariousStackExchangesites(Zhang,2024).\n◦ OpenAssistantisahuman-generated,human-annotatedassistant-styleconversation\ncorpus in 35 different languages. The corpus is a product of a worldwide crowd-\nsourcingeffortinvolvingover13,500volunteers(LAION-AI,2023).\n◦ xP3x(CrosslingualPublicPoolofPromptseXtended)isacollectionofpromptsand\ndatasetsspanning277languagesand16NLPtasks(Muennighoffetal.,2023b).\n◦ CommitPackFTisa2GBfilteredversionofCommitPacktocontainonlyhigh-quality\ncommit messages on public Github repos that resemble natural language instruc-\ntions(Muennighoffetal.,2023a).\n3.2 SyntheticDatasets\nOpenHermes 2.5is a large-scale, diverse, high-quality compilation of open-source and",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "theticDatasets\nOpenHermes 2.5is a large-scale, diverse, high-quality compilation of open-source and\ncustom synthetic datasets (Teknium, 2023). It contains 1 million primarily synthetically\ngeneratedinstructionandchatsamples, followingaShareGPTstructure. Thedatasetis\ncompiledfromsourcesincludingAiroboros2.2(Durbin,2023), CamelAIdomainexpert\ndatasets (Li et al., 2023a), ChatBot Arena (GPT-4 Only) (Zheng et al., 2024a), Collective\nCognition(09-11-2023)(CollectiveCognition,2023),CoTAlpacaGPT4(Sietal.,2023),Evol\nInstruct 70K and 140K (Xu et al., 2023a), Glaive Code Assistant (glaiveai, 2023), GPT4-\nLLM (Peng et al., 2023), GPTeacher (Teknium1, 2023), Medical Tasks (CogStack, 2023),\nMetaMath40k(Yuetal.,2023),SlimOrca550K(Longpreetal.,2023;Mukherjeeetal.,2023;\nLian et al.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ck, 2023),\nMetaMath40k(Yuetal.,2023),SlimOrca550K(Longpreetal.,2023;Mukherjeeetal.,2023;\nLian et al., 2023), Platypus (Lee et al., 2024; Lightman et al., 2023; Wang et al., 2023b),\nShareGPT(GPT4-Only)(lmsys,2023),andUnnaturalInstructionsGPT4(Pengetal.,2023).\nUltraTextbooksis a comprehensive collection of high-quality synthetic and human-\nwritten textbooks (Locutusque, 2024). The composition of the dataset incorporating\nmultiple sources such as nampdn-ai/mini-peS2o, open-phi/programming books llama,\nopen-phi/textbooks,nampdn-ai/tiny-strange-textbooks,andaselecthigh-qualityweb\ncollectionfrommath-ai/AutoMathText.\nUltraChat200kisafilteredsubsetoftheUltraChatdataset,whichconsistsof1.4Mdialogues\ngeneratedbyChatGPT(Dingetal.,2023;Tunstalletal.,2023b). Thesubsetwascreatedby",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nsistsof1.4Mdialogues\ngeneratedbyChatGPT(Dingetal.,2023;Tunstalletal.,2023b). Thesubsetwascreatedby\nselectingasmallerportionofthedata,truecasingthetexttofixgrammaticalerrors,and\nremovingdialogueswheretheassistantinappropriatelyclaimstolackemotionsoropinions.\n3.2.1 Miscellaneous\n◦ TemplateGSM dataset is a novel and extensive collection containing over 7 mil-\nlion grade school math problems with code solutions and natural language solu-\ntions(Zhangetal.,2024b).\n◦ Magicoder-Evol-110K and Magicoder-OSS-75K datasets are generated using the\nOSS-INSTRUCTapproach,whichleveragesaLLMtoautomaticallycreatenewcoding\nproblems by drawing inspiration from random code snippets collected from open\nsourceprojects(Weietal.,2023).\n◦ Evol-CodeAlpacaisanopen-sourcedimplementationofEvol-Instructadaptedfor",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ceprojects(Weietal.,2023).\n◦ Evol-CodeAlpacaisanopen-sourcedimplementationofEvol-Instructadaptedfor\ncodeinstructionsbystreamlining,simplifying,andaddingcode-specificevolutionary\ninstructions(Luoetal.,2023).\n◦ Code-290k-ShareGPTisadatasetintheShareGPTformat,consistingofapproximately\n290,000setsofconversations(ajibawa2023,2024). Code-290k-ShareGPTisbuiltupon\ntheexistingdatasetsPython-Code-23k-ShareGPTandCode-74k-ShareGPT.\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n4 ModelPretraining\n4.1 Infrastructures\nWe use Megatron (Shoeybi et al., 2019) as the training framework and integrate\nMegablock(Galeetal.,2023)forMoEsupport. Wefurthermodifiedthetrainingframework\ntosupportMoA(Section2.3)andz-loss(Section2.4). Againstthecommonpractice, we\nchoosethePipelineparallelismintroducedin(Narayananetal.,2021)insteadoftheexpert\nparallelismformodelparallelduringtraining. Thisismainlyduetotworeasons. First,\nSparseMoEmodelsusuallyhaveanarrowerhiddenstatecomparedtostandardtransformer\nmodels. Thus,thecommunicationcostforpipelineparallelismissmaller. Second,weuse\nthedroplessMoEschemaintroducedinGaleetal.(2023);Shenetal.(2023),whichcould\ncauseloadunbalanceacrossexperts. Thus,usingexpertparallelwillcauseanunbalanced\nloadacrossdevicesandresultininefficienttraining.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "erts. Thus,usingexpertparallelwillcauseanunbalanced\nloadacrossdevicesandresultininefficienttraining. Pipelineparallelismcouldavoidthis\nslowdownbecauseitcomputesalltheexpertsinsidealayeronthesamedevice. Wecon-\nducttrainingonaclustercontaining12nodesand96H100s. Insideeachnode,gpusare\nconnectedviaNVLinks. Infinibandisusedforfastcommunicationbetweennodes.\n4.2 Hyper-parameters\nP P n D N Top-k n D D\ntotal active layers model experts kvheads head mlp\n8B 2B 24 2048 8 2 16 128 5632\nTable1: JetMoE-8Bhyperparameters.\nThehyperparametersofJetMoE-8Bareselectedbasedonthecommonpracticeforthe1B\ntransformerlanguagemodel.Wereplaceallself-attentionandMLPlayersinthetransformer\nwithMoAandMoE.Then,wesetthesamenumberofexpertsto8andtop-kto2forevery\nlayer.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "LPlayersinthetransformer\nwithMoAandMoE.Then,wesetthesamenumberofexpertsto8andtop-kto2forevery\nlayer. Suchthatthemodelhasapproximatelytwotimesthecomputationcomparedtoa1B\nmodel. FollowingST-MoE(Zophetal.,2022),theweightforloadbalancinglossandz-loss\nissetto0.01and0.001,respectively. Table1showsthekeyhyperparametersinJetMoE-8B.\nJetMoE-8BistrainedwiththeAdamWoptimizer(Loshchilov&Hutter,2017)withamaxi-\nmumlearningrateof5e-4andabatchsizeof4Mtokenswithsequencelengthof4096. We\nemploytheWarmup-Stable-Decay(WSD)learningratescheduleintroducedinHuetal.\n(2024). Thislearningrateschedulerisdividedintothreestages: thewarmupstage(denoted\nbyW,representingthenumberofstepsattheendofthewarmupstage),thestabletraining\nstage(denotedbyS),andtheannealingstage(denotedbyD):\n s ∗η, s <W\nW\nlr(s) = η, W < s < S (13)",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ining\nstage(denotedbyS),andtheannealingstage(denotedbyD):\n s ∗η, s <W\nW\nlr(s) = η, W < s < S (13)\n f(s−S)∗η, S < s < S+D\nwhere0< f(s−S) ≤1isadecreasingfunctionofs,andηisthemaximumlearningrate.\nInoursettings,thewarmupstagelastsfor10billiontokens,andthedecaystagespans250\nbilliontokens. Theinitialandfinallearningratesaresetto10%ofthemaximumlearning\nrate. Aweightdecayof0.1andgradientclippingof1.0areappliedduringtraining.\n4.3 TrainingDataMixture\nJetMoE-8B is trained on 1.25T tokens of primarily English data from web documents,\nmathematics,andcode. SimilartotheapproachadvocatedinminiCPM(Huetal.,2024)and\nGemma(Teametal.,2024),weincreasetheweightofhigh-qualitydataduringthelearning\nratedecayphase. Thetrainingprocessisdividedintotwophases:",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "weightofhigh-qualitydataduringthelearning\nratedecayphase. Thetrainingprocessisdividedintotwophases:\n• Phase1(warmupandstablelearningrate): ThedatasetincludesRefinedWeb,Star-\ncoder,ThePile,peS2ofromDolma,andOpenWebMath.\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n• Phase 2 (decay learning rate): We include additional high-quality data to further\nimprovethemodel’sperformance.\nThe detailed data mixture can be found in Figure 2 and Table 2. It is important to note\nthatgiventhelimitedcomputingbudgetavailable,ourdatamixturemightnotbeideal.\nHowever, it serves as a good starting point for training JetMoE-8B and can be further\noptimizedinfutureiterations.\nFigure2: Pretrainingdatamixture\nCategory Dataset Percentage\nRefinedweb 39.8%\nPile Wikipedia 6.7%\nPile StackExchange 4.8%\nNLpretrainingdata\nPile arXiv 1.0%\nPile remaining 5.1%\nDolma peS2o 1.0%\nxP3x,OpenAssistant,OpenHermes\nNLSFTdata 7.3%\nUltraChat,Oasst-octopack\nTextbook UltraTextbooks 4.8%\nCodepretrainingdata StarcoderGithub 19.6%\nMagicoder-OSS,Magicoder-Evol",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Textbook UltraTextbooks 4.8%\nCodepretrainingdata StarcoderGithub 19.6%\nMagicoder-OSS,Magicoder-Evol\nCodeSFTdata Code-290k-ShareGPT,CommitPackFT 3.8%\nEvol-CodeAlpaca\nOpen-web-math,algebraic-stack\nMathdata 5.8%\nTemplateGSM,StackMathQA\nTable2: DetaileddatamixtureforPhase2\n5 ModelAlignment\n5.1 DistilledSupervisedFine-Tuning(dSFT)\nThedSFTprocessinvolvestrainingastudentlanguagemodelforreplyingtouserprompts,\nwithdatageneratedbyateachermodel(suchasGPT-4orClaude)(Wangetal.,2022;Taori\netal.,2023;Chiangetal.,2023;Tunstalletal.,2023b). Thekeystepsareasfollows:\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n1. DataDistillation: Forasetofseedprompts{x0}J ,generateresponsesy0usingthe\nj j=1 j\nteachermodelπ ,andrefineinstructionstoobtainC = {(x ,y )}J .\nT j j j=1\n2. InstructionTuning: Thestudentmodelπ istrainedbymaximizingthelikelihood\ndSFT\noftheresponsesgiventheinstructions:\n∑\nπ =argmax logπ(y|x). (14)\ndSFT\nπ (x,y)∈C\nNotethattheexpectationforthelikelihoodfunctionisapproximatedbyusingthe\narithmeticmeanoverabatchoftrainingsamples.\n5.2 DistilledDirectPreferenceOptimization(dDPO)\ndDPOrefinesthedSFTmodelbyincorporatingpreferencesfromanalignedteachermodel\ninto the training process. It optimizes a reward function that reflects these preferences,\naimingtoalignthestudentmodel’soutputswiththedesiredoutcomesbasedonthestatic\npreferencedataset.\n1.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "s,\naimingtoalignthestudentmodel’soutputswiththedesiredoutcomesbasedonthestatic\npreferencedataset.\n1. KL-ConstrainedOptimization: ThefoundationofdDPOliesintheKL-constrained\noptimization,whichderivestheoptimalpolicyπ∗ thatmaximizesexpectedrewards\nr\nwhileminimizingdivergencefromabaselinepolicyπ (Wangetal.,2023a):\n0\n(cid:104) (cid:105)\nπ r ∗(y|x) :=argmaxE x∼d0 E y∼π(·|x) [r(x,y)]−ηKL(π(·|x)∥π 0 (·|x)) (15)\nπ\nwhereηisaregularizationparameterthatbalancesmaximizingtherewardfunction\nr(x,y)andadheringtothebaselinepolicyπ .\n0\n2. Preference-Driven Reward Function: dDPO incorporates a reward function that\nreflectspreferencesfromanalignedteachermodel:\n(cid:18) π∗(y|x) (cid:19)\nr ∗(x,y) = ηlog +ηlogZ(x), (16)\nπ (y|x)\ndSFT",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "esfromanalignedteachermodel:\n(cid:18) π∗(y|x) (cid:19)\nr ∗(x,y) = ηlog +ηlogZ(x), (16)\nπ (y|x)\ndSFT\nquantifying the preference for producing response y given input x relative to the\ndSFTmodel’sbaselineprobability. ηscalesthereward’sinfluence,andZ(x)ensures\nnormalization.\n3. Optimization Objective: The objective for aligning π with the teacher model’s\nθ\npreferencesis:\nπ =argmax ∑ logσ\n(cid:18)\nηlog\nπ(y\nw\n|x)\n−ηlog\nπ(y\nl\n|x) (cid:19)\n, (17)\nθ π (y |x) π (y |x)\nπ (x,yw,yl )∈D dSFT w dSFT l\nwhere D comprisesinstruction-responsepairs,withy andy indicatingpreferred\nw l\nandlesspreferredresponsesrespectively,scoredbytheteachermodel.\nOfflineDPO(Rafailovetal.,2023)directlyoptimizeslanguagemodelpoliciesusingstatic\npreferencedata,providingstablelearningandsimplertuningcomparedtoReinforcement",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "elpoliciesusingstatic\npreferencedata,providingstablelearningandsimplertuningcomparedtoReinforcement\nlearningfromHumanFeedback(RLHF)(Ouyangetal.,2022;Christianoetal.,2023). How-\never,itfaceschallengeswithdistributionshiftsbetweenthedatasetandtheevolvingpolicy.\nOnlineanditerativeDPOvariantsaddressthisissueatthecostofincreasedcomputational\ncomplexity(Xuetal.,2023b;Guoetal.,2024b;Xiongetal.,2024).\n5.3 Alignmentdetails\nOuralginmentframeworkisbasedonAlignmentHandbook(Tunstalletal.,2023a)using\nPytorch2(He&Yu,2023;Anseletal.,2024)withDeepSpeedZeRO-3(Rajbhandarietal.,\n2020). WefinetunetheJetMoE-8BbasemodelusingdSFTonacombinationofthefollowing\ndatasets: UltraChat200k(Dingetal.,2023;Tunstalletal.,2023b),Airoboros-3.2(Durbin,\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "),Airoboros-3.2(Durbin,\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\n2023),Code-Feedback(Zhengetal.,2024b),Orca-math-word-problems-200k(Mitraetal.,\n2024), SystemChat (abacusai, 2024), and Capybara (Daniele & Suphavadeeprasit, 2023).\nChat template is the same as Zephyr-7b-beta. The key hyperparameters for dSFT are a\nlearningrateof2e-5withanAdamoptimizer,abatchsizeof128,and3epochs.\nWe further finetune the JetMoE-8B-SFT model using dDPO on the UltraFeedback\ndataset(Cuietal.,2023),whichcontainsbinarypreferencelabelsindicatingthepreferred\nresponsebetweentwooptions. ThekeyhyperparametersfordDPOarealearningrateof\n5e-7withAdamW,abatchsizeof128,and1epoch. Thisfine-tuningprocessresultsinthe\nJetMoE-8B-Chatmodel. Theentirealignmentprocesstakes60H100GPUhours.\n6 Evaluation\nLLaMA2 DeepseekMoE Gemma JetMoE\n#TotalParams 7B 16B 2B 8B\n#ActivateParams 7B 2.8B 2B 2.2B",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "valuation\nLLaMA2 DeepseekMoE Gemma JetMoE\n#TotalParams 7B 16B 2B 8B\n#ActivateParams 7B 2.8B 2B 2.2B\n#Trainingtokens 2T 2T 2T 1.25T\nARC-challenge 53.1 53.2 48.4 48.7\nHellaswag 78.6 79.8 71.8 80.5\nMMLU 46.9 46.3 41.8 49.2\nTruthfulQA 38.8 36.1 33.1 41.7\nWinoGrande 74.0 73.7 66.3 70.2\nGSM8k 14.5 17.3 16.9 27.8\nOpenLLMLeaderboardAvg. 51.0 51.1 46.4 53.0\nMBPP(Pass@1) 20.8 34.0 28.0 34.2\nHumanEval(Pass@1) 12.8 25.0 24.4 14.6\nAllAvg. 45.5 47.3 43.2 47.6\nTable3: OpenLLMleaderboardandcodebenchmarksresultsfromfourdifferentmodels.\nWemeasureJetMoE-8B’sperformanceontasksincludedinOpenLLMleaderboard2 and\nfromotherdomains,includingphysicalreasoning(Bisketal.,2020),socialreasoning(Sap\netal.,2019),questionanswering(Clarketal.,2019;Kwiatkowskietal.,2019),mathemat-\nics(Cobbeetal.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ng(Sap\netal.,2019),questionanswering(Clarketal.,2019;Kwiatkowskietal.,2019),mathemat-\nics(Cobbeetal.,2021),commonsensereasoning(Sakaguchietal.,2021),languagemodel-\ning(Papernoetal.,2016),readingcomprehension(Joshietal.,2017),andmore. Formost\nbenchmarks,weusethesameevaluationmethodologyasintheOpenLLMleaderboard\nto be comparable to other models.. We compare JetMoE-8B models to several external\nopen-source(OSS)LLMs,includingGemma,LLaMA2,DeepseekMoE.\nIn addition, we include HumanEval (Chen et al., 2021) and MBPP (Austin et al., 2021)\nto evaluate the code generation of the models. Utilizing the BigCode Evaluation Har-\nness(BenAllaletal.,2022),wefollowrecentworkonCodeLLMs(Rozie`reetal.,2024;Guo\netal.,2024a)withgreedydecoding,andreportthemeanpass@1(meansuccessrate)forthe\ntwobenchmarks.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "024;Guo\netal.,2024a)withgreedydecoding,andreportthemeanpass@1(meansuccessrate)forthe\ntwobenchmarks.\nTable3showstheOpenLLMleaderboardandcodebenchmarksresultsfromfourdifferent\nmodels. JetMoE-8BoutperformsGemma,LLaMA2,andDeepseekMoEontheOpenLLM\nleaderboard,achievingthebestscoresinalltasksexceptARC-challengeandWinoGrande.\nAdditionally,JetMoE-8BobtainsthehighestMBPPscoresinPythonprogramming.\nWealsoevaluatedourmodelonMT-Bench(Zhengetal.,2023)withastrongLLMjudge\n(gpt-4-0613 checkpoint). The temperature configuration, following the official FastChat\nimplementation,isdefinedasfollows: ”Writing”and”Roleplay”taskshaveatemperature\nof0.7,indicatinghighercreativity;”Extraction”,”Math”,”Coding”,and”Reasoning”tasks\n2https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ng”tasks\n2https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nModel MT-BenchScore\nGPT-4 9.014\nGPT-3.5-turbo 7.995\nClaude-v1 7.923\nJetMoE-8B-chat 6.681\nLlama-2-13b-chat 6.650\nVicuna-13b-v1.3 6.413\nWizardlm-13b 6.353\nLlama-2-7b-chat 6.269\nTable4: MT-Benchscorecomparisonofvariousmodels\nFigure3: MT-Benchradarfigure\nhaveatemperatureof0.0,suggestingpreciseness;and”STEM”and”Humanities”havea\ntemperatureof0.1,implyingslightlymorevariabilitythan0.0tasks.\nJetMoE-8B-ChatachievesahigherMT-BenchscorethanLlama-2-13b-Chatafteralignment,\ndemonstratingitssuperiorperformance. However,asshowninFigure3,JetMoE-8B-chatis\nrelativelyweakincodingandextractioncomparedtoGPT-3.5-turbo. Thismightbedueto\nthesmallermodelsizeleadingtosuboptimalreasoningcapabilityinthesetasks. Despite\nthislimitation,JetMoE-8B-chatexhibitsstrongperformanceacrossvariousotherdimensions,",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "etasks. Despite\nthislimitation,JetMoE-8B-chatexhibitsstrongperformanceacrossvariousotherdimensions,\nmakingitacompetitivemodelintheopen-sourceLLMlandscape.\n7 LimitationandFutureWorks\nDue to the limited $100k budget, we can not afford any ablation study for the model\narchitecture. Thehyperparametersanddatamixturesarealsohandpickedbasedonthe\nempiricalresultsfrompreviousworks(Shenetal.,2023;Zophetal.,2022;Huetal.,2024).\nInthefuture,itwouldbeinterestingtofurtherstudytheactualcontributionofdifferent\ncomponentstothefinalresults.\n8 Conclusion\nWeintroduceJetMoE-8B,anopen-sourceMoEmodelthatachievesstate-of-the-artperfor-\nmanceamongopen-sourcemodelswhilemaintaininghighefficiency. Byleveragingsparse\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nactivationinboththeattentionandfeed-forwardlayers,JetMoE-8Breducescomputational\ncostswhilemaintainingstrongperformanceacrossawiderangeoftasks.\nTrainedusingatwo-phaseapproachandacarefullycuratedmixtureofopen-sourcedatasets,\nJetMoE-8Boutperformslargerandmoreresource-intensivemodelsontheOpenLLMLeader-\nboard. Inaddition,JetMoE-8B-Chatdemonstratescompetitiveperformancecomparedto\notheropen-sourcechatbots.\nWeprovidedetailedtrainingparametersanddatamixtureinformationtoencouragerepro-\nducibilityandenableresearcherstobuilduponourwork.JetMoE-8Brepresentsasignificant\nstepforwardinthedevelopmentofopen-source,efficient,andhigh-performinglanguage\nmodels,contributingtothedemocratizationofadvancedlanguagetechnologies.\nAcknowledgments",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "minglanguage\nmodels,contributingtothedemocratizationofadvancedlanguagetechnologies.\nAcknowledgments\nWe express our gratitude to Shengding Hu for his valuable advice on the Phase 2 data\nmixture. WealsoexpressourgratitudetoExabitsfortheirassistanceinsettinguptheGPU\nclusters,andtoLeptonAIfortheirsupportinsettingupthechatdemo.\nReferences\nabacusai. Systemchat, 2024. URL https://huggingface.co/datasets/abacusai/\nSystemChat.\najibawa 2023. Code-290k-sharegpt, 2024. URL https://huggingface.co/datasets/\najibawa-2023/Code-290k-ShareGPT.\nJasonAnsel,EdwardYang,HoraceHe,NataliaGimelshein,AnimeshJain,MichaelVozne-\nsensky,BinBao,PeterBell,DavidBerard,EvgeniBurovski,etal.Pytorch2:Fastermachine\nlearningthroughdynamicpythonbytecodetransformationandgraphcompilation,2024.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": ".Pytorch2:Fastermachine\nlearningthroughdynamicpythonbytecodetransformationandgraphcompilation,2024.\nJacobAustin,AugustusOdena,MaxwellNye,MaartenBosma,HenrykMichalewski,David\nDohan,EllenJiang,CarrieCai,MichaelTerry,QuocLe,etal. Programsynthesiswith\nlargelanguagemodels. arXivpreprintarXiv:2108.07732,2021.\nZhangirAzerbayev,HaileySchoelkopf,KeiranPaster,MarcoDosSantos,StephenMcAleer,\nAlbertQ.Jiang,JiaDeng,StellaBiderman,andSeanWelleck. Llemma: Anopenlanguage\nmodelformathematics,2023.\nLoubnaBenAllal,NiklasMuennighoff,LogeshKumarUmapathi,BenLipkin,andLeandro\nvonWerra. Aframeworkfortheevaluationofcodegenerationmodels. https://github.\ncom/bigcode-project/bigcode-evaluation-harness,2022.\nStellaBiderman,HaileySchoelkopf,QuentinAnthony,HerbieBradley,KyleO’Brien,Eric",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "luation-harness,2022.\nStellaBiderman,HaileySchoelkopf,QuentinAnthony,HerbieBradley,KyleO’Brien,Eric\nHallahan,MohammadAflahKhan,ShivanshuPurohit,USVSNSaiPrashanth,Edward\nRaff,etal. Pythia:Asuiteforanalyzinglargelanguagemodelsacrosstrainingandscaling.\narXivpreprintarXiv:2304.01373,2023.\nYonatanBisk,RowanZellers,JianfengGao,YejinChoi,etal. Piqa: Reasoningaboutphysical\ncommonsense in natural language. In Proceedings of the AAAI conference on artificial\nintelligence,volume34,pp.7432–7439,2020.\nTom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla\nDhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, et al.\nLanguagemodelsarefew-shotlearners. Advancesinneuralinformationprocessingsystems,\n33:1877–1901,2020.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Languagemodelsarefew-shotlearners. Advancesinneuralinformationprocessingsystems,\n33:1877–1901,2020.\nMarkChen,JerryTworek,HeewooJun,QimingYuan,HenriquePondedeOliveiraPinto,\nJaredKaplan,HarriEdwards,YuriBurda,NicholasJoseph,GregBrockman,AlexRay,\nRaulPuri,GretchenKrueger,MichaelPetrov,HeidyKhlaaf,GirishSastry,PamelaMishkin,\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nBrookeChan,ScottGray,NickRyder,MikhailPavlov,AletheaPower,LukaszKaiser,Mo-\nhammadBavarian,ClemensWinter,PhilippeTillet,FelipePetroskiSuch,DaveCummings,\nMatthiasPlappert,FotiosChantzis,ElizabethBarnes,ArielHerbert-Voss,WilliamHebgen\nGuss,AlexNichol,AlexPaino,NikolasTezak,JieTang,IgorBabuschkin,SuchirBalaji,\nShantanuJain,WilliamSaunders,ChristopherHesse,AndrewN.Carr,JanLeike,Josh\nAchiam,VedantMisra,EvanMorikawa,AlecRadford,MatthewKnight,MilesBrundage,\nMiraMurati,KatieMayer,PeterWelinder,BobMcGrew,DarioAmodei,SamMcCandlish,\nIlyaSutskever,andWojciechZaremba. Evaluatinglargelanguagemodelstrainedoncode,\n2021.\nWei-Lin Chiang, Zhuohan Li, Zi Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin\nZheng,SiyuanZhuang,YonghaoZhuang,JosephE.Gonzalez,IonStoica,andEricP.Xing.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "o Wu, Hao Zhang, Lianmin\nZheng,SiyuanZhuang,YonghaoZhuang,JosephE.Gonzalez,IonStoica,andEricP.Xing.\nVicuna: Anopen-sourcechatbotimpressinggpt-4with90%*chatgptquality,March2023.\nURLhttps://lmsys.org/blog/2023-03-30-vicuna/.\nPaulChristiano,JanLeike,TomB.Brown,MiljanMartic,ShaneLegg,andDarioAmodei.\nDeepreinforcementlearningfromhumanpreferences,2023.\nChristopherClark,KentonLee,Ming-WeiChang,TomKwiatkowski,MichaelCollins,and\nKristinaToutanova.Boolq:Exploringthesurprisingdifficultyofnaturalyes/noquestions.\narXivpreprintarXiv:1905.10044,2019.\nKarlCobbe,VineetKosaraju,MohammadBavarian,MarkChen,HeewooJun,LukaszKaiser,\nMatthiasPlappert,JerryTworek,JacobHilton,ReiichiroNakano,etal. Trainingverifiers\ntosolvemathwordproblems. arXivpreprintarXiv:2110.14168,2021.\nCogStack.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "akano,etal. Trainingverifiers\ntosolvemathwordproblems. arXivpreprintarXiv:2110.14168,2021.\nCogStack. OpenGPT:Aframeworkforcreatinggroundedinstructionbaseddatasetsand\ntrainingconversationaldomainexpertLargeLanguageModels(LLMs). https://github.\ncom/CogStack/OpenGPT,2023.\nCollectiveCognition. Collective cognition chatgpt conversations, 2023. URL https://\nhuggingface.co/datasets/CollectiveCognition/chats-data-2023-09-22.\nGanqu Cui, Lifan Yuan, Ning Ding, Guanming Yao, Wei Zhu, Yuan Ni, Guotong Xie,\nZhiyuanLiu,andMaosongSun. Ultrafeedback: Boostinglanguagemodelswithhigh-\nqualityfeedback,2023.\nDamai Dai, Chengqi Deng, Chenggang Zhao, RX Xu, Huazuo Gao, Deli Chen, Jiashi\nLi, WangdingZeng, XingkaiYu, YWu, etal. Deepseekmoe: Towardsultimateexpert\nspecializationinmixture-of-expertslanguagemodels.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "iYu, YWu, etal. Deepseekmoe: Towardsultimateexpert\nspecializationinmixture-of-expertslanguagemodels. arXivpreprintarXiv:2401.06066,\n2024.\nLuigiDanieleandSuphavadeeprasit. Amplify-instruct: Syntheticallygenerateddiverse\nmulti-turnconversationsforeffecientllmtraining. arXivpreprintarXiv:(comingsoon),2023.\nURLhttps://huggingface.co/datasets/LDJnr/Capybara.\nDatabricks. Dbrx: Resourcesandcodeexamples. https://github.com/databricks/dbrx,\n2024.\nNing Ding, Yulin Chen, Bokai Xu, Yujia Qin, Zhi Zheng, Shengding Hu, Zhiyuan Liu,\nMaosongSun,andBowenZhou.Enhancingchatlanguagemodelsbyscalinghigh-quality\ninstructionalconversations,2023.\nNanDu,YanpingHuang,AndrewMDai,SimonTong,DmitryLepikhin,YuanzhongXu,\nMaximKrikun,YanqiZhou,AdamsWeiYu,OrhanFirat,etal. Glam: Efficientscalingof",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "tryLepikhin,YuanzhongXu,\nMaximKrikun,YanqiZhou,AdamsWeiYu,OrhanFirat,etal. Glam: Efficientscalingof\nlanguagemodelswithmixture-of-experts. InInternationalConferenceonMachineLearning,\npp.5547–5569.PMLR,2022.\nJon Durbin. airoboros: Customizable implementation of the self-instruct paper. https:\n//github.com/jondurbin/airoboros,2023.\nWilliamFedus,BarretZoph,andNoamShazeer. Switchtransformers: Scalingtotrillion\nparametermodelswithsimpleandefficientsparsity,2021.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nTrevorGale,DeepakNarayanan,CliffYoung,andMateiZaharia. Megablocks: Efficient\nsparsetrainingwithmixture-of-experts. ProceedingsofMachineLearningandSystems,5,\n2023.\nLeoGao,StellaBiderman,SidBlack,LaurenceGolding,TravisHoppe,CharlesFoster,Jason\nPhang, HoraceHe, AnishThite, NoaNabeshima, etal. Thepile: An800gbdatasetof\ndiversetextforlanguagemodeling. arXivpreprintarXiv:2101.00027,2020.\nXinyangGengandHaoLiu. Openllama: Anopenreproductionofllama,May2023. URL\nhttps://github.com/openlm-research/open_llama.\nglaiveai.Glaive-code-assistant,2023.URLhttps://huggingface.co/datasets/glaiveai/\nglaive-code-assistant.\nDayaGuo,QihaoZhu,DejianYang,ZhendaXie,KaiDong,WentaoZhang,GuantingChen,\nXiaoBi,Y.Wu,Y.K.Li,FuliLuo,YingfeiXiong,andWenfengLiang. Deepseek-coder:",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ",WentaoZhang,GuantingChen,\nXiaoBi,Y.Wu,Y.K.Li,FuliLuo,YingfeiXiong,andWenfengLiang. Deepseek-coder:\nWhenthelargelanguagemodelmeetsprogramming–theriseofcodeintelligence,2024a.\nShangmin Guo, Biao Zhang, Tianlin Liu, Tianqi Liu, Misha Khalman, Felipe Llinares,\nAlexandre Rame, Thomas Mesnard, Yao Zhao, Bilal Piot, Johan Ferret, and Mathieu\nBlondel. Directlanguagemodelalignmentfromonlineaifeedback,2024b.\nHoraceHeandShangdiYu. Transcendingruntime-memorytradeoffsincheckpointingby\nbeingfusionaware. ProceedingsofMachineLearningandSystems,5,2023.\nShengdingHu,YugeTu,XuHan,ChaoqunHe,GanquCui,XiangLong,ZhiZheng,Yewei\nFang,YuxiangHuang,WeilinZhao,XinrongZhang,ZhengLengThai,KaihuoZhang,\nChongyiWang,YuanYao,ChenyangZhao,JieZhou,JieCai,ZhongwuZhai,NingDing,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ng,ZhengLengThai,KaihuoZhang,\nChongyiWang,YuanYao,ChenyangZhao,JieZhou,JieCai,ZhongwuZhai,NingDing,\nChaoJia,GuoyangZeng,DahaiLi,ZhiyuanLiu,andMaosongSun. Minicpm: Unveiling\nthepotentialofsmalllanguagemodelswithscalabletrainingstrategies,2024.\nAlbertQJiang,AlexandreSablayrolles,ArthurMensch,ChrisBamford,DevendraSingh\nChaplot,DiegodelasCasas,FlorianBressand,GiannaLengyel,GuillaumeLample,Lucile\nSaulnier,etal. Mistral7b. arXivpreprintarXiv:2310.06825,2023.\nAlbertQ.Jiang, AlexandreSablayrolles, AntoineRoux, ArthurMensch, BlancheSavary,\nChrisBamford,DevendraSinghChaplot,DiegodelasCasas,EmmaBouHanna,Florian\nBressand,GiannaLengyel,GuillaumeBour,GuillaumeLample,Le´lioRenardLavaud,\nLucileSaulnier,Marie-AnneLachaux,PierreStock,SandeepSubramanian,SophiaYang,",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ple,Le´lioRenardLavaud,\nLucileSaulnier,Marie-AnneLachaux,PierreStock,SandeepSubramanian,SophiaYang,\nSzymon Antoniak, Teven Le Scao, The´ophile Gervet, Thibaut Lavril, Thomas Wang,\nTimothe´eLacroix,andWilliamElSayed. Mixtralofexperts,2024.\nMandar Joshi, Eunsol Choi, Daniel S Weld, and Luke Zettlemoyer. Triviaqa: A large\nscaledistantlysupervisedchallengedatasetforreadingcomprehension. arXivpreprint\narXiv:1705.03551,2017.\nTomKwiatkowski,JennimariaPalomaki,OliviaRedfield,MichaelCollins,AnkurParikh,\nChrisAlberti,DanielleEpstein,IlliaPolosukhin,JacobDevlin,KentonLee,etal. Natural\nquestions: abenchmarkforquestionansweringresearch. TransactionsoftheAssociationfor\nComputationalLinguistics,7:453–466,2019.\nLAION-AI. Open-Assistant: Achat-basedassistantthatunderstandstasks, caninteract",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ics,7:453–466,2019.\nLAION-AI. Open-Assistant: Achat-basedassistantthatunderstandstasks, caninteract\nwiththird-partysystems,andretrieveinformationdynamically. https://github.com/\nLAION-AI/Open-Assistant,2023.\nAriel N. Lee, Cole J. Hunter, and Nataniel Ruiz. Platypus: Quick, cheap, and powerful\nrefinementofllms,2024.\nGuohaoLi,HasanAbedAlKaderHammoud,HaniItani,DmitriiKhizbullin,andBernard\nGhanem. Camel: Communicativeagentsfor”mind”explorationoflargelanguagemodel\nsociety. InThirty-seventhConferenceonNeuralInformationProcessingSystems,2023a.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nRaymondLi,LoubnaBenAllal,YangtianZi,NiklasMuennighoff,DenisKocetkov,Cheng-\nhao Mou, Marc Marone, Christopher Akiki, Jia Li, Jenny Chim, Qian Liu, Evgenii\nZheltonozhskii, Terry Yue Zhuo, Thomas Wang, Olivier Dehaene, Mishig Davaadorj,\nJoel Lamy-Poirier, Joa˜o Monteiro, Oleh Shliazhko, Nicolas Gontier, Nicholas Meade,\nArmelZebaze,Ming-HoYee,LogeshKumarUmapathi,JianZhu,BenjaminLipkin,Muh-\ntashamOblokulov,ZhiruoWang,RudraMurthy,JasonStillerman,SivaSankalpPatel,\nDmitryAbulkhanov,MarcoZocca,MananDey,ZhihanZhang,NourFahmy,Urvashi\nBhattacharyya,WenhaoYu,SwayamSingh,SashaLuccioni,PauloVillegas,MaximKu-\nnakov,FedorZhdanov,ManuelRomero,TonyLee,NadavTimor,JenniferDing,Claire\nSchlesinger,HaileySchoelkopf,JanEbert,TriDao,MayankMishra,AlexGu,Jennifer",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Timor,JenniferDing,Claire\nSchlesinger,HaileySchoelkopf,JanEbert,TriDao,MayankMishra,AlexGu,Jennifer\nRobinson,CarolynJaneAnderson,BrendanDolan-Gavitt,DanishContractor,SivaReddy,\nDanielFried,DzmitryBahdanau,YacineJernite,CarlosMun˜ozFerrandis,SeanHughes,\nThomasWolf,ArjunGuha,LeandrovonWerra,andHarmdeVries. Starcoder: maythe\nsourcebewithyou!,2023b.\nWingLian,GuanWang,BleysGoodson,EugenePentland,AustinCook,ChanvichetVong,\nand”Teknium”. Slimorca: Anopendatasetofgpt-4augmentedflanreasoningtraces,\nwithverification,2023. URLhttps://https://huggingface.co/Open-Orca/SlimOrca.\nHunterLightman,VineetKosaraju,YuraBurda,HarriEdwards,BowenBaker,TeddyLee,\nJan Leike, John Schulman, Ilya Sutskever, and Karl Cobbe. Let’s verify step by step.\npreprintarXiv:2305.20050,2023.\nlmsys.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "an, Ilya Sutskever, and Karl Cobbe. Let’s verify step by step.\npreprintarXiv:2305.20050,2023.\nlmsys. FastChat: Anopenplatformfortraining,serving,andevaluatinglargelanguage\nmodelbasedchatbots. https://github.com/lm-sys/FastChat,2023.\nLocutusque.Ultratextbooks,2024.URLhttps://huggingface.co/datasets/Locutusque/\nUltraTextbooks.\nShayneLongpre,LeHou,TuVu,AlbertWebson,HyungWonChung,YiTay,DennyZhou,\nQuocV.Le,BarretZoph,JasonWei,andAdamRoberts. Theflancollection: Designing\ndataandmethodsforeffectiveinstructiontuning,2023.\nIlyaLoshchilovandFrankHutter. Decoupledweightdecayregularization. arXivpreprint\narXiv:1711.05101,2017.\nAnton Lozhkov, Raymond Li, Loubna Ben Allal, Federico Cassano, Joel Lamy-Poirier,\nNouamaneTazi,AoTang,DmytroPykhtar,JiaweiLiu,YuxiangWei,etal. Starcoder2",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Cassano, Joel Lamy-Poirier,\nNouamaneTazi,AoTang,DmytroPykhtar,JiaweiLiu,YuxiangWei,etal. Starcoder2\nandthestackv2: Thenextgeneration. arXivpreprintarXiv:2402.19173,2024.\nZiyangLuo,CanXu,PuZhao,QingfengSun,XiuboGeng,WenxiangHu,ChongyangTao,\nJingMa,QingweiLin,andDaxinJiang. Wizardcoder: Empoweringcodelargelanguage\nmodelswithevol-instruct,2023.\nArindam Mitra, Hamed Khanpour, Corby Rosset, and Ahmed Awadallah. Orca-math:\nUnlockingthepotentialofslmsingradeschoolmath,2024.\nNiklasMuennighoff,QianLiu,ArmelZebaze,QinkaiZheng,BinyuanHui,TerryYueZhuo,\nSwayam Singh, Xiangru Tang, Leandro von Werra, and Shayne Longpre. Octopack:\nInstructiontuningcodelargelanguagemodels. arXivpreprintarXiv:2308.07124,2023a.\nNiklasMuennighoff,ThomasWang,LintangSutawika,AdamRoberts,StellaBiderman,",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "intarXiv:2308.07124,2023a.\nNiklasMuennighoff,ThomasWang,LintangSutawika,AdamRoberts,StellaBiderman,\nTeven Le Scao, M Saiful Bari, Sheng Shen, Zheng-Xin Yong, Hailey Schoelkopf, Xian-\ngruTang,DragomirRadev,AlhamFikriAji,KhalidAlmubarak,SamuelAlbanie,Zaid\nAlyafeai, Albert Webson, Edward Raff, and Colin Raffel. Crosslingual generalization\nthroughmultitaskfinetuning,2023b.\nSubhabrataMukherjee,ArindamMitra,GaneshJawahar,SahajAgarwal,HamidPalangi,\nandAhmedAwadallah. Orca: Progressivelearningfromcomplexexplanationtracesof\ngpt-4,2023.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nDeepakNarayanan, MohammadShoeybi, JaredCasper, PatrickLeGresley, MostofaPat-\nwary,VijayKorthikanti,DmitriVainbrand,PrethviKashinkunti,JulieBernauer,Bryan\nCatanzaro, et al. Efficient large-scale language model training on gpu clusters using\nmegatron-lm. InProceedingsoftheInternationalConferenceforHighPerformanceComputing,\nNetworking,StorageandAnalysis,pp.1–15,2021.\nLongOuyang,JeffWu,XuJiang,DiogoAlmeida,CarrollL.Wainwright,PamelaMishkin,\nChong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob\nHilton,FraserKelton,LukeMiller,MaddieSimens,AmandaAskell,PeterWelinder,Paul\nChristiano,JanLeike,andRyanLowe. Traininglanguagemodelstofollowinstructions\nwithhumanfeedback,2022.\nBowenPan,YikangShen,HaokunLiu,MayankMishra,GaoyuanZhang,AudeOliva,Colin\nRaffel,andRameswarPanda.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "22.\nBowenPan,YikangShen,HaokunLiu,MayankMishra,GaoyuanZhang,AudeOliva,Colin\nRaffel,andRameswarPanda. Densetraining,sparseinference: Rethinkingtrainingof\nmixture-of-expertslanguagemodels,2024.\nDenis Paperno, Germa´n Kruszewski, Angeliki Lazaridou, Quan Ngoc Pham, Raffaella\nBernardi,SandroPezzelle,MarcoBaroni,GemmaBoleda,andRaquelFerna´ndez. The\nlambadadataset: Wordpredictionrequiringabroaddiscoursecontext. arXivpreprint\narXiv:1606.06031,2016.\nKeiranPaster,MarcoDosSantos,ZhangirAzerbayev,andJimmyBa. Openwebmath: An\nopendatasetofhigh-qualitymathematicalwebtext,2023.\nGuilherme Penedo, Quentin Malartic, Daniel Hesslow, Ruxandra Cojocaru, Alessandro\nCappelli,HamzaAlobeidli,BaptistePannier,EbtesamAlmazrouei,andJulienLaunay.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "dra Cojocaru, Alessandro\nCappelli,HamzaAlobeidli,BaptistePannier,EbtesamAlmazrouei,andJulienLaunay.\nTherefinedwebdatasetforfalconllm: outperformingcuratedcorporawithwebdata,and\nwebdataonly. arXivpreprintarXiv:2306.01116,2023.\nBaolinPeng,ChunyuanLi,PengchengHe,MichelGalley,andJianfengGao. Instruction\ntuningwithgpt-4. arXivpreprintarXiv:2304.03277,2023.\nRafaelRafailov,ArchitSharma,EricMitchell,StefanoErmon,ChristopherD.Manning,and\nChelseaFinn. Directpreferenceoptimization: Yourlanguagemodelissecretlyareward\nmodel,2023.\nColinRaffel,NoamShazeer,AdamRoberts,KatherineLee,SharanNarang,MichaelMatena,\nYanqi Zhou, Wei Li, and Peter J. Liu. Exploring the limits of transfer learning with a\nunifiedtext-to-texttransformer. JournalofMachineLearningResearch,21(140):1–67,2020.\nURLhttp://jmlr.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "unifiedtext-to-texttransformer. JournalofMachineLearningResearch,21(140):1–67,2020.\nURLhttp://jmlr.org/papers/v21/20-074.html.\nSamyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and Yuxiong He. Zero: Memory\noptimizationstowardtrainingtrillionparametermodels,2020.\nBaptisteRozie`re,JonasGehring,FabianGloeckle,StenSootla,ItaiGat,XiaoqingEllenTan,\nYossiAdi,JingyuLiu,RomainSauvestre,TalRemez,Je´re´myRapin,ArtyomKozhevnikov,\nIvanEvtimov, JoannaBitton, ManishBhatt, CristianCantonFerrer, AaronGrattafiori,\nWenhan Xiong, Alexandre De´fossez, Jade Copet, Faisal Azhar, Hugo Touvron, Louis\nMartin, Nicolas Usunier, Thomas Scialom, and Gabriel Synnaeve. Code llama: Open\nfoundationmodelsforcode,2024.\nKeisukeSakaguchi,RonanLeBras,ChandraBhagavatula,andYejinChoi. Winogrande: An",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ionmodelsforcode,2024.\nKeisukeSakaguchi,RonanLeBras,ChandraBhagavatula,andYejinChoi. Winogrande: An\nadversarialwinogradschemachallengeatscale. CommunicationsoftheACM,64(9):99–106,\n2021.\nMaarten Sap, Hannah Rashkin, Derek Chen, Ronan LeBras, and Yejin Choi. Socialiqa:\nCommonsensereasoningaboutsocialinteractions. arXivpreprintarXiv:1904.09728,2019.\nNoam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey\nHinton,andJeffDean. Outrageouslylargeneuralnetworks: Thesparsely-gatedmixture-\nof-expertslayer. arXivpreprintarXiv:1701.06538,2017.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "JetMoE\nYikangShen,ZheyuZhang,TianyouCao,ShawnTan,ZhenfangChen,andChuangGan.\nModuleformer: Learningmodularlargelanguagemodelsfromuncurateddata. arXiv\npreprintarXiv:2306.04640,2023.\nMohammad Shoeybi, Mostofa Patwary, Raul Puri, Patrick LeGresley, Jared Casper, and\nBryanCatanzaro. Megatron-lm: Trainingmulti-billionparameterlanguagemodelsusing\nmodelparallelism. arXivpreprintarXiv:1909.08053,2019.\nQingyiSi,TongWang,ZhengLin,XuZhang,YananCao,andWeipingWang. Anempirical\nstudyofinstruction-tuninglargelanguagemodelsinchinese,2023.\nLucaSoldaini,RodneyKinney,AkshitaBhagia,DustinSchwenk,DavidAtkinson,Russell\nAuthur,BenBogin,KhyathiChandu,JenniferDumas,YanaiElazar,ValentinHofmann,\nAnanyaHarshJha,SachinKumar,LiLucy,XinxiLyu,NathanLambert,IanMagnusson,",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "YanaiElazar,ValentinHofmann,\nAnanyaHarshJha,SachinKumar,LiLucy,XinxiLyu,NathanLambert,IanMagnusson,\nJacob Morrison, Niklas Muennighoff, Aakanksha Naik, Crystal Nam, Matthew E. Pe-\nters, AbhilashaRavichander, KyleRichardson, ZejiangShen, EmmaStrubell, Nishant\nSubramani,OyvindTafjord,PeteWalsh,LukeZettlemoyer,NoahA.Smith,Hannaneh\nHajishirzi,IzBeltagy,DirkGroeneveld,JesseDodge,andKyleLo. Dolma:anopencorpus\nofthreetrilliontokensforlanguagemodelpretrainingresearch,2024.\nJianlinSu,MurtadhaAhmed,YuLu,ShengfengPan,WenBo,andYunfengLiu. Roformer:\nEnhancedtransformerwithrotarypositionembedding. Neurocomputing,568:127063,2024.\nRohanTaori,IshaanGulrajani,TianyiZhang,YannDubois,XuechenLi,CarlosGuestrin,\nPercy Liang, and Tatsunori B. Hashimoto. Stanford alpaca: An instruction-following\nllamamodel.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "trin,\nPercy Liang, and Tatsunori B. Hashimoto. Stanford alpaca: An instruction-following\nllamamodel. https://github.com/tatsu-lab/stanford_alpaca,2023.\nGemma Team, Thomas Mesnard, Cassidy Hardin, Robert Dadashi, Surya Bhupatiraju,\nShreya Pathak, Laurent Sifre, Morgane Rivie`re, Mihir Sanjay Kale, Juliette Love, et al.\nGemma: Open models based on gemini research and technology. arXiv preprint\narXiv:2403.08295,2024.\nTeknium. Openhermes2.5: Anopendatasetofsyntheticdataforgeneralistllmassistants,\n2023. URLhttps://huggingface.co/datasets/teknium/OpenHermes-2.5.\nTeknium1. GPTeacher: A collection of modular datasets generated by GPT-4. https:\n//github.com/teknium1/GPTeacher,2023.\nHugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux,",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "GPTeacher,2023.\nHugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux,\nTimothe´e Lacroix, Baptiste Rozie`re, Naman Goyal, Eric Hambro, Faisal Azhar, et al.\nLlama: Openandefficientfoundationlanguagemodels. arXivpreprintarXiv:2302.13971,\n2023.\nLewis Tunstall, Edward Beeching, Nathan Lambert, Nazneen Rajani, Shengyi Huang,\nKashifRasul,AlexanderM.Rush,andThomasWolf. Thealignmenthandbook. https:\n//github.com/huggingface/alignment-handbook,2023a.\nLewisTunstall,EdwardBeeching,NathanLambert,NazneenRajani,KashifRasul,Younes\nBelkada, Shengyi Huang, Leandro von Werra, Cle´mentine Fourrier, Nathan Habib,\nNathan Sarrazin, Omar Sanseviero, Alexander M. Rush, and Thomas Wolf. Zephyr:\nDirectdistillationoflmalignment,2023b.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Omar Sanseviero, Alexander M. Rush, and Thomas Wolf. Zephyr:\nDirectdistillationoflmalignment,2023b.\nAshishVaswani,NoamShazeer,NikiParmar,JakobUszkoreit,LlionJones,AidanNGomez,\nŁukaszKaiser,andIlliaPolosukhin. Attentionisallyouneed. Advancesinneuralinforma-\ntionprocessingsystems,30,2017.\nChaoqiWang,YiboJiang,ChenghaoYang,HanLiu,andYuxinChen. Beyondreversekl:\nGeneralizingdirectpreferenceoptimizationwithdiversedivergenceconstraints,2023a.\nXiaoxuan Wang, Ziniu Hu, Pan Lu, Yanqiao Zhu, Jieyu Zhang, Satyen Subramaniam,\nArjunR.Loomba,ShichangZhang,YizhouSun,andWeiWang. Scibench: Evaluating\ncollege-levelscientificproblem-solvingabilitiesoflargelanguagemodels,2023b.\n16",
+    "page": 16
+  }
+]

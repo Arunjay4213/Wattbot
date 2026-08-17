@@ -1,0 +1,787 @@
+[
+  {
+    "type": "text",
+    "content": "How Can We Train Deep Learning Models Across\nClouds and Continents? An Experimental Study\nAlexanderErben RubenMayer Hans-ArnoJacobsen\nTechnicalUniversityofMunich UniversityofBayreuth UniversityofToronto\nalex.erben@tum.de ruben.mayer@uni-bayreuth.de jacobsen@eecg.toronto.edu\nABSTRACT Table1:Averageus-westcloudpricinginApril’23.\nThispaperaimstoanswerthequestion:Candeeplearningmodels\nCloud\nbecost-efficientlytrainedonaglobalmarketofspotVMsspanning Type GC AWS Azure\ndifferentdatacentersandcloudproviders?Toprovideguidance,we T4Spot 0.180$/h 0.395$/h 0.134$/h\nextensivelyevaluatethecostandthroughputimplicationsoftrain- T4On-Demand 0.572$/h 0.802$/h 0.489$/h\ningindifferentzones,continents,andcloudsforrepresentativeCV, Traffic(inter-zone) 0.01$/GB 0.01$/GB 0.00$/GB\nNLPandASRmodels.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "inents,andcloudsforrepresentativeCV, Traffic(inter-zone) 0.01$/GB 0.01$/GB 0.00$/GB\nNLPandASRmodels.Toexpandthecurrenttrainingoptionsfurther, Traffic(inter-region)US 0.01$/GB 0.01$/GB 0.02$/GB\nwecomparethescalabilitypotentialforhybrid-cloudscenariosby Traffic(inter-region)EU 0.02$/GB 0.01$/GB 0.02$/GB\nTraffic(inter-region)ASIA 0.05$/GB 0.01$/GB 0.08$/GB\naddingcloudresourcestoon-premisehardwaretoimprovetraining\nTraffic(inter-region)OCE 0.08$/GB 0.01$/GB 0.08$/GB\nthroughput.Finally,weshowhowleveragingspotinstancepricing\nTrafficANY-OCE 0.15$/GB 0.02$/GB 0.08$/GB\nenablesanewcost-efficientwaytotrainmodelswithmultiplecheap\nTraffic(betweencontinents) 0.08$/GB 0.02$/GB 0.02$/GB\nVMs,trumpingbothmorecentralizedandpowerfulhardwareand\nevenon-demandcloudofferingsatcompetitiveprices.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "s,trumpingbothmorecentralizedandpowerfulhardwareand\nevenon-demandcloudofferingsatcompetitiveprices.\nPVLDBReferenceFormat:\n500 AlexanderErben,\nRubenMayer,andHans-ArnoJacobsen..PVLDB,17(6):1214-1226,2024.\ndoi:10.14778/3648160.3648165\nPVLDBArtifactAvailability: 0\n2 4 6 8 10\nThesourcecode,data,and/orotherartifactshavebeenmadeavailableat Cost in $ per 1M Samples\nhttps://github.com/cirquit/hivemind-multi-cloud.\n1 INTRODUCTION\nDecidingwhethertoinvestinon-premisehardwareormovetothe\ncloudfordeeplearning(DL)isnoteasy.Wantingtoscaleexisting\ninfrastructuremeanspayingupfront,ascombiningcloudandon-\npremiseisnotanoptionwithpopularDLframeworksduetoneeding\nadedicatedhigh-bandwidthinterconnect.Toenabledmodel-and\ndata-parallelism,currentstate-of-the-artacceleratorshaveband-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "dwidthinterconnect.Toenabledmodel-and\ndata-parallelism,currentstate-of-the-artacceleratorshaveband-\nwidthsof900GB/sforintra-node[19]and25Gb/sforinter-node\nsetups[1,26].Duetotheinitialinvestmentofthecloudprovidersin\ntheaccelerators,theynaturallywanttoreapprofitbymaximizing\nresourceutilization.Therefore,itiscommontohave\"spot\"pric-\ning,whichofferstheVMsatastronglyreducedrate,typicallyat\na40-90%discount(Section1),butwiththedrawbackthattheVM\ncanbeterminatedatanytimeifanothercustomeriswillingtopay\ntheon-demandprice[33].Unfortunately,popularDLframeworks\nhavenotbeendevelopedwithfailuresemanticsinmindandcannot\nadequatelydealwithpeersthatfail[12].WhileserviceslikeAmazon\nSagemaker[14]andprojectslikeSkypilot[43]offerautomaticjob\nmigrationincaseofVMtermination,theyarelimitedtosingle-node",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "rojectslikeSkypilot[43]offerautomaticjob\nmigrationincaseofVMtermination,theyarelimitedtosingle-node\ntrainingduetothebandwidthrequirementsbetweenaccelerators.\nThisworkislicensedundertheCreativeCommonsBY-NC-ND4.0International\nLicense.Visithttps://creativecommons.org/licenses/by-nc-nd/4.0/toviewacopyof\nthislicense.Foranyusebeyondthosecoveredbythislicense,obtainpermissionby\nemailinginfo@vldb.org.Copyrightisheldbytheowner/author(s).Publicationrights\nlicensedtotheVLDBEndowment.\nProceedingsoftheVLDBEndowment,Vol.17,No.6ISSN2150-8097.\ndoi:10.14778/3648160.3648165\ndnoceS\nrep\nselpmaS\n8xA10\nDGX-2 DGX-2 Instance Type\nDDP 4xT48xT4 DDP 4xT4 8xT4 Spot\n1xA10\nOn-Demand\n1xT4 1xT4\nFigure1:CosttothroughputtradeoffforConvNextLargeatdif-\nferentinstancetypes.Ourtrainingsetups(circled)arecheaper",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "tothroughputtradeoffforConvNextLargeatdif-\nferentinstancetypes.Ourtrainingsetups(circled)arecheaper\n(8xT4)andfaster(8xA10)thancentralizedofferings(DGX-2).\nButwhatifwecouldusespotpricingforlong-running,distributed\njobsandreducebandwidthrequirementstoleveragemultiplelow-\ncostGPUs?Thiscouldbepossiblethroughaframeworkforcollabo-\nrativeDLtraining,Hivemind[39],whichinherentlydealswithpeers\nthatcanstoprunningatanytime.Whilethereisresearchonhow\nHivemindcanbeusedfortrainingonspotVMs[17,37,38],itdoesnot\ncomparethecost-throughputtradeofffordifferentcloudofferingsor\nperformablationstudiesongeographicdistributionormodelsizes.\nTomotivatethisnewpossibility,wetrainedtheConvNextLarge\nmodel[29]ontheImagenet1Kdataset[15]ondifferentGoogleCloud\nhardware(T4’sandDGX-2),andontheverycompetitivelypriced",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "eImagenet1Kdataset[15]ondifferentGoogleCloud\nhardware(T4’sandDGX-2),andontheverycompetitivelypriced\nA10fromLambdaLabs(seeSection6forthefullexperimentalde-\nscription).Figure1showsthetrainingthroughputandthecostsper\n1millionprocessedsamplesforeachsetup.Thesinglenode(1xT4,\n1xA10,DGX-2)experimentsshowthecurrentstate-of-the-artcost-\nthroughputratiofortrainingonGCandLambdaLabs.TheDGX-2\nnodeisthefastest,withathroughputof413SPS,butitalsocosts\n$6.30/h($4.24/1Msamples),shownbythehorizontalandvertical\nlines.Thesingle-acceleratorexperiments(1xT4,1xA10)haveabetter\ncost-throughputratio($0.62/1Msamplesand$0.9/1Msamples),but\nhaveamuchlowerthroughputof80and185SPS,respectively.How-\never,whenusingourapproachofdistributingthetrainingbetween\nmultipleGPUswithHivemind(circled),wemaketrainingpossible",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "urapproachofdistributingthetrainingbetween\nmultipleGPUswithHivemind(circled),wemaketrainingpossible\nthatisbothfaster(8xA10,621SPS,$2.15/1Msamples)andcheaper\n4202\nnuJ\n2\n]GL.sc[\n4v36130.6032:viXra",
+    "page": 1
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 1):\n0.180$/h | 0.395$/h | 0.134$/h\n0.572$/h | 0.802$/h | 0.489$/h\n0.01$/GB | 0.01$/GB | 0.00$/GB\n0.01$/GB | 0.01$/GB | 0.02$/GB\n0.02$/GB | 0.01$/GB | 0.02$/GB\n0.05$/GB | 0.01$/GB | 0.08$/GB\n0.08$/GB | 0.01$/GB | 0.08$/GB\n0.15$/GB | 0.02$/GB | 0.08$/GB\n0.08$/GB | 0.02$/GB | 0.02$/GB",
+    "page": 1
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 1):\n8x | A10\nD | G | X-2 |  |  | DGX |  | -2\n |  |  |  |  |  |  |  | \nDDP 4xT48xT\nxA10\n1xT4 | 4\nDDP 4xT4\n1xT4 |  | 8xT4 |  | Instance\nSpot\nOn-D | Type\nemand |  | ",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "(8xT4,262SPS,$1.77/1Msamples)thanusingtheDGX-2.Every (4) Wesummarizeourfindingsoftraininginageo-distributed,\ncloudproviderdealsdifferentlywithhowtheypricespotinstances multi-cloudenvironment.Weproposethegranularity\nandnetworktraffic(cf.Section1)andhasvaryinginterruptionrates metrictocomparemodelsuitabilityfordistributed\nfordifferentaccelerators[23].Beingabletochoosethebestoption spottrainingandestimatetrainingperformancewithad-\nwasnotpossiblebefore,andhavingtheoptiontocombineolder, ditionalspotVMs.Thisprovidesguidanceonthetrade-off\nmoreavailableGPUsisanetbenefitforbothconsumersandcloud betweenperformanceandcostwhenusinggeo-distributed\nprovidersalike. spotinstances.Toapplyourfindings,weperformacase-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "nceandcostwhenusinggeo-distributed\nprovidersalike. spotinstances.Toapplyourfindings,weperformacase-\nWeaimtodevelopguidelinesandhelppractitionersassessunder studyonastate-of-the-artmodelfromtheASRdomainand\nwhichconditionstheycancost-efficientlyspeeduptheirtraining achievespeedupsonlow-endhardware.\ntaskswithspotinstances.Tobeabletodothis,theyneedaprecise\ndefinitionofthemodelsizeatwhichgeo-distributedspottraining 2 DEEPLEARNINGONSPOTINSTANCES\nbecomesviable,whathardwarecanbeusedforit,andwhatthe\nInthissection,wedescribehowtheHivemindframeworkworks\nminimumbandwidthandlatencyare.Weclosethisresearchgapby\nandhowitcanenabledistributedspottraining.\nperformingacomprehensiveanalysisofmultipleDLtasksfromCV\nandNLP,breakingdownhowtimeisspentineachepoch,andcom-\n2.1 Hivemind",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "veanalysisofmultipleDLtasksfromCV\nandNLP,breakingdownhowtimeisspentineachepoch,andcom-\n2.1 Hivemind\nparingthemtonon-distributedrunstoquantifytheadvantagesand\nHivemind[39]isaPyTorch-based[32]frameworkdevelopedinitially\ndisadvantagesofdistributedspottraining.Wedeterminewhichmod-\ntoenablecollaborativeDLtrainingwhereparticipantscoulddonate\nelsscalewithadditionalspotinstancesandwhichcannotbescaled\ntheirheterogeneoushardwaretotrainasinglemodeltogetherin\nwithoutrunningintoacommunicationbottleneckorresourceineffi-\nadata-parallelfashion.Itsmaindifferencetootherstate-of-the-art\nciencies.Toquantifytotaltrainingcost,weassesscost-effectiveness\ndistributedtrainingframeworks,suchasPyTorchDDP[26]and\nandevaluateahybridormulti-cloudapproachwithpopularcloud",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "dtrainingframeworks,suchasPyTorchDDP[26]and\nandevaluateahybridormulti-cloudapproachwithpopularcloud\nDeepSpeed[35],isthatitrunsinadecentralizedfashionandcan\nprovidersthroughtrainingonuptofourcontinents.Forcomparison\nhandlepeersthatdropoutatanystageofthetraining.Itdoessowith\nofthemodels’scalabilityandtoshowwhichofthemcanbetrained\ntwofeatures:adistributedhashtable[31](DHT)whichspansover\ninadistributedfashion,weintroducethegranularitymetric,theratio\nallparticipatingpeersformetadatastorage,suchastrainingprogress\nofcalculationtocommunicationtime,andshowhowitcanbeused\nandpeerhealth,andagradientaveragingalgorithmthatisdesigned\nforpredictingperformancewithdifferenthardwaresetups.Finally,\ntoreducetheimpactoflostgradients.Akeydifferencetootherdis-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ancewithdifferenthardwaresetups.Finally,\ntoreducetheimpactoflostgradients.Akeydifferencetootherdis-\nwesummarizeourlessonsonhowtodesigngeo-distributedspot\ntributedtrainingframeworksisthedefinitionofahivemindepoch,\ntrainingandwhattowatchoutforwhenevaluatingthefeasibility\nwhichisthenumberofsamplesthatmustbeaggregatedbeforean\nofsuchatrainingregime.Ourcontributionsare:\naveragingstepisperformed.Thissamplecountiscalledthetarget\nbatchsize(TBS),whichcorrespondstotheminibatchsizeinstandard\n(1) Weanalyzetheimpactofmulti-cloudtrainingwith\nDLtraining.TheDHTisusedforcoordination,andshortlybefore\nspotandon-demandinstancesfromGoogleCloud\ntheTBSispredictedtobereached,thepeersstarttoformtheinitial\n(GC),MicrosoftAzure,AmazonWebServices(AWS),\ngroupsforaveraging.Thetimeallocatedforgroupformingiscalled",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "),MicrosoftAzure,AmazonWebServices(AWS),\ngroupsforaveraging.Thetimeallocatedforgroupformingiscalled\nandLambdaLabsoncost-efficiency.Whilewefindperfor-\nmatchmakingtimeandtypicallyrunsasynchronouslytothetraining\nmancepenaltiesduetoremoteversuson-premisecompute\n(cf.Section3).Theindividualpeergradientsareaccumulatedlocally\nresources,thethroughputstillscaleswithincreasedcomput-\nandsenttotheotherpeersviaanadaptiveall-reducealgorithm\ningpower.Byleveragingmultiplespotinstanceswithone\n(MoshpitSGD[38]).Thenexthivemindepochstartsaftereachpeer\nT4GPUeach,wecanbemorecost-efficientthanaDGX-2\nappliestheaccumulatedgradientstothelocalmodel.Theadvantage\nnodeortheverycompetitivelypricedA10offeringsfrom\nofHivemindforgeo-distributedtrainingcomesfromcumulating\nLambdaLabs.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "etitivelypricedA10offeringsfrom\nofHivemindforgeo-distributedtrainingcomesfromcumulating\nLambdaLabs.\ndifferenttechniques,suchasDelayedParameterUpdates[36],big-\n(2) Weinvestigatethesuitabilityofgeo-distributedtrain-\nbatchtraining[44]andaggressivecommunicationquantization[16].\ningforvariousCVandNLPmodelsandhardwarecon-\nAllofthesecombinedreducetimeandfrequencyofthecommunica-\nfigurationsonuptofourcontinents.Notsurprisingly,\ntionrounds,whichinturnmakestrainingonheterogeneousdevices\nthemoreparallelizableandthelargerthetask,thebetterthe\nandlow-bandwidthnetworkspossible.\nperformance.Moreover,weverifythescalabilityclaimsof\ntherelatedworkanddefineadditionalconstraints,suchas\n2.2 DistributedSpotTraining\ntheminimumgranularityforeffectivetraining.Thisenables,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "nstraints,suchas\n2.2 DistributedSpotTraining\ntheminimumgranularityforeffectivetraining.Thisenables,\nforthefirsttime,distributedtrainingofsmallermillion- Inthispaper,wefocusonlyonmodelsthatfitintothememoryof\nparametermodels(12M-560M)over<1Gb/sbandwidthand asingleGPU,asweareinterestedinutilizingdataparallelismon\n>150mslatencynetworks. cheaperandmorereadilyavailablehardware.However,ourinsights\n(3) Weevaluatetwodifferenthybrid-cloudexperimental areapplicabletolargermodelswithtechniquessuchasZeROof-\nsetupswithconsumer-andserver-gradeon-premise floading[36],moreaggressivequantization[41]andevenmodel\nhardwareandtrytoimprovethethroughputwithaband- parallelism[37].Thecurrentoptionsfordataparallelismareeither\nwidthof,atworst,50Mb/stothecloudresources.Whilewe usingmultipleGPUsonthesamenode(e.g.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "elismareeither\nwidthof,atworst,50Mb/stothecloudresources.Whilewe usingmultipleGPUsonthesamenode(e.g.,aDGXsystemwith\nshowthatitispossibletoimprovethroughputevenatthese eightGPUs)orhavingmultiplenodeswithaGPUeachinthesame\nconstraints,localcloudofferingsarebettersuitedformodels high-bandwidthnetwork(>25Gb/s)tominimizecommunication\nthatshowlimitedsuitabilityfordistributedtraining. time.Thelatterdoesnotworkoncheapbutinterruptableinstances,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "whiletheformerhassomeuseintheformofAmazonSagemakerbut forthedatasettodownload,astheinstancescanbeterminatedany-\nislimitedtoasinglenodeandistypicallyverypricey(spotpricingfor time.Tosimulateareal-worlddeploymentwithanon-publicdataset,\nDGX-2is$6.30/hversus8xT4at$0.72/honGC).However,usingHive- wechoseanindependentS3storageprovider,Backblaze(B2)[4].\nmind,anewtrainingscenariobecomesfeasible:Distributedtraining Backblazehasreplicateddatacentersthatcanbetterserverequests\ninadecentralizedfashiononinterruptableVMswithbandwidthsof fromanywhereworldwide,guaranteeingareasonableingressrate\n<1Gb/s.Sincespotinstancepriceschangehourlydependingonthe fromeverycontinent.Additionally,thecostisverymanageableat\ntimeofdayandzoneavailability[23],andcanvarywidelybetween $0.01/GBrateforegressand$0.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "erymanageableat\ntimeofdayandzoneavailability[23],andcanvarywidelybetween $0.01/GBrateforegressand$0.005/GB/monthforstorage.Ade-\ncloudproviders(cf.Section1),trainingbetweencontinentsandin tailedanalysisofthecostsincurredfortheexperimentscanbefound\nmultiplecloudscouldpotentiallybemorecost-effectivethanusing inSection5.Weaccessthedatasetson-demandviashardsinthetar\nasingle,morecomputationallypowerfulnodeatspotprices. formatwiththeWebDatasetlibrary[10].WechoseWebDatasetdue\nWiththenewlyaddedtrainingsetupsfromFigure1(circled),it toitsfeatureslikeautomaticlocalcaching,streamingdecompression,\nwasnotpreviouslypossibletochoosethebestoption,andhaving streamingpreprocessing,andhavinganeasytoworkwitharchive",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "uslypossibletochoosethebestoption,andhaving streamingpreprocessing,andhavinganeasytoworkwitharchive\ntheoptiontocombineolder,moreavailableGPUsisanetbenefitfor formatthatallowsrepresentingthedatainitsoriginalformat.Finally,\nbothconsumersaswellascloudproviders.Ourpapershowsthat fortheHivemindparameterization,weenableddelayedparameter\nitispossibletotrainonmultiplecloudsacrossmultiplecontinents averaging(DPU)[36]toenablesimultaneousgradientcommuni-\nandprovidesguidelinesonhowtoaccomplishthiscost-efficiently. cationandcomputationattheexpenseofaroundofstaleness.We\nselectedFP16compressionforpeer-to-peercommunication.\n3 MODELSUITABILITY\nExperimentaldesign.First,wemustverifythatourmodelsare\nSelectingsuitablemodelswithabigenoughparallelworkloadis suitableforcloudtraining.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "fythatourmodelsare\nSelectingsuitablemodelswithabigenoughparallelworkloadis suitableforcloudtraining.Forthispurpose,weevaluatethemon\nessentialtoensuresuccessfuldistributedspottraining.Tocover thepowerfulAmpereGPUsfirst-iftheyscaletherewithoutfacing\nawiderangeofestablishedmodels,wedrewfromMLCommons’ acommunicationbottleneck,theyshouldalsoscaleontheslower\ncomprehensiveDLtrainingbenchmark[30].Weusedmodelsfrom T4,whichiscommonatGC,AWS,andAzure.WeusetheLambdaL-\ntheCVandNLPdomainsandgraduallyincreasedtheirsizeand abs[8]fortheseexperiments,whichgivesuson-demandA10GPUs\nTBStoincreasetheparallelcomputeamount.AsdiscussedinSec- forjust$0.60/hour,butcurrentlyoffertheirservicesonlyintheUS\ntion2,theTBSmaybeexclusivelyresponsibleforthesuccessof Westregion.Allexperimentsareperformedonthe515.65.01driver,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ybeexclusivelyresponsibleforthesuccessof Westregion.Allexperimentsareperformedonthe515.65.01driver,\ndistributedtrainingandwaschosentocoverbothmediumandlarge CUDA11.6,andPyTorch1.13.1.Weprofiledanetworkbandwidth\nbatches(8K,16Kand32K).Theseminibatchsizesstarttobecome of3.3Gb/sandalatencyof0.3msbetweentheLambdaVMs.\nmorecommonduetotheLAMBoptimizer[44],whichworkswell Toestablishafairbaseline,wetrainallmodelsfrom??onasingle\nenoughforbothsmaller(512)andhugebatches(64K)andshouldbe GPUthatachieveslargeminibatchsizesthroughgradientaccumu-\nrepresentativeofstate-of-the-artworkloads.Forarepresenatative lation.Processeslogssystemmetricseverysecondandevaluates\nexperimentalstudywithaminibatchsizeof256ontheautomatic thetrainingperformancewheneverabatchisprocessed.Finally,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "studywithaminibatchsizeof256ontheautomatic thetrainingperformancewheneverabatchisprocessed.Finally,\nspeechrecognitionmodel(Whisper[34]),pleaserefertoSection11. allmulti-GPUexperimentsaremonitoredwithatrainingmonitor\nAllexperimentswererunwithFP16precision,asthetargetT4GPUs thatscrapestheDHTeverysecondtologthepeerstateandtraining\nhaveaconsiderableimprovementinFLOPscomparedtoFP32(8:1). progresssynchronously.\nForCV,wetakefivemodelsfromtheextendedResNetfamily, (1)Hivemindpenalty.UsingHivemindasmiddlewaretoshare\nstartingwiththesmallestone,ResNet18[21](RN18),ResNet50 gradientsandkeepafullydecentralizedarchitecturerunningharms\n(RN50),ResNet152(RN152),WideResNet101_2[46](WRN101)and performancecomparedtosingle-nodetraining.Wecancompare",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "sNet152(RN152),WideResNet101_2[46](WRN101)and performancecomparedtosingle-nodetraining.Wecancompare\nConvNextLarge[29](CONV),whichisalmost20timeslargerthan theeffectsofHivemindtrainingbylookingatthreemetrics:base-\nRN18.Theparamtercountis11.7M,25.6M,60.2M,126.9M,and line,thesingleGPUthroughput,hivemindlocal,normalizedGPU\n197.8M,respectively.Thesemodelswerepopularizedduetotheir throughputwithouttheaveragingstep,andhivemindglobal,the\nabilitytohelpwiththevanishinggradientproblembyusingresid- actualnormalizedGPUthroughput.Whencomparingthebaseline\nualconnectionsbetweenlayers.Currently,theyarenotonlyused andlocalspeedinFigure2forasetupwithtwoGPUs,runningHive-\nforclassification,butcanserveasanembeddingofimagesbyre- mindreachesatbest78%(RN152)andatworst48%(CONV)ofthe",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ification,butcanserveasanembeddingofimagesbyre- mindreachesatbest78%(RN152)andatworst48%(CONV)ofthe\nmovingtheclassificationhead[18,40].Forthedataset,weuseIm- baselineperformance.Unsurprisingly,thelargerthemodelsize,the\nagenet1K[15]andtraintheclassificationtask,whichtriestoassign worsethepenaltygetsduetotheincreasedsizeoftheaccumulated\noneof1000classestoeachimage. gradients(GAC)overeachstep.However,thebaselinealsoapplies\nForNLP,weselectedthreemodelsfromtheBERTfamily: gradientaccumulationtoreachthetargetminibatchsizewithout\nRoBERTaBase[28](RBase),-Large(RLrg),and-XLM[13](RXLM). theperformancedrop.Afterisolatingtherespectivefunctioncalls,\nTheparametercountis124.7M,355.4M,and560.1M,respectively. thereseemstobeaslightinefficiencyinhowGACisimplementedin",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "untis124.7M,355.4M,and560.1M,respectively. thereseemstobeaslightinefficiencyinhowGACisimplementedin\nWeusedthesameconfigurationastheoriginalmodelsandtrained HivemindversusthenativePyTorchcall.Weareworkingwiththe\nthemonmaskedlanguagemodeling,acommonpre-trainingtask. maintainerstofixthisissue[7].Ontheotherhand,thedisadvantage\nRoBERTamodelswereareplicationstudyofBERTbutwithafocus ofsynchronizationisminimalundertheperfectconditionsofagood\nonbetterhyperparametertuning,leadingtostate-of-the-artresults interconnect.TheglobalspeedinFigures2aand2bonlydegrades\nandproposedusingmuchhigherminibatchsizesthanpreviously atbestto97%(CONV)toatworstto87%(RBase)comparedtothe\ncommon.ThetextdatasetisMarch’22Wikipedia[20]. localthroughput,meaningthatthecommunicationunderthesecon-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "on.ThetextdatasetisMarch’22Wikipedia[20]. localthroughput,meaningthatthecommunicationunderthesecon-\nWhenwerunourexperimentsinamulti-cloudenvironmenton ditionsonlyaccountsforafractionofthetotaltrainingtime.This\nspotinstances,wecannotpluginproprietarycloudstorageorwait degradationisinverselycorrelatedtothemodelsizeduetolarger",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "2000\n1500 1000 500\n0 RN18 RN50 RN152 WRN101 CONV\ndnoceS rep selpmaS\n1500\nThroughput Type 1462 baseline 1250 102 9 4 58 778 h h i i v v e e m m i i n n d d l g o l c o a b l al 10 7 0 5 0 0 529499297231217 423 211 2011858986 2 5 5 0 0 0\n0 RBase RLrg RXLM\n(a)CV\ndnoceS rep selpmaS 1310 Throughput Type baseline hivemind local 804 700 661 hivemind global 463 359313 247215\n(b)NLP\nFigure2:Hivemindpenaltyonnormalizedthroughputs.\n2000 1500 1000\n500\n0\n8192 16384 32768\nMinibatch Size\ndnoceS rep selpmaS Model 2000 RN18 1466 1462 1462 R R N N 5 1 0 52 1500 WRN101 768 771 778 CONV 1000\n292 431 188 298436 186 297423 185 500\n0\n8192 16384 32768\nTBS\n(a)CV1xA10\ndnoceS rep selpmaS Model 1954 1916 RN18 RN50 120 8 4 64 R W C N O R 1 N N 5 V 1 2 01 964 998\n383 363 418 390 435 403 164 169 173\n(b)CV2xA10\n1500",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "120 8 4 64 R W C N O R 1 N N 5 V 1 2 01 964 998\n383 363 418 390 435 403 164 169 173\n(b)CV2xA10\n1500\n1000\n500\n0 8192 16384 32768\nMinibatch Size\ndnoceS\nrep\nselpmaS\n1316 Model 1307 1310 1500 RBase\nR R L X r L g M 1000\n659 660 661 462 461 463 500\n0 8192 16384 32768\nTBS\n(c)NLP1xA10\ndnoceS\nrep\nselpmaS\n1257 Mo R d B e a l se 1401\nRLrg RXLM\n680 551 626 451 305 383 430\n(d)NLP2xA10\nFigure3:ThroughputcomparisonbetweensingleGPUbase-\nlinesandtheHivemindrunswithtwoGPUs.\nmodelstrainingquadraticallylongerperparameter,butthecommu-\nnicationonlyincreaseslinearly[37].Whileanimplementationissue\ncurrentlyaffectsperformance,andtheworsttotalperformancedrop\nisat47%(CONVbaselinevs.global),scalingisstillpossiblewitha\nratioofroughly2:1ofGPUstothroughput.Wefurtherrefinethis",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "elinevs.global),scalingisstillpossiblewitha\nratioofroughly2:1ofGPUstothroughput.Wefurtherrefinethis\nratiointhefollowingsectionbycomparingwhichmodelsaremost\nsuitabletobetrainedinadistributedenvironment.\n(2)Lesssuitablemodelsfordistributedspottraining.While\ntrainingbillion-parameterNLPmodelsscalewellduetothe\"square-\ncube\"law,theminimummodelsizeisnotyetfullydefined[37].The\nreasonisthatmanyfactorsplayaroleinwhetheramodelissuited\nforgeo-distributedtraining.Ontheonehand,asmallmodelresults\ninsmallgradientsexchangedbetweenpeers,sotheaveragingstepis\nfast.Ontheotherhand,asmallmodelwillalsoreachtheTBSfaster\nthanlargermodels,whichmayleadtoalowspeedupifthecalculation\ntimeisdisproportionallylowerthanthecommunicationtime.\nWefoundthegranularitymetric[22],typicallyusedinhigh-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "isproportionallylowerthanthecommunicationtime.\nWefoundthegranularitymetric[22],typicallyusedinhigh-\nperformancecomputing,practicaltoattachacomparablevalueto\neachsetuptoquantifytheratioofthecalculationtocommunication\ntime.Thehigherthegranularity,themoreparallelizablethetask,\nasmorecalculationcanbedistributedbetweenpeers,ensuringa\ngoodspeedup.Itisimportanttonotethatthismetricdependson\nthemodelandthehardwarebeingused.Thecommunicationtimeis\naffectedbytheparametercount,andthecalculationtimeisaffected\nbythelayertypeoftheparameters(includingfeedforward,convolu-\ntion,andtransformer).Therefore,thecalculationtimecandecrease\nwithimprovedhardware,whichweevaluateinSection6.Another\nparameterthataffectsthecalculationtimeistheTBSthatallpeers\nworktoaccumulate.ThereisapracticallimittotheTBSwherea",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "affectsthecalculationtimeistheTBSthatallpeers\nworktoaccumulate.ThereisapracticallimittotheTBSwherea\nmodelisstilltrainable,whichiscurrentlyat64KwiththeLAMB\noptimizer[44].Thislimitsthepossibilityofimprovingthespeedup\nofsmallmodelsbyincreasingthebatchsize,meaningthatatsome\npoint,thespeedwillbelimitedbythecommunicationtime.Itis\n2918 48361 86723 2918 48361 86723 2918 48361 86723 2918 48361 86723 2918 48361 86723\n400\n300 200 100 0\nTBS\nsdnoceS ni emiT Calculation 21.6 Communication RN152 WRN101 CONV 14.0 10.7 RN18 RN50 11.5 1.37.613.23.46.811.53.5 7.0 2.8 5.6 5.3\n(a)CV\n2918 48361 86723 2918 48361 86723 2918 48361 86723\n400\n300 200 100 0\nTBS\nsdnoceS ni emiT Calculation Communication RBse RLrg RXLM 4.2 0.7 2.3 4.4 1.1 2.2 4.4 1.0 2.1\n(b)NLP\nFigure4:TBSvs.totaltrainingtimeon2xA10s.Granularityis",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "LM 4.2 0.7 2.3 4.4 1.1 2.2 4.4 1.0 2.1\n(b)NLP\nFigure4:TBSvs.totaltrainingtimeon2xA10s.Granularityis\nshownaboveeachbar.Dottedlinesseparatedifferentmodels.\nimportanttorememberthatjustincreasingtheTBStocreatemore calculationtimecanhaveagraveeffectontrainingperformanceif\ntheoptimizerisnotadequatelyselectedandconfigured.\nOurexperimentalresultsinFigure3showthepracticalimplica-\ntionsofthisobservation.Forthe2xGPUexperimentsinFigures3b\nand3d,wecanseetheeffectofaTBSincreasewhichimprovesthe\ntotalthroughput.DoublingtheTBSequalscuttingdowntheper-\nsamplecommunicationcostbytwo,whichleadstotheslightincrease\ninperformancevisibleinbothCVandNLPexperiments.However, thesmallestmodels,RN18andRBase,fluctuatesignificantlyataTBS\nof8Kduetoaminimummatchmakingtimeof5seconds.Whenever",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "odels,RN18andRBase,fluctuatesignificantlyataTBS\nof8Kduetoaminimummatchmakingtimeof5seconds.Whenever\nallpeersaccumulatetheTBSinlessthan5seconds,theasynchronous\nthreadthatmatchesthepeersingroupstoperformtheall-reduce\nmaystillneedtofinish.Thisresultsinanunstableaveragingtime,\nwhichlimitsthescalabilityofsmallmodelswithasmallTBS.\nToillustratehowtheTBSandmodelsizeaffecttheindividual\ntimings,wevisualizethetotaltrainingtimesplitupintothecalcu-\nlationandcommunicationtimeinFigure4.CVmodelsaregenerally\ncomputationallymoreexpensiveandhaveahighergranularitythan\nNLPmodels,whichhaveslightlylongeraveragingroundsduetothe\nmuchlargermodelsizes.Whencomparingthemodelsatthesame\nTBS(e.g.,32K),thereisaninconclusiverelationbetweenruntimeand\nparametercount.Somemodelsincreasetheirruntimewithparame-\ntercountw.r.t.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "iverelationbetweenruntimeand\nparametercount.Somemodelsincreasetheirruntimewithparame-\ntercountw.r.t.smallermodels(RN50toRN152,RBasetoRLrg),while\nothersdecreasetheirruntime(RN152toWRN101,RLrgtoRXLM).\nThisperformanceisduetonotalllayerparameterscontributing\nsimilarlytocomputationalcomplexity.Dependingonthespecific\narchitecture,evenmodelswithmoreparameterscanbefasterto\ntrainduetoamoreefficientarchitecture,suchastheWRN101[46].\nThecommunicationtimebetweendifferentTBSsizesstaysthe\nsame,barringthetwomatchmakingtimeexceptions(RN18,RBase),\nasthegradientsareaccumulatedbeforebeingsent.Forallother\nmodels,doublingtheTBSleadstoexactlydoubletheamountof\nworkanddoublesthegranularity.WithaTBSof32K,allmodels\nhaveagranularityofatleast4.2(RXLM)andatmost21.6(CONV),\nwhichshowstrongscalingpotential.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "2K,allmodels\nhaveagranularityofatleast4.2(RXLM)andatmost21.6(CONV),\nwhichshowstrongscalingpotential.Therefore,wedecidedtouse\naTBSof32Kforallfollowingexperimentstoensurethatthesetup\nscalesbeforeintroducingbandwidthandcomputationallimitations.\nSummarizing,whetheramodelisscalablewithoutnetworkband-\nwidthlimitationsdependsontheminimumtimetoreachtheTBSand\nonthegranularity.TuningtheTBSispossibletoacertainextentbut\ndependsonthespecifictrainingtaskandoptimizerconfiguration.\n(3)Per-GPUspeedupdecreaseswithlowgranularity.Toeval-\nuatethescalabilitywithadditionalhardware,weprofileallmodels\non2,3,4,and8GPUswithaTBSof32K.Figure5showsthethrough-\nputforallmodelsinthedifferenthardwarescenarios.Generally,all\nmodelsscalewellregardlessofsize,withthebestspeedupof4.37x\n(RN152)andthelowestat2.29x(RXLM)with8GPUs.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "modelsscalewellregardlessofsize,withthebestspeedupof4.37x\n(RN152)andthelowestat2.29x(RXLM)with8GPUs.Thereisa",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n500 elpmaS 529499297231217 423 211\n2011858986\n0\nRN18 RN50 RN152 WRN101 CONV | 500 selpmaS 463 359313\n250 247215\n0\nRBase RLrg RXLM",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n100 iT 1.37.613.23.46.811.53.5 2.8 5.6\n0\n2918 48361 86723 2918 48361 86723 2918 48361 86723 2918 48361 86723 2918 48361 86723\nTBS | 100 iT 0.7 2.3 4.4 1.1 2.2 1.0\n0\n2918 48361 86723 2918 48361 86723 2918 48361 86723\nTBS",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n1500 1000 S rep selpmaS RN152 WRN101 CONV 768 771 778\n500 292 431 188 298436 186 297423 185\n0\n8192 16384 32768\nMinibatch Size | 768\n4\n292 | 7\n31 | 71\n298436 |  | 778\n2 | RN152\nWRN101\nCONV\n97423 | 1500 1000 S rep selpmaS 120 8 4 64 R W C N O R 1 N N 5 V 1 2 01 964 998\n500 383 363 418 390 435 403\n164 169 173\n0\n8192 16384 32768\nTBS | RN152\nWRN101\n64 CONV\n383\n363 |  | 96 | 4\n418\n390 |  |  | 998\n435\n403 | \n |  | 188 |  | 186 |  | 185 |  | 1 | 64 |  |  | 16 | 9 |  | 173",
+    "page": 4
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 4):\n1000 ceS rep RBase RLrg RXLM\n659 660 661\n500 selpmaS 462 461 463\n0\n8192 16384 32768\nMinibatch Size | 659 | RBase\nRLrg\nRXLM\n462 | 660\n461 |  | 66 | 1\n463 | ceS RLrg\n1000 rep RXLM\n500 selpmaS 680 551 626 451 305 383 430\n0\n8192 16384 32768\nTBS | 451 |  | RLrg\nRXLM\n551 |  | 626 | \n |  |  |  |  |  |  |  | 305 |  |  | 383 |  | 430",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "4000\n3000\n2000\n1000\n0 1 2 3 4 5 6 7 8\nA10 Count\ndnoceS\nrep\nselpmaS\nModel\nRN18 3000\nRN50 RN152\nWRN101 2000\nCONV\n1000\n1 2 3 4 5 6 7 8\nA10 Count\n(a)CV\ndnoceS\nrep\nselpmaS\nModel\nRBase\nRLrg RXLM\n(b)NLP\nFigure5:Throughputcomparisonfrom1to8A10GPUs.\n400\n300\n200 100\n0\n2 3 4 8 2 3 4 8 2 3 4 8 2 3 4 8 2 3 4 8\nA10 Count\nsdnoceS\nni emiT\n400\nCalculation 21.6 Communication CONV 300 RN152 WRN101 11.9\n14.0 8.4 200 13.22. R 8 N 4 1 .6 8 1.0 11.56 R . N 84 5 . 0 41.5 7.65.0 1.8 11.5 6.34.21.5 3.2 100\n0\n2 3 4 8 2 3 4 8 2 3 4 8\nA10 Count\n(a)CV\nsdnoceS\nni emiT\n4 GEO-DISTRIBUTEDPERFORMANCE\nAsspotpricesforthesamehardwaredifferdependingonthere-\ngion,zone,andtimeofday[23],itmightbeagoodideatouseVMs\nacrossdifferentdatacenters.However,istheconnectivitybetween",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "imeofday[23],itmightbeagoodideatouseVMs\nacrossdifferentdatacenters.However,istheconnectivitybetween\nregionsandcontinentsgoodenoughtoenabledistributeddeeplearn-\ning?Toexplorethisquestion,wedecidedtoconductthreetypesof\nexperiments(Table2):\n(A)Intra-zone CanwescaleiftheVMsareco-locatedinthesame\nzone(us-central-1)?\nCalculation Communication (B)Transatlantic CanwescalewhenwecombineVMsfromtwo\nRXLM RBse RLrg 4.2 regions(USandEU),andwhathappenswhenthecompute 4.4 2.7 1.8 0.9 4.4 2.6 1.8 0.7 2.4 1.7 0.7 isunevenlydistributedacrossregions?\n(C)Intercontinental CanwescaleifwecombineVMsfromfour\n(b)NLP\ncontinents(US,EU,ASIA,AUS)?\nFigure6:Multi-GPUscalabilityat32KTBS.Granularityis\nExperimentaldesign.BasedontheinsightsfromSection3,we\nshownaboveeachbar.Dottedlinesseparatedifferentmodels.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "entaldesign.BasedontheinsightsfromSection3,we\nshownaboveeachbar.Dottedlinesseparatedifferentmodels.\ndecidedtousethelargestmodels(CONV,RXLM)forallfurthercloud\nexperimentsinSections4to6,withtheTBSof32Kasabaselinewith\nTable2:Geo-distributedexperimentsonGCwithT4VMs.\ngoodscalingproperties.Weabbreviatethemwiththeirrespective\nExp.Name Resources Total domainnames(CV,NLP).WeusedGoogleCloud[5]forallexper-\nA-{1,2,3,4,6,8} {1,2,3,4,6,8}xUS 1,2,3,4,6,8 imentsinthissection,astheywerethefirsttogiveusaccessto\nB-{2,4,6,8} {1,2,3,4}xUS+{1,2,3,4}xEU 2,4,6,8\nallnecessaryzones.ThedefaultnetworkingsolutioninGCisthe\nC-{3,6} {1,2}xUS+{1,2}xEU+{1,2}xASIA 3,6\nC-{4,8} {1,2}xUS+{1,2}xEU+{1,2}xASIA+{1,2}xAUS 4,8 \"PremiumTier\",whichtriestouseaGoogle-ownednetworkinstead\nspeedup ofthepublicinternet.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "+{1,2}xAUS 4,8 \"PremiumTier\",whichtriestouseaGoogle-ownednetworkinstead\nspeedup ofthepublicinternet.Wemeasuredthethroughputandlatency\nvisibletrendintheper-GPUcontributiontothespeedup( ).\n#GPUs betweenallzonesviaiperfandpingandreporttheaverageof5\nThemoreGPUsweadd,thelowerthecontribution,e.g.,RN18goes\nconsecutiverunsinTable3.Unsurprisingly,thediagonalshowsthat\nfrom0.7to0.4withtwotoeightGPUs,respectively.Thisdecreaseis\nthelocalconnectivitybetweenzonesrunsatalmost7Gb/switha\nlikelytocontinueduetoagranularityof1.0at8GPUs(Figure6a),as\nlatencyof0.7ms,probablyduetothehypervisorsbeinginthesame\ndoublingtheGPUswould,atbest,increasethethroughputby33%by\ndatacenter.Whiletheup-anddownloadwereperfectlysymmetrical\nhalvingthecalculationtime.However,themorecomputationallyex-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "eup-anddownloadwereperfectlysymmetrical\nhalvingthecalculationtime.However,themorecomputationallyex-\ninallsetups,thethroughputdroppedto<210Mb/sforallnon-local\npensivethemodelsare,theslowertheper-GPUcontributionfallsoff\nconnections.TheUS-baseddatacenterislocatedinIowaandisbest\nandthelargerthegranularityis(RN152,CONV).Thisdoesnothold\nconnectedwithatleast120Mb/stotheremainingregions,namely\ntrueforourNLPmodels(Figure6b);whiletheyhaveincreasingly\nBelgiumintheEU(6,911km),TaiwaninASIA(11,853km),andSyd-\nmoremodelparameters,theonlydifferencebetweenthetwobiggest\nneyinAustralia(AUS,14,555km),presumablyduetothephysical\nmodels,RLrgandRXLM,isthevocabularysizeincreaseof50Kto\ndistance.Thelowestbandwidthandhighestlatencyconnectionsare\n250K.Duetohowembeddinglayersarelookups,theforwardpassis",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "estbandwidthandhighestlatencyconnectionsare\n250K.Duetohowembeddinglayersarelookups,theforwardpassis\nbetweentheEUregionandASIAandAUS,reachingaround80Mb/s\nnotaffectedbytheincreasedembeddingsize,butthebackwardpass\nand270ms.Wedecidedtousethen1-standard-8templatewith\nis.Thisresultsinasmallerincreaseofthecalculationtimewhile\neightcores,30GBmemory,andaT4GPU,asthesmallerimagewith\ncommunicationincreaseslinearlywiththenumberofparameters.\n15GBwasinsufficienttomeetthememoryrequirementsforgradient\nAdditionally,weseethedropinthroughputwhencomparing\napplicationontheCPUwiththebiggestmodels.Theexperiment\nthesingleGPUanddualGPUexperimentsformostlargermodels\nnaminginthissectionisprefixedwiththetypeoflocation(A),(B)\n(Figure5),whichstemsfromobservation(1)oftheHivemindpenalty.\nor(C)andthenumberofVMs,e.g.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ation(A),(B)\n(Figure5),whichstemsfromobservation(1)oftheHivemindpenalty.\nor(C)andthenumberofVMs,e.g.,A-4istheintra-zoneexperiment\nWealsoobservethatwitheachsubsequentdoublingofGPUs,\nwith4VMs.ThefullexperimentaldescriptionisspecifiedinTable2.\nthecalculationtimeishalved,whilethecommunicationincreases\nsub-linearlyduetothemoreefficientgroup-basedall-reduceof\nTable3:ThroughputandlatencybetweenGCzones.\nMoshpitSGD[38].Forexample,theaveragingstepfortheRXLMon\n2xA10takes5secondsperGPU(10stotal),whilethe8xA10averaging (a)SinglestreamTCPthroughputinGb/s. (b)ICMPlatencyinms.\nsteptakes1.8secondsperGPU(14.4stotal). From To US EU ASIA AUS From To US EU ASIA AUS\nInsummary,allmodelsshowaspeedupbuthaveadecreasing US 6.90 0.21 0.13 0.12 US 0.66 103.11 157.09 176.19\nEU 0.21 6.81 0.08 0.07 EU 103.14 0.65 253.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "asing US 6.90 0.21 0.13 0.12 US 0.66 103.11 157.09 176.19\nEU 0.21 6.81 0.08 0.07 EU 103.14 0.65 253.10 271.98\nper-GPUcontributionduetosmallergranularitywithmoreGPUs. ASIA 0.13 0.08 6.79 0.16 ASIA 157.08 253.09 0.72 131.45\nTherefore,thelargerthemodelandTBS,thegreaterthescaling AUS 0.12 0.07 0.16 6.84 AUS 175.98 272.08 131.42 0.64\npotential.Highgranularityisagoodindicatorofscalability,and (A)Intra-zonescalability.Figure7showstheresultoftheintra-\nsincethecommunicationtimeonlyincreaseslinearlywithaddi- zoneexperiments,whichweusedasabaselinetocomparegeo-\ntionalpeers(cf.Section2.1),knowingtheinitialcalculationtimeis distributeddeploymentsto.AsthescalabilityoftheCVandNLPmod-\nagoodindicatoroffuturethroughput.Undertheoptimalconditions elswasalreadyshownwithmuchbetterhardwareandslightlyworse",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "futurethroughput.Undertheoptimalconditions elswasalreadyshownwithmuchbetterhardwareandslightlyworse\nofgoodcomputeperformanceandaninterconnectwithrelatively networkconnectivity(cf.Section3),thescalabilitywiththeT4GPUs\nhighbandwidth,scalingwasnotaproblem.Butwhathappensunder isnottoosurprising.Wedonotseeanimprovementinthroughput\nlessfavorableconditionsingeo-distributedsettings? fortwoGPUsforeithermodelduetotheHivemindpenaltydiscussed",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nModel\n4000 dnoceS RN18\nRN50\n3000 RN152\nrep WRN101\n2000 selpmaS CONV\n1000\n0\n1 2 3 4 5\nA10 Count | Model | Model\n3000 dnoceS RBase\nRLrg\nRXLM\n2000 rep\nselpmaS\n1000\n6 7 8 1 2 3 4 5 6 7 8\nA10 Count | Model |  |  |  | \n | RN18\nRN50\nRN152 |  | RBase\nRLrg\nRXLM |  |  |  | \n | WRN101\nCONV |  |  |  |  |  | \n |  |  |  |  |  |  | ",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nsdnoceS\n300 Communication\nRN152\n200 100 ni emiT 14.0 RN18 RN50 7.65.0 1 11.56.84.41.5 1.8\n13.22.84.61.0\n0\n2 3 4 8 2 3 4 8 2 3 4 8\nA10 Count | Communication\nRN152\n14.0\nRN18 RN50 7.65.0 1\n11.56.84.4 1.8 | CONV 300 sdnoceS Communication\nWRN101 11.9\n8.4 200 1.5 6.34.21.5 3.2 100 ni emiT RXLM RBse RLrg 4.2 4.4 2.7 1.8 0.9 4.4 2.6 1.8 0.7 2.4 1.7 0.7\n0\n2 3 4 8 2 3 4 8 2 3 4 8 2 3 4 8 2 3 4 8\nA10 Count | RBse | 4.4 2 | RLrg\n.6 1.8 0 | Comm\nRX\n4.2\n2.4\n.7 | unication\nLM\n1.7 0.7",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n3,4,6,8}xUS 1,\n3,4}xUS+{1,2,3,4}xEU",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n6.90 | 0.21 | 0.13 | 0.12\n0.21 | 6.81 | 0.08 | 0.07\n0.13 | 0.08 | 6.79 | 0.16\n0.12 | 0.07 | 0.16 | 6.84",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\n0.66 | 103.11 | 157.09 | 176.19\n103.14 | 0.65 | 253.10 | 271.98\n157.08 | 253.09 | 0.72 | 131.45\n175.98 | 272.08 | 131.42 | 0.64",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "600\n400 200\n0\n0 2 4 6 8 10 T4 Count\ndnoceS\nrep selpmaS\nModel\nCONV\nRXLM\n(a)Throughput\n2-A\nVC\n3-A\nVC\n4-A\nVC\n6-A\nVC\n8-A\nVC\n2-A\nPLN\n3-A\nPLN\n4-A\nPLN\n6-A\nPLN\n8-A\nPLN\n600\n400\n200\n0\nsdnoceS\nni emiT\n39.73 Calculation\n21.23 Communication\n14.48 8.315.39 6.86 3.892.731.661.15\n(b)Granularity\nFigure7:(A)Intra-zoneperformanceforCVandNLP.\n600\n400 200\n0\n0 2 4 6 8 10 T4 Count\ndnoceS\nrep selpmaS\nModel\nCONV RXLM\n(a)Throughput\n2-A\nVC\n2-B\nVC\n4-A\nVC\n4-B\nVC\n6-A\nVC\n6-B\nVC\n8-A\nVC\n8-B\nVC\n2-A\nPLN\n2-B\nPLN\n4-A\nPLN\n4-B\nPLN\n6-A\nPLN\n6-B\nPLN\n8-A\nPLN\n8-B\nPLN\n600\n400 200\n0\nsdnoceS\nni emiT\n600\n400 200\n0\n0 2 4 6 8 10 T4 Count\n39.714.4 Calculation\nCommunication 14.59.3 2.1 8.36.65.44.9 6.9 2.71.4 1.71.01.10.6\n(b)Granularity\nFigure8:(B)TransatlanticperformanceforCVandNLP.\ninSection3.However,startingwiththreeGPUs,weseeanincrease",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "e8:(B)TransatlanticperformanceforCVandNLP.\ninSection3.However,startingwiththreeGPUs,weseeanincrease\ninthroughputwithamaximumspeedupofupto3.2xCVand2.75x\nspeedup\nforNLPateightGPUs.CV’sper-GPUspeedup( )isalmost\n#GPUs\nlinear(0.43,0.42,0.43,0.41,0.41),whileNLPstartsdroppingofffaster\n(0.51,0.47,0.45,0.40,0.34)for2,3,4,6and8GPUs,respectively.The\nreasonforthisistheNLPgranularityof1.15with8GPUsindicating\nanalmostequalpartincommunicationandcalculation(Figure7b)\nduetothemuchlongeraveragingroundrelatedtothemodelsize\n(198Mvs.560Mparameters). Thepeaknetworkbandwidthutiliza-\ntionbetweenpeerswasatmostasymmetric1.1Gb/swhileaveraging\nand33Mb/singresswhiletrainingduetodataloading.Thismeans\nthatthenetworkbandwidthof7Gb/swasnotalimitingfactor.\n(B)Transatlanticscalability.Wescalewhencomputinghard-\nwareislocal.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "idthof7Gb/swasnotalimitingfactor.\n(B)Transatlanticscalability.Wescalewhencomputinghard-\nwareislocal.However,whathappenswhenthereischeapcapacityin\nanotherregion?Inthiscase,westudythethroughputofexperiments\nwithresourcesintheus-westandeu-centralregions(B-2,4,6,8).\nTheB-2experimenthasoneVMintheUSandoneintheEU,\nachievingavirtuallyidenticalthroughputof68.4(US-EU)versus70.1\n(US)atCV(Figure8a).Ourmaximumpeakegressrateof250Mb/s\ndoesnotaffecttheCVexperiments,whiletheUSexperimentspeaked\nat1.1Gb/s.ThereductioninbandwidthpenalizesNLPharder,where\nweare16%slowerwith177.3SPS(US-EU)comparedtotheintra-zone\nexperimentwith211.4SPS(US).Theresultingincreasedcommunica-\ntioncanbeeasilyseeninthegranularityanalysisinFigure8b(NLP\nA-2,4,6,8vs.B-2,4,6,8).Asonlycommunicationtimeincreasesinthe",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "inthegranularityanalysisinFigure8b(NLP\nA-2,4,6,8vs.B-2,4,6,8).Asonlycommunicationtimeincreasesinthe\nNLP(B)experimentscomparedto(A),agranularityof≫1indicates\ngoodscalability:AddingtwomoreGPUstotheB-6experimentwith\nagranularityof1.03resultsinathroughputincreaseof15%(B-8)\nrelativetothebaseline.Meanwhile,addingtwomoreGPUstothe\nB-2experimentwithagranularityof2.21resultsinathroughput\nincreaseof77%(B-4)relativetothebaseline.\nIntheB-4experiment,welookatwhathappenswhenweincrease\nthenumberofVMstofour,withtwointheUSandtwointheEU.\nNothingsurprisinghappenswithCV,astheworkloadcontinuesto\nbemostlycomputation,withathroughputof135.8(B-4),only3%\nslowerthantheintra-zoneexperimentwith140.4SPS(A-4).How-\never,atNLP,thingsgetmoreinterestingaswenowhavemoreoverall",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ntra-zoneexperimentwith140.4SPS(A-4).How-\never,atNLP,thingsgetmoreinterestingaswenowhavemoreoverall\ncommunicationwithfourpeers,buttheycanaveragelocallyfirst\nandonlylatertransmitacrosstheAtlantic.However,comparedto\ntheirA-counterparts,wedonotseeadifferenceinrelativescalability\nwitheitherB-4,B-6,orB-8.Thismeansthattrainingacrossregions\ndnoceS\nrep selpmaS\nModel\nCONV\nRXLM\n(a)Throughput\n3-A\nVC\n3-C\nVC\n4-A\nVC\n4-C\nVC\n6-A\nVC\n6-C\nVC\n8-A\nVC\n8-C\nVC\n3-A\nPLN\n3-C\nPLN\n4-A\nPLN\n4-C\nPLN\n6-A\nPLN\n6-C\nPLN\n8-A\nPLN\n8-C\nPLN\n600\n400\n200\n0\nsdnoceS\nni emiT\nCalculation\n21.25.9 Communication\n14.54.7 8.34.1 5.43.33.9 0.8 2.7 0.7 1.7 0.6 1.1 0.4\n(b)Granularity\nFigure9:(C)IntercontinentalperformanceforCVandNLP.\n(B)isslower,butthecontributionperGPUdecreasesatthesame rateasintrainingwithinazone(A).Theper-GPUspeedupwithad-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": ",butthecontributionperGPUdecreasesatthesame rateasintrainingwithinazone(A).Theper-GPUspeedupwithad-\nditionalhardwarereducesatthesamerateforeithersetup(between\n0.05and0.06).Thisresultsintwoobservations:First,communica-\ntionoverheadscaleslinearlywiththenumberofpeers.Second,we\nonlyhavetopaythepenaltyfortransatlantictrainingonce.How-\never,wecannotexpectasignificantimprovementincommunication\nefficiencywhenweincreasetheamountofavailablelocalresources.\nSummarizing,withantransatlanticsetup,CVachievesavirtually\nidenticalmaximumspeedupof3.2xwith8GPUscomparedtoA-1\n(B-8is2%slowerthanA-8),whileNLPismoreaffectedbylower\nnetworkbandwidthandonlyachievesaspeedupof2.15x(B-8is\n22%slowerthanA-8).Thetransatlantictrainingpenaltyisapplied\nonce;however,itdoesnotaffecttherelativescalingwithadditional",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "etransatlantictrainingpenaltyisapplied\nonce;however,itdoesnotaffecttherelativescalingwithadditional\ncomputeresources.\n(C)Intercontinentalscalability.Totakegeo-distributiontothe\nextreme,wespawnVMsinupto4regions:USA,EU,ASIA,andAUS,\ntoseehowmuchworsebandwidthaffectsthetrainingthroughput\n(C-3,4,6,8inTable2).\nHowdoestheintercontinentalpenaltyinvestigatedin(B)affect\ndeploymentswithasingleGPUoneachcontinent?Comparingthe\nA-3andC-3experimentswiththreelocalversusthreefullyremote\nGPUs,CVisonly5%slower,whileNLPsuffersa34%dropinthrough-\nput(Figure9a)anddoesnotevenreachthebaselinesingleGPU\nperformance(A-1).Thepeakegressforeachregionwas318,258,\nand237Mb/sfortheUS,EU,andASIA,respectively.Sinceourband-\nwidthmeasurementswere210and130Mb/sfromtheUStotheEU",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "/sfortheUS,EU,andASIA,respectively.Sinceourband-\nwidthmeasurementswere210and130Mb/sfromtheUStotheEU\nandASIA,respectively(Table3),thissuggeststhattheaveraging\nwasdoneovertheUSnodeandnotanN-to-Nall-reduce(adetailed\nanalysisofhowaveragingaffectsbandwidthsisdiscussedinSec-\ntion6).Thus,thelimitingfactorwastheUS-ASIAconnectionat\n130Mb/sratherthanthe80Mb/sfromEU-ASIA.Thesametrend\ncontinueswiththeC-4run,whichaddsAUSasacontinentwithone\nadditionalVM.Asweknowfromthetransatlanticexperiments(B)\nthatanadditionalcontinenthasadetrimentaleffectonthroughput,\nwhich,forthefourcontinentsexperiment,C-4,resultsina9%slower\nthroughputforCVand36%slowerforNLPcomparedtotheA-4runs\n(Figure7a).Again,theUSVMisusedasanaveragingintermediary\nwithapeakegressof365Mb/s,whiletheothercontinentsarebe-\ntween318and330Mb/s.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "asanaveragingintermediary\nwithapeakegressof365Mb/s,whiletheothercontinentsarebe-\ntween318and330Mb/s.Whencomparingthetwocontinents(B-4)\nversusfourcontinents(C-4)experiments,oneGPUoneachcontinent\n(C-4)isslowerby6%forCVand20%forNLPcomparedtotwoGPUs\nontwocontinents(B-4).Thisreinforcesthatlocalhardwareshould\nbepreferredwheneverpossible.However,wearealwaysfasterthan\nthebaseline(A-1),startingfrom4GPUsinboththetransatlanticand\nintercontinentalsettings.Whiletheseexperimentswerespecifically\ndesignedtobeaworst-casescenario,whataboutamorebalanced\nGPUdistributionwithatleasttwoGPUsineachregion?",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nselpmaS\n200\n0\n0 2 4 6 8 10\nT4 Count | 200 i emiT 8.315.39 6.\n0\n2-A 3-A 4-A 6-A 8-A\nVC VC VC VC VC",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nselpmaS\n200\n0\n0 2 4 6 8 10\nT4 Count | 200 i emiT 8.3 5.43.33\n0\n3-A 3-C 4-A 4-C 6-A 6-C 8-A 8-C 3-A\nVC VC VC VC VC VC VC VC PLN",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\nselpmaS\n200\n0\n0 2 4 6 8 10\nT4 Count | 200 emiT 8.36.65.44.9 6.9\n0\n2-A 2-B 4-A 4-B 6-A 6-B 8-A 8-B 2-A\nVC VC VC VC VC VC VC VC PLN",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "300\n200\nD-1 D-2 D-3 T4 Count\ndnoceS\nrep selpmaS\nModel\nCONV RXLM\n(a)Throughput\n1-D\nVC\n2-D\nVC\n3-D\nVC\n1-D\nPLN\n2-D\nPLN\n3-D\nPLN\n600\n400\n200\n0\nsdnoceS\nni emiT\nCalculation cheaperatonly$0.02/GB.Becauseoftheadditionalofferingsaround\nCommunication compute,suchasnetworking,identityandcostmanagement,and\n14.5 14.2 12.7 2.7 2.5 2.0 tooling,itisnoteasytofairlycomparecloudproviders.Therefore,\nwewilllimitourselvestonetworkandVMcosts.\nWiththemulti-cloudexperimentsfromthissection,wewantto\n(b)Granularity evaluatethefollowingscenarios:First,partiallyswitchingfromone\nFigure10:Multi-cloudperformanceforCVandNLP. providertoanotherwithoutstoppingthetraining.Second,scaling\nresourcesinthesameregionwhenoneofthecloudprovidersis",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "otherwithoutstoppingthetraining.Second,scaling\nresourcesinthesameregionwhenoneofthecloudprovidersis\nWhencomparingtheC-6experimentwithtwoGPUsinthree alreadyatcapacityforspot-pricedVMsorthecurrentpriceistoo\ncontinentstothelocalA-6experiments,thethroughputslowdown high[24].WeknowfromSection4thatscalingresourcesinthesame\nisalmostidentical(CV7%,NLP35%)aswithC-4(CV9%,NLP36%) locationcansignificantlyimproveperformance,whichmayonlybe\ntoA-4.ScalingfurthertotwoGPUsinfourcontinents,C-8isslightly possibleusingadditionalcloudproviders.\nsloweratNLP(41%)comparedtoC-4(36%)totheirrespectivelocal Experimentaldesign.Toenableafaircomparisonbetweenthe\nruns(A-8andA-4),duetothedecreasinggranularityof0.4(Figure9b). cloudproviders,werentedhardwaremostsimilartoeachotherin",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "etothedecreasinggranularityof0.4(Figure9b). cloudproviders,werentedhardwaremostsimilartoeachotherin\nThesmallgranularityremovestheadditionalgainoffourmoreGPUs thesameregion.Weusedeachprovider’sdefaultsettingsandonly\nsincethetaskisnolongersuitablefordistributedtraining.However, changedhardwarespecs.ForGC,itisthesameinstanceasinSec-\nastheCVtaskisstillatagranularityof3.33onC-8,itreachesa tion4.AtAWS,itisag4dn.2xlargewitheightcoresand32GBin\nspeedupof3.02x,only7%slowerthanthefullylocalA-8experiment. theus-west-2cregion.Unfortunately,wehadtomaketwocompro-\nThepeakegressof678Mb/swasalsoreachedononeUSVM,whilethe miseswithAzure.Therewasonlythecombinationoffourcoresand\nremainingVMswerebetween450and550Mb/s.Theseobservations 30GBRAM(NC4as_T4_v3),andtherewerenoT4GPUresources",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ningVMswerebetween450and550Mb/s.Theseobservations 30GBRAM(NC4as_T4_v3),andtherewerenoT4GPUresources\nshowthataddinganothercontinentdoesnotsignificantlyreduce availableintheus-west,sowehadtofallbacktous-south-2.\nthroughputwhentrainingonthreecontinentswithatleasttwoVMs. ThenetworkprofilingbetweenallcloudprovidersinTable4\nInsummary,whilelocalcomputeisthebestchoiceformaximum showsthattheirintra-cloudconnectivityiscomparablyfastwith6.4,\nthroughput,forhighgranularitytaskslikeCV,evendistributingVMs 4.9,and7.6Gb/sforGC,AWS,andAzure,respectively.Allconnec-\noverfourcontinentsonlyslowsdownperformanceby7%.However, tionsaremostlysymmetric,withinter-cloudconnectivitybetween\nintercontinentaltrainingleadstoasignificantpenaltyonataskwith GCandAWSprovidingupto1.8Gb/sandapingof15.3ms,indicating",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ainingleadstoasignificantpenaltyonataskwith GCandAWSprovidingupto1.8Gb/sandapingof15.3ms,indicating\nlowergranularity,likeNLP,resultinginaperformancedropof41% thatwhiletheyarelikelynotinthesamedatacenter,theyareclose\n(C-8)comparedtothefullylocalexperiment(A-8).Finally,eachaddi- toeachotherandconnectedtothesameInternetexchangepoint.\ntionalregionintroducesaconstantpenaltythatisnotamortizedby However,connectivitytoAzurecouldbebettersinceitoperatesin\naddinglocalhardware,whichshouldbeconsideredwhenrunning adifferentzone,withabandwidthof0.5Gb/sandapingof51ms.\ngeo-distributedtrainingsetups. OurexperimentalsetupconsistsoffourGPUswithequalcontri-\nbutionsfromeachcloudprovider.D-1isthebaselinewithfourGPUs\n5 MULTI-CLOUDPERFORMANCE atGC,D-2withtwoGPUseachatGCandAWS,andD-3withtwo\nGPUsatGCandAzure.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "hfourGPUs\n5 MULTI-CLOUDPERFORMANCE atGC,D-2withtwoGPUseachatGCandAWS,andD-3withtwo\nGPUsatGCandAzure.WecomparemovingtwoVMstoadifferent\nUsingmultiplecloudprovidersmakessenseifwewanttousere-\ncloudprovidertoseetheimpactoncostandthroughput.\nsourcescost-effectivelyandhaveadditionalreliability.Inoursce-\n(1)Nointer-cloudthroughputpenalty.Figure10showsthe\nnario,weareinterestedinwhatthroughputper$canbeexpected\nthroughputandgranularityofeachmulti-cloudexperiment.CVand\nandifanybarrierspreventmulti-cloudtraining.However,onecan\nNLPrunshaveessentiallyidenticalthroughputregardlessofthe\nalsoconsiderthedatacenter’scarbonfootprint,whichcanchange\ncombinationofcloudproviders.OnlytheD-3experimentsshowa\ndependingontheseasonandtimeofday[6].\nveryslightslowdownincommunicationtime,reflectedinthelower",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "howa\ndependingontheseasonandtimeofday[6].\nveryslightslowdownincommunicationtime,reflectedinthelower\nTable4:Averagemulti-cloudthroughputandlatency. granularityscore(Figure10b)of12.72inCVand1.99inNLPcom-\n(a)SinglestreamTCPthroughputinGb/s. (b)ICMPLatencyinms. paredtotheD-1baselinescoresof14.48and2.73,respectively.Actual\nthroughputwasbetween1-2%slowerthanthebaseline,whichis\nTo To\nFrom GC AWS Azure From GC AWS Azure negligibleandonlyrelatedtotheslightlyworseconnectiontothe\nGC 6.35 1.52 0.45 GC 0.71 15.3 51.22 Azuredatacenter.TheseresultsconfirmourobservationfromSec-\nAWS 1.81 4.87 AWS 13.85 0.15\ntion4thatnetworkconnectivitydeterminesscalability,andonecan\nAzure 0.47 7.63 Azure 49.80 1.56\neasilytraininamulti-cloudscenario.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "determinesscalability,andonecan\nAzure 0.47 7.63 Azure 49.80 1.56\neasilytraininamulti-cloudscenario.\nWehavecompiledthecurrentpricesforspotandon-demand (2)ExternalegresscostscanovershadowVMcosts.Onedraw-\ninstancesforT4GPUswith8CPUcoresandtheegresscostsfor backtotraininginmultipleregionsorzonesisthategresstrafficcan\nthreewell-knowncloudproviders,GC[5],AWS[2],andAzure[9] incuradditionalcostsdependingonthecloudprovider.Wehavesum-\n(Section1).Therearetwodifferentpricingconcepts.Ontheone marizedthecostofegresstrafficwithinazone(intra-zone),between\nhand,thereareGCandAzure,whichofferrelativelycheapinstances, zonesineachregion(inter-zone),andbetweencontinentsinSec-\nwith69%and73%savingsoveron-demandpricing,respectively, tion1.Notably,anytraffictoOceania(Australia,NewZealand,and",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "avingsoveron-demandpricing,respectively, tion1.Notably,anytraffictoOceania(Australia,NewZealand,and\nandrelativelyexpensiveegresschargesbetweencontinentsofupto others,abbreviatedasOCE)generatesthehighestcostof$0.15/GB\n$0.15/GB.Ontheotherhand,thereisAWS,wherethespotinstanceis forGC.Wehavebrokendownthecostsforthemulti-cloudexperi-\nonly51%cheaperthantheon-demandinstanceandmorethantwice mentinFigure11aonanhourlyper-VMbasis.Withonlyfourpeers\nasexpensiveasGCorAzure.However,theegressfeesherearemuch intheD-1/2/3experiments,wehaveanN-to-Ncommunication,i.e.,",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\noceS\n300 Model\nrep CONV\nselpmaS RXLM\n200\nD-1 D-2 D-3\nT4 Count |  |  | Model\nCONV\nRXLM | 400 dnoceS Communication\nni 14.5 14.2 12.7\n200 emiT 2.7 2.5 2.0\n0\n1-D 2-D 3-D 1-D 2-D 3-D\nVC VC VC PLN PLN PLN | 14 |  | .5 14. |  |  | 2 12 |  | .7 |  | 2 | Co\n.7 |  | mmunicat\n2.5 2 |  |  | ion\n.0\n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n6.35 | 1.52 | 0.45\n1.81 | 4.87 | \n0.47 |  | 7.63",
+    "page": 7
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 7):\n0.71 | 15.3 | 51.22\n13.85 | 0.15 | \n49.80 |  | 1.56",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "1.2 1.0 0.8 0.6 0.4 0.2\n0. V 0 M On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\nruoH rep $ 275.0 275.0 081.0 081.0 920.0 191.0 850.0 183.0 441.0 380.0 Cloud = GC\nVM On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\n208.0 208.0 593.0 593.0 920.0 191.0 850.0 183.0 441.0 380.0 Cloud = AWS\nVM On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\n984.0 984.0 431.0 431.0 000.0 000.0 511.0 367.0 441.0 380.0 Cloud = Azure Model CONV RXLM\n(a)Intra-andinter-zoneintheUSregion(D-2/3).\n5 4 3 2 1\nV 0 M On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\nruoH rep $ 375.0 375.0 281.0 281.0 860.0 152.0 181.1\n923.4\n321.0 240.0\nCloud = GC\nVM On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\n419.0 419.0 033.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "loud = GC\nVM On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\n419.0 419.0 033.0 033.0 860.0 152.0 502.0 357.0 321.0 240.0\nCloud = AWS\nVM On-DemandVM Spot Egress Inte E rn g a re l ss Extern D a a l taloading\n786.0 786.0 771.0 771.0 000.0 000.0 315.0 288.1 321.0 240.0\nCloud = Azure\nModel CONV RXLM\n(b)IntercontinentalintheUS,EU,ASIAandAUS(C-8).\nFigure11:CostsbreakdownforD-2/3andC-8experiments.\neachpeersendsitsgradientstoeveryotherpeer.Thismeansthat1\n3\noftheegresswasinternaltothepartnerVMinthesamecloud,and\ntheremaining2wenttotheremainingtwopeersintheothercloud.\n3\nFirst,loadingdatafromBackblazecosts$0.01/GBfromanywhere\nintheworld,whichgivesusarateof$0.144/hfortheCVand$0.083/h\nfortheNLPexperiments.EvenwhenCVthroughputislessthan",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ",whichgivesusarateof$0.144/hfortheCVand$0.083/h\nfortheNLPexperiments.EvenwhenCVthroughputislessthan\nhalfoftheNLPmodel(Figure10a),imagesaremuchlargerthan\ntext,resultinginahigherdatarate.Whilethisisclosetothespotin-\nstancecostsofGC($0.18/h)andAzure($0.134/h),theseareone-time\ncostsuntiltheentiredatasetisdownloadedandretrievedfromthe\ndiskcache,assuminglargeenoughlocalstorage.Amoredetailed\ncomparisonofcloudproviderstorageofferingsisbeyondourscope,\nbutcurrentpricesrangefrom$0.02/GBto$0.14/GBinvariousGC\nregions,makingoursetting(B2)competitive.\nSecond,theexternalegresscostsfortheNLPexperimentsare\nveryhighcomparedtotheothercosts.Theyare2.2xhigherthanthe\nspotinstanceforGCand5.7xhigherforAzure,asthetrafficcosts\nintheUSzoneare$0.01/GBand$0.02/GB,respectively.TheAzure\ncostisevenhigher($0.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Azure,asthetrafficcosts\nintheUSzoneare$0.01/GBand$0.02/GB,respectively.TheAzure\ncostisevenhigher($0.763/h)thantheon-demandinstanceprice\nof$0.489/h.TheCVexperimentsaremuchlessaffectedduetothe\nsmallermodelsize,butAzurestillmanagestoalmostmatchitsspot\ninstancepriceof$0.134/hwiththeexternalegresscostof$0.115/h.\nFinally,thetotalcomputecost,includingegressanddataloading\ninthismulti-cloudconstellation,isthesumofallthecloudproviders’\npricestimesthenumberofVMsused.FortheCVexperiments,GC,\nAWS,andAzurecost$0.762/h,$1.192/h,and$0.363/h,respectively,\nmakingthecombinationofGCwithAzure42%cheaperthanGCwith\nAWS.FortheNLPexperiments,GC,AWS,andAzurecost$0.835/h,\n$1.05/h,and$0.973/h,respectively,andGCcombinedwithAzureis\nbetterthanGCwithAWSbyasmallermarginof3.9%.However,the",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "0.973/h,respectively,andGCcombinedwithAzureis\nbetterthanGCwithAWSbyasmallermarginof3.9%.However,the\nintercontinentalnetworkegresspricesforbothGCandAzureare\nupto15timeshigherthantheinter-zoneprices,sowhataboutthe\ncost-effectivenesscomparedtogeo-distributedexperiments?\n(3)Geo-distributedegresscanincurmostofthecost.To\nillustratethecostofintercontinentaltraining,weuseourC-8exper-\nimentwithtwoVMsinfourcontinentsfromSection4toplugthe\ncostforeachcloudprovider.Theegresscostsarecalculatedslightly\ndifferentlythanintheD-2andD-3experimentsbecausefourgroups\noftwoVMsaveragelocallyandthendistributethegradientsacross\ntheothergroups.Thisresultsin 8 internalegresscalls(twocalls\n20\nbetweeneachgroup), 6 intercontinentalegresscalls(twocallsbe-\n20\ntweenthreeregions),and 6 AUSegresscalls(threeregionsshare\n20",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "rcontinentalegresscalls(twocallsbe-\n20\ntweenthreeregions),and 6 AUSegresscalls(threeregionsshare\n20\ntheirgradientswithAUSandviceversa).\nFigure11bshowstheresultingegresstrafficcostperVM.The\nhighcostbetweencontinentsscalestoamultipleoftheremaining\n01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8\n15 10\n5\n0\ndnoceS rep BM\nssergE\nGPU Count 2 3 4 RN50 RN152 WRN101 CONV 8\nRN18\n(a)CV\n01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8\n50 40 30\n20 10\n0\ndnoceS rep BM\nssergE\nGPU Count 2 3 RBse RLrg RXLM 4 8\n(b)NLP\nFigure12:Baselineegressrateon2-8A10GPUs.\ncostforCVandNLPwithGCandAzure.ForNLP,theexternal\negresscostforGCis$4.329/h,morethan90%ofthetotalcostperVM\n($4.804/h).EvenwithAzurehavingamoremoderaterateof$0.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "tforGCis$4.329/h,morethan90%ofthetotalcostperVM\n($4.804/h).EvenwithAzurehavingamoremoderaterateof$0.02/GB\nforintercontinentalcommunicationandonly$0.08/GBforOCE\ntraffic,itstillresultsin$1.882/hexternalegresscost($2.101/htotal).\nThisisincontrasttoAWS,whichhasacapof$0.02/GBtoanylocation,\nresultinginthebesttotalcostof$1.376/hperVM.Therelativelyhigh\nAWSinstancecostcomparesfavorablytotheothercloudproviders\nregardinggeo-distributedtraining.Keepingegresstrafficinmind\nwhendecidingtoscaletoothercontinentsisessential,asitcanbethe\nmostsignificantpartofthetotalcost.Thisraisesanotherquestion:\nIfegresstrafficmatterssomuch,howdoesmodelsizeaffectit?\n(4)Smallmodelshaveloweregressratesthanlargermodels.\nModelsizeaffectstwopartsofthedistributedtrainingtime.First,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "lshaveloweregressratesthanlargermodels.\nModelsizeaffectstwopartsofthedistributedtrainingtime.First,\nlargermodelstendtohavesloweraveragingrates,butmoredata\nmovementcostsduetotheirsize.However,largermodelsarealsoav-\neragedlessfrequentlybecausetheytakelongertoperformastep.To\nanalyzethis,wereviewtheexperimentsinSection3,whereweevalu-\natedifferentmodelsizesandGPUscounts.Figure12showstheaver-\nageegressrateovereachexperiment’sruntimeforbothCVandNLP\nfromtwotoeightA10GPUs.Thetrendisclear:thesmallerthemodel,\nthelowertheegressrateforallGPUs(e.g.,RN18vs.RN50).Thisis\nsurprising,asthe\"square-cube\"law[37]statesthatwithadecreasein\nparameters,thecalculationtimewilldecreasequadraticallywhilethe\ncommunicationtimedecreaseslinearly.Thismeansthatwithasuffi-",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ontimewilldecreasequadraticallywhilethe\ncommunicationtimedecreaseslinearly.Thismeansthatwithasuffi-\ncientlysmallmodel,mostofthetrainingwillconsistofcommunica-\ntiontime,andtheegressratewouldincrease,asitisdefinedthrough\nparametercount\n.However,wefindthatevenwithoursmallestmodel,\ncalculationtime\nRN18,with11.7MparametersandeightA10GPUs,wearestillnotat\nthepointwherethecommunicationtimetakesupmostofthetime.\nInsummary,multi-cloudtrainingisgenerallypossibleandcan\nbecost-effectivewhenkeepingtheegresscostsandgranularityin\nmind.Regardlessofthecloudprovider,stayinginthesameregionis\npreferred,withtheUShavingthemostfavorableegresspriceoffers.\nAsignificantportionofthecostmaybehiddeninegresscosts,ac-\ncountingformorethan90%ofthetotalcostinourNLPexperiments\ninGCandAzure.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "stmaybehiddeninegresscosts,ac-\ncountingformorethan90%ofthetotalcostinourNLPexperiments\ninGCandAzure.Basedontheadditionalegresscostsalone,renting\non-demandhardwaremaybemoreadvantageousthanusingspot\ninstancesbetweendifferentregions.CVtrainingisgenerallymore\ncalculation-thancommunication-heavy,resultinginslightlyhigher\ndata-loadingbutfeweregresscosts.However,fromourexperiments,\nthisisafavorabletrade-offbecausedata-loadingismuchcheaper\nthanegresscosts.\n6 HYBRID-CLOUDPERFORMANCE\nCan augmenting on-premise hardware with cloud resources be\nworthwhiletospeedupDLtraining?Inthissection,weexaminetwo",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\np 8\nBM\n5 ssergE RN18\n0\n01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 |  |  | p 8\nBM\n20\nssergE\n10\n0\n01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 01Ax2 01Ax3 01Ax4 01Ax8 | 8 |  |  |  |  |  |  | ",
+    "page": 8
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 8):\n | 4 |  | CONV RXLM | 28 |  | \n181\n3 3 |  |  | 41 41 35 | 7 7 3 8.1 |  | \n75.0 75.0 281.0 281.0 860.0 152.0 .1 |  | 321.0 240.0 | 9.0 9.0 033.0 033.0 860.0 152.0 502.0 7.0 321.0 240.0 | 86.0 86.0 771.0 771.0 000.0 000.0 15.0 |  | 321.0 240.0",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Table5:Averagehybrid-cloudthroughputandlatency.\n(a)SinglestreamTCPthroughputinGb/s. (b)ICMPLatencyinms.\nFrom To EUT4 UST4 USA10 From To EUT4 UST4 USA10\nRTX8000 0.45 0.06 0.05 RTX8000 16.73 150.80 159.05\nDGX-2(8xV100) 0.55 0.08 0.07 DGX-2(8xV100) 16.19 150.27 158.54\nTable6:Hybrid-vs.cloud-onlythroughputforthe(E)setting. Setup RTX8000 E-A-8 E-B-8 E-C-8 8xT4 8xA10 Model\nCONV 194.8 316.8 283.5 429.3 261.9 620.6\nRXLM 431.8 556.7 330.6 223.7 575.1 1059.9\n800 600 400 200\n0\n1 2 3 4 5 6 7 8 9 GPU Count\ndnoceS rep selpmaS GPU Type RTX8000 EU T4 (E-A) US T4 (E-B) US A10 (E-C)\n(a)CVThroughput\n1-A-E 2-A-E 4-A-E 8-A-E 1-B-E 2-B-E 4-B-E 8-B-E 1-C-E 2-C-E 4-C-E 8-C-E\n600 400 200\n0\nsdnoceS ni emiT 1.86 C C a om lcu m la u t n io ic n ation 8.21 1.98 1.21 7.28 5.80 3.24 2.15 1.77 1.21 0.72 0.64",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "T 1.86 C C a om lcu m la u t n io ic n ation 8.21 1.98 1.21 7.28 5.80 3.24 2.15 1.77 1.21 0.72 0.64\n(b)CVGranularity\n600 400 200\n0\n1 2 3 4 5 6 7 8 9\nGPU Count\ndnoceS rep selpmaS GPU Type RTX8000 EU T4 (E-A) US T4 (E-B) US A10 (E-C)\n(c)NLPThroughput\n1-A-E 2-A-E 4-A-E 8-A-E 1-B-E 2-B-E 4-B-E 8-B-E 1-C-E 2-C-E 4-C-E 8-C-E\n600 400 200\n0\nsdnoceS ni emiT\n800\n600\n400 200\n0 1 2 3 4 5 6 7 8 9\nGPU Count\nCalculation 0.20 Communication0.34 0.15 0.34 0.27 0.120.07 1.271.000.880.66 0.27\n(d)NLPGranularity\nFigure13:Hybrid-cloudexperimentsforthe(E)setting.\nsettings:(E),whereaconsumer-gradeGPU,theRTX8000,isdeployed\non-site,and(F),whereaserver-gradenode,theDGX-2(8xV100),is\ndeployedon-site.Wevarytheextraresources,betweenonetoeight\nT4EU({E,F}-A),T4US({E,F}-B)andA10US({E,F}-C)GPUs.\nExperimentaldesign.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "traresources,betweenonetoeight\nT4EU({E,F}-A),T4US({E,F}-B)andA10US({E,F}-C)GPUs.\nExperimentaldesign.Inbothsettings,wewanttoinvestigate\nhowtoextendlocalhardwarewithcloudresourcesandwhenthis\nleadstobetterthroughput.Thecloudresources,inthiscase,arethe\nsameUS/EUGCT4instancesasinSection4andtheUSLambdaLabs\nA10GPUsfromSection3.WedoublethenumberofcloudVMswith\neachincrement,startingwithoneadditionalGPU(i.e.,E-A-1)until\nwehaveeightadditionalcloudVMs(i.e.,E-A-8).Thisallowsustocom-\nparethesamehardwareintheEUandtheUS,andslightlyweaker,lo-\ncalhardware(EUT4)andbetter,butmoredistanthardware(USA10).\nBoththe(E)and(F)setupssharethenetworkuplinkbetween450\nand550Mb/stotheEUdatacenterinBelgium,astheyarelocated\ninthesamebuildinginEurope(Table5).However,asthisisnota",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "stotheEUdatacenterinBelgium,astheyarelocated\ninthesamebuildinginEurope(Table5).However,asthisisnota\nGoogle-owneddatacenter,thetrafficispartlygoingoverthepublic\ninternet,whichresultsinalowerbandwidthof50and80Mb/sto\ntheUS-basedVMscomparedto210Mb/sbetweentheUSandEU\nGCdatacenters(Table3a).\n(E)Consumer-gradesetting.Theresultsfollowthesametrend\nasinSection4.TheCVtaskhasahighergranularityof8.21with\n2GPUsatE-A-1thanNLP(1.27)(Figures13band13d),andscales\nregardlessofthelocationofthecloudresources(Figure13a).We\nalmostmatchthebaselinethroughputof195SPSat5GPUsinallset-\ntingsforCV(E-A-4,E-B-4,E-C-4).Thebestthroughputwasreached\natE-C-8withtheUSA10GPUswith429SPS.ForNLP,onlythe\nE-A-8experimentbeatsthebaselinewithaspeedupof1.29xand556\nSPSduetothelowgranularityandtheintercontinentalbasepenalty",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "eatsthebaselinewithaspeedupof1.29xand556\nSPSduetothelowgranularityandtheintercontinentalbasepenalty\nfortheUSexperiments.\ndnoceS\nrep\nselpmaS\nGPU Type 8xV100\nEU T4 (F-A) US T4 (F-B)\nUS A10 (F-C)\n(a)CVThroughput\n1-A-F 2-A-F 4-A-F 8-A-F 1-B-F 2-B-F 4-B-F 8-B-F 1-C-F 2-C-F 4-C-F 8-C-F\n600\n400\n200 0\nsdnoceS\nni emiT\nCalculation Communication\n3.943.172.322.46 1.661.16 1.711.04 0.820.56 0.660.57\n(b)CVGranularity\n1500 1000 500\n0\n1 2 3 4 5 6 7 8 9\nGPU Count\ndnoceS rep selpmaS GPU Type 8xV100 EU T4 (F-A) US T4 (F-B) US A10 (F-C)\n(c)NLPThroughput\n1-A-F 2-A-F 4-A-F 8-A-F 1-B-F 2-B-F 4-B-F 8-B-F 1-C-F 2-C-F 4-C-F 8-C-F\n600 400 200\n0\nsdnoceS ni emiT Calculation 0.02 Communication 0.07 0.15 0.15 0.100.090.07 0.540.390.410.30 0.94\n(d)NLPGranularity\nFigure14:Hybrid-cloudexperimentsforthe(F)setting.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "00.090.07 0.540.390.410.30 0.94\n(d)NLPGranularity\nFigure14:Hybrid-cloudexperimentsforthe(F)setting.\nHowever,iscombiningon-premiseandremotecloudresources\nbetterthanusingthecloudwithoutpayingtheintercontinentalband-\nwidthtax?Toanalyzethis,wecomparethe(E)experimentswiththe\n8xA10experimentfromSection3and8xT4experimentfromSec-\ntion4inSection6.First,the8xA10experimentsarethefastestfor bothCVandNLP,whichremovestherespectivehybrid-cloudcom- binationfromcontention(E-C-8).Second,the8xT4experiments\nforNLParefasterthananyotherhybrid-cloudsetup,makingthe\ncloud-onlysolutionfavorable.Finally,whilewealwaysbeatthe\nbaseline8xT4CVthroughput(261.9SPS),butinthecaseofE-B-8\n(283.5SPS),justbarely.ThethroughputofE-A-8(316.8SPS)makes\nthehybrid-cloudsetupthemostfavorableintermsofrelativeGPU\nscaling(32.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "hroughputofE-A-8(316.8SPS)makes\nthehybrid-cloudsetupthemostfavorableintermsofrelativeGPU\nscaling(32.5SPSperGPU),butitdoesnotcomeclosetothebest\ncloud-onlythroughputof8xA10with620.6SPS.\nSummarizing,thecloud-onlyexperimentsarethefastestover-\nallduetotheirsingle-GPUthroughputandlocality.Addingcloud\nresourcestoon-premisehardwareleadstoahighcommunication\ntime,whichisnotcompensatedbytheadditionalprocessingspeed\noftheGPUs.Proximitytotheon-premisehardwareisessential,as\nthemorelocalcloudresources(E-A-8)consistentlyresultedina\nbetterthroughputthanthesameremotecloudresources(E-B-8).\n(F)Server-gradesetting.Thebaselinethroughputissignifi-\ncantlyhighercomparedtotheRTX8000,withamuchmorepowerful\n8xV100DGXnodeto413SPSforCVand1811SPSforNLP(Fig-\nures14aand14c)viaPyTorchdataparallelism[26].Thisincreasesthe",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "nodeto413SPSforCVand1811SPSforNLP(Fig-\nures14aand14c)viaPyTorchdataparallelism[26].Thisincreasesthe\npenaltiesfromSection3,leadingtotheonlyspeedupfrombaseline\nforCVinexperimentsF-A-8(507SPS)andF-C-8(510SPS).Thisissur-\nprising,astheolderT4GPUsintheEUperformsimilarlytothemuch\nnewerA10GPUsintheUS,showcasingthetrade-offbetweenslower,\nlocalcomputeandfaster,remotecompute.Thegranularityof2.46\nforF-A-8showsthatthereisenoughcalculationtimetodistribute,\nwhiletheF-C-8experimentsspend≈62%ofthetotaltrainingtimeon\ncommunicationwithagranularityof0.57(Figure14b).TheNLPex-\nperimentsneverreachthebaselinethroughputofthe8xV100dueto\nusingmostofthetimeforcommunication.TheNLPF-BandF-Cex-\nperimentsmainlyconsistofcommunication(Figure14d)withagran-\nularityofupto0.02,whichresultsinanonlinear,unstabletraining",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "istofcommunication(Figure14d)withagran-\nularityofupto0.02,whichresultsinanonlinear,unstabletraining\ntimeduetotheminimummatchmakingtimeissue(2)fromSection3.\nInsummary,thehybrid-cloudexperimentsconcludethatwhile\non-premisehardwarecanbeaugmentedwithcloudresources,it\nwilllikelybecost-efficientifallresourcesareonthesamecontinent.\nUsingonlycloudresourcesismoreadvantageousiftheon-premises\nhardwareisnotco-located.",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\noceS 8xV100\n600 EU T4 (F-A)\nrep US T4 (F-B)\n400 selpmaS US A10 (F-C)\n200\n0\n1 2 3 4 5 6 7 8 9\nGPU Count |  |  | 8xV1\nEU T4\nUS T4\nUS A1 | 00\n(F-A)\n(F-B)\n0 (F-C) |  |  |  |  |  |  | dnoceS\n400\n200 ni emiT 3.943.172.322.46 1.661.16\n0\n1-A-F 2-A-F 4-A-F 8-A-F 1-B-F 2-B-F",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\nEUT4\n0.45 | UST4\n0.06 | USA10\n0.05 | From\nRTX8000 16.73\n0.55 | 0.08 |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n1500 oceS GPU Type 8xV100\n1000 rep EU T4 (F-A) US T4 (F-B)\nselpmaS US A10 (F-C)\n500\n0\n1 2 3 4 5 6 7 8 9\nGPU Count |  |  |  | GPU T\n8xV1\nEU T4\nUS T4 | ype\n00\n(F-A)\n(F-B) |  |  |  |  |  |  | dnoceS Communication 0.07\n400\nni 0.15\n200 emiT 0.540.390.410.30\n0\n1-A-F 2-A-F 4-A-F 8-A-F 1-B-F 2-B-F\n |  |  |  | US A | 10 (F-C) |  |  |  |  |  |  | ",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n194.8 | 316.8 | 283.5 429.3 2\n | 556.7 | 330.6 223.7 5",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\n400 selpmaS US A10 (E-C)\n200\n0\n1 2 3 4 5 6 7 8 9\nGPU Count | US | A10 (E | -C) |  |  |  |  |  |  | 200 i emiT 5.80 3.24\n0\n1-A-E 2-A-E 4-A-E 8-A-E 1-B-E 2-B-E",
+    "page": 9
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 9):\nselpmaS\n200\n0\n1 2 3 4 5 6 7 8 9\nGPU Count |  |  |  |  |  |  |  |  |  | 200 emiT 1.000.880.66\n0\n1-A-E 2-A-E 4-A-E 8-A-E 1-B-E 2-B-E",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "2000\n1000\n0\n0.5 1.0 1.5 2.0 2.5 3.0\nCost in $ per 1M Samples\ndnoceS\nrep\nselpmaS\nDGX-2 DGX-2 thehorizontalline,wearefaster(andviceversa).Wecirclethenew\nvaluepropositionsthatweenableinbothfigures.Ourhardware\n8xA10 Instance Type setupshaveadditionalkeycharacteristics:Theyareresilientbyde-\n1xA10 8xT4 Spot 8xT4 faulttointerruptionsduetorunninginadecentralizedfashionand\n1xT4 1xT4 On-Demand\ntheyenablethecombinationofmoreGPUsthancloudproviders\nofferinasinglenode.Currently,commonhardwareconfigurations\n(DGX)allowuptoeightGPUsconnectedviaNVLink,andwitholder\nFigure15:CosttothroughputtradeoffforRoBERTaXLMat\nhardware,onlyupto4xT4sconnectedviaPCIeat10GB/sbetween\ndifferentinstancetypes.Ourtrainingsetups(circled),thatare\nGPUs(withGC).WewereabletocombineeightsingleGPUnodes",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nstancetypes.Ourtrainingsetups(circled),thatare\nGPUs(withGC).WewereabletocombineeightsingleGPUnodes\nduethelowgranularityoftheNLPmodel,neithercheaper,\nfromGCandLambdaLabstocreatecompetingperformanceand\nnorfasterthanthecentralizedoffering(DGX-2).\npricesetupswithoutdedicatedGPUinterconnects.\nAspotDGX-2costsatthetimeofwriting$6.30/h($14.60/hon-\n7 FURTHERINSIGHTS\ndemand)inGCUS,whichmakesitthebestvaluepropositionfor\nCommunicationtimecandecreasewithmorepeers.Letus thelowgranularityNLPtask.Itisfollowedbythe8xA10,which\ncomparethegranularityoftheexperimentsforE-B(Figure13b), are41%slowerand30%moreexpensivethantheDGX-2(Figure15).\nwhichusesT4GPUsintheUSasanadditionalcloudresource.Both The8xT4experimentsareevenmoreexpensive,astheinternal",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "sT4GPUsintheUSasanadditionalcloudresource.Both The8xT4experimentsareevenmoreexpensive,astheinternal\nthecomputationandcommunicationtimedecreasewiththenumber egresscoststakeupmorethanhalfofthecosts,makingthemthe\nofGPUs,evenincreasingthegranularityfrom1.98atE-B-2to2.15 worstvalueproposition.However,forCV,wemanagetoprovide\natE-B-4.Thisissurprisingsince,usually,withmorepeers,thecom- twonewofferings:First,the8xA10,whichisboth50%fasterand49%\nmunicationtimeshouldincrease,andtheUS-EUcommunication cheaperthantheDGX-2,and8xT4,whichis58%cheaperthanDGX-\nbottleneckshouldslowusdowntothesameextentastheE-B-1 2,whilebeing37%slower(Figure1).TheCVmodelcanbescaled\nexperiment.ThisreductionisaHivemind-specificanomaly,asit moreeasilyduetoitsinitiallyhighgranularity,whichmakesthevery\nusesasingleTCPstreamperpeer.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "omaly,asit moreeasilyduetoitsinitiallyhighgranularity,whichmakesthevery\nusesasingleTCPstreamperpeer.WithTCP,thereneedstobean competitiveofferingof$0.6/hperA10fromLambdaLabsanexcellent\nacknowledgment(ACK)ofeachpacketbythereceivingpeer,which valueproposition.However,whileweonlyevaluatedeightT4GPUs\nisimpactedbytheconnection’slatency.Inourhighlatencynetwork forourGC-basedexperiments,withagranularityof5.19(CVA-8\nbetweencontinents,theroundtriptime(RTT)of300-318mslimits inFigure7b),thereisamplespacetoscaleevenfurther.Itisimportant\nthemaximumbandwidthasingleTCPstreamto50-80Mb/s.How- tonotethatLambdaLabsdoesnotchargeforanydataegress,butGC\never,awaytoimprovelinkutilizationistousemultiplestreams, doeswith$0.01/GB,andthe8xT4experimentisstillcheaper.While",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ovelinkutilizationistousemultiplestreams, doeswith$0.01/GB,andthe8xT4experimentisstillcheaper.While\noneforeachpeer,whichweencounterinexperimentsE-(B|C)-2,4,8. LambdaLabsisoftenatcapacity,GoogleCloudpositionsitselfasa\nToverifythepotentialgains,weperformamicrobenchmarkof hyperscalerwiththeadvantageofrarelybeingatmaxoccupancy.\nthemulti-streambandwidthfromtheRTX8000totheEUandUS Wealsoevaluatedtheperformanceofthe4xT4PyTorchDDP[26]\ndatacenters.Althoughthereiswidevariation,likelyduetonetwork forCVwiththebestavailablemulti-T4nodeonGC(4xT4).TheNLP\nutilization,with80clients,weachieveamaximumbandwidthof experimentsranOOM.SincetheDDP4xT4runsonasinglenode,it\n6Gb/swithintheEUandupto4Gb/stotheUS.Whilelargerpeer causesnointerconnectcostsandispricedat$0.96per1Msamplesat",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ntheEUandupto4Gb/stotheUS.Whilelargerpeer causesnointerconnectcostsandispricedat$0.96per1Msamplesat\ngroupsand,consequently,largermodelsbenefitfrommulti-peer spotpricing,whileour8xT4setupcosts$1.77per1Msamples(84%\ncommunicationbydefaultanddonotseesignificantchangesincom- moreexpensive).However,the8xT4setuphasahigherthroughput\nmunicationtime,smallmodelsinunevenlydistributedVMssetups of262SPS(26%faster)comparedtothe4xT4node(207SPS).This\ncanbedisproportionatelyaffected.Thesametrendcanbeobserved higherspeedisnotavailableatthepricepointofthe4xT4node.\ninallhighlatencyexperiments(i.e.,betweentheEUandtheUS),e.g., Moreover,the8xT4setuphasthepotentialforfurtherscaling,which\nE-B,E-CforCVandNLP(Figures13band13d,andF-BandF-Cfor wediscussedindetailinSection4.\nCV(Figure14b).",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ch\nE-B,E-CforCVandNLP(Figures13band13d,andF-BandF-Cfor wediscussedindetailinSection4.\nCV(Figure14b).Insummary,unevendistributionofcomputational Insummary,thelowerspotpricesforolderGPUsallowustotrain\nresourcesinhigh-latencynetworks(e.g.,intercontinental)canre- modelsmorecost-efficientlywhentaskgranularityallowsitandget\nducecommunicationtimewithHivemindduetomoreparallelism, morevalueper$whentrainingonthe8xT4or8xA10comparedto\nlesseningtheimpactoflowbandwidthforasingledatastream. anDGX-2node.CombiningmultiplenodeswithsingleGPUswith\nCostanalysis.TheDGX-2(8xV100)nodefromSection6rep- lowerbandwidthsenablesscalingthatwaspreviouslyimpossibleto\nresentsserver-gradehardwarethatcouldbeusedtotrainmodels. achievewithoutresortingtomuchmorepowerfulGPUs.Distributed",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "radehardwarethatcouldbeusedtotrainmodels. achievewithoutresortingtomuchmorepowerfulGPUs.Distributed\nHowever,howdoesitcompareinthroughputper$toallofourdis- spotinstancepricingopensupanewvaluepropositioncompared\ntributedcloudexperiments?TheFigure1(CV)andFigure15(NLP) toon-demandofferingsthatcanevencompetewiththecompetitive\nshowthecompletecostanalysisoftheDGX-2,the8xT4experiments, pricingofsmallercloudproviders.\nandthe8xA10experimentsforspotandon-demandpricing.Weuse SpotVMInterruptionFrequency.Whileweusedlowspot\ntheinternalegresscostsfromFigure11aasareferenceforthe8xT4 pricesasacost-savingargumentinourexperiments,wedidnot\nsetup.Forsimplicity,wecomparethespotpricingwithoutinter- elaborateonthemostsignificantdrawback-thepossibilityofbeing",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ty,wecomparethespotpricingwithoutinter- elaborateonthemostsignificantdrawback-thepossibilityofbeing\nruptions,asweassumethatanewVMcanbespunupfastenough terminatedbythecloudprovideratanytime.Thereisalreadysome\nnottoaffectthetrainingthroughputinthelongrun.Wemarkthe researchonhowdifferentcloudproviderstracktheinterruptionfre-\ncentralizedbaseline(DGX-2)costper1Msamplesandthethrough- quencyandcanbeusedforvaryingworkloadstoachieveapositive\nputinsamplespersecondwithahorizontalandverticalline.This $-per-throughputeffect[24,42,43].\nmeansthatwearecheapertothelefttotheverticalline,andabove",
+    "page": 10
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 10):\n |  |  |  |  |  |  |  | \n | DG | X-2 |  |  | DGX-2 |  |  | \n |  | 8xA10 | Instan |  | ce Type |  |  | \n |  |  |  | Instan | ce Type |  |  | \n1xA10\n1xT4 | 1xT4 | 8xT | 4 | S\nO | pot\nn-Demand |  | 8xT | 4",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Interruptionaffectsthreeaspects:First,theinterruptionfrequency Granularityisimportanttoevaluatescalability.Wefound\nisdefinedbyAWSasthenumberofVMsterminatedinthelast30 thattheratiobetweencalculationandcommunicationtime,gran-\ndays,whichisbetween5and20%[3].Thisvaluewasnotrepresenta- ularity,isthemostimportantmetrictotrackwhendecidingon\ntiveduringourexperimentswithanycloudprovider,aswenoticed distributedtrainingsuitability.Itenablesustocomparethescala-\nthatitishighlydependentonthetimeofdayofthezone. bilitypotentialbetweendifferentmodelsonthesamehardwaredue\nSecond,thetimeneededtosetupaVMuntiltrainingstarts.The tosummarizingtheirmodelsizeandthroughputratio.Additionally,\nstartuptimeofaVMdependsonthecloudprovider(e.g.,apreconfig- itgivesavaluetothecost-efficiency:Withagranularityofexactly1,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "dsonthecloudprovider(e.g.,apreconfig- itgivesavaluetothecost-efficiency:Withagranularityofexactly1,\nuredimage)andtheone’stechnologystack(e.g.,Docker,Kubernetes, thepotentialspeedupwhendoublingthenumberofVMsis,atbest,\nAnsible).Inourexperience,VMstartuptimerangesbetweensec- 1.33xduetohalvingthecalculationtime.However,withagranu-\nondstominuteswithmanualdeploymenttakingupto10minutes. larityof10,thespeedupwithdoubletheVMsis,atbest,1.83xdue\nAlthoughstartuptimecanbeimproved,modeltrainingtypically tothecommunicationtimeplayingalesssignificantrole.Withthis,\ntakesmultiplehoursordays,makingitalessimpactfuloptimization. wecanestimatetrainingperformancewithadditionalresources.\nThird,thetimerequiredforthenewpeertosynchronizethetrain- Geo-distributedmulti-cloudtrainingispossibleandiscost-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "erequiredforthenewpeertosynchronizethetrain- Geo-distributedmulti-cloudtrainingispossibleandiscost-\ningstatewithotherpeers.Inourexperience,thistookatworsttwo efficient.EvenwiththecurrentteethingpainsofHivemind,wegota\nhivemindepochsduetotheaveragingstartingbeforesynchroniza- speedupinallofourexperimentalsetupsofintra-zone,transatlantic,\ntionisfinished.Whileitispossibletocreateahivemindepochthat andintercontinentalsettingsaslongasthegranularityofthetask\nisshortenoughtopreventnewpeersfromjoining,thisonlyhap- permittedit.UsingolderandcheaperTeslaGPUsatspotpricing\npenswithalowenoughgranularitywherescalingisnotbeneficial isnotonlymorecost-efficientthantheDGX-2offering,buteven\nanymoreaswearemostlycommunicationbound. trumpsthecompetitivepricingmodelofLambdaLabs,allwhilein-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "en\nanymoreaswearemostlycommunicationbound. trumpsthecompetitivepricingmodelofLambdaLabs,allwhilein-\nFinally,whiletheVMsetupandsynchronizationofthetraining cludingegresscosts.Ournetworkprofilingshowedthatthecurrent\nstatetaketime,theinterruptionfrequencysignificantlyaffectsthefi- traininglimitationsarenotprimarilythebandwidthbutratherthe\nnalthroughput.WefaceddifficultiesacquiringevenasinglespotVM intercontinentallatencyandthetask’sgranularity.Ifthegranularity\nduringourGCexperimentsduringdaylighthours.Thishighlights isalreadylowathighbandwidth,itcanonlyworsenwhenusedin\ntheneedforsystemslikeSkyPilot[43],whichutilizesautomationto ahighlatency,lowbandwidthnetwork.Whenconsideringboth,\ndeployspotinstancesacrossvariouscloudsandzones.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "highlatency,lowbandwidthnetwork.Whenconsideringboth,\ndeployspotinstancesacrossvariouscloudsandzones.Inourcase, estimatingthepotentialcost-savingsofinvestinginamulti-/hybrid-\ntheinterruptionfrequencycanbeusedasapenaltyonthetraining cloudscenarioispossible.\nthroughput,i.e.,a5%interruptionfrequencyovertheentiretraining\n9 RELATEDWORK\ntimemeansroughlya5%slowertraining.\nDecentralizeddeeplearning.Trainingwithunreliablepeershas\nbeenstudiedinacollaborativesetting,resultingintheDistributed\n8 LESSONSLEARNED\nDeepLearninginOpenCollaborations(DeDLOC)[17]algorithm,\nWefinditimportanttosummarizeourfindingsmoregenericallyto onwhichtheHivemindframework[39]isbased.Itcaninterpo-\nprovideguidanceforDLpractitionersthatwanttoperformdistri- latebetweentraditionaldistributedDLalgorithmslikeparameter",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "rDLpractitionersthatwanttoperformdistri- latebetweentraditionaldistributedDLalgorithmslikeparameter\nbutedspottraining.TheselessonsarebasedontheSections3to6. servers[25],decentralizedSGD[27],orAll-ReduceSGD[1].We\nSmallmodeltrainingstillscales.Wehaveshownthatmodels usedtheHivemindframeworkforallofourexperiments,asitpro-\nbetween12M-560Mparameterscanbetrainedinadecentralized, videdthebasefortrainingonspotinstancesinhighlatency,low\ndistributedfashionachievingaspeedupofupto4.37xoneight bandwidthnetworks.\nAmpere-GPUs.Thelimitingfactorastowhenamodelissuitable SWARM[37]appliesbothprevioustechniquesandaddsmodel\nfor(geo-)distributedtrainingisthetargetbatchsizewhichallpeers parallelismtothemixbycreatingpipelinesbetweennodesandre-\nneedtoaccumulateuntilsynchronizationhappens.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "arallelismtothemixbycreatingpipelinesbetweennodesandre-\nneedtoaccumulateuntilsynchronizationhappens.WefoundaTBS balancingthemincaseoffailures.Theauthorsfindacrucialinsight\nof32Ksuitabletonotonlytraininasinglezone,butevenseea inthe\"square-cube\"law,whicharguesforbettertrainingscalability\nspeedupwhenusingVMsinfourdifferentcontinents.Aslongasthe withlargermodelsizes;asthesizeincreaseslinearly,sodoesthecom-\noptimizercanhandlebig-batchtrainingandthedatasetisbigenough municationtime,whilethecalculationtimeincreasesquadratically.\ntoaccommodatelargebatches,theremainingissuetofindthebase Weaddtothatbyanalyzingdistributedtrainingforsmallermodel\ngranularityofthemodeltodecidehowtoscaleitcost-effectively. sizesthatposedifferenttrade-offs.Weshowthatwhilethesquare-",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "deltodecidehowtoscaleitcost-effectively. sizesthatposedifferenttrade-offs.Weshowthatwhilethesquare-\nFinally,wefoundthatsmallmodelsinducelesstrafficoverlarger cubelawstillholdsforincreasingmodelsizes,underconsideration\nmodelsovertime,evenatamuchhigheraveragingrate,making ofgranularity,wecanstilltrainsmallmodels.\nthembettersuitedforcost-efficienttrainingthanlargemodels. Decentralizeddeeplearningonheterogeneoushardwarewith\nEgresscostscantakeupmostofthetotalcost.Egresspricing slowinterconnectscanbenefitthetrainingoffoundationmodels.To\nfortheNLPexperimentsovertookthespotandtheon-demandcosts achievethis,modelandpipelineparallelismcanbeusedinaddition\nofT4GPUswhentrainingonfourcontinentsorevenintwozones. todata-paralleltraining[45].Thisisacomplementaryworktoours,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ainingonfourcontinentsorevenintwozones. todata-paralleltraining[45].Thisisacomplementaryworktoours,\nForexample,RoBERTaXLM’shighthroughputandparametercount sincewetargetsmallermodelsandweakerhardware.\nrequiremoredatatobesentbetweenpeersduringaveragingdueto Deeplearningonspotinstances.DeepSpotCloud[23]isa\nsmallergranularity.Underthecurrentpricingmodels,AWShasthe systemthatusestheAWSAPItoautomaticallymigrateaDLtask\nbestvalueforgeo-distributedtraining,whileGCandAzurearebest withcheckpointingwheneverthespotinstanceisterminated.The\nattraininginasinglezone.Thebiggestcost-savingpotentialliesin authorsnotethatthevolatilityofGPUinstancepricingandinter-\ncloudprovidersthatdonotchargeforegressatall,likeLambdaLabs. ruptionshaveauniquepatterncomparedtonon-acceleratedVMs,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ambdaLabs. ruptionshaveauniquepatterncomparedtonon-acceleratedVMs,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "andsolvethisbyusingintercontinentalprovisioning.Wenoticed 30\nthesametrendsofhighinterruptionratiosinourexperiments.How- 20 ever,wehaveshownthatgeo-distributedtrainingispossibleuntil 10\ngranularitypermitsit,whichposesapossibilityforever-migrating 0 trainingbetweencontinentswithoutcheckpointing. 1 2 3 T 4 4 Coun 5 t 6 7 8\nAmazonSagemaker[14]isanAWSservicethatallowstoperform\nMLunderbudgetconstraints.Fortraining,itsupportsspotVMmigra-\ntionuntilacostthresholdisreachedbycheckpointingtheprogress.\nHowever,itlackstheoptionoftrainingonmultiplespotVMs.Itcan\ndoeitherspotinstancetrainingonDGX-likenodesorcombinemul-\ntipleon-demandnodeswithPyTorchDDP(orsimilar),butnotboth.\nThiseliminatesthepotentialofacceleratingthetrainingprocess withmoreGPUsthatdonotfitasinglespot-provisionedhypervisor.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "otentialofacceleratingthetrainingprocess withmoreGPUsthatdonotfitasinglespot-provisionedhypervisor.\nTheanalysisbyYangetal.[42]investigatesmaximizingatar-\ngetaccuracyfromaspotpricingversustimeperspective.Linear\nprogrammingwasusedtodecidehowtoprovisiontheVMswith\ndifferentcost-utilitytrade-offs.Whilethisshowsthepotentialofuti-\nlizingmultiplecloudsandcontinentsfornon-distributedtasks,we\nevaluatedthedistributedspottrainingproblemfromthethroughput,\ncost,andmodelsizeperspectiveondifferenthardwaresetups.Byin-\ncludingourinsights,theirtechniqueforschedulingonspotinstances\ncouldbeadaptedtooptimizethetotalthroughputofallpeers.\nSkypilot[43]isabrokersystemwhereuserscansubmittheir\nhardwarerequirements,andittriestoprovisionthenecessaryre-\nsourcesonanysupportedcloud.Itfeaturesapreemptionanalysis",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ments,andittriestoprovisionthenecessaryre-\nsourcesonanysupportedcloud.Itfeaturesapreemptionanalysis\nthatcountsthenumberofinterruptionsinazoneandcandecideto\nmigratewhenevertheycrossacertainthreshold.Wehaveshown\nthatmulti-,hybrid-cloud,andgeo-distributedtrainingispossible,\nandbycombiningourinsights,itwouldopenupauto-migrated,\ndecentralizedDLtrainingforthebestspotpricesintheworld.\n10 CONCLUSION\nThispaperanalyzesmulti-andhybrid-cloudtraininginadecentral-\nizedfashiononspotinstances.Wedefinethelowerboundsofmodel\nsizesthatcanbescaledcost-efficientlyusingthegranularitymetricto\nestimatetheirsuitabilityfordistributedtraininginlow-bandwidth,\nhigh-latencysituations.Weshowthattrainingonmultiplecloud\nprovidersandfourcontinentsstillscaleswithadditionalcompute\nresources.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "howthattrainingonmultiplecloud\nprovidersandfourcontinentsstillscaleswithadditionalcompute\nresources.AlternativelytothecurrentuseofspotinstancesinDL,\nweshowthepotentialofusingspotinstancesinadistributed,de-\ncentralizedwaybybeingmorecost-efficientwitheightT4instances\noveraDGX-2fromthesamecloudproviderwhilepayingadditional\negresscosts.Finally,weprovideanintuitionaboutwherecostsin\nsuchatrainingscenariocomefromandhowdifferentmodelsizes\nfromCVandNLPaffectthroughputandcosts.Ourworkempowers\npractitionerstoutilizespot-pricedinstancesfordistributeddeep\nlearningwithrelativelysmallmodels.Ourinsightsshowsomepo-\ntentialthatcanfurtherimprovedistributedtrainingperformance,\nsuchasoptimizerswithhigherminibatchsizesandimprovements\nregardingthecommunicationtimewith,e.g.,bettercompression.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "rswithhigherminibatchsizesandimprovements\nregardingthecommunicationtimewith,e.g.,bettercompression.\n11 APPENDIX:ASRCASESTUDY\nWeperformacasestudyonAutomaticSpeechRecognition(ASR)\ntoshowcasespottrainingonweakerGPUs.Whisper[34]isastate-\nof-the-artASRmodeltrainedon680,000hoursoflabeleddatato\ndnoceS\nrep selpmaS\nTBS 300 256\n5 1 1 0 2 24 200 100\n0 2 4 8 2 4 8 2 4 8 T4 Count\n(a)Throughput\nsdnoceS\nni emiT\nCalculation 7.47 Communication TBS=512 TBS=1024\nTBS=256 3.80 2.91 1.86 0.42 0.57 1.36 0.40 1.17\n(b)Granuarity\nFigure16:WhisperSmallperformancewithvaryingTBS.\n40\n20\n0\n0 10 20 30 40 50\nCost in $ per 1M Samples\ndnoceS\nrep\nselpmaS\nA100 A100\n8xT4 8xT4 DDP 4xT4 DDP 4xT4\nInstance Type DDP 2xT4 4xT4 DDP 2xT4 1xT4 4xT4 Spot\nOn-Demand\n1xT4\nFigure17:CosttothroughputtradeoffforWhisperSmallat",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "2xT4 4xT4 DDP 2xT4 1xT4 4xT4 Spot\nOn-Demand\n1xT4\nFigure17:CosttothroughputtradeoffforWhisperSmallat\nTBS=1024withdifferentinstancetypes.Ourtrainingsetups\n(circled)providemixedresultofbeingslightlyfasterandmore\nexpensivethancomparable,centralizedDDPoffering.\ntranscribeaudio.Itfeaturesdifferentsizes,from37.8Mto1.5Bpa-\nrameters,andwastrainedwithaminibatchsizeof256.Weusethe\nCommonvoice[11]dataset,preprocessedtoLog-Melspectrograms.\nInourdistributedexperiments,westartwithaTBSof256andin-\ncreaseto512and1024tocombatpotentialgranularityissues.Dueto\nmemoryconstraints,onlythreemodelsizes(Tiny,Base,Small)were\ntrainableontheT4GPU.Unfortunately,theoriginalTBSof256was\nnotlargeenoughtotraintherelativelysmallmodelsduetotheir\nsmallgranularity(0.04,0.14and0.57at8xT4,respectively)withno\nperformancebenefits.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "allmodelsduetotheir\nsmallgranularity(0.04,0.14and0.57at8xT4,respectively)withno\nperformancebenefits.Theonlymodelshowingscalingpotentialis\nWhisperSmall,withagranularityof1.8with2xT4.However,when\nscalingthetargetbatchsizeto512and1024,weseesomebenefit\noverthesingleGPUrunsfortheWhisperSmallmodel(Figure16).\nByeffectivelyincreasingtheamountofcomputationbythefactors\nof2and4,wecangenerateaspeedupof1.27×and2.2×with8xT4’s\nfortheTBS512and1024,respectively.Whencomparedtoother\nhardwaresetups,ourA10080GBGPUandthebestmulti-T4GPU\nonGC(4xT4)withPytorchDDP(Figure17)havealmostdoublethe\nthroughputat46SPSandareslightlyslowerat24SPS,respectively,\ncomparedtoour8xT4setupwhichrunsat28SPS.Thisoutcomeis\nnotsurprisingduetothegenerationalleapinarchitectureforthe\nA100andtheslowerinterconnectwithour8xT4experimentscom-",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "duetothegenerationalleapinarchitectureforthe\nA100andtheslowerinterconnectwithour8xT4experimentscom-\nparedtoasingle4xT4node(seeSection3foradetailedthroughput\nanalysis).Theproposedcost-throughputratioismixed:theA100is\nat$12.19/1Msamples,theDDP4xT4isat$8.41/1M,andour8xT4is\nat$14.53/1M.Ourproposedsetupisslightlymoreexpensivethanthe\nA100,anditwillnotscalebeyondeightT4GPUsdueagranularity\nat1.17,leavingtheA100asthefastestandtheDDP4xT4setupasthe\ncheaperbutsloweralternative.Despitetheseresults,ourproposed\nsetuphasseveralbenefits,includingresilienceforspotinterruptions,\ninterruption-freemigrationtothelowestcloudprices,andthepos-\nsibilitytoscaletheGPUcountupaslongasgranularitypermitsit.\nACKNOWLEDGMENTS\nThisworkisfundedinpartbytheDeutscheForschungsgemeinschaft\n(DFG,GermanResearchFoundation)-392214008.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "ThisworkisfundedinpartbytheDeutscheForschungsgemeinschaft\n(DFG,GermanResearchFoundation)-392214008.",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\nnoceS TBS\n256\n20 512\nrep 1024\n10 selpmaS\n0\n1 2 3 4 5 6 7 8\nT4 Count | TBS\n256\n512\n1024 |  |  |  |  |  |  |  | 300 sdnoceS 7.47 Communication TBS=512 TBS=102\n200 TBS=256 3.80 2.91\n100 ni emiT 1.86 0.42 0.57 1.36 0.40 1.1\n0\n2 4 8 2 4 8 2 4 8\nT4 Count | Com\nTBS | munication\n=256 | TBS\n3.80\n1. | =512\n36 0.40 | 7.47\nTB\n2. | S=102\n91\n1.1\n |  |  |  |  |  |  |  |  |  | .86 0. | 42 0.57 |  |  |  | ",
+    "page": 12
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 12):\n | A100 | A | 100 |  | \n4 | 8xT4\nxT4 DD | P 4xT4 |  |  | 8xT4\n |  |  |  | I | nstance Type\n | DDP 2xT\n4xT4 | 4\n1xT4 | 4xT | 4 | Spot\nOn-Demand",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "REFERENCES\nstudyfordecentralizedparallelstochasticgradientdescent.Advancesinneural\n[1] [n.d.]. Horovod: fast and easy distributed deep learning in TensorFlow, informationprocessingsystems30(2017).\nauthor=Sergeev, Alexander and Del Balso, Mike, journal=arXiv preprint [28] YinhanLiu,MyleOtt,NamanGoyal,JingfeiDu,MandarJoshi,DanqiChen,Omer\narXiv:1802.05799,year=2018.([n.d.]). Levy,MikeLewis,LukeZettlemoyer,andVeselinStoyanov.2019.RoBERTa:A\n[2] 2023.AmazonAWS.Accessed:19May2023,aws.amazon.com. RobustlyOptimizedBERTPretrainingApproach.arXiv:1907.11692[cs.CL]\n[3] 2023.AmazonAWSSpotPricing.https://aws.amazon.com/blogs/compute/new- [29] ZhuangLiu,HanziMao,Chao-YuanWu,ChristophFeichtenhofer,TrevorDarrell,\namazon-ec2-spot-pricing/.Accessed:2023-09-27. andSainingXie.2022.Aconvnetforthe2020s.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "TrevorDarrell,\namazon-ec2-spot-pricing/.Accessed:2023-09-27. andSainingXie.2022.Aconvnetforthe2020s.InProceedingsoftheIEEE/CVF\n[4] 2023.Backblaze.https://backblaze.com/.Accessed:2023-10-05. ConferenceonComputerVisionandPatternRecognition.11976–11986.\n[5] 2023.GoogleCloud.Accessed:19May2023,cloud.google.com. [30] PeterMattson,ChristineCheng,GregoryDiamos,CodyColeman,Paulius\n[6] 2023.GoogleCloudRegionPicker.https://cloud.withgoogle.com/region-picker/. Micikevicius,DavidPatterson,HanlinTang,Gu-YeonWei,PeterBailis,Victor\nAccessed:2023-10-05. Bittorf,etal.2020.MLPerfTrainingBenchmark.ProceedingsofMachineLearning\n[7] 2023. HivemindGACIssue. https://github.com/learning-at-home/hivemind/ andSystems2(2020),336–349.\nissues/566.Accessed:2023-10-05. [31] PetarMaymounkovandDavidMazieres.2002.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ndSystems2(2020),336–349.\nissues/566.Accessed:2023-10-05. [31] PetarMaymounkovandDavidMazieres.2002. Kademlia:Apeer-to-peer\n[8] 2023.LambdaLabs.Accessed:19May2023,lambdalabs.com. informationsystembasedonthexormetric. InPeer-to-PeerSystems:First\n[9] 2023.MicrosoftAzure.Accessed:19May2023,portal.azure.com. InternationalWorkshop,IPTPS2002Cambridge,MA,USA,March7–8,2002Revised\n[10] AlexAizman,GavinMaltby,andThomasBreuel.2019.HighPerformanceI/O Papers.Springer,53–65.\nForLargeScaleDeepLearning.In2019IEEEInternationalConferenceonBigData [32] AdamPaszke,SamGross,FranciscoMassa,AdamLerer,JamesBradbury,Gregory\n(BigData).5965–5967. https://doi.org/10.1109/BigData47090.2019.9005703 Chanan,TrevorKilleen,ZemingLin,NataliaGimelshein,LucaAntiga,etal.2019.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "09/BigData47090.2019.9005703 Chanan,TrevorKilleen,ZemingLin,NataliaGimelshein,LucaAntiga,etal.2019.\n[11] RosanaArdila,MeganBranson,KellyDavis,MichaelHenretty,MichaelKohler, Pytorch:Animperativestyle,high-performancedeeplearninglibrary.Advances\nJoshMeyer,ReubenMorais,LindsaySaunders,FrancisMTyers,andGregor inneuralinformationprocessingsystems32(2019).\nWeber.2019. Commonvoice:Amassively-multilingualspeechcorpus. arXiv [33] GustavoPortella,GenainaNRodrigues,EduardoNakano,andAlbaCMAMelo.\npreprintarXiv:1912.06670(2019). 2019.StatisticalanalysisofAmazonEC2cloudpricingmodels.Concurrencyand\n[12] AlexanderBorzunov,MaxRyabinin,TimDettmers,QuentinLhoest,Lucile Computation:PracticeandExperience31,18(2019),e4451.\nSaulnier,MichaelDiskin,andYacineJernite.2022.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "le Computation:PracticeandExperience31,18(2019),e4451.\nSaulnier,MichaelDiskin,andYacineJernite.2022. TrainingTransformers [34] AlecRadford,JongWookKim,TaoXu,GregBrockman,ChristineMcleavey,and\nTogether.InNeurIPS2021CompetitionsandDemonstrationsTrack.PMLR,335–342. IlyaSutskever.2023.RobustSpeechRecognitionviaLarge-ScaleWeakSupervision.\n[13] AlexisConneau,KartikayKhandelwal,NamanGoyal,VishravChaudhary,Guil- InProceedingsofthe40thInternationalConferenceonMachineLearning(Proceed-\nlaumeWenzek,FranciscoGuzmán,EdouardGrave,MyleOtt,LukeZettlemoyer, ingsofMachineLearningResearch),AndreasKrause,EmmaBrunskill,Kyunghyun\nandVeselinStoyanov.2020.UnsupervisedCross-lingualRepresentationLearning Cho,BarbaraEngelhardt,SivanSabato,andJonathanScarlett(Eds.),Vol.202.\natScale.arXiv:1911.02116[cs.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ng Cho,BarbaraEngelhardt,SivanSabato,andJonathanScarlett(Eds.),Vol.202.\natScale.arXiv:1911.02116[cs.CL] PMLR,28492–28518. https://proceedings.mlr.press/v202/radford23a.html\n[14] PialiDas,NikitaIvkin,TanyaBansal,LaurenceRouesnel,PhilipGautier,Zohar [35] JeffRasley,SamyamRajbhandari,OlatunjiRuwase,andYuxiongHe.2020.\nKarnin,LeoDirac,LakshmiRamakrishnan,AndrePerunicic,IaroslavShcherbatyi, Deepspeed:Systemoptimizationsenabletrainingdeeplearningmodelswith\nWiltonWu,AidaZolic,HuibinShen,AmrAhmed,FelaWinkelmolen,Miroslav over100billionparameters.InProceedingsofthe26thACMSIGKDDInternational\nMiladinovic,CedricArchembeau,AlexTang,BhaskarDutt,PatriciaGrao,and ConferenceonKnowledgeDiscovery&DataMining.3505–3506.\nKumarVenkateswar.2020.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "karDutt,PatriciaGrao,and ConferenceonKnowledgeDiscovery&DataMining.3505–3506.\nKumarVenkateswar.2020.AmazonSageMakerAutopilot:AWhiteBoxAutoML [36] Jie Ren, Samyam Rajbhandari, Reza Yazdani Aminabadi, Olatunji Ruwase,\nSolutionatScale.InProceedingsoftheFourthInternationalWorkshoponData ShuangyanYang,MinjiaZhang,DongLi,andYuxiongHe.2021.ZeRO-Offload:\nManagementforEnd-to-EndMachineLearning(Portland,OR,USA)(DEEM’20). DemocratizingBillion-ScaleModelTraining.arXiv:2101.06840[cs.DC]\nAssociationforComputingMachinery,NewYork,NY,USA,Article2,7pages. [37] Max Ryabinin, Tim Dettmers, Michael Diskin, and Alexander Borzunov.\nhttps://doi.org/10.1145/3399579.3399870 2023. SWARM Parallelism: Training Large Models Can Be Surprisingly\n[15] JiaDeng,WeiDong,RichardSocher,Li-JiaLi,KaiLi,andLiFei-Fei.2009.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "arge Models Can Be Surprisingly\n[15] JiaDeng,WeiDong,RichardSocher,Li-JiaLi,KaiLi,andLiFei-Fei.2009.Imagenet: Communication-Efficient.arXivpreprintarXiv:2301.11913(2023).\nAlarge-scalehierarchicalimagedatabase.In2009IEEEconferenceoncomputer [38] Max Ryabinin, Eduard Gorbunov, Vsevolod Plokhotnyuk, and Gennady\nvisionandpatternrecognition.Ieee,248–255. Pekhimenko.2021. MoshpitSGD:Communication-EfficientDecentralized\n[16] TimDettmers.2016. 8-BitApproximationsforParallelisminDeepLearning. TrainingonHeterogeneousUnreliableDevices.InAdvancesinNeuralInformation\narXiv:1511.04561[cs.NE] ProcessingSystems,Vol.34. https://proceedings.neurips.cc/paper/2021/file/\n[17] MichaelDiskin,AlexeyBukhtiyarov,MaxRyabinin,LucileSaulnier,Anton 97275a23ca44226c9964043c8462be96-Paper.pdf",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "iskin,AlexeyBukhtiyarov,MaxRyabinin,LucileSaulnier,Anton 97275a23ca44226c9964043c8462be96-Paper.pdf\nSinitsin,DmitryPopov,DmitryVPyrkin,MaximKashirin,AlexanderBorzunov, [39] Learning@hometeam.2020. Hivemind:aLibraryforDecentralizedDeep\nAlbertVillanovadelMoral,etal.2021.DistributedDeepLearningInOpenCollab- Learning.https://github.com/learning-at-home/hivemind.\norations.AdvancesinNeuralInformationProcessingSystems34(2021),7879–7897. [40] ChathurikaS.Wickramasinghe,DanielL.Marino,andMilosManic.2021.ResNet\n[18] OElharrouss,YAkbari,NAlmaadeed,andSAl-Maadeed.[n.d.]. Backbones- Autoencoders for Unsupervised Feature Learning From High-Dimensional\nreview:Featureextractionnetworksfordeeplearninganddeepreinforcement Data:DeepModelsResistanttoPerformanceDegradation.IEEEAccess9(2021),",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "eeplearninganddeepreinforcement Data:DeepModelsResistanttoPerformanceDegradation.IEEEAccess9(2021),\nlearningapproaches.arXiv2022.arXivpreprintarXiv:2206.08016([n.d.]). 40511–40520. https://doi.org/10.1109/ACCESS.2021.3064819\n[19] AnneCElsterandTorAHaugdahl.2022.NVIDIAHopperGPUandGraceCPU [41] MitchellWortsman,TimDettmers,LukeZettlemoyer,AriMorcos,AliFarhadi,\nHighlights.ComputinginScience&Engineering24,2(2022),95–100. andLudwigSchmidt.2023. Stableandlow-precisiontrainingforlarge-scale\n[20] Wikimedia Foundation. 2023. \"Wikimedia Downloads\". https: vision-languagemodels.arXivpreprintarXiv:2304.13013(2023).\n//dumps.wikimedia.org [42] ShengYang,SamirKhuller,SunavChoudhary,SubrataMitra,andKanakMahadik.\n[21] KaimingHe,XiangyuZhang,ShaoqingRen,andJianSun.2016.Deepresidual 2022.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ataMitra,andKanakMahadik.\n[21] KaimingHe,XiangyuZhang,ShaoqingRen,andJianSun.2016.Deepresidual 2022.SchedulingMLTrainingonUnreliableSpotInstances.InProceedingsofthe\nlearningforimagerecognition.InProceedingsoftheIEEEconferenceoncomputer 14thIEEE/ACMInternationalConferenceonUtilityandCloudComputingCompan-\nvisionandpatternrecognition.770–778. ion(Leicester,UnitedKingdom)(UCC’21).AssociationforComputingMachinery,\n[22] Kai Hwang. 1992. Advanced Computer Architecture: Paral- NewYork,NY,USA,Article29,8pages. https://doi.org/10.1145/3492323.3495594\nlelism,Scalability,Programmability(1sted.).McGraw-HillHigherEducation. [43] ZonghengYang,ZhanghaoWu,MichaelLuo,Wei-LinChiang,RomilBhard-\n[23] Kyungyong Lee and Myungjun Son. 2017.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ghengYang,ZhanghaoWu,MichaelLuo,Wei-LinChiang,RomilBhard-\n[23] Kyungyong Lee and Myungjun Son. 2017. DeepSpotCloud: Leverag- waj, Woosuk Kwon, Siyuan Zhuang, Frank Sifei Luan, Gautam Mittal,\ning Cross-Region GPU Spot Instances for Deep Learning. In 2017 IEEE Scott Shenker, and Ion Stoica. 2023. SkyPilot: An Intercloud Broker for\n10th International Conference on Cloud Computing (CLOUD). 98–105. SkyComputing.In20thUSENIXSymposiumonNetworkedSystemsDesign\nhttps://doi.org/10.1109/CLOUD.2017.21 andImplementation(NSDI23).USENIXAssociation,Boston,MA,437–455.\n[24] Sungjae Lee, Jaeil Hwang, and Kyungyong Lee. 2022. SpotLake: Di- https://www.usenix.org/conference/nsdi23/presentation/yang-zongheng\nverse Spot Instance Dataset Archive Service.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "usenix.org/conference/nsdi23/presentation/yang-zongheng\nverse Spot Instance Dataset Archive Service. In 2022 IEEE Interna- [44] Yang You, Jing Li, Sashank Reddi, Jonathan Hseu, Sanjiv Kumar, Srinadh\ntional Symposium on Workload Characterization (IISWC). 242–255. Bhojanapalli,XiaodanSong,JamesDemmel,KurtKeutzer,andCho-JuiHsieh.\nhttps://doi.org/10.1109/IISWC55918.2022.00029 2019.Largebatchoptimizationfordeeplearning:Trainingbertin76minutes.\n[25] MuLi,DavidGAndersen,JunWooPark,AlexanderJSmola,AmrAhmed,Vanja arXivpreprintarXiv:1904.00962(2019).\nJosifovski,JamesLong,EugeneJShekita,andBor-YiingSu.2014.Scalingdistri- [45] BinhangYuan,YongjunHe,JaredDavis,TianyiZhang,TriDao,BeidiChen,\nbutedmachinelearningwiththeparameterserver.In11th{USENIX}Symposium PercySLiang,ChristopherRe,andCeZhang.2022.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "inelearningwiththeparameterserver.In11th{USENIX}Symposium PercySLiang,ChristopherRe,andCeZhang.2022. Decentralizedtraining\nonOperatingSystemsDesignandImplementation({OSDI}14).583–598. offoundationmodelsinheterogeneousenvironments. AdvancesinNeural\n[26] ShenLi,YanliZhao,RohanVarma,OmkarSalpekar,PieterNoordhuis,TengLi, InformationProcessingSystems35(2022),25464–25477.\nAdamPaszke,JeffSmith,BrianVaughan,PritamDamania,etal.2020.Pytorch [46] SergeyZagoruykoandNikosKomodakis.2016.Wideresidualnetworks.arXiv\ndistributed:Experiencesonacceleratingdataparalleltraining. arXivpreprint preprintarXiv:1605.07146(2016).\narXiv:2006.15704(2020).\n[27] XiangruLian,CeZhang,HuanZhang,Cho-JuiHsieh,WeiZhang,andJiLiu.\n2017.Candecentralizedalgorithmsoutperformcentralizedalgorithms?acase",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "2017.Candecentralizedalgorithmsoutperformcentralizedalgorithms?acase",
+    "page": 13
+  }
+]

@@ -1,0 +1,562 @@
+[
+  {
+    "type": "text",
+    "content": "SOCIO-TECHNOLOGICAL CHALLENGES AND OPPORTUNITIES:\nPATHS FORWARD\nAPREPRINT\nCarole-JeanWu SrilathaManne ParthasarathyRanganathan SarahBird ShaneGreenstein\nFacebook Facebook*(cid:5) Google Microsoft HarvardUniversity\nABSTRACT\nAdvancementsindigitaltechnologieshaveabootstrappingeffect.Thepastfiftyyearsoftechnological\ninnovations from the computer architecture community have brought innovations and orders-of-\nmagnitude efficiency improvements that engender use cases that were not previously possible –\nstimulatingnovelapplicationdomainsandincreasingusesanddeploymentsatanever-fasterpace.\nConsequently,computingtechnologieshavefueledsignificanteconomicgrowth,creatingeducation\nopportunities,enablingaccesstoawiderandmorediversespectrumofinformation,and,atthesame",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "tingeducation\nopportunities,enablingaccesstoawiderandmorediversespectrumofinformation,and,atthesame\ntime,connectingpeopleofdifferingneedsintheworldtogether. Technologymustbeofferedthat\nisinclusiveoftheworld’sphysical,cultural,andeconomicdiversity,andwhichismanufactured,\nused,andrecycledwithenvironmentalsustainabilityattheforefront. Forthenextdecadestocome,\nweenvisionsignificantcross-disciplinaryeffortstobuildacirculardevelopmentcyclebyplacing\npervasiveconnectivity,sustainability,anddemographicinclusionatthedesignforefrontinorderto\nsustainandexpandthebenefitsofatechnologicallyrichsociety. Wehopethisworkwillinspireour\ncomputingcommunitytotakebroaderandmoreholisticapproacheswhendevelopingtechnological\nsolutionstoservepeoplefromdifferentpartsoftheworld.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "reholisticapproacheswhendevelopingtechnological\nsolutionstoservepeoplefromdifferentpartsoftheworld.\nThisarticleisintendedtocapturetheISCApanelontheMicroprocessor50: SocietalChallenges(see\nhttps://www.iscaconf.org/isca2021/program/)fromthelensofcomputerarchitectsandthe\nfollowing discussions. This work represents the opinions of the authors and does not reflect the\npositionoftheirrespectivecompanies.\n*(cid:5)WillbewithFacebook;workstartedatMicrosoft.\nIntroduction\nDigitaltechnologieshavehadanundeniableinfluenceonhumanity’swell-being,transformingallaspectsofourlives.\nUnderpinnedbyadvancesinprocesstechnology,computerarchitecture,softwareengineering,andartificialintelligence\n(AI),therapidtechnologicaldevelopmentofthepastfivedecadeshasalteredthewaywelearn,work,commute,shop,",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "(AI),therapidtechnologicaldevelopmentofthepastfivedecadeshasalteredthewaywelearn,work,commute,shop,\nsocialize,eat,relax,andevensleep,bothdirectlyandindirectly. Atthepersonallevel,everyUShouseholdhasan\naverageof25connecteddevicessuchascellphones,tablets,laptops,gamingconsoles,wirelessheadphones,smart\nTVs,smartspeakers,fitnesstrackers,andconnectedfitnessmachines[Deloitte,2021]. Digitaltechnologieshavealso\nimpactedmajoraspectsofservicesthatweregularlyuseandrelyupon. Amazonwarehousesareequippedwithover\n200,000robotsin2020toboostoperationalefficiency[Ackerman,2021]. AI-poweredrobotsareagrowingpresencein\nthefarmingindustry[Sheikh,2020]. Medicinehasbeentransformedbytechnologicaladvancesleadingtothedecoding",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "farmingindustry[Sheikh,2020]. Medicinehasbeentransformedbytechnologicaladvancesleadingtothedecoding\nofthehumanegenome,resultingingeneticallytargetedtherapiesthathelpcancerpatientssurvivelongerorevenenter\nfullremission[Hum,2021]. Lookingahead,AIisshowinggreatpromiseinsolvingthegrandchallengeinbiology–\ntheproteinstructurepredictionproblem–whichcanonceagainleadtorevolutionarychangesinthefieldofbiological\nsciences [Jumperetal.,2021].\nTechnologyhasalsoaidedunder-privilegedandvulnerablegroupsinsurprisingways. Asanexample,cellphones\nempowerwomeninvulnerablesituationstostayconnectedwiththeworld,receiveeducationandnews,andestablish\nbusinesses to support their families [Pathak, 2021]. Emerging technologies such as surveillance cameras enable\nauthoritiestorespondtoviolenceandcurbcrimes.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "erging technologies such as surveillance cameras enable\nauthoritiestorespondtoviolenceandcurbcrimes. Dronesdeliverlife-savingmedicalsuppliesinrescues[Nyaabaand\n1202\nguA\n51\n]YC.sc[\n1v83760.8012:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nAyamga,2021]androbotsareemployedinfielddiscoverywheretheenvironmentisunsafeforhumans[Arnoldetal.,\n2018]. Themostrecentexampleisthepandemicwheredigitaltechnologiesempoweredsocietytostayconnectedand\nfunctioneffectively,andaidedindiseasetrackinganddrugdiscoverytolimitthespreadofthepandemic[Buddetal.,\n2020,Salathéetal.,2020,FacebookAI,2020].\nAdvancementsindigitaltechnologieshaveabootstrappingeffect. Thepastfiftyyearsoftechnologicalinnovationsfrom\nthecomputerarchitecturecommunityhavebroughtinnovationsandorders-of-magnitudeefficiencyimprovementsthat\nengenderusecasesthatwerenotpreviouslypossible–stimulatingnovelapplicationdomainsandincreasingusesand\ndeploymentsatanever-fasterpace.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ouslypossible–stimulatingnovelapplicationdomainsandincreasingusesand\ndeploymentsatanever-fasterpace. Consequently,computingtechnologieshavefueledsignificanteconomicgrowth,\ncreatingeducationopportunities,enablingaccesstoawiderandmorediversespectrumofinformation,andconnecting\npeopleofdifferingneedsintheworldtogether.\nMicroprocessors at 50\nDigitaltechnologieshavewitnessedsignificantadvancementoverthepastfivedecades.Thefirstcommercially-produced\nmicroprocessor–Intel4004–wasmanufacturedin10,000nmprocesstechnologyin1971,andranat740kHZwith\n2,250transistors[Intel]. Fiftyyearslater,thetypicalmicroprocessorismanufacturedina5+nmprocesstechnologyand\niscapableofrunningat5,000,000kHz(e.g.,[Intel,2019,AMD,2020])withmorethan3.9billiontransistors. Thisisa",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "apableofrunningat5,000,000kHz(e.g.,[Intel,2019,AMD,2020])withmorethan3.9billiontransistors. Thisisa\nmorethan6,750foldimprovementinprocessorclockspeedand1.7milliontimesmoretransistorsformicroprocessors\nmanufacturedin1971thanthatin2021.\nMoore’slawscalingunderpinstheevolutionofmicroprocessors[Moore,1965]. Thesteadydoublingoftransistor\ndensityenablesminiaturizationofcomputingsystems,fromlargemainframestopersonalcomputersandfrommo-\nbile/smartphonestoInternetofThings(IoTs)andAR/VRwearables. The1990swerethegoldenageofmicroprocessor\ninnovations. MicroarchitecturaloptimizationsenabledimpressiveILPscaling: mostnotably,in-ordervs. out-of-order\nexecution[Tomasulo,1967,Smith,1982a,HwuandPatt,1986],branchpredictors[Smith,1981,LeeandSmith,1984,\nPnevmatikatosetal.,1993,Yehetal.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "982a,HwuandPatt,1986],branchpredictors[Smith,1981,LeeandSmith,1984,\nPnevmatikatosetal.,1993,Yehetal.,1993,JimenezandLin,2001],caches[Smith,1982b,Hill,1988,Przybylski\netal.,1989,Jouppi,1990],prefetchers[BaerandChen,1991,Fuetal.,1992,FalsafiandWenisch,2014],singlevs.\nsimultaneousmultithreading[Tullsenetal.,1995,1996,NemirovskyandTullsen,2013].\nInthe2000s,microprocessorsfacedtwosignificantchallenges:\nthe memory wall [Wulf and McKee, 1996] and the power\nwall [Dennard et al., 1974, Bohr, 2007]. While processor\nfrequencies improved with Moore’s law scaling, memory la-\ntencydidnotandmemorysubsystemsincreasinglygatedper-\nformance. Furthermore,Dennardscalingcametoanendand\nfine-grained,highpowerdensitythermalhotspotslimitedthe\nperformanceofmicroprocessors.TheMemoryandPowerwalls",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ained,highpowerdensitythermalhotspotslimitedthe\nperformanceofmicroprocessors.TheMemoryandPowerwalls\nsubsequentlydrovedecadesofinnovationsinmulti-corescal-\ning[Olukotunetal.,2007],memoryconsistencyandcacheco-\nherence[AdveandGharachorloo,1996,Hill,1998,Sorinetal.,\n2011],cacheandmemoryhierarchyoptimization[Qureshietal.,\n2007,Jaleeletal.,2010,Wuetal.,2011,Balasubramonianetal.,\n2011,Sardashtietal.,2015,Balasubramonian,2019,Jainand\nLin, 2019], network-on-chip design and optimization [Dally\nFigure 1: PUE of hyperscalar datacenters, such as andTowles,2001,Wangetal.,2002,EnrightandPeh,2009,\nGoogle’s, has improved from 1.21 (2008) to 1.10 Jergeretal.,2017],andpower-andthermal-awaredesignand\n(2021) [Google, a] whereas the PUE of Facebook management[Brooksetal.,2000,BrooksandMartonosi,2001,",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "(2021) [Google, a] whereas the PUE of Facebook management[Brooksetal.,2000,BrooksandMartonosi,2001,\ndatacenters is 1.10 (2020) [Facebook] and the av- Skadronetal.,2003,KaxirasandMartonosi,2008,Själander\nerage PUE for a typical data center in 2020 is etal.,2014].\n1.58[Lawrence,2019,2020].\nDuring the same period, computations were migrating from\nclient/personaldevicestothecloud,demandingsignificantin-\nvestment in large-scale data centers [Barroso and Hölzle, 2009]. The location of these data centers is dictated by\na myriad of constraints – maximizing power and operational efficiency, proximity to population centers, weather\nconditions,localtaxbreaks–leadingtosomeinterestingtradeoffsinsize,location,andownership(onpremiseor\ncloud based) of the data centers.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "tosomeinterestingtradeoffsinsize,location,andownership(onpremiseor\ncloud based) of the data centers. In 2019, urban data centers that optimize for service latency responsiveness are\n26.7%smallerinsizethantheaveragedatacenteroperatedbythemajorcloudproviders[GreensteinandFang,2020].\nFurthermore,betweentraditionalandhighlyoptimizedhyperscaledatacenters,powerusageeffectiveness(PUE)hasa\nstarkdifference–morethan40%higherefficiencyforhyperscaledatacenters(Figure1). Goingforward,thedemand\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nonfast(er)serviceresponseandavailabilityisplayinganincreasinglysignificantroleondatacentersiteselectionand\ncomputinginfrastructuresconnectingtheedgeandthecloud.\nThe2010sisthegoldenageofdomain-specificarchitecturesandspecializedhardware,fueledbytheriseofbigdata\nand AI [Esmaeilzadeh et al., 2011, Jouppi et al., 2018]. The massive economic growth opportunities of AI have\nrevolutionizedtheentiresystemstackdesign,resultinginhardwaretailoredtomachinelearningexecution [Ovtcharov\netal.,2015,Chenetal.,2016,Jouppietal.,2017,Fowersetal.,2018,Shaoetal.,2019,Mattsonetal.,2020,Henryetal.,\n2020,Reddietal.,2021,Andersonetal.,2021,Jangetal.,2021,Thomptoetal.,2021,NVIDIA]frommegawattdata",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": ".,\n2020,Reddietal.,2021,Andersonetal.,2021,Jangetal.,2021,Thomptoetal.,2021,NVIDIA]frommegawattdata\ncenter-scaleinfrastructures,totensofwattsinferenceengines,tomicro-wattmicrocontrollersattheedge. Buildingon\ntopofdomain-specificcharacteristics,furthersystemefficiencycanbeextractedwitharicharrayofapplication-specific\nacceleratorsatthecloudscale[Tayloretal.,2020,Ranganathanetal.,2021].\nThelastfiftyyearsofdigitalproductshavebeendrivenbyacombinationofmarketinnovationanduserneeds. In\nsomecases,scientificcuriosity,coupledwithamarketneedforspecialtymedicaldrugsdroveinnovationssuchasthe\npursuitofthehumangenome. Inothercases, innovationscreatedamarketsuchasthecaseforsmartphones. The\navailabilityofsmartphonesledtofurtherinnovationsandmassivedisruptionsviasharingeconomycompaniessuch",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "availabilityofsmartphonesledtofurtherinnovationsandmassivedisruptionsviasharingeconomycompaniessuch\nasUberandAirBnB[Hamarietal.,2016]. Noneofthiswouldhavebeenfeasiblewithoutfundamentalinnovationin\nprocesstechnology,hardwareandsoftwaredesign,andalaserfocusonefficiency(Figure1),optimization(Figure2),\nandcostreduction. Altogether,digitaltechnologyadvancementhasledtoefficienciesofscalepropellingdecadesof\neconomicgrowth.\nThenarrowfocusonmarketability,efficiency,anddisrup-\ntiveinnovationhasalsoresultedinmanychallenging,and\nsometimesunexpected,societalissues. Examplesinclude\nwideningdisparityandinequityofaccesstodigitaltech-\nnologies,spreadofdisinformationandmisinformationin\nonlineplatforms,privacyandsecurityviolationsatboth\nthepersonalandpoliticallevel,andpropagationofhuman",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "lineplatforms,privacyandsecurityviolationsatboth\nthepersonalandpoliticallevel,andpropagationofhuman\nbiasintoAItrainingandusecasesat-scale[Simonsand\nJones,2012, Abelsonet al.,2015, Gervais etal., 2016,\nAhmedetal.,2017,Whittakeretal.,2018,Speicheretal.,\n2018,Chouldechovaetal.,2018,Ekstrandetal.,2018,\nSelbstetal.,2019,Alietal.,2019,Babaeietal.,2019,\nCrawford et al., 2019, Papakyriakopoulos et al., 2020,\nPark et al., 2021, Bender et al., 2021, Kleinberg and\nRaghavan,2021]. Inaddition,theinformationandcom-\nputingtechnologysectorsconsumeasignificantamount\nofglobalelectricity,water,andnaturalresources,leading Figure2: AsaresultofMoore’slawscalingandarchitec-\ntoparamountcarbonandenvironmentalfootprint[Jain turaloptimization,GPUtheoreticalperformance(GFLOPs)\nand Wullert, 2002, Strubell et al.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ootprint[Jain turaloptimization,GPUtheoreticalperformance(GFLOPs)\nand Wullert, 2002, Strubell et al., 2019, Manne, 2020, perwattdoublesevery3-4years [Sunetal.,2019].\nWuandGupta,2021,Guptaetal.,2021,Crawfordetal.,\n2021]. Digitaltechnologyisanintegralpartofhumanexistence. Asthefieldmaturesandastheworldfacesdire\nchallengesfromclimatechangetosocietalandpoliticalupheavals,adeliberateapproachisrequiredtotechnological\ninnovationthatcentersonapositivesocietalimpactwhileservingtheneedsofamarketeconomy.\nLooking to the Future\nPredictingthefutureisalwaysdifficult. Howmanyofuscouldhavepredictedthatthetechnologydepictedinfuturistic\nTVshowsfromfivedecadesagosuchasStarTrekwouldbecommonplacetoday(cellphones,AI,voicerecognitionto\nnameafew)? However,whatispossibletoforetellarethefollowing:",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "etoday(cellphones,AI,voicerecognitionto\nnameafew)? However,whatispossibletoforetellarethefollowing:\n• PervasiveConnectivity: theinternetandthetechnologyenablingitwillbecomeevenmorefundamentalto\neverydaylife,requiringthatinformationandcommunicationtechnologyinfrastructure,justlikepowergrids,\nbebothsecureandresilient;\n• Sustainability: Environmentalpollution,resourcedepletionandclimatechangewilldominatehowproducts\naredesigned,produced,consumed,andrecycled. Systemsmustbemanufacturedwithlessplanetaryimpact,\nuselessenergywhileinoperation,andproducelesse-wasteattheendoflife;and\n• DemographicInclusion: Massivedemographicupheavalsresultinginanagingpopulationinmostofthe\nworldandrisingpopulationcentersinSub-SaharanAfricawillinfluencewhatproductsarecreatedandfor",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "stofthe\nworldandrisingpopulationcentersinSub-SaharanAfricawillinfluencewhatproductsarecreatedandfor\nwhom,andwheretechnologyisdesignedanddeployedinthefuture.\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nPervasive Connectivity. In2021,approximately65%oftheworld’spopulationhasaccesstotheinternet[Lin,\n2021],andthisisexpectedtoimprovemovingforward. Seamlessconnectivitywillberequiredforeverydayactivities\nfromorderinggroceriestodrivingyourcar. Thereareadvantagestoconnectivityfrommoreefficientdrivingandless\nfoodwaste,easyaccesstoeducationalresources,andtheabilitytoworkremotely. However,whatthisalsoimpliesis\nthatourlivesandlivelihoodswillbeinexorablylinkedtotheaccessibility,privacy,security,andresilienceoftheIT\ninfrastructure.\nReliable internet access for the world’s population is an essential requirement of pervasive connectivity. Despite",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "et access for the world’s population is an essential requirement of pervasive connectivity. Despite\nthepositivesocietalandeconomicalimpact,at-scalepowerdeliveryandnetworkinginfrastructuredevelopmenthas\nproventobecostlyandhighlygeographically-constrained. AccordingtoananalysisfromtheFCC,atleast18million\nAmericansdidnothavestablebroadbandin2020[Wheeler,2020],andmanywhohaveaccessmaynotbeableto\naffordit. AccordingtoarecentUNreport,two-thirdsofschoolagechildrendonothaveaccesstotheinternetintheir\nhome[unicef,2020]. Diversetechnologyinnovationsareparticularlyneededtoincreaseinformationaccessibility\nandtoconnectpeopleofdifferingneedsintheworldtogetherinaresilientmanner. MicrosoftAirband[Microsoft,",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "andtoconnectpeopleofdifferingneedsintheworldtogetherinaresilientmanner. MicrosoftAirband[Microsoft,\na] aims to expand broadband access in rural parts of the United States while Google Loon [Loon] and Facebook\nAquila[Wikipedia]provideaffordablehigh-speedinternettounder-connectedcommunitiesbyovercomingphysical\nbarrierswithinnovativetechnologysolutions. Therecentsuccessofplacinginternetcommunicationsatellitesinlow\nEarthorbitopensthedoortotremendousopportunitiesforprovidinginternetaccesstopopulationsinchallenging\ngeographiclocations[Starlink]. Whilesatellitecommunicationremovesthegeographicalandpoliticalboundaries,it\ncanacceleratethespreadof(mis)information. Thus,astechnologiescontinuetoenablepervasiveconnectivityatscale,\nwemusttakeadeliberateapproachtodeveloptechnologysolutionsresponsibly.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "pervasiveconnectivityatscale,\nwemusttakeadeliberateapproachtodeveloptechnologysolutionsresponsibly.\nAlongwithpervasiveconnectivitycomestherequirementsforsecurityandprivacygiventheprevalenceofransomware\nattacksandongoingprivacyhacksfrombothprivategroupsandnationstates. Manyaspectsofourpublicandprivate\nliveswillbeonlineandaccessibletobadactors, andtheinternetandthetechnologyitenableswillcontinuetobe\nsusceptiblewithoutstrongsecurityandprivacymeasuresinplacefromthetopofthesoftwarestacktotheunderlying\nhardwarerunningthecode[Lippetal.,2018,Kocheretal.,2019].\nTheITinfrastructure,justlikeinothercriticalinfrastructuresuchastelecommunicationandpowerdelivery,willrequire\nbackupandrecoverymechanismsinordertominimizeoreliminatedowntime. Thesealreadyexistinclouddatacenters",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ackupandrecoverymechanismsinordertominimizeoreliminatedowntime. Thesealreadyexistinclouddatacenters\nwithexamplessuchasredundantstorage[Microsoft,2021a]andnetwork[Microsoft,2021b],andbackupbatteriesand\ngenerators. However,redundancycanrequiresignificantadditionalhardwareandnetworkbandwidthwhichinflatesthe\ncostoftheoverallcloudinfrastructure.\nRecentclimateeventsarepushingtheissueofresiliencytotheforefront. IntheTexaspoweroutagesof2021,many\ntop-tierdatacenterswereabletocontinueoperationsusingdieselbackupgenerators. However,thereisalimittohow\nlongbackupsystemscanoperategiventhefiniteamountoffuelonsiteandweatherconditionsmakingitdifficultto\ntransportmorefueltothedatacenter[Sverdlik,2021]. Ascatastrophicweathereventsbecomemorecommonand",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "tto\ntransportmorefueltothedatacenter[Sverdlik,2021]. Ascatastrophicweathereventsbecomemorecommonand\nlastlongerduetoclimatechange,eventhelargestdatacentersmayhavetrouble[DepartmentofEnergy,2019]. For\ninstance,thelatestfiresinOregonbroughtdownmajorpowergridinfrastructurethatconnectsthegridsofCaliforniato\nOregonatthesametimeasaheatwaveresultedinaneedforadditionalpowerforcooling[Roth,2021]. California\nnarrowlyescapedrollingblackoutsthistime,buttheseeventswillcontinuetoincreaseinintensityandfrequencyashot\nanddryconditionslengthenandstrengthenthefireseason,reducehydro-electricpowerduetoalackofwater,and\nincreasetheneedforpowerforhumancomfortandsurvival.\nForITinfrastructuresofthefuture,aone-size-fits-allsolutionmaynotworkeitherforthetypeofdatacenterorforthe\nservicesthatitprovides.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ure,aone-size-fits-allsolutionmaynotworkeitherforthetypeofdatacenterorforthe\nservicesthatitprovides. Largedatacentersthatrequiremanymegawattstooperatemaynotbeviableduringablackout\nwithlimitedpowerandwherecriticaloperationssuchashospitalsaregivenpriority. Smallerdatacentersmaybemore\nresilienteitherwithbackupgeneratorsorusingalocalmicro-gridtorunoperationswhenthemaingridisdown. On\ntheserviceside,someapplicationsmaybemoretolerantofoutagesthanothers. Hence,withalimitedpowerbudget,\napplicationavailabilityshouldbetieredduringcriticaltimes. Othersolutionsincludemakingapplicationsresilientby\ndesignormoreamenabletomigrationtoanon-impacteddatacentergivenenoughwarningbeforecatastrophicevents\noccur[Hornsby,2018,GoogleCloudArchitectureCenter].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "centergivenenoughwarningbeforecatastrophicevents\noccur[Hornsby,2018,GoogleCloudArchitectureCenter].\nDesigningforresilienceaddressesissuesthatarenotjustrelatedtoresilienceunderclimateduressbutalsosolutionsthat\naretolerantofdifferentgeographies,powerandnetworkinginfrastructures. Inordertoachievepervasiveconnectivity\nacrosstheworld,ITinfrastructuremustbeavailableacrossdevelopedanddevelopingregions. InAfrica,forexample,it\nisdifficultandexpensivetodevelopapowergridthatcanservesuchalargecontinent. Renewables,however,have\nthebenefitofbeingportableandscalable,andarepoweringmuchofAfrica’slatestpoweradvances,withoff-gridand\nmicro-gridrenewableenergysolutionsservingpoorerand/ornon-centralizedcommunities[TheWorldBank,2020].",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "micro-gridrenewableenergysolutionsservingpoorerand/ornon-centralizedcommunities[TheWorldBank,2020].\nDatacentersservingtheseregionsmayalsohavetorelyonmicro-gridsrunningonrenewableenergythatfluctuate\nin their capacity based on the weather. Hence, rather than designing for a resilient and consistent power grid, IT\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\ninfrastructuremaybebetterservedby(co-)designingagileapplicationsanddatacenters,suchas[ÍñigoGoirietal.,\n2015,Radovanovicetal.,2021,Linetal.,2021,Zhangetal.,2021],thatimplicitlyassumepowerfluctuationsand\nvariability.\nAchievingpervasiveconnectivityinthepresenceofresiliency,security,andprivacyrequirementscanbechallenging\ngiventheinterrelatednatureoftheproblems. Forinstance,currentapproachestoachievingresilientcomputingoften\nrelyonreplicationandredundancywhichnotonlyincreasescostbutalsoenlargesthesurfaceofsecurityandprivacy\npreservation. Migratingapplicationstoanotherregion,whichmaybenecessaryduetopowerconstraints,canexpose\ndatatofurthersecuritythreats.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ionstoanotherregion,whichmaybenecessaryduetopowerconstraints,canexpose\ndatatofurthersecuritythreats. Toretainphysicalsecurityofdata,applicationsmaybehostedinlimitedgeographical\nregionsbutthiscanincreaseapplicationvulnerabilitytocatastrophicevents. Inaddition,secureandresilientcomputing\ninfrastructures can often come with significant environmental implications. Hence, any computing infrastructure\nsolutionsmustbecognizantofthemultifacetednatureoftheproblemsbeingaddressed.\nSustainability. Resourcelimitations,climatechange,waterdepletion,electronicwaste,ecosystemdamage,and\nenvironmentalracismarejustafewofthetopicsunderthelargersustainabilityumbrella. Thereisincreasedfocuson\nthesetopicsfrombothindustrialandpoliticalinstitutions. Allmajortechnologycompanieshavepledgedtoreduceor",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "etopicsfrombothindustrialandpoliticalinstitutions. Allmajortechnologycompanieshavepledgedtoreduceor\neliminatetheircarbonfootprintinthenextdecadebyreducingtheenvironmentalimpactassociatedwithmanufacturing\nandusingtheirproducts. ExamplesofsuchcommitmentsareFacebookachievingNetZeroinoperationalemissions\nin 2020 and across its value chain by 2030 [Facebook], Apple’s pledge for 100% carbon neutral supply chain by\n2030[Apple],Microsoft’sgoalofbeingcarbonnegativeby2030[Smith],andGoogle’saimof24x7carbonfreedata\ncenters[Google,b]. In2020,Amazon,Google,Facebook,andMicrosoftwerethetopfourtechnologycompanies\nthatpurchasedsignificantrenewableenergycapacities,accountingfor30%ofthecumulativetotalfromcorporations\nglobally[Schechner,2021].",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "wableenergycapacities,accountingfor30%ofthecumulativetotalfromcorporations\nglobally[Schechner,2021]. Inaddition, countriesandtradingzonesarelegislatingcarbonemissionrequirements.\nChinahascommittedtobecarbonfreeby2060[Myers,2020]andtheEUhascommittedtocutcarbonemissionsby\n55%by2030[BBC,2021].\nSustainabilitytargetsandtheassociatedregulationswillcontinuetoincrease,andhardwaremustbemanufacturedwith\nlessplanetaryimpact,uselessenergywhileinoperation,andproducelesse-wasteattheendoflife[Orcuttarchive,2015,\nChangetal.,2017]. ExistingpracticessuchasthemovetohyperscaledatacentershavealreadyreducedIT’scarbon\nfootprintbyconsolidatingandsharingcomputingresources,andoperatingthoseresourcesmoreefficiently(Figure1)\n–AWS[Amazon,2019],Azure[Microsoft,2020],Googlecloud[EvansandGao,2016],andFacebookdatacenter",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "igure1)\n–AWS[Amazon,2019],Azure[Microsoft,2020],Googlecloud[EvansandGao,2016],andFacebookdatacenter\ninfrastructures[LeeandRowe,2020]. Infact,datacenterelectricityconsumptionhassloweddownsignificantly. The\ntotalenergyconsumptionoftheUSdatacentersincreasedbyabout4%from2010-2014,comparedwiththeestimated\n24%increasefrom2005-10andnearly90%increasefrom2000-05[Masanetetal.,2020]. Furthermore,despitethe\nincreaseintheglobaldatacenterenergyuse,thenumberofusersbenefitingfromthecloudinfrastructurehaveincreased\nevenmore—from2010-18, theglobaldatacentercomputeinstancesincreasedby5.5timeswithanestimated6%\nincreaseintheglobaldatacenterenergyuse.\nHowever,morecanbedone–wemustgobeyondefficiencyoptimizationandbuildasustainableecosystemtoachieve\nenvironmentally-sustainablecomputing.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ndefficiencyoptimizationandbuildasustainableecosystemtoachieve\nenvironmentally-sustainablecomputing. Forinstance,developexpandablehardwareandsoftwarestackthatfacilitate\nsignificantlylongerlifetimesthanthecurrentaveragesoflessthan3yearsforcellphones[Cordellaetal.,2020]and4\nto5yearsforservers[AsciertoandLawrence,2020]. Modularsystemdesignwillenablecomponent-levelupgrades\nwithouthavingtodecommissionthesystematitsentirety,reducingoverallelectronicwasteandtheenvironmental\nfootprint[Fairphone]. Otheractionsbeingdiscussedorimplementedrequiremanufacturerstomaketheirsystemsmore\nrepairable,resultinginincreasedproductlifetime[WiensandGordon-Byrne,2017,Alsever,2021]. Anotheroptionis\ntoreducethenumberofdevicesinanaveragehousehold. IntheUS,forexample,theaveragehouseholdisequipped",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "is\ntoreducethenumberofdevicesinanaveragehousehold. IntheUS,forexample,theaveragehouseholdisequipped\nwithanaverageof25connecteddevices[Deloitte,2021]. Inmanycases,smartphonesmightbepowerfulenoughfor\nthetask,butatabletorlaptopisneededforaviablekeyboardoralargerviewingplatform. Someoftheseadditional\ndevicescouldbereplacedwithavirtualrealityoraugmentedrealitysolutionthatisbothportableandcanprovide\nvirtualkeyboardsandvisualclaritywithoutrequiringadditionalhardware. Toachieveanenvironmentallysustainable\ncomputingfuture,wewillhavetobuildacirculareconomyforcomputingthatsupportsthedesignprincipleofreduce,\nreuse,repair,andrecycle. Theseandotherpotentialsolutionslikelyrequireacompleteredesignofthesoftwareand",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "se,repair,andrecycle. Theseandotherpotentialsolutionslikelyrequireacompleteredesignofthesoftwareand\nhardwarestacksbothattheedge,withinthecloud,andintheedge-cloudcollaborativeexecutionenvironment,inorder\ntoprovideresilient,longlasting,innovativesolutions.\nMakingtechnologymoresustainableisonlyonepartofthetechnicalchallenge.Thereisanothersidetothestory—there\naresignificantsustainabilitybenefitsresultingfromcomputingtechnology. Programs,suchasFarmBeats[Microsoft,\n2015], addresshowtooptimizeoperationsonafarmusingtechnologythatisinexpensiveandreadilyavailableto\npeopleinruralareas. Foodproductionaccountsfor19%oftheworld’scarbonemissions,andproducingfoodmore\nefficientlyandwithlesstoxicityhaslongtermbenefitsfortheworld[Gates,2021]. Fortheresidentialsectorinthe",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "icientlyandwithlesstoxicityhaslongtermbenefitsfortheworld[Gates,2021]. Fortheresidentialsectorinthe\nUS,spaceheatingandcoolingcontributedtoover40%ofthetotalelectricityconsumption[U.S.EnergyInformation\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nAdminstration]. ThisiswheresmarthomeIoTdevices,suchasNest,canhaveanimpact. AIisusedtodiscovernew\nelectrocatalystsformoreefficientandscalablewaystostoreanduserenewableenergy[Zitnicketal.,2020]whilealso\nbeingusedtopredictrenewableenergyavailabilityaheadofactualgenerationtobetterutilizetheenergy[Elkinand\nWitherspoon]. AnotherexampleisthecurrentCovidoutbreak. Ashorrendousastheoutbreakhasbeenandcontinues\ntobe,technologyhasenabledaportionoftheeconomytocontinuetooperateevenasemployeesworkremotely. In\naddition,theglobalcarbonemissionsfor2020droppedby6.4%withvehicletransportationintheUSaccountingfora\nportionoftheglobalreduction[Tollefson,2021]. Lookingforward,informationtechnologycanimproveefficiencies",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ionoftheglobalreduction[Tollefson,2021]. Lookingforward,informationtechnologycanimproveefficiencies\ninpracticallyeverysector,frommanufacturingtofoodproductiontotransportationtocontrollingtheclimateinour\nhomesandoffices. AlthoughthereisacarboncostassociatedwithmanufacturingandoperatingtheITecosystem,this\ncostmustbeevaluatedholistically[Changetal.,2010,Bardonetal.,2020,Guptaetal.,2021,Pattersonetal.,2021]in\nlightofthebenefitssuchanecosystemcanprovideinotherdomains[Hageretal.,2019,Tomasevetal.,2020,Mulhern,\n2021,UnitedNation,2021].\nDemographicInclusion.Recentdatahaspointedtosignificantdemographicchangesthatwillbeoccurringbythe\nyear2100[Vollsetetal.,2020]. Theseincludearadicallydecliningand/oragingpopulationinEurope,NorthAmerica",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "r2100[Vollsetetal.,2020]. Theseincludearadicallydecliningand/oragingpopulationinEurope,NorthAmerica\nandAsia,andanincreasingpopulationofyoungerworkersinSub-SaharanAfrica. Figure3showsonepopulation\nprojectionusingdatafromtheUnitedNations[Roser,2019],indicatingflatteningordecreasingpopulationsinmost\nof the world except for Africa. The population decline is strongly correlated with an improved quality of life and\neducationalachievementofwomen–muchofwhichisbeingfacilitatedbytechnologicallyengendereddevelopments\nsuchasportabledevicesandtheinternet–alongwithaccesstoreproductiveservices. Thistrendholdsregardlessof\nthecountry,culture,orreligion. Thesedemographicchangeswillhaveaseismicimpactonallsocieties,andwillalso\ndominatewhatandwheretechnologyisdesignedanddeployed,respectively,inthefuture.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "societies,andwillalso\ndominatewhatandwheretechnologyisdesignedanddeployed,respectively,inthefuture.\nFortechnologytobetrulyinclusiveinafully-connectedworld,itmustbeavailableandusableforeveryone–regardless\nofphysicalcapabilities,geographicrestrictions,oreconomicconstraints. Withtheprojecteddemographicchanges,\nassistive technologies to address the needs of an aging population with physical restrictions will be essential for\nenhancinganindividual’sabilitytobeaviableandcontributingmemberofsociety.\nThereisarichhistoryofintersectionbetweenassistive\ntechnologyandeverydayproducts. Wordpredictionwas\nusedasanassistivetechnologyaidforindividualswith\nphysicalordevelopmentaldifficultiesbeforebecoming\nmoremainstream[Jacobs,2015]. Closecaptioninghelps\nthehearingimpaired,butitisalsousedbypeoplewith",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ng\nmoremainstream[Jacobs,2015]. Closecaptioninghelps\nthehearingimpaired,butitisalsousedbypeoplewith\naverage hearing to capture the conversation in a noisy\nenvironmentortohelpwithaccentsinthedialogue. The\nreverseisalsotrue–someofthemostinnovativetech-\nnologiesinthelastfewyearsarealsoinclusiveofpeople\nwith physical limitations. Smart speakers, such as Siri\nor Alexa, enable people with limited sight or physical\nmobility to communicate via verbal commands. Indi-\nvidualswithhearingissuescanusetheirAppleAirPods\nasbasichearingaids[Haselton,2019],andpeoplewith\naveragehearingcanuseAI-enabledvoiceassistantsto\neliminatebackgroundnoiseandfocusontheconversation\nFigure 3: Population growth estimation based on United\nathand[Nachmanietal.,2020]. Forthesightimpaired,",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "re 3: Population growth estimation based on United\nathand[Nachmanietal.,2020]. Forthesightimpaired,\nNationsmediumgrowthprojections[Roser,2019].\nvirtualrealityglassesareimprovingtheeyesightofpa-\ntientswithdegenerativeeyedisease[Fearn,2020].\nThevirtualofficetechnologyandworkculturedevelopedduringtheCovidpandemicwillcontinuetobenefitindividuals\nwith physical limitations who may be unable to travel to work. Similarly, with the largest population of young\nworkersresidinginAfricaoverthenextdecades,innovativevirtualofficetechnologythatcancreateseamlesscohesion\nacrossgeographiesandcultureswillbecriticaltoeconomicsuccess. Lookingtothefuture,thereisacleardemand\nfor high-quality virtual reality experience in the first-person perspective. However, realizing smooth virtual space",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "virtual reality experience in the first-person perspective. However, realizing smooth virtual space\nexperience requires disruptive technology innovations – hardware architectures beyond Von Neumann, high pixel\ndensity displays [Ghosh et al., 2016, Kubota, 2020], near/in-sensor computing [Kodukula et al., 2021], flexible\nelectronics[MacKenzieandHo,2015],orevenbrain-computerinterfacesolutions[Brunneretal.,2011,Karageorgos\netal.,2020].\nAnotherrequirementofinclusivetechnology,especiallyinlightofprojecteddemographicchanges,isthatitmustoperate\nacrossdifferentgeographicboundaries. In2021,muchofmoderntechnologyassumessomedegreeofdevelopment\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nandinfrastructure,whetheritbeavailabilityofthelatestcomputingsystems,broadbandaccess,celltowersorpower\nsources. However,muchofthecurrentworld,includingpartsofdevelopedcountries,donotcurrentlyhaveunfettered\naccesstothesefacilities. Evenmoredaunting,approximately770millionpeople,orabout1outof10peopleinthe\nworld,donothaveaccesstoastablesupplyofelectricity[InternationalEnergyAgency].\nInordertomeettheupcomingneedsoftheworld,technologicalgrowthandresourcesmustfocusonunder-served\nareas. This includes developing data centers for regions that may not have a resilient power infrastructure or an\ninfrastructurethatisbasedonlocalrenewableenergysourcesanddoesnottapintoaregionalgrid. ITdevicesmustbe",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "frastructurethatisbasedonlocalrenewableenergysourcesanddoesnottapintoaregionalgrid. ITdevicesmustbe\noperableunderadverseconditionswherethelocalnetworkand/orpowermaynotbeavailable24/7orvariesbasedon\nexternalconditions[IsaacmanandMartonosi,2011,Hesteretal.,2013,Luciaetal.,2017,Saleemetal.,2020]. For\ninstance,devicesneedtooperatefordayswithoutarechargeormustoperatelocallyuntilwirelessorbroadbandis\navailable[YetimandMartonosi,2015]toensuredelaytolerancewhilemaintaininguserexperiences. Energystorage\ntechnologyplaysacrucialroletosmooththeintermittentnatureofrenewableenergygenerationbutthecostmustbe\nsignificantlyimprovedforpracticaldeployment[Plumer,2021]. And,fortechnologytobetrulyinclusive,thewayAI",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "nificantlyimprovedforpracticaldeployment[Plumer,2021]. And,fortechnologytobetrulyinclusive,thewayAI\ntechnologiesaredevelopedandusedmustbehuman-centered,drivenbytheculturalanddemographicdifferencesin\nthepopulationandwithpro-socialgoals[Stray,2021]. Furthermore,givenitsincreasinglylargeimpactonthesociety,\nAImustbedevelopedwithdeliberationtoconstructfairerandmoreinclusivedecisionsand,atthesametime,itmust\nbeadoptedresponsibly[Askelletal.,2019,NIST,2021]. AI-poweredproductsmustbetransparentwithusersonhow\ndataisgathered,used,andstored,andwithcontrolstodisableit[IBM,Microsoft,b,Google,c,Facebook,DOD].\nFinally,anyITtechnologymustbeeconomically-accessibletomostoftheworld’spopulation. Unfortunately,eventhe\nmostbasicformofcomputingdevices,acellphone,isprohibitivelyexpensiveformuchoftheworld.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "nately,eventhe\nmostbasicformofcomputingdevices,acellphone,isprohibitivelyexpensiveformuchoftheworld. Accordingtothe\nAllianceforAffordableInternet,nearly2.5billionpeopleliveincountrieswhereabasiccellphonewouldcostnearlya\nquarterormoreoftheaveragemonthlyincome[Roser,2020]. Makingtheinternetavailabletoeveryonewillnotsolve\ntheproblemifthedevicescommonlyusedtoaccesstheinternetarealuxuryitemfortheworld’spoor[Naseemetal.,\n2020]. Inaddition,manyofthedevicescurrentlybeingusedareinexpensivebasicphones. Hence,solutionsmustbe\ndesignedfor“dumb”phonesinordertoreachthepoorestcommunities. Evenifuserseventuallyhavesmartphones,data\nratesandlackoffreewifiwilllimittheutilityofdata-heavyapplications. Withoutreasonabledeviceandapplication",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "andlackoffreewifiwilllimittheutilityofdata-heavyapplications. Withoutreasonabledeviceandapplication\navailabilityforthepoorestcommunities,reachingthegoalofpervasiveconnectivitywillbedifficultifnotimpossible\nandthedigitaldividewillcontinuetowidenbetweentherichandthepoor. And,alltechnologicalsolutionscomewith\nenvironmentalimpactthatwillinadvertentlyimpactthemarginalizedcommunitiesthemost. Thus,whendeveloping\ntechnological solutions, we must keep in mind why products are created and for whom, and where technology is\ndesignedanddeployed,suchthatweconsciouslybuildenvironmentally-sustainable,socially-responsible,inclusive\ntechnologiesforthenextdecadestocome.\nConclusion\nPredicting the innovations of the future is a difficult if not impossible task. However, the political, societal, and",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ovations of the future is a difficult if not impossible task. However, the political, societal, and\nenvironmentalchallengestheworldfacesareclear,andtechnologycanplayasignificantroleinhelpingsocietiesadapt\nandthrive. Theproblemsandsolutionsinthethreedomainsofpervasiveconnectivity,sustainability,andinclusion\nareinterconnectedandmustbeaddressedholistically. Forinstance,adaptingtheITinfrastructuretoclimatechange\nmust not in turn make climate change worse. Making innovative devices and software to address the needs of an\nagingpopulationdoesnotmeanthatpoorerpopulationsinotherregionscanbeignored. Andpopulationdeclinedoes\nnotfullyaddresssustainabilityconcerns–asstandardoflivingimproveswiththehelpoftechnology,theper-capita\nenvironmentalfootprintofthepopulationalsoincreases[O’Neilletal.,2018].",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "elpoftechnology,theper-capita\nenvironmentalfootprintofthepopulationalsoincreases[O’Neilletal.,2018]. Technologymustbeofferedthatis\ninclusiveoftheworld’sphysical,cultural,andeconomicdiversity,andwhichismanufactured,used,andrecycledwith\nenvironmentalsustainabilityattheforefront. Wehopetoinspireourarchitecturecommunitytotakebroaderandmore\nholisticapproacheswhendevelopingtechnologieswhichincludeadeeperunderstandingofthebiological,societal,\ncultural,environmental,political,andeconomicimplicationsoffuturetechnologicalinnovations. Tosummarize:\n• Buildresilient,secureinfrastructures–software,hardware,andeverythingin-between–forthecomputing\nspectrumofsystemsatallsizesandscales.\n• Designfortheentiresystemlifecyclefrommanufacturingtoend-of-lifeandfortheentiresoftwaredevelop-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "s.\n• Designfortheentiresystemlifecyclefrommanufacturingtoend-of-lifeandfortheentiresoftwaredevelop-\nmentcyclefromexperimentationtodeployment. Buildenvironmentally-sustainablesystems,software,and\nalgorithms–beyondenergyefficiency.\n• Broadenthescopeoftechnologiestoservepeoplefromdifferentpartsoftheworldandwithdifferingneeds\nbyenablingequitableaccesstotechnologyandthericheconomicopportunitiesitpresents.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nForthenextdecadestocome,weenvisionsignificantcross-disciplinaryeffortstobuildacirculardevelopmentcycleby\nplacingpervasiveconnectivity,sustainability,anddemographicinclusionatthedesignforefrontinordertosustainand\nexpandthebenefitsofatechnologicallyrichsociety.\nAcknowledgement\nWewouldliketothankDougCarmean,DavidBrooks,andLizyJohnfortheirinsightfulfeedbackonthiswork.\nReferences\nDeloitte. Howthepandemichasstress-testedthecrowdeddigitalhome.\nhttps://www2.deloitte.com/content/dam/insights/articles/6978_\nTMT-Connectivity-and-mobile-trends/DI_TMT-Connectivity-and-mobile-trends.pdf,2021.\nEvanAckerman. What’sGoingonWithAmazon’s\"High-Tech\"WarehouseRobots?\nhttps://spectrum.ieee.org/automaton/robotics/industrial-robots/",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Amazon’s\"High-Tech\"WarehouseRobots?\nhttps://spectrum.ieee.org/automaton/robotics/industrial-robots/\nwhats-going-on-with-amazons-hightech-warehouse-robots,June2021.\nKnvulSheikh. AGrowingPresenceontheFarm: Robots.\nhttps://www.nytimes.com/2020/02/13/science/farm-agriculture-robots.html,February2020.\nHowtheHumanGenomeProjectshooktheworldofcancerresearch. https://www.icr.ac.uk/news-features/\nlatest-features/how-the-human-genome-project-shook-the-world-of-cancer-research,\nFebruary2021.\nJohnJumper,RichardEvans,AlexanderPritzel,TimGreen,MichaelFigurnov,OlafRonneberger,Kathryn\nTunyasuvunakool,RussBates,AugustinŽídek,AnnaPotapenko,AlexBridgland,ClemensMeyer,SimonA.A.\nKohl,AndrewJ.Ballard,AndrewCowie,BernardinoRomera-Paredes,StanislavNikolov,RishubJain,JonasAdler,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ".\nKohl,AndrewJ.Ballard,AndrewCowie,BernardinoRomera-Paredes,StanislavNikolov,RishubJain,JonasAdler,\nTrevorBack,StigPetersen,DavidReiman,EllenClancy,MichalZielinski,MartinSteinegger,MichalinaPacholska,\nTamasBerghammer,SebastianBodenstein,DavidSilver,OriolVinyals,AndrewW.Senior,KorayKavukcuoglu,\nPushmeetKohli,andDemisHassabis. Highlyaccurateproteinstructurepredictionwithalphafold. Nature,2021.\nSushmitaPathak. India’sAll-FemaleNewsOutletBattlesSexism,Caste—AndHitsTheSilverScreen.\nhttps://www.npr.org/sections/goatsandsoda/2021/04/04/980097004/\nindias-lowest-caste-has-its-own-news-outlet-and-shes-in-charge,April2021.\nAlbertApoteleNyaabaandMatthewAyamga. Intricaciesofmedicaldronesinhealthcaredelivery: Implicationsfor\nafrica. TechnologyinSociety,66:101624,2021.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "iesofmedicaldronesinhealthcaredelivery: Implicationsfor\nafrica. TechnologyinSociety,66:101624,2021.\nRossArnold,HiroyukiYamaguchi,andToshiyukiTanaka. Searchandrescuewithautonomousflyingrobotsthrough\nbehavior-basedcooperativeintelligence. JournalofInternationalHumanitarianAction,3,122018.\nJobieBudd,BenjaminMiller,ErinManning,VasileiosLampos,MengdieZhuang,MichaelEdelstein,GeraintRees,\nVincentEmery,MollyStevens,NeilKeegan,MichaelShort,DeenanPillay,EdManley,IngemarCox,David\nHeymann,AnneJohnson,andRachelMcKendry. Digitaltechnologiesinthepublic-healthresponsetocovid-19.\nNatureMedicine,26:1–10,082020.\nMarcelSalathé,ChristianL.Althaus,NaninaAnderegg,DanieleAntonioli,TalaBallouz,EdouardBugnion,Srdjan\nCˇapkun,DennisJackson,Sang-IlKim,JamesR.Larus,NicolaLow,WouterLueks,DominikMenges,Cédric",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ion,Srdjan\nCˇapkun,DennisJackson,Sang-IlKim,JamesR.Larus,NicolaLow,WouterLueks,DominikMenges,Cédric\nMoullet,MathiasPayer,JulienRiou,TheresaStadler,CarmelaTroncoso,EffyVayena,andViktorvonWyl. Early\nevidenceofeffectivenessofdigitalcontacttracingforsars-cov-2inswitzerland. 2020.\nFacebookAI. UsingAItohelphealthexpertsaddresstheCOVID-19pandemic. https:\n//ai.facebook.com/blog/using-ai-to-help-health-experts-address-the-covid-19-pandemic/,\n2020.\nIntel. TheStoryoftheIntel4004.\nhttps://www.intel.co.uk/content/www/uk/en/history/museum-story-of-intel-4004.html.\nIntel. IntelCorei9-9900KSProcessor. https://ark.intel.com/content/www/us/en/ark/products/192943/\nintel-core-i9-9900ks-processor-16m-cache-up-to-5-00-ghz.html,2019.\nAMD. AMDRyzen95950XDesktopProcessors.\nhttps://www.amd.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "processor-16m-cache-up-to-5-00-ghz.html,2019.\nAMD. AMDRyzen95950XDesktopProcessors.\nhttps://www.amd.com/en/products/cpu/amd-ryzen-9-5950x,2020.\nGordonE.Moore. Crammingmorecomponentsontointegratedcircuits. Electronics,1965.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nR.M.Tomasulo. Anefficientalgorithmforexploitingmultiplearithmeticunits. IBMJournalofResearchand\nDevelopment,11(1),1967.\nJamesE.Smith. Decoupledaccess/executecomputerarchitectures. InProceedingsofthe9thAnnualSymposiumon\nComputerArchitecture,page112–119,1982a.\nW.HwuandY.N.Patt. Hpsm,ahighperformancerestricteddataflowarchitecturehavingminimalfunctionality. In\nProceedingsofthe13thAnnualInternationalSymposiumonComputerArchitecture,page297–306,1986.\nJamesE.Smith. Astudyofbranchpredictionstrategies. InProceedingsofthe8thAnnualSymposiumonComputer\nArchitecture,page135–148,1981.\nLeeandSmith. Branchpredictionstrategiesandbranchtargetbufferdesign. Computer,17(1):6–22,1984.\nDionisiosN.Pnevmatikatos,ManojFranklin,andGurindarS.Sohi.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "getbufferdesign. Computer,17(1):6–22,1984.\nDionisiosN.Pnevmatikatos,ManojFranklin,andGurindarS.Sohi. Controlflowpredictionfordynamicilpprocessors.\nInProceedingsofthe26thAnnualInternationalSymposiumonMicroarchitecture,page153–163,1993.\nTse-YuYeh,DeborahT.Marr,andYaleN.Patt. Increasingtheinstructionfetchrateviamultiplebranchpredictionand\nabranchaddresscache. InProceedingsofthe7thInternationalConferenceonSupercomputing,page67–76,1993.\nD.A.JimenezandC.Lin. Dynamicbranchpredictionwithperceptrons. InProceedingsoftheSeventhInternational\nSymposiumonHigh-PerformanceComputerArchitecture,2001.\nAlanJaySmith. Cachememories. ACMComputingSurveys,14:473–530,1982b.\nM.D.Hill. Acasefordirect-mappedcaches. Computer,21(12),1988.\nS.Przybylski,M.Horowitz,andJ.Hennessy.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "M.D.Hill. Acasefordirect-mappedcaches. Computer,21(12),1988.\nS.Przybylski,M.Horowitz,andJ.Hennessy. Characteristicsofperformance-optimalmulti-levelcachehierarchies.\nProceedingsofthe16thAnnualInternationalSymposiumonComputerArchitecture,pages114–121,1989.\nNormanP.Jouppi. Improvingdirect-mappedcacheperformancebytheadditionofasmallfully-associativecacheand\nprefetchbuffers. InProceedingsofthe17thAnnualInternationalSymposiumonComputerArchitecture,page\n364–373,1990.\nJean-LoupBaerandTien-FuChen. Aneffectiveon-chippreloadingschemetoreducedataaccesspenalty. In\nProceedingsofthe1991ACM/IEEEConferenceonSupercomputing,pages176–186,1991.\nJohnFu,JanakPatel,andBobJanssens. Stridedirectedprefetchinginscalarprocessors. Proceedingsthe25thAnnual\nInternationalSymposiumonMicroarchitecture,pages102–110,1992.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "arprocessors. Proceedingsthe25thAnnual\nInternationalSymposiumonMicroarchitecture,pages102–110,1992.\nBabakFalsafiandThomasF.Wenisch. MorganandClaypoolPublishers,2014.\nDeanM.Tullsen,SusanJ.Eggers,andHenryM.Levy. Simultaneousmultithreading: Maximizingon-chipparallelism.\nInProceedingsofthe22ndAnnualInternationalSymposiumonComputerArchitecture,page392–403,1995.\nDeanM.Tullsen,SusanJ.Eggers,JoelS.Emer,HenryM.Levy,JackL.Lo,andRebeccaL.Stamm. Exploitingchoice:\nInstructionfetchandissueonanimplementablesimultaneousmultithreadingprocessor. InProceedingsofthe23rd\nAnnualInternationalSymposiumonComputerArchitecture,page191–202,1996.\nMarioNemirovskyandDeanTullsen. MorganandClaypoolPublishers,2013.\nGoogle. GoogleDataCentersEfficiency. https://www.google.com/about/datacenters/efficiency/,a.\nFacebook.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "ogle. GoogleDataCentersEfficiency. https://www.google.com/about/datacenters/efficiency/,a.\nFacebook. FacebookSustainability–DataCenters.\nhttps://sustainability.fb.com/report-page/data-centers/.\nAndyLawrence. IsPUEactuallygoingUP?\nhttps://journal.uptimeinstitute.com/is-pue-actually-going-up/,2019.\nAndyLawrence. DatacenterPUEsflatsince2013.\nhttps://journal.uptimeinstitute.com/data-center-pues-flat-since-2013/,2020.\nWmWulfandSallyMcKee. Hittingthememorywall: Implicationsoftheobvious. ComputerArchitectureNews,23,\n011996.\nR.H.Dennard,F.H.Gaensslen,Hwa-NienYu,V.L.Rideout,E.Bassous,andA.R.LeBlanc. Designofion-implanted\nMOSFET’swithverysmallphysicaldimensions. IEEEJournalofSolid-StateCircuits,9(5):256–268,1974.\nMarkBohr. A30yearretrospectiveonDennard’sMOSFETscalingpaper.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "fSolid-StateCircuits,9(5):256–268,1974.\nMarkBohr. A30yearretrospectiveonDennard’sMOSFETscalingpaper. IEEESolid-StateCircuitsNewsletter,12:\n11–13,2007.\nKunleOlukotun,LanceHammond,andJamesLaudon. MorganandClaypoolPublishers,2007.\nS.V.AdveandK.Gharachorloo. Sharedmemoryconsistencymodels: atutorial. Computer,29(12):66–76,1996.\nMarkHill. Multiprocessorsshouldsupportsimplememoryconsistencymodels. Computer,31(8):28–34,1998.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nDanielJ.Sorin,MarkD.Hill,andDavidA.Wood. APrimeronMemoryConsistencyandCacheCoherence. Morgan\nandClaypoolPublishers,2011. ISBN1608455645.\nMoinuddinK.Qureshi,AamerJaleel,YaleN.Patt,SimonC.Steely,andJoelEmer. Adaptiveinsertionpoliciesfor\nhighperformancecaching. InProceedingsofthe34thAnnualInternationalSymposiumonComputerArchitecture,\npage381–391,2007.\nAamerJaleel,KevinB.Theobald,SimonC.Steely,andJoelEmer. HighPerformanceCacheReplacementUsing\nRe-ReferenceIntervalPrediction(RRIP). InProceedingsofthe37thAnnualInternationalSymposiumonComputer\nArchitecture,page60–71,2010.\nCarole-JeanWu,AamerJaleel,WillHasenplaugh,MargaretMartonosi,SimonC.Steely,andJoelEmer. SHiP:\nSignature-BasedHitPredictorforHighPerformanceCaching.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "aretMartonosi,SimonC.Steely,andJoelEmer. SHiP:\nSignature-BasedHitPredictorforHighPerformanceCaching. InProceedingsofthe44thAnnualIEEE/ACM\nInternationalSymposiumonMicroarchitecture,page430–441,2011.\nRajeevBalasubramonian,NormanP.Jouppi,andNaveenMuralimanohar. MorganandClaypoolPublishers,2011.\nSomayehSardashti,AngelosArelakis,PerStenstom,andDavidA.Wood. MorganandClaypoolPublishers,2015.\nRajeevBalasubramonian. MorganandClaypoolPublishers,2019.\nAkankshaJainandCalvinLin. MorganandClaypoolPublishers,2019.\nWilliamJ.DallyandBrianTowles. Routepackets,notwires: On-chipinteconnectionnetworks. InProceedingsofthe\n38thAnnualDesignAutomationConference,2001.\nHang-ShengWang,XinpingZhu,Li-ShiuanPeh,andS.Malik. Orion: apower-performancesimulatorfor\ninterconnectionnetworks.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "g,XinpingZhu,Li-ShiuanPeh,andS.Malik. Orion: apower-performancesimulatorfor\ninterconnectionnetworks. InProceedingsofthe35thAnnualIEEE/ACMInternationalSymposiumon\nMicroarchitecture,pages294–305,2002.\nNatalieEnrightandLi-shiuanPeh. MorganandClaypoolPublishers,2009.\nNatalieEnrightJerger,TusharKrishna,Li-ShiuanPeh,andMargaretMartonosi. MorganandClaypoolPublishers,\n2017.\nDavidBrooks,VivekTiwari,andMargaretMartonosi. Wattch: Aframeworkforarchitectural-levelpoweranalysisand\noptimizations. InProceedingsofthe27thAnnualInternationalSymposiumonComputerArchitecture,pages83–94,\n2000.\nD.BrooksandM.Martonosi. Dynamicthermalmanagementforhigh-performancemicroprocessors. InProceedingsof\nthe7thInternationalSymposiumonHigh-PerformanceComputerArchitecture,pages171–182,2001.\nK.Skadron,M.R.Stan,W.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "nternationalSymposiumonHigh-PerformanceComputerArchitecture,pages171–182,2001.\nK.Skadron,M.R.Stan,W.Huang,SivakumarVelusamy,KarthikSankaranarayanan,andD.Tarjan. Temperature-aware\nmicroarchitecture. InProceedingsofthe30thAnnualInternationalSymposiumonComputerArchitecture,pages\n2–13,2003.\nStefanosKaxirasandMargaretMartonosi. ComputerArchitectureTechniquesforPower-Efficiency. Morganand\nClaypoolPublishers,1stedition,2008. ISBN1598292080.\nMagnusSjälander,MargaretMartonosi,andStefanosKaxiras. MorganandClaypoolPublishers,2014.\nLuizAndréBarrosoandUrsHölzle. TheDatacenterasaComputer: AnIntroductiontotheDesignofWarehouse-Scale\nMachines. 2009.\nS.GreensteinandTommyPanFang. Wherethecloudrests: Theeconomicgeographyofdatacenters. 2020.\nHadiEsmaeilzadeh,EmilyBlem,RenéeSt.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ng. Wherethecloudrests: Theeconomicgeographyofdatacenters. 2020.\nHadiEsmaeilzadeh,EmilyBlem,RenéeSt.Amant,KarthikeyanSankaralingam,andDougBurger. Darksiliconand\ntheendofmulticorescaling. InProceedingsofthe38thAnnualInternationalSymposiumonComputerArchitecture,\npages365–376,2011.\nNormanP.Jouppi,CliffYoung,NishantPatil,andDavidPatterson. Adomain-specificarchitecturefordeepneural\nnetworks. CommunicationofACM,61(9):50–59,2018.\nKalinOvtcharov,OlatunjiRuwase,Joo-YoungKim,JeremyFowers,KarinStrauss,andEricChung. Toward\nacceleratingdeeplearningatscaleusingspecializedhardwareinthedatacenter. InProceedingsofthe27thIEEE\nHotChipsSymposiumonHigh-PerformanceChips,2015.\nYu-HsinChen,JoelEmer,andVivienneSze. Eyeriss: Aspatialarchitectureforenergy-efficientdataflowfor\nconvolutionalneuralnetworks.",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "ivienneSze. Eyeriss: Aspatialarchitectureforenergy-efficientdataflowfor\nconvolutionalneuralnetworks. InProceedingsoftheACM/IEEE43rdAnnualInternationalSymposiumon\nComputerArchitecture,pages367–379,2016.\nNormanP.Jouppi,CliffYoung,NishantPatil,DavidPatterson,GauravAgrawal,RaminderBajwa,SarahBates,Suresh\nBhatia,NanBoden,AlBorchers,RickBoyle,Pierre-lucCantin,CliffordChao,ChrisClark,JeremyCoriell,Mike\nDaley,MattDau,JeffreyDean,BenGelb,TaraVazirGhaemmaghami,RajendraGottipati,WilliamGulland,Robert\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nHagmann,C.RichardHo,DougHogberg,JohnHu,RobertHundt,DanHurt,JulianIbarz,AaronJaffey,Alek\nJaworski,AlexanderKaplan,HarshitKhaitan,DanielKillebrew,AndyKoch,NaveenKumar,SteveLacy,James\nLaudon,JamesLaw,DiemthuLe,ChrisLeary,ZhuyuanLiu,KyleLucke,AlanLundin,GordonMacKean,Adriana\nMaggiore,MaireMahony,KieranMiller,RahulNagarajan,RaviNarayanaswami,RayNi,KathyNix,Thomas\nNorrie,MarkOmernick,NarayanaPenukonda,AndyPhelps,JonathanRoss,MattRoss,AmirSalek,Emad\nSamadiani,ChrisSevern,GregorySizikov,MatthewSnelham,JedSouter,DanSteinberg,AndySwing,Mercedes\nTan,GregoryThorson,BoTian,HoriaToma,ErickTuttle,VijayVasudevan,RichardWalter,WalterWang,Eric\nWilcox,andDoeHyunYoon. In-datacenterperformanceanalysisofatensorprocessingunit.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "lter,WalterWang,Eric\nWilcox,andDoeHyunYoon. In-datacenterperformanceanalysisofatensorprocessingunit. InProceedingsofthe\nACM/IEEE44thAnnualInternationalSymposiumonComputerArchitecture,2017.\nJeremyFowers,KalinOvtcharov,MichaelPapamichael,ToddMassengill,MingLiu,DanielLo,ShlomiAlkalay,\nMichaelHaselman,LoganAdams,MahdiGhandi,StephenHeil,PrerakPatel,AdamSapek,GabrielWeisz,Lisa\nWoods,SitaramLanka,SteveReinhardt,AdrianCaulfield,EricChung,andDougBurger. Aconfigurablecloud-scale\ndnnprocessorforreal-timeai. InProceedingsofthe45thInternationalSymposiumonComputerArchitecture,2018,\n2018.\nYakunSophiaShao,JasonClemons,RangharajanVenkatesan,BrianZimmer,MatthewFojtik,NanJiang,BenKeller,\nAliciaKlinefelter,NathanielPinckney,PriyankaRaina,StephenG.Tell,YanqingZhang,WilliamJ.Dally,JoelEmer,\nC.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "iaKlinefelter,NathanielPinckney,PriyankaRaina,StephenG.Tell,YanqingZhang,WilliamJ.Dally,JoelEmer,\nC.ThomasGray,BrucekKhailany,andStephenW.Keckler. Simba: Scalingdeep-learninginferencewith\nmulti-chip-module-basedarchitecture. InProceedingsofthe52ndAnnualIEEE/ACMInternationalSymposiumon\nMicroarchitecture,page14–27,2019.\nPeterMattson,VijayJanapaReddi,ChristineCheng,CodyColeman,GregDiamos,DavidKanter,Paulius\nMicikevicius,DavidPatterson,GuentherSchmuelling,HanlinTang,Gu-YeonWei,andCarole-JeanWu. Mlperf: An\nindustrystandardbenchmarksuiteformachinelearningperformance. IEEEMicro,40(2),2020.\nGlennHenry,ParvizPalangpour,MichaelThomson,JScottGardner,BryceArden,JimDonahue,KimbleHouck,\nJonathanJohnson,KyleO’Brien,ScottPetersen,BenjaminSeroussi,andTylerWalker. High-Performance",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "eHouck,\nJonathanJohnson,KyleO’Brien,ScottPetersen,BenjaminSeroussi,andTylerWalker. High-Performance\nDeep-LearningCoprocessorIntegratedintox86SoCwithServer-ClassCPUsIndustrialProduct. InProceedingsof\ntheACM/IEEE47thAnnualInternationalSymposiumonComputerArchitecture,2020.\nVijayJanapaReddi,ChristineCheng,DavidKanter,PeterMattson,GuentherSchmuelling,andCarole-JeanWu. The\nvisionbehindmlperf: Understandingaiinferenceperformance. IEEEMicro,41(3):10–18,2021.\nMichaelAnderson,BennyChen,StephenChen,SummerDeng,JordanFix,MichaelGschwind,AravindKalaiah,\nChangkyuKim,JaewonLee,JasonLiang,HaixinLiu,YinghaiLu,JackMontgomery,ArunMoorthy,Satish\nNadathur,SamNaghshineh,AvinashNayak,JongsooPark,ChrisPetersen,MartinSchatz,NarayananSundaram,",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "atish\nNadathur,SamNaghshineh,AvinashNayak,JongsooPark,ChrisPetersen,MartinSchatz,NarayananSundaram,\nBangshengTang,PeterTang,AmyYang,JiecaoYu,HectorYuen,YingZhang,AravindAnbudurai,VandanaBalan,\nHarshaBojja,JoeBoyd,MatthewBreitbach,ClaudioCaldato,AnnaCalvo,GarretCatron,SnehChandwani,Panos\nChristeas,BradCottel,BrianCoutinho,ArunDalli,AbhishekDhanotia,OnielDuncan,RomanDzhabarov,Simon\nElmir,ChunliFu,WenyinFu,MichaelFulthorp,AdiGangidi,NickGibson,SeanGordon,BeatrizPadilla\nHernandez,DanielHo,Yu-ChengHuang,OlofJohansson,ShishirJuluri,ShobhitKanaujia,ManaliKesarkar,\nJonathanKillinger,BenKim,RohanKulkarni,MeghanLele,HuayuLi,HuaminLi,YuemingLi,CynthiaLiu,Jerry\nLiu,BertMaher,ChandraMallipedi,SeemaMangla,KiranKumarMatam,JubinMehta,ShobhitMehta,Christopher",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "erry\nLiu,BertMaher,ChandraMallipedi,SeemaMangla,KiranKumarMatam,JubinMehta,ShobhitMehta,Christopher\nMitchell,BharathMuthiah,NitinNagarkatte,AshwinNarasimha,BernardNguyen,ThiaraOrtiz,Soumya\nPadmanabha,DengPan,AshwinPoojary,Ye,Qi,OlivierRaginel,DwarakRajagopal,TristanRice,CraigRoss,\nNadavRotem,ScottRuss,KushalShah,BaohuaShan,HaoShen,PavanShetty,KrishSkandakumaran,Kutta\nSrinivasan,RoshanSumbaly,MichaelTauberg,MorTzur,HaoWang,ManWang,BenWei,AlexXia,ChenyuXu,\nMartinYang,KaiZhang,RuoxiZhang,MingZhao,WhitneyZhao,RuiZhu,LinQiao,MishaSmelyanskiy,BillJia,\nandVijayRao. First-generationinferenceacceleratordeploymentatFacebook,2021.\nJun-WooJang,SehwanLee,DongyoungKim,HyunsungPark,AliShafieeArdestani,YeongjaeChoi,ChannohKim,\nYoojinKim,HyeongseokYu,HamzahAbdel-Aziz,Jun-SeokPark,H.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "AliShafieeArdestani,YeongjaeChoi,ChannohKim,\nYoojinKim,HyeongseokYu,HamzahAbdel-Aziz,Jun-SeokPark,H.Lee,Dongwoo,Lee,MyeongWooKim,\nHanwoongJung,Hee-YoungNam,Dong-HyukLim,SeungwonLee,JoonhoSong,Suk-ChonKwon,Joseph\nHassoun,SukHwanLim,andChangkyuChoi. Sparsity-awareandre-configurablenpuarchitectureforsamsung\nflagshipmobilesoc. InProceedingsoftheACM/IEEE48thAnnualInternationalSymposiumonComputer\nArchitecture,2021.\nBrianW.Thompto,DungQ.Nguyen,J.Moreira,RamonBertran,H.Jacobson,R.Eickemeyer,R.Rao,M.Goulet,\nMarcyByers,ChristopherJ.Gonzalez,KarthikSwaminathan,N.Dhanwada,SilviaM.Müller,AndreasWagner,\nS.Sadasivam,R.Montoye,WilliamJ.Starke,ChristianG.Zoellin,M.Floyd,JeffreyStuecheli,N.Chandramoorthy,\nJ.Wellman,A.Buyuktosunoglu,M.Pflanz,B.Sinharoy,andP.Bose. Energyefficiencyboostintheai-infused",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "thy,\nJ.Wellman,A.Buyuktosunoglu,M.Pflanz,B.Sinharoy,andP.Bose. Energyefficiencyboostintheai-infused\npower10processor: Industrialproduct. InProceedingsoftheACM/IEEE48thAnnualInternationalSymposiumon\nComputerArchitecture,2021.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nNVIDIA. TensorCores: UnprecedentedAccelerationforHPCandAI.\nhttps://www.nvidia.com/en-us/data-center/tensor-cores/.\nMichaelTaylor,LuisVega,MoeinKhazraee,IkuoMagaki,ScottDavidson,andDustinRichmond. Asicclouds:\nspecializingthedatacenterforplanet-scaleapplications. CommunicationsoftheACM,63:103–109,062020.\ndoi:10.1145/3399734.\nParthasarathyRanganathan,DanielStodolsky,JeffCalow,JeremyDorfman,MarisabelGuevara,ClintonWills\nSmullenIV,AkiKuusela,RaghuBalasubramanian,SandeepBhatia,PrakashChauhan,AnnaCheung,InSukChong,\nNiranjaniDasharathi,JiaFeng,BrianFosco,SamuelFoss,BenGelb,SaraJ.Gwin,YoshiakiHase,Da-keHe,\nC.RichardHo,RoyW.HuffmanJr.,ElishaIndupalli,IndiraJayaram,PoonachaKongetira,ChoMonKyaw,Aaron\nLaursen,YuanLi,FongLou,KyleA.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "anJr.,ElishaIndupalli,IndiraJayaram,PoonachaKongetira,ChoMonKyaw,Aaron\nLaursen,YuanLi,FongLou,KyleA.Lucke,JPMaaninen,RamonMacias,MaireMahony,DavidAlexander\nMunday,SrikanthMuroor,NarayanaPenukonda,EricPerkins-Argueta,DevinPersaud,AlexRamirez,Ville-Mikko\nRautio,YolandaRipley,AmirSalek,SathishSekar,SergeyN.Sokolov,RobSpringer,DonStark,MercedesTan,\nMarkS.Wachsler,AndrewC.Walton,DavidA.Wickeraad,AlvinWijaya,andHonKwanWu. Warehouse-scale\nvideoacceleration: Co-designanddeploymentinthewild. InProceedingsofthe26thACMInternational\nConferenceonArchitecturalSupportforProgrammingLanguagesandOperatingSystems,page600–615,2021.\nJuhoHamari,MimmiSjöklint,andAnttiUkkonen. Thesharingeconomy: Whypeopleparticipateincollaborative\nconsumption.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "i,MimmiSjöklint,andAnttiUkkonen. Thesharingeconomy: Whypeopleparticipateincollaborative\nconsumption. JournaloftheAssociationforInformationScienceandTechnology,67:2047–2059,092016.\nYifanSun,NicolasBohmAgostini,ShiDong,andD.Kaeli. Summarizingcpuandgpudesigntrendswithproductdata.\nArXiv,abs/1911.11313,2019.\nBarbaraSimonsandDouglasW.Jones. Internetvotingintheu.s. CommunicationofACM,55(10):68–77,2012.\nH.Abelson,RossJ.Anderson,S.Bellovin,JoshBenaloh,M.Blaze,W.Diffie,J.Gilmore,MatthewGreen,S.Landau,\nP.Neumann,R.Rivest,J.Schiller,B.Schneier,MichaelA.Specter,andD.Weitzner. Keysunderdoormats:\nmandatinginsecuritybyrequiringgovernmentaccesstoalldataandcommunications. JournalofCybersecurity,1:\n69–79,2015.\nArthurGervais,GhassanO.Karame,KarlWüst,VasileiosGlykantzis,HubertRitzdorf,andSrdjanCapkun. Onthe",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "5.\nArthurGervais,GhassanO.Karame,KarlWüst,VasileiosGlykantzis,HubertRitzdorf,andSrdjanCapkun. Onthe\nsecurityandperformanceofproofofworkblockchains. InProceedingsoftheACMConferenceonComputerand\nCommunicationsSecurity,page3–16,2016.\nSyedIshtiaqueAhmed,Md.RomaelHaque,JayChen,andNicolaDell. Digitalprivacychallengeswithsharedmobile\nphoneuseinbangladesh. ProceedingsoftheACMHuman-ComputerInteraction,1(CSCW),2017.\nMeredithWhittaker,KateCrawford,RoelDobbe,GenevieveFried,ElizabethKaziunas,VaroonMathur,SarahMysers\nWest,RashidaRichardson,JasonSchultz,andOscarSchwartz. AINow2018Report.\nhttps://ec.europa.eu/futurium/en/system/files/ged/ai_now_2018_report.pdf,2018.\nTillSpeicher,MuhammadAli,GiridhariVenkatadri,FilipeNunesRibeiro,GeorgeArvanitakis,FabrícioBenevenuto,\nKrishnaP.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "r,MuhammadAli,GiridhariVenkatadri,FilipeNunesRibeiro,GeorgeArvanitakis,FabrícioBenevenuto,\nKrishnaP.Gummadi,PatrickLoiseau,andAlanMislove. Potentialfordiscriminationinonlinetargetedadvertising.\nInProceedingsoftheConferenceonFairness,AccountabilityandTransparency,pages5–19,2018.\nAlexandraChouldechova,DianaBenavides-Prado,OleksandrFialko,andRhemaVaithianathan. Acasestudyof\nalgorithm-assisteddecisionmakinginchildmaltreatmenthotlinescreeningdecisions. InProceedingsofthe\nConferenceonFairness,AccountabilityandTransparency,pages134–148,2018.\nMichaelEkstrand,MucunTian,IonAzpiazu,JenniferEkstrand,OghenemaroAnuyah,DavidMcNeill,andMariaPera.\nAllthecoolkids,howdotheyfitin?: Popularityanddemographicbiasesinrecommenderevaluationand\neffectiveness.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "thecoolkids,howdotheyfitin?: Popularityanddemographicbiasesinrecommenderevaluationand\neffectiveness. InProceedingsoftheConferenceonFairness,Accountability,andTransparency,2018.\nAndrewD.Selbst,DanahBoyd,SorelleA.Friedler,SureshVenkatasubramanian,andJanetVertesi. Fairnessand\nabstractioninsociotechnicalsystems. InProceedingsoftheConferenceonFairness,Accountability,and\nTransparency,2019.\nMuhammadAli,PiotrSapiezynski,MirandaBogen,AleksandraKorolova,AlanMislove,andAaronRieke.\nDiscriminationthroughoptimization: Howfacebook’saddeliverycanleadtobiasedoutcomes. 2019.\nMahmoudrezaBabaei,AbhijnanChakraborty,JuhiKulshrestha,ElissaM.Redmiles,MeeyoungCha,andKrishnaP.\nGummadi. Analyzingbiasesinperceptionoftruthinnewsstoriesandtheirimplicationsforfactchecking. In",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "aP.\nGummadi. Analyzingbiasesinperceptionoftruthinnewsstoriesandtheirimplicationsforfactchecking. In\nProceedingsoftheConferenceonFairness,Accountability,andTransparency,2019.\nKateCrawford,RoelDobbe,TheodoraDryer,GenevieveFried,BenGreen,ElizabethKaziunas,AmbaKak,Varoon\nMathur,ErinMcElroy,AndreaNillSánchez,DeborahRaji,JoyLisiRankin,RashidaRichardson,JasonSchultz,\nSarahMyersWest,andMeredithWhittaker. AINow2019Report.\nhttps://ainowinstitute.org/AI_Now_2019_Report.pdf,2019.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nOrestisPapakyriakopoulos,SimonHegelich,JuanCarlosMedinaSerrano,andFabienneMarco. Biasinword\nembeddings. InProceedingsofthe2020ConferenceonFairness,Accountability,andTransparency,page446–457,\n2020.\nSunooPark,MichaelA.Specter,NehaNarula,andR.Rivest. Goingfrombadtoworse: frominternetvotingto\nblockchainvoting. JournalofCybersecurity,7,2021.\nEmilyM.Bender,TimnitGebru,AngelinaMcMillan-Major,andShmargaretShmitchell. Onthedangersofstochastic\nparrots: Canlanguagemodelsbetoobig? InProceedingsofthe2021ACMConferenceonFairness,Accountability,\nandTransparency,page610–623,2021.\nJonKleinbergandManishRaghavan. Algorithmicmonocultureandsocialwelfare. ProceedingsoftheNational\nAcademyofSciences,118(22),2021.\nRaviJainandJohnWullert.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "reandsocialwelfare. ProceedingsoftheNational\nAcademyofSciences,118(22),2021.\nRaviJainandJohnWullert. Challenges: Environmentaldesignforpervasivecomputingsystems. InProceedingsofthe\n8thAnnualInternationalConferenceonMobileComputingandNetworking,page263–270,2002.\nEmmaStrubell,AnanyaGanesh,andAndrewMcCallum. Energyandpolicyconsiderationsfordeeplearninginnlp,\n2019.\nSrilathaManne. ExaminingtheCarbonFootprintofDevices. https://devblogs.microsoft.com/\nsustainable-software/examining-the-carbon-footprint-of-devices/,2020.\nCarole-JeanWuandUditGupta. Mostofcomputing’scarbonemissionsarecomingfrommanufacturingand\ninfrastructure. https://tech.fb.com/sustainable-computing/,2021.\nUditGupta,YoungGeunKim,S.Lee,J.Tse,Hsien-HsinS.Lee,Gu-YeonWei,D.Brooks,andCarole-JeanWu.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "ing/,2021.\nUditGupta,YoungGeunKim,S.Lee,J.Tse,Hsien-HsinS.Lee,Gu-YeonWei,D.Brooks,andCarole-JeanWu.\nChasingcarbon: Theelusiveenvironmentalfootprintofcomputing. ProceedingsoftheIEEEInternational\nSymposiumonHigh-PerformanceComputerArchitecture,pages854–867,2021.\nAlanCrawford,IanKing,andDebbyWu. TheChipIndustryHasaProblemWithItsGiantCarbonFootprint.\nhttps://www.bloomberg.com/news/articles/2021-04-08/\nthe-chip-industry-has-a-problem-with-its-giant-carbon-footprint,2021.\nYingLin. 10InternetStatisticsEveryMarketerShouldKnowin2021.\nhttps://www.oberlo.com/blog/internet-statistics,May2021.\nTomWheeler. 5stepstogettheinternettoallamericans.\nhttps://www.brookings.edu/research/5-steps-to-get-the-internet-to-all-americans/,May\n2020.\nunicef.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": ".\nhttps://www.brookings.edu/research/5-steps-to-get-the-internet-to-all-americans/,May\n2020.\nunicef. Twothirdsoftheworld’sschool-agechildrenhavenointernetaccessathome.\nhttps://www.unicef.org/press-releases/\ntwo-thirds-worlds-school-age-children-have-no-internet-access-home-new-unicef-itu,2020.\nMicrosoft. Airband: Theinitiativetobringtheinternettoeveryone. https://news.microsoft.com/\non-the-issues/2020/09/01/airband-initiative-rural-broadband-digital-divide/,a.\nLoon. Loon: Expandinginternetconnectivitywithstratosphericballoons. https://x.company/projects/loon/.\nWikipedia. FacebookAquila. https://en.wikipedia.org/wiki/Facebook_Aquila.\nStarlink. High-speed,lowlatencybroadbandinternet. https://www.starlink.com/.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "/wiki/Facebook_Aquila.\nStarlink. High-speed,lowlatencybroadbandinternet. https://www.starlink.com/.\nMoritzLipp,MichaelSchwarz,DanielGruss,ThomasPrescher,WernerHaas,AndersFogh,JannHorn,Stefan\nMangard,PaulKocher,DanielGenkin,YuvalYarom,andMikeHamburg. Meltdown: Readingkernelmemoryfrom\nuserspace. InProceedingsofthe27thUSENIXSecuritySymposium,2018.\nPaulKocher,JannHorn,AndersFogh,,DanielGenkin,DanielGruss,WernerHaas,MikeHamburg,MoritzLipp,\nStefanMangard,ThomasPrescher,MichaelSchwarz,andYuvalYarom. Spectreattacks: Exploitingspeculative\nexecution. InProceedingsofthe40thIEEESymposiumonSecurityandPrivacy,2019.\nMicrosoft. AzureStorageredundancy.\nhttps://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy,July2021a.\nMicrosoft. DesigningfordisasterrecoverywithExpressRouteprivatepeering.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "torage-redundancy,July2021a.\nMicrosoft. DesigningfordisasterrecoverywithExpressRouteprivatepeering.\nhttps://docs.microsoft.com/en-us/azure/expressroute/\ndesigning-for-disaster-recovery-with-expressroute-privatepeering,March2021b.\nYevegeniySverdlik. MostTexasDataCentersWeatheredtheStorm,ButThingsDidNotGoSmoothly.\nhttps://www.datacenterknowledge.com/uptime/\nmost-texas-data-centers-weathered-storm-things-did-not-go-smoothly,March2021.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nDepartmentofEnergy. DesigningAndManagingDataCentersForResilience: DemandResponseAndMicrogrids.\nhttps://www.wbdg.org/continuing-education/femp-courses/fempodw034,2019.\nSammyRoth. HowanOregonwildfirealmostderailedCalifornia’spowergrid.\nhttps://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy,July2021.\nAdrianHornsby. Patternsforresilientarchitecture—part1:Thestoryofembracingfailureatscale. https://medium.\ncom/the-cloud-architect/patterns-for-resilient-architecture-part-1-d3b60cd8d2b6,2018.\nGoogleCloudArchitectureCenter. Patternsforscalableandresilientapps.\nhttps://cloud.google.com/architecture/scalable-and-resilient-apps.\nTheWorldBank. LightingUpAfrica: BringingRenewable,Off-GridEnergytoCommunities.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "-and-resilient-apps.\nTheWorldBank. LightingUpAfrica: BringingRenewable,Off-GridEnergytoCommunities.\nhttps://www.worldbank.org/en/news/feature/2020/08/13/\nlighting-up-africa-bringing-renewable-off-grid-energy-to-communities,August2020.\nÍñigoGoiri,MdE.Haque,KienLe,RyanBeauchea,ThuD.Nguyen,JordiGuitart,JordiTorres,andRicardoBianchini.\nMatchingrenewableenergysupplyanddemandingreendatacenters. AdHocNetworks,25:520–534,2015.\nAnaRadovanovic,RossKoningstein,IanSchneider,BokanChen,AlexandreDuarte,BinzRoy,DiyueXiao,Maya\nHaridasan,PatrickHung,NickCare,SauravTalukdar,EricMullen,KendalSmith,MariEllenCottman,andWalfredo\nCirne. Carbon-awarecomputingfordatacenters. CoRR,abs/2106.11750,2021. URL\nhttps://arxiv.org/abs/2106.11750.\nLiuzixuanLin,VictorM.Zavala,andAndrewA.Chien.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "2106.11750,2021. URL\nhttps://arxiv.org/abs/2106.11750.\nLiuzixuanLin,VictorM.Zavala,andAndrewA.Chien. Evaluatingcouplingmodelsforclouddatacentersandpower\ngrids. InProceedingsofthe12thACMInternationalConferenceonFutureEnergySystems,2021.\nChaojieZhang,AlokKumbhare,IoannisManousakis,DeliZhang,PulkitMisra,RodAssis,KyleWoolcock,Nithish\nMahalingam,BrijeshWarrier,DavidGauthier,LaluKunnath,SteveSolomon,OsvaldoMorales,MarcusFontoura,\nandRicardoBianchini. Flex: High-availabilitydatacenterswithzeroreservedpower. InProceedingsofthe\nInternationalSymposiumonComputerArchitecture,2021.\nFacebook. Facebookiscommittedtoreachingnetzeroemissionsacrossourvaluechainin2030,aligningourefforts\nwiththelatestscienceonwhatisneededtotransitiontoazero-carbonfuture.\nhttps://sustainability.fb.com/report-page/climate/.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "onwhatisneededtotransitiontoazero-carbonfuture.\nhttps://sustainability.fb.com/report-page/climate/.\nApple. Applecommitstobe100percentcarbonneutralforitssupplychainandproductsby2030.\nhttps://www.apple.com/newsroom/2020/07/\napple-commits-to-be-100-percent-carbon-neutral-for-its-supply-chain-and-products-by-2030/.\nBradSmith. Microsoftwillbecarbonnegativeby2030.\nhttps://blogs.microsoft.com/blog/2020/01/16/microsoft-will-be-carbon-negative-by-2030/.\nGoogle. TheInternetis24x7—carbon-freeenergyshouldbetoo.\nhttps://sustainability.google/progress/projects/24x7/,b.\nSamSchechner. AmazonandOtherTechGiantsRacetoBuyUpRenewableEnergy. https://www.wsj.com/\narticles/amazon-and-other-tech-giants-race-to-buy-up-renewable-energy-11624438894,2021.\nStevenLeeMyers.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "icles/amazon-and-other-tech-giants-race-to-buy-up-renewable-energy-11624438894,2021.\nStevenLeeMyers. China’sPledgetoBeCarbonNeutralby2060: WhatItMeans.\nhttps://www.nytimes.com/2020/09/23/world/asia/china-climate-change.html,September2020.\nBBC. Climatechange: EUtocutCO2emissionsby55%by2030.\nhttps://www.bbc.com/news/world-europe-56828383,April2021.\nMikeOrcuttarchive. Abiodegradablecomputerchipthatperformssurprisinglywell.\nhttps://www.technologyreview.com/2015/07/14/167161/\na-biodegradable-computer-chip-that-performs-surprisingly-well/,2015.\nTing-JungChang,ZhuozhiYao,PaulJ.Jackson,BarryP.Rand,andDavidWentzlaff. Architecturaltradeoffsfor\nbiodegradablecomputing. InProceedingsofthe50thAnnualIEEE/ACMInternationalSymposiumon\nMicroarchitecture,page706–717,2017.\nAmazon.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "oceedingsofthe50thAnnualIEEE/ACMInternationalSymposiumon\nMicroarchitecture,page706–717,2017.\nAmazon. TheCarbonReductionOpportunityofMovingtoAmazonWebServices.\nhttps://sustainability.aboutamazon.com/carbon_reduction_aws.pdf,2019.\nMicrosoft. TheCarbonBenefitsofCloudComputing: aStudyoftheMicrosoftCloud.\nhttps://www.microsoft.com/en-us/download/details.aspx?id=56950,2020.\nRichardEvansandJimGao. DeepMindAIReducesGoogleDataCentreCoolingBillby40%. https:\n//deepmind.com/blog/article/deepmind-ai-reduces-google-data-centre-cooling-bill-40,\n2016.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nDanLeeandJonathanRowe. Software,servers,systems,sensors,andscience: Facebook’srecipeforhyperefficient\ndatacenters. https://tech.fb.com/hyperefficient-data-centers/,2020.\nEricMasanet,ArmanShehabi,NuoaLei,SarahSmith,andJonathanKoomey. Recalibratingglobaldatacenter\nenergy-useestimates. Science,367(6481):984–986,2020.\nMauroCordella,FeliceAlfieri,ChristianClemm,andAntonBerwald. Durabilityofsmartphones: Atechnicalanalysis\nofreliabilityandrepairabilityaspects. JournalofCleanerProduction,286:125388,122020.\ndoi:10.1016/j.jclepro.2020.125388.\nRhondaAsciertoandAndyLawrence. UptimeInstituteglobaldatacentersurvey2020.\nhttps://uptimeinstitute.com/2020-data-center-industry-survey-results,2020.\nFairphone.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "tersurvey2020.\nhttps://uptimeinstitute.com/2020-data-center-industry-survey-results,2020.\nFairphone. Theworld’smostsustainablesmartphonenowatalowerprice. https://www.fairphone.com/en/.\nKyleWiensandGayGordon-Byrne. WhyWeMustFightfortheRighttoRepairOurElectronics.\nhttps://spectrum.ieee.org/green-tech/conservation/\nwhy-we-must-fight-for-the-right-to-repair-our-electronics,2017.\nJenniferAlsever. WhatBiden’s’right-to-repair’ordercouldmeanforAppleandTesla.\nhttps://fortune.com/2021/07/09/right-to-repair-order-biden-apple-tesla-hacks/,July2021.\nMicrosoft. FarmBeats: DemocratizingAIforfarmersaroundtheworld.\nhttps://www.microsoft.com/en-us/garage/wall-of-fame/farmbeats/,2015.\nBillGates. HowtoAvoidaClimateDisaster: TheSolutionsWeHaveandtheBreakthroughsWeNeed. Knopf,2021.\nU.S.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "BillGates. HowtoAvoidaClimateDisaster: TheSolutionsWeHaveandtheBreakthroughsWeNeed. Knopf,2021.\nU.S.EnergyInformationAdminstration. Electricityexplained: Useofelectricity.\nhttps://www.eia.gov/energyexplained/electricity/use-of-electricity.php.\nC.LawrenceZitnick,LowikChanussot,AbhishekDas,SiddharthGoyal,JavierHeras-Domingo,CalebHo,WeihuaHu,\nThibautLavril,AiniPalizhati,MorganeRiviere,MuhammedShuaibi,AnuroopSriram,KevinTran,BrandonWood,\nJunwoongYoon,DeviParikh,andZacharyUlissi. Anintroductiontoelectrocatalystdesignusingmachinelearning\nforrenewableenergystorage,2020.\nCarlElkinandSimsWitherspoon. Machinelearningcanboostthevalueofwindenergy.\nhttps://deepmind.com/blog/article/machine-learning-can-boost-value-wind-energy.\nJeffTollefson. COVIDcurbedcarbonemissionsin2020—butnotbymuch.\nhttps://www.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "-boost-value-wind-energy.\nJeffTollefson. COVIDcurbedcarbonemissionsin2020—butnotbymuch.\nhttps://www.nature.com/articles/d41586-021-00090-3,2021.\nJichuanChang,JustinMeza,P.Ranganathan,C.Bash,andAmipShah. Greenserverdesign: beyondoperationalenergy\ntosustainability. InProceedingsofthe2010internationalconferenceonPowerawarecomputingandsystems,2010.\nM.Bardon,P.Wuytens,L.-Å.Ragnarsson,G.Mirabelli,D.Jang,G.Willems,A.Mallik,A.Spessot,J.Ryckaert,and\nB.Parvais. Dtcoincludingsustainability: Power-performance-area-cost-environmentalscore(ppace)analysisfor\nlogictechnologies. InProceedingsoftheIEEEInternationalElectronDevicesMeeting,2020.\nDavidPatterson,JosephGonzalez,QuocLe,ChenLiang,Lluis-MiquelMunguia,DanielRothchild,DavidSo,Maud\nTexier,andJeffDean. Carbonemissionsandlargeneuralnetworktraining,2021.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "DanielRothchild,DavidSo,Maud\nTexier,andJeffDean. Carbonemissionsandlargeneuralnetworktraining,2021.\nGregoryD.Hager,AnnDrobnis,FeiFang,RayidGhani,AmyGreenwald,TerahLyons,DavidC.Parkes,Jason\nSchultz,SuchiSaria,StephenF.Smith,andMilindTambe. Artificialintelligenceforsocialgood,2019.\nNenadTomasev,JulienCornebise,F.Hutter,S.Mohamed,AngelaPicciariello,BecConnelly,D.Belgrave,Daphne\nEzer,FannyCachatvanderHaert,FrankMugisha,G.Abila,HiromiArai,HishamAlmiraat,JuliaProskurnia,Kyle\nSnyder,M.Otake-Matsuura,M.Othman,T.Glasmachers,W.D.Wever,Y.Teh,M.E.Khan,RubenDeWinne,Tom\nSchaul,andC.Clopath. AIforsocialgood: unlockingtheopportunityforpositiveimpact. NatureCommunications,\n11,2020.\nOwenMulhern. Artificialintelligence: Canithelpachieveenvironmentalsustainability?\nhttps://earth.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "20.\nOwenMulhern. Artificialintelligence: Canithelpachieveenvironmentalsustainability?\nhttps://earth.org/data_visualization/ai-can-it-help-achieve-environmental-sustainable/,\n2021.\nUnitedNation. TheGood,TheBadAndTheBlockchain.\nhttps://unfccc.int/blog/the-good-the-bad-and-the-blockchain,2021.\nSEVollset,E.Goren,CWYuan,JCao,AESmith,THsiao,CBisignano,GSAzhar,ECastro,JChalek,AJDolgert,\nTFrank,KFukutaki,SIHay,RLozano,AHMokdad,VNandakumar,MPierce,MPletcher,TRobalik,\nKMSteuben,HYWunrow,BSZlavog,andCJLMurray. Fertility,mortality,migration,andpopulationscenariosfor\n195countriesandterritoriesfrom2017to2100: aforecastinganalysisfortheGlobalBurdenofDiseaseStudy.\nLancet,396,October2020.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nMaxRoser. FuturePopulationGrowth. https://ourworldindata.org/future-population-growth,\nNovember2019.\nM.Jacobs. Theeffectivenessofwordpredictionsoftwarewordq: \"...predictit,hearit,chooseit,reviewit,correctit,\nwriteitnow...\". 2015.\nToddHaselton. ThishiddenAirPodsfeaturehelpsyouhearbetter.\nhttps://www.cnbc.com/2019/01/20/how-to-turn-airpods-into-hearing-aids.html,2019.\nEliyaNachmani,YossiAdi,andLiorWolf. Voiceseparationwithanunknownnumberofmultiplespeakers,2020.\nNicholasFearn. HowVRIsHelpingVisuallyImpairedPatientsRegainCloseToNormalLevelsOfSight.\nhttps://www.forbes.com/sites/nicholasfearn/2020/01/08/\nhow-vr-is-helping-visually-impaired-patients-regain-close-to-normal-levels-of-sight/\n?sh=15e1a9c60277,2020.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "s-helping-visually-impaired-patients-regain-close-to-normal-levels-of-sight/\n?sh=15e1a9c60277,2020.\nAmalkumarGhosh,EvanP.Donoghue,IlyasKhayrullin,TariqAli,IhorWacyk,KerryTice,FridrichVazan,Laurie\nSziklas,DavidFellowes,andRussellDraper. Invitedpaper: Directlypatterened2645ppifullcoloroledmicrodisplay\nforheadmountedwearables. SocietyforInformationDisplaySymposiumDigestofTechnicalPapers,47(1),2016.\nTaylorKubota. Stanfordmaterialsscientistsborrowsolarpaneltechtocreatenewultrahigh-resOLEDdisplay.\nhttps://news.stanford.edu/2020/10/22/future-vr-employ-new-ultrahigh-res-display/,2020.\nVenkateshKodukula,SaadKatrawala,BrittonJones,Carole-JeanWu,andRobertLiKamWa. Dynamictemperature\nmanagementofnear-sensorprocessingforenergy-efficienthigh-fidelityimaging. Sensors,21(3),2021.\nJ.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "ure\nmanagementofnear-sensorprocessingforenergy-efficienthigh-fidelityimaging. Sensors,21(3),2021.\nJ.DevinMacKenzieandChristineHo. Perspectivesonenergystorageforflexibleelectronicsystems. Proceedingsof\ntheIEEE,103(4):535–553,2015.\nPBrunner,LBianchi,CGuger,FCincotti,andG.Schalk. Currenttrendsinhardwareandsoftwareforbrain-computer\ninterfaces(bcis). InJournalofNeuralEngineering,2011.\nIoannisKarageorgos,KarthikSriram,JánVeselý,MichaelWu,MarcPowell,DavidBorton,RajitManohar,and\nAbhishekBhattacharjee. Hardware-softwareco-designforbrain-computerinterfaces. InProceedingsofthe\nACM/IEEEAnnualInternationalSymposiumonComputerArchitecture,2020.\nInternationalEnergyAgency. Accesstoelectricity.\nhttps://www.iea.org/reports/sdg7-data-and-projections/access-to-electricity.\nSibrenIsaacmanandMargaretMartonosi.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "iea.org/reports/sdg7-data-and-projections/access-to-electricity.\nSibrenIsaacmanandMargaretMartonosi. Low-infrastructuremethodstoimproveinternetaccessformobileusersin\nemergingregions. InProceedingsofthe20thInternationalConferenceCompaniononWorldWideWeb,page\n473–482,2011.\nJosiahHester,TraeKing,AlexPropst,KalyanPiratla,andJacobSorber. Enablingsustainablesensinginadverse\nenvironments. InProceedingsoftheIEEEInternationalConferenceonSensing,CommunicationsandNetworking,\npages249–251,2013.\nBrandonLucia,VigneshBalaji,A.Colin,KiwanMaeng,andE.Ruppel. Intermittentcomputing: Challengesand\nopportunities. InSNAPL,2017.\nBilalSaleem,PaulSchmitt,JayChen,andBarathRaghavan. Beyondthetrees: Resilientmultipathforlast-mileWISP\nnetworks. CoRR,abs/2002.12473,2020.\nOzlemBilgirYetimandMargaretMartonosi.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "tmultipathforlast-mileWISP\nnetworks. CoRR,abs/2002.12473,2020.\nOzlemBilgirYetimandMargaretMartonosi. Dynamicadaptivetechniquesforlearningapplicationdelaytolerancefor\nmobiledataoffloading. In2015IEEEConferenceonComputerCommunications(INFOCOM),pages1885–1893,\n2015.\nBradPlumer. EnergyDepartmentTargetsVastlyCheaperBatteriestoCleanUptheGrid.\nhttps://www.nytimes.com/2021/07/14/climate/renewable-energy-batteries.html,2021.\nJonathanStray. BeyondEngagement: AligningAlgorithmicRecommendationsWithProsocialGoals.\nhttps://www.partnershiponai.org/\nbeyond-engagement-aligning-algorithmic-recommendations-with-prosocial-goals/,2021.\nAmandaAskell,MilesBrundage,andGillianHadfield. Theroleofcooperationinresponsibleaidevelopment,2019.\nNIST. Nistproposesapproachforreducingriskofbiasinartificialintelligence.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "onsibleaidevelopment,2019.\nNIST. Nistproposesapproachforreducingriskofbiasinartificialintelligence.\nhttps://www.nist.gov/news-events/news/2021/06/\nnist-proposes-approach-reducing-risk-bias-artificial-intelligence,2021.\nIBM. Aiethics. https://www.ibm.com/artificial-intelligence/ethics.\nMicrosoft. TrustworthyAI. https://www.microsoft.com/en-us/research/project/trustworthy-ai/,b.\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Socio-TechnologicalChallengesandOpportunities: PathsForward APREPRINT\nGoogle. Buildingresponsibleaiforeveryone. https://ai.google/responsibilities/,c.\nFacebook. Facebook’sfivepillarsofResponsibleAI.\nhttps://ai.facebook.com/blog/facebooks-five-pillars-of-responsible-ai/.\nDOD. AIPrinciples: RecommendationsontheEthicalUseofArtificialIntelligencebytheDepartmentofDefense.\nhttps://media.defense.gov/2019/Oct/31/2002204458/-1/-1/0/DIB_AI_PRINCIPLES_PRIMARY_\nDOCUMENT.PDF.\nMaxRoser. Mobiledevicesaretooexpensiveforbillionsofpeople–andit’skeepingthemoffline.\nhttps://a4ai.org/\nmobile-devices-are-too-expensive-for-billions-of-people-and-its-keeping-them-offline/,\nAugust2020.\nMustafaNaseem,BilalSaleem,SachaSt-OngeAhmad,JayChen,andAghaAliRaza. AnEmpiricalComparisonof",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "st2020.\nMustafaNaseem,BilalSaleem,SachaSt-OngeAhmad,JayChen,andAghaAliRaza. AnEmpiricalComparisonof\nTechnologicallyMediatedAdvertisinginUnder-ConnectedPopulations,page1–13. 2020.\nDanielW.O’Neill,AndrewL.Fanning,WilliamF.Lamb,andJ.Steinberger. Agoodlifeforallwithinplanetary\nboundaries. NatureSustainability,1:88–95,2018.\n17",
+    "page": 17
+  }
+]

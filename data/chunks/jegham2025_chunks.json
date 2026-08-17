@@ -1,0 +1,492 @@
+[
+  {
+    "type": "text",
+    "content": "How Hungry is AI? Benchmarking Energy, Water, and\nCarbon Footprint of LLM Inference\nNidhalJegham1,2 MarwanAbdelatti3 ChanYoungKoh1\nnidhal.jegham@uri.edu mabdelat@providence.edu ckoh04@uri.edu\nLassadElmoubarki2 AbdeltawabHendawi1∗\nlassad.elmoubarki@tbs.rnu.tn hendawi@uri.edu\n1UniversityofRhodeIsland 2UniversityofTunis 3ProvidenceCollege\nLiveDashboard: PowerBIDashboard\nAbstract\nThispaperintroducesaninfrastructure-awarebenchmarkingframeworkforquanti-\nfyingtheenvironmentalfootprintofLLMinferenceacross30state-of-the-artmod-\nelsincommercialdatacenters. TheframeworkcombinespublicAPIperformance\ndatawithcompany-specificenvironmentalmultipliersandstatisticalinferenceof\nhardwareconfigurations. Weadditionallyutilizecross-efficiencyDataEnvelop-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "andstatisticalinferenceof\nhardwareconfigurations. Weadditionallyutilizecross-efficiencyDataEnvelop-\nmentAnalysis(DEA)torankmodelsbyperformancerelativetoenvironmentalcost\nandprovideadynamicallyupdateddashboardthatvisualizesmodel-levelenergy,\nwater,andcarbonmetrics. Resultsshowthemostenergy-intensivemodelsexceed\n29Whperlongprompt, over65×themostefficientsystems. Evena0.42Wh\nshort query, when scaled to 700M queries/day, aggregates to annual electricity\ncomparableto35,000U.S.homes,evaporativefreshwaterequaltotheannualdrink-\ningneedsof1.2Mpeople,andcarbonemissionsrequiringaChicago-sizedforest\nto offset. These findings highlight a growing paradox: as AI becomes cheaper\nand faster, global adoption drives disproportionate resource consumption. Our",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "as AI becomes cheaper\nand faster, global adoption drives disproportionate resource consumption. Our\nmethodologyoffersastandardized,empiricallygroundedbasisforsustainability\nbenchmarkingandaccountabilityinAIdeployment.\n1 Introduction\nLargelanguagemodels(LLMs)havemovedbeyondresearchlabsandarenowembeddedinsearch\nengines,virtualassistants,educationplatforms,andenterprisetools[1,2,3,4]. ModelslikeGPT-4o\n[5]andClaude-3.7Sonnet[6]representstate-of-the-artsystems,whileopen-sourcealternativessuch\nasLLaMA-3[7]andDeepSeek-V3[8]reflectgrowingaccessibilityandexperimentation. Ontopof\nthat,theemergenceofreasoningmodelssuchasDeepSeek-R1[9],o1[10],ando3-mini[11]marks\nashifttowardmulti-steplogicandchain-of-thoughtreasoning.\nHowever,theadvancementofLLMsdoesinvolveshortcomingsinenvironmentalaspects. Training",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "oughtreasoning.\nHowever,theadvancementofLLMsdoesinvolveshortcomingsinenvironmentalaspects. Training\nGPT-3isestimatedtoconsume1,287megawatt-hours(MWh)ofelectricityandemitover550metric\ntons of CO equivalent (CO e) [12], while requiring more than 700 kiloliters (kL) of water for\n2 2\ncoolingalone[13],enoughtofillaquarterofanOlympic-sizedswimmingpool. Yetwhiletraining\nhasbeenthefocusofsustainabilitydiscussions,inferenceisemergingastheprimarycontributorto\nenvironmentalcosts. Incontrasttotraining,whichisconductedonceoratintervals,inferenceoccurs\nconsistentlyandonalargescale. Recentestimatessuggestinferencecanaccountforupto90%ofa\nmodel’stotallifecycleenergyuse[14,15].\n∗Correspondingauthor.\n5202\nvoN\n42\n]YC.sc[\n6v89590.5052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "42\n]YC.sc[\n6v89590.5052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Despitethegrowingenvironmentalfootprintoflarge-scalemodeldeployment,astandardmethod\ntoquantifythecostofinferenceatthepromptlevelremainsabsent. Acoreobstacletodeveloping\nmoreaccurateassessmentsisthelackofmodel-specificinferencedataforcommercialAImodels.\nExistingenvironmentalreportstendtoaggregateemissionsacrossentirecloudinfrastructureswithout\ndisaggregatingbymodelorworkload[16,17]. Thislackofpublicinformationhindersindependent\nverificationandunderminesbothscientificbenchmarkingandpolicyeffortsaimedatregulatingAI’s\ntrueenvironmentalcost.\nTo address these issues, we introduce a novel infrastructure-aware benchmarking framework to\nquantifytheoperationalenvironmentalfootprintofLLMinferenceattheper-promptlevelasdeployed\nin data centers.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ifytheoperationalenvironmentalfootprintofLLMinferenceattheper-promptlevelasdeployed\nin data centers. Unlike existing studies [13, 15, 18], our method adopts a more comprehensive\nstrategybyintegratingperformancemetricssuchaslatencyandthroughputfrompublicAPIswith\npublished GPU and system power specifications. Furthermore, we scale these combined data\npoints using company-specific multipliers, including Power Usage Effectiveness (PUE) [19, 20],\nWaterUsageEffectiveness(WUE)[19,20],andCarbonIntensityFactors(CIF)[21,22]toaccount\nfor infrastructural overhead. This method enables us to evaluate the energy, water, and carbon\neffects of both open-source and proprietary models, a gap that, to our knowledge, has not been\ncomprehensivelyexploredinpriorresearch.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "oprietary models, a gap that, to our knowledge, has not been\ncomprehensivelyexploredinpriorresearch. Additionally,weemploystatisticalanalysis,including\nANOVAandTukeyHSD,toestimateunderlyinghardwareconfigurations. Toenhancetransparency\nand reproducibility, we also developed an automated and interactive Power BI dashboard that\nvisualizesthedailyfluctuationsintheenergy,water,andcarbonfootprintofanextendedlistofmodels\nacrossmultipledatacenters. Thisnoveldashboardincorporatesnewmodelsastheygetreleased.\nMoreover,tocontextualizeresourceuserelativetomodelcapability,weapplycross-efficiencyData\nEnvelopmentAnalysis(DEA)toassesshoweffectivelyeachmodelconvertsenvironmentalinputs\nintoperformance. Asakeyapplicationofthisframework,weperformacasestudytoestimatethe",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "ironmentalinputs\nintoperformance. Asakeyapplicationofthisframework,weperformacasestudytoestimatethe\nfootprintofGPT-4otextgenerationbasedonscaledusagedata. Wefurtherextendouranalysisto\nGPT-5,focusingonthedisparitiesinenergyconsumptionbetweenqueriesthatinvolvedifferentlevels\nofreasoning.Ourframeworkenablesinfrastructure-awaredecision-making,empowersaccountability,\nandprovidesafoundationalsteptowardsustainabilitystandardsinAIdeployment.\nThe remainder of the paper is organized as follows. Section 2 reviews existing studies on the\nenvironmentalimpactofLLMs.Section3introduceskeyconcepts,includinghardwareconfigurations\nandenvironmentalmultipliers. Section4detailsourframeworkforestimatinginference-phasecost.\nSection5presentsfindingsacross30models. Section6providesafocusedanalysisofGPT-4o’s",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "rence-phasecost.\nSection5presentsfindingsacross30models. Section6providesafocusedanalysisofGPT-4o’s\nannualenvironmentalfootprintandsection7analyzestheimpactofGPT-5’sadapativemodelrouting.\nSection 8 outlines key insights and implications. Section 9 summarizes the main takeaways and\nlimitationsanddirectionsforfuturework.\n2 RelatedWork\nTheenvironmentalimpactofAIsystemshasgarneredincreasingattentioninrecentyears,witha\ngrowingbodyofworkattemptingtoquantifytheenergy,carbon,andwatercostsassociatedwith\ntraininganddeployingLLMs.\nLietal. [13]analyzedGPT-3’sfreshwaterconsumption,estimatingover5millionlitersusedduring\ntrainingandprojectingthatAI-relatedwithdrawalscouldreach6.6trillionlitersannuallyby2027.\nAlthoughtheirspatiotemporalmethodologyisasignificantearlycontribution,itoverlookscarbon",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "allyby2027.\nAlthoughtheirspatiotemporalmethodologyisasignificantearlycontribution,itoverlookscarbon\nemissions,dependsonanoutdatedmodel,andrequirespreviousknowledgeofenergyusage,which\nrestricts its scalability. In parallel, Strubell et al. [23] estimated carbon emissions from training\nBERTandGPT-2byaccountingforGPU,CPU,andDRAMpowerdrawalongsidePUEadjustments.\nHowever,theiranalysisexcludesinferenceandinfrastructuraloverhead. Similarlimitationsappear\ninMeta’sLLaMAreports[7,24,25],whichprovidecarbonfootprintsbasedonGPUs’TDPsbut\ndisregardwateruse,system-wideenergyconsumption,andtheinferencephaseentirely.\nRegardinginference,Husometal. [18](MELODI)measurereal-timeenergyconsumptionofGPUs\nandCPUsatthepromptlevel,buttheyneglectcarbonemissions,waterusage,andinfrastructure",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "onsumptionofGPUs\nandCPUsatthepromptlevel,buttheyneglectcarbonemissions,waterusage,andinfrastructure\noverhead,onlyconcentratingonsmall-scaleopen-sourcemodels. Samsietal. [26]measureGPU\npowerdrawacrosspromptlengthsbutexcludeproprietarysystemsandbroaderenvironmentalfactors,\nlacking a standardized scaling method for production-level inference. Yang et al. [27] evaluate\nover1,200visionmodelsandintroduceanenergy-efficiencyscore. However,theiranalysisdoes\n2",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "notincludeLLMs,API-baseddeployments,oressentialinfrastructureconsiderationslikePUEand\nWUE.\nComplementary studies, including Luccioni et al. [28], assess general-purpose and task-specific\nmodelsintheA100systems. Whiletheyprovidevaluablecross-modelinsights,theydonotconsider\nproprietarymodels,waterusage,orcarbonemissions. CodeCarbon[15]calculatescarbonfootprints\nbased on device-level data and regional carbon intensity, but it lacks the granularity needed for\nprompt-level analysis and does not work with API-based inferences. On a larger scale, Harding\netal. [29]connectAIadoptiontonationalproductivity,allowingforextrapolationofenergyand\ncarboneffects. Thoughthisprovidesausefuloverarchingview,itoverlooksvariabilityinper-prompt",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "nergyand\ncarboneffects. Thoughthisprovidesausefuloverarchingview,itoverlooksvariabilityinper-prompt\ninference,thebehaviorofspecificmodels,andtheinfrastructureusedfordeployment.\nMosteffortsfocusontrainingandlocalmodelevaluation,lackingstandardized,scalablemethods,\nignoringinfrastructuraloverhead,andomittingresourcecategoriessuchaswaterconsumptionand\ncarbonemissions. OurworkaddressesthesegapsbyintegratingAPI-basedperformancemetricswith\nGPUandsystempowerspecificationsandenvironmentalmultiplierstoestimatetheenvironmental\nimpactofLLMinferenceatthepromptlevelindatacenters. Weinferdeploymentinfrastructure\nthroughstatisticalanalysisandapplyDEAtocontextualizeenvironmentalimpactversusperformance.\nAdditionally,weconducttwocasestudiesestimatingGPT-4o’sannualenvironmentalfootprintbased",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "erformance.\nAdditionally,weconducttwocasestudiesestimatingGPT-4o’sannualenvironmentalfootprintbased\nonscaledusagedataandanalyzingtheimpactofGPT-5’sadapativemodelrouting,providingthe\nfirstinfrastructure-aware,prompt-levelbenchmarkofinferencesustainabilityatscale.\n3 Preliminaries\nTocaptureinfrastructure-leveloverheadindatacenteroperations,weapplythreestandardenviron-\nmentalmultipliers: PowerUsageEffectiveness(PUE)[19,20],WaterUsageEffectiveness(WUE)\n[19,20],andCarbonIntensityFactor(CIF)[21,22].\nPUEaccountsfornon-computationalenergyoverheadssuchascooling,lighting,andpowerdistribu-\ntion. DefinedastheratiooftotaldatacenterenergyconsumptiontoIT-specificenergyuse.\nWUEcapturesthewaterusedperkilowatt-hourofITenergy,encompassingon-sitecooling(Scope",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ecificenergyuse.\nWUEcapturesthewaterusedperkilowatt-hourofITenergy,encompassingon-sitecooling(Scope\n1),off-siteelectricitygeneration(Scope2),andembodiedwaterfromhardwaremanufacturingand\ntransport (Scope 3). WUE can be computed based on either water withdrawal (the total volume\ndrawnfromnaturalormunicipalsources)orwaterconsumption(theportionofwithdrawnwater\npermanentlylost,primarilythroughevaporation).\nCIFmeasurescarbonemissionsperkilowatt-hourofenergyconsumed,largelydrivenbytheregional\nelectricitymix. Emissionsarecategorizedasdirecton-sitecombustion(Scope1),off-siteelectricity\ngeneration(Scope2),andembodiedemissionsfrommanufacturingandtransport(Scope3).\n4 Methodology\nThis section presents our novel methodology for estimating the environmental footprint of LLM\ninference.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "section presents our novel methodology for estimating the environmental footprint of LLM\ninference. Ourframeworkintegratesmodel-specificperformancemetricswithinfrastructure-level\nenvironmental multipliers to calculate operational energy consumption, water usage, and carbon\nemissionsperquery. Wealsoevaluateeco-efficiencyusingDEA,mappingsustainabilitytrade-offs\nagainst a composite performance benchmark, and develop an interactive dashboard for a more\nthoroughanalysis.\n4.1 ModelSelectionandHardwareEstimation\nWe analyze 30 large language models across OpenAI, Anthropic, Meta, and DeepSeek. Table 1\nsummarizeseachmodel’sdeploymentcontext,includingprovider,cloudhost,hardwaretypeand\nspecifications,andcompany-specificenvironmentalmultipliers(PUE,WUE,CIF).Allmodelsare",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ardwaretypeand\nspecifications,andcompany-specificenvironmentalmultipliers(PUE,WUE,CIF).Allmodelsare\nusuallyrunonNVIDIADGXsystemsusingA100,H100,H200,orH800GPUs[30,45,46,47,48].\nU.S.-basedproviderssuchasOpenAIandAnthropichaveacquiredlargevolumesofH200andH100\nchips[31,41,42],makingthemthemostprobablechoiceforrecentdeployments. DeepSeek,which\noperatesunderU.S.exportrestrictions, usestheH800, NVIDIA’sexport-compliantGPUforthe\nChinesemarket[38,49]. BoththeH200andH800retainthesameHopperarchitectureandpeak\n3",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Table1: Deploymentandinfrastructurespecificationsofmodels.\nModel L D au a n te ch Company Host Hardware C P ( r k o i w W tic e ) a r l PUE (on-si W te, U L E /kWh) (off-si W te, U L E /kWh) (kgCO C 2 I e F /kWh)\nGPT-4.1 Apr,2025\nGPT-4.1mini Apr,2025\nGPT-4.1nano Apr,2025\no4-mini(high) Apr,2025\no3 Apr,2025\no3-mini(high) Jan,2025 OpenAI MicrosoftAzure DGXH200/H100[30,31] 10.20[32] 1.12[33] 0.30[34] 4.35[35] 0.35[36]\no3-mini Jan,2025\no1 Dec,2024\no1-mini Sep,2024\nGPT-4o(Mar’25) May,2024\nGPT-4omini July,2024\nGPT-4Turbo Nov,2023 OpenAI MicrosoftAzure DGXA100* 6.50[37] 1.12 0.30 4.35 0.35\nGPT-4 Mar,2023\nD D e e e e p p S S e e e e k k - - V R1 3 D Ja e n c , , 2 2 0 0 2 2 5 4 Deepseek Deepseek DGXH800[8] 10.20[38] 1.27[39] 1.20[39] 6.016[35] 0.6[40]",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "n c , , 2 2 0 0 2 2 5 4 Deepseek Deepseek DGXH800[8] 10.20[38] 1.27[39] 1.20[39] 6.016[35] 0.6[40]\nD D e e e e p p S S e e e e k k - - V R1 3 D Ja e n c , , 2 2 0 0 2 2 5 4 Deepseek MicrosoftAzure DGXH200/H100 10.20 1.12 0.30 4.35 0.35\nClaude-3.7Sonnet Feb,2025\nC C l l a a u u d d e e - - 3 3 . . 5 5 S H o a n i n k e u t N Ju o n v , , 2 2 0 0 2 2 4 4 Anthropic AWS DGXH200/H100[41,42] 10.20 1.14[43] 0.18[43] 5.11[35] 0.287[44]\nLLaMA-3.370B Dec,2024\nLLaMA-3.2-vision90B Sep,2024\nLLaMA-3.2-vision11B Sep,2024\nLLaMA-3.23B Sep,2024\nL L L L aM aM A A -3 - . 3 1 . - 2 4 1 0 B 5B S Ju ep l, , 2 2 0 0 2 2 4 4 Meta AWS DGXH200/H100 10.20 1.14 0.18 5.11 0.287\nLLaMA-3.1-70B Jul,2024\nLLaMA-3.1-8B Jul,2024\nLLaMA-3-70B Apr,2024\nLLaMA-3-8B Apr,2024\n*DGXA100wasestimatedforGPT-4omini,GPT-4Turbo,andGPT-4.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "2024\nLLaMA-3-70B Apr,2024\nLLaMA-3-8B Apr,2024\n*DGXA100wasestimatedforGPT-4omini,GPT-4Turbo,andGPT-4.JustificationandestimationdetailsareprovidedinSection4.3.1.\npowerdrawastheH100,withsystem-levelenergycharacteristicsthatarenearlyidentical[50]. While\ntheH200achievesgreaterenergyefficiencyduetofastermemoryandhigherbandwidth,andthe\nH800mayexhibitreducedperformanceduetoexport-relatedfirmwarelimitations,bothmaintain\nthesamepeakpowerdraw,thermaldesignprofile,andsystem-levelutilizationcharacteristicsasthe\nH100[38,50]. Thesearchitecturaldifferencesaffectthroughputandlatency,resultinginhigheror\nlowerenergyconsumedpertoken,butdonotimpacttotalsystempowerdemandunderload. We\nthereforetreatH100,H200,andH800asequivalentinourpowermodeling,sinceourestimatesare",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "andunderload. We\nthereforetreatH100,H200,andH800asequivalentinourpowermodeling,sinceourestimatesare\nbasedonpowerdrawandutilizationratherthantask-levelperformance.\nEnvironmental multipliers such as PUE, WUE, and CIF are assigned according to each cloud\nprovider’sdatacenterlocationsandcorrespondingregionalgridcharacteristics. ForOpenAIand\nDeepSeekmodelshostedonMicrosoftAzure,weuseAzure-reportedPUEandsite-levelWUEvalues,\nwhileCIFandsource-levelWUEarederivedfromthespecificgeographiclocationsofMicrosoft\ndatacentersaroundtheworld. ForAWS-hostedmodels,includingthosefromAnthropicandMeta,\nweapplyAWS-reportedPUEandsite-levelWUE,andcomputeCIFandsource-levelWUEbased\nontheregionaldistributionofAWSdatacentersusedforinference. ForDeepSeekmodelsthatare",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "e-levelWUEbased\nontheregionaldistributionofAWSdatacentersusedforinference. ForDeepSeekmodelsthatare\ndeployedinChinesedatacenters,weadopttheaveragePUEandsite-levelWUEofthethirtymost\nefficientdatacentersinChina,whileCIFandsource-levelWUEaredeterminedusingtheregional\nlocationsofitsknownorreporteddatacenterdeployments.\n4.2 Per-QueryEnergyConsumptionEstimation\nToquantifytheenergyrequiredforasingleinference,weintroduceaprobabilisticframeworkthat\ncapturesthestochasticnatureofLLMworkloads. Themodelintegratesstandardizedperformance\ndata[51],whichreportlatencytofirst-tokengeneration(L)andtokens-per-second(TPS,denotedR)\nacrossempiricalquantiles(5th,25th,50th,75th,and95thpercentiles)andthreerepresentativeprompt\nconfigurations: short-form(100input,300outputtokens),medium(1,000input,1,000output),and",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ativeprompt\nconfigurations: short-form(100input,300outputtokens),medium(1,000input,1,000output),and\nlong-form(10,000input,1,500output),reflectingvariabilityacrossmultipletestrunsforeachmodel\nandpromptconfiguration.\nTomodelrealisticruntimebehavior,weconstructajointdistributionofLandRusingaGaussian\ncopulawithcorrelationcoefficientρ=−0.3,capturingthenegativedependencetypicallyobserved\nbetweenlatencyandTPS.Fromthisdistribution,wedraw10,000correlatedsamples(L ,R ),each\ni i\nrepresentingoneplausibleinferencescenario.Theculminationofthisinfrastructure-awareframework\nistheintroductionofournovelformulatopreciselyestimatetheper-queryenergyconsumption:\n4",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "LetL capturestheinitializationlatencyand OutputLength representsthetimeittakestogeneratethe\ni Ri\nresponse. Also,letP andP denotetheratedpowerdraw(inkW)oftheGPUsubsystem\nGPU non-GPU\nandthenon-GPUsubsystem(e.g.,CPUs,SSDs,network,andcoolingcontrolelectronics),respec-\ntively. TheparametersU andU representtheminimumandmaximumGPUutilization\nGPU,min GPU,max\nfractionsobservedduringinference,whileU representstheaverageutilizationfractionfor\nnon-GPU\nnon-GPUcomponents. PUEfactorisalsoincorporatedtoaccountfordatacenter-leveloverheads.\nWecomputeenergyconsumptionatthelowerandupperutilizationboundsas:\n \n(cid:32)\nL +\nOutputLength(cid:33)\nE = i Ri ×P ×U +P ×U ×PUE\ni,{min,max} 3600  (cid:124) GPU (cid:123) G (cid:122) PU,{min,max (cid:125) } (cid:124) non-GPU (cid:123)(cid:122) non-GPU (cid:125) ",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "d:123) G (cid:122) PU,{min,max (cid:125) } (cid:124) non-GPU (cid:123)(cid:122) non-GPU (cid:125) \n(cid:124) (cid:123)(cid:122) (cid:125) GPUpower(kW) Non-GPUpower(kW)\nTotalinferencetime(Ti,hours)\n(1)\nWealsodefineanexpectedper-queryenergyasaweightedcombinationofbothscenarios(w =\nmax\n0.5),andtheframeworkaggregatesallMonteCarlodrawstoproduceadistributionofper-query\nenergyoutcomes. Thefinalmetricsarereportedasthesamplemeanandstandarddeviation:\n(cid:113)\nE =w E +(1−w )E , E¯ =E[E ], σ = Var[E ] (2)\ni,exp max i,max max i,min query i,exp Equery i,exp\nThis stochastic formulation captures variability in runtime, hardware utilization, and data-center\nefficiency, enabling robust and reproducible estimation of per-query energy consumption across\ndiverseinferenceconditions.\n4.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "st and reproducible estimation of per-query energy consumption across\ndiverseinferenceconditions.\n4.3 Hardware-ClassAttribution\nWe stratify LLMs into five hardware classes based on model size: Nano (<7B), Micro (7–20B),\nSmall(20–40B),Medium(40–70B),andLarge(>70B),assigning1,2,4,or8GPUsaccordingly.\nModelsthatdonotdiscloseparametercounts,suchasOpenAIandAnthropicflagshipmodels(e.g.,\nGPT-4o, Claude-3.7 Sonnet), are classified as Large, OpenAI Mini variants (e.g., GPT-4o mini)\nasMedium,andmodelslabeled“Nano”suchasGPT-4.1nanoasSmallbasedonreportedmodel\nperformance(e.g.,TPS,latency,andreasoningcapabilities)[51].\nAIcompaniesandcloudproviderstypicallyrelyondynamicbatchingtooptimizeGPUutilization\nwhilemaintaininglowlatency[52]. Althoughactualbatchsizesfluctuatedependingonincoming",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "GPUutilization\nwhilemaintaininglowlatency[52]. Althoughactualbatchsizesfluctuatedependingonincoming\ndemand, they are generally constrained to a narrow range below 16 to preserve responsiveness.\nBenchmarks[51]showthatevenforlargeprompts,mostmodelsmaintainafirst-tokenlatencybelow\nonesecond. Moreover,priorstudies[53,54]showthattheselatencyvaluesareconsistentwithbatch\nsizesintherangeof4to16. Thissuggeststhatreal-worlddeploymentsprioritizesmall,latency-\nsensitivebatchesovermaximalthroughput. Accordingly,weadoptabatchsizeof8forallprimary\ncalculations,asitrepresentsapracticalmidpointbetweencommondeploymentscenarios. Adetailed\nsensitivityanalysisexploringtheimpactofalternativebatchsizesisprovidedinAppendixA.The\nnumberofGPUsandtheirallocatedpowerdrawutilizationratesforH100systemsareestimatedfrom",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nAppendixA.The\nnumberofGPUsandtheirallocatedpowerdrawutilizationratesforH100systemsareestimatedfrom\nSplitwise[54],theLatencyProcessingUnitstudy[55],andLLM-Inference-Bench[53]. ForA100\nsystems,weadoptmeasurementsfromPateletal. andKakolyrisetal.’swork[56,57]. Per-request\nGPUandnon-GPUutilizationratesarecalculatedas:\nG×D G×D\nU = GPU, U = non-GPU (3)\nGPUtotal N ×B non-GPUtotal N ×B\nwhereGisthenumberofGPUsassignedpermodel,N =8isthenumberofGPUspernode,and\nB =8isthebatchsize.D denotestheassignedGPUs’powerdraw,expressedasafractionoftheir\nGPU\nmaximumpowerdraw,whileD =0.5representstheconservativelyassignedfixedutilization\nnon-GPU\nfractionfornon-GPUcomponents(e.g.,CPU,memory,storage,cooling),relativetotheirpeakpower\ndraw[32]. WeexcludeidlepowerconsumptionfromunutilizedGPUsinpartiallyloadednodes,",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "vetotheirpeakpower\ndraw[32]. WeexcludeidlepowerconsumptionfromunutilizedGPUsinpartiallyloadednodes,\nasdeployment-specifictelemetryisunavailabletodeterminewhethersuchcapacityisreassigned,\nload-balanced,orremainsidle. Table2summarizesGPUandnon-GPUpowerutilizationratesacross\nmodelclasses. Valuesareroundedtotypicalintervalsobservedduringinference,accountingforinput\nprocessingspikes,outputlength,decodingcomplexity,andabatchsizeof8parallelrequests.\n5",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Table2: Estimatednode-levelGPUandnon-GPUutilizationbymodelclassforH100andA100.\nGPU D D U U\nClass GPU GPU GPUtotal GPUtotal U\nCount (H100) (A100) (H100) (A100) non-GPUtotal\nNano 1 35–65% 80–90% 0.55–1.00% 1.25–1.5% 0.87%\nMicro 1 50–80% 90–100% 0.75–1.25% 1.5–1.6% 0.87%\nSmall 2 55–80% N/A 1.70–2.50% N/A 1.6%\nMedium 4 50–70% 100–110% 3.00–4.50% 6.25–7% 3.125%\nLarge 8 45–60% 100–120% 5.50–7.50% 12.5–15.0% 6.25%\nFigure1: (Left)MeanenergyconsumptionofGPT-4oandGPT-4ominiacrossprovidersandGPU\ntypes,measuredbyoutputsize. (Right)DistributionofTPS(averagedacrossoutputsizes)\n4.3.1 GPT-4,GPT-4Turbo,andGPT-4ominiHardwareEstimation\nIn our experiment, we observed a performance discrepancy: GPT-4o mini showed significantly\nlowerthroughputandhigherlatencyonOpenAI’sAPIcomparedtoMicrosoftAzureunderidentical",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ed significantly\nlowerthroughputandhigherlatencyonOpenAI’sAPIcomparedtoMicrosoftAzureunderidentical\nprompt settings, as shown in Figure 1. Both variants also underperformed relative to OpenAI’s\nGPT-4o,with60%and27%lowerTPS,respectively. GivenGPT-4omini’ssmallersizeandH200’s\narchitecturaladvantages,itsperformancewouldbeexpectedtomatchorexceedGPT-4oifserved\nonH200infrastructure. TheobservedgapisinconsistentwithH200deploymentandsuggeststhat\nGPT-4ominiisrunningonA100orH100systems. Notably,Azure’sversionoutperformsOpenAI’s\nby 47% on average, further supporting the likelihood that Azure uses H100 and OpenAI retains\nA100. Therefore, to validate our hardware estimations, we tested this hypothesis using two-way\nANOVAandTukeyHSD(Table3). At300-tokenprompts,energyconsumptionwasstatistically",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "thesis using two-way\nANOVAandTukeyHSD(Table3). At300-tokenprompts,energyconsumptionwasstatistically\nsimilaracrossplatforms,asexpectedgiventhesmallcomputationalload. However,atlargeroutput\nsizes,significantdifferencesemerged: OpenAI’spresumedA100deploymentdifferedfromAzure’s\nH100deploymentwithp < 0.05,andAzure’sH100alsooutperformedOpenAI’sassumedH100\nwithp < 0.05,reinforcingthelikelihoodthatOpenAI’sGPT-4ominiisnotservedonH100. We\nthereforeconsiderGPT-4ominitoberunningonA100. Additionally,withreportsthatGPT-4was\ntrainedanddeployedonA100systems[58],andgiventhearchitecturalcontinuitybetweenGPT-4\nandGPT-4Turboandtheirlowthroughput,highlatency,andimpendingdeprecation[59],wealso\nconsidertheyarerunningonA100architecturesinceitisunlikelythattheyhavemigratedtonewer\nhardware.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "also\nconsidertheyarerunningonA100architecturesinceitisunlikelythattheyhavemigratedtonewer\nhardware.\nTable3: TukeyHSDAdjustedp-valuesforenergyconsumptiondifferencesbyprovider,GPUsystem,\nandpromptsize\nGroup1 Group2 300tokens 1000tokens 1500tokens\nAzure(H100) OpenAI(A100) 0.979 0.0009 <0.0001\nAzure(H100) OpenAI(H100) 0.951 0.0001 <0.0001\n6",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "4.4 Per-QueryWaterConsumptionandCarbonEmissionsEstimation\nThis study focuses exclusively on operational emissions and resource consumption during the\ninference phase of the model. Accordingly, embodied emissions and water use from hardware\nmanufacturingandsupplychains(Scope3)areexcludedduetotheirlimitedrelevancetoreal-time\ndeploymentandtheriskofinflatingper-queryestimateswhenappliedwithoutdeployment-specific\nattributionorwhenmodellifecyclesremainongoing. Forwaterusage, wefocussolelyonwater\nconsumption(waterpermanentlyremovedfromthesource). Forcarbonemissions,weexcludeScope\n1emissionsastheyaregenerallynegligiblecomparedtoScope2emissionsduetotheinfrequent\nuseofon-sitefuelcombustionforbackupgeneratorsandfacilityheatingindatacenters[60]. For\nexample,Scope1emissionsaccountedforonly1.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "orbackupgeneratorsandfacilityheatingindatacenters[60]. For\nexample,Scope1emissionsaccountedforonly1.6%ofMicrosoft’sScope2emissionsin2023[36],\nafigurethatincludesexecutiveairtravel,groundtransportation,refrigerantleakage,andon-sitefuel\nuse,furtherdiminishingtheshareattributabletodatacenteroperations. Accordingly,ouranalysis\nfocusesexclusivelyonScope2emissions,whichcapturethecarbonintensityofelectricityconsumed\nduringinference. AmoredetaileddiscussionoftheseconsiderationsisprovidedinAppendixB.\nWaterconsumptionandcarbonemissionsperqueryarecalculatedas:\nE\nWater(L)= query ·WUE +E ·WUE (4)\nPUE site query source\n(cid:124) (cid:123)(cid:122) (cid:125)\n(cid:124) (cid:123)(cid:122) (cid:125)\nOff-siteelectricity\nOn-sitecooling\nCarbon(kgCO e)=E ·CIF (5)\n2 query\n4.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "(cid:123)(cid:122) (cid:125)\nOff-siteelectricity\nOn-sitecooling\nCarbon(kgCO e)=E ·CIF (5)\n2 query\n4.5 Eco-EfficiencyviaDataEnvelopmentAnalysis(DEA)\nWeapplycross-efficiencyDEAtoevaluatetheeffectivenessofeachmodelinconvertingenviron-\nmentalresourcesintofunctionalintelligence. Inputsincludeper-queryenergyconsumption,PUE,\nWUE , WUE , and CIF. The output is the Artificial Intelligence Index, a composite score\nsource site\nweighted across multiple benchmark domains [51]. Specifically, reasoning and knowledge tasks\n(MMLU-Pro[61],HLE[62],GPQA[63])collectivelycontribute50%oftheindex(1/6each);mathe-\nmaticalproficiency(MATH-500[64],AIME[65])contributes25%(1/8each);andcodingability\n(SciCode[66],LiveCodeBench[67])accountsfortheremaining25%(1/8each).",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "es25%(1/8each);andcodingability\n(SciCode[66],LiveCodeBench[67])accountsfortheremaining25%(1/8each).\nIncontrasttostandardCharnes-Cooper-Rhodes(CCR)orBanker-Charnes-Cooper(BCC)models,\nwhichenableeachmodeltochooseitsoptimalweightings,sometimesinflatingperformance,cross-\nefficiencyassesseseachmodelbasedonitsownandallpeerweightings. Thisapproachreduces\nself-evaluationbiasandrecognizesmodelsthatmaintainstrongperformancefromvariousefficiency\nviewpoints. Theresultingscoresofferamorerobustandcomparativemeasureofeco-efficiency. Full\nresultsandadditionaldiscussionareprovidedinAppendixC.\n4.6 PowerBIDashboard\nTodemocratizeaccesstothesenovelassessments,webuiltanddeployedanautomatedPowerBI\ndashboardthatrunsourentireframeworkinrealtime,afirst-of-its-kindtoolforcontinuouslytracking",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "PowerBI\ndashboardthatrunsourentireframeworkinrealtime,afirst-of-its-kindtoolforcontinuouslytracking\nAIinferencesustainability. ThedataarescrapeddailyfromtheArtificialAnalysiswebsite,cleaned\nautomatically,andthenvisualizedonPowerBIasseeninFigures2aand2b. Themaindashboard\ndisplays the average and standard deviation of energy use, water consumption (site, source, and\ncombined), and carbon emissions for the three query sizes. It also visualizes latency and TPS\nfluctuations, benchmark results, and the total environmental impact when scaling up to 1, 50, or\n100billionqueries,comparedwithreal-worldequivalentssuchashouseholdelectricityuse,annual\ndrinkingneeds,andtransportationemissions. Userscanfilterbycompany,modelsize,querysize,or\nsustainabilitymetric,anddownloadthefulldataset.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ions. Userscanfilterbycompany,modelsize,querysize,or\nsustainabilitymetric,anddownloadthefulldataset. Additionally,thedashboardtracksday-to-day\nchangesineachmodel’sfootprint,visualizingtime-seriestrendsandtheaverageinenergy,water,\nandcarbonmetricsacrossdatacentersandhardwaresetups. Itincludesanextendedlistofmodels\nbeyondthoseanalyzedinthisstudyandautomaticallyincorporatesnewonesastheyarereleased,\nallowingcontinuousmonitoringofinference-phasesustainabilityandcross-modelcomparisonsover\ntime.\n7",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "(a)Overviewofthemaindashboarddisplayingthe (b)Overviewofthetimeseriesdashboarddisplaying\nenergyconsumptionpermodel,latency,TPS,bench- averageenergyconsumptionpermodel,andthedaily\nmarkscores,andequivalentenvironmentalimpacts fluctuationsoftheselectedmodel(Grok4).\nforanexamplemodel(GPT-5minimal).\nFigure2: VisualoverviewoftheAIsustainabilitydashboard.\n5 ExperimentalEvaluation\nWebenchmarktheenvironmentalfootprintof30LLMsacrossthreemodalities: Energyconsumption,\nwaterusage,andcarbonemissions,basedonequations2,4,and5,respectively. Forthelong-form\nqueryevaluation,GPT-4andLLaMA-3(8Band70B)areexcludedduetocontextwindowlimitations.\n5.1 EnergyConsumption\nTable 4: Energy consumption (mean ± std\ndev) per model across three prompt sizes\n(Wh).\nEnergyConsumption EnergyConsumption EnergyConsumption",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ev) per model across three prompt sizes\n(Wh).\nEnergyConsumption EnergyConsumption EnergyConsumption\nModel (100input-300output) (1kinput-1koutput) (10kinput-1.5koutput)\n(Wh) (Wh) (Wh)\nGPT-4.1 0.871±0.302 3.161±0515 4.833±0.650\nGPT-4.1mini 0.450±0.081 1.545±0.211 2.122±0.348\nGPT-4.1nano 0.207±0.047 0.575±0.108 0.827±0.094\no4-mini(high) 3.649±1.468 7.380±2.177 7.237±1.674\no3 1.177±0.224 5.153±2.107 12.222±1.082\no3-mini(high) 3.012±0.991 6.865±1.33 5.389±1.183\no3-mini 0.674±0.015 2.423±0.237 3.525±0.168\no1 2.268±0.654 4.047±0.497 6.181±0.877\no1-mini 0.535±0.182 1.547±0.405 2.317±0.530\nGPT-4o(Mar’25) 0.423±0.085 1.215±0.241 2.875±0.421\nGPT-4omini 0.577±0.139 1.897±0.570 3.098±0.639\nGPT-4Turbo 1.699±0.355 5.940±1.441 9.877±1.304\nGPT-4 1.797±0.259 6.925±1.553 —\nDeepSeek-R1(DS)* 19.251±9.449 24.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": ".699±0.355 5.940±1.441 9.877±1.304\nGPT-4 1.797±0.259 6.925±1.553 —\nDeepSeek-R1(DS)* 19.251±9.449 24.596±9.4 29.078±9.725\nDeepSeek-V3(DS)* 2.777±0.223 8.864±0.724 13.162±1.126\nDeepSeek-R1(AZ)† 2.353±1.129 4.331±1.695 7.410±2.159\nDeepSeek-V3(AZ)† 0.742±0.125 2.165±0.578 3.696±0.221\nClaude-3.7Sonnet 0.950±0.040 2.989±0.201 5.671±0.302\nClaude-3.5Sonnet 0.973±0.066 3.638±0.256 7.772±0.345\nClaude-3.5Haiku 0.975±0.063 4.464±0.283 8.010±0.338\nLLaMA-3-8B 0.108±0.002 0.370±0.005 —\nLLaMA-3-70B 0.861±0.022 2.871±0.094 —\nLLaMA-3.1-8B 0.052±0.008 0.172±0.015 0.443±0.028\nLLaMA-3.1-70B 1.271±0.020 4.525±0.053 19.183±0.560\nLLaMA-3.1-405B 2.226±0.142 9.042±0.385 25.202±0.526\nLLaMA-3.21B 0.109±0.013 0.342±0.025 0.552±0.059\nLLaMA-3.23B 0.143±0.006 0.479±0.017 0.707±0.020\nLLaMA-3.2-vision11B 0.078±0.021 0.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "0.025 0.552±0.059\nLLaMA-3.23B 0.143±0.006 0.479±0.017 0.707±0.020\nLLaMA-3.2-vision11B 0.078±0.021 0.242±0.071 1.087±0.060\nLLaMA-3.2-vision90B 1.235±0.054 4.534±0.448 6.852±0.780\nLLaMA-3.370B 0.237±0.023 0.760±0.079 1.447±0.188\n*DeepSeekHost\n†MicrosoftAzureHost\nFigure3: Energyconsumptionpermodelacross\nthreepromptsizes(Wh,log-scale).\nFigure 3 and Table 4 highlight how energy consumption scales with prompt length and model\narchitecture,revealingwidedisparitiesacrosssystems.LLaMA-3.1-8Bisthemostefficient,requiring\nonly0.443Whforlongprompts(approximately7,000wordsofinputand1,000wordsofoutput),\nfollowedbyLLaMA-3.21BandLLaMA-3.23Bat0.552Whand0.707Wh, respectively. GPT-\n4.1nanoremainsamongthemostefficientproprietarymodelsat0.827Wh,butstillconsumesnearly\ntwicetheenergyofLLaMA-3.1-8B.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "amongthemostefficientproprietarymodelsat0.827Wh,butstillconsumesnearly\ntwicetheenergyofLLaMA-3.1-8B.Incontrast,DeepSeek-R1(DS)consumes29.075Wh,around\nsixtyfivetimesmorethanthemostefficientmodel,underscoringthelargeoverheadofreasoning\nmodels.\n8",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "TheLLaMAfamilyshowsclearscalingeffects: energyuserisesfrom0.443What8Bparameters\nto25.202What405B,illustratingsteeppowerdemandsathighparametercounts. Additionally,\ntheDeepSeekmodelsrevealstrikinginfrastructureeffects. DeepSeek-R1andDeepSeek-V3hosted\nonDeepSeek’sownserversconsume29.078Whand13.162Wh,whilethesamemodelsonAzure\nuse just 7.410 Wh and 3.696 Wh, over 70% less energy. This gap highlights that hardware and\ndatacenterefficiency,notmodeldesignalone,drivesreal-worldenergyuse. Forcontext,asingle\nlongquerytoDeepSeek-R1(DS)consumesaboutasmuchelectricityasrunninga65-inchLED\ntelevision(≈130W)forroughly13minutes. GPT-4oandGPT-4ominialsoshowthatinfrastructure\ncanoutweighmodelsizeindeterminingenergyefficiency. ForinstanceGPT-4oconsumesaround\n2.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "infrastructure\ncanoutweighmodelsizeindeterminingenergyefficiency. ForinstanceGPT-4oconsumesaround\n2.875WhwhileGPT-4omini’sconsumptionisslightlyhigherat3.098Whduetodeploymenton\nA100hardwareinsteadofH100s.\n5.2 WaterandCarbonEmissions\n(a)Waterconsumptionpermodelacrossthreeprompt (b)Carbonemissionspermodelacrossthreeprompt\nsizes(ml,log-scale). sizes(gCO e,log-scale)\n2\nFigure4: Waterconsumptionandcarbonemissionspermodel.\nFigure4showcasesthewaterconsumptionandcarbonemissionsofmodelsacrossallpromptsizes.\nThe most resource-efficient systems, such as LLaMA-3.2 1B, LLaMA-3.2 3B, LLaMA-3.1-8B,\nLLaMA-3-8B,andGPT-4.1nano,emitlessthan0.3gCO eandconsumeunder4mLofwatereven\n2\nforlong-formprompts,demonstratingexceptionalsustainabilityacrossscales.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "onsumeunder4mLofwatereven\n2\nforlong-formprompts,demonstratingexceptionalsustainabilityacrossscales.\nIncontrast,large-scaleandreasoningmodelssuchaso3,DeepSeek-R1(DS),andDeepSeek-V3(DS)\nexhibitsubstantiallyhigherfootprints. DeepSeek-R1(DS)consumesover200mLofwaterandemits\napproximately17gCO eperlongquery,whilethesamemodelonAzureconsumesonly34mLand\n2\nemits2.5gCO e,areductionofnearly85%. Thesefiguressuggestthatenvironmentalimpactsare\n2\nshapednotonlybymodelarchitecturebutalsobydeploymentstrategiesandregionalinfrastructure\nconditions. Inparticular,theelevatedemissionsandwaterusageobservedinDeepSeekmodelslikely\nreflectinefficienciesintheirdatacenters,includinghigherPUE,suboptimalcoolingtechnologies,\nandlessefficienthardware.",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "nciesintheirdatacenters,includinghigherPUE,suboptimalcoolingtechnologies,\nandlessefficienthardware.\nWhiletheseper-queryvaluesmayseemmodestwhenisolated,theirimpactbecomesconsiderable\natscale. Asinglemodel,suchasGPT-4o,servinghundredsofmillionsofdailyrequests,canemit\nas much carbon as thousands of transatlantic flights and consume water equivalent to the annual\ndrinkingneedsofmillionsofpeople. WerevisitthisscalinganalysisingreaterdetailinSection6.\n9",
+    "page": 9
+  },
+  {
+    "type": "text",
+    "content": "Figure5: (TopLeft)Per-queryanddailyenergyconsumptionofGPT-4o. (TopRight)Estimatedtotal\nannualenergyusageofGPT-4oin2025.(BottomLeft)Theestimated2025annualwaterconsumption\nofGPT-4o. (BottomRight)Theestimated2025annualcarbonemissionsofGPT-4o.\n5.3 ValidationAgainstPublicDisclosures\nPublicdisclosuresofinference-levelenergyandcarbondataremainlimited,butafewrecentstate-\nmentsprovideusefulreferencepointsforcross-validation. InJune2025,OpenAICEOSamAltman\nreportedthatthedefaultChatGPTmodelconsumedapproximately0.34Whperquery[68]. Knowing\nthatGPT-4owasthedefaultdeploymentatthattime,thisestimatelikelycorrespondstoGPT-4o-level\ninference. Our framework estimates 0.42 Wh (±0.13 Wh) for a short GPT-4o prompt (0.37 Wh\nwithoutdatacenteroverhead),within19%ofAltman’sfigure.Similarly,theresultsforMistralLarge2",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "(0.37 Wh\nwithoutdatacenteroverhead),within19%ofAltman’sfigure.Similarly,theresultsforMistralLarge2\naligncloselywithMistral’spublishedlife-cycleassessment(LCA)report[69],whichcitesapproxi-\nmately1.14gCO eper400-tokenquery. Ourcorrespondingestimatefor300tokens(0.82gCO e,\n2 2\n±0.10gCO e)scalestoroughly1.09gCO ewhennormalizedto400tokens,showcasingalignment\n2 2\nwithinonestandarddeviation. Together,thesealignmentsbetweenindependentdisclosuresandour\nmodeledresultssuggestthattheframeworkreproducesrealisticoperationalconditionsformodern\nLLMinference.\n6 GPT-4oEnvironmentalImpactCaseStudy\n6.1 EnergyCostofaSingleGPT-4oUserSession\nBasedonReuters[70],theaverageChatGPTusersendsapproximatelyeightqueriesperdayasof\nApril2025. Basedonthis,wequantifytheper-userenergyimpactofGPT-4ointeractionsagainst",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "eriesperdayasof\nApril2025. Basedonthis,wequantifytheper-userenergyimpactofGPT-4ointeractionsagainst\nfamiliar digital activities as presented in Figure 5. A single short GPT-4o query consumes 0.42\nWh (±0.13 Wh), exceeding the footprint of a Google search (0.30 Wh) by approximately 40%.\nScalingtoatypicaldailyusagepattern,thecumulativeenergyreaches3.73Wh(±0.358Wh). For\nmedium-lengthqueries,thisincreasesto9.71Wh(±1.106Wh). Theseresultshighlightthateven\nlimited daily engagement with GPT-4o can impose an energy cost comparable to charging two\nsmartphonestofullcapacity(approximately10Wh),illustratingthetangibleenvironmentalfootprint\nofconversationalAI.Whiletheindividualper-querycostsappearmodest,theiraggregationacross",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "talfootprint\nofconversationalAI.Whiletheindividualper-querycostsappearmodest,theiraggregationacross\nmillionsofusersintroducesarapidlycompounding,largelyinvisibleloadontheenvironment.\n6.2 Estimated2025AnnualEnergyConsumptionofGPT-4oInference\nToestimatetheannualenergydemandofGPT-4oin2025,weconsiderabaselineof1billionqueries\nperdayacrossallChatGPTdeployments,afigurereportedbyOpenAIasofDecember2024[71].\nGivenGPT-4o’sstatusasthedefaultmodel,weconservativelyattribute700milliondailyqueriesto\n10",
+    "page": 10
+  },
+  {
+    "type": "text",
+    "content": "GPT-4o. Tosimulatereal-worldusagedynamics,weapplyamonthlypromptgrowthrateof20%\nfromJanuarytoMay2025, reflectingthedocumentedincreaseinChatGPT’sweeklyactiveuser\nbasefrom300millionto800millionbetweenDecember2024andApril2025[72]. Thisisfollowed\nbyadecayinggrowthpatternfromJunetoDecember,yieldingatotalofapproximately772billion\nGPT-4oqueriesin2025,whichisaround15%oftheannualnumberofGooglesearchesin2024[73].\nWithinthesequeries,weconservativelyassumean80%/20%splitbetweenshortandmedium-length\npromptsbasedontypicalusagepatterns. Scalingtheper-queryenergyestimatesaccordingly,wefind\nthatGPT-4oinferencewouldrequireapproximately391,509MWhannuallyatminimumand463,269\nMWhatmaximum,asseeninFigure5. Thesevaluesexceedthetotalelectricityconsumptionof\n35,000U.S.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "nd463,269\nMWhatmaximum,asseeninFigure5. Thesevaluesexceedthetotalelectricityconsumptionof\n35,000U.S.residentialhouseholds(377,685MWh),50inpatienthospitals(381,550MWh),andeven\n325universities(390,650MWh)annually.\n6.3 Estimated2025AnnualWaterFootprintofGPT-4oInference\nAsshowcasedinFigure5,wetranslateestimatedcoolingandinfrastructure-relatedwaterusageinto\nreal-worldbenchmarks. Basedonscaledinferencevolumes,GPT-4o’sannualwaterconsumptionis\nprojectedtobebetween1,334,991kiloliters(kL)and1,579,680kL.Thesequantitiesareroughly\nequivalenttofillingover500Olympic-sizedpoolsortosupportingtheannualdrinkingneedsof1.2\nmillionpeople. Importantly,thisconsumptionreferstoevaporatedfreshwaterpermanentlyremoved\nfromlocalecosystemsratherthanrecycled. GPT-4oaloneisresponsibleforevaporatinganamount",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "nentlyremoved\nfromlocalecosystemsratherthanrecycled. GPT-4oaloneisresponsibleforevaporatinganamount\noffreshwaterequivalenttotheannualdrinkingneedsofalmost1.2millionpeople.\n6.4 Estimated2025AnnualCarbonFootprintofGPT-4oInference\nWe further examine GPT-4o’s environmental footprint through estimated carbon emissions from\nelectricityusage,asseeninFigure5. Ourprojectionsindicateannualemissionsofapproximately\n138,125tonsofCO eatminimumand163,441tonsatmaximum.Thesefiguresarecomparabletothe\n2\nannualemissionsof30,000gasoline-poweredcarsorthecumulativeemissionsfromapproximately\n272transatlanticflightsbetweenBostonandLondon. Insequestrationterms,offsettingGPT-4o’s\nannualemissionswouldrequireover138,000acresofaverageU.S.forest,anarearoughlyequivalent\ntothesizeofChicago.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "emissionswouldrequireover138,000acresofaverageU.S.forest,anarearoughlyequivalent\ntothesizeofChicago.Theseresultsshowcasethattheaggregationofhundredsofmillionsofrequests\nperdaycanalreadyimposeasubstantialenvironmentalburden. Thisburdenisonlyexpectedtogrow\nasAIusagecontinuestoscale.\n7 GPT-5AdaptiveModelRoutingCaseStudy\nThelaunchofGPT-5[74]introducedadaptivemodelrouting,amechanismthatallowsthesystemto\nautomaticallydeterminewhethertouseafastvariantoramorecomputationallyintensive“Thinking”\nmodelforcomplexreasoningtasks. Thisunificationeliminatestheneedformanualmodelselection\nwherethemodeldynamicallyscalesitsreasoningeffortbasedonpromptcomplexity.\nHowever,thisadaptabilityintroducessubstantialvariabilityinenergyconsumptionacrossreasoning\nmodes,asshowninFigure6.",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "aptabilityintroducessubstantialvariabilityinenergyconsumptionacrossreasoning\nmodes,asshowninFigure6. Formedium-lengthqueries,theaverageenergyconsumptionranges\nfrom2.33Whforminimalreasoningto17.15Whforhighreasoning,representingamorethanseven-\nfoldincrease. Despitethisvariance,GPT-5remainsrelativelyefficientatlowerreasoninglevels. For\ninstance,ashort,minimalreasoningqueryconsumesonly0.67Wh,avaluecomparabletoGPT-4o’s\n0.42Whpershortprompt. Conversely,along,high-reasoningqueryreachesanaverageof33.8Wh,\ncomparabletotheupperboundsobservedamongthemostenergy-intensivemodelsanalyzedinthis\nstudy.\nThese results suggest that while adaptive routing optimizes computational resources by tailoring\ninference depth to task complexity, it also amplifies the environmental footprint of cognitively",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "ng\ninference depth to task complexity, it also amplifies the environmental footprint of cognitively\ndemandingprompts. Thisfindingunderscoresthegrowingimportanceofprompt-levelefficiency\nanalysisfornext-generationLLMsthatblendlightweightandhigh-reasoningarchitectureswithina\nunifiedsystem.\n11",
+    "page": 11
+  },
+  {
+    "type": "text",
+    "content": "Figure6: EnergyconsumptionofGPT-5acrossquerylengthsandreasoningmodes\n8 DiscussionandPolicyImplications\n8.1 TheCriticalRoleofInfrastructureinAISustainability\nOurfindingsindicatethatinfrastructureisacrucialdeterminantofAIinferencesustainability. While\nmodeldesignenhancestheoreticalefficiency,real-worldoutcomescansubstantiallydivergebased\non deployment conditions and factors such as renewable energy usage and hardware efficiency.\nFor instance, GPT-4o mini, despite its smaller architecture, consumes approximately 20% more\nenergythanGPT-4oonlongqueriesduetorelianceonolderA100GPUnodes. Similarly,DeepSeek\nmodelshighlighttheprofoundimpactofinfrastructure: DeepSeek-R1andDeepSeek-V3deployedon\nDeepSeek’sownserversexhibitwaterconsumptionandcarbonemissionsnearlysixtimeshigherthan",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "-V3deployedon\nDeepSeek’sownserversexhibitwaterconsumptionandcarbonemissionsnearlysixtimeshigherthan\ntheirAzure-hostedcounterparts. TheAzuredeploymentsbenefitfrombetterhardware,moreefficient\ncoolingsystems,lowercarbonintensity,andtighterPUEcontrol,demonstratingthatsustainability\ngainscanstemasmuchfromdatacenterdesignasfrommodeloptimization. Theseobservations\nunderscore that true AI sustainability will hinge on coordinated progress in hardware efficiency,\nrenewableenergysources,andinfrastructure-awaredeploymentstrategies.\n8.2 ReboundEffectsandtheJevonsParadox\nAlthoughlargelanguagemodelsconsumesignificantlylessenergy,water,andcarbonpertaskthan\nhuman labor [75], these efficiency gains do not inherently reduce overall environmental impact.",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "han\nhuman labor [75], these efficiency gains do not inherently reduce overall environmental impact.\nAsper-taskefficiencyimproves,totalAIusageexpandsfarmorerapidly,amplifyingnetresource\nconsumption,aphenomenonalignedwiththeJevonsParadox[76],whereincreasedefficiencydrives\nsystemicdemand. TheaccelerationandaffordabilityofAIremovetraditionalhumanandresource\nconstraints,enablingunprecedentedlevelsofusage. Consequently,thecumulativeenvironmental\nburdenthreatenstooverwhelmthesustainabilitybaselinesthatAIefficiencyimprovementsinitially\nsoughttomitigate. Assuch,sustainableAIdeploymentmustfocusonsystemicframeworksthat\nassesshowwellmodelsbalancecapabilitywithenvironmentalcost. Inresponse,weproposeDEAas\naprincipledmethodforbenchmarkingmodel-leveleco-efficiency.\n8.3 PolicyImplications",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "se,weproposeDEAas\naprincipledmethodforbenchmarkingmodel-leveleco-efficiency.\n8.3 PolicyImplications\nAs AI systems scale globally, ensuring environmental sustainability requires both model-level\noptimizations and systemic regulation of infrastructure. Government agencies should encourage\nthresholdsonthepermissibleenvironmentalfootprintperinferenceregardingenergy, water, and\ncarbonemissionsthatAImodelsmustnotexceed. Thesethresholdscanbemetthrougharchitectural\ninnovations,suchassparsityandquantization,orthroughinfrastructure-leveloptimizationslikemore\nefficienthardware,cleanerenergysourcing,andimprovedcoolingsystems.Ourmethodologyoffersa\nstandardized,scalableframeworktoquantifytheseefforts. Incorporatingtechnologieslikedielectric",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "fersa\nstandardized,scalableframeworktoquantifytheseefforts. Incorporatingtechnologieslikedielectric\nliquidcoolingoffersapromisingpathtoreduceoreliminatewateruseindatacentersdrastically[77].\nTransparencymustalsobeelevatedthroughsystem-levelreportingofper-inferenceenergy,water,\nandcarbonmetrics. Additionally,deploymentstrategies,suchasbatching,shouldbeintegratedinto\nsustainabilityplanning,aslargerbatchsizescanreduceper-queryenergyusebyimprovinghardware\nutilizationwithonlyminimalimpactonlatency.\n12",
+    "page": 12
+  },
+  {
+    "type": "text",
+    "content": "9 Conclusion,Limitations,andFutureWork\nThispaperintroducesthefirstlarge-scale, infrastructure-awareframeworkforbenchmarkingthe\nenvironmentalfootprintofLLMinference,integratingAPIperformance,environmentalmultipliers,\nand statistical inference to assess energy, water, and carbon costs under real-world conditions.\nByapplyingcross-efficiencyDEA,wecontextualizeenvironmentalimpactintermsoffunctional\nperformance,revealingthateco-efficiencyhingesnotonlyonmodeldesignbutalsooninfrastructure.\nOurGPT-4ocasestudyemphasizestheJevonsParadox: AsAIbecomescheaperandfaster,total\nusageexpands,intensifyingenvironmentalstraindespitegainsinper-queryefficiency. Additionally,\nourGPT-5casestudyshedslightsontheimportanceofprompt-levelefficiencyandadaptiverouting.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "dditionally,\nourGPT-5casestudyshedslightsontheimportanceofprompt-levelefficiencyandadaptiverouting.\nWithoutstructuralshiftsinhowLLMsaredesigned,deployed,andused,theseinvisiblecostswill\ncontinuetorise,threateningtooffsetthesocietalbenefitsthatmadethesesystemsvaluableinthefirst\nplace. Thisworkestablishesastandardized,scalableframeworkforbenchmarkingtheenvironmental\nfootprintofLLMinferenceinreal-worlddatacenterdeployments,providingabasisfortransparent,\ninfrastructure-awaresustainabilityassessmentandfutureregulation.\nOur work inherits certain limitations that we acknowledge: we avoid overstating model-specific\nfootprints by conservatively including only the energy drawn by actively assigned GPUs. This\nis due to the lack of means to determine whether unused GPUs’ capacity is reassigned, load-",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "s. This\nis due to the lack of means to determine whether unused GPUs’ capacity is reassigned, load-\nbalanced, orleftinactive. Isolatingnon-GPUpowerconsumptionwasalsodifficult. Weapplied\nafixedutilizationestimatefrompriorstudies,acknowledgingthattheirvariationacrossinference\nworkloads is typically significantly lower than that of GPUs. Moreover, for proprietary models\nwithoutdisclosedsize,weclassifiedtheirscalebasedonobservedAPIperformance. Futurework\nshould address these limitations as more detailed telemetry and facility-level reporting become\navailable. Additionally,futurestudiesshouldalsoextendbeyondtextgenerationtoevaluateimage,\nvideo,andaudiogeneration,whicharelikelytoimposegreaterenvironmentalcostsduetohigher\ncomputationalintensity.\nReferences\n[1] GoogleInc.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "likelytoimposegreaterenvironmentalcostsduetohigher\ncomputationalintensity.\nReferences\n[1] GoogleInc. Howgoogleisintegratinggenerativeaiintosearch. https://blog.google/\nproducts/search/generative-ai-search-update/,2023.\n[2] ChongQin,ZhengLiu,HuisiWang,WanchuanZhou,XipengSun,andXuanjingQiu. Toolllm:\nFacilitatinglanguagemodelstomaster160+tools. arXivpreprintarXiv:2309.12288,2023.\n[3] Erin Hannan and Shuguang Liu. Ai: new source of competitiveness in higher education.\nCompetitivenessReview: AnInternationalBusinessJournal,33(2):265–279,2023.\n[4] PranavRajpurkar,JamesYang,HenryHope,andYongqunYu. Theai-assisteddoctor: The\nimpactoflargelanguagemodelsonmedicine. NatureMedicine,29(4):592–600,2023.\n[5] OpenAI. Gpt-4o: Openai’smultimodalflagshipmodel. https://openai.com/index/gpt-\n4o,2024.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "0,2023.\n[5] OpenAI. Gpt-4o: Openai’smultimodalflagshipmodel. https://openai.com/index/gpt-\n4o,2024.\n[6] Anthropic. Claude 3: Next-generation language models from anthropic. https://www.\nanthropic.com/news/claude-3-family,2024.\n[7] Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian,\nAhmadAl-Dahle,AieshaLetman,AkhilMathur,AlanSchelten,AlexVaughan,etal. Thellama\n3herdofmodels. arXivpreprintarXiv:2407.21783,2024.\n[8] DeepSeekAI. Deepseekv3: Open-sourcellmsformultilingualandmultimodaltasks. https:\n//deepseek.com,2024.\n[9] DayaGuo,DejianYang,HaoweiZhang,JunxiaoSong,RuoyuZhang,RunxinXu,QihaoZhu,\nShirongMa,PeiyiWang,XiaoBi,etal. Deepseek-r1: Incentivizingreasoningcapabilityin\nllmsviareinforcementlearning. arXivpreprintarXiv:2501.12948,2025.\n[10] OpenAI.",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "reasoningcapabilityin\nllmsviareinforcementlearning. arXivpreprintarXiv:2501.12948,2025.\n[10] OpenAI. Gpt-o1modelcard. https://openai.com/o1/,2024.\n[11] OpenAI. Gpt-o3 and o3-mini: Multimodal instruction-tuned models by openai. https:\n//openai.com/index/openai-o3-mini/,2025.\n13",
+    "page": 13
+  },
+  {
+    "type": "text",
+    "content": "[12] David Patterson, Joseph Gonzalez, QuocV.Le, ChenLiang, Xinlei Chen, andAndrewNg.\nCarbonemissionsandlargeneuralnetworktraining. arXivpreprintarXiv:2104.10350,2021.\n[13] ShaoleiLi. Makingailess“thirsty”: Uncoveringandaddressingthesecretwaterfootprintofai\nmodels. arXivpreprintarXiv:2304.03271,2023.\n[14] RadosvetDesislavov,FernandoMartínez-Plumed,andJoséHernández-Orallo. Trendsinai\ninferenceenergyconsumption: Beyondtheperformance-vs-parameterlawsofdeeplearning.\nSustainableComputing: InformaticsandSystems,38:100857,2023.\n[15] AlexandreLacoste,AlexandraLuccioni,VictorSchmidt,andThomasDandres. Codecarbon:\nEstimateandtrackcarbonemissionsfrommachinelearningtraining. https://github.com/\nmlco2/codecarbon,2022.\n[16] MicrosoftCorporation. 2024environmentalsustainabilityreport. https://www.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "lco2/codecarbon,2022.\n[16] MicrosoftCorporation. 2024environmentalsustainabilityreport. https://www.microsoft.\ncom/en-us/corporate-responsibility/sustainability/report,May2024.\n[17] Google.2024environmentalreport.https://sustainability.google/reports/google-\n2024-environmental-report/,July2024.\n[18] ErikJohannesHusom,ArdaGoknil,LwinKhinShar,andSagarSen. Thepriceofprompting:\nProfiling energy use in large language models inference. arXiv preprint arXiv:2407.16893,\n2024.\n[19] TheGreenGrid. PUE™:AComprehensiveExaminationoftheMetric. February2012. White\nPaper49.\n[20] InternationalOrganizationforStandardization(ISO)andInternationalElectrotechnicalCom-\nmission(IEC). Informationtechnology–Datacentres–Keyperformanceindicators–Part\n2: Powerusageeffectiveness(PUE),April2016. URLhttps://www.iso.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "centres–Keyperformanceindicators–Part\n2: Powerusageeffectiveness(PUE),April2016. URLhttps://www.iso.org/standard/\n63211.html.\n[21] U.S.EnvironmentalProtectionAgency(EPA). Emissions&GenerationResourceIntegrated\nDatabase(eGRID). https://www.epa.gov/egrid,2025.\n[22] InternationalEnergyAgency(IEA). EmissionsFactors. 2025.\n[23] EmmaStrubell,AnanyaGanesh,andAndrewMcCallum. Energyandpolicyconsiderationsfor\nmoderndeeplearningresearch. InProceedingsoftheAAAIconferenceonartificialintelligence,\nvolume34,pages13693–13696,2020.\n[24] HugoTouvron,ThibautLavril,GautierIzacard,XavierMartinet,Marie-AnneLachaux,Timo-\nthéeLacroix,BaptisteRozière,NamanGoyal,EricHambro,FaisalAzhar,etal. Llama: Open\nandefficientfoundationlanguagemodels. arXivpreprintarXiv:2302.13971,2023.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "alAzhar,etal. Llama: Open\nandefficientfoundationlanguagemodels. arXivpreprintarXiv:2302.13971,2023.\n[25] HugoTouvron,LouisMartin,KevinStone,PeterAlbert,AmjadAlmahairi,YasmineBabaei,\nNikolayBashlykov,SoumyaBatra,PrajjwalBhargava,ShrutiBhosale,etal. Llama2: Open\nfoundationandfine-tunedchatmodels. arXivpreprintarXiv:2307.09288,2023.\n[26] SiddharthSamsi,DanZhao,JosephMcDonald,BaolinLi,AdamMichaleas,MichaelJones,\nWilliam Bergeron, Jeremy Kepner, Devesh Tiwari, and Vijay Gadepally. From words to\nwatts: Benchmarkingtheenergycostsoflargelanguagemodelinference. In2023IEEEHigh\nPerformanceExtremeComputingConference(HPEC),pages1–9.IEEE,2023.\n[27] ZeyuYang,KarelAdamek,andWesleyArmour. Double-exponentialincreasesininference\nenergy: Thecostoftheraceforaccuracy. arXivpreprintarXiv:2412.09731,2024.",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "entialincreasesininference\nenergy: Thecostoftheraceforaccuracy. arXivpreprintarXiv:2412.09731,2024.\n[28] SashaLuccioni,YacineJernite,andEmmaStrubell.Powerhungryprocessing:Wattsdrivingthe\ncostofaideployment? InProceedingsofthe2024ACMconferenceonfairness,accountability,\nandtransparency,pages85–99,2024.\n[29] Anthony Harding and Juan Moreno-Cruz. Watts and bots: The energy implications of ai\nadoption. arXivpreprintarXiv:2409.06626,2024.\n14",
+    "page": 14
+  },
+  {
+    "type": "text",
+    "content": "[30] DallinGrimm. Nvidiaceohand-deliversworld’sfastestaisystemtoopenai. https://www.\ntomshardware.com/tech-industry/artificial-intelligence/,April2024.\n[31] NVIDIA. NVIDIA Hopper GPUs Expand Reach as Demand for AI Grows.\nhttps://nvidianews.nvidia.com/news/nvidia-hopper-gpus-expand-reach-\nas-demand-for-ai-grows,March2023.\n[32] Imran Latif, Alex C. Newkirk, Matthew R. Carbone, Arslan Munir, Yuewei Lin, Jonathan\nKoomey,XiYu,andZhihuaDong.Single-nodepowerdemandduringaitraining:Measurements\nonan8-gpunvidiah100system. IEEEAccess,13:61740–61747,2025. doi: 10.1109/ACCESS.\n2025.3554728.\n[33] Noelle Walsh. How microsoft measures datacenter water and energy use to improve azure\ncloudsustainability. https://azure.microsoft.com/blog/how-microsoft-measures-",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "use to improve azure\ncloudsustainability. https://azure.microsoft.com/blog/how-microsoft-measures-\ndatacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/,\nApril2022. MicrosoftAzureBlog.\n[34] SteveSolomon. Sustainablebydesign: Next-generationdatacentersconsumezerowaterfor\ncooling. https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/\nsustainable-by-design-next-generation-datacenters-consume-zero-water-\nfor-cooling/,December2024. MicrosoftCloudBlog.\n[35] WorldResourcesInstitute.Guidanceforcalculatingwateruseembeddedinpurchasedelectricity.\nTechnicalreport,WorldResourcesInstitute,2024.\n[36] Microsoft Corporation. 2024 environmental sustainability report data fact sheet. https:\n//cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/msc/",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "port data fact sheet. https:\n//cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/msc/\ndocuments/presentations/CSR/2024-Environmental-Sustainability-Report-\nData-Fact.pdf,May2024. Comprehensiveenvironmentalmetricsincludinggreenhousegas\nemissions,energyconsumption,waterusage,wastemanagement,andlandprotectionforfiscal\nyear2023.\n[37] NVIDIA Corporation. Nvidia dgx a100: The universal system for ai infrastruc-\nture. https://images.nvidia.com/aem-dam/Solutions/Data-Center/nvidia-dgx-\na100-datasheet.pdf,2020. DatasheetdetailingspecificationsandfeaturesoftheNVIDIA\nDGXA100system.\n[38] NVIDIACorporation. Nvidiadgxh800system. https://viperatech.com/shop/nvidia-\ndgx-h800-systems/,2024. High-performanceAIsystemfeaturing8xNVIDIAH800GPUs,\n640GBHBM3memory,andupto32petaFLOPSFP8performance.",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "igh-performanceAIsystemfeaturing8xNVIDIAH800GPUs,\n640GBHBM3memory,andupto32petaFLOPSFP8performance.\n[39] HequanWu. Academicianhequanwu: Greenandlow-carbondevelopmentofdatacenters\nrequiresmulti-dimensionalcoordinationof“source,grid,load,andstorage”. https://www.\ncace.org.cn/News/NContent?key=04e714e4e006d433617f5d7148df2eb0,April2024.\nChinaCommunicationsEnterpriseAssociationNews.\n[40] WenliNi,XiurongHu,HongyangDu,YulinKang,YiJu,andQunweiWang. Co2emission-\nmitigationpathwaysforchina’sdatacenters. Resources, ConservationandRecycling, 202:\n107383,2024.\n[41] AWSNewsBlog. Newamazonec2p5instancespoweredbynvidiah100tensorcoregpus\nforacceleratinggenerativeaiandhpcapplications. https://aws.amazon.com/blogs/aws/\nnew-amazon-ec2-p5-instances-powered-by-nvidia-h100-tensor-core-gpus-",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "ps://aws.amazon.com/blogs/aws/\nnew-amazon-ec2-p5-instances-powered-by-nvidia-h100-tensor-core-gpus-\nfor-accelerating-generative-ai-and-hpc-applications/.\n[42] AWS News Blog. New amazon ec2 p5e instances with nvidia h200 tensor core gpus\nand efav3 networking. https://aws.amazon.com/blogs/aws/new-amazon-ec2-p5en-\ninstances-with-nvidia-h200-tensor-core-gpus-and-efav3-networking,2024.\n[43] Amazon.com,Inc. 2023amazonsustainabilityreport. Technicalreport,Amazon.com,Inc.,\n2024.\n[44] Electricity Maps. Electricity maps — live carbon intensity map. https://app.\nelectricitymaps.com/map/,2025.\n15",
+    "page": 15
+  },
+  {
+    "type": "text",
+    "content": "[45] NVIDIACorporation. NVIDIADGXSuperPOD:DataCenterDesignFeaturingNVIDIADGX\nH100Systems–ElectricalSpecifications,October2024.\n[46] ArmanShehabi,SarahJ.Smith,NathanielHorner,InêsAzevedo,RichardBrown,Jonathan\nKoomey,EricMasanet,DaleSartor,MagnusHerrlin,andWilliamLintner. 2024unitedstates\ndatacenterenergyusagereport. Technicalreport, LawrenceBerkeleyNationalLaboratory,\nDecember2024.\n[47] Rani Borkar. Microsoft and nvidia partnership continues to deliver on the\npromiseofai. https://azure.microsoft.com/en-us/blog/microsoft-and-nvidia-\npartnership-continues-to-deliver-on-the-promise-of-ai/, March 2024. Mi-\ncrosoftAzureBlog.\n[48] NVIDIA. Projectceiba. https://resources.nvidia.com/en-us-dgx-cloud/project-\nceiba-video?ncid=so-twit-266831&ncid=no-ncid,2023.\n[49] The New York Times.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "en-us-dgx-cloud/project-\nceiba-video?ncid=so-twit-266831&ncid=no-ncid,2023.\n[49] The New York Times. Nvidia’s h20 chip faces new u.s. export restrictions\nto china. https://www.nytimes.com/2025/04/15/technology/nvidia-h20-chip-\nchina-restrictions.html,April2025.\n[50] NVIDIACorporation. NVIDIADGXH100/H200SystemUserGuide,2025.\n[51] Artificial Analysis. Artificial analysis: Ai model & api providers analysis. https://\nartificialanalysis.ai,2025.\n[52] NVIDIA. Triton inference server user guide: Dynamic batching. https:\n//docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/\nuser_guide/batcher.html,2024.\n[53] Krishna Teja Chitty-Venkata, Siddhisanket Raskar, Bharat Kale, Farah Ferdaus, Aditya\nTanikanti, KenRaffenetti, ValerieTaylor, MuraliEmani, andVenkatramVishwanath. Llm-",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "Ferdaus, Aditya\nTanikanti, KenRaffenetti, ValerieTaylor, MuraliEmani, andVenkatramVishwanath. Llm-\ninference-bench: Inference benchmarking of large language models on ai accelerators. In\nSC24-W:WorkshopsoftheInternationalConferenceforHighPerformanceComputing,Net-\nworking,StorageandAnalysis,pages1362–1379.IEEEComputerSociety,2024.\n[54] Ankit Vora, Avik Chaudhuri, Deepak Narayanan, and Matei Zaharia. Splitwise: Efficient\ngenerativellminferenceusingphase-splitting. InProceedingsofthe51stAnnualInternational\nSymposiumonComputerArchitecture(ISCA).IEEE,2024.\n[55] XingChen,DanielLo,SitaoXiang,DanielKang,andKunleOlukotun. Alatencyprocessing\nunit: Alatency-optimizedandhighlyscalableprocessorforlargelanguagemodelinference.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "latencyprocessing\nunit: Alatency-optimizedandhighlyscalableprocessorforlargelanguagemodelinference.\nInProceedingsofthe51stAnnualInternationalSymposiumonComputerArchitecture(ISCA).\nIEEE,2024.\n[56] P. Patel et al. Characterizing power management opportunities for llms in the cloud. In\nProceedingsofthe29thInternationalConferenceonArchitecturalSupportforProgramming\nLanguagesandOperatingSystems(ASPLOS),2024.\n[57] Andreas Kosmas Kakolyris, Dimosthenis Masouros, Sotirios Xydis, and Dimitrios Soudris.\nSlo-awaregpudvfsforenergy-efficientllminferenceserving. IEEEComputerArchitecture\nLetters,2024.\n[58] Dylan Patel and Gerald Wong. Gpt-4 architecture, infrastructure, training dataset,\ncosts, vision, moe. https://semianalysis.com/2023/07/10/gpt-4-architecture-\ninfrastructure/,July2023.\n[59] OpenAI.",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "moe. https://semianalysis.com/2023/07/10/gpt-4-architecture-\ninfrastructure/,July2023.\n[59] OpenAI. Deprecations - openai api. https://platform.openai.com/docs/\ndeprecations,2025.\n[60] Tug˘anaAslan, PeterHolzapfel, LutzStobbe, AndreasGrimm, NilsFNissen, andMatthias\nFinkbeiner. Toward climate neutral data centers: Greenhouse gas inventory, scenarios, and\nstrategies. iScience,28(1),2025.\n16",
+    "page": 16
+  },
+  {
+    "type": "text",
+    "content": "[61] Yubo Wang, Xueguang Ma, Ge Zhang, Yuansheng Ni, Abhranil Chandra, Shiguang Guo,\nWeiming Ren, Aaran Arulraj, Xuan He, Ziyan Jiang, et al. Mmlu-pro: A more robust and\nchallengingmulti-tasklanguageunderstandingbenchmark. AdvancesinNeuralInformation\nProcessingSystems,37:95266–95290,2025.\n[62] DanHendrycksetal. Humanity’slastexam. arXivpreprintarXiv:2501.14249,2025. URL\nhttps://arxiv.org/abs/2501.14249.\n[63] David Rein et al. Gpqa: A graduate-level google-proof q&a benchmark. arXiv preprint\narXiv:2311.12022,2023.\n[64] HuggingFaceH4. Math-500 dataset. https://huggingface.co/datasets/\nHuggingFaceH4/MATH-500,2024.\n[65] Maxwell-Jia. Aime 2024 dataset. https://huggingface.co/datasets/Maxwell-Jia/\nAIME_2024,2024.\n[66] MinyangTian,LuyuGao,ShizhuoZhang,XinanChen,CunweiFan,XuefeiGuo,RolandHaas,",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "ia/\nAIME_2024,2024.\n[66] MinyangTian,LuyuGao,ShizhuoZhang,XinanChen,CunweiFan,XuefeiGuo,RolandHaas,\nPanJi,KittithatKrongchon,YaoLi,etal. Scicode: Aresearchcodingbenchmarkcuratedby\nscientists. AdvancesinNeuralInformationProcessingSystems,37:30624–30650,2024.\n[67] FanjiaYanetal. Livecodebench: Holisticandcontaminationfreeevaluationofllmsforcode.\narXivpreprintarXiv:2403.07974,2024.\n[68] Sam Altman. The gentle singularity. https://blog.samaltman.com/the-gentle-\nsingularity,2025.\n[69] Mistral AI. Our contribution to a global environmental standard for AI, Jul 2025.\nURL https://mistral.ai/news/our-contribution-to-a-global-environmental-\nstandard-for-ai.\n[70] Reuters. Openai’s weekly active users surpass 400 million. https://www.reuters.com/",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "rd-for-ai.\n[70] Reuters. Openai’s weekly active users surpass 400 million. https://www.reuters.com/\ntechnology/artificial-intelligence/openais-weekly-active-users-surpass-\n400-million-2025-02-20/,February2025.\n[71] EmmaRoth. Chatgptnowhasover300millionweeklyusers. https://www.theverge.com/\n2024/12/4/24313097/chatgpt-300-million-weekly-users,December2024.\n[72] Shubham Singh. Chatgpt statistics (2025): Dau & mau data worldwide. https://www.\ndemandsage.com/chatgpt-statistics/,April2025.\n[73] Anthony Cardillo. How many google searches are there per day? (march 2025). https:\n//explodingtopics.com/blog/google-searches-per-day,April2025.\n[74] OpenAI. Introducinggpt-5. https://openai.com/index/introducing-gpt-5/,2025.\n[75] ShaoleiRen,BillTomlinson,RebeccaWBlack,andAndrewWTorrance. Reconcilingthe",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "oducing-gpt-5/,2025.\n[75] ShaoleiRen,BillTomlinson,RebeccaWBlack,andAndrewWTorrance. Reconcilingthe\ncontrastingnarrativesontheenvironmentalimpactoflargelanguagemodels. ScientificReports,\n14(1):26310,2024.\n[76] JohnMPolimeniandRalucaIorgulescuPolimeni. Jevons’paradoxandthemythoftechnologi-\ncalliberation. EcologicalComplexity,3(4):344–353,2006.\n[77] AleksandarRistic-SmithandDanielJ.Rogers. Compacttwo-phaseimmersioncoolingwith\ndielectricfluidforpcb-basedpowerelectronics. IEEEOpenJournalofPowerElectronics,5:\n1107–1118,2024. doi: 10.1109/OJPEL.2024.3432989.\n17",
+    "page": 17
+  },
+  {
+    "type": "text",
+    "content": "Table5: Estimatednode-levelGPUandnon-GPUutilizationbybatchsizeforGPT-4o.\nBatchSize D U U\nGPU GPUtotal non-GPUtotal\n4 40-55% 10-13.5% 12.5%\n8 45-60% 5.5-7.5% 6.25%\n16 55-70% 3.5-4.5% 3.125%\nAppendices\nA BatchSizeSensitivityAnalysis(GPT-4o)\nInourmainanalysis,weadoptabatchsizeof8forallper-promptenergyestimations. Thischoice\nreflectsamiddlegroundinreal-worlddeployments,whereAIproviderstypicallybatchrequestsin\ntherangeof4to16tobalancelatencyconstraintswithenergyefficiency. However,thespecificbatch\nsizeusedduringinferencecansignificantlyinfluenceenergyconsumptionduetochangesinGPU\nandsystemutilization.\nToassessthiseffect,wepresentasensitivityanalysisusingGPT-4oasarepresentativemodel. The\nonlyparametervariedisbatchsize,allowingustoexaminehowplausiblebatchingconfigurations",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "tivemodel. The\nonlyparametervariedisbatchsize,allowingustoexaminehowplausiblebatchingconfigurations\ncansignificantlyshiftenergyoutcomes. Thisvariationunderscorestherationalebehindouruseof\nbatchsize8asarepresentativemidpointinreal-worlddeployments.\nFigure7: GPT-4oper-promptenergyconsumption(Wh)acrossbatchsizesandpromptlengths.\nTable5summarizestheutilizationratesappliedtoeachbatchsize,followingthesamemethodused\ninourmethodologysection4,whichdrivesthecorrespondingper-promptenergyestimatesshownin\nFigure7.\nTheresultsshowsubstantialefficiencygainswithhigherbatching: movingfrombatchsize4to8\nreducesenergyperpromptbyapproximately45%,whileincreasingfrom8to16yieldsafurther43%\nreduction. Ifwehadusedabatchsizeof4throughoutourstudy,energyestimateswouldhavebeen",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "ieldsafurther43%\nreduction. Ifwehadusedabatchsizeof4throughoutourstudy,energyestimateswouldhavebeen\nsignificantlyhigher,overstatingtheenvironmentalfootprintofLLMinference. Conversely,usinga\nbatchsizeof16wouldhaveresultedinnotablylowerenergyvalues,possiblyunderestimatingthe\nfootprintinmorelatency-constrainedorlow-trafficscenarios.\nThesedifferenceshighlightthecriticalrolethatbatchingdecisionsplayinshapingtheenvironmental\nfootprintoflarge-scaleLLMdeployments. AsAImodelsutilizedynamicbatchingtoaddresstraffic\nandlatencyissues,adjustingthebatchsizecansignificantlyimpacttheenvironmentalfootprintof\neachprompt. Large-scaleproviderslikeOpenAIhaveasignificantadvantageinthisregard,astheir\nhightrafficvolumeallowsthemtorelyonhigherbatchsizeswithoutsacrificinglatencytothesame",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "egard,astheir\nhightrafficvolumeallowsthemtorelyonhigherbatchsizeswithoutsacrificinglatencytothesame\nextentassmallerorlessactivedeployments.\nB Scope3Considerations\nWhilethisstudyfocusesonoperationalemissionsandresourceconsumptionduringinference(Scopes\n1and2),itisimportanttobrieflydiscusstheScope3impactsassociatedwiththemanufacturing,\ntransportation,andend-of-lifedisposalofthehardwareusedtopowerLLMs.\nScope3emissionsaretypicallythemostsignificantcontributortothelifecyclefootprintofdatacenter\ninfrastructure,encompassingembodiedcarbonfromGPUfabrication,waterusageinsemiconductor\n18",
+    "page": 18
+  },
+  {
+    "type": "text",
+    "content": "Figure8: CrossefficiencyDEAscores. BarlabelsshowtheAIIndex(top)andcross-efficiencyscore\n(bottom).\nmanufacturing,emissionsfromgloballogistics,andhardwareretirement. Forinstance,Microsoft’s\nScope3CO eemissionsin2023accountedfor66%ofthetotalemissions[16]. Yet,thesevalues\n2\narehighlyvariableacrossvendors,manufacturinglocations,andfabricationnodes,andtheylack\ndeployment-specificattributionwhenappliedtoreal-timeinferencetasks.\nMoreover,giventhatmanylarge-scalemodelsarecontinuallyupdatedanddeployedacrossevolving\ninfrastructures,ascribingafixedfractionofembodiedemissionsorwaterperqueryisbothmethod-\nologicallyfragileandlikelytoresultinoverestimation. Applyingcompletehardwaremanufacturing\nfootprintstoongoinginference, withoutamortizingthemovertheexpectedhardwarelifespanor",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "emanufacturing\nfootprintstoongoinginference, withoutamortizingthemovertheexpectedhardwarelifespanor\nqueryvolume,risksartificiallyinflatingper-queryenvironmentalcosts.\nIn light of this, we excluded Scope 3 from our prompt-level framework, as its inclusion would\nintroducenon-trivialuncertaintyandpotentiallydistortcomparativeeco-efficiencyacrossmodels.\nNevertheless,thelong-termsustainabilityofAIinfrastructurewilldependonextendinglifecycle\naccountability beyond the inference phase; future work is encouraged to adopt comprehensive\nlifecycleanalyses(LCA)thatintegrateScope3considerationsoncetransparentandstandardized\ndatabecomeavailable.\nC Cross-effficiencyDEAResults\nBeforepresentingtheeco-efficiencyresults,itisworthnotingthatClaude3.5Sonnet,Claude3.5",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "ncyDEAResults\nBeforepresentingtheeco-efficiencyresults,itisworthnotingthatClaude3.5Sonnet,Claude3.5\nHaiku, GPT-4, and GPT-4 Turbo were excluded due to the lack of benchmark results on certain\ntests. Sincecross-efficiencyrequirescompleteinputsandoutputs,thesemodelscouldnotbefairly\nevaluated.\nAsshowninFigure8, OpenAI’sreasoningmodelsdominatetheeco-efficiencyfrontier. o3-mini\nachievedthehighestcross-efficiencyscore(0.884), closelyfollowedbyo1-mini(0.836)andAn-\nthropic’s Claude 3.7 Sonnet (0.825), which combines strong reasoning ability with a relatively\nmodestenvironmentalfootprint. GPT-4o(Mar)(0.789)ando3(0.758)alsoperformedwell. These\nresultssuggestthatdownsizingreasoningmodelscanyieldmeaningfulsustainabilitygainswithout\ncompromisingperformance.\nAttheoppositeend,DeepSeek-R1(0.",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "anyieldmeaningfulsustainabilitygainswithout\ncompromisingperformance.\nAttheoppositeend,DeepSeek-R1(0.067)andDeepSeek-V3(0.059)recordedthelowestefficiency\nscores. Despite their advanced reasoning capabilities, their high energy, water, and carbon costs\nindicate significant infrastructural inefficiencies. Their Azure-hosted variants performed better,\nDeepSeek-R1(0.539)andDeepSeek-V3(0.523),yetremainedbelowmostOpenAIandAnthropic\nsystems. AmongOpenAImodels,GPT-4.1mini(0.580)andGPT-4.1nano(0.508)balancedoutput\nqualityandsustainabilityparticularlywell. LLaMAmodelsclusteredbetween0.4and0.6,reflecting\nefficientpowerusebutlimitedreasoningperformance.\n19",
+    "page": 19
+  },
+  {
+    "type": "text",
+    "content": "Insummary,eco-efficiencyreliesonbothoutputqualityandenvironmentalcost. OpenAI’ssmaller\nreasoningmodelsandClaude3.7Sonnetstrikethatbalancemosteffectively,whileDeepSeekand\nLLaMAdemonstratethelimitationsofconcentratingoncapabilityorsustainabilityalone.\n20",
+    "page": 20
+  }
+]

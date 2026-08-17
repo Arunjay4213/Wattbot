@@ -1,0 +1,332 @@
+[
+  {
+    "type": "text",
+    "content": "Prompt engineering and its implications on the\nenergy consumption of Large Language Models\nRiccardo Rubei Aicha Moussaid Claudio Di Sipio Davide Di Ruscio\nUniversity of L’Aquila University of L’Aquila University of L’Aquila University of L’Aquila\nL’Aquila, Italy L’Aquila, Italy L’Aquila, Italy L’Aquila, Italy\nriccardo.rubei@univaq.it aicha.moussaid@student.univaq.it claudio.disipio@univaq.it davide.diruscio@univaq.it\nAbstract—Reducing the environmental impact of AI-based usingadditionaltagsandexplanationstoenhancethebaseline\nsoftware systems has become critical. The intensive use of large prompts.Inparticular,weaimtoanswerthefollowingresearch\nlanguage models (LLMs) in software engineering poses severe\nquestions:\nchallenges regarding computational resources, data centers, and",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "engineering poses severe\nquestions:\nchallenges regarding computational resources, data centers, and\n➢ RQ : To what extent does the usage of custom tags\ncarbon emissions. In this paper, we investigate how prompt 1\nengineeringtechniques(PETs)canimpactthecarbonemissionof in prompts improve the energy efficiency of Llama 3 while\ntheLlama3modelforthecodegenerationtask.Weexperimented performing code completion tasks? We explore the effects of\nwith the CodeXGLUE benchmark to evaluate both energy specifically introduced custom tags on the energy consump-\nconsumption and the accuracy of the generated code using an\ntion of LLMs during the inference phase to support code\nisolated testing environment. Our initial results show that the\ncompletion tasks. To this end, we first calculate the energy",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ent. Our initial results show that the\ncompletion tasks. To this end, we first calculate the energy\nenergy consumption of LLMs can be reduced by using specific\ntags that distinguish different prompt parts. Even though a consumption of three well-known PETs, i.e., zero-shot, one-\nmore in-depth evaluation is needed to confirm our findings, this shot, and few-shots, without any modifications. Afterward,we\nworksuggeststhatpromptengineeringcanreduceLLMs’energy compare these baseline prompts with an enhanced version\nconsumption during the inference phase without compromising\nusing additional tags that we introduced to help the inference\nperformance, paving the way for further investigations.\nphase of the model. In addition, we also measure the overall",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ng the way for further investigations.\nphase of the model. In addition, we also measure the overall\nIndex Terms—LLMs, Generative AI, Prompt Engineering,\nEnergy Consumption. time required to perform the assigned task.\n➢RQ :Howdocustomtagsinfluencepredictiveaccuracyof\n2\nLlama 3 while performing code completion tasks? We aim\nI. INTRODUCTION\nto analyze the impact of custom tags on the performance\nThe environmental impact of software systems has been of Llama 3, focusing on well-established accuracy metrics,\na growing concern in recent years [1], [2], thus fostering i.e., exact matches and edit distance. We chose to use these\nthe development of green software engineering (GSE) [3] by metrics because they have been successfully applied in the",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "green software engineering (GSE) [3] by metrics because they have been successfully applied in the\nproposing dedicated methodologies [4], frameworks [5], [6], CodeXGLUEbenchmarkandarerecognizedaseffectivetools\nand guidelines [7]. Nevertheless, the rise of AI-intensive sys- for evaluating code completion when using LLMs [17].\ntemshasposednewchallengesregardingenergyconsumption Our findings reveal that the energy consumption of LLMs\nand carbon emissions [8]. fortheinferencephasecanbereducedbyusingtheintroduced\nIn particular, both training and querying large language custom tags. Moreover, we show that the energy consumption\nmodels (LLMs) to outperform traditional techniques in code- of LLMs is highly dependent on the used PETs. Although",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "o outperform traditional techniques in code- of LLMs is highly dependent on the used PETs. Although\nrelated tasks [9]–[11] is computationally expensive and re- further experimentation involving additional tasks and LLMs\nquireslargeamountsofresourcesandhasasignificantcarbon isneeded,thepresentedworksuggeststhatpromptengineering\nfootprint [12]. Moreover, assessing them is challenging due can play a key role in reducing the energy consumption of\nto i) higher variability in the generated code and ii) the LLMs without compromising their performance.\nlack of standardized guidelines and information for measur- The main contributions of this work are as follows:\ning carbon emissions even in dedicated model repositories\n• We investigate the effects of several prompt engineering\n[12].",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ven in dedicated model repositories\n• We investigate the effects of several prompt engineering\n[12]. While a plethora of approaches have been proposed to\ntechniques and custom tags on the energy consumption\nmeasure the impact on the hardware [13], we focus on the\nof LLMs while performing code completion tasks;\nusage of prompt engineering techniques (PETs) to mitigate\n• Our research examines the trade-offs between energy\nthe energy consumption of LLMs during the inference phase\nconsumptionintermsofcarbonemission,executiontime,\nwhile supporting the code completion task. By relying on\nand generated code accuracy to investigate the balance\nthe CodeXGLUE [14] dataset, we first devise a dedicated\nbetween energy efficiency and model accuracy;",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "e CodeXGLUE [14] dataset, we first devise a dedicated\nbetween energy efficiency and model accuracy;\ncomponent that selects and tests different prompts on Llama • We provide a replication package1 to foster further re-\n3[15]toassesstheirimpactontheenergyconsumptionusing\nsearch on the topic.\nthe CodeCarbon tool [16]. Concretely, we used traditional\nPETs as baselines and devise four additional configurations 1https://github.com/riccardoRubei/Greens-2025-Replication-Package\n5202\nnaJ\n01\n]ES.sc[\n1v99850.1052:viXra",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "Fig. 1: Carbon emissions of GPT-3 models as reported in [18].\nII. BACKGROUND it can estimate the carbon intensity of the region where\nthe computing is done. This study focuses on the energy\nWhile measuring traditional software impact in terms of consumption related to GPU usage without considering the\nemissions is well-established [1], [7], assessing LLMs con- carbon emission.\nsumptionisstillchallenging,asHigh-PerformanceComputing ConcerningtheinferencephaseofLLMs,promptengineer-\n(HPC) clusters are often required to run the training process, ingispivotaltoenhancingLLMs’generationcapabilities.The\nwhichcanlastforweeksorevenmonths.Therefore,measuring most basic PET is zero-shot, in which the LLM is given a",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "stforweeksorevenmonths.Therefore,measuring most basic PET is zero-shot, in which the LLM is given a\nthe energy consumption in terms of carbon emissions is query without any example of outputs, which are expected\nparticularly challenging in those environments due to several from the given inputs [23]. In contrast, one-shot prompting\nfactors, e.g., parallel jobs or the non-exclusive use of the provides the model with a single example, offering a minimal\ncluster. context to guide responses. The few-shots prompting [24]\nMoreover, even well-maintained LLMs leaderboard bench- involves multiple examples, allowing the model to generalize\nmarks [19]–[21] do not report energy consumption, focusing moreeffectivelywithlimitedsupervision[25].Inthescopeof\ninstead on accuracy metrics.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "mption, focusing moreeffectivelywithlimitedsupervision[25].Inthescopeof\ninstead on accuracy metrics. Figure 1 shows the carbon thispaper,wefocusondifferentshottechniquesi.e.,zero-shot,\nemissions of the GPT-3 model in different server regions for one-shot, and few-shots given their efficiency and success in\nthreebigITplayers,i.e.,Google,Amazon,andMicrosoft.For improving the performance of LLMs in source code-related\ninstance, some models emit carbon that is equivalent to the tasks.\naverage of five cars over their lifetimes [22], thus underlining Quantization [26] is a technique that reduces the compu-\nsignificant sustainability concerns, especially when consider- tational and memory requirements of LLMs by lowering the",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "bility concerns, especially when consider- tational and memory requirements of LLMs by lowering the\ning the growing scope of LLM-based implementations and precision of their numerical representations (e.g., from 32-bit\ntheir integration into everyday life. This highlights the need to8-bit).Thiscompressionspeedsupinference,makingLLMs\nto reduce the carbon footprint of LLMs and to examine the moreefficientwithminimalimpactonaccuracy.Inthispaper,\ndetails that contribute to the reported figures. we leverage quantization alongside PETs to minimize the\nToaddresstheenvironmentalimpactofsoftware,arangeof computational cost while maintaining performance in code-\nenergymonitoringtools[5],[6]hasbeenrecentlydevelopedto related tasks.\nmeasurethecarbonemissionsassociatedwithcodeexecution.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "],[6]hasbeenrecentlydevelopedto related tasks.\nmeasurethecarbonemissionsassociatedwithcodeexecution. While developing a comprehensive methodology for mea-\nAmong these, the CodeCarbon tool [16] is a widely adopted suringLLMenergyconsumptionisbeyondthispaper’sscope,\nPython library that estimates the energy consumption of code we focus on reducing these emissions through efficient PETs.\nexecutions. It can also calculate the carbon footprint by Byutilizingcustomtags,weaimtolowerenergyconsumption\nmeasuringtheelectricitypowerconsumptionoftheunderlying inLLMsusedforcode-relatedtasks,offeringanapproachthat\nhardwarearchitecture,i.e.,GPU,CPU,andRAM.Inaddition, balances sustainability with performance.",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "1 2 3 4 6\nSnippets PET Query Generates\nCodeXGlue PET Selector Prompt Augmenter Llama 3 LLM Answers\nDataset\nPrompt Creator Monitors\n5 7\nProduces\nEnergy Measurements\nCode Carbon\nEnergy Measurer\nFig. 2: Workflow of the performed experiments.\nIII. PERFORMEDEXPERIMENTS performed, thus clarifying the expected contribution from the\nmodel.Forexample,inListing1,thesystemroleisconfigured\nFigure 2 depicts the workflow of the experiments we per-\ntoinstructthemodelonacodecompletiontaskforgivencode\nformedtoanswerthetworesearchquestions.Startingfromthe\nfragments. The user role, on the other hand, introduces the\nCodeXGLUE dataset [14] 1 , prompt creator 2 translates\ninput code snippet that the model is expected to complete.\ninput prompts into a format that Llama 3 can understand,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "et that the model is expected to complete.\ninput prompts into a format that Llama 3 can understand,\nAccordingtothedifferentconfigurations,thecontentcan\nbefore augmenting them with tags that we specifically in-\nbe enhanced with custom tags or explanations related to the\ntroduced 3 . Afterward, the crafted prompts are used to\ntask. The configurations are defined as follows:\nquery the LLM locally deployed 4 . For each snippet, we\nexecuted75queries.2 EachLlamarunismonitored 5 bythe C 0 - default: We define the model’s role and provide the\nCodeCarbon energy monitoring tool. For each execution, we incomplete snippet without any customization. In the case of\nstore three artifacts (question, answer 6 , and measurement one-shot and few-shots, we describe one and five examples,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ts (question, answer 6 , and measurement one-shot and few-shots, we describe one and five examples,\n7 ), to enable both efficiency and accuracy analysis. respectively. We fix the number of examples equal to five for\nthefew-shotstechniquesinceitobtainsadequateaccuracywith\nA. Dataset limited token size [31]. Nonetheless, we acknowledge that\nAmong different benchmarks, we select CodeXGLUE as it a deep study concerning the different shot sizes is needed.\nistailoredforsupportingandevaluatingLLMsincode-related Listing 1 depicts an example of prompt in its default repre-\ntasks[27],[28].Inthispaper,weconsiderthecodecompletion sentation.\ntaskasitiswidelysupportedbyLLMsasrecentlyinvestigated\n[29], [30]. This task leverages established evaluation method- Listing 1: Example of a zero-shot prompt.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "[30]. This task leverages established evaluation method- Listing 1: Example of a zero-shot prompt.\nologiesintheliterature,enablingstraightforwardcomparisons { 1\nwith ground truth data. \"role\": \"system\", 2\n\"content\" : \"You are an AI assistant 3\nB. Prompt Creator specialized in code completion for Java.\nYour task is to complete the provided Java\nThis component is responsible for defining and augmenting code segment with one line. Give only the\npromptsthathavebeenusedtoquerythemodelunderanalysis. code completion.\",\nIn particular, we use standard PETs, i.e., zero-shot, one-shot, },{ 4\nand few-shots, as a baseline to evaluate the effect of custom \"role\": \"user\", 5\n\"content\": \"package com.lmax.disruptor.support 6\ntags in terms of energy impact. The Llama 3 model card3\n; import java.util.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "lmax.disruptor.support 6\ntags in terms of energy impact. The Llama 3 model card3\n; import java.util.concurrent.\ndefinesseveraltokenswhichformthemodel’sinput.Weaimto ThreadFactory; public final\"\ninvestigate the impact of custom tags on energy consumption } 7\nand performance metrics for Llama 3. To this end, we define\nfive distinct prompt configurations. Each prompt comprises\nC - use of custom tags without explanation: We augment\n1\ntwo key components: a role attribute and content speci-\npromptsbyusingcustomtagsi.e.,<code>and<incomplete>\nfication, as illustrated in Listing 1. The role attribute can be\nto support the inference phase to distinguish the input source\nassigned as either system or user. In the case of system,\ncode,andthefragmentthatneedstobecompleted.Wedonot",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "as either system or user. In the case of system,\ncode,andthefragmentthatneedstobecompleted.Wedonot\nthe accompanying content attribute specifies the task to be\nprovideanyexplanationofwhatisthemeaningofsuchcustom\ntags. Therefore, we aim to explore the LLM’s capability to\n2Three prompting techniques (i.e., zero-shot, one-shot, and few-shots) ×\nunderstand the customization. Listing 2 is an example of a\nfive prompt configurations × five repetitions to mitigate possible energy\nmeasurementinaccuracies. code fragment augmented with custom tags.\n3www.llama.com/docs/model-cards-and-prompt-formats/meta-llama-3/",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Listing 2: Fragment of a prompt including custom tags. \"role\": \"user\", 5\n1 { \"content\" :\"Hi, complete the following snippet 6\nadding one line please: package com.lmax.\n2 \"role\": \"user\",\ndisruptor.support; import java.util.\n3 \"content\" :\"<code> package com.lmax.disruptor.\nconcurrent.ThreadFactory; public final\"\nsupport; import java.util.concurrent.\nThreadFactory; </code> <incomplete> public } 7\nfinal </incomplete>\"\nTheprocessendswiththegenerationofthreedifferentarti-\n4 }\nfacts, i.e., questions, answers, and measurements. A question\nis a copy of the query given to the LLM and it is stored\nC - use of custom tags with explanation: We embed the\n2\nfor subsequent analysis. The measurement is the outcome of\nmeaning of the custom tags in the prompt as shown in",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "nt analysis. The measurement is the outcome of\nmeaning of the custom tags in the prompt as shown in\nthe Llama 3 process monitored by CodeCarbon to solve the\nListing 3.\ncodecompletiontask.Meanwhile,ananswerisjustasequence\nListing 3: Fragment of a prompt including custom tags expla- of Java statements to complete the input snippet. In some\nnation. cases, the LLM answer is verbose. Therefore, we can notice\n1 { a sequence of several lines of code.\n2 \"role\": \"user\",\nC. Metrics\n3 \"content\" :\"The code to analyze is marked by\nthe <code> tag and the line to be Concerning the metrics, we rely on CodeCarbon predefined\ncompleted is marked by the <incomplete> format4 to avoid any bias in the comparison. Since our study\ntag. <code> package com.lmax.disruptor.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "ormat4 to avoid any bias in the comparison. Since our study\ntag. <code> package com.lmax.disruptor.\nfocuses on the energy effects on the GPU, we rely on the\nsupport; import java.util.concurrent.\nThreadFactory;</code><incomplete> public gpu energy value to support the evaluation.\nfinal </incomplete>\" Duringourinvestigation,weevaluatetheeffectsofprompt-\n4 } ing techniques and customization of the prompts. Therefore,\nwe employ the following metrics:\nC - custom prompt explained in the system: Differently from ➤ Energy Consumption: This metric quantifies the energy\n3\nconfiguration C , the explanation of custom tags is given in consumed during the inference phase of Llama excluding the\n2\nthe system role part of the input prompt as shown in Listing model loading.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "of Llama excluding the\n2\nthe system role part of the input prompt as shown in Listing model loading. We rely on the calculation provided by Code-\n4. Carbon. In its report, we focus on the value of gpu energy\nwhichcalculatestheenergyconsumedduringintheinference,\nListing 4: Example of a zero-shot prompt including the defi-\nexpressed in kWh. To reduce biases related to unprecise mon-\nnition of custom tags.\nitoring, we repeated the tests 5 times, calculating eventually\n1 { the average.\n2 3 \" \" r c o o l n e t \" e : nt \" \" sy : st \" e Y m o \" u , are an AI assistant ➤ Execution Time: The execution time calculates the du-\nspecialized in code completion for Java. ration needed by Llama 3 to perform the inference. The",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "du-\nspecialized in code completion for Java. ration needed by Llama 3 to perform the inference. The\nYour task is to complete the provided Java monitoring is limited only on the inference phase, excluding\ncode segment with one line. Give only the\nthe model loading time. The time is excerpted from the\ncode completion. The code to analyze is\nCodeCarbon report similarly for the energy value.\nmarked by the <code> tag and the line to\n➤ Edit Distance: The edit distance metric calculates how\nbe completed is marked by the <incomplete>\ntag.\", similartheproposedansweristothegroundtruth,bycounting\n4 },{ the number of characters that need to be substituted, inserted,\n5 \"role\": \"user\", or deleted to transform an input string into a target one. We\n6 \"content\": \"<code> package com.lmax.disruptor.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "to transform an input string into a target one. We\n6 \"content\": \"<code> package com.lmax.disruptor. used the nltk edit distance, which implements the well-known\nsupport; import java.util.concurrent.\nLevenshtein Distance [32].\nThreadFactory;</code><incomplete> public\nfinal </incomplete>\" ➤ Exact Match The exact match metric measures whether\n7 } the answer of the LLM has an edit distance of 0, meaning\nthat the ground truth and answer are the same. Since LLMs\nC - no system definition: With this configuration, we want to are generally verbose, we fixed the exact match threshold to\n4\nassess the effect of the complete absence of the system role edit distance less or equal to 2. The rationale is that Llama\ndefinition.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "absence of the system role edit distance less or equal to 2. The rationale is that Llama\ndefinition. Therefore, we provide only the incomplete input produces the results by adding several random characters\nsnippet and a task definition directly in the prompt without to the answer, e.g. extra spaces, single and double quotes,\nany customization as illustrated in Listing 5. semicolons.\nD. Execution process\nListing 5: Fragment of a prompt including custom tags.\n{ 1 The experiments have been performed by considering the\n\"role\": \"system\", 2settingsshowninTableI.Inparticular,wetested1,000random\n\"content\" : \"\", 3\n},{ 4 4https://mlco2.github.io/codecarbon/output.html",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "TABLE I: Summary of the Experimental Settings\nThe reason is that the model started to generate completely\nModel Llama3 8B - Instruct new code snippets when asked to finalize the code given as\nSnippets 1,000 input. The few-shots technique seems to be less affected by\nPETs 3 thisproblem.Thesequenceofexamplequestionsandanswers\nCustom Prompts 5 instructed the model on the behaviour despite the lack of the\nRepetitions 5\nsystem role specification.\nPause 10 seconds\nMetrics (Performance) Energy Consumption, Execution Time Concerningtheexecutiontime,Figure3breportstheresults\nMetrics (Accuracy) Exact Match, Edit Distance obtained for all the prompt configurations. Similar to energy\nconsumption, the usage of custom tags provides a general\nimprovement in performance. In particular, the one-shot and",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "usage of custom tags provides a general\nimprovement in performance. In particular, the one-shot and\nincomplete Java snippets retrieved from the code-completion few-shots reduced the average time from 1.54 seconds of\ndatasetofCodeXGLUE.AsdiscussedinSectionIVtheoverall configuration C0 to 0.74 (-52%) and from 2.1 to 1.09 (-48%),\nexecution requires more than 250 hours. We calculated an respectively, using configuration C2. The zero-shot technique\naveragetesttimepersnippetofabout900seconds.Therefore, performed better using C1, reporting an improvement from\nwelimitourselvesto1,000snippets.withtheabovementioned 0.74 seconds to 0.63 (-14.8%). Similarly, for the energy\nPETs consumption, in the case of C4, we can notice a remarkable",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "(-14.8%). Similarly, for the energy\nPETs consumption, in the case of C4, we can notice a remarkable\nAs discussed in Section III-B, we defined five distinct increase in execution time for zero-shot and one-shot.\nconfigurations for each query. Consequently, we tested every\ncombination of prompting techniques and the use of custom\ntags. To ensure experimental reliability, each test is repeated Answer to RQ : Our study reveals that custom tags\n1\nfivetimes[33],[34],withaten-secondpausebetweeneachtest canreducetheenergyconsumptionofLLMsacrossthe\ntomitigatepotentialtaileffects[34],[35].Weusetwometrics three prompt engineering techniques tested for source\nto evaluate energy consumption and execution time, and two code completion tasks.\nprimary metrics (exact match and edit distance) to assess the",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "time, and two code completion tasks.\nprimary metrics (exact match and edit distance) to assess the\nimpact of different configurations on accuracy. These metrics\nalign with those used in the original evaluation of the code Answering RQ 2 : Figure 4 depicts the obtained results in\ncompletion benchmark suite by the authors of CodeXGLUE. terms of accuracy metrics. In particular, Figure 4a shows the\nAll the experiments have been conducted on an isolated effects of custom tags on exact match performance across\ndesktopequippedwithanAMDRyzen75800X3.8GHzCPU different prompt engineering techniques. Overall, we observe\nand an Nvidia Geforce RTX 4060 TI (8 GB VRAM).5 The an increase in exact matches for configuration C1-C3 in com-\noperating system is Xubuntu 23.04.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "The an increase in exact matches for configuration C1-C3 in com-\noperating system is Xubuntu 23.04. Since the GPU provided parison with the default configuration C0. Notably, zero-shot\nonly 8GB of RAM, we used the quantized version of the showsthegreatestimprovementwithC1,whereexactmatches\nLlama model i.e., we used 16-bit float rather than the default rise from 63 to 82, reflecting a 23% increase. Both one-\n32-bit. shot and few-shots see substantial gains with C3, achieving\napproximately a 44% improvement. Interestingly, with C4,\nIV. EXPERIMENTALRESULTS zero-shot fails to achieve any exact matches.\nAnswering RQ : Figure 3a shows the energy consumption Figure 4b shows the impact of custom tags on edit distance\n1",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "Figure 3a shows the energy consumption Figure 4b shows the impact of custom tags on edit distance\n1\nof the three prompt techniques applied to the five different metrics, where an edit distance of 0 indicates a perfect result.\nconfigurations.Inparticular,withthedefaultconfigurationC0, Overall,customtagscontributedtoareductionineditdistance,\nzero-shot is the most energy-efficient, with an average cost of withC2emergingasthemosteffectiveconfigurationacrossall\nabout 0.000016 kWh. one-shot and a few-shots consumed an promptengineeringtechniques.Specifically,zero-shot showed\naverage of 0.000035 kWh and 0.000054 kWh, respectively. a 24% improvement, one-shot achieved a 64% reduction, and\nCustomtagscancontributetoreducingtheenergyconsump- few-shots improved by 70%. Results for zero-shot and one-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "scancontributetoreducingtheenergyconsump- few-shots improved by 70%. Results for zero-shot and one-\ntion of the video card. As shown in Fig. 3a, the best config- shot are omitted for C4 because, with this configuration,\nuration is the C2 (explanation in prompts). While the zero- the LLM produced uncontrolled responses. As a result, it\nshot technique passed from 0.0000157 (of C0) to 0.0000146 was impossible to calculate edit distance accurately, as the\n(-7%), one-shot and few-shots reduced the consumption from outputs included both code and explanatory text. Despite\n0.0000347 to 0.0000174 (-99%) and from 0.0000537 to lacking explicit role definitions, few-shots continued to yield\n0.0000293 (-83%) comparing with the default configuration satisfactory results.\nC0, respectively.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "ld\n0.0000293 (-83%) comparing with the default configuration satisfactory results.\nC0, respectively. It is also interesting to see the results of C4,\nin which we do not specify any role in the system token. The\nAnswer to RQ : Prompt customizations enhanced\nconsumption increased from 0.0000157 to 0.000189 kWh for 2\nthe accuracy of the tested PETs, showing a positive\nzero-shot and from 0.0000347 to 0.000181 kWh for one-shot.\ntrend with increased exact matches and reduced edit\n5https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4060- distances.\n4060ti/",
+    "page": 5
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 5):\nModel | Llama3 8B - Instruct\nSnippets | 1,000\nPETs | 3\nCustom Prompts | 5\nRepetitions | 5\nPause | 10 seconds\nMetrics (Performance) | Energy Consumption, Execution Time\nMetrics (Accuracy) | Exact Match, Edit Distance",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "0.000175\n0.000150\n0.000125\n0.000100\n0.000075\n0.000050\n0.000025\n0.000000\n0 1 2 3 4\nC C C C C\n)hWK(\nnoitpmusnoC\nygrenE\nPET\nZeroShot\n8 OneShot\nFewShot\n6\n4\n2\n0\n0 1 2 3 4\nC C C C C\n(a) Energy Consumption in (kWh).\n)sdnoces(\nemiT\nnoitucexE\nPET\nZeroShot\nOneShot\nFewShot\n(b) Execution Time.\nFig. 3: Energy consumption with different prompt configurations.\n140\n120\n100\n80\n60\n40\n20\n0\n0 1 2 3 4\nC C C C C\nrebmuN\netulosbA\nhctaM\nhctaxE\nPET\nZeroShot 120\nOneShot\nFewShot\n100\n80\n60\n40\n20\n0\n0 1 2 3 4\nC C C C C\n(a) Exact Match.\necnatsiD\ntidE\nPET\nZeroShot\nOneShot\nFewShot\n(b) Edit Distance.\nFig. 4: LLMs accuracy with different prompt configurations.\nV. RELATEDWORK [38] in terms of accuracy and carbon emissions. The experi-\nmentalresultsrevealthatboththeT5andBERTmodelsemit-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "ms of accuracy and carbon emissions. The experi-\nmentalresultsrevealthatboththeT5andBERTmodelsemit-\nAssessing LLMs energy consumption: Jagannadharao et al.\nted considerably more CO2 compared to DistilBERT and the\n[36] investigate the usage of time-shifting technique to reduce\nT4 GPU contributes in reducing the overall carbon emissions.\ntheenergyconsumptionofLLMsduringlong-runningtraining\nSamsi et al. [13] compare the inference performance in terms\nsessions. Concretely, the authors estimates the consumption\nof watts of different Llama models, i.e., evaluating smaller\nof Llama model by pausing and resuming the training when\nmodels(7B,13B)againstthelargestavailableversion(65B)at\nthe carbon emission is below a certain threshold. The results\nthe time of writing.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "bleversion(65B)at\nthe carbon emission is below a certain threshold. The results\nthe time of writing. In addition, the authors consider different\nshows that the proposed approach succeed in reducing the\nGPUs, i.e., V100 and A100. The study reveals that 8 V100\ncarbon emission even though the region may impact the ob-\nGPUs each with 32 GB of RAM or 4 A100 GPUs each with\ntained results. Liu and Yin [37] investigate how to reduce and\n80GB of memory are required for any meaningful inferences\nmeasuretheconsumptionofpre-trainedmodelsbycombining\nwith the 65B LLaMA model, thus making small models a\nfine-tuningandefficienttokenizers.Inparticular,BERT,Distil-\nsuitablechoiceforenergy-efficientapplications.Cursaroetal.\nBERT,andT5modelsarecomparedusingSQuADbenchmark",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "s.Cursaroetal.\nBERT,andT5modelsarecomparedusingSQuADbenchmark",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n | PET\nZeroShot |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | OneShot |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n | FewShot |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  | PET\nZeroShot |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  | OneShot\nFewShot |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  | PET |  |  |  |  |  |  |  |  |  |  | \n |  | ZeroShot\nOneShot |  |  |  |  |  |  |  |  |  |  | \n |  | FewShot |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "table",
+    "content": "TABLE (Page 6):\n |  |  |  | PE |  |  | T |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  | Z\nO\nFe | Z\nO\nFe |  | eroShot\nneShot\nwShot |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | \n |  |  |  |  |  |  |  |  |  |  |  |  | ",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "[39]conductacontrolledexperimentinwhichcodegenerated task that we decided to study, thus code generation or text\nby CodeLlama is compared with the human one considering summarization might require different energy resources. We\ndifferent languages, i.e., C++, Java, and Python, tested on a mitigated this threat focusing on the effects of the customiza-\ndedicated platform. The results show that explicitly asking to tion.\ngenerate energy-efficient code results in an equal or worse\nVII. CONCLUSIONANDFUTUREWORK\nenergy efficiency. In our work, we focus on reducing energy\nconsumption of Llama by customizing the prompt and using MotivatedbytheincreasingcarbonemissionsofLLMs,we\na dedicated GPU. proposed a preliminary investigation on the effects of prompt\nPrompt customization: Fagadau et al.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": ". proposed a preliminary investigation on the effects of prompt\nPrompt customization: Fagadau et al. [40] explored the customizationsonLlama3modelforthespecifictaskofcode\ncompletion. Our results show that augmenting prompts with\ninfluence of eight prompt features on Copilot’s code outputs,\ndedicated custom tags and explanations succeed in reducing\nanalyzing 124,800 prompts designed to implement 200 Java\nthe energy consumption yet preserving adequate accuracy.\nmethods.Thefindingsindicatethatpromptsincludingconcise\nIn particular, with the best configuration, zero-shot reduced\nmethod summaries and examples lead to higher accuracy in\nthe consumption of about 7%, whereas one-shot and few-\ngenerated code while additional details as boundary cases",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "on of about 7%, whereas one-shot and few-\ngenerated code while additional details as boundary cases\nshots decreased their consumption of about 99% and 83%,\nhave a negative impact. Reynolds and McDonell [41] ex-\nrespectively. For future work, we plan to extend the study\nplored example-free strategies in prompt engineering, aiming\nto additional LLMs and code-related tasks. In addition, we\nto enhance results by refining prompt structure. In particular,\nwillinvestigateadvancedtechniques,e.g.,retrievalaugmented\nthey embody analogies and synonyms during task specifica-\ngeneration (RAG) or fine-tuning, to further reduce the carbon\ntion and limit undesired outputs with negative prompting. Li\netal.[42]investigatepromptmodificationsusingmetamorphic emissions of LLMs.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "th negative prompting. Li\netal.[42]investigatepromptmodificationsusingmetamorphic emissions of LLMs. Finally, we plan to investigate the effects\nof custom prompts in different software engineering tasks.\ntesting. Using Copilot as baseline model, code fragments are\ninjected in the prompts instead of natural language. Then,\nACKNOWLEDGMENTS\nsemantic mutations are introducted to modify the prompts.\nThis work has been partially supported by the EMELIOT\nSimilar to our approach, Wang et al. [28] proposes prompt\nnationalresearchproject,whichhasbeenfundedbytheMUR\ntuning, a novel PET executed during the fine-tuning process.\nunder the PRIN 2020 program grant n. 2020W3A5FY, the\nThis technique involves the soft prompting in which task-\nEuropean Union–NextGenerationEU through the Italian Min-",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "involves the soft prompting in which task-\nEuropean Union–NextGenerationEU through the Italian Min-\nrelated knowledge are tagged using virtual tokens instead of\nistry of University and Research, Projects PRIN 2022 PNRR\nusing fixed annotation, i.e., hard prompting. The empirical\n“FRINGE: context-aware FaiRness engineerING in complex\nevaluation conducted on CodeBERT and CodeT5 shows that\nsoftware systEms” grant n. P2022553SL, and the Italian\nprompt tuning consistently outperforms fine-tuning in three\n“PRIN 2022” project “TRex-SE: Trustworthy Recommenders\ncode-relatedtasks,i.e.,defectprediction,codesummarization,\nfor Software Engineers,” grant n. 2022LKJWHC.\nand code translation. Compared to those works, we introduce\nexplanations in prompts to reduce the energy consumption of REFERENCES",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "to those works, we introduce\nexplanations in prompts to reduce the energy consumption of REFERENCES\nLlama 3 model in code generation task.\n[1] R.Verdecchia,P.Lago,C.Ebertetal.,“Greenitandgreensoftware,”\nIEEESoftware,vol.38,no.6,pp.7–15,2021.\nVI. THREATSTOVALIDITY [2] S. Georgiou, M. Kechagia, and D. Spinellis, “Analyzing programming\nlanguages’energyconsumption:Anempiricalstudy,”inProceedingsof\nThis section discusses threats that may hamper the results\nthe21stPan-HellenicConferenceonInformatics,2017,pp.1–6.\nof our study and corresponding mitigation strategies. [3] C. Calero and M. Piattini, Eds., Green in Software Engineering.\nInternal validity concerns factors that may impact the Cham: Springer International Publishing, 2015. [Online]. Available:\nhttps://link.springer.com/10.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "he Cham: Springer International Publishing, 2015. [Online]. Available:\nhttps://link.springer.com/10.1007/978-3-319-08581-4\nmeasurements, i.e., noise interference, background processes,\n[4] A. Guldner, R. Bender, C. Calero et al., “Development and evaluation\nand voltage fluctuations. To mitigate these issues, all the of a reference measurement model for assessing the resource\nexperiments have been conducted in an isolated Linux-based and energy efficiency of software products and components—green\nsoftware measurement model (gsmm),” Future Generation Computer\nsystem without parallel or background tasks running on the\nSystems, vol. 155, pp. 402–418, 2024. [Online]. Available: https:\nGPU.Inaddition,werepeatedeachexperimentfivetimesand //www.sciencedirect.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "[Online]. Available: https:\nGPU.Inaddition,werepeatedeachexperimentfivetimesand //www.sciencedirect.com/science/article/pii/S0167739X24000384\na 10-second pause between each query execution to prevent [5] PowerAPI, “pyrapl: A python library for measuring energy\nconsumption,” 2023, accessed: 2024-03-05. [Online]. Available:\npotential performance degradation and statistical anomalies,\nhttps://github.com/powerapi-ng/pyRAPL/tree/master\nthus increasing the reliability of measurements. [6] A. Noureddine, “Powerjoular and joularjx: Multi-platform software\nThreatstoexternalvalidityarerelatedtothegeneralizability powermonitoringtools,”in18thInternationalConferenceonIntelligent\nEnvironments(IE2022),Biarritz,France,Jun2022.\noftheperformedexperiments,i.e.,theobtainedresultsinterms\n[7] J. Mancebo, C.",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "Biarritz,France,Jun2022.\noftheperformedexperiments,i.e.,theobtainedresultsinterms\n[7] J. Mancebo, C. Calero, F. Garcia et al., “Feetings: Framework\nof energy consumption and accuracy may vary considering for energy efficiency testing to improve environmental goal of the\ndifferent tasks and LLMs. Concerning the data, we employed software,” Sustainable Computing: Informatics and Systems, vol. 30,\np. 100558, 2021. [Online]. Available: https://www.sciencedirect.com/\nCodeXGLUE, a well-known dataset exploited in several stud-\nscience/article/pii/S2210537921000494\nies.Wewereforcedtocapourdatasetto1,000snippets,since [8] E. Strubell, A. Ganesh, and A. McCallum, “Energy and policy",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "ocapourdatasetto1,000snippets,since [8] E. Strubell, A. Ganesh, and A. McCallum, “Energy and policy\nthe time needed to test one snippet has been evaluated to 900 considerations for modern deep learning research,” Proceedings of\nthe AAAI Conference on Artificial Intelligence, vol. 34, no. 09,\nseconds.Finally,themeasurementscalculatedontheinference\npp. 13693–13696, Apr. 2020. [Online]. Available: https://ojs.aaai.org/\nwithout any customization are strictly related to the particular index.php/AAAI/article/view/7123",
+    "page": 7
+  },
+  {
+    "type": "text",
+    "content": "[9] R. Tufano, S. Masiero, A. Mastropaolo et al., “Using pre-trained [27] A.Faiz,S.Kaneda,R.Wang,R.Osi,P.Sharma,F.Chen,andL.Jiang,\nmodels to boost code review automation,” in Proceedings of “Llmcarbon:Modelingtheend-to-endcarbonfootprintoflargelanguage\nthe 44th International Conference on Software Engineering, ser. models,”arXivpreprintarXiv:2309.14393,2023.\nICSE ’22. New York, NY, USA: Association for Computing [28] C. Wang, Y. Yang, C. Gao, Y. Peng, H. Zhang, and M. R. Lyu,\nMachinery, Jul. 2022, pp. 2291–2302. [Online]. Available: https: “Nomorefine-tuning?anexperimentalevaluationofprompttuningin\n//dl.acm.org/doi/10.1145/3510003.3510621 code intelligence,” in Proceedings of the 30th ACM Joint European\n[10] A. Mastropaolo, S. Scalabrino, N. Cooper et al.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "” in Proceedings of the 30th ACM Joint European\n[10] A. Mastropaolo, S. Scalabrino, N. Cooper et al., “Studying the Software Engineering Conference and Symposium on the Foundations\nUsage of Text-To-Text Transfer Transformer to Support Code-Related ofSoftwareEngineering,ser.ESEC/FSE2022. NewYork,NY,USA:\nTasks,”in2021IEEE/ACM43rdInternationalConferenceonSoftware Association for Computing Machinery, 2022, p. 382–394. [Online].\nEngineering (ICSE). Madrid, ES: IEEE, May 2021, pp. 336–347. Available:https://doi.org/10.1145/3540250.3549113\n[Online].Available:https://ieeexplore.ieee.org/document/9401982/ [29] X. Hou, Y. Zhao, Y. Liu, Z. Yang, K. Wang, L. Li, X. Luo,\n[11] D. Wang, Z. Jia, S. Li et al., “Bridging pre-trained models and D. Lo, J. Grundy, and H. Wang, “Large language models for",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "et al., “Bridging pre-trained models and D. Lo, J. Grundy, and H. Wang, “Large language models for\ndownstream tasks for source code understanding,” in Proceedings software engineering: A systematic literature review,” ACM Trans.\nof the 44th International Conference on Software Engineering, ser. Softw. Eng. Methodol., Sep. 2024, just Accepted. [Online]. Available:\nICSE ’22. New York, NY, USA: Association for Computing https://doi.org/10.1145/3695988\nMachinery, Jul. 2022, pp. 287–298. [Online]. Available: https: [30] C. Di Sipio, R. Rubei, J. Di Rocco, D. Di Ruscio, and P. T.\n//dl.acm.org/doi/10.1145/3510003.3510062 Nguyen, “Automated categorization of pre-trained models in software\nengineering:Acasestudywithahuggingfacedataset,”inProceedings\n[12] J. Castan˜o, S. Mart´ınez-Ferna´ndez, X.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ering:Acasestudywithahuggingfacedataset,”inProceedings\n[12] J. Castan˜o, S. Mart´ınez-Ferna´ndez, X. Franch et al., “Exploring\nof the 28th International Conference on Evaluation and Assessment\nthe Carbon Footprint of Hugging Face’s ML Models: A Repository\nin Software Engineering, ser. EASE ’24. New York, NY, USA:\nMining Study,” in 2023 ACM/IEEE International Symposium on\nAssociation for Computing Machinery, 2024, p. 351–356. [Online].\nEmpirical Software Engineering and Measurement (ESEM), Oct.\nAvailable:https://doi.org/10.1145/3661167.3661215\n2023, pp. 1–12, arXiv:2305.11164 [cs, stat]. [Online]. Available:\n[31] T. Ahmed and P. Devanbu, “Few-shot training llms for project-\nhttp://arxiv.org/abs/2305.11164\nspecific code-summarization,” in Proceedings of the 37th IEEE/ACM\n[13] S. Samsi, D.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "g/abs/2305.11164\nspecific code-summarization,” in Proceedings of the 37th IEEE/ACM\n[13] S. Samsi, D. Zhao, J. McDonald, B. Li, A. Michaleas, M. Jones,\nInternationalConferenceonAutomatedSoftwareEngineering,ser.ASE\nW. Bergeron, J. Kepner, D. Tiwari, and V. Gadepally, “From words\n’22. New York, NY, USA: Association for Computing Machinery,\nto watts: Benchmarking the energy costs of large language model\n2023.[Online].Available:https://doi.org/10.1145/3551349.3559555\ninference,”inIEEEHighPerformanceExtremeComputingConference,\n[32] G. Navarro, “A guided tour to approximate string matching,” ACM\nHPEC2023,Boston,MA,USA,September25-29,2023. IEEE,2023,\nComputingSurveys,vol.33,no.1,pp.31–88,2001.\npp. 1–9. [Online]. Available: https://doi.org/10.1109/HPEC58863.2023.\n[33] S. Georgiou, M. Kechagia, T.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "1–9. [Online]. Available: https://doi.org/10.1109/HPEC58863.2023.\n[33] S. Georgiou, M. Kechagia, T. Sharma, F. Sarro, and Y. Zou, “Green\n10363447\nai:Dodeeplearningframeworkshavedifferentcosts?”inProceedings\n[14] S. Lu, D. Guo, S. Ren, J. Huang, A. Svyatkovskiy, A. Blanco, of the 44th International Conference on Software Engineering,\nC.Clement,D.Drain,D.Jiang,D.Tangetal.,“Codexglue:Amachine ser. ICSE ’22, Springer. New York, NY, USA: Association for\nlearning benchmark dataset for code understanding and generation,” Computing Machinery, 2022, p. 1082–1094. [Online]. Available:\nin Thirty-fifth Conference on Neural Information Processing Systems https://doi.org/10.1145/3510003.3510221\nDatasetsandBenchmarksTrack(Round1). [34] S. Shanbhag and S. Chimalakonda, “An exploratory study on energy",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "tsandBenchmarksTrack(Round1). [34] S. Shanbhag and S. Chimalakonda, “An exploratory study on energy\n[15] A. Dubey, A. Jauhri, A. Pandey et al., “The llama 3 herd of models,” consumption of dataframe processing libraries,” in 2023 IEEE/ACM\n2024.[Online].Available:https://arxiv.org/abs/2407.21783 20thInternationalConferenceonMiningSoftwareRepositories(MSR).\n[16] M. C. Impact, “Codecarbon: A tool to estimate the carbon emissions Springer,2023,pp.284–295.\nof machine learning models,” 2024, accessed: 2024-03-05. [Online]. [35] J. Bornholt, T. Mytkowicz, and K. S. McKinley, “The model is not\nAvailable:https://mlco2.github.io/codecarbon/ enough:Understandingenergyconsumptioninmobiledevices,”in2012\n[17] R. A. Husein, H. Aburajouh, and C. Catal, “Large language IEEEHotChips24Symposium(HCS).",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "”in2012\n[17] R. A. Husein, H. Aburajouh, and C. Catal, “Large language IEEEHotChips24Symposium(HCS). IEEE,2012,pp.1–3.\nmodels for code completion: A systematic literature review,” Comput. [36] A. Jagannadharao, N. Beckage, D. Nafus, and S. Chamberlin,\nStand. Interfaces, vol. 92, p. 103917, 2025. [Online]. Available: “Timeshiftingstrategiesforcarbon-efficientlong-runninglargelanguage\nhttps://doi.org/10.1016/j.csi.2024.103917 modeltraining,”InnovationsinSystemsandSoftwareEngineering,Dec.\n[18] S. T. Footprint, “Carbon footprint of training gpt- 2023.[Online].Available:https://doi.org/10.1007/s11334-023-00546-x\n3 and large language models,” 2023, accessed: [37] V. Liu and Y. Yin, “Green AI: exploring carbon footprints, mitigation\n2024-07-22. [Online]. Available: https://shrinkthatfootprint.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "xploring carbon footprints, mitigation\n2024-07-22. [Online]. Available: https://shrinkthatfootprint.com/ strategies, and trade offs in large language model training,” Discover\ncarbon-footprint-of-training-gpt-3-and-large-language-models/ ArtificialIntelligence,vol.4,no.1,p.49,Jul.2024.[Online].Available:\nhttps://doi.org/10.1007/s44163-024-00149-w\n[19] Trustbit, “Llm benchmarks,” 2024, accessed: 2024-07-22. [Online].\n[38] P.Rajpurkar,J.Zhang,K.Lopyrevetal.,“Squad:100,000+questions\nAvailable:https://www.trustbit.tech/en/llm-benchmarks\nformachinecomprehensionoftext,”arXivpreprintarXiv:1606.05250,\n[20] L. Arena, “Lm arena leaderboard,” 2024, accessed: 2024-07-22.\n2016.\n[Online].Available:https://lmarena.ai/?leaderboard\n[39] V.-A.Cursaru,L.Duits,J.Milligan,D.Ural,B.R.Sanchez,V.Stoico,",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "e:https://lmarena.ai/?leaderboard\n[39] V.-A.Cursaru,L.Duits,J.Milligan,D.Ural,B.R.Sanchez,V.Stoico,\n[21] Oobabooga, “Oobabooga benchmark,” 2024, accessed: 2024-07-22.\nand I. Malavolta, “A controlled experiment on the energy efficiency\n[Online].Available:https://oobabooga.github.io/benchmark.html ofthesourcecodegeneratedbycodellama,”inQualityofInformation\n[22] E. Strubell, A. Ganesh, and A. McCallum, “Energy and policy andCommunicationsTechnology,A.Bertolino,J.PascoalFaria,P.Lago,\nconsiderations for deep learning in nlp,” 2019. [Online]. Available: and L. Semini, Eds. Cham: Springer Nature Switzerland, 2024, pp.\nhttps://arxiv.org/abs/1906.02243 161–176.\n[23] B. Romera-Paredes and P. H. S. Torr, “An embarrassingly simple [40] I. D. Fagadau, L. Mariani, D. Micucci, and O.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "edes and P. H. S. Torr, “An embarrassingly simple [40] I. D. Fagadau, L. Mariani, D. Micucci, and O. Riganelli, “Analyzing\napproachtozero-shotlearning,”inProceedingsofthe32ndInternational promptinfluenceonautomatedmethodgeneration:Anempiricalstudy\nConferenceonInternationalConferenceonMachineLearning-Volume with copilot,” in Proceedings of the 32nd IEEE/ACM International\n37,ser.ICML’15. JMLR.org,2015,p.2152–2161. Conference on Program Comprehension, ser. ICPC ’24. New York,\n[24] R. L. L. I. au2, I. Balazˇevic´, E. Wallace, F. Petroni, S. Singh, NY, USA: Association for Computing Machinery, 2024, p. 24–34.\nand S. Riedel, “Cutting down on prompts and parameters: Simple [Online].Available:https://doi.org/10.1145/3643916.3644409\nfew-shot learning with language models,” 2021. [Online].",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "ble:https://doi.org/10.1145/3643916.3644409\nfew-shot learning with language models,” 2021. [Online]. Available: [41] L. Reynolds and K. McDonell, “Prompt programming for large\nhttps://arxiv.org/abs/2106.13353 language models: Beyond the few-shot paradigm,” in Extended\n[25] X. Li, S. Yuan, X. Gu et al., “Few-shot code translation via Abstracts of the 2021 CHI Conference on Human Factors in\ntask-adapted prompt learning,” Journal of Systems and Software, vol. Computing Systems, ser. CHI EA ’21. New York, NY, USA:\n212, p. 112002, 2024. [Online]. Available: https://www.sciencedirect. Association for Computing Machinery, 2021. [Online]. Available:\ncom/science/article/pii/S0164121224000451 https://doi.org/10.1145/3411763.3451760\n[26] A.Gholami,S.Kim,Z.Dong,Z.Yao,M.W.Mahoney,andK.Keutzer, [42] Z.",
+    "page": 8
+  },
+  {
+    "type": "text",
+    "content": "/doi.org/10.1145/3411763.3451760\n[26] A.Gholami,S.Kim,Z.Dong,Z.Yao,M.W.Mahoney,andK.Keutzer, [42] Z. Li, C. Wang, Z. Liu, H. Wang, D. Chen, S. Wang, and C. Gao,\n“A survey of quantization methods for efficient neural network “Cctest: Testing and repairing code completion systems,” 2023.\ninference,”2021.[Online].Available:https://arxiv.org/abs/2103.13630 [Online].Available:https://arxiv.org/abs/2208.08289",
+    "page": 8
+  }
+]

@@ -1,0 +1,192 @@
+[
+  {
+    "type": "text",
+    "content": "9102\nnuJ\n5\n]LC.sc[\n1v34220.6091:viXra\nEnergy and Policy Considerations for Deep Learning in NLP\nEmma Strubell Ananya Ganesh Andrew McCallum\nCollegeofInformationand ComputerSciences\nUniversityofMassachusettsAmherst\n{strubell, aganesh, mccallum}@cs.umass.edu\nAbstract Consumption CO2e(lbs)\nAirtravel, 1passenger, NY↔SF 1984\nRecent progress in hardware and methodol-\nHumanlife,avg,1year 11,023\nogy for training neural networks has ushered\nAmericanlife,avg,1year 36,156\nin a newgenerationof largenetworkstrained\nCar,avgincl. fuel,1lifetime 126,000\non abundant data. These models have ob-\ntained notable gains in accuracy across many\nNLPtasks. However,theseaccuracyimprove- Trainingonemodel(GPU)\nmentsdependontheavailabilityofexception- NLPpipeline (parsing, SRL) 39",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "prove- Trainingonemodel(GPU)\nmentsdependontheavailabilityofexception- NLPpipeline (parsing, SRL) 39\nallylargecomputationalresourcesthatneces-\nw/tuning&experimentation 78,468\nsitate similarly substantial energy consump-\nTransformer(big) 192\ntion. As a result these models are costly to\nw/neuralarchitecture search 626,155\ntrain and develop,bothfinancially, due to the\ncostofhardwareandelectricityorcloudcom-\nTable1: EstimatedCO2 emissionsfromtrainingcom-\nputetime,andenvironmentally,duetothecar-\nmonNLPmodels,comparedtofamiliarconsumption.1\nbon footprint required to fuel modern tensor\nprocessing hardware. In this paper we bring\nthis issue to the attention of NLP researchers\nNLP models could be trained and developed on\nby quantifying the approximate financial and",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "searchers\nNLP models could be trained and developed on\nby quantifying the approximate financial and\na commodity laptop or server, many now require\nenvironmentalcostsoftrainingavarietyofre-\nmultipleinstancesofspecializedhardwaresuchas\ncently successful neural network models for\nNLP.Basedonthesefindings,weproposeac- GPUs or TPUs, therefore limiting access to these\ntionablerecommendationstoreducecostsand highlyaccuratemodelsonthebasisoffinances.\nimproveequityinNLPresearchandpractice. Even when these expensive computational re-\nsources are available, modeltraining also incurs a\n1 Introduction\nsubstantial cost to the environment due to the en-\nAdvances in techniques and hardware for train- ergyrequired topowerthishardwareforweeksor\ning deep neural networks have recently en- monthsatatime.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "ergyrequired topowerthishardwareforweeksor\ning deep neural networks have recently en- monthsatatime. Thoughsomeofthisenergymay\nabled impressive accuracy improvements across come from renewable or carbon credit-offset re-\nmany fundamental NLP tasks (Bahdanau et al., sources,thehighenergydemandsofthesemodels\n2015; Luong et al., 2015; Dozat and Man- arestillaconcernsince(1)energyisnotcurrently\nning, 2017; Vaswani et al., 2017), with the derivedfrom carbon-neural sources inmanyloca-\nmost computationally-hungry models obtaining tions,and(2)whenrenewableenergy isavailable,\nthehighestscores(Petersetal.,2018;Devlinetal., itis still limited to the equipment we have to pro-\n2019; Radford et al., 2019; So et al., 2019). As duceandstoreit,andenergy spent training aneu-",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "pro-\n2019; Radford et al., 2019; So et al., 2019). As duceandstoreit,andenergy spent training aneu-\na result, training a state-of-the-art model now re- ral network might better be allocated to heating a\nquires substantial computational resources which family’s home. It is estimated that we must cut\ndemand considerable energy, along with the as- carbon emissions by half over the next decade to\nsociated financial and environmental costs. Re- deterescalatingratesofnaturaldisaster,andbased\nsearchanddevelopment ofnewmodelsmultiplies on the estimated CO2 emissions listed in Table 1,\nthese costs by thousands of timesby requiring re-\n1Sources: (1) Air travel and per-capita consump-\ntraining to experiment with model architectures\ntion: https://bit.ly/2Hw0xWc; (2) car lifetime:\nandhyperparameters.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "eriment with model architectures\ntion: https://bit.ly/2Hw0xWc; (2) car lifetime:\nandhyperparameters. Whereasadecadeagomost https://bit.ly/2Qbr0w1.",
+    "page": 1
+  },
+  {
+    "type": "text",
+    "content": "model training and development likely make up Consumer Renew. Gas Coal Nuc.\na substantial portion of the greenhouse gas emis- China 22% 3% 65% 4%\nsionsattributed tomanyNLPresearchers. Germany 40% 7% 38% 13%\nToheighten the awareness of the NLPcommu- UnitedStates 17% 35% 27% 19%\nnitytothisissueandpromotemindfulpracticeand Amazon-AWS 17% 24% 30% 26%\npolicy, we characterize the dollar cost and carbon Google 56% 14% 15% 10%\nemissions that result from training the neural net- Microsoft 32% 23% 31% 10%\nworks at the core of many state-of-the-art NLP\nmodels. We do this by estimating the kilowatts Table2:Percentenergysourcedfrom:Renewable(e.g.\nof energy required to train a variety of popular hydro, solar, wind), natural gas, coal and nuclear for",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "nergy required to train a variety of popular hydro, solar, wind), natural gas, coal and nuclear for\noff-the-shelfNLPmodels,whichcanbeconverted thetop3cloudcomputeproviders(Cooketal.,2017),\nto approximate carbon emissions and electricity comparedto the United States,4 China5 and Germany\n(Burger,2019).\ncosts. To estimate the even greater resources re-\nquired to transfer an existing model to a new task\nor develop new models, we perform a case study We estimate the total time expected for mod-\nofthefullcomputationalresourcesrequiredforthe elstotraintocompletion using training timesand\ndevelopmentandtuningofarecentstate-of-the-art hardware reported inthe original papers. Wethen\nNLPpipeline (Strubell etal.,2018). Weconclude calculatethepowerconsumptioninkilowatt-hours",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": ". Wethen\nNLPpipeline (Strubell etal.,2018). Weconclude calculatethepowerconsumptioninkilowatt-hours\nwithrecommendationstothecommunitybasedon (kWh) as follows. Let p be the average power\nc\nour findings, namely: (1)Timetoretrain andsen- draw(inwatts)fromallCPUsocketsduringtrain-\nsitivity to hyperparameters should be reported for ing, let p be the average power draw from all\nr\nNLP machine learning models; (2) academic re- DRAM(mainmemory)sockets,letp betheaver-\ng\nsearchers need equitable access to computational age powerdraw ofa GPUduring training, and let\nresources;and(3)researchersshouldprioritizede- g be the number of GPUs used to train. We esti-\nveloping efficientmodelsandhardware. matetotal powerconsumption ascombined GPU,\nCPUand DRAMconsumption, then multiply this\n2 Methods",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "re. matetotal powerconsumption ascombined GPU,\nCPUand DRAMconsumption, then multiply this\n2 Methods\nby Power Usage Effectiveness (PUE), which ac-\ncounts for the additional energy required to sup-\nTo quantify the computational and environmen-\nport the compute infrastructure (mainly cooling).\ntal cost of training deep neural network mod-\nWeuseaPUEcoefficient of1.58,the2018global\nels for NLP, we perform an analysis of the en-\naveragefordatacenters(Ascierto,2018). Thenthe\nergy required to train a variety of popular off-\ntotal power p required at a given instance during\nthe-shelf NLP models, as well as a case study of t\ntrainingisgivenby:\nthecompletesumofresourcesrequiredtodevelop\nLISA(Strubelletal.,2018),astate-of-the-artNLP 1.58t(p +p +gp )\nc r g\np = (1)",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "urcesrequiredtodevelop\nLISA(Strubelletal.,2018),astate-of-the-artNLP 1.58t(p +p +gp )\nc r g\np = (1)\nmodel from EMNLP 2018, including all tuning t 1000\nandexperimentation.\nTheU.S.EnvironmentalProtectionAgency(EPA)\nWemeasureenergyuseasfollows. Wetrainthe\nprovides average CO2 produced (in pounds per\nmodelsdescribedin§2.1usingthedefaultsettings\nkilowatt-hour) for power consumed in the U.S.\nprovided, and sample GPU and CPU power con-\n(EPA, 2018), which we use to convert power to\nsumptionduringtraining. Eachmodelwastrained\nestimatedCO2 emissions:\nfor a maximum of 1 day. We train all models on\na single NVIDIA Titan X GPU, with the excep- CO2e = 0.954p t (2)\ntion of ELMo which was trained on 3 NVIDIA\nThisconversiontakesintoaccounttherelativepro-\nGTX 1080 Ti GPUs. While training, we repeat-",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "3 NVIDIA\nThisconversiontakesintoaccounttherelativepro-\nGTX 1080 Ti GPUs. While training, we repeat-\nportionsofdifferentenergysources(primarilynat-\nedly query the NVIDIA System Management In-\nural gas, coal, nuclear and renewable) consumed\nterface2 to sample the GPU power consumption\nto produce energy in the United States. Table 2\nandreporttheaverageoverallsamples. Tosample\nlists the relative energy sources for China, Ger-\nCPU power consumption, we use Intel’s Running\nmany and the United States compared to the top\nAveragePowerLimitinterface.3\n5U.S.Dept.ofEnergy:https://bit.ly/2JTbGnI\n2nvidia-smi:https://bit.ly/30sGEbi 5China ElectricityCouncil; trans. China Energy Portal:\n3RAPLpowermeter:https://bit.ly/2LObQhV https://bit.ly/2QHE5O3",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "s://bit.ly/2LObQhV https://bit.ly/2QHE5O3",
+    "page": 2
+  },
+  {
+    "type": "text",
+    "content": "three cloud service providers. The U.S. break- ence. Devlin et al. (2019) report that the BERT\ndown of energy is comparable to that of the most base model (110M parameters) was trained on 16\npopularcloudcomputeservice,AmazonWebSer- TPUchipsfor4days(96hours). NVIDIAreports\nvices, so we believe this conversion to provide a thattheycantrainaBERTmodelin3.3days(79.2\nreasonableestimateofCO2emissionsperkilowatt hours) using 4DGX-2Hservers, totaling 64Tesla\nhourofcomputeenergyused. V100GPUs(Forsteretal.,2019).\nGPT-2. This model is the latest edition of\n2.1 Models OpenAI’s GPT general-purpose token encoder,\nalsobasedonTransformer-style self-attention and\nWe analyze four models, the computational re-\ntrained with a language modeling objective (Rad-\nquirements ofwhichwedescribebelow. Allmod-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "nal re-\ntrained with a language modeling objective (Rad-\nquirements ofwhichwedescribebelow. Allmod-\nford et al., 2019). By training a very large model\nels have code freely available online, which we\non massive data, Radford et al. (2019) show high\nusedout-of-the-box. Formoredetailsonthemod-\nzero-shot performance onquestion answering and\nelsthemselves, pleaserefertotheoriginal papers.\nlanguage modeling benchmarks. The large model\nTransformer. The Transformer model (Vaswani\ndescribed in Radford et al. (2019) has 1542M pa-\net al., 2017) is an encoder-decoder architecture\nrameters and is reported to require 1 week (168\nprimarilyrecognizedforefficientandaccuratema-\nhours)oftraining on32TPUv3chips. 6\nchine translation. The encoder and decoder each\nconsist of 6 stacked layers of multi-head self-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": ". 6\nchine translation. The encoder and decoder each\nconsist of 6 stacked layers of multi-head self-\n3 Relatedwork\nattention. Vaswani et al. (2017) report that the\nTransformer base model (65M parameters) was\nThere is some precedent for work characterizing\ntrained on 8 NVIDIA P100 GPUs for 12 hours,\nthecomputationalrequirementsoftrainingandin-\nand the Transformer big model (213M parame-\nference inmodernneural network architectures in\nters) was trained for 3.5 days (84 hours; 300k\nthe computer vision community. Li et al. (2016)\nsteps). This model is also the basis for recent\npresentadetailedstudyoftheenergyuserequired\nworkonneural architecture search (NAS)forma-\nfortrainingandinferenceinpopularconvolutional\nchinetranslationandlanguagemodeling(Soetal.,",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "S)forma-\nfortrainingandinferenceinpopularconvolutional\nchinetranslationandlanguagemodeling(Soetal.,\nmodels for image classification in computer vi-\n2019),andtheNLPpipelinethatwestudyinmore\nsion, including fine-grained analysis comparing\ndetail in §4.2 (Strubell et al., 2018). So et al.\ndifferent neural network layer types. Canziani\n(2019)reportthattheirfullarchitecture searchran\netal.(2016) assess imageclassification modelac-\nfor a total of 979M training steps, and that their\ncuracy as a function of model size and gigaflops\nbase model requires 10 hours to train for 300k\nrequired during inference. They also measure av-\nsteps on one TPUv2 core. This equates to 32,623\nerage power draw required during inference on\nhoursofTPUor274,120hourson8P100GPUs.\nGPUsasafunctionofbatchsize. Neitherworkan-",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "during inference on\nhoursofTPUor274,120hourson8P100GPUs.\nGPUsasafunctionofbatchsize. Neitherworkan-\nELMo. The ELMo model (Peters et al., 2018)\nalyzes therecurrent andself-attention modelsthat\nis based on stacked LSTMs and provides rich\nhave become commonplace in NLP, nor do they\nwordrepresentations incontextbypre-training on\nextrapolate power to estimates of carbon and dol-\na large amount of data using a language model-\nlarcostoftraining.\ningobjective. Replacingcontext-independent pre-\nAnalysis of hyperparameter tuning has been\ntrained word embeddings with ELMo has been\nperformed in the context of improved algorithms\nshown to increase performance on downstream\nfor hyperparameter search (Bergstra et al., 2011;\ntasks such as named entity recognition, semantic",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "for hyperparameter search (Bergstra et al., 2011;\ntasks such as named entity recognition, semantic\nBergstraandBengio,2012;Snoeketal.,2012). To\nrolelabeling, andcoreference. Petersetal.(2018)\nour knowledge there exists to date no analysis of\nreport thatELMowastrained on3NVIDIAGTX\nthe computation required for R&D and hyperpa-\n1080GPUsfor2weeks(336hours).\nrametertuningofneuralnetworkmodelsinNLP.\nBERT.TheBERTmodel(Devlinetal.,2019)pro-\nvides a Transformer-based architecture for build-\n6ViatheauthorsonReddit.\ning contextual representations similar to ELMo,\n7GPU lower bound computed using pre-emptible\nbuttrainedwithadifferentlanguagemodelingob- P100/V100 U.S. resources priced at $0.43–$0.74/hr, upper\njective. BERTsubstantially improvesaccuracy on bound uses on-demand U.S.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "ed at $0.43–$0.74/hr, upper\njective. BERTsubstantially improvesaccuracy on bound uses on-demand U.S. resources priced at $1.46–\n$2.48/hr. Wesimilarlyusepre-emptible($1.46/hr–$2.40/hr)\ntasksrequiringsentence-levelrepresentationssuch\nandon-demand($4.50/hr–$8/hr) pricingaslowerandupper\nas question answering and natural language infer- boundsforTPUv2/3;cheaperbulkcontractsareavailable.",
+    "page": 3
+  },
+  {
+    "type": "text",
+    "content": "Model Hardware Power(W) Hours kWh·PUE CO2e Cloudcomputecost\nTransformer P100x8 1415.78 12 27 26 $41–$140\nbase\nTransformer P100x8 1515.43 84 201 192 $289–$981\nbig\nELMo P100x3 517.66 336 275 262 $433–$1472\nBERT V100x64 12,041.51 79 1507 1438 $3751–$12,571\nbase\nBERT TPUv2x16 — 96 — — $2074–$6912\nbase\nNAS P100x8 1515.43 274,120 656,347 626,155 $942,973–$3,201,722\nNAS TPUv2x1 — 32,623 — — $44,055–$146,848\nGPT-2 TPUv3x32 — 168 — — $12,902–$43,008\nTable3:EstimatedcostoftrainingamodelintermsofCO2emissions(lbs)andcloudcomputecost(USD).7Power\nandcarbonfootprintareomittedforTPUsduetolackofpublicinformationonpowerdrawforthishardware.\n4 Experimental results Estimatedcost(USD)\nModels Hours Cloudcompute Electricity\n4.1 Costoftraining\n1 120 $52–$175 $5",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "sults Estimatedcost(USD)\nModels Hours Cloudcompute Electricity\n4.1 Costoftraining\n1 120 $52–$175 $5\nTable 3lists CO2 emissions and estimated cost of 24 2880 $1238–$4205 $118\ntraining the models described in §2.1. Of note is 4789 239,942 $103k–$350k $9870\nthat TPUs are more cost-efficient than GPUs on\nworkloads that makesense forthat hardware (e.g. Table4: Estimatedcostintermsofcloudcomputeand\nBERT). We also see that models emit substan- electricityfortraining: (1)a single model(2)a single\ntuneand(3)allmodelstrainedduringR&D.\ntial carbon emissions; training BERT on GPU is\nroughly equivalent to a trans-American flight. So\netal.(2019)reportthatNASachievesanewstate- about60GPUsrunning constantly throughout the\nof-the-art BLEUscore of29.7for EnglishtoGer- 6monthdurationoftheproject.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "g constantly throughout the\nof-the-art BLEUscore of29.7for EnglishtoGer- 6monthdurationoftheproject. Table4listsupper\nman machine translation, an increase of just 0.1 and lower bounds of the estimated cost in terms\nBLEU at the cost of at least $150k in on-demand of Google Cloud compute and raw electricity re-\ncomputetimeandnon-trivial carbon emissions. quired todevelop anddeploy thismodel.9 Wesee\nthat while training a single model is relatively in-\n4.2 Costofdevelopment: Casestudy\nexpensive, the cost of tuning a model for a new\nTo quantify the computational requirements of\ndataset,whichweestimateheretorequire24jobs,\nR&D for a new model we study the logs of\nor performing the full R&D required to develop\nall training required to develop Linguistically-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "of\nor performing the full R&D required to develop\nall training required to develop Linguistically-\nthismodel,quicklybecomesextremelyexpensive.\nInformed Self-Attention (Strubell et al., 2018), a\nmulti-taskmodelthatperformspart-of-speechtag- 5 Conclusions\nging,labeleddependencyparsing,predicatedetec-\nAuthorsshouldreporttrainingtimeand\ntionandsemanticrolelabeling. Thismodelmakes\nsensitivitytohyperparameters.\nfor an interesting case study as a representative\nNLPpipelineandasaBestLongPaperatEMNLP. Our experiments suggest that it would be benefi-\nModel training associated with the project cial to directly compare different models to per-\nspanned aperiod of172 days(approx. 6months). form a cost-benefit (accuracy) analysis. To ad-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "o per-\nspanned aperiod of172 days(approx. 6months). form a cost-benefit (accuracy) analysis. To ad-\nDuring that time 123 small hyperparameter grid dress this, when proposing a model that is meant\nsearches were performed, resulting in 4789 jobs to be re-trained for downstream use, such as re-\nintotal. Jobsvariedinlengthranging fromamin- training on a new domain or fine-tuning on anew\nimum of 3 minutes, indicating a crash, to a maxi- task,authorsshouldreporttraining timeandcom-\nmum of 9 days, with an average job length of 52 putational resources required, as well as model\nhours. Alltraining was done on a combination of sensitivity to hyperparameters. This will enable\nNVIDIATitanX(72%)andM40(28%)GPUs.8 direct comparison across models, allowing subse-",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "his will enable\nNVIDIATitanX(72%)andM40(28%)GPUs.8 direct comparison across models, allowing subse-\nThe sum GPU time required for the project quentconsumersofthesemodelstoaccurately as-\ntotaled 9998 days (27 years). This averages to sesswhethertherequiredcomputationalresources\n8WeapproximatecloudcomputecostusingP100pricing. 9BasedonaverageU.Scostofelectricityof$0.12/kWh.",
+    "page": 4
+  },
+  {
+    "type": "text",
+    "content": "are compatible with their setting. More explicit half the estimated cost to use on-demand cloud\ncharacterization of tuning time could also reveal GPUs. Unlike money spent on cloud compute,\ninconsistencies intimespenttuningbaselinemod- however, that invested in centralized resources\nels compared to proposed contributions. Realiz- would continue to pay off as resources are shared\ning this will require: (1) a standard, hardware- across many projects. A government-funded aca-\nindependent measurement of training time, such demiccomputecloudwouldprovideequitable ac-\nas gigaflops required to convergence, and (2) a cesstoallresearchers.\nstandardmeasurementofmodelsensitivitytodata\nResearchersshouldprioritizecomputationally\nand hyperparameters, such as variance with re-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "itytodata\nResearchersshouldprioritizecomputationally\nand hyperparameters, such as variance with re-\nefficienthardwareandalgorithms.\nspecttohyperparameters searched.\nWerecommendaconcerted effortbyindustryand\nAcademicresearchers needequitableaccessto academia to promote research of more computa-\ncomputationresources. tionally efficient algorithms, as well as hardware\nthat requires less energy. An effort can also be\nRecent advances in available compute come at a\nmade in terms of software. There is already a\nhigh price not attainable to all who desire access.\nprecedent for NLP software packages prioritizing\nMost ofthe models studied in this paper were de-\nefficient models. An additional avenue through\nvelopedoutsideacademia;recentimprovementsin\nwhich NLP and machine learning software de-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nue through\nvelopedoutsideacademia;recentimprovementsin\nwhich NLP and machine learning software de-\nstate-of-the-art accuracy arepossible thanks toin-\nvelopers could aid in reducing the energy asso-\ndustryaccesstolarge-scale compute.\nciated with model tuning is by providing easy-\nLimiting this style of research to industry labs\nto-use APIs implementing more efficient alterna-\nhurtstheNLPresearchcommunityinmanyways.\ntivestobrute-forcegridsearchforhyperparameter\nFirst, it stifles creativity. Researchers with good\ntuning, e.g. random or Bayesian hyperparameter\nideas but without access to large-scale compute\nsearch techniques (Bergstra et al., 2011; Bergstra\nwill simply not be able to execute their ideas,\nand Bengio, 2012; Snoek et al., 2012). While",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "rgstra\nwill simply not be able to execute their ideas,\nand Bengio, 2012; Snoek et al., 2012). While\ninstead constrained to focus on different prob-\nsoftwarepackages implementing thesetechniques\nlems. Second, it prohibits certain types of re- do exist,10 they are rarely employed in practice\nsearchonthebasisofaccesstofinancialresources.\nfor tuning NLP models. This is likely because\nThisevenmoredeeplypromotesthealreadyprob-\ntheir interoperability with popular deep learning\nlematic “rich get richer” cycle of research fund-\nframeworks such as PyTorch and TensorFlow is\ning, where groups that are already successful and\nnot optimized, i.e. there are not simple exam-\nthus well-funded tend to receive more funding\nples of how to tune TensorFlow Estimators using\ndue to their existing accomplishments.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "more funding\nples of how to tune TensorFlow Estimators using\ndue to their existing accomplishments. Third, the\nBayesian search. Integrating these tools into the\nprohibitive start-up cost of building in-house re-\nworkflowswithwhichNLPresearchersandpracti-\nsources forces resource-poor groups to rely on\ntionersarealreadyfamiliarcouldhavenotableim-\ncloud compute services such as AWS, Google\npactonthecostofdeveloping andtuninginNLP.\nCloudandMicrosoftAzure.\nWhile these services provide valuable, flexi- Acknowledgements\nble, and often relatively environmentally friendly\nWe are grateful to Sherief Farouk and the anony-\ncompute resources, it is more cost effective for\nmous reviewers for helpful feedback on earlier\nacademic researchers, who often work for non-\ndrafts.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "mous reviewers for helpful feedback on earlier\nacademic researchers, who often work for non-\ndrafts. This work was supported in part by the\nprofit educational institutions and whose research\nCenters for Data Science and Intelligent Infor-\nisfundedbygovernmententities,topoolresources\nmation Retrieval, the Chan Zuckerberg Initiative\nto build shared compute centers at the level of\nunder the Scientific Knowledge Base Construc-\nfunding agencies, such as the U.S. National Sci-\ntionproject,theIBMCognitiveHorizonsNetwork\nence Foundation. For example, an off-the-shelf\nagreement no. W1668553, and National Science\nGPU server containing 8 NVIDIA 1080 Ti GPUs\nFoundation grantno. IIS-1514053. Anyopinions,\nand supporting hardware can be purchased for\nfindings and conclusions or recommendations ex-",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "nions,\nand supporting hardware can be purchased for\nfindings and conclusions or recommendations ex-\napproximately $20,000 USD. At that cost, the\npressedinthismaterialarethoseoftheauthorsand\nhardware required to develop the model in our\ndonotnecessarily reflectthoseofthesponsor.\ncasestudy(approximately 58GPUsfor172days)\nwould cost $145,000 USD plus electricity, about 10Forexample,theHyperoptPythonlibrary.",
+    "page": 5
+  },
+  {
+    "type": "text",
+    "content": "References MatthewE.Peters,MarkNeumann,MohitIyyer,Matt\nGardner, Christopher Clark, Kenton Lee, and Luke\nRhondaAscierto.2018. UptimeInstituteGlobalData\nZettlemoyer. 2018. Deep contextualizedword rep-\nCenterSurvey. Technicalreport,UptimeInstitute.\nresentations. InNAACL.\nDzmitryBahdanau,KyunghyunCho,andYoshuaBen-\nAlecRadford,JeffreyWu, RewonChild, DavidLuan,\ngio. 2015. Neural Machine Translation by Jointly\nDarioAmodei,andIlyaSutskever.2019. Language\nLearning to Align and Translate. In 3rd Inter-\nmodelsareunsupervisedmultitasklearners.\nnational Conference for Learning Representations\n(ICLR),SanDiego,California,USA.\nJasper Snoek, Hugo Larochelle, and Ryan P Adams.\n2012. Practical bayesian optimization of machine\nJames Bergstra and Yoshua Bengio. 2012. Random\nlearningalgorithms.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "bayesian optimization of machine\nJames Bergstra and Yoshua Bengio. 2012. Random\nlearningalgorithms. InAdvancesinneuralinforma-\nsearchforhyper-parameteroptimization. Journalof\ntionprocessingsystems,pages2951–2959.\nMachineLearningResearch,13(Feb):281–305.\nJamesSBergstra,Re´miBardenet,YoshuaBengio,and David R. So, Chen Liang, and Quoc V. Le. 2019.\nBala´zsKe´gl.2011. Algorithmsforhyper-parameter The evolved transformer. In Proceedings of the\noptimization. In Advances in neural information 36thInternationalConferenceonMachineLearning\nprocessingsystems,pages2546–2554. (ICML).\nBrunoBurger.2019. NetPublicElectricityGeneration Emma Strubell, Patrick Verga, Daniel Andor,\nin Germany in 2018. Technical report, Fraunhofer David Weiss, and Andrew McCallum. 2018.\nInstituteforSolarEnergySystemsISE.",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "hnical report, Fraunhofer David Weiss, and Andrew McCallum. 2018.\nInstituteforSolarEnergySystemsISE. Linguistically-Informed Self-Attention for Se-\nmantic Role Labeling. In Conference on Empir-\nAlfredo Canziani, Adam Paszke, and Eugenio Culur- ical Methods in Natural Language Processing\nciello. 2016. An analysis of deep neural network (EMNLP),Brussels,Belgium.\nmodelsforpracticalapplications.\nAshish Vaswani, Noam Shazeer, Niki Parmar, Jakob\nGaryCook, JudeLee, TaminaTsai, AdaKongn,John\nUszkoreit, Llion Jones, Aidan N Gomez, Lukasz\nDeans, Brian Johnson, ElizabethJardim, andBrian\nKaiser, and Illia Polosukhin.2017. Attention is all\nJohnson. 2017. Clicking Clean: Who is winning\nyouneed. In31stConferenceonNeuralInformation\ntheracetobuildagreeninternet? Technicalreport,\nProcessingSystems(NIPS).",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "nferenceonNeuralInformation\ntheracetobuildagreeninternet? Technicalreport,\nProcessingSystems(NIPS).\nGreenpeace.\nJacob Devlin, Ming-Wei Chang, Kenton Lee, and\nKristina Toutanova. 2019. BERT: Pre-training of\nDeepBidirectionalTransformersforLanguageUn-\nderstanding. InNAACL.\nTimothy Dozat and Christopher D. Manning. 2017.\nDeepbiaffineattentionforneuraldependencypars-\ning. InICLR.\nEPA. 2018. Emissions & Generation Resource Inte-\ngrated Database (eGRID). Technical report, U.S.\nEnvironmentalProtectionAgency.\nChristopher Forster, Thor Johnsen, Swetha Man-\ndava,SharathTuruvekereSreenivas,DeyuFu,Julie\nBernauer, Allison Gray, Sharan Chetlur, and Raul\nPuri. 2019. BERT Meets GPUs. Technical report,\nNVIDIAAI.\nDaLi,XinboChen,MichelaBecchi,andZiliangZong.\n2016. Evaluatingtheenergyefficiencyofdeepcon-",
+    "page": 6
+  },
+  {
+    "type": "text",
+    "content": "VIDIAAI.\nDaLi,XinboChen,MichelaBecchi,andZiliangZong.\n2016. Evaluatingtheenergyefficiencyofdeepcon-\nvolutionalneuralnetworksoncpusandgpus. 2016\nIEEE International Conferences on Big Data and\nCloud Computing (BDCloud), Social Computing\nandNetworking(SocialCom),SustainableComput-\ning and Communications(SustainCom) (BDCloud-\nSocialCom-SustainCom),pages477–484.\nThang Luong, Hieu Pham, and Christopher D. Man-\nning.2015. Effectiveapproachestoattention-based\nneural machine translation. In Proceedings of the\n2015 Conference on Empirical Methods in Natural\nLanguage Processing, pages 1412–1421. Associa-\ntionforComputationalLinguistics.",
+    "page": 6
+  }
+]
