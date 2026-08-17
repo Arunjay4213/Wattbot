@@ -32,7 +32,7 @@ def check_setup():
         issues.append("No chunk files found. Run chunker.py")
 
     # Check Python packages
-    packages = ["sentence_transformers", "anthropic", "openai", "yaml", "pandas"]
+    packages = ["sentence_transformers", "hnswlib", "anthropic", "openai", "yaml", "pandas"]
     for pkg in packages:
         try:
             __import__(pkg)
