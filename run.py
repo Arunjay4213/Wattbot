@@ -1,6 +1,13 @@
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).parent))
+
+# Modules under src/ import each other by top-level name (for example
+# "from retrieval.hybrid_search import ..."), so src/ itself has to be on
+# sys.path, not just the project root.
+ROOT = Path(__file__).parent
+sys.path.append(str(ROOT))
+sys.path.append(str(ROOT / "src"))
+
 from src.vector_pipeline import VectorDBPipeline
 
 def main():
