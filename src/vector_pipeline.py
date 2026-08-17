@@ -19,7 +19,8 @@ class VectorDBPipeline:
         print("🚀 Initializing Vector DB Pipeline...")
 
         self.retriever = HybridRetriever(
-            embedding_model=self.config['models']['embedding']['model']
+            embedding_model=self.config['models']['embedding']['model'],
+            vector_search=self.config['retrieval'].get('vector_search')
         )
         self.generator = AnswerGenerator(config_path)
 

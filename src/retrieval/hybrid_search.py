@@ -5,6 +5,8 @@ from sentence_transformers import SentenceTransformer
 from rank_bm25 import BM25Okapi
 import re
 
+from .dense_index import DenseIndex
+
 
 @dataclass
 class Chunk:
@@ -27,7 +29,8 @@ class HybridRetriever:
     def __init__(
         self,
         embedding_model: str = "BAAI/bge-large-en-v1.5",
-        use_stemming: bool = True
+        use_stemming: bool = True,
+        vector_search: Optional[Dict] = None
     ):
         print(f"Initializing Hybrid Retriever...")
 
@@ -37,6 +40,8 @@ class HybridRetriever:
         self.embeddings = None
         self.bm25 = None
         self.tokenized_chunks = []
+
+        self.dense_index = DenseIndex.from_config(vector_search)
 
         self.use_stemming = use_stemming
         if use_stemming:
@@ -75,6 +80,8 @@ class HybridRetriever:
             normalize_embeddings=True
         )
 
+        self.dense_index.build(self.embeddings)
+
         self.tokenized_chunks = [
             self.preprocess_text(chunk.text)
             for chunk in chunks
@@ -86,19 +93,20 @@ class HybridRetriever:
     def search_dense(
         self,
         query: str,
-        top_k: int = 10
+        top_k: int = 10,
+        exact: bool = False
     ) -> List[Tuple[int, float]]:
+        """Dense search through the HNSW index, or exhaustively when exact is set."""
         query_embedding = self.embedding_model.encode(
             query,
             convert_to_numpy=True,
             normalize_embeddings=True
         )
 
-        similarities = np.dot(self.embeddings, query_embedding)
-        top_indices = np.argsort(similarities)[-top_k:][::-1]
+        if exact:
+            return self.dense_index.search_exact(query_embedding, top_k)
 
-        results = [(int(idx), float(similarities[idx])) for idx in top_indices]
-        return results
+        return self.dense_index.search(query_embedding, top_k)
 
     def search_sparse(
         self,

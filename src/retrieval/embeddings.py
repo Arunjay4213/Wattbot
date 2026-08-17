@@ -7,6 +7,8 @@ from sentence_transformers import SentenceTransformer
 import hashlib
 from pathlib import Path
 
+from .dense_index import DenseIndex
+
 
 @dataclass
 class Chunk:
@@ -31,7 +33,8 @@ class EmbeddingRetriever:
             self,
             model_name: str = "BAAI/bge-large-en-v1.5",
             cache_dir: str = "./data/cache/embeddings",
-            device: str = None
+            device: str = None,
+            vector_search: Optional[Dict] = None
     ):
         self.model_name = model_name
         self.cache_dir = Path(cache_dir)
@@ -52,6 +55,8 @@ class EmbeddingRetriever:
         self.chunks: List[Chunk] = []
         self.embeddings: Optional[np.ndarray] = None
         self.chunk_map: Dict[str, int] = {}
+
+        self.dense_index = DenseIndex.from_config(vector_search)
 
     def encode_chunks(
             self,
@@ -101,6 +106,7 @@ class EmbeddingRetriever:
         self.chunks = chunks
         self.chunk_map = {chunk.chunk_id: i for i, chunk in enumerate(chunks)}
         self.embeddings = self.encode_chunks(chunks, batch_size)
+        self.dense_index.build(self.embeddings)
 
         print(f"Successfully indexed {len(chunks)} chunks")
         print(f"Embedding shape: {self.embeddings.shape}")
@@ -110,8 +116,10 @@ class EmbeddingRetriever:
             query: str,
             top_k: int = 5,
             filter_doc_ids: Optional[List[str]] = None,
-            min_score: float = 0.0
+            min_score: float = 0.0,
+            exact: bool = False
     ) -> List[Tuple[Chunk, float]]:
+        """Dense search through the HNSW index, or exhaustively when exact is set."""
         if self.embeddings is None:
             raise ValueError("No documents indexed. Call index_documents first.")
 
@@ -124,24 +132,39 @@ class EmbeddingRetriever:
             normalize_embeddings=True
         )
 
-        similarities = np.dot(self.embeddings, query_embedding)
-
         if filter_doc_ids:
-            mask = np.array([
-                chunk.doc_id in filter_doc_ids
-                for chunk in self.chunks
-            ])
-            similarities = similarities * mask - (1 - mask)
-
-        top_indices = np.argsort(similarities)[-top_k:][::-1]
+            # The document filter has to be applied before the top-k cut, so a
+            # filtered search stays exhaustive instead of going through HNSW.
+            scored = self._search_filtered(query_embedding, top_k, filter_doc_ids)
+        elif exact:
+            scored = self.dense_index.search_exact(query_embedding, top_k)
+        else:
+            scored = self.dense_index.search(query_embedding, top_k)
 
         results = []
-        for idx in top_indices:
-            score = float(similarities[idx])
+        for idx, score in scored:
             if score >= min_score:
                 results.append((self.chunks[idx], score))
 
         return results
+
+    def _search_filtered(
+            self,
+            query_embedding: np.ndarray,
+            top_k: int,
+            filter_doc_ids: List[str]
+    ) -> List[Tuple[int, float]]:
+        similarities = np.dot(self.embeddings, query_embedding)
+
+        mask = np.array([
+            chunk.doc_id in filter_doc_ids
+            for chunk in self.chunks
+        ])
+        similarities = similarities * mask - (1 - mask)
+
+        top_indices = np.argsort(similarities)[-top_k:][::-1]
+
+        return [(int(idx), float(similarities[idx])) for idx in top_indices]
 
     def hybrid_search(
             self,
@@ -243,6 +266,7 @@ class EmbeddingRetriever:
         self.chunks = index_data['chunks']
         self.embeddings = index_data['embeddings']
         self.chunk_map = index_data['chunk_map']
+        self.dense_index.build(self.embeddings)
 
         if index_data['model_name'] != self.model_name:
             print(f"Warning: Loaded index was created with {index_data['model_name']}")
