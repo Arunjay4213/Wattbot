@@ -19,6 +19,13 @@ retrieval:
     b: 0.75
   vector_search:
     metric: "cosine"
+    # "hnsw" for approximate search, "exact" for the full numpy scan
+    backend: "hnsw"
+    hnsw:
+      M: 16
+      ef_construction: 200
+      ef_search: 100
+      index_dir: "./data/cache/hnsw"
 
 paths:
   data_dir: "./data/raw"
