@@ -12,12 +12,24 @@ __pycache__/
 venv/
 env/
 ENV/
+pdf-env/
+
+# Testing and coverage
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
 
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data files
+# Generated data (PDFs are downloaded, text and caches are derived)
+data/raw/*.pdf
+data/processed/*.txt
+data/cache/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/cache/.gitkeep
@@ -25,7 +37,6 @@ ENV/
 # IDE
 .vscode/
 .idea/
-.idea
 *.swp
 .DS_Store
 
@@ -38,4 +49,3 @@ ENV/
 # Logs
 *.log
 logs/
-pdf-env/
